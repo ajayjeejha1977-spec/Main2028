@@ -8,7 +8,7 @@
   :root{
     --ink:#1a2733; --paper:#f6f4ee; --card:#ffffff;
     --rule:#d8d3c4; --accent:#8c3b2e; --accent-soft:#f1e3dd;
-    --chem:#2f6b4f; --phy:#2c5282; --math:#8c3b2e; --muted:#6b6558;
+    --muted:#6b6558;
   }
   *{box-sizing:border-box;}
   body{
@@ -16,52 +16,69 @@
     font-family: Georgia, "Times New Roman", serif;
   }
   header{
-    padding:38px 24px 26px; text-align:left; max-width:900px; margin:0 auto;
+    padding:34px 20px 22px; text-align:left; max-width:900px; margin:0 auto;
     border-bottom:2px solid var(--ink);
   }
   header .eyebrow{
     font-family:"Courier New", monospace; font-size:12px; letter-spacing:.14em;
     text-transform:uppercase; color:var(--accent); margin-bottom:8px;
   }
-  header h1{
-    margin:0 0 6px; font-size:clamp(28px,5vw,42px); font-weight:400; letter-spacing:-.01em;
-  }
-  header p{margin:0; color:var(--muted); font-size:15px; max-width:520px; line-height:1.5;}
+  header h1{ margin:0 0 6px; font-size:clamp(26px,5vw,38px); font-weight:400; letter-spacing:-.01em; }
+  header p{margin:0; color:var(--muted); font-size:14.5px; max-width:560px; line-height:1.5;}
 
-  main{max-width:900px; margin:0 auto; padding:30px 24px 60px;}
+  main{max-width:900px; margin:0 auto; padding:24px 20px 60px;}
 
-  .subjectGroup{margin-bottom:34px;}
-  .subjectHead{
-    display:flex; align-items:baseline; gap:10px; margin-bottom:12px;
-    font-family:"Courier New", monospace;
+  /* search box */
+  #searchBox{
+    width:100%; padding:11px 14px; font-size:15px; font-family:Georgia,serif;
+    border:1px solid var(--rule); background:var(--card); margin-bottom:18px;
   }
-  .subjectHead .dot{width:10px;height:10px;border-radius:50%;}
-  .subjectHead h2{font-size:14px; letter-spacing:.08em; text-transform:uppercase; margin:0; font-weight:700;}
-  .subjectHead .count{color:var(--muted); font-size:12px;}
+  #searchBox:focus{outline:2px solid var(--ink); outline-offset:-1px;}
 
-  .cardList{display:flex; flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule);}
-  .card{
-    background:var(--card); padding:16px 18px; display:flex; justify-content:space-between;
-    align-items:center; gap:16px; text-decoration:none; color:var(--ink);
-    transition:background .15s;
+  /* subject level */
+  details.subjectGroup{margin-bottom:12px; border:1px solid var(--rule); background:var(--card);}
+  summary.subjectHead{
+    display:flex; align-items:center; gap:10px; padding:14px 16px;
+    font-family:"Courier New", monospace; cursor:pointer; list-style:none; user-select:none;
   }
-  .card:hover{background:var(--accent-soft);}
-  .card .meta{display:flex; flex-direction:column; gap:3px;}
-  .card .paperTitle{font-size:16px; font-weight:400;}
-  .card .paperSub{font-family:"Courier New", monospace; font-size:11.5px; color:var(--muted); letter-spacing:.03em;}
-  .card .go{
-    font-family:"Courier New", monospace; font-size:12px; letter-spacing:.05em;
-    border:1px solid var(--ink); padding:7px 14px; white-space:nowrap; flex-shrink:0;
-  }
-  .card:hover .go{background:var(--ink); color:var(--paper);}
+  summary.subjectHead::-webkit-details-marker{display:none;}
+  summary.subjectHead::marker{content:"";}
+  summary.subjectHead .arrow{font-size:11px; transition:transform .15s ease; color:var(--muted); width:12px; display:inline-block;}
+  details[open] > summary.subjectHead .arrow{transform:rotate(90deg);}
+  summary.subjectHead .dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  summary.subjectHead h2{font-size:14px; letter-spacing:.08em; text-transform:uppercase; margin:0; font-weight:700; flex:1;}
+  summary.subjectHead .count{color:var(--muted); font-size:11.5px;}
 
-  .emptyNote{
-    font-family:"Courier New", monospace; font-size:12.5px; color:var(--muted);
-    border:1px dashed var(--rule); padding:14px 16px; margin-top:8px;
+  .topicList{border-top:1px solid var(--rule); padding:6px 10px 10px;}
+
+  /* topic level */
+  details.topicGroup{border-bottom:1px solid #ece7da;}
+  details.topicGroup:last-child{border-bottom:none;}
+  summary.topicHead{
+    display:flex; align-items:center; gap:9px; padding:9px 8px; cursor:pointer;
+    list-style:none; user-select:none; font-size:14.5px;
   }
+  summary.topicHead::-webkit-details-marker{display:none;}
+  summary.topicHead::marker{content:"";}
+  .tArrow{font-size:9.5px; color:var(--muted); transition:transform .15s ease; width:10px; display:inline-block;}
+  details[open] > summary.topicHead .tArrow{transform:rotate(90deg);}
+  .topicCode{font-family:"Courier New", monospace; font-size:11px; color:var(--accent); background:var(--accent-soft); padding:2px 6px; border-radius:2px; flex-shrink:0;}
+  .topicName{flex:1;}
+
+  .testGrid{
+    display:grid; grid-template-columns:repeat(5,1fr); gap:6px;
+    padding:6px 8px 14px 30px;
+  }
+  @media (max-width:560px){ .testGrid{grid-template-columns:repeat(3,1fr);} }
+  .testLink{
+    text-align:center; font-family:"Courier New", monospace; font-size:12px;
+    padding:8px 4px; border:1px solid var(--rule); background:var(--paper);
+    text-decoration:none; color:var(--ink); transition:background .12s;
+  }
+  .testLink:hover{background:var(--ink); color:var(--paper); border-color:var(--ink);}
 
   footer{
-    max-width:900px; margin:0 auto; padding:20px 24px 50px; color:var(--muted);
+    max-width:900px; margin:0 auto; padding:20px 20px 50px; color:var(--muted);
     font-size:12px; font-family:"Courier New", monospace; border-top:1px solid var(--rule);
   }
 </style>
@@ -71,51 +88,972 @@
 <header>
   <div class="eyebrow">Practice Test Hub</div>
   <h1>JEE Main — CBT Practice</h1>
-  <p>Timed, exam-style practice tests. Tap a paper below to start — each one runs the full CBT interface with palette, timer, and auto-scoring.</p>
+  <p>Tap a subject, then a topic, then a test number to start. Each link is a predetermined
+  filename — upload a file with that exact name to GitHub and the link goes live automatically,
+  no editing needed here.</p>
 </header>
 
 <main>
+  <input id="searchBox" type="text" placeholder="Search topic name or code (e.g. Bond, Kinem, Quad)...">
 
-  <div class="subjectGroup">
-    <div class="subjectHead">
-      <span class="dot" style="background:var(--chem);"></span>
+
+  <details class="subjectGroup" data-subject="Ch">
+    <summary class="subjectHead">
+      <span class="arrow">&#9656;</span>
+      <span class="dot" style="background:#2f6b4f;"></span>
       <h2>Chemistry</h2>
-      <span class="count">1 paper</span>
-    </div>
-    <div class="cardList">
-      <a class="card" href="chemical_bonding_cbt_test4.html">
-        <div class="meta">
-          <span class="paperTitle">JEE Main April 2024 — Chemistry</span>
-          <span class="paperSub">04-04-2024 · SHIFT 2 (EVENING) · 30 QUESTIONS</span>
+      <span class="count">30 topics &middot; 300 tests</span>
+    </summary>
+    <div class="topicList">
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Mole</span>
+          <span class="topicName">Mole Concept &amp; Stoichiometry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Mole_1.html">Test 1</a><a class="testLink" href="Ch_Mole_2.html">Test 2</a><a class="testLink" href="Ch_Mole_3.html">Test 3</a><a class="testLink" href="Ch_Mole_4.html">Test 4</a><a class="testLink" href="Ch_Mole_5.html">Test 5</a><a class="testLink" href="Ch_Mole_6.html">Test 6</a><a class="testLink" href="Ch_Mole_7.html">Test 7</a><a class="testLink" href="Ch_Mole_8.html">Test 8</a><a class="testLink" href="Ch_Mole_9.html">Test 9</a><a class="testLink" href="Ch_Mole_10.html">Test 10</a>
         </div>
-        <span class="go">START →</span>
-      </a>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Atom</span>
+          <span class="topicName">Atomic Structure</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Atom_1.html">Test 1</a><a class="testLink" href="Ch_Atom_2.html">Test 2</a><a class="testLink" href="Ch_Atom_3.html">Test 3</a><a class="testLink" href="Ch_Atom_4.html">Test 4</a><a class="testLink" href="Ch_Atom_5.html">Test 5</a><a class="testLink" href="Ch_Atom_6.html">Test 6</a><a class="testLink" href="Ch_Atom_7.html">Test 7</a><a class="testLink" href="Ch_Atom_8.html">Test 8</a><a class="testLink" href="Ch_Atom_9.html">Test 9</a><a class="testLink" href="Ch_Atom_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Bond</span>
+          <span class="topicName">Chemical Bonding</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Bond_1.html">Test 1</a><a class="testLink" href="Ch_Bond_2.html">Test 2</a><a class="testLink" href="Ch_Bond_3.html">Test 3</a><a class="testLink" href="Ch_Bond_4.html">Test 4</a><a class="testLink" href="Ch_Bond_5.html">Test 5</a><a class="testLink" href="Ch_Bond_6.html">Test 6</a><a class="testLink" href="Ch_Bond_7.html">Test 7</a><a class="testLink" href="Ch_Bond_8.html">Test 8</a><a class="testLink" href="Ch_Bond_9.html">Test 9</a><a class="testLink" href="Ch_Bond_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">States</span>
+          <span class="topicName">States of Matter</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_States_1.html">Test 1</a><a class="testLink" href="Ch_States_2.html">Test 2</a><a class="testLink" href="Ch_States_3.html">Test 3</a><a class="testLink" href="Ch_States_4.html">Test 4</a><a class="testLink" href="Ch_States_5.html">Test 5</a><a class="testLink" href="Ch_States_6.html">Test 6</a><a class="testLink" href="Ch_States_7.html">Test 7</a><a class="testLink" href="Ch_States_8.html">Test 8</a><a class="testLink" href="Ch_States_9.html">Test 9</a><a class="testLink" href="Ch_States_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Thermo</span>
+          <span class="topicName">Chemical Thermodynamics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Thermo_1.html">Test 1</a><a class="testLink" href="Ch_Thermo_2.html">Test 2</a><a class="testLink" href="Ch_Thermo_3.html">Test 3</a><a class="testLink" href="Ch_Thermo_4.html">Test 4</a><a class="testLink" href="Ch_Thermo_5.html">Test 5</a><a class="testLink" href="Ch_Thermo_6.html">Test 6</a><a class="testLink" href="Ch_Thermo_7.html">Test 7</a><a class="testLink" href="Ch_Thermo_8.html">Test 8</a><a class="testLink" href="Ch_Thermo_9.html">Test 9</a><a class="testLink" href="Ch_Thermo_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Equil</span>
+          <span class="topicName">Equilibrium</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Equil_1.html">Test 1</a><a class="testLink" href="Ch_Equil_2.html">Test 2</a><a class="testLink" href="Ch_Equil_3.html">Test 3</a><a class="testLink" href="Ch_Equil_4.html">Test 4</a><a class="testLink" href="Ch_Equil_5.html">Test 5</a><a class="testLink" href="Ch_Equil_6.html">Test 6</a><a class="testLink" href="Ch_Equil_7.html">Test 7</a><a class="testLink" href="Ch_Equil_8.html">Test 8</a><a class="testLink" href="Ch_Equil_9.html">Test 9</a><a class="testLink" href="Ch_Equil_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Redox</span>
+          <span class="topicName">Redox Reactions</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Redox_1.html">Test 1</a><a class="testLink" href="Ch_Redox_2.html">Test 2</a><a class="testLink" href="Ch_Redox_3.html">Test 3</a><a class="testLink" href="Ch_Redox_4.html">Test 4</a><a class="testLink" href="Ch_Redox_5.html">Test 5</a><a class="testLink" href="Ch_Redox_6.html">Test 6</a><a class="testLink" href="Ch_Redox_7.html">Test 7</a><a class="testLink" href="Ch_Redox_8.html">Test 8</a><a class="testLink" href="Ch_Redox_9.html">Test 9</a><a class="testLink" href="Ch_Redox_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Electro</span>
+          <span class="topicName">Electrochemistry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Electro_1.html">Test 1</a><a class="testLink" href="Ch_Electro_2.html">Test 2</a><a class="testLink" href="Ch_Electro_3.html">Test 3</a><a class="testLink" href="Ch_Electro_4.html">Test 4</a><a class="testLink" href="Ch_Electro_5.html">Test 5</a><a class="testLink" href="Ch_Electro_6.html">Test 6</a><a class="testLink" href="Ch_Electro_7.html">Test 7</a><a class="testLink" href="Ch_Electro_8.html">Test 8</a><a class="testLink" href="Ch_Electro_9.html">Test 9</a><a class="testLink" href="Ch_Electro_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Kinet</span>
+          <span class="topicName">Chemical Kinetics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Kinet_1.html">Test 1</a><a class="testLink" href="Ch_Kinet_2.html">Test 2</a><a class="testLink" href="Ch_Kinet_3.html">Test 3</a><a class="testLink" href="Ch_Kinet_4.html">Test 4</a><a class="testLink" href="Ch_Kinet_5.html">Test 5</a><a class="testLink" href="Ch_Kinet_6.html">Test 6</a><a class="testLink" href="Ch_Kinet_7.html">Test 7</a><a class="testLink" href="Ch_Kinet_8.html">Test 8</a><a class="testLink" href="Ch_Kinet_9.html">Test 9</a><a class="testLink" href="Ch_Kinet_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Surface</span>
+          <span class="topicName">Surface Chemistry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Surface_1.html">Test 1</a><a class="testLink" href="Ch_Surface_2.html">Test 2</a><a class="testLink" href="Ch_Surface_3.html">Test 3</a><a class="testLink" href="Ch_Surface_4.html">Test 4</a><a class="testLink" href="Ch_Surface_5.html">Test 5</a><a class="testLink" href="Ch_Surface_6.html">Test 6</a><a class="testLink" href="Ch_Surface_7.html">Test 7</a><a class="testLink" href="Ch_Surface_8.html">Test 8</a><a class="testLink" href="Ch_Surface_9.html">Test 9</a><a class="testLink" href="Ch_Surface_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Solid</span>
+          <span class="topicName">Solid State</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Solid_1.html">Test 1</a><a class="testLink" href="Ch_Solid_2.html">Test 2</a><a class="testLink" href="Ch_Solid_3.html">Test 3</a><a class="testLink" href="Ch_Solid_4.html">Test 4</a><a class="testLink" href="Ch_Solid_5.html">Test 5</a><a class="testLink" href="Ch_Solid_6.html">Test 6</a><a class="testLink" href="Ch_Solid_7.html">Test 7</a><a class="testLink" href="Ch_Solid_8.html">Test 8</a><a class="testLink" href="Ch_Solid_9.html">Test 9</a><a class="testLink" href="Ch_Solid_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Soln</span>
+          <span class="topicName">Solutions</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Soln_1.html">Test 1</a><a class="testLink" href="Ch_Soln_2.html">Test 2</a><a class="testLink" href="Ch_Soln_3.html">Test 3</a><a class="testLink" href="Ch_Soln_4.html">Test 4</a><a class="testLink" href="Ch_Soln_5.html">Test 5</a><a class="testLink" href="Ch_Soln_6.html">Test 6</a><a class="testLink" href="Ch_Soln_7.html">Test 7</a><a class="testLink" href="Ch_Soln_8.html">Test 8</a><a class="testLink" href="Ch_Soln_9.html">Test 9</a><a class="testLink" href="Ch_Soln_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">pBlock</span>
+          <span class="topicName">p-Block Elements</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_pBlock_1.html">Test 1</a><a class="testLink" href="Ch_pBlock_2.html">Test 2</a><a class="testLink" href="Ch_pBlock_3.html">Test 3</a><a class="testLink" href="Ch_pBlock_4.html">Test 4</a><a class="testLink" href="Ch_pBlock_5.html">Test 5</a><a class="testLink" href="Ch_pBlock_6.html">Test 6</a><a class="testLink" href="Ch_pBlock_7.html">Test 7</a><a class="testLink" href="Ch_pBlock_8.html">Test 8</a><a class="testLink" href="Ch_pBlock_9.html">Test 9</a><a class="testLink" href="Ch_pBlock_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">sBlock</span>
+          <span class="topicName">s-Block Elements</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_sBlock_1.html">Test 1</a><a class="testLink" href="Ch_sBlock_2.html">Test 2</a><a class="testLink" href="Ch_sBlock_3.html">Test 3</a><a class="testLink" href="Ch_sBlock_4.html">Test 4</a><a class="testLink" href="Ch_sBlock_5.html">Test 5</a><a class="testLink" href="Ch_sBlock_6.html">Test 6</a><a class="testLink" href="Ch_sBlock_7.html">Test 7</a><a class="testLink" href="Ch_sBlock_8.html">Test 8</a><a class="testLink" href="Ch_sBlock_9.html">Test 9</a><a class="testLink" href="Ch_sBlock_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">dfBlock</span>
+          <span class="topicName">d &amp; f-Block Elements</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_dfBlock_1.html">Test 1</a><a class="testLink" href="Ch_dfBlock_2.html">Test 2</a><a class="testLink" href="Ch_dfBlock_3.html">Test 3</a><a class="testLink" href="Ch_dfBlock_4.html">Test 4</a><a class="testLink" href="Ch_dfBlock_5.html">Test 5</a><a class="testLink" href="Ch_dfBlock_6.html">Test 6</a><a class="testLink" href="Ch_dfBlock_7.html">Test 7</a><a class="testLink" href="Ch_dfBlock_8.html">Test 8</a><a class="testLink" href="Ch_dfBlock_9.html">Test 9</a><a class="testLink" href="Ch_dfBlock_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Coord</span>
+          <span class="topicName">Coordination Compounds</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Coord_1.html">Test 1</a><a class="testLink" href="Ch_Coord_2.html">Test 2</a><a class="testLink" href="Ch_Coord_3.html">Test 3</a><a class="testLink" href="Ch_Coord_4.html">Test 4</a><a class="testLink" href="Ch_Coord_5.html">Test 5</a><a class="testLink" href="Ch_Coord_6.html">Test 6</a><a class="testLink" href="Ch_Coord_7.html">Test 7</a><a class="testLink" href="Ch_Coord_8.html">Test 8</a><a class="testLink" href="Ch_Coord_9.html">Test 9</a><a class="testLink" href="Ch_Coord_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">GOC</span>
+          <span class="topicName">General Organic Chemistry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_GOC_1.html">Test 1</a><a class="testLink" href="Ch_GOC_2.html">Test 2</a><a class="testLink" href="Ch_GOC_3.html">Test 3</a><a class="testLink" href="Ch_GOC_4.html">Test 4</a><a class="testLink" href="Ch_GOC_5.html">Test 5</a><a class="testLink" href="Ch_GOC_6.html">Test 6</a><a class="testLink" href="Ch_GOC_7.html">Test 7</a><a class="testLink" href="Ch_GOC_8.html">Test 8</a><a class="testLink" href="Ch_GOC_9.html">Test 9</a><a class="testLink" href="Ch_GOC_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Hydro</span>
+          <span class="topicName">Hydrocarbons</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Hydro_1.html">Test 1</a><a class="testLink" href="Ch_Hydro_2.html">Test 2</a><a class="testLink" href="Ch_Hydro_3.html">Test 3</a><a class="testLink" href="Ch_Hydro_4.html">Test 4</a><a class="testLink" href="Ch_Hydro_5.html">Test 5</a><a class="testLink" href="Ch_Hydro_6.html">Test 6</a><a class="testLink" href="Ch_Hydro_7.html">Test 7</a><a class="testLink" href="Ch_Hydro_8.html">Test 8</a><a class="testLink" href="Ch_Hydro_9.html">Test 9</a><a class="testLink" href="Ch_Hydro_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Halo</span>
+          <span class="topicName">Haloalkanes &amp; Haloarenes</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Halo_1.html">Test 1</a><a class="testLink" href="Ch_Halo_2.html">Test 2</a><a class="testLink" href="Ch_Halo_3.html">Test 3</a><a class="testLink" href="Ch_Halo_4.html">Test 4</a><a class="testLink" href="Ch_Halo_5.html">Test 5</a><a class="testLink" href="Ch_Halo_6.html">Test 6</a><a class="testLink" href="Ch_Halo_7.html">Test 7</a><a class="testLink" href="Ch_Halo_8.html">Test 8</a><a class="testLink" href="Ch_Halo_9.html">Test 9</a><a class="testLink" href="Ch_Halo_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">AlcEth</span>
+          <span class="topicName">Alcohols, Phenols &amp; Ethers</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_AlcEth_1.html">Test 1</a><a class="testLink" href="Ch_AlcEth_2.html">Test 2</a><a class="testLink" href="Ch_AlcEth_3.html">Test 3</a><a class="testLink" href="Ch_AlcEth_4.html">Test 4</a><a class="testLink" href="Ch_AlcEth_5.html">Test 5</a><a class="testLink" href="Ch_AlcEth_6.html">Test 6</a><a class="testLink" href="Ch_AlcEth_7.html">Test 7</a><a class="testLink" href="Ch_AlcEth_8.html">Test 8</a><a class="testLink" href="Ch_AlcEth_9.html">Test 9</a><a class="testLink" href="Ch_AlcEth_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Carbonyl</span>
+          <span class="topicName">Aldehydes, Ketones</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Carbonyl_1.html">Test 1</a><a class="testLink" href="Ch_Carbonyl_2.html">Test 2</a><a class="testLink" href="Ch_Carbonyl_3.html">Test 3</a><a class="testLink" href="Ch_Carbonyl_4.html">Test 4</a><a class="testLink" href="Ch_Carbonyl_5.html">Test 5</a><a class="testLink" href="Ch_Carbonyl_6.html">Test 6</a><a class="testLink" href="Ch_Carbonyl_7.html">Test 7</a><a class="testLink" href="Ch_Carbonyl_8.html">Test 8</a><a class="testLink" href="Ch_Carbonyl_9.html">Test 9</a><a class="testLink" href="Ch_Carbonyl_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">CarbAcid</span>
+          <span class="topicName">Carboxylic Acids &amp; Derivatives</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_CarbAcid_1.html">Test 1</a><a class="testLink" href="Ch_CarbAcid_2.html">Test 2</a><a class="testLink" href="Ch_CarbAcid_3.html">Test 3</a><a class="testLink" href="Ch_CarbAcid_4.html">Test 4</a><a class="testLink" href="Ch_CarbAcid_5.html">Test 5</a><a class="testLink" href="Ch_CarbAcid_6.html">Test 6</a><a class="testLink" href="Ch_CarbAcid_7.html">Test 7</a><a class="testLink" href="Ch_CarbAcid_8.html">Test 8</a><a class="testLink" href="Ch_CarbAcid_9.html">Test 9</a><a class="testLink" href="Ch_CarbAcid_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Amine</span>
+          <span class="topicName">Amines</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Amine_1.html">Test 1</a><a class="testLink" href="Ch_Amine_2.html">Test 2</a><a class="testLink" href="Ch_Amine_3.html">Test 3</a><a class="testLink" href="Ch_Amine_4.html">Test 4</a><a class="testLink" href="Ch_Amine_5.html">Test 5</a><a class="testLink" href="Ch_Amine_6.html">Test 6</a><a class="testLink" href="Ch_Amine_7.html">Test 7</a><a class="testLink" href="Ch_Amine_8.html">Test 8</a><a class="testLink" href="Ch_Amine_9.html">Test 9</a><a class="testLink" href="Ch_Amine_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Bio</span>
+          <span class="topicName">Biomolecules</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Bio_1.html">Test 1</a><a class="testLink" href="Ch_Bio_2.html">Test 2</a><a class="testLink" href="Ch_Bio_3.html">Test 3</a><a class="testLink" href="Ch_Bio_4.html">Test 4</a><a class="testLink" href="Ch_Bio_5.html">Test 5</a><a class="testLink" href="Ch_Bio_6.html">Test 6</a><a class="testLink" href="Ch_Bio_7.html">Test 7</a><a class="testLink" href="Ch_Bio_8.html">Test 8</a><a class="testLink" href="Ch_Bio_9.html">Test 9</a><a class="testLink" href="Ch_Bio_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Poly</span>
+          <span class="topicName">Polymers</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Poly_1.html">Test 1</a><a class="testLink" href="Ch_Poly_2.html">Test 2</a><a class="testLink" href="Ch_Poly_3.html">Test 3</a><a class="testLink" href="Ch_Poly_4.html">Test 4</a><a class="testLink" href="Ch_Poly_5.html">Test 5</a><a class="testLink" href="Ch_Poly_6.html">Test 6</a><a class="testLink" href="Ch_Poly_7.html">Test 7</a><a class="testLink" href="Ch_Poly_8.html">Test 8</a><a class="testLink" href="Ch_Poly_9.html">Test 9</a><a class="testLink" href="Ch_Poly_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Environ</span>
+          <span class="topicName">Environmental Chemistry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Environ_1.html">Test 1</a><a class="testLink" href="Ch_Environ_2.html">Test 2</a><a class="testLink" href="Ch_Environ_3.html">Test 3</a><a class="testLink" href="Ch_Environ_4.html">Test 4</a><a class="testLink" href="Ch_Environ_5.html">Test 5</a><a class="testLink" href="Ch_Environ_6.html">Test 6</a><a class="testLink" href="Ch_Environ_7.html">Test 7</a><a class="testLink" href="Ch_Environ_8.html">Test 8</a><a class="testLink" href="Ch_Environ_9.html">Test 9</a><a class="testLink" href="Ch_Environ_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Periodic</span>
+          <span class="topicName">Periodic Table &amp; Properties</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Periodic_1.html">Test 1</a><a class="testLink" href="Ch_Periodic_2.html">Test 2</a><a class="testLink" href="Ch_Periodic_3.html">Test 3</a><a class="testLink" href="Ch_Periodic_4.html">Test 4</a><a class="testLink" href="Ch_Periodic_5.html">Test 5</a><a class="testLink" href="Ch_Periodic_6.html">Test 6</a><a class="testLink" href="Ch_Periodic_7.html">Test 7</a><a class="testLink" href="Ch_Periodic_8.html">Test 8</a><a class="testLink" href="Ch_Periodic_9.html">Test 9</a><a class="testLink" href="Ch_Periodic_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Metallurgy</span>
+          <span class="topicName">Metallurgy</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Metallurgy_1.html">Test 1</a><a class="testLink" href="Ch_Metallurgy_2.html">Test 2</a><a class="testLink" href="Ch_Metallurgy_3.html">Test 3</a><a class="testLink" href="Ch_Metallurgy_4.html">Test 4</a><a class="testLink" href="Ch_Metallurgy_5.html">Test 5</a><a class="testLink" href="Ch_Metallurgy_6.html">Test 6</a><a class="testLink" href="Ch_Metallurgy_7.html">Test 7</a><a class="testLink" href="Ch_Metallurgy_8.html">Test 8</a><a class="testLink" href="Ch_Metallurgy_9.html">Test 9</a><a class="testLink" href="Ch_Metallurgy_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">QualAn</span>
+          <span class="topicName">Qualitative Analysis</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_QualAn_1.html">Test 1</a><a class="testLink" href="Ch_QualAn_2.html">Test 2</a><a class="testLink" href="Ch_QualAn_3.html">Test 3</a><a class="testLink" href="Ch_QualAn_4.html">Test 4</a><a class="testLink" href="Ch_QualAn_5.html">Test 5</a><a class="testLink" href="Ch_QualAn_6.html">Test 6</a><a class="testLink" href="Ch_QualAn_7.html">Test 7</a><a class="testLink" href="Ch_QualAn_8.html">Test 8</a><a class="testLink" href="Ch_QualAn_9.html">Test 9</a><a class="testLink" href="Ch_QualAn_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Misc</span>
+          <span class="topicName">Mixed / Miscellaneous</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ch_Misc_1.html">Test 1</a><a class="testLink" href="Ch_Misc_2.html">Test 2</a><a class="testLink" href="Ch_Misc_3.html">Test 3</a><a class="testLink" href="Ch_Misc_4.html">Test 4</a><a class="testLink" href="Ch_Misc_5.html">Test 5</a><a class="testLink" href="Ch_Misc_6.html">Test 6</a><a class="testLink" href="Ch_Misc_7.html">Test 7</a><a class="testLink" href="Ch_Misc_8.html">Test 8</a><a class="testLink" href="Ch_Misc_9.html">Test 9</a><a class="testLink" href="Ch_Misc_10.html">Test 10</a>
+        </div>
+      </details>
     </div>
-  </div>
+  </details>
 
-  <div class="subjectGroup">
-    <div class="subjectHead">
-      <span class="dot" style="background:var(--phy);"></span>
+  <details class="subjectGroup" data-subject="Ph">
+    <summary class="subjectHead">
+      <span class="arrow">&#9656;</span>
+      <span class="dot" style="background:#2c5282;"></span>
       <h2>Physics</h2>
-      <span class="count">0 papers</span>
+      <span class="count">30 topics &middot; 300 tests</span>
+    </summary>
+    <div class="topicList">
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Units</span>
+          <span class="topicName">Units, Dimensions &amp; Errors</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Units_1.html">Test 1</a><a class="testLink" href="Ph_Units_2.html">Test 2</a><a class="testLink" href="Ph_Units_3.html">Test 3</a><a class="testLink" href="Ph_Units_4.html">Test 4</a><a class="testLink" href="Ph_Units_5.html">Test 5</a><a class="testLink" href="Ph_Units_6.html">Test 6</a><a class="testLink" href="Ph_Units_7.html">Test 7</a><a class="testLink" href="Ph_Units_8.html">Test 8</a><a class="testLink" href="Ph_Units_9.html">Test 9</a><a class="testLink" href="Ph_Units_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Kinem</span>
+          <span class="topicName">Kinematics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Kinem_1.html">Test 1</a><a class="testLink" href="Ph_Kinem_2.html">Test 2</a><a class="testLink" href="Ph_Kinem_3.html">Test 3</a><a class="testLink" href="Ph_Kinem_4.html">Test 4</a><a class="testLink" href="Ph_Kinem_5.html">Test 5</a><a class="testLink" href="Ph_Kinem_6.html">Test 6</a><a class="testLink" href="Ph_Kinem_7.html">Test 7</a><a class="testLink" href="Ph_Kinem_8.html">Test 8</a><a class="testLink" href="Ph_Kinem_9.html">Test 9</a><a class="testLink" href="Ph_Kinem_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Laws</span>
+          <span class="topicName">Laws of Motion</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Laws_1.html">Test 1</a><a class="testLink" href="Ph_Laws_2.html">Test 2</a><a class="testLink" href="Ph_Laws_3.html">Test 3</a><a class="testLink" href="Ph_Laws_4.html">Test 4</a><a class="testLink" href="Ph_Laws_5.html">Test 5</a><a class="testLink" href="Ph_Laws_6.html">Test 6</a><a class="testLink" href="Ph_Laws_7.html">Test 7</a><a class="testLink" href="Ph_Laws_8.html">Test 8</a><a class="testLink" href="Ph_Laws_9.html">Test 9</a><a class="testLink" href="Ph_Laws_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">WEP</span>
+          <span class="topicName">Work, Energy &amp; Power</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_WEP_1.html">Test 1</a><a class="testLink" href="Ph_WEP_2.html">Test 2</a><a class="testLink" href="Ph_WEP_3.html">Test 3</a><a class="testLink" href="Ph_WEP_4.html">Test 4</a><a class="testLink" href="Ph_WEP_5.html">Test 5</a><a class="testLink" href="Ph_WEP_6.html">Test 6</a><a class="testLink" href="Ph_WEP_7.html">Test 7</a><a class="testLink" href="Ph_WEP_8.html">Test 8</a><a class="testLink" href="Ph_WEP_9.html">Test 9</a><a class="testLink" href="Ph_WEP_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Rotation</span>
+          <span class="topicName">Rotational Motion</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Rotation_1.html">Test 1</a><a class="testLink" href="Ph_Rotation_2.html">Test 2</a><a class="testLink" href="Ph_Rotation_3.html">Test 3</a><a class="testLink" href="Ph_Rotation_4.html">Test 4</a><a class="testLink" href="Ph_Rotation_5.html">Test 5</a><a class="testLink" href="Ph_Rotation_6.html">Test 6</a><a class="testLink" href="Ph_Rotation_7.html">Test 7</a><a class="testLink" href="Ph_Rotation_8.html">Test 8</a><a class="testLink" href="Ph_Rotation_9.html">Test 9</a><a class="testLink" href="Ph_Rotation_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Gravity</span>
+          <span class="topicName">Gravitation</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Gravity_1.html">Test 1</a><a class="testLink" href="Ph_Gravity_2.html">Test 2</a><a class="testLink" href="Ph_Gravity_3.html">Test 3</a><a class="testLink" href="Ph_Gravity_4.html">Test 4</a><a class="testLink" href="Ph_Gravity_5.html">Test 5</a><a class="testLink" href="Ph_Gravity_6.html">Test 6</a><a class="testLink" href="Ph_Gravity_7.html">Test 7</a><a class="testLink" href="Ph_Gravity_8.html">Test 8</a><a class="testLink" href="Ph_Gravity_9.html">Test 9</a><a class="testLink" href="Ph_Gravity_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">SolidProp</span>
+          <span class="topicName">Mechanical Properties of Solids</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_SolidProp_1.html">Test 1</a><a class="testLink" href="Ph_SolidProp_2.html">Test 2</a><a class="testLink" href="Ph_SolidProp_3.html">Test 3</a><a class="testLink" href="Ph_SolidProp_4.html">Test 4</a><a class="testLink" href="Ph_SolidProp_5.html">Test 5</a><a class="testLink" href="Ph_SolidProp_6.html">Test 6</a><a class="testLink" href="Ph_SolidProp_7.html">Test 7</a><a class="testLink" href="Ph_SolidProp_8.html">Test 8</a><a class="testLink" href="Ph_SolidProp_9.html">Test 9</a><a class="testLink" href="Ph_SolidProp_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Fluid</span>
+          <span class="topicName">Mechanical Properties of Fluids</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Fluid_1.html">Test 1</a><a class="testLink" href="Ph_Fluid_2.html">Test 2</a><a class="testLink" href="Ph_Fluid_3.html">Test 3</a><a class="testLink" href="Ph_Fluid_4.html">Test 4</a><a class="testLink" href="Ph_Fluid_5.html">Test 5</a><a class="testLink" href="Ph_Fluid_6.html">Test 6</a><a class="testLink" href="Ph_Fluid_7.html">Test 7</a><a class="testLink" href="Ph_Fluid_8.html">Test 8</a><a class="testLink" href="Ph_Fluid_9.html">Test 9</a><a class="testLink" href="Ph_Fluid_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">ThermalProp</span>
+          <span class="topicName">Thermal Properties of Matter</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_ThermalProp_1.html">Test 1</a><a class="testLink" href="Ph_ThermalProp_2.html">Test 2</a><a class="testLink" href="Ph_ThermalProp_3.html">Test 3</a><a class="testLink" href="Ph_ThermalProp_4.html">Test 4</a><a class="testLink" href="Ph_ThermalProp_5.html">Test 5</a><a class="testLink" href="Ph_ThermalProp_6.html">Test 6</a><a class="testLink" href="Ph_ThermalProp_7.html">Test 7</a><a class="testLink" href="Ph_ThermalProp_8.html">Test 8</a><a class="testLink" href="Ph_ThermalProp_9.html">Test 9</a><a class="testLink" href="Ph_ThermalProp_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Thermo</span>
+          <span class="topicName">Thermodynamics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Thermo_1.html">Test 1</a><a class="testLink" href="Ph_Thermo_2.html">Test 2</a><a class="testLink" href="Ph_Thermo_3.html">Test 3</a><a class="testLink" href="Ph_Thermo_4.html">Test 4</a><a class="testLink" href="Ph_Thermo_5.html">Test 5</a><a class="testLink" href="Ph_Thermo_6.html">Test 6</a><a class="testLink" href="Ph_Thermo_7.html">Test 7</a><a class="testLink" href="Ph_Thermo_8.html">Test 8</a><a class="testLink" href="Ph_Thermo_9.html">Test 9</a><a class="testLink" href="Ph_Thermo_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">KTG</span>
+          <span class="topicName">Kinetic Theory of Gases</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_KTG_1.html">Test 1</a><a class="testLink" href="Ph_KTG_2.html">Test 2</a><a class="testLink" href="Ph_KTG_3.html">Test 3</a><a class="testLink" href="Ph_KTG_4.html">Test 4</a><a class="testLink" href="Ph_KTG_5.html">Test 5</a><a class="testLink" href="Ph_KTG_6.html">Test 6</a><a class="testLink" href="Ph_KTG_7.html">Test 7</a><a class="testLink" href="Ph_KTG_8.html">Test 8</a><a class="testLink" href="Ph_KTG_9.html">Test 9</a><a class="testLink" href="Ph_KTG_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Oscill</span>
+          <span class="topicName">Oscillations</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Oscill_1.html">Test 1</a><a class="testLink" href="Ph_Oscill_2.html">Test 2</a><a class="testLink" href="Ph_Oscill_3.html">Test 3</a><a class="testLink" href="Ph_Oscill_4.html">Test 4</a><a class="testLink" href="Ph_Oscill_5.html">Test 5</a><a class="testLink" href="Ph_Oscill_6.html">Test 6</a><a class="testLink" href="Ph_Oscill_7.html">Test 7</a><a class="testLink" href="Ph_Oscill_8.html">Test 8</a><a class="testLink" href="Ph_Oscill_9.html">Test 9</a><a class="testLink" href="Ph_Oscill_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Waves</span>
+          <span class="topicName">Waves</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Waves_1.html">Test 1</a><a class="testLink" href="Ph_Waves_2.html">Test 2</a><a class="testLink" href="Ph_Waves_3.html">Test 3</a><a class="testLink" href="Ph_Waves_4.html">Test 4</a><a class="testLink" href="Ph_Waves_5.html">Test 5</a><a class="testLink" href="Ph_Waves_6.html">Test 6</a><a class="testLink" href="Ph_Waves_7.html">Test 7</a><a class="testLink" href="Ph_Waves_8.html">Test 8</a><a class="testLink" href="Ph_Waves_9.html">Test 9</a><a class="testLink" href="Ph_Waves_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Electro</span>
+          <span class="topicName">Electrostatics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Electro_1.html">Test 1</a><a class="testLink" href="Ph_Electro_2.html">Test 2</a><a class="testLink" href="Ph_Electro_3.html">Test 3</a><a class="testLink" href="Ph_Electro_4.html">Test 4</a><a class="testLink" href="Ph_Electro_5.html">Test 5</a><a class="testLink" href="Ph_Electro_6.html">Test 6</a><a class="testLink" href="Ph_Electro_7.html">Test 7</a><a class="testLink" href="Ph_Electro_8.html">Test 8</a><a class="testLink" href="Ph_Electro_9.html">Test 9</a><a class="testLink" href="Ph_Electro_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Capac</span>
+          <span class="topicName">Capacitance</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Capac_1.html">Test 1</a><a class="testLink" href="Ph_Capac_2.html">Test 2</a><a class="testLink" href="Ph_Capac_3.html">Test 3</a><a class="testLink" href="Ph_Capac_4.html">Test 4</a><a class="testLink" href="Ph_Capac_5.html">Test 5</a><a class="testLink" href="Ph_Capac_6.html">Test 6</a><a class="testLink" href="Ph_Capac_7.html">Test 7</a><a class="testLink" href="Ph_Capac_8.html">Test 8</a><a class="testLink" href="Ph_Capac_9.html">Test 9</a><a class="testLink" href="Ph_Capac_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Current</span>
+          <span class="topicName">Current Electricity</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Current_1.html">Test 1</a><a class="testLink" href="Ph_Current_2.html">Test 2</a><a class="testLink" href="Ph_Current_3.html">Test 3</a><a class="testLink" href="Ph_Current_4.html">Test 4</a><a class="testLink" href="Ph_Current_5.html">Test 5</a><a class="testLink" href="Ph_Current_6.html">Test 6</a><a class="testLink" href="Ph_Current_7.html">Test 7</a><a class="testLink" href="Ph_Current_8.html">Test 8</a><a class="testLink" href="Ph_Current_9.html">Test 9</a><a class="testLink" href="Ph_Current_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Magnetism</span>
+          <span class="topicName">Moving Charges &amp; Magnetism</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Magnetism_1.html">Test 1</a><a class="testLink" href="Ph_Magnetism_2.html">Test 2</a><a class="testLink" href="Ph_Magnetism_3.html">Test 3</a><a class="testLink" href="Ph_Magnetism_4.html">Test 4</a><a class="testLink" href="Ph_Magnetism_5.html">Test 5</a><a class="testLink" href="Ph_Magnetism_6.html">Test 6</a><a class="testLink" href="Ph_Magnetism_7.html">Test 7</a><a class="testLink" href="Ph_Magnetism_8.html">Test 8</a><a class="testLink" href="Ph_Magnetism_9.html">Test 9</a><a class="testLink" href="Ph_Magnetism_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">MagMatter</span>
+          <span class="topicName">Magnetism &amp; Matter</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_MagMatter_1.html">Test 1</a><a class="testLink" href="Ph_MagMatter_2.html">Test 2</a><a class="testLink" href="Ph_MagMatter_3.html">Test 3</a><a class="testLink" href="Ph_MagMatter_4.html">Test 4</a><a class="testLink" href="Ph_MagMatter_5.html">Test 5</a><a class="testLink" href="Ph_MagMatter_6.html">Test 6</a><a class="testLink" href="Ph_MagMatter_7.html">Test 7</a><a class="testLink" href="Ph_MagMatter_8.html">Test 8</a><a class="testLink" href="Ph_MagMatter_9.html">Test 9</a><a class="testLink" href="Ph_MagMatter_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">EMI</span>
+          <span class="topicName">Electromagnetic Induction</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_EMI_1.html">Test 1</a><a class="testLink" href="Ph_EMI_2.html">Test 2</a><a class="testLink" href="Ph_EMI_3.html">Test 3</a><a class="testLink" href="Ph_EMI_4.html">Test 4</a><a class="testLink" href="Ph_EMI_5.html">Test 5</a><a class="testLink" href="Ph_EMI_6.html">Test 6</a><a class="testLink" href="Ph_EMI_7.html">Test 7</a><a class="testLink" href="Ph_EMI_8.html">Test 8</a><a class="testLink" href="Ph_EMI_9.html">Test 9</a><a class="testLink" href="Ph_EMI_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">AC</span>
+          <span class="topicName">Alternating Current</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_AC_1.html">Test 1</a><a class="testLink" href="Ph_AC_2.html">Test 2</a><a class="testLink" href="Ph_AC_3.html">Test 3</a><a class="testLink" href="Ph_AC_4.html">Test 4</a><a class="testLink" href="Ph_AC_5.html">Test 5</a><a class="testLink" href="Ph_AC_6.html">Test 6</a><a class="testLink" href="Ph_AC_7.html">Test 7</a><a class="testLink" href="Ph_AC_8.html">Test 8</a><a class="testLink" href="Ph_AC_9.html">Test 9</a><a class="testLink" href="Ph_AC_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">EMWaves</span>
+          <span class="topicName">Electromagnetic Waves</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_EMWaves_1.html">Test 1</a><a class="testLink" href="Ph_EMWaves_2.html">Test 2</a><a class="testLink" href="Ph_EMWaves_3.html">Test 3</a><a class="testLink" href="Ph_EMWaves_4.html">Test 4</a><a class="testLink" href="Ph_EMWaves_5.html">Test 5</a><a class="testLink" href="Ph_EMWaves_6.html">Test 6</a><a class="testLink" href="Ph_EMWaves_7.html">Test 7</a><a class="testLink" href="Ph_EMWaves_8.html">Test 8</a><a class="testLink" href="Ph_EMWaves_9.html">Test 9</a><a class="testLink" href="Ph_EMWaves_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">RayOptics</span>
+          <span class="topicName">Ray Optics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_RayOptics_1.html">Test 1</a><a class="testLink" href="Ph_RayOptics_2.html">Test 2</a><a class="testLink" href="Ph_RayOptics_3.html">Test 3</a><a class="testLink" href="Ph_RayOptics_4.html">Test 4</a><a class="testLink" href="Ph_RayOptics_5.html">Test 5</a><a class="testLink" href="Ph_RayOptics_6.html">Test 6</a><a class="testLink" href="Ph_RayOptics_7.html">Test 7</a><a class="testLink" href="Ph_RayOptics_8.html">Test 8</a><a class="testLink" href="Ph_RayOptics_9.html">Test 9</a><a class="testLink" href="Ph_RayOptics_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">WaveOptics</span>
+          <span class="topicName">Wave Optics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_WaveOptics_1.html">Test 1</a><a class="testLink" href="Ph_WaveOptics_2.html">Test 2</a><a class="testLink" href="Ph_WaveOptics_3.html">Test 3</a><a class="testLink" href="Ph_WaveOptics_4.html">Test 4</a><a class="testLink" href="Ph_WaveOptics_5.html">Test 5</a><a class="testLink" href="Ph_WaveOptics_6.html">Test 6</a><a class="testLink" href="Ph_WaveOptics_7.html">Test 7</a><a class="testLink" href="Ph_WaveOptics_8.html">Test 8</a><a class="testLink" href="Ph_WaveOptics_9.html">Test 9</a><a class="testLink" href="Ph_WaveOptics_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">DualNature</span>
+          <span class="topicName">Dual Nature of Matter &amp; Radiation</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_DualNature_1.html">Test 1</a><a class="testLink" href="Ph_DualNature_2.html">Test 2</a><a class="testLink" href="Ph_DualNature_3.html">Test 3</a><a class="testLink" href="Ph_DualNature_4.html">Test 4</a><a class="testLink" href="Ph_DualNature_5.html">Test 5</a><a class="testLink" href="Ph_DualNature_6.html">Test 6</a><a class="testLink" href="Ph_DualNature_7.html">Test 7</a><a class="testLink" href="Ph_DualNature_8.html">Test 8</a><a class="testLink" href="Ph_DualNature_9.html">Test 9</a><a class="testLink" href="Ph_DualNature_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Atoms</span>
+          <span class="topicName">Atoms</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Atoms_1.html">Test 1</a><a class="testLink" href="Ph_Atoms_2.html">Test 2</a><a class="testLink" href="Ph_Atoms_3.html">Test 3</a><a class="testLink" href="Ph_Atoms_4.html">Test 4</a><a class="testLink" href="Ph_Atoms_5.html">Test 5</a><a class="testLink" href="Ph_Atoms_6.html">Test 6</a><a class="testLink" href="Ph_Atoms_7.html">Test 7</a><a class="testLink" href="Ph_Atoms_8.html">Test 8</a><a class="testLink" href="Ph_Atoms_9.html">Test 9</a><a class="testLink" href="Ph_Atoms_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Nuclei</span>
+          <span class="topicName">Nuclei</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Nuclei_1.html">Test 1</a><a class="testLink" href="Ph_Nuclei_2.html">Test 2</a><a class="testLink" href="Ph_Nuclei_3.html">Test 3</a><a class="testLink" href="Ph_Nuclei_4.html">Test 4</a><a class="testLink" href="Ph_Nuclei_5.html">Test 5</a><a class="testLink" href="Ph_Nuclei_6.html">Test 6</a><a class="testLink" href="Ph_Nuclei_7.html">Test 7</a><a class="testLink" href="Ph_Nuclei_8.html">Test 8</a><a class="testLink" href="Ph_Nuclei_9.html">Test 9</a><a class="testLink" href="Ph_Nuclei_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Semicon</span>
+          <span class="topicName">Semiconductor Electronics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Semicon_1.html">Test 1</a><a class="testLink" href="Ph_Semicon_2.html">Test 2</a><a class="testLink" href="Ph_Semicon_3.html">Test 3</a><a class="testLink" href="Ph_Semicon_4.html">Test 4</a><a class="testLink" href="Ph_Semicon_5.html">Test 5</a><a class="testLink" href="Ph_Semicon_6.html">Test 6</a><a class="testLink" href="Ph_Semicon_7.html">Test 7</a><a class="testLink" href="Ph_Semicon_8.html">Test 8</a><a class="testLink" href="Ph_Semicon_9.html">Test 9</a><a class="testLink" href="Ph_Semicon_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Comm</span>
+          <span class="topicName">Communication Systems</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Comm_1.html">Test 1</a><a class="testLink" href="Ph_Comm_2.html">Test 2</a><a class="testLink" href="Ph_Comm_3.html">Test 3</a><a class="testLink" href="Ph_Comm_4.html">Test 4</a><a class="testLink" href="Ph_Comm_5.html">Test 5</a><a class="testLink" href="Ph_Comm_6.html">Test 6</a><a class="testLink" href="Ph_Comm_7.html">Test 7</a><a class="testLink" href="Ph_Comm_8.html">Test 8</a><a class="testLink" href="Ph_Comm_9.html">Test 9</a><a class="testLink" href="Ph_Comm_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Experiment</span>
+          <span class="topicName">Experimental Physics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Experiment_1.html">Test 1</a><a class="testLink" href="Ph_Experiment_2.html">Test 2</a><a class="testLink" href="Ph_Experiment_3.html">Test 3</a><a class="testLink" href="Ph_Experiment_4.html">Test 4</a><a class="testLink" href="Ph_Experiment_5.html">Test 5</a><a class="testLink" href="Ph_Experiment_6.html">Test 6</a><a class="testLink" href="Ph_Experiment_7.html">Test 7</a><a class="testLink" href="Ph_Experiment_8.html">Test 8</a><a class="testLink" href="Ph_Experiment_9.html">Test 9</a><a class="testLink" href="Ph_Experiment_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Misc</span>
+          <span class="topicName">Mixed / Miscellaneous</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ph_Misc_1.html">Test 1</a><a class="testLink" href="Ph_Misc_2.html">Test 2</a><a class="testLink" href="Ph_Misc_3.html">Test 3</a><a class="testLink" href="Ph_Misc_4.html">Test 4</a><a class="testLink" href="Ph_Misc_5.html">Test 5</a><a class="testLink" href="Ph_Misc_6.html">Test 6</a><a class="testLink" href="Ph_Misc_7.html">Test 7</a><a class="testLink" href="Ph_Misc_8.html">Test 8</a><a class="testLink" href="Ph_Misc_9.html">Test 9</a><a class="testLink" href="Ph_Misc_10.html">Test 10</a>
+        </div>
+      </details>
     </div>
-    <div class="emptyNote">No physics papers uploaded yet — add a card here once a paper is ready.</div>
-  </div>
+  </details>
 
-  <div class="subjectGroup">
-    <div class="subjectHead">
-      <span class="dot" style="background:var(--math);"></span>
+  <details class="subjectGroup" data-subject="Ma">
+    <summary class="subjectHead">
+      <span class="arrow">&#9656;</span>
+      <span class="dot" style="background:#8c3b2e;"></span>
       <h2>Mathematics</h2>
-      <span class="count">0 papers</span>
+      <span class="count">30 topics &middot; 300 tests</span>
+    </summary>
+    <div class="topicList">
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Sets</span>
+          <span class="topicName">Sets, Relations &amp; Functions</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Sets_1.html">Test 1</a><a class="testLink" href="Ma_Sets_2.html">Test 2</a><a class="testLink" href="Ma_Sets_3.html">Test 3</a><a class="testLink" href="Ma_Sets_4.html">Test 4</a><a class="testLink" href="Ma_Sets_5.html">Test 5</a><a class="testLink" href="Ma_Sets_6.html">Test 6</a><a class="testLink" href="Ma_Sets_7.html">Test 7</a><a class="testLink" href="Ma_Sets_8.html">Test 8</a><a class="testLink" href="Ma_Sets_9.html">Test 9</a><a class="testLink" href="Ma_Sets_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Complex</span>
+          <span class="topicName">Complex Numbers</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Complex_1.html">Test 1</a><a class="testLink" href="Ma_Complex_2.html">Test 2</a><a class="testLink" href="Ma_Complex_3.html">Test 3</a><a class="testLink" href="Ma_Complex_4.html">Test 4</a><a class="testLink" href="Ma_Complex_5.html">Test 5</a><a class="testLink" href="Ma_Complex_6.html">Test 6</a><a class="testLink" href="Ma_Complex_7.html">Test 7</a><a class="testLink" href="Ma_Complex_8.html">Test 8</a><a class="testLink" href="Ma_Complex_9.html">Test 9</a><a class="testLink" href="Ma_Complex_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Quad</span>
+          <span class="topicName">Quadratic Equations</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Quad_1.html">Test 1</a><a class="testLink" href="Ma_Quad_2.html">Test 2</a><a class="testLink" href="Ma_Quad_3.html">Test 3</a><a class="testLink" href="Ma_Quad_4.html">Test 4</a><a class="testLink" href="Ma_Quad_5.html">Test 5</a><a class="testLink" href="Ma_Quad_6.html">Test 6</a><a class="testLink" href="Ma_Quad_7.html">Test 7</a><a class="testLink" href="Ma_Quad_8.html">Test 8</a><a class="testLink" href="Ma_Quad_9.html">Test 9</a><a class="testLink" href="Ma_Quad_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Series</span>
+          <span class="topicName">Sequences &amp; Series</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Series_1.html">Test 1</a><a class="testLink" href="Ma_Series_2.html">Test 2</a><a class="testLink" href="Ma_Series_3.html">Test 3</a><a class="testLink" href="Ma_Series_4.html">Test 4</a><a class="testLink" href="Ma_Series_5.html">Test 5</a><a class="testLink" href="Ma_Series_6.html">Test 6</a><a class="testLink" href="Ma_Series_7.html">Test 7</a><a class="testLink" href="Ma_Series_8.html">Test 8</a><a class="testLink" href="Ma_Series_9.html">Test 9</a><a class="testLink" href="Ma_Series_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">PnC</span>
+          <span class="topicName">Permutations &amp; Combinations</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_PnC_1.html">Test 1</a><a class="testLink" href="Ma_PnC_2.html">Test 2</a><a class="testLink" href="Ma_PnC_3.html">Test 3</a><a class="testLink" href="Ma_PnC_4.html">Test 4</a><a class="testLink" href="Ma_PnC_5.html">Test 5</a><a class="testLink" href="Ma_PnC_6.html">Test 6</a><a class="testLink" href="Ma_PnC_7.html">Test 7</a><a class="testLink" href="Ma_PnC_8.html">Test 8</a><a class="testLink" href="Ma_PnC_9.html">Test 9</a><a class="testLink" href="Ma_PnC_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Binomial</span>
+          <span class="topicName">Binomial Theorem</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Binomial_1.html">Test 1</a><a class="testLink" href="Ma_Binomial_2.html">Test 2</a><a class="testLink" href="Ma_Binomial_3.html">Test 3</a><a class="testLink" href="Ma_Binomial_4.html">Test 4</a><a class="testLink" href="Ma_Binomial_5.html">Test 5</a><a class="testLink" href="Ma_Binomial_6.html">Test 6</a><a class="testLink" href="Ma_Binomial_7.html">Test 7</a><a class="testLink" href="Ma_Binomial_8.html">Test 8</a><a class="testLink" href="Ma_Binomial_9.html">Test 9</a><a class="testLink" href="Ma_Binomial_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Matrices</span>
+          <span class="topicName">Matrices</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Matrices_1.html">Test 1</a><a class="testLink" href="Ma_Matrices_2.html">Test 2</a><a class="testLink" href="Ma_Matrices_3.html">Test 3</a><a class="testLink" href="Ma_Matrices_4.html">Test 4</a><a class="testLink" href="Ma_Matrices_5.html">Test 5</a><a class="testLink" href="Ma_Matrices_6.html">Test 6</a><a class="testLink" href="Ma_Matrices_7.html">Test 7</a><a class="testLink" href="Ma_Matrices_8.html">Test 8</a><a class="testLink" href="Ma_Matrices_9.html">Test 9</a><a class="testLink" href="Ma_Matrices_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Determ</span>
+          <span class="topicName">Determinants</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Determ_1.html">Test 1</a><a class="testLink" href="Ma_Determ_2.html">Test 2</a><a class="testLink" href="Ma_Determ_3.html">Test 3</a><a class="testLink" href="Ma_Determ_4.html">Test 4</a><a class="testLink" href="Ma_Determ_5.html">Test 5</a><a class="testLink" href="Ma_Determ_6.html">Test 6</a><a class="testLink" href="Ma_Determ_7.html">Test 7</a><a class="testLink" href="Ma_Determ_8.html">Test 8</a><a class="testLink" href="Ma_Determ_9.html">Test 9</a><a class="testLink" href="Ma_Determ_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Lines</span>
+          <span class="topicName">Straight Lines</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Lines_1.html">Test 1</a><a class="testLink" href="Ma_Lines_2.html">Test 2</a><a class="testLink" href="Ma_Lines_3.html">Test 3</a><a class="testLink" href="Ma_Lines_4.html">Test 4</a><a class="testLink" href="Ma_Lines_5.html">Test 5</a><a class="testLink" href="Ma_Lines_6.html">Test 6</a><a class="testLink" href="Ma_Lines_7.html">Test 7</a><a class="testLink" href="Ma_Lines_8.html">Test 8</a><a class="testLink" href="Ma_Lines_9.html">Test 9</a><a class="testLink" href="Ma_Lines_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Circles</span>
+          <span class="topicName">Circles</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Circles_1.html">Test 1</a><a class="testLink" href="Ma_Circles_2.html">Test 2</a><a class="testLink" href="Ma_Circles_3.html">Test 3</a><a class="testLink" href="Ma_Circles_4.html">Test 4</a><a class="testLink" href="Ma_Circles_5.html">Test 5</a><a class="testLink" href="Ma_Circles_6.html">Test 6</a><a class="testLink" href="Ma_Circles_7.html">Test 7</a><a class="testLink" href="Ma_Circles_8.html">Test 8</a><a class="testLink" href="Ma_Circles_9.html">Test 9</a><a class="testLink" href="Ma_Circles_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Conics</span>
+          <span class="topicName">Conic Sections</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Conics_1.html">Test 1</a><a class="testLink" href="Ma_Conics_2.html">Test 2</a><a class="testLink" href="Ma_Conics_3.html">Test 3</a><a class="testLink" href="Ma_Conics_4.html">Test 4</a><a class="testLink" href="Ma_Conics_5.html">Test 5</a><a class="testLink" href="Ma_Conics_6.html">Test 6</a><a class="testLink" href="Ma_Conics_7.html">Test 7</a><a class="testLink" href="Ma_Conics_8.html">Test 8</a><a class="testLink" href="Ma_Conics_9.html">Test 9</a><a class="testLink" href="Ma_Conics_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">ThreeD</span>
+          <span class="topicName">3D Geometry</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_ThreeD_1.html">Test 1</a><a class="testLink" href="Ma_ThreeD_2.html">Test 2</a><a class="testLink" href="Ma_ThreeD_3.html">Test 3</a><a class="testLink" href="Ma_ThreeD_4.html">Test 4</a><a class="testLink" href="Ma_ThreeD_5.html">Test 5</a><a class="testLink" href="Ma_ThreeD_6.html">Test 6</a><a class="testLink" href="Ma_ThreeD_7.html">Test 7</a><a class="testLink" href="Ma_ThreeD_8.html">Test 8</a><a class="testLink" href="Ma_ThreeD_9.html">Test 9</a><a class="testLink" href="Ma_ThreeD_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Vectors</span>
+          <span class="topicName">Vectors</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Vectors_1.html">Test 1</a><a class="testLink" href="Ma_Vectors_2.html">Test 2</a><a class="testLink" href="Ma_Vectors_3.html">Test 3</a><a class="testLink" href="Ma_Vectors_4.html">Test 4</a><a class="testLink" href="Ma_Vectors_5.html">Test 5</a><a class="testLink" href="Ma_Vectors_6.html">Test 6</a><a class="testLink" href="Ma_Vectors_7.html">Test 7</a><a class="testLink" href="Ma_Vectors_8.html">Test 8</a><a class="testLink" href="Ma_Vectors_9.html">Test 9</a><a class="testLink" href="Ma_Vectors_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Limits</span>
+          <span class="topicName">Limits &amp; Continuity</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Limits_1.html">Test 1</a><a class="testLink" href="Ma_Limits_2.html">Test 2</a><a class="testLink" href="Ma_Limits_3.html">Test 3</a><a class="testLink" href="Ma_Limits_4.html">Test 4</a><a class="testLink" href="Ma_Limits_5.html">Test 5</a><a class="testLink" href="Ma_Limits_6.html">Test 6</a><a class="testLink" href="Ma_Limits_7.html">Test 7</a><a class="testLink" href="Ma_Limits_8.html">Test 8</a><a class="testLink" href="Ma_Limits_9.html">Test 9</a><a class="testLink" href="Ma_Limits_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Diff</span>
+          <span class="topicName">Differentiation</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Diff_1.html">Test 1</a><a class="testLink" href="Ma_Diff_2.html">Test 2</a><a class="testLink" href="Ma_Diff_3.html">Test 3</a><a class="testLink" href="Ma_Diff_4.html">Test 4</a><a class="testLink" href="Ma_Diff_5.html">Test 5</a><a class="testLink" href="Ma_Diff_6.html">Test 6</a><a class="testLink" href="Ma_Diff_7.html">Test 7</a><a class="testLink" href="Ma_Diff_8.html">Test 8</a><a class="testLink" href="Ma_Diff_9.html">Test 9</a><a class="testLink" href="Ma_Diff_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">AOD</span>
+          <span class="topicName">Application of Derivatives</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_AOD_1.html">Test 1</a><a class="testLink" href="Ma_AOD_2.html">Test 2</a><a class="testLink" href="Ma_AOD_3.html">Test 3</a><a class="testLink" href="Ma_AOD_4.html">Test 4</a><a class="testLink" href="Ma_AOD_5.html">Test 5</a><a class="testLink" href="Ma_AOD_6.html">Test 6</a><a class="testLink" href="Ma_AOD_7.html">Test 7</a><a class="testLink" href="Ma_AOD_8.html">Test 8</a><a class="testLink" href="Ma_AOD_9.html">Test 9</a><a class="testLink" href="Ma_AOD_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">IndefInt</span>
+          <span class="topicName">Indefinite Integration</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_IndefInt_1.html">Test 1</a><a class="testLink" href="Ma_IndefInt_2.html">Test 2</a><a class="testLink" href="Ma_IndefInt_3.html">Test 3</a><a class="testLink" href="Ma_IndefInt_4.html">Test 4</a><a class="testLink" href="Ma_IndefInt_5.html">Test 5</a><a class="testLink" href="Ma_IndefInt_6.html">Test 6</a><a class="testLink" href="Ma_IndefInt_7.html">Test 7</a><a class="testLink" href="Ma_IndefInt_8.html">Test 8</a><a class="testLink" href="Ma_IndefInt_9.html">Test 9</a><a class="testLink" href="Ma_IndefInt_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">DefInt</span>
+          <span class="topicName">Definite Integration</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_DefInt_1.html">Test 1</a><a class="testLink" href="Ma_DefInt_2.html">Test 2</a><a class="testLink" href="Ma_DefInt_3.html">Test 3</a><a class="testLink" href="Ma_DefInt_4.html">Test 4</a><a class="testLink" href="Ma_DefInt_5.html">Test 5</a><a class="testLink" href="Ma_DefInt_6.html">Test 6</a><a class="testLink" href="Ma_DefInt_7.html">Test 7</a><a class="testLink" href="Ma_DefInt_8.html">Test 8</a><a class="testLink" href="Ma_DefInt_9.html">Test 9</a><a class="testLink" href="Ma_DefInt_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Area</span>
+          <span class="topicName">Area Under Curves</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Area_1.html">Test 1</a><a class="testLink" href="Ma_Area_2.html">Test 2</a><a class="testLink" href="Ma_Area_3.html">Test 3</a><a class="testLink" href="Ma_Area_4.html">Test 4</a><a class="testLink" href="Ma_Area_5.html">Test 5</a><a class="testLink" href="Ma_Area_6.html">Test 6</a><a class="testLink" href="Ma_Area_7.html">Test 7</a><a class="testLink" href="Ma_Area_8.html">Test 8</a><a class="testLink" href="Ma_Area_9.html">Test 9</a><a class="testLink" href="Ma_Area_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">DE</span>
+          <span class="topicName">Differential Equations</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_DE_1.html">Test 1</a><a class="testLink" href="Ma_DE_2.html">Test 2</a><a class="testLink" href="Ma_DE_3.html">Test 3</a><a class="testLink" href="Ma_DE_4.html">Test 4</a><a class="testLink" href="Ma_DE_5.html">Test 5</a><a class="testLink" href="Ma_DE_6.html">Test 6</a><a class="testLink" href="Ma_DE_7.html">Test 7</a><a class="testLink" href="Ma_DE_8.html">Test 8</a><a class="testLink" href="Ma_DE_9.html">Test 9</a><a class="testLink" href="Ma_DE_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Prob</span>
+          <span class="topicName">Probability</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Prob_1.html">Test 1</a><a class="testLink" href="Ma_Prob_2.html">Test 2</a><a class="testLink" href="Ma_Prob_3.html">Test 3</a><a class="testLink" href="Ma_Prob_4.html">Test 4</a><a class="testLink" href="Ma_Prob_5.html">Test 5</a><a class="testLink" href="Ma_Prob_6.html">Test 6</a><a class="testLink" href="Ma_Prob_7.html">Test 7</a><a class="testLink" href="Ma_Prob_8.html">Test 8</a><a class="testLink" href="Ma_Prob_9.html">Test 9</a><a class="testLink" href="Ma_Prob_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Stats</span>
+          <span class="topicName">Statistics</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Stats_1.html">Test 1</a><a class="testLink" href="Ma_Stats_2.html">Test 2</a><a class="testLink" href="Ma_Stats_3.html">Test 3</a><a class="testLink" href="Ma_Stats_4.html">Test 4</a><a class="testLink" href="Ma_Stats_5.html">Test 5</a><a class="testLink" href="Ma_Stats_6.html">Test 6</a><a class="testLink" href="Ma_Stats_7.html">Test 7</a><a class="testLink" href="Ma_Stats_8.html">Test 8</a><a class="testLink" href="Ma_Stats_9.html">Test 9</a><a class="testLink" href="Ma_Stats_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">TrigRatio</span>
+          <span class="topicName">Trigonometric Ratios &amp; Identities</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_TrigRatio_1.html">Test 1</a><a class="testLink" href="Ma_TrigRatio_2.html">Test 2</a><a class="testLink" href="Ma_TrigRatio_3.html">Test 3</a><a class="testLink" href="Ma_TrigRatio_4.html">Test 4</a><a class="testLink" href="Ma_TrigRatio_5.html">Test 5</a><a class="testLink" href="Ma_TrigRatio_6.html">Test 6</a><a class="testLink" href="Ma_TrigRatio_7.html">Test 7</a><a class="testLink" href="Ma_TrigRatio_8.html">Test 8</a><a class="testLink" href="Ma_TrigRatio_9.html">Test 9</a><a class="testLink" href="Ma_TrigRatio_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">TrigEq</span>
+          <span class="topicName">Trigonometric Equations</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_TrigEq_1.html">Test 1</a><a class="testLink" href="Ma_TrigEq_2.html">Test 2</a><a class="testLink" href="Ma_TrigEq_3.html">Test 3</a><a class="testLink" href="Ma_TrigEq_4.html">Test 4</a><a class="testLink" href="Ma_TrigEq_5.html">Test 5</a><a class="testLink" href="Ma_TrigEq_6.html">Test 6</a><a class="testLink" href="Ma_TrigEq_7.html">Test 7</a><a class="testLink" href="Ma_TrigEq_8.html">Test 8</a><a class="testLink" href="Ma_TrigEq_9.html">Test 9</a><a class="testLink" href="Ma_TrigEq_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">InvTrig</span>
+          <span class="topicName">Inverse Trigonometric Functions</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_InvTrig_1.html">Test 1</a><a class="testLink" href="Ma_InvTrig_2.html">Test 2</a><a class="testLink" href="Ma_InvTrig_3.html">Test 3</a><a class="testLink" href="Ma_InvTrig_4.html">Test 4</a><a class="testLink" href="Ma_InvTrig_5.html">Test 5</a><a class="testLink" href="Ma_InvTrig_6.html">Test 6</a><a class="testLink" href="Ma_InvTrig_7.html">Test 7</a><a class="testLink" href="Ma_InvTrig_8.html">Test 8</a><a class="testLink" href="Ma_InvTrig_9.html">Test 9</a><a class="testLink" href="Ma_InvTrig_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Reasoning</span>
+          <span class="topicName">Mathematical Reasoning</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Reasoning_1.html">Test 1</a><a class="testLink" href="Ma_Reasoning_2.html">Test 2</a><a class="testLink" href="Ma_Reasoning_3.html">Test 3</a><a class="testLink" href="Ma_Reasoning_4.html">Test 4</a><a class="testLink" href="Ma_Reasoning_5.html">Test 5</a><a class="testLink" href="Ma_Reasoning_6.html">Test 6</a><a class="testLink" href="Ma_Reasoning_7.html">Test 7</a><a class="testLink" href="Ma_Reasoning_8.html">Test 8</a><a class="testLink" href="Ma_Reasoning_9.html">Test 9</a><a class="testLink" href="Ma_Reasoning_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Induction</span>
+          <span class="topicName">Mathematical Induction</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Induction_1.html">Test 1</a><a class="testLink" href="Ma_Induction_2.html">Test 2</a><a class="testLink" href="Ma_Induction_3.html">Test 3</a><a class="testLink" href="Ma_Induction_4.html">Test 4</a><a class="testLink" href="Ma_Induction_5.html">Test 5</a><a class="testLink" href="Ma_Induction_6.html">Test 6</a><a class="testLink" href="Ma_Induction_7.html">Test 7</a><a class="testLink" href="Ma_Induction_8.html">Test 8</a><a class="testLink" href="Ma_Induction_9.html">Test 9</a><a class="testLink" href="Ma_Induction_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">HeightDist</span>
+          <span class="topicName">Height &amp; Distance</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_HeightDist_1.html">Test 1</a><a class="testLink" href="Ma_HeightDist_2.html">Test 2</a><a class="testLink" href="Ma_HeightDist_3.html">Test 3</a><a class="testLink" href="Ma_HeightDist_4.html">Test 4</a><a class="testLink" href="Ma_HeightDist_5.html">Test 5</a><a class="testLink" href="Ma_HeightDist_6.html">Test 6</a><a class="testLink" href="Ma_HeightDist_7.html">Test 7</a><a class="testLink" href="Ma_HeightDist_8.html">Test 8</a><a class="testLink" href="Ma_HeightDist_9.html">Test 9</a><a class="testLink" href="Ma_HeightDist_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">LPP</span>
+          <span class="topicName">Linear Programming</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_LPP_1.html">Test 1</a><a class="testLink" href="Ma_LPP_2.html">Test 2</a><a class="testLink" href="Ma_LPP_3.html">Test 3</a><a class="testLink" href="Ma_LPP_4.html">Test 4</a><a class="testLink" href="Ma_LPP_5.html">Test 5</a><a class="testLink" href="Ma_LPP_6.html">Test 6</a><a class="testLink" href="Ma_LPP_7.html">Test 7</a><a class="testLink" href="Ma_LPP_8.html">Test 8</a><a class="testLink" href="Ma_LPP_9.html">Test 9</a><a class="testLink" href="Ma_LPP_10.html">Test 10</a>
+        </div>
+      </details>
+      <details class="topicGroup">
+        <summary class="topicHead">
+          <span class="tArrow">&#9656;</span>
+          <span class="topicCode">Misc</span>
+          <span class="topicName">Mixed / Miscellaneous</span>
+        </summary>
+        <div class="testGrid">
+          <a class="testLink" href="Ma_Misc_1.html">Test 1</a><a class="testLink" href="Ma_Misc_2.html">Test 2</a><a class="testLink" href="Ma_Misc_3.html">Test 3</a><a class="testLink" href="Ma_Misc_4.html">Test 4</a><a class="testLink" href="Ma_Misc_5.html">Test 5</a><a class="testLink" href="Ma_Misc_6.html">Test 6</a><a class="testLink" href="Ma_Misc_7.html">Test 7</a><a class="testLink" href="Ma_Misc_8.html">Test 8</a><a class="testLink" href="Ma_Misc_9.html">Test 9</a><a class="testLink" href="Ma_Misc_10.html">Test 10</a>
+        </div>
+      </details>
     </div>
-    <div class="emptyNote">No maths papers uploaded yet — add a card here once a paper is ready.</div>
-  </div>
-
+  </details>
 </main>
 
 <footer>
-  jee-tests · this page and every linked file live in the same GitHub repository
+  Main2028 &middot; every link above points to Subject_TopicCode_TestNo.html in this same repository
 </footer>
+
+<script>
+  // simple client-side filter: typing in the search box expands matching topics and hides the rest
+  const search = document.getElementById('searchBox');
+  const topicGroups = Array.from(document.querySelectorAll('.topicGroup'));
+  search.addEventListener('input', () => {
+    const q = search.value.trim().toLowerCase();
+    topicGroups.forEach(tg => {
+      const code = tg.querySelector('.topicCode').textContent.toLowerCase();
+      const name = tg.querySelector('.topicName').textContent.toLowerCase();
+      const match = q === '' || code.includes(q) || name.includes(q);
+      tg.style.display = match ? '' : 'none';
+      if(q !== '' && match) tg.setAttribute('open',''); 
+      if(q === '') tg.removeAttribute('open');
+    });
+    document.querySelectorAll('.subjectGroup').forEach(sg => {
+      if(q !== '') sg.setAttribute('open','');
+    });
+  });
+</script>
 
 </body>
 </html>
