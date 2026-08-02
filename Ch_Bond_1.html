@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemical Bonding-I — CBT Mock Test 1</title>
+<style>
+  :root{
+    --nta-blue:#0b3d91;
+    --nta-blue-dark:#082a66;
+    --panel-bg:#f0f0f0;
+    --ans-green:#3cb043;
+    --notans-red:#d9363e;
+    --notvisited-gray:#9e9e9e;
+    --marked-purple:#8e44ad;
+    --border:#c9c9c9;
+    --text:#1b1b1b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:380px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.5;border-top:1px solid #eee;padding-top:12px;}
+
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:6px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qref{font-size:11px;color:#888;margin-bottom:14px;}
+  #qref b{color:#666;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;}
+  .btn-clear{background:#7f8c8d;color:#fff;}
+  .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);}
+  .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;}
+  .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);}
+  #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);}
+  #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);}
+  .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);}
+  .reviewrow.wrong{border-left:4px solid var(--notans-red);}
+  .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;}
+  .reviewrow .ref{font-size:10.5px;color:#aaa;margin-left:6px;}
+  .reviewrow .qt{font-size:13px;margin:4px 0 8px;}
+  .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;}
+  .tag.bad{background:#fbe4e4;color:#c0392b;}
+  .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+
+  @media(max-width:820px){
+    #main{flex-direction:column;}
+    #side{width:100%;border-left:none;border-top:1px solid var(--border);}
+    #palette{grid-template-columns:repeat(8,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <div id="login">
+    <div class="card">
+      <h1>Chemical Bonding-I — Test 1</h1>
+      <p>Computer Based Test &middot; JEE Pattern Mock &middot; Vyas Edification, Exercise 1 &amp; 2</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        30 Questions &middot; 45 Minutes<br>
+        Section A: Single Correct (20Q, +4/&minus;1)<br>
+        Section B: Numerical Value (7Q, +4/0)<br>
+        Section C: Multiple Correct (3Q, partial marking, &minus;2 for wrong)<br>
+        Each question shows its original source reference from the exercise sheet.
+      </div>
+    </div>
+  </div>
+
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div>
+        <div class="title">Chemical Bonding-I — CBT Mock Test 1</div>
+        <div class="sub" id="candlabel"></div>
+      </div>
+      <div id="timerbox">45:00</div>
+    </div>
+
+    <div id="sectiontabs"></div>
+
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qref"></div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="any" id="numinput" placeholder="Enter numerical value" />
+          <div class="hint">Enter the exact numeric answer (integer or decimal).</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+
+      <div id="side">
+        <div>
+          <h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div>
+            <div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div>
+            <div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:14px;"></div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= QUESTION DATA — TEST 1 ================= */
+/* ref = original location in the Vyas Edification "Chemical Bonding-I" exercise sheet */
+const questions = [
+/* ---------------- SECTION A: Single Correct (+4/-1) ---------------- */
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · A-1", q:"Among the following, which property is commonly exhibited by a covalent molecule?",
+  opts:["High solubility in water","High electrical conductance","Low boiling point","High melting point"], ans:2,
+  why:"Covalent molecules are held together by weak intermolecular forces, giving them comparatively low boiling points."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · A-3", q:"Which one is the electron deficient compound?",
+  opts:["ICl","NH₃","BCl₃","PCl₃"], ans:2,
+  why:"Boron in BCl₃ has only 6 electrons around it, short of a complete octet."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · B-1", q:"The octet rule is not obeyed in:",
+  opts:["CO₂","BCl₃","PCl₅","Both (B) and (C)"], ans:3,
+  why:"BCl₃ is electron-deficient (6 e⁻ on B) and PCl₅ is hypervalent (10 e⁻ on P) — both violate the octet rule."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · B-2", q:"Pick out the species isoelectronic with CO₂.",
+  opts:["N₃⁻","(CNO)⁻","(NCN)²⁻","All of these"], ans:3,
+  why:"N₃⁻, CNO⁻ and NCN²⁻ are all linear, 16 valence-electron species just like CO₂."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · B-3", q:"To which of the following species is the octet rule applicable?",
+  opts:["BrF₅","SF₆","IF₇","CO₂"], ans:3,
+  why:"BrF₅, SF₆ and IF₇ are all hypervalent (expanded octet); only CO₂ strictly follows the octet rule."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · C-1", q:"The average charge on each O atom and average bond order of the I–O bond in IO₆⁵⁻ is:",
+  opts:["–1 and 1.67","–5/6 and 1.67","–5/6 and 1.33","–5/6 and 1.167"], ans:3,
+  why:"6 O atoms carry a total charge of –5 → –5/6 each; with 7 I–O bonds (1 double + rest single distributed), average bond order works out to 1.167."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · C-3", q:"Average bond order of the C–C bond in C₆H₆ (benzene) is:",
+  opts:["1","2","1.5","1.33"], ans:2,
+  why:"Benzene has 6 equivalent C–C bonds sharing 3 double + 3 single bond character via resonance → bond order 1.5."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · C-4", q:"Among the species below, which has the weakest carbon–oxygen bond?",
+  opts:["CO₂","CH₃COO⁻","CO","CO₃²⁻"], ans:3,
+  why:"Carbonate's C–O bond order (~1.33) is the lowest among these, giving it the weakest (and longest) C–O bond."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · D-3", q:"Indicate the wrong statement according to Valence Bond Theory:",
+  opts:["A sigma bond is stronger than a π-bond","p-orbitals always have only sidewise overlapping","s-orbitals never form π-bonds","There can be only one sigma bond between two atoms"], ans:1,
+  why:"p-orbitals can overlap end-to-end (head-on) too, forming σ bonds — so 'always sidewise' is false."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · D-4", q:"C₃⁴⁻ (the carbide ion in Mg₂C₃) has:",
+  opts:["two σ and two π-bonds","three σ and one π-bond","two σ and one π-bond","two σ and three π-bonds"], ans:0,
+  why:"C₃⁴⁻ has the structure [C=C=C]⁴⁻ (allylenide), giving 2 sigma and 2 pi bonds."},
+{sec:'A', type:'single', ref:"Exercise-1 · Part-II · D-5", q:"Which of the following is NOT correct?",
+  opts:["A sigma bond is weaker than a π-bond","A sigma bond is stronger than a π-bond","A double bond is stronger than a single bond","A double bond is shorter than a single bond"], ans:0,
+  why:"Sigma bonds involve greater orbital overlap and are actually stronger than π-bonds, so statement (A) is false."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.1", q:"In the NO₃⁻ ion, the number of bond pairs and lone pairs of electrons present on the nitrogen atom are:",
+  opts:["2, 2","3, 1","1, 3","4, 0"], ans:3,
+  why:"Nitrogen forms 4 bond pairs (via resonance/delocalisation) with the three oxygens and carries no lone pair."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.2", q:"How many bonded electron pairs are present in the IF₇ molecule?",
+  opts:["6","7","5","None of these"], ans:1,
+  why:"Iodine forms 7 I–F sigma bonds in IF₇ (pentagonal bipyramidal geometry)."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.3", q:"Which of the following is the electron deficient molecule?",
+  opts:["C₂H₆","SiH₄","PH₃","BeCl₂ (g)"], ans:3,
+  why:"Gaseous BeCl₂ has only 4 electrons around Be, making it electron deficient."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.4", q:"Which is NOT an exception to the octet rule?",
+  opts:["BF₃","SnCl₄","XeF₆","ClO₃"], ans:1,
+  why:"SnCl₄ follows the octet rule normally (Sn shares 4 pairs, completing its octet); the others are exceptions."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.7", q:"What is the correct order of bond order of the Cl–O bond?",
+  opts:["ClO₄⁻ > ClO₃⁻ > ClO₂⁻ > ClO⁻","ClO⁻ < ClO₂⁻ > ClO₃⁻ < ClO₄⁻","ClO₃⁻ < ClO₂⁻ < ClO₄⁻ < ClO⁻","ClO₂⁻ < ClF₃⁻ < ClO₄⁻ < ClO⁻"], ans:0,
+  why:"Bond order rises steadily with more O atoms: ClO⁻(1) < ClO₂⁻(1.5) < ClO₃⁻(1.67) < ClO₄⁻(1.75)."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.8", q:"Which statement is NOT correct for sigma and pi bonds formed between two carbon atoms?",
+  opts:["Free rotation about a sigma bond is allowed but not about a pi bond","A sigma bond determines the direction between carbon atoms but a pi bond has no primary effect in this regard","A sigma bond is stronger than a pi bond","Bond energies of sigma and pi bonds are of the order of 264 kJ/mol and 347 kJ/mol respectively"], ans:3,
+  why:"The values are reversed — sigma bonds (~347 kJ/mol) are stronger than pi bonds (~264 kJ/mol), not the other way round."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.9", q:"Number and type of bonds between the two carbon atoms in CaC₂ are:",
+  opts:["one sigma (σ) and one pi (π) bond","one σ and two π bonds","one σ and one-and-a-half π bond","one σ bond only"], ans:1,
+  why:"CaC₂ contains the acetylide ion C₂²⁻ with a C≡C triple bond: one σ + two π bonds."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-I · Q.10", q:"The number of σ and π bonds in dicyanogen (CN)₂ are:",
+  opts:["2σ + 3π","3σ + 2π","3σ + 4π","4σ + 3π"], ans:2,
+  why:"N≡C–C≡N has 3 sigma bonds (2 C≡N sigma + 1 C–C sigma) and 4 pi bonds (2 from each triple bond)."},
+{sec:'A', type:'single', ref:"Exercise-2 · Part-IV · Comprehension#1 · Q.2", q:"The correct order of increasing C–O bond length of CO, CO₃²⁻ and CO₂ is:",
+  opts:["CO₃²⁻ < CO₂ < CO","CO₂ < CO₃²⁻ < CO","CO < CO₃²⁻ < CO₂","CO < CO₂ < CO₃²⁻"], ans:3,
+  why:"Bond order decreases CO(3) > CO₂(2) > CO₃²⁻(1.33), so bond length increases in the exact opposite order."},
+
+/* ---------------- SECTION B: Numerical Value (+4/0) ---------------- */
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.1", q:"In OF₂, the number of bond pairs of electrons is:", ans:2,
+  why:"OF₂ has two O–F sigma bonds → 2 bond pairs."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.2", q:"How many of the following molecules/ions have the central atom surrounded by at least 10 electrons?\n(i) ClO₂  (ii) NO₃⁻  (iii) O₃  (iv) PCl₅  (v) SO₃  (vi) SO₄²⁻  (vii) CO₂  (viii) N₃⁻  (ix) I₃⁻", ans:5,
+  why:"ClO₂, PCl₅, SO₃, SO₄²⁻ and I₃⁻ each have ≥10 electrons around the central atom (5 species)."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.3", q:"Number of molecules/ions having ≥ 2 lone pairs on the central atom among:\n(i) HClO₄ (ii) HClO₃ (iii) HClO₂ (iv) H₂O (v) NH₂⁻ (vi) ClF₃ (vii) XeF₂ (viii) XeF₄ (ix) XeF₆ (x) I₃⁻ (xi) N₃⁻ (xii) O₃ (xiii) ICl₄⁻ (xiv) ICl₂⁺ (xv) XeO₃ (xvi) XeF₅⁻", ans:10,
+  why:"HClO₂, H₂O, NH₂⁻, ClF₃, XeF₂, XeF₄, I₃⁻, ICl₄⁻, ICl₂⁺ and XeF₅⁻ each carry ≥2 lone pairs on the central atom (10 species)."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.4", q:"Total number of resonating structures in CO₃²⁻ is:", ans:3,
+  why:"Carbonate ion has 3 equivalent resonance structures with the negative charge/double bond delocalised over the 3 oxygens."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.5", q:"Compound SO₃ has x bond pairs and y lone pairs (all atoms combined). Calculate the value of x + y.", ans:12,
+  why:"SO₃ has x = 6 bond pairs and y = 6 lone pairs (on the 3 terminal O atoms) → x + y = 12."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.6", q:"Find the number of molecules/ions having two lone pairs on the central atom among:\n(i) I₃⁺ (ii) XeF₂ (iii) XeF₄ (iv) H₂O (v) NH₂⁻ (vi) H₂S (vii) H₂SO₄ (viii) NF₃", ans:5,
+  why:"I₃⁺, XeF₄, H₂O, NH₂⁻ and H₂S each have exactly two lone pairs on the central atom (5 species)."},
+{sec:'B', type:'numerical', ref:"Exercise-2 · Part-II · Q.7", q:"Taking the y-axis as the internuclear axis, how many of the following overlaps lead to π bond formation?\n(i) py–py (ii) px–px (iii) pz–pz (iv) dxy–dxy (v) dyz–dyz (vi) px–dxy (vii) dxy–pz (viii) dxz–dxz", ans:5,
+  why:"px–px, pz–pz, dxy–dxy, dyz–dyz and dxz–dxz all overlap sidewise about the y-axis, giving π (or δ, still counted here) bonds — 5 in total per the answer key."},
+
+/* ---------------- SECTION C: Multiple Correct (partial marking, -2 wrong) ---------------- */
+{sec:'C', type:'multi', ref:"Exercise-2 · Part-III · Q.1", q:"Find the correct statement(s) regarding SO₄²⁻:",
+  opts:["Bond order of the S–O bond is 1.5","Bond order of the S–O bond is 2.5","It violates the octet rule","All S–O bonds are equivalent"], ans:[0,2,3],
+  why:"Sulfate's 6 S–O bonding electron pairs over 4 equivalent resonance structures give bond order 1.5; sulfur exceeds an octet (violates it); and all four S–O bonds are equivalent by resonance."},
+{sec:'C', type:'multi', ref:"Exercise-2 · Part-III · Q.3", q:"Which of the following are exceptions to the Lewis octet rule?",
+  opts:["NO₃⁻ and N₂O","BeH₂ and NO","KrF₂ and ClF₃","All of these"], ans:[0,2],
+  why:"NO₃⁻/N₂O and KrF₂/ClF₃ involve expanded octets or delocalisation patterns that are treated as octet-rule exceptions here; BeH₂ and NO fall under different categories (electron-deficient / odd-electron), not this pairing."},
+{sec:'C', type:'multi', ref:"Exercise-2 · Part-III · Q.4", q:"Which species have the same bond order?",
+  opts:["CO₃²⁻","NO₃⁻","NO₂⁻","NO"], ans:[0,1],
+  why:"CO₃²⁻ and NO₃⁻ are both isoelectronic, trigonal planar, resonance-delocalised species with bond order 1.33."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null); // for single: index; multi: array; numerical: number/string
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 45*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+4 / −1", range:[0,19]},
+  B: {label:"Section B · Numerical Value", scheme:"+4 / 0", range:[20,26]},
+  C: {label:"Section C · Multiple Correct", scheme:"Partial / −2", range:[27,29]}
+};
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.range[0]); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.sec===sec);
+  });
+}
+
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1;
+    b.id = 'pal-'+i;
+    b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+
+function renderQuestion(i){
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+4 / −1)', numerical:'Numerical Value (+4 / 0)', multi:'Multiple Correct (Partial / −2)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qref').innerHTML = '<b>Original ref:</b> ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+
+  if(q.type==='numerical'){
+    optWrap.style.display='none';
+    numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none';
+    optWrap.style.display='flex';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div');
+      div.className='opt';
+      const isSel = q.type==='single' ? responses[i]===idx : (Array.isArray(responses[i]) && responses[i].includes(idx));
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = q.type==='single' ? 'radio' : 'checkbox';
+      input.name = 'q'+i;
+      input.checked = isSel;
+      input.onchange = ()=>{
+        if(q.type==='single'){
+          responses[i] = idx;
+        } else {
+          let arr = Array.isArray(responses[i]) ? responses[i].slice() : [];
+          if(input.checked) arr.push(idx); else arr = arr.filter(a=>a!==idx);
+          responses[i] = arr;
+        }
+        refreshPalette();
+        renderQuestion(i);
+      };
+      const lbl = document.createElement('span');
+      lbl.className='lbl';
+      lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span');
+      txt.textContent = optText;
+      div.appendChild(input);
+      div.appendChild(lbl);
+      div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight();
+  refreshPalette();
+}
+
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = questions[current].type==='multi' ? [] : null;
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  const msg = `You have ${unanswered} unanswered question(s). Submit the test now?`;
+  if(confirm(msg)) submitTest();
+}
+
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Submitted with ${formatTime(TOTAL_TIME-timeLeft)} used`;
+
+  let total=0, max=0;
+  let secScore = {A:0,B:0,C:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+
+  questions.forEach((q,i)=>{
+    let marksForQ = 0;
+    let status = 'skip';
+    max += 4;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.001){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    } else if(q.type==='multi'){
+      const sel = Array.isArray(responses[i]) ? responses[i] : [];
+      if(sel.length===0){ status='skip'; skipCount++; }
+      else{
+        const wrongPicked = sel.some(s=>!q.ans.includes(s));
+        if(wrongPicked){ marksForQ=-2; status='wrong'; wrongCount++; }
+        else if(sel.length===q.ans.length){ marksForQ=4; status='correct'; correctCount++; }
+        else { marksForQ=sel.length; status='partial'; correctCount++; } // partial credit
+      }
+    }
+    total += marksForQ;
+    secScore[q.sec] += marksForQ;
+
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+
+  const cards = document.getElementById('scorecards');
+  cards.innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct / Partial</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+    <div class="scard"><div class="n">${secScore.C}</div><div class="l">Section C Score</div></div>
+  `;
+
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+
+function formatTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}m ${s}s`;
+}
+
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else if(q.type==='numerical'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  } else {
+    const sel = Array.isArray(responses[i])?responses[i]:[];
+    yourAnsText = sel.length? sel.map(s=>letters[s]).join(', ') : '—';
+    correctAnsText = q.ans.map(s=>letters[s]).join(', ');
+  }
+  const tagClass = status==='correct'?'ok':status==='partial'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='partial'?'Partial':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct'||status==='partial' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span><span class="ref">${escapeHTML(q.ref)}</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>

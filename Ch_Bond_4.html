@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemical Bonding-IV — CBT Mock Test</title>
+<style>
+  :root{
+    --nta-blue:#0b3d91;
+    --nta-blue-dark:#082a66;
+    --panel-bg:#f0f0f0;
+    --ans-green:#3cb043;
+    --notans-red:#d9363e;
+    --notvisited-gray:#9e9e9e;
+    --marked-purple:#8e44ad;
+    --border:#c9c9c9;
+    --text:#1b1b1b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;}
+  .btn-clear{background:#7f8c8d;color:#fff;}
+  .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);}
+  .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;}
+  .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);}
+  #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);}
+  #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);}
+  .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);}
+  .reviewrow.wrong{border-left:4px solid var(--notans-red);}
+  .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;}
+  .reviewrow .qt{font-size:13px;margin:4px 0 8px;}
+  .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;}
+  .tag.bad{background:#fbe4e4;color:#c0392b;}
+  .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+
+  @media(max-width:820px){
+    #main{flex-direction:column;}
+    #side{width:100%;border-left:none;border-top:1px solid var(--border);}
+    #palette{grid-template-columns:repeat(8,1fr);}
+  }
+
+  /* ---------- Print / Save-as-PDF ---------- */
+  @media print{
+    body{background:#fff;}
+    #login, #test, #pdfactions, #retrybtn{display:none !important;}
+    #results{display:block !important;max-width:100%;padding:0;}
+    #app{max-width:100%;}
+    .reviewrow{break-inside:avoid;page-break-inside:avoid;}
+    .scard{break-inside:avoid;}
+    a[href]:after{content:"";}
+  }
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <div id="login">
+    <div class="card">
+      <h1>Chemical Bonding-IV — CBT Mock Test</h1>
+      <p>Computer Based Test &middot; JEE Pattern Mock &middot; Vyas Edification</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="180" value="40" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        30 Questions &middot; 40 Minutes<br>
+        Section A: Single Correct (15Q, +4/&minus;1)<br>
+        Section B: Numerical Value (15Q, +4/0)<br>
+        Covers: Molecular Orbital Theory &mdash; MO diagrams, bond order, nodal planes, gerade/ungerade &amp; sp-mixing, magnetic nature, bond length trends &mdash; and Metallic bonding (band theory &amp; electron-sea model).
+      </div>
+    </div>
+  </div>
+
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div>
+        <div class="title">Chemical Bonding-IV — CBT Mock Test</div>
+        <div class="sub" id="candlabel"></div>
+      </div>
+      <div id="timerbox">40:00</div>
+    </div>
+
+    <div id="sectiontabs"></div>
+
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="any" id="numinput" placeholder="Enter numerical value" />
+          <div class="hint">Enter the exact numeric answer (integer or decimal).</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+
+      <div id="side">
+        <div>
+          <h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div>
+            <div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div>
+            <div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions">
+      <button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button>
+    </div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= QUESTION DATA — CHEMICAL BONDING-IV ================= */
+const questions = [
+/* ---------- SECTION A: Single Correct (+4/-1) ---------- */
+{sec:'A', ref:"Ex.1 Part-II A-1", type:'single', q:"During the formation of a molecular orbital from atomic orbitals of the same atom, the probability of electron density is:",
+  opts:["Non-zero in the nodal plane","Maximum in the nodal plane","Zero in the nodal plane","Zero on the surface of the lobe"], ans:2,
+  why:"A nodal plane is, by definition, a region of zero electron probability density between the lobes of an orbital."},
+{sec:'A', ref:"Ex.1 Part-II A-2", type:'single', q:"If the z-axis is the molecular axis, then π-molecular orbitals are formed by the overlap of:",
+  opts:["s + pz","px + py","pz + pz","px + px"], ans:3,
+  why:"π overlap requires two p-orbitals that are both perpendicular to the internuclear (z) axis and parallel to each other, e.g. px + px (or py + py); pz + pz overlap along the axis gives a σ bond instead."},
+{sec:'A', ref:"Ex.1 Part-II A-3", type:'single', q:"Which of the following statements is true about bond order in MOT?",
+  opts:["It can have a negative quantity", "It always has an integral value", "It can assume any positive, integral, or fractional value, including zero", "It is a non-zero quantity"], ans:2,
+  why:"Bond order = ½(Nb − Na) and can be 0 (e.g. He₂), a whole number (e.g. N₂ = 3), or a fraction (e.g. O₂⁺ = 2.5) — but it is never negative for a species that actually exists."},
+{sec:'A', ref:"Ex.1 Part-II A-4", type:'single', q:"Which of the following pairs have identical values of bond order?",
+  opts:["N₂⁺ and O₂⁺","F₂ and Ne₂","O₂ and B₂","C₂ and N₂"], ans:0,
+  why:"Both N₂⁺ and O₂⁺ have a bond order of 2.5 (13 and 15 bonding-type valence electron configurations respectively give the same Nb–Na count)."},
+{sec:'A', ref:"Ex.1 Part-II A-5", type:'single', q:"Which of the following molecules/ions exhibit sp-mixing?",
+  opts:["B₂", "C₂²⁻", "O₂⁺", "Both (A) and (B)"], ans:3,
+  why:"sp-mixing (s–p orbital interaction that reorders σ2p above π2p) occurs in the lighter diatomics up to N₂ — B₂ and C₂²⁻ (isoelectronic with N₂) both show it, while O₂⁺ is beyond this range and follows normal MO ordering."},
+{sec:'A', ref:"Ex.1 Part-II A-6", type:'single', q:"The common features of the species N₂²⁻, O₂ and NO⁻ are:",
+  opts:["Bond order three and isoelectronic","Bond order two and isoelectronic","Bond order three but not isoelectronic","Bond order two but not isoelectronic"], ans:1,
+  why:"All three species have 16 electrons (isoelectronic) and each has a bond order of 2, since adding electrons beyond N₂'s 14 fills antibonding π* orbitals, dropping bond order from 3 to 2."},
+{sec:'A', ref:"Ex.1 Part-II A-7", type:'single', q:"Which of the following molecular orbitals has two nodal planes?",
+  opts:["σ2s", "π2py", "π*2py", "σ*2px"], ans:2,
+  why:"Every π-type orbital already has one nodal plane containing the internuclear axis; the antibonding π*2py has an additional nodal plane perpendicular to the axis between its two out-of-phase lobes, giving two nodal planes in total."},
+{sec:'A', ref:"Ex.1 Part-II B-1", type:'single', q:"Among B₂, C₂, F₂ and O₂⁻, which has the minimum bond length?",
+  opts:["B₂", "C₂", "F₂", "O₂⁻"], ans:1,
+  why:"Bond order: B₂ = 1, C₂ = 2, F₂ = 1, O₂⁻ = 1.5. The highest bond order (C₂, BO = 2) corresponds to the shortest, strongest bond."},
+{sec:'A', ref:"Ex.1 Part-II B-3", type:'single', q:"Species (I) O₂, (II) O₂⁻, (III) O₂²⁻, (IV) O₂⁺ are arranged in order of increasing bond order. Identify the correct order.",
+  opts:["III < II < I < IV", "IV < III < II < I", "III < II < IV < I", "II < III < I < IV"], ans:0,
+  why:"Bond orders are O₂²⁻ = 1, O₂⁻ = 1.5, O₂ = 2, O₂⁺ = 2.5, giving the increasing order III < II < I < IV."},
+{sec:'A', ref:"Ex.1 Part-II B-6", type:'single', q:"State whether each statement is True (T) or False (F), in order:\nS₁: The HOMO in F₂⁻ is the π*2px = π*2py molecular orbital pair.\nS₂: The bond order of O₂⁻ is more than that of O₂⁺.\nS₃: NO⁺ is more stable than N₂⁺.\nS₄: C₂ is more stable than C₂⁺.",
+  opts:["F F F T", "F T T T", "F T F T", "F F T T"], ans:3,
+  why:"S₁ is False (F₂⁻'s extra electron actually enters σ*2pz, making that the HOMO, not π*2p). S₂ is False (O₂⁻ BO = 1.5 is less than O₂⁺ BO = 2.5). S₃ is True (NO⁺, BO = 3, is more stable than N₂⁺, BO = 2.5). S₄ is True (C₂, BO = 2, is more stable than C₂⁺, BO = 1.5) — giving F F T T."},
+{sec:'A', ref:"Ex.1 Part-II C-1", type:'single', q:"Iron is harder than sodium because:",
+  opts:["Iron atoms are smaller", "Iron atoms are more closely packed", "Metallic bonds are stronger in sodium", "Metallic bonds are stronger in iron"], ans:3,
+  why:"Iron has more delocalised valence electrons per atom than sodium, giving it a much stronger metallic bond and hence greater hardness."},
+{sec:'A', ref:"Ex.1 Part-II C-2", type:'single', q:"The enhanced force of cohesion in metals is due to:",
+  opts:["The covalent linkages between atoms", "The electrovalent linkages between atoms", "The lack of exchange of valency electrons", "The delocalization of valence electrons between metallic kernels"], ans:3,
+  why:"Metallic bonding arises from valence electrons being delocalised over the whole lattice of positive metal kernels — this delocalisation is the source of cohesive force."},
+{sec:'A', ref:"Ex.1 Part-II C-3", type:'single', q:"Among the following metals, which one has the lowest probable interatomic forces?",
+  opts:["Copper", "Silver", "Zinc", "Mercury"], ans:3,
+  why:"Mercury is liquid at room temperature, reflecting the weakest metallic bonding (interatomic forces) among these four metals."},
+{sec:'A', ref:"Ex.2 Part-I Q.1", type:'single', q:"The number of antibonding electrons in N₂ is:",
+  opts:["4", "10", "12", "14"], ans:0,
+  why:"N₂'s configuration is σ1s²σ*1s²σ2s²σ*2s²π2px²π2py²σ2pz² — only the σ*1s² and σ*2s² electrons are antibonding, giving 4 antibonding electrons in total."},
+{sec:'A', ref:"Ex.2 Part-I Q.4", type:'single', q:"Which species can exist among the following?",
+  opts:["B₂", "Be₂", "Ne₂", "He₂"], ans:0,
+  why:"B₂ has a bond order of 1 and is a stable, existing molecule, whereas Be₂, Ne₂ and He₂ all have a bond order of zero — the number of bonding and antibonding electrons exactly cancel, so they don't exist as stable species."},
+
+/* ---------- SECTION B: Numerical Value (+4/0) ---------- */
+{sec:'B', ref:"Ex.1 Part-I A-1 (a)", type:'numerical', q:"Find the bond order of H₂.", ans:1,
+  why:"H₂ has 2 electrons, both in σ1s (bonding). Bond order = ½(2−0) = 1."},
+{sec:'B', ref:"Ex.1 Part-I A-1 (b)", type:'numerical', q:"Find the bond order of H₂⁺.", ans:0.5,
+  why:"H₂⁺ has 1 electron in σ1s (bonding), none in an antibonding orbital. Bond order = ½(1−0) = 0.5."},
+{sec:'B', ref:"Ex.1 Part-I A-1 (c)", type:'numerical', q:"Find the bond order of He₂.", ans:0,
+  why:"He₂ has 4 electrons: σ1s² σ*1s². Bond order = ½(2−2) = 0, so He₂ does not exist as a stable molecule."},
+{sec:'B', ref:"Ex.1 Part-I A-1 (d)", type:'numerical', q:"Find the bond order of Li₂.", ans:1,
+  why:"Li₂'s valence configuration is σ2s² (after the cancelling 1s core). Bond order = ½(2−0) = 1."},
+{sec:'B', ref:"Ex.1 Part-I A-1 (e)", type:'numerical', q:"Find the bond order of Be₂.", ans:0,
+  why:"Be₂'s valence configuration is σ2s² σ*2s². Bond order = ½(2−2) = 0, so Be₂ does not exist."},
+{sec:'B', ref:"Ex.1 Part-I A-1 (f)", type:'numerical', q:"Find the bond order of B₂.", ans:1,
+  why:"B₂'s valence configuration (with sp-mixing) is σ2s² σ*2s² π2px¹ π2py¹. Bond order = ½(4−2) = 1."},
+{sec:'B', ref:"Ex.1 Part-I A-3", type:'numerical', q:"What is the bond order of the underlined (cationic, NO⁺) species in the ionic compound NO[BF₄]?", ans:3,
+  why:"NO[BF₄] is composed of NO⁺ and BF₄⁻. NO⁺ is isoelectronic with N₂ and CO, giving it a bond order of 3."},
+{sec:'B', ref:"Ex.1 Part-I B-3", type:'numerical', q:"How many of the following molecular orbitals are 'gerade' (symmetric on inversion)?\n(i) σ*2s (ii) σ2pz (iii) π2py (iv) π*2px", ans:2,
+  why:"All bonding σ orbitals and all antibonding π* orbitals are gerade, so σ2pz (ii) and π*2px (iv) are gerade — 2 in total. (σ* orbitals and bonding π orbitals are ungerade.)"},
+{sec:'B', ref:"Ex.2 Part-I Q.1", type:'numerical', q:"How many antibonding electrons are present in N₂?", ans:4,
+  why:"Only σ*1s² and σ*2s² are antibonding in N₂'s configuration, giving 2 + 2 = 4 antibonding electrons."},
+{sec:'B', ref:"Ex.2 Part-I Q.3", type:'numerical', q:"What is the bond order of the He₂⁺ molecular ion?", ans:0.5,
+  why:"He₂⁺ has 3 electrons: σ1s² σ*1s¹. Bond order = ½(2−1) = 0.5."},
+{sec:'B', ref:"Ex.2 Part-II Q.1 (style)", type:'numerical', q:"How many of the following species have a fractional bond order?\n(a) N₂⁺ (b) N₂⁻ (c) O₂ (d) O₂⁺ (e) F₂ (f) B₂ (g) C₂⁺ (h) CN⁻ (i) NO⁺", ans:4,
+  why:"Fractional bond orders occur for N₂⁺ (2.5), N₂⁻ (2.5), O₂⁺ (2.5) and C₂⁺ (1.5) — 4 species. The rest (O₂ = 2, F₂ = 1, B₂ = 1, CN⁻ = 3, NO⁺ = 3) all have whole-number bond orders."},
+{sec:'B', ref:"Ex.2 Part-II Q.2 (style)", type:'numerical', q:"How many of the following bond-length comparisons are correct?\n(a) Bond length N₂⁺ > Bond length N₂\n(b) Bond length NO⁺ < Bond length NO\n(c) Bond length CN⁻ < Bond length CN\n(d) Bond length O₂⁻ < Bond length O₂²⁻\n(e) Bond length O₂ > Bond length O₂⁺\n(f) Bond length B₂ > Bond length B₂⁻", ans:6,
+  why:"In every pair, the higher-bond-order species is listed as shorter: N₂ (BO 3) < N₂⁺ (BO 2.5) so (a) is correct; NO⁺ (BO 3) is shorter than NO (BO 2.5) so (b) is correct; CN⁻ (BO 3) is shorter than CN (BO 2.5) so (c) is correct; O₂⁻ (BO 1.5) is shorter than O₂²⁻ (BO 1) so (d) is correct; O₂ (BO 2) is longer than O₂⁺ (BO 2.5) so (e) is correct; B₂ (BO 1) is longer than B₂⁻ (BO 1.5) so (f) is correct — all 6 statements hold."},
+{sec:'B', ref:"Ex.2 Part-II Q.3 (style)", type:'numerical', q:"In how many of the following conversions does the bond length increase?\n(i) NO → NO⁺ (ii) N₂⁺ → N₂ (iii) O₂ → O₂⁺ (iv) H₂ → H₂⁺ (v) NH₃ → NH₄⁺ (vi) NH₃ → NH₂⁻ (vii) BF₃ → BF₄⁻", ans:3,
+  why:"Bond length increases when bond order/bond strength drops: H₂ → H₂⁺ (BO 1 → 0.5), NH₃ → NH₂⁻ (extra lone-pair repulsion lengthens N–H) and BF₃ → BF₄⁻ (loss of pπ–pπ back bonding on going to sp³ boron) all show an increase — 3 conversions. The other four (i, ii, iii, v) involve bond shortening."},
+{sec:'B', ref:"Ex.2 Part-I Q.4 (style)", type:'numerical', q:"How many of the following 11 species have a bond order less than two?\n(a) NO₃⁻ (b) CO₃²⁻ (c) F₂ (d) Cl₂ (e) Br₂ (f) O₂²⁻ (g) O₂⁻ (h) N₂⁻ (i) O₂²⁺ (j) Li₂⁺ (k) He₂⁺", ans:9,
+  why:"All except N₂⁻ (BO 2.5) and O₂²⁺ (BO 3) have a bond order below 2: NO₃⁻ and CO₃²⁻ (≈1.33 each by resonance), F₂, Cl₂, Br₂ (BO 1 each), O₂²⁻ (BO 1), O₂⁻ (BO 1.5), Li₂⁺ (BO 0.5) and He₂⁺ (BO 0.5) — 9 species in total."},
+{sec:'B', ref:"Ex.1 Part-I A-2 (style)", type:'numerical', q:"Among B₂, C₂, O₂²⁺, O₂, F₂ and N₂, how many species are diamagnetic?", ans:4,
+  why:"C₂, O₂²⁺, F₂ and N₂ have all electrons paired (diamagnetic) — 4 species. B₂ and O₂ are paramagnetic, each having two unpaired electrons in degenerate π orbitals."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 40*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+4 / −1", range:[0,14]},
+  B: {label:"Section B · Numerical Value", scheme:"+4 / 0", range:[15,29]}
+};
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 40;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.range[0]); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.sec===sec);
+  });
+}
+
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1;
+    b.id = 'pal-'+i;
+    b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+
+function renderQuestion(i){
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+4 / −1)', numerical:'Numerical Value (+4 / 0)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+
+  if(q.type==='numerical'){
+    optWrap.style.display='none';
+    numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none';
+    optWrap.style.display='flex';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div');
+      div.className='opt';
+      const isSel = responses[i]===idx;
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'q'+i;
+      input.checked = isSel;
+      input.onchange = ()=>{
+        responses[i] = idx;
+        refreshPalette();
+        renderQuestion(i);
+      };
+      const lbl = document.createElement('span');
+      lbl.className='lbl';
+      lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span');
+      txt.textContent = optText;
+      div.appendChild(input);
+      div.appendChild(lbl);
+      div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight();
+  refreshPalette();
+}
+
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = null;
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  const msg = `You have ${unanswered} unanswered question(s). Submit the test now?`;
+  if(confirm(msg)) submitTest();
+}
+
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+
+  let total=0, max=0;
+  let secScore = {A:0,B:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+
+  questions.forEach((q,i)=>{
+    let marksForQ = 0;
+    let status = 'skip';
+    max += 4;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.02){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    }
+    total += marksForQ;
+    secScore[q.sec] += marksForQ;
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+
+  const cards = document.getElementById('scorecards');
+  cards.innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+  `;
+
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+
+
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = (typeof candName!=='undefined'?candName.replace(/\s+/g,'_'):'Candidate') + '_ChemicalBondingIV_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+
+function formatTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}m ${s}s`;
+}
+
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else {
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  }
+  const tagClass = status==='correct'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
