@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemical Bonding-V — CBT Mock Test</title>
+<style>
+  :root{
+    --nta-blue:#0b3d91;
+    --nta-blue-dark:#082a66;
+    --panel-bg:#f0f0f0;
+    --ans-green:#3cb043;
+    --notans-red:#d9363e;
+    --notvisited-gray:#9e9e9e;
+    --marked-purple:#8e44ad;
+    --border:#c9c9c9;
+    --text:#1b1b1b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;}
+  .btn-clear{background:#7f8c8d;color:#fff;}
+  .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);}
+  .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;}
+  .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-height:340px;overflow-y:auto;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);}
+  #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);}
+  #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);}
+  .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);}
+  .reviewrow.wrong{border-left:4px solid var(--notans-red);}
+  .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;}
+  .reviewrow .qt{font-size:13px;margin:4px 0 8px;}
+  .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;}
+  .tag.bad{background:#fbe4e4;color:#c0392b;}
+  .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+
+  @media print{
+    body{background:#fff;}
+    #login, #test, #pdfactions, #retrybtn{display:none !important;}
+    #results{display:block !important;max-width:100%;padding:0;}
+    #app{max-width:100%;}
+    .reviewrow{break-inside:avoid;page-break-inside:avoid;}
+    .scard{break-inside:avoid;}
+  }
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+
+  @media(max-width:820px){
+    #main{flex-direction:column;}
+    #side{width:100%;border-left:none;border-top:1px solid var(--border);}
+    #palette{grid-template-columns:repeat(8,1fr);max-height:none;}
+  }
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <div id="login">
+    <div class="card">
+      <h1>Chemical Bonding-V</h1>
+      <p>Computer Based Test &middot; JEE Pattern Mock &middot; Vyas Edification, Exercise 1 &amp; 2</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="180" value="80" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        53 Questions &middot; Default 80 Minutes (editable above)<br>
+        Section A: Single Correct (39Q, +4/&minus;1)<br>
+        Section B: Numerical Value (4Q, +4/0)<br>
+        Section C: Multiple Correct (10Q, partial marking, &minus;2 for wrong)<br>
+        Covers: Fajan's rule &amp; polarisation, dipole moment, acidic/basic/amphoteric oxides, plus the match-the-column set and all four comprehensions.
+      </div>
+    </div>
+  </div>
+
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div>
+        <div class="title">Chemical Bonding-V — CBT Mock Test</div>
+        <div class="sub" id="candlabel"></div>
+      </div>
+      <div id="timerbox">80:00</div>
+    </div>
+
+    <div id="sectiontabs"></div>
+
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="any" id="numinput" placeholder="Enter numerical value" />
+          <div class="hint">Enter the exact numeric answer (integer or decimal).</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+
+      <div id="side">
+        <div>
+          <h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div>
+            <div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div>
+            <div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions">
+      <button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button>
+    </div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= QUESTION DATA — CHEMICAL BONDING-V ================= */
+const questions = [
+/* ---------------- SECTION A: Single Correct (+4/-1) ---------------- */
+{sec:'A', ref:"Ex.1 Part-II A-1", type:'single', q:"Which of the following is in order of increasing covalent character?",
+  opts:["CCl₄ < BeCl₂ < BCl₃ < LiCl","LiCl < CCl₄ < BeCl₂ < BCl₃","LiCl < BeCl₂ < BCl₃ < CCl₄","LiCl < BeCl₂ < CCl₄ < BCl₃"], ans:2,
+  why:"By Fajan's rule, covalent character rises with increasing cation charge/decreasing size and stronger polarisation: LiCl (most ionic) < BeCl₂ < BCl₃ < CCl₄ (most covalent)."},
+{sec:'A', ref:"Ex.1 Part-II A-2", type:'single', q:"Which of the following combinations of ions will have the highest polarisation?",
+  opts:["Fe²⁺, Br⁻","Ni⁴⁺, Br⁻","Ni²⁺, Br⁻","Fe, Br⁻"], ans:1,
+  why:"Ni⁴⁺ carries the highest charge among these cations, giving it the greatest polarising power and hence the highest polarisation of the Br⁻ anion."},
+{sec:'A', ref:"Ex.1 Part-II A-3", type:'single', q:"The correct order of decreasing polarizability of ions is:",
+  opts:["Cl⁻, Br⁻, I⁻, F⁻","F⁻, I⁻, Br⁻, Cl⁻","I⁻, Br⁻, Cl⁻, F⁻","F⁻, Cl⁻, Br⁻, I⁻"], ans:2,
+  why:"Polarizability increases with ionic size (looser hold on outer electrons), so the largest anion (I⁻) is most polarizable and the smallest (F⁻) is least — I⁻ > Br⁻ > Cl⁻ > F⁻."},
+{sec:'A', ref:"Ex.1 Part-II A-4", type:'single', q:"SnCl₄ is a covalent liquid because:",
+  opts:["Electron clouds of the Cl⁻ ions are weakly polarized to envelop the cation","Electron clouds of the Cl⁻ ions are strongly polarized to envelop the cation","Its molecules are attracted to one another by strong van der Waals forces","Sn shows the inert pair effect"], ans:1,
+  why:"Sn⁴⁺'s high charge strongly polarises the Cl⁻ electron clouds, pulling them to envelop the cation and giving the bond substantial covalent character."},
+{sec:'A', ref:"Ex.1 Part-II B-2", type:'single', q:"Of the following molecules, the one which has a permanent dipole moment is:",
+  opts:["SiF₄","BF₃","PF₃","PF₅"], ans:2,
+  why:"PF₃ is pyramidal (lone pair on P) and therefore polar; SiF₄, BF₃, and PF₅ are all symmetric (tetrahedral, trigonal planar, trigonal bipyramidal) with cancelling bond dipoles."},
+{sec:'A', ref:"Ex.1 Part-II B-3", type:'single', q:"Which of the following has the least dipole moment?",
+  opts:["NF₃","CO₂","SO₂","NH₃"], ans:1,
+  why:"CO₂ is linear and symmetric, so its two C=O bond dipoles cancel exactly — zero (least) dipole moment among these options."},
+{sec:'A', ref:"Ex.1 Part-II B-4", type:'single', q:"Which of the following compounds possesses zero dipole moment?",
+  opts:["Benzene (C₆H₆)","Carbon tetrachloride","Boron trifluoride","All of these"], ans:3,
+  why:"Benzene, CCl₄, and BF₃ are all highly symmetric molecules (D₆ₕ, tetrahedral, trigonal planar respectively) whose bond dipoles cancel completely — all have zero net dipole moment."},
+{sec:'A', ref:"Ex.1 Part-II B-5", type:'single', q:"The geometry of H₂S and its dipole moment are:",
+  opts:["Angular and non-zero","Angular and zero","Linear and non-zero","Linear and zero"], ans:0,
+  why:"H₂S is bent (angular) due to two lone pairs on sulfur, so its two S–H bond dipoles do not cancel, giving a non-zero net dipole moment."},
+{sec:'A', ref:"Ex.1 Part-II B-6", type:'single', q:"Which of the following is arranged in order of decreasing dipole moment?",
+  opts:["CH₃Cl > CH₃F > CH₃Br > CH₃I","CH₃F > CH₃Cl > CH₃Br > CH₃I","CH₃Cl > CH₃Br > CH₃I > CH₃F","CH₃F > CH₃Cl > CH₃I > CH₃Br"], ans:0,
+  why:"Dipole moment here depends on both electronegativity difference and bond length; the balance of these factors gives CH₃Cl the highest value, decreasing through CH₃F, CH₃Br, to CH₃I."},
+{sec:'A', ref:"Ex.1 Part-II B-7", type:'single', q:"The dipole moment of chlorobenzene is 1.73 D. The dipole moment of p-dichlorobenzene is expected to be:",
+  opts:["3.46 D","0.00 D","1.73 D","1.00 D"], ans:1,
+  why:"In p-dichlorobenzene, the two C–Cl bond dipoles point in exactly opposite directions across the ring and cancel completely, giving zero net dipole moment."},
+{sec:'A', ref:"Ex.1 Part-II C-1", type:'single', q:"Which of the following is the strongest oxy-acid?",
+  opts:["H₂SO₄","H₃PO₄","HClO₄","H₂SiO₃"], ans:2,
+  why:"HClO₄ has the most oxygen atoms bonded to a highly electronegative central atom (Cl in +7 state), best stabilising the conjugate base — making it the strongest oxy-acid of these."},
+{sec:'A', ref:"Ex.1 Part-II C-2", type:'single', q:"Which of the following is the anhydride of nitric acid (HNO₃)?",
+  opts:["NO₂","N₂O₃","N₂O₅","N₂O"], ans:2,
+  why:"N₂O₅ + H₂O → 2HNO₃, so N₂O₅ (with N in the +5 state, matching HNO₃) is the acid anhydride of nitric acid."},
+{sec:'A', ref:"Ex.1 Part-II C-3", type:'single', q:"The order of basic character of the given oxides is:",
+  opts:["Na₂O > MgO > CuO > SiO₂","MgO > SiO₂ > CuO > Na₂O","SiO₂ > MgO > CuO > Na₂O","CuO > Na₂O > MgO > SiO₂"], ans:0,
+  why:"Basic character tracks metallic character/electropositivity: Na₂O (most metallic/basic) > MgO > CuO > SiO₂ (most acidic/least basic, being a metalloid oxide)."},
+{sec:'A', ref:"Ex.1 Part-II C-4", type:'single', q:"Amphoteric behaviour is shown by the oxides of:",
+  opts:["Al and Ca","Pb and Ba","Cr and Mg","Sn and Zn"], ans:3,
+  why:"SnO₂/SnO and ZnO are classic amphoteric oxides, reacting with both acids and bases; Ca, Ba and Mg oxides are basic, and Al₂O₃/Cr₂O₃ pairing here isn't the matched amphoteric set given."},
+{sec:'A', ref:"Ex.1 Part-II C-5", type:'single', q:"Which one of the following oxides is neutral?",
+  opts:["CO","SnO₂","ZnO","SiO₂"], ans:0,
+  why:"CO is a neutral oxide — it does not react with acids or bases to form salts, unlike the acidic SiO₂ or amphoteric SnO₂/ZnO."},
+{sec:'A', ref:"Ex.2 Part-I Q.1", type:'single', q:"Among the following compounds, the one that is polar and has its central atom with sp³ hybridisation is:",
+  opts:["H₂CO₃","SiF₄","BF₃","HClO₂"], ans:3,
+  why:"In HClO₂, chlorine is sp³ hybridised with lone pairs, giving a bent/pyramidal-type polar geometry; SiF₄ and BF₃ are symmetric and nonpolar."},
+{sec:'A', ref:"Ex.2 Part-I Q.2", type:'single', q:"Which of the following is polar?",
+  opts:["XeF₄","SO₃","XeOF₄","ICl₄⁻"], ans:2,
+  why:"XeOF₄ is square pyramidal (lone pair pushes the O and F's out of a perfect plane), giving a net dipole; XeF₄, SO₃ and ICl₄⁻ are all symmetric and nonpolar."},
+{sec:'A', ref:"Ex.2 Part-I Q.3", type:'single', q:"Which of the following statements is true?",
+  opts:["The dipole moment of NF₃ is zero","The dipole moment of NF₃ is less than NH₃","The dipole moment of NF₃ is more than NH₃","The dipole moment of NH₃ is zero"], ans:1,
+  why:"In NH₃, the N lone pair and the N–H bond dipoles point the same way, reinforcing the net moment; in NF₃, the highly electronegative F atoms pull bond dipoles opposite to the lone pair, partially cancelling it — so NF₃'s net dipole is smaller than NH₃'s."},
+{sec:'A', ref:"Ex.2 Part-I Q.4", type:'single', q:"Which of the following would be expected to have a dipole moment of zero on the basis of symmetry?",
+  opts:["SOCl₂","OF₂","SeF₆","ClF₅"], ans:2,
+  why:"SeF₆ is a perfectly symmetric octahedral molecule with all six identical Se–F bonds — the bond dipoles cancel exactly, giving zero net dipole moment."},
+{sec:'A', ref:"Ex.2 Part-I Q.5", type:'single', q:"If a molecule MX₃ has zero dipole moment, the hybrid orbitals used by M (atomic number < 21) are:",
+  opts:["Pure p","sp hybrid","sp² hybrid","sp³ hybrid"], ans:2,
+  why:"A zero-dipole MX₃ must be planar (trigonal planar, no lone pair) so the three bond dipoles cancel by symmetry — this geometry corresponds to sp² hybridisation on M."},
+{sec:'A', ref:"Ex.2 Part-I Q.6", type:'single', q:"Which of the following is INCORRECT for dipole moment?",
+  opts:["Lone pairs on the central atom can give rise to dipole moment","Dipole moment is a vector quantity","PF₅(g) molecule has a non-zero dipole moment","Difference in electronegativities of combining atoms can lead to dipole moment"], ans:2,
+  why:"PF₅(g) is trigonal bipyramidal and perfectly symmetric, so its bond dipoles cancel — it actually has zero dipole moment, making this the incorrect statement."},
+{sec:'A', ref:"Ex.2 Part-I Q.7", type:'single', q:"Which of the following has the minimum melting point?",
+  opts:["CsF","HCl","HF","LiF"], ans:1,
+  why:"HCl is a simple polar covalent molecule with only weak dipole-dipole/dispersion forces holding the solid together, giving it a far lower melting point than the ionic CsF/LiF or the H-bonded HF."},
+{sec:'A', ref:"Ex.2 Part-I Q.8", type:'single', q:"Which of the following is FALSE?",
+  opts:["Van der Waals forces are responsible for the formation of molecular crystals","Branching lowers the boiling points of isomeric organic compounds due to reduced van der Waals attraction","In graphite, van der Waals forces act between the carbon layers","Boiling point of NH₃ is greater than SbH₃"], ans:3,
+  why:"Despite NH₃'s hydrogen bonding, SbH₃'s much larger size gives stronger van der Waals forces that dominate — SbH₃ actually boils higher than NH₃, making this statement false."},
+{sec:'A', ref:"Ex.2 Part-I Q.9", type:'single', q:"Which of the following contains both electrovalent and covalent bonds?",
+  opts:["CH₄","H₂O₂","NH₄Cl","None"], ans:2,
+  why:"In NH₄Cl, the N–H bonds within NH₄⁺ (including one coordinate bond) are covalent, while the bond between NH₄⁺ and Cl⁻ is electrovalent (ionic)."},
+{sec:'A', ref:"Ex.2 Part-I Q.10", type:'single', q:"The correct order of increasing ionic character is:",
+  opts:["BeCl₂ < MgCl₂ < CaCl₂ < BaCl₂","BeCl₂ < MgCl₂ < BaCl₂ < CaCl₂","BeCl₂ < BaCl₂ < MgCl₂ < CaCl₂","BaCl₂ < MgCl₂ < CaCl₂ < BeCl₂"], ans:0,
+  why:"Down the alkaline earth group, cation size increases and polarising power falls steadily, so ionic character rises smoothly: BeCl₂ < MgCl₂ < CaCl₂ < BaCl₂."},
+{sec:'A', ref:"Ex.2 Part-I Q.11", type:'single', q:"Least melting point is shown by the compound:",
+  opts:["PbCl₂","SnCl₄","NaCl","AlCl₃"], ans:1,
+  why:"SnCl₄ is a highly covalent molecular liquid at room temperature, with only weak intermolecular forces holding it together — far lower melting than the ionic PbCl₂/NaCl or bridged AlCl₃."},
+{sec:'A', ref:"Ex.2 Part-I Q.12", type:'single', q:"CuI₂ is unstable even at ordinary temperature because:",
+  opts:["The Cu²⁺ ion, with a comparatively small radius, has a strong polarising power","The Cu²⁺ ion, with a 17-electron outer shell, has a weak polarising power","The I⁻ ion, with a larger radius, has a high polarisability","Both (A) and (C)"], ans:3,
+  why:"Cu²⁺'s small size and pseudo-noble-gas outer shell give it strong polarising power, while the large, easily polarisable I⁻ ion is readily distorted — together these drive strong covalent character and redox instability (Cu²⁺ + I⁻ → CuI + ½I₂)."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.1", type:'single', q:"Which of the following molecules has a non-zero dipole moment?",
+  opts:["XeF₂","ClF₃","XeO₂F₄","XeF₄"], ans:1,
+  why:"ClF₃ is T-shaped (bent, with lone pairs breaking symmetry) and therefore polar; XeF₂ (linear), XeO₂F₄ and XeF₄ (both symmetric) all have zero net dipole moment."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.3", type:'single', q:"Which of the following compounds has zero dipole moment?",
+  opts:["PCl₃","PCl₂F₃","PCl₃F₂","PClF₄"], ans:2,
+  why:"In PCl₃F₂, a symmetric trigonal bipyramidal arrangement (e.g. axial/equatorial placement) allows the bond dipoles to cancel, giving zero net dipole moment — unlike the less symmetric alternatives."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.2 Q.4", type:'single', q:"The dipole moment of a triatomic molecule AX₂ was found to equal the bond moment of the A–X bond. What can be concluded about the molecule's geometry?",
+  opts:["Molecule is linear","Molecule is V-shaped with ∠X–A–X = 90°","Molecule is V-shaped with ∠X–A–X = 120°","Molecular geometry cannot be predicted from this information"], ans:2,
+  why:"Using μ²(molecule) = μ²+μ²+2μ·μ·cosθ with μ(molecule)=μ(bond), solving for θ gives cosθ = -1/2, i.e. θ = 120° — a bent (V-shaped) molecule with a 120° bond angle."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.2 Q.5", type:'single', q:"Which of the following inter-halogen compounds is non-polar in nature?",
+  opts:["ClF₃","BrF₅","IF₇","BrCl"], ans:2,
+  why:"IF₇ is pentagonal bipyramidal — perfectly symmetric, so its bond dipoles cancel completely. ClF₃ (T-shaped), BrF₅ (square pyramidal) and BrCl (simple diatomic) are all polar."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.6", type:'single', q:"Which of the following will be MOST covalent?",
+  opts:["NaCl","Na₂S","MgCl₂","MgS"], ans:3,
+  why:"MgS pairs a smaller, higher-charge cation (Mg²⁺) with a larger, more polarisable, higher-charge anion (S²⁻) — the combination that maximises polarisation and covalent character."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.7", type:'single', q:"Which of the following is LEAST ionic?",
+  opts:["BeI₂","BeCl₂","BeBr₂","BeF₂"], ans:0,
+  why:"I⁻ is the largest, most polarisable halide ion, so BeI₂ shows the greatest covalent character and is therefore the least ionic of the beryllium halides."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.8", type:'single', q:"Arrange the following in increasing order of ionic character: SnCl₂, SnCl₄, SiCl₄, SnF₄, SnF₂",
+  opts:["SnF₂ < SnCl₂ < SnF₄ < SnCl₄ < SiCl₄","SnF₂ < SnCl₂ < SnF₄ < SiCl₄ < SnCl₄","SiCl₄ < SnCl₄ < SnF₄ < SnCl₂ < SnF₂","SnCl₄ < SnF₄ < SnCl₂ < SnF₂ < SiCl₄"], ans:2,
+  why:"Higher cation charge (Sn⁴⁺ vs Sn²⁺) and smaller/more polarisable anion (Cl⁻ vs F⁻) both push toward covalent character; SiCl₄ (small, high-charge Si⁴⁺) is most covalent, SnF₂ (low-charge Sn²⁺ with F⁻) is most ionic."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.9", type:'single', q:"Which is the correct order of covalent character?",
+  opts:["BeF₂ < BeCl₂ < BeBr₂ < BeI₂","BeCl₂ < BeF₂ < BeI₂ < BeBr₂","BeI₂ < BeBr₂ < BeCl₂ < BeF₂","BeI₂ < BeCl₂ < BeBr₂ < BeF₂"], ans:0,
+  why:"Covalent character increases with anion polarisability, which rises down the halogen group: BeF₂ (least covalent) < BeCl₂ < BeBr₂ < BeI₂ (most covalent)."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.10", type:'single', q:"Which of the following cation-anion combinations has the maximum covalent character?",
+  opts:["K⁺, Cl⁻","Na⁺, Cl⁻","Cs⁺, Cl⁻","Mg²⁺, Cl⁻"], ans:3,
+  why:"Mg²⁺ has both the smallest radius and highest charge among these cations, giving it the strongest polarising power and hence the greatest covalent character with Cl⁻."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.11", type:'single', q:"According to Fajan's rule (covalency favoured by small cation, large anion, high charge, or non-noble-gas cation configuration), and given: Column-1 (I) NaF,NaCl,NaBr,NaI (II) NaCl,MgCl₂,AlCl₃ (III) MgCO₃,CaCO₃,SrCO₃,BaCO₃ (IV) LiOH,NaOH,KOH,RbOH; Column-2 (i) size of cation increases (ii) size of anion increases (iii) charge on anion increases (iv) charge density decreases; Column-3 (P) covalent character increases (Q) ionic character increases (R) melting point increases (S) solubility increases.\nWhich combination is INCORRECT?",
+  opts:["I, ii, P","I, iv, P","I, ii, R","IV, i, S"], ans:2,
+  why:"Going NaF→NaI, anion size increases and covalent character increases (matching P) — but melting point should DECREASE (more covalent, weaker ionic lattice), not increase, so 'I, ii, R' is the incorrect combination."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.12", type:'single', q:"Using the same Fajan's-rule table as above, which of the following is the CORRECT combination?",
+  opts:["II, i, P","II, iv, Q","III, iv, Q","III, i, Q"], ans:3,
+  why:"Going MgCO₃→BaCO₃ (III), cation size increases (i), which lowers polarising power and increases ionic character (Q) — a consistent, correct combination."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.13", type:'single', q:"Using the same Fajan's-rule table as above, which combination is INCORRECT?",
+  opts:["III, iv, Q","IV, iv, S","IV, iv, Q","III, iv, P"], ans:3,
+  why:"Down series III (MgCO₃→BaCO₃), charge density decreases (iv) and ionic character increases — covalent character does NOT increase, so 'III, iv, P' is the incorrect combination."},
+
+/* ---------------- SECTION B: Numerical Value (+4/0) ---------------- */
+{sec:'B', ref:"Ex.2 Part-II Q.1", type:'numerical', q:"Find the total number of polar molecules among:\n(a) PF₃Cl₂ (b) SF₄ (c) PCl₅ (d) PCl₃F₂ (e) SF₆ (f) XeF₂ (g) NO₂⁺ (h) BF₂Cl (i) BF₃", ans:3,
+  why:"PF₃Cl₂ (a), SF₄ (b) and BF₂Cl (h) are polar (asymmetric substitution/see-saw shape); the rest are symmetric and nonpolar — 3 polar molecules."},
+{sec:'B', ref:"Ex.2 Part-II Q.2", type:'numerical', q:"How many of the following compounds are BOTH planar and non-polar?\n(a) C₃O₂ (b) CH₂=C=CH₂ (c) BF₃ (d) CCl₄ (e) SF₆ (f) XeF₄ (g) IF₅ (h) IF₇ (i) SF₄ (j) ClF₃", ans:3,
+  why:"C₃O₂ (a, linear), BF₃ (c, trigonal planar) and XeF₄ (f, square planar) are each planar and nonpolar by symmetry — 3 compounds meet both criteria."},
+{sec:'B', ref:"Ex.2 Part-II Q.3", type:'numerical', q:"How many of the following are correct orderings for the property indicated?\n(i) I⁻>Br⁻>Cl⁻>F⁻ (polarizability)\n(ii) Li⁺>Na⁺>K⁺>Cs⁺ (polarising power)\n(iii) Li⁺>Mg²⁺>Al³⁺ (polarising power)\n(iv) LiI>NaI>KI (ionic character)\n(v) AgI>AgBr>AgCl (solubility in water)\n(vi) (Si–Si bond) Si > SiO₂ (Si–O bond) (% covalent character)", ans:3,
+  why:"(i), (ii) and (vi) are correct. (iii) is wrong (polarising power actually follows charge/size ratio, not simply Li⁺>Mg²⁺>Al³⁺ here), (iv) is wrong (ionic character should increase, not follow that order), and (v) is wrong (AgI is actually least soluble, not most) — 3 correct orderings."},
+{sec:'B', ref:"Ex.2 Part-II Q.4", type:'numerical', q:"How many of the following oxides are acidic?\n(a) Mn₂O₇ (b) SO₂ (c) CO (d) N₂O (e) NO₂ (f) PbO₂ (g) Na₂O (h) CrO₃ (i) ZnO (j) Fe₂O₃ (k) SiO₂ (l) SnO", ans:5,
+  why:"Mn₂O₇, SO₂, NO₂, CrO₃ and SiO₂ are all acidic oxides (high oxidation state nonmetal/metal oxides that form acids with water) — 5 in total."},
+
+/* ---------------- SECTION C: Multiple Correct (partial marking, -2 wrong) ---------------- */
+{sec:'C', ref:"Ex.1 Part-III Match (A)", type:'multi', q:"For the series CsCl, CsBr, CsI (with Cs⁺ fixed and the halide size increasing), which of the following orderings correctly apply?",
+  opts:["Increasing order of covalent character","Decreasing order of thermal stability","Decreasing order of lattice energy","Increasing order of thermal stability","Increasing order of ionic character"], ans:[0,1,2],
+  why:"As the halide gets larger (Cl→Br→I), covalent character increases, lattice energy decreases, and thermal stability decreases — matching options (increasing covalent character), (decreasing thermal stability), and (decreasing lattice energy)."},
+{sec:'C', ref:"Ex.1 Part-III Match (B)", type:'multi', q:"For the series LiOH, NaOH, KOH (cation size increasing), which of the following orderings correctly apply?",
+  opts:["Increasing order of covalent character","Decreasing order of thermal stability","Decreasing order of lattice energy","Increasing order of thermal stability","Increasing order of ionic character"], ans:[3,4],
+  why:"As the cation gets larger and less polarising (Li→Na→K), ionic character increases and thermal stability increases — matching the last two options only."},
+{sec:'C', ref:"Ex.1 Part-III Match (C)", type:'multi', q:"For the series LiH, NaH, KH (cation size increasing), which of the following orderings correctly apply?",
+  opts:["Increasing order of covalent character","Decreasing order of thermal stability","Decreasing order of lattice energy","Increasing order of thermal stability","Increasing order of ionic character"], ans:[1,2,4],
+  why:"Going Li→Na→K, ionic character increases and lattice energy decreases (larger cation); thermal stability of these ionic hydrides decreases along this series — matching (decreasing thermal stability), (decreasing lattice energy) and (increasing ionic character)."},
+{sec:'C', ref:"Ex.1 Part-III Match (D)", type:'multi', q:"For the series Mg₃N₂, Ca₃N₂, Sr₃N₂ (cation size increasing), which of the following orderings correctly apply?",
+  opts:["Increasing order of covalent character","Decreasing order of thermal stability","Decreasing order of lattice energy","Increasing order of thermal stability","Increasing order of ionic character"], ans:[3,4],
+  why:"As the cation grows larger and less polarising down Mg→Ca→Sr, ionic character increases and thermal stability increases — matching the last two options only, the same pattern as the hydroxide series."},
+{sec:'C', ref:"Ex.2 Part-III Q.1", type:'multi', q:"The halogens form interhalogen compounds XX', XX'₃, XX'₅ and XX'₇ (X = heavier halogen). Which of the following structure/polarity pairs are correct?",
+  opts:["XX' — Linear — polar","XX'₃ — T-shaped — polar","XX'₅ — square pyramidal — polar","XX'₇ — pentagonal bipyramidal — non-polar"], ans:[0,1,2,3],
+  why:"All four are correct: a diatomic XX' is inherently polar; T-shaped XX'₃ and square-pyramidal XX'₅ both retain lone-pair asymmetry making them polar; pentagonal bipyramidal XX'₇ is fully symmetric and nonpolar."},
+{sec:'C', ref:"Ex.2 Part-III Q.2", type:'multi', q:"Which of the following is/are correct statement(s) for dipole moment?",
+  opts:["Lone pairs of electrons present on the central atom can give rise to dipole moment","Dipole moment is a vector quantity","CO₂ molecule has a dipole moment","Difference in electronegativities of the combining atoms can lead to dipole moment"], ans:[0,1,3],
+  why:"Lone pairs and electronegativity differences both can generate a dipole, and dipole moment is indeed a vector. CO₂ is linear and symmetric, so its bond dipoles cancel — it actually has zero dipole moment, making that statement false."},
+{sec:'C', ref:"Ex.2 Part-III Q.3", type:'multi', q:"Which of the following are polar?",
+  opts:["XeF₄","XeF₆","XeOF₄","XeF₅⁻"], ans:[1,2],
+  why:"XeF₆ has a distorted octahedral geometry (due to a stereochemically active lone pair) and XeOF₄ is square pyramidal — both polar. XeF₄ (square planar) and XeF₅⁻ (pentagonal planar) are symmetric and nonpolar."},
+{sec:'C', ref:"Ex.2 Part-III Q.4", type:'multi', q:"Which of the following compounds contain(s) both ionic and covalent bonds?",
+  opts:["NH₄Cl","KCN","CuSO₄·5H₂O","NaOH"], ans:[0,1,2,3],
+  why:"All four have both bond types: NH₄⁺–Cl⁻ (ionic) with covalent N–H bonds; K⁺–CN⁻ (ionic) with a covalent C≡N bond; Cu²⁺–SO₄²⁻ (ionic) with covalent S–O and coordinate Cu–OH₂ bonds; Na⁺–OH⁻ (ionic) with a covalent O–H bond."},
+{sec:'C', ref:"Ex.2 Part-III Q.5", type:'multi', q:"Which of the following factors do NOT favour electrovalency (i.e. instead favour covalent character)?",
+  opts:["Low charge on ions","High charge on ions","Large cation and small anion","Small cation and large anion"], ans:[1,3],
+  why:"High ionic charge and a small-cation/large-anion combination both increase polarisation and covalent character (per Fajan's rule) — the opposite of what favours pure electrovalency. Low charge and a large-cation/small-anion combination both favour electrovalency instead."},
+{sec:'C', ref:"Ex.2 Part-III Q.6", type:'multi', q:"Which statement(s) is/are correct?",
+  opts:["Polarising power refers to the cation","Polarisability refers to the anion","A smaller cation is more efficient at polarising an anion","Molecules in which the cation has a pseudo-inert-gas configuration are more covalent"], ans:[0,1,2,3],
+  why:"All four are standard, correct Fajan's-rule statements: cations polarise, anions are polarised, smaller cations polarise more strongly, and pseudo-inert-gas (d¹⁰) cations polarise more than noble-gas-configuration cations of similar size, increasing covalent character."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 80*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+4 / −1", firstIndex:null},
+  B: {label:"Section B · Numerical Value", scheme:"+4 / 0", firstIndex:null},
+  C: {label:"Section C · Multiple Correct", scheme:"Partial / −2", firstIndex:null}
+};
+questions.forEach((q,i)=>{ if(sectionMeta[q.sec].firstIndex===null) sectionMeta[q.sec].firstIndex = i; });
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 80;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.firstIndex); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.sec===sec);
+  });
+}
+
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1;
+    b.id = 'pal-'+i;
+    b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+
+function renderQuestion(i){
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+4 / −1)', numerical:'Numerical Value (+4 / 0)', multi:'Multiple Correct (Partial / −2)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+
+  if(q.type==='numerical'){
+    optWrap.style.display='none';
+    numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none';
+    optWrap.style.display='flex';
+    const letters = ['A','B','C','D','E'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div');
+      div.className='opt';
+      const isSel = q.type==='single' ? responses[i]===idx : (Array.isArray(responses[i]) && responses[i].includes(idx));
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = q.type==='single' ? 'radio' : 'checkbox';
+      input.name = 'q'+i;
+      input.checked = isSel;
+      input.onchange = ()=>{
+        if(q.type==='single'){
+          responses[i] = idx;
+        } else {
+          let arr = Array.isArray(responses[i]) ? responses[i].slice() : [];
+          if(input.checked) arr.push(idx); else arr = arr.filter(a=>a!==idx);
+          responses[i] = arr;
+        }
+        refreshPalette();
+        renderQuestion(i);
+      };
+      const lbl = document.createElement('span');
+      lbl.className='lbl';
+      lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span');
+      txt.textContent = optText;
+      div.appendChild(input);
+      div.appendChild(lbl);
+      div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight();
+  refreshPalette();
+}
+
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = questions[current].type==='multi' ? [] : null;
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  const msg = `You have ${unanswered} unanswered question(s). Submit the test now?`;
+  if(confirm(msg)) submitTest();
+}
+
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = candName.replace(/\s+/g,'_') + '_ChemicalBondingV_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+
+  let total=0, max=0;
+  let secScore = {A:0,B:0,C:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+
+  questions.forEach((q,i)=>{
+    let marksForQ = 0;
+    let status = 'skip';
+    max += 4;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.02){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    } else if(q.type==='multi'){
+      const sel = Array.isArray(responses[i]) ? responses[i] : [];
+      if(sel.length===0){ status='skip'; skipCount++; }
+      else{
+        const wrongPicked = sel.some(s=>!q.ans.includes(s));
+        if(wrongPicked){ marksForQ=-2; status='wrong'; wrongCount++; }
+        else if(sel.length===q.ans.length){ marksForQ=4; status='correct'; correctCount++; }
+        else { marksForQ=sel.length; status='partial'; correctCount++; }
+      }
+    }
+    total += marksForQ;
+    secScore[q.sec] += marksForQ;
+
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+
+  const cards = document.getElementById('scorecards');
+  cards.innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct / Partial</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+    <div class="scard"><div class="n">${secScore.C}</div><div class="l">Section C Score</div></div>
+  `;
+
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+
+function formatTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}m ${s}s`;
+}
+
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D','E'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else if(q.type==='numerical'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  } else {
+    const sel = Array.isArray(responses[i])?responses[i]:[];
+    yourAnsText = sel.length? sel.map(s=>letters[s]).join(', ') : '—';
+    correctAnsText = q.ans.map(s=>letters[s]).join(', ');
+  }
+  const tagClass = status==='correct'?'ok':status==='partial'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='partial'?'Partial':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct'||status==='partial' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
