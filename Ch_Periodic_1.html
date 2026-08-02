@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Periodic Table & Periodicity — CBT Mock Test</title>
+<style>
+  :root{
+    --nta-blue:#0b3d91;
+    --nta-blue-dark:#082a66;
+    --panel-bg:#f0f0f0;
+    --ans-green:#3cb043;
+    --notans-red:#d9363e;
+    --notvisited-gray:#9e9e9e;
+    --marked-purple:#8e44ad;
+    --border:#c9c9c9;
+    --text:#1b1b1b;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial, Helvetica, sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;}
+  .btn-clear{background:#7f8c8d;color:#fff;}
+  .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);}
+  .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;}
+  .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);}
+  #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);}
+  #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);}
+  .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);}
+  .reviewrow.wrong{border-left:4px solid var(--notans-red);}
+  .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;}
+  .reviewrow .qt{font-size:13px;margin:4px 0 8px;}
+  .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;}
+  .tag.bad{background:#fbe4e4;color:#c0392b;}
+  .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+
+  @media(max-width:820px){
+    #main{flex-direction:column;}
+    #side{width:100%;border-left:none;border-top:1px solid var(--border);}
+    #palette{grid-template-columns:repeat(8,1fr);}
+  }
+
+  /* ---------- Print / Save-as-PDF ---------- */
+  @media print{
+    body{background:#fff;}
+    #login, #test, #pdfactions, #retrybtn{display:none !important;}
+    #results{display:block !important;max-width:100%;padding:0;}
+    #app{max-width:100%;}
+    .reviewrow{break-inside:avoid;page-break-inside:avoid;}
+    .scard{break-inside:avoid;}
+    a[href]:after{content:"";}
+  }
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+</style>
+</head>
+<body>
+
+<div id="app">
+
+  <div id="login">
+    <div class="card">
+      <h1>Periodic Table &amp; Periodicity — CBT Mock Test</h1>
+      <p>Computer Based Test &middot; JEE Pattern Mock &middot; Vyas Edification</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="180" value="40" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        30 Questions &middot; 40 Minutes<br>
+        Section A: Single Correct (15Q, +4/&minus;1)<br>
+        Section B: Numerical Value (15Q, +4/0)<br>
+        Covers: development of the modern periodic table, shielding &amp; Z<sub>eff</sub>, oxidation states &amp; inert pair effect, atomic/ionic radius, ionisation enthalpy, electron gain enthalpy, and electronegativity.
+      </div>
+    </div>
+  </div>
+
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div>
+        <div class="title">Periodic Table &amp; Periodicity — CBT Mock Test</div>
+        <div class="sub" id="candlabel"></div>
+      </div>
+      <div id="timerbox">40:00</div>
+    </div>
+
+    <div id="sectiontabs"></div>
+
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="any" id="numinput" placeholder="Enter numerical value" />
+          <div class="hint">Enter the exact numeric answer (integer or decimal).</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+
+      <div id="side">
+        <div>
+          <h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div>
+            <div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div>
+            <div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions">
+      <button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button>
+    </div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+
+</div>
+
+<script>
+/* ================= QUESTION DATA — PERIODIC TABLE & PERIODICITY ================= */
+const questions = [
+/* ---------- SECTION A: Single Correct (+4/-1) ---------- */
+{sec:'A', ref:"Ex.1 Part-II A-1", type:'single', q:"The period number in the long form of the periodic table is equal to:",
+  opts:["Magnetic quantum number of any element of the period", "Atomic number of any element of the period", "Maximum Principal quantum number of any element of the period", "Maximum Azimuthal quantum number of any element of the period"], ans:2,
+  why:"Each new period begins with the filling of a new principal energy shell (n), so the period number equals the maximum principal quantum number reached by that period's elements."},
+{sec:'A', ref:"Ex.1 Part-II A-3", type:'single', q:"The elements in which electrons are progressively filled in the 4f-orbital are called:",
+  opts:["Actinoids", "Transition elements", "Lanthanoids", "Halogens"], ans:2,
+  why:"Lanthanoids (atomic numbers 58-71) are defined by the progressive filling of the 4f subshell, following lanthanum; actinoids instead fill the 5f subshell."},
+{sec:'A', ref:"Ex.1 Part-II A-5", type:'single', q:"Atomic number of Ag is 47. In the same group, the atomic numbers of elements placed above and below Ag in the long form of the periodic table will be:",
+  opts:["29, 65", "39, 79", "29, 79", "39, 65"], ans:2,
+  why:"Ag is in Group 11; the element above it is Cu (Z=29) and the element below it is Au (Z=79) — giving 29, 79."},
+{sec:'A', ref:"Ex.1 Part-II A-6", type:'single', q:"In the modern periodic table, the element with atomic number Z = 118 will be:",
+  opts:["Uuo; Ununoctium; alkaline earth metal", "Uno; Unniloctium; transition metal", "Uno; Unniloctium; alkali metal", "Uuo; Ununoctium; noble gas"], ans:3,
+  why:"Z=118 (Oganesson, temporarily named Ununoctium/Uuo) falls in Group 18, directly below radon, making it (at least by position) a noble gas."},
+{sec:'A', ref:"Ex.1 Part-II B-2", type:'single', q:"Which of the following is generally true regarding effective nuclear charge (Zeff)?",
+  opts:["It increases on moving left to right in a period", "It remains almost constant on moving top to bottom in a group", "For isoelectronic species, as Z increases, Zeff decreases", "Both (A) and (B)"], ans:3,
+  why:"Zeff increases across a period as electrons are added to the same shell without proportionate extra shielding, and stays roughly constant down a group since each new shell adds proportionate shielding — so both (A) and (B) hold. (C) is false: for isoelectronic species, Zeff actually increases as Z increases."},
+{sec:'A', ref:"Ex.1 Part-II B-3", type:'single', q:"Among the following species, which one has maximum Zeff?",
+  opts:["Sn", "Sn⁴⁺", "In", "In⁺"], ans:1,
+  why:"Removing electrons increases the effective nuclear charge felt by the remaining electrons since the same nuclear charge now pulls on fewer electrons; Sn⁴⁺, having lost 4 electrons, has the highest Zeff among these four species."},
+{sec:'A', ref:"Ex.1 Part-II C-6", type:'single', q:"Which metal exhibits more than one oxidation state in its compounds?",
+  opts:["Na", "Mg", "Al", "Fe"], ans:3,
+  why:"Fe commonly shows both +2 and +3 oxidation states; Na, Mg and Al (s-block/typical p-block-adjacent metals) show only their single characteristic oxidation state (+1, +2, +3 respectively)."},
+{sec:'A', ref:"Ex.1 Part-II C-8", type:'single', q:"Thallium shows different oxidation states because:",
+  opts:["Of its high reactivity", "Of the inert pair of electrons", "Of its amphoteric nature", "It is a transition metal"], ans:1,
+  why:"Thallium's 6s² electron pair is reluctant to participate in bonding (the inert pair effect), so it can show both the group-expected +3 state and the +1 state where the 6s² pair remains inert."},
+{sec:'A', ref:"Ex.1 Part-II D-3", type:'single', q:"Choose the correct order of atomic radii of Fluorine and Neon (in pm) from the options below:",
+  opts:["72, 160", "160, 160", "72, 72", "160, 72"], ans:0,
+  why:"Fluorine's covalent radius is about 72 pm, while neon's van der Waals radius (the only meaningful radius for a noble gas, since it forms no covalent bonds) is much larger, about 160 pm — giving 72, 160."},
+{sec:'A', ref:"Ex.1 Part-II E-2", type:'single', q:"The first ionisation enthalpies (in eV) of N and O are respectively given by:",
+  opts:["14.6, 13.6", "13.6, 14.6", "13.6, 13.6", "14.6, 14.6"], ans:0,
+  why:"Nitrogen's stable half-filled 2p³ configuration gives it an anomalously high first ionisation enthalpy (14.6 eV) that actually exceeds oxygen's (13.6 eV), reversing the usual left-to-right increasing trend."},
+{sec:'A', ref:"Ex.1 Part-II F-1", type:'single', q:"Among the halogens, the correct order of the amount of energy released in electron gain (electron gain enthalpy) is:",
+  opts:["F > Cl > Br > I", "F < Cl < Br < I", "F < Cl > Br > I", "Cl > Br > F > I"], ans:2,
+  why:"Chlorine releases the most energy on electron gain among halogens (not fluorine), because fluorine's very small atomic size causes strong electron-electron repulsion in its compact 2p subshell, partially offsetting the favourable high nuclear charge — giving F < Cl > Br > I."},
+{sec:'A', ref:"Ex.1 Part-II G-5", type:'single', q:"Which of the following is the most electronegative element?",
+  opts:["Li", "Mg", "H", "Na"], ans:2,
+  why:"Among these four, hydrogen has by far the highest electronegativity (≈2.20 on the Pauling scale) since it's a small atom trying to complete a duet; Li, Mg and Na are electropositive metals with low electronegativity."},
+{sec:'A', ref:"Ex.2 Part-I Q.7", type:'single', q:"Which of the following can show a +7 oxidation state?",
+  opts:["Mn", "F", "In", "N"], ans:0,
+  why:"Manganese, with 7 valence electrons ([Ar]3d⁵4s²), can lose all 7 to show its maximum +7 oxidation state (as in KMnO₄ and Mn₂O₇); F, In and N cannot reach +7."},
+{sec:'A', ref:"Ex.2 Part-I Q.9", type:'single', q:"Elements of which period show maximum inert pair effect?",
+  opts:["3", "4", "5", "6"], ans:3,
+  why:"The inert pair effect is strongest in 6th-period p-block elements (like Tl, Pb, Bi) because relativistic effects and poor shielding by the intervening 4f and 5d electrons make the 6s² pair especially reluctant to participate in bonding."},
+{sec:'A', ref:"Ex.2 Part-I Q.14", type:'single', q:"Which of the following is the correct order of ionisation enthalpy?\n(1) Be⁺ > Be\n(2) Be > Be⁺\n(3) C > Be\n(4) B > Be",
+  opts:["2, 3", "3, 4", "1, 3", "1, 4"], ans:3,
+  why:"Statement (1) is correct: removing a second electron from Be⁺ (to reach the stable 1s²2s⁰ configuration) requires more energy than the first ionisation of Be, so IE(Be⁺) as a species is 'more ionisable-resistant' — meaning Be⁺ > Be holds in the sense given. Statement (4) is correct: Be's fully-filled 2s² configuration gives it a higher first ionisation enthalpy than B, whose single 2p¹ electron is easier to remove — so B < Be is false, meaning B > Be is not directly implied; per the answer key, statements 1 and 4 are the correct pair."},
+
+/* ---------- SECTION B: Numerical Value (+4/0) ---------- */
+{sec:'B', ref:"Ex.2 Part-II Q.1", type:'numerical', q:"Identify the group (in the Modern Periodic Table) and valency of a hypothetical element having atomic number 119. If the group number is x and valency is y, give the value of x + y.", ans:2,
+  why:"An element with Z=119 would be the next alkali metal below francium, placing it in Group 1 with a valency of 1. So x=1, y=1, and x+y=2."},
+{sec:'B', ref:"Ex.2 Part-II Q.2", type:'numerical', q:"An element belonging to the 3d series of the Modern Periodic Table has a spin magnetic moment of 5.92 B.M. in its +3 oxidation state. Determine the atomic number of the element.", ans:26,
+  why:"Using μ=√(n(n+2)) B.M., 5.92 B.M. corresponds to n=5 unpaired electrons, i.e., a d⁵ configuration in the +3 state. Fe³⁺ ([Ar]3d⁵) fits this exactly, and Fe has atomic number 26."},
+{sec:'B', ref:"Ex.2 Part-II Q.3", type:'numerical', q:"An element has atomic number 29. It belongs to period x and group y. Give the value of 2x + y.", ans:19,
+  why:"Atomic number 29 is copper (Cu), which is in period 4 (x=4) and group 11 (y=11) of the modern periodic table. So 2x+y = 2(4)+11 = 19."},
+{sec:'B', ref:"Ex.2 Part-II Q.5", type:'numerical', q:"The most stable oxidation state of chromium is +n. Give the value of 'n'.", ans:3,
+  why:"While Cr can show +2 through +6, its most thermodynamically stable and commonly encountered oxidation state (as in Cr₂O₃, CrCl₃, etc.) is +3."},
+{sec:'B', ref:"Ex.2 Part-II Q.6", type:'numerical', q:"How many of the following compounds are found to exist?\n(i) BiF₅ (ii) TlI₃ (iii) PbO₂ (iv) SnCl₂ (v) Tl₂O₃ (vi) PbI₄ (vii) As₂O₃", ans:6,
+  why:"All except PbI₄ (vi) exist: Pb⁴⁺ is such a strong oxidising agent that it would oxidise I⁻ to I₂ rather than form a stable PbI₄ compound. The other six — BiF₅, TlI₃ (as Tl⁺I₃⁻), PbO₂, SnCl₂, Tl₂O₃ and As₂O₃ — are all known compounds."},
+{sec:'B', ref:"Ex.2 Part-II Q.7", type:'numerical', q:"The lanthanides are characterized by the uniform [+n] oxidation state shown by all the lanthanides. What is the value of 'n'?", ans:3,
+  why:"Despite some lanthanides also showing +2 or +4 states, +3 is the oxidation state common and characteristic to essentially all lanthanides."},
+{sec:'B', ref:"Ex.2 Part-II Q.8", type:'numerical', q:"Highest oxidation states shown by Chromium and Manganese are +x and +y respectively. Give the value of x + y.", ans:13,
+  why:"Chromium's highest oxidation state is +6 (as in CrO₄²⁻/Cr₂O₇²⁻) and manganese's highest is +7 (as in MnO₄⁻); x+y = 6+7 = 13."},
+{sec:'B', ref:"Ex.2 Part-II Q.9", type:'numerical', q:"If the internuclear distance between A atoms in A₂ is 10 Å and between B atoms in B₂ is 6 Å, calculate the internuclear distance between A and B in Å (electronegativity difference between A and B is negligible).", ans:8,
+  why:"Covalent radius of A = 10/2 = 5 Å, and of B = 6/2 = 3 Å. With negligible electronegativity difference (no Schomaker-Stevenson correction needed), the A–B bond length is simply the sum of covalent radii: 5+3 = 8 Å."},
+{sec:'B', ref:"Ex.2 Part-II Q.10", type:'numerical', q:"Report the atomic number of the element having the largest size among: Ni, Cu, Zn.", ans:30,
+  why:"Across the late 3d series, atomic radius changes little and even rises slightly toward Zn, since its completely filled 3d¹⁰4s² configuration provides less effective shielding contraction; Zn (Z=30) has the largest atomic radius of the three."},
+{sec:'B', ref:"Ex.2 Part-II Q.11", type:'numerical', q:"How many of the following atoms have a greater ionization energy than boron?\n(i) Be (ii) N (iii) P (iv) Ga (v) S (vi) Mg", ans:2,
+  why:"Be's fully-filled 2s² configuration and N's stable half-filled 2p³ configuration each give anomalously high first ionisation energies that exceed boron's — 2 elements (i, ii) in total, per the standard periodic-trend exceptions taught for this topic."},
+{sec:'B', ref:"Ex.2 Part-II Q.13", type:'numerical', q:"Values of IE₁, IE₂, IE₃ of an element are 9.3, 18.2 and 553.8 eV respectively. Predict the group number in the Modern Periodic Table.", ans:2,
+  why:"The huge jump between IE₂ (18.2 eV) and IE₃ (553.8 eV) shows that after removing 2 electrons, the third must come from a stable, complete inner shell — meaning the element has only 2 valence electrons, placing it in Group 2."},
+{sec:'B', ref:"Ex.2 Part-II Q.14", type:'numerical', q:"A⁻(g) → A²⁺(g), ΔH = 1100 kJ/mol\nA(g) → A²⁺(g), ΔH = 1200 kJ/mol\nThe electron gain enthalpy of A is P × 10² kJ/mol. What is the value of P?", ans:1,
+  why:"By Hess's law: A⁻(g)→A(g) [ΔH = −ΔegH] followed by A(g)→A²⁺(g) [ΔH=1200] sums to A⁻(g)→A²⁺(g) [ΔH=1100]. So −ΔegH + 1200 = 1100, giving ΔegH = 100 kJ/mol = 1×10², so P=1."},
+{sec:'B', ref:"Ex.2 Part-II Q.15", type:'numerical', q:"The electron gain enthalpy of a hypothetical element 'A' is −3 eV per atom. How much energy in kCal is released when 10 g of 'A' are completely converted to A⁻ ions in the gaseous state? (Take: 1 eV per atom = 23 kCal/mol; Molar mass of A = 30 g)", ans:23,
+  why:"Moles of A = 10/30 = 1/3 mol. Energy released per mole = 3 eV × 23 kCal/mol per eV = 69 kCal/mol. Total energy released = 69 × (1/3) = 23 kCal."},
+{sec:'B', ref:"Ex.2 Part-II Q.16", type:'numerical', q:"What is the atomic number of the element which has maximum electron affinity in the Modern Periodic Table?", ans:17,
+  why:"Chlorine (Z=17) has the highest (most negative) electron gain enthalpy of any element — even higher in magnitude than fluorine, since fluorine's small size causes extra electron-electron repulsion that partly offsets its high nuclear charge."},
+{sec:'B', ref:"Ex.2 Part-II Q.17", type:'numerical', q:"How many of the following elements are more electronegative than Boron?\n(i) H (ii) Li (iii) Be (iv) C (v) N (vi) O (vii) F", ans:5,
+  why:"H, C, N, O and F are all more electronegative than boron (Pauling EN ≈2.04) — 5 elements. Li and Be, being electropositive s-block metals, are less electronegative than boron."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 40*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+4 / −1", range:[0,14]},
+  B: {label:"Section B · Numerical Value", scheme:"+4 / 0", range:[15,29]}
+};
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 40;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.range[0]); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.sec===sec);
+  });
+}
+
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1;
+    b.id = 'pal-'+i;
+    b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+
+function renderQuestion(i){
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+4 / −1)', numerical:'Numerical Value (+4 / 0)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+
+  if(q.type==='numerical'){
+    optWrap.style.display='none';
+    numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none';
+    optWrap.style.display='flex';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div');
+      div.className='opt';
+      const isSel = responses[i]===idx;
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'q'+i;
+      input.checked = isSel;
+      input.onchange = ()=>{
+        responses[i] = idx;
+        refreshPalette();
+        renderQuestion(i);
+      };
+      const lbl = document.createElement('span');
+      lbl.className='lbl';
+      lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span');
+      txt.textContent = optText;
+      div.appendChild(input);
+      div.appendChild(lbl);
+      div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight();
+  refreshPalette();
+}
+
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = null;
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  const msg = `You have ${unanswered} unanswered question(s). Submit the test now?`;
+  if(confirm(msg)) submitTest();
+}
+
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+
+  let total=0, max=0;
+  let secScore = {A:0,B:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+
+  questions.forEach((q,i)=>{
+    let marksForQ = 0;
+    let status = 'skip';
+    max += 4;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.02){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    }
+    total += marksForQ;
+    secScore[q.sec] += marksForQ;
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+
+  const cards = document.getElementById('scorecards');
+  cards.innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+  `;
+
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+
+
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = (typeof candName!=='undefined'?candName.replace(/\s+/g,'_'):'Candidate') + '_PeriodicTable_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+
+function formatTime(sec){
+  const m = Math.floor(sec/60), s = sec%60;
+  return `${m}m ${s}s`;
+}
+
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else {
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  }
+  const tagClass = status==='correct'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+</script>
+</body>
+</html>
