@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JEE Practice — Test Hub</title>
+<style>
+  :root{
+    --ink:#1a2733; --paper:#f6f4ee; --card:#ffffff;
+    --rule:#d8d3c4; --accent:#8c3b2e; --accent-soft:#f1e3dd;
+    --chem:#2f6b4f; --phy:#2c5282; --math:#8c3b2e; --muted:#6b6558;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family: Georgia, "Times New Roman", serif;
+  }
+  header{
+    padding:38px 24px 26px; text-align:left; max-width:900px; margin:0 auto;
+    border-bottom:2px solid var(--ink);
+  }
+  header .eyebrow{
+    font-family:"Courier New", monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent); margin-bottom:8px;
+  }
+  header h1{
+    margin:0 0 6px; font-size:clamp(28px,5vw,42px); font-weight:400; letter-spacing:-.01em;
+  }
+  header p{margin:0; color:var(--muted); font-size:15px; max-width:520px; line-height:1.5;}
+
+  main{max-width:900px; margin:0 auto; padding:30px 24px 60px;}
+
+  .subjectGroup{margin-bottom:34px;}
+  .subjectHead{
+    display:flex; align-items:baseline; gap:10px; margin-bottom:12px;
+    font-family:"Courier New", monospace;
+  }
+  .subjectHead .dot{width:10px;height:10px;border-radius:50%;}
+  .subjectHead h2{font-size:14px; letter-spacing:.08em; text-transform:uppercase; margin:0; font-weight:700;}
+  .subjectHead .count{color:var(--muted); font-size:12px;}
+
+  .cardList{display:flex; flex-direction:column; gap:1px; background:var(--rule); border:1px solid var(--rule);}
+  .card{
+    background:var(--card); padding:16px 18px; display:flex; justify-content:space-between;
+    align-items:center; gap:16px; text-decoration:none; color:var(--ink);
+    transition:background .15s;
+  }
+  .card:hover{background:var(--accent-soft);}
+  .card .meta{display:flex; flex-direction:column; gap:3px;}
+  .card .paperTitle{font-size:16px; font-weight:400;}
+  .card .paperSub{font-family:"Courier New", monospace; font-size:11.5px; color:var(--muted); letter-spacing:.03em;}
+  .card .go{
+    font-family:"Courier New", monospace; font-size:12px; letter-spacing:.05em;
+    border:1px solid var(--ink); padding:7px 14px; white-space:nowrap; flex-shrink:0;
+  }
+  .card:hover .go{background:var(--ink); color:var(--paper);}
+
+  .emptyNote{
+    font-family:"Courier New", monospace; font-size:12.5px; color:var(--muted);
+    border:1px dashed var(--rule); padding:14px 16px; margin-top:8px;
+  }
+
+  footer{
+    max-width:900px; margin:0 auto; padding:20px 24px 50px; color:var(--muted);
+    font-size:12px; font-family:"Courier New", monospace; border-top:1px solid var(--rule);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Practice Test Hub</div>
+  <h1>JEE Main — CBT Practice</h1>
+  <p>Timed, exam-style practice tests. Tap a paper below to start — each one runs the full CBT interface with palette, timer, and auto-scoring.</p>
+</header>
+
+<main>
+
+  <div class="subjectGroup">
+    <div class="subjectHead">
+      <span class="dot" style="background:var(--chem);"></span>
+      <h2>Chemistry</h2>
+      <span class="count">1 paper</span>
+    </div>
+    <div class="cardList">
+      <a class="card" href="chemical_bonding_cbt_test4.html">
+        <div class="meta">
+          <span class="paperTitle">JEE Main April 2024 — Chemistry</span>
+          <span class="paperSub">04-04-2024 · SHIFT 2 (EVENING) · 30 QUESTIONS</span>
+        </div>
+        <span class="go">START →</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="subjectGroup">
+    <div class="subjectHead">
+      <span class="dot" style="background:var(--phy);"></span>
+      <h2>Physics</h2>
+      <span class="count">0 papers</span>
+    </div>
+    <div class="emptyNote">No physics papers uploaded yet — add a card here once a paper is ready.</div>
+  </div>
+
+  <div class="subjectGroup">
+    <div class="subjectHead">
+      <span class="dot" style="background:var(--math);"></span>
+      <h2>Mathematics</h2>
+      <span class="count">0 papers</span>
+    </div>
+    <div class="emptyNote">No maths papers uploaded yet — add a card here once a paper is ready.</div>
+  </div>
+
+</main>
+
+<footer>
+  jee-tests · this page and every linked file live in the same GitHub repository
+</footer>
+
+</body>
+</html>
