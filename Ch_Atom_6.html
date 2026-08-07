@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Atomic Structure & Nuclear Chemistry — Test 1 (Practice Test-1 + NSEC)</title>
+<style>
+  :root{--nta-blue:#0b3d91;--nta-blue-dark:#082a66;--panel-bg:#f0f0f0;--ans-green:#3cb043;--notans-red:#d9363e;--notvisited-gray:#9e9e9e;--marked-purple:#8e44ad;--border:#c9c9c9;--text:#1b1b1b;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;} .btn-clear{background:#7f8c8d;color:#fff;} .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;} .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);} .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;} .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-height:340px;overflow-y:auto;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);} #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);} #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);} .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);} .reviewrow.wrong{border-left:4px solid var(--notans-red);} .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;} .reviewrow .qt{font-size:13px;margin:4px 0 8px;} .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;} .tag.bad{background:#fbe4e4;color:#c0392b;} .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+  @media print{body{background:#fff;} #login,#test,#pdfactions,#retrybtn{display:none !important;} #results{display:block !important;max-width:100%;padding:0;} #app{max-width:100%;} .reviewrow{break-inside:avoid;page-break-inside:avoid;} .scard{break-inside:avoid;}}
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+  @media(max-width:820px){#main{flex-direction:column;} #side{width:100%;border-left:none;border-top:1px solid var(--border);} #palette{grid-template-columns:repeat(8,1fr);max-height:none;}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="login">
+    <div class="card">
+      <h1>Atomic Structure & Nuclear Chemistry</h1>
+      <p>CBT Mock Test 1 &middot; Practice Test-1 (JEE Main) + NSEC Stage-I &middot; Vyas Edification</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="240" value="140" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        95 Questions &middot; Default 140 Minutes (editable above)<br>
+        Section A: Practice Test-1, JEE Main Pattern (30Q, +4/&minus;0.25 — official scheme)<br>
+        Section B: NSEC Stage-I, National Standard Exam in Chemistry (65Q, +4/0 — no negative marking)<br>
+        All single correct type. Covers Bohr theory, quantum numbers, photoelectric effect, de Broglie wavelength, uncertainty principle, orbitals/nodes, and nuclear transformations.
+      </div>
+    </div>
+  </div>
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div><div class="title">Atomic Structure & Nuclear Chemistry — Test 1</div><div class="sub" id="candlabel"></div></div>
+      <div id="timerbox">140:00</div>
+    </div>
+    <div id="sectiontabs"></div>
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+      <div id="side">
+        <div><h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div><div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div><div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions"><button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button></div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+</div>
+<script>
+const questions = [
+/* ===== SECTION A: Practice Test-1 (JEE Main Pattern, +4/-0.25) ===== */
+{sec:'A', ref:"APSP Practice Test-1 Q.1", type:'single', q:"A 5g orbital has:",
+  opts:["Zero angular node and zero radial node","Zero radial node and two angular nodes","4 radial nodes and 4 angular nodes","Zero radial node and 4 angular nodes"], ans:3,
+  why:"For 5g: n=5, l=4. Angular nodes = l = 4; radial nodes = n−l−1 = 5−4−1 = 0."},
+{sec:'A', ref:"APSP Practice Test-1 Q.2", type:'single', q:"The threshold wavelength (λ₀) of sodium metal is 6500Å. If UV light of wavelength 360Å is used, what will be the kinetic energy of the photoelectron in ergs?",
+  opts:["55.175 × 10⁻¹²","3.056 × 10⁻¹²","52.119 × 10⁻¹²","48.66 × 10⁻¹⁰"], ans:2,
+  why:"Threshold energy = hc/λ₀ = 3.056×10⁻¹² erg; incident energy = hc/λ = 55.175×10⁻¹² erg; KE = difference = 52.119×10⁻¹² erg."},
+{sec:'A', ref:"APSP Practice Test-1 Q.3", type:'single', q:"An electron beam can undergo diffraction by crystals. Through what potential should a beam of electrons be accelerated so that its wavelength becomes equal to 1.54 Å?",
+  opts:["54.3 volt","63.3 volt","66.2 volt","None of these"], ans:1,
+  why:"Using ½mv²=eV and λ=h/mv, solving for V with λ=1.54Å gives V≈63.3 volts."},
+{sec:'A', ref:"APSP Practice Test-1 Q.4", type:'single', q:"Radiation corresponding to the transition n=4 to n=2 in hydrogen atoms falls on a metal (work function = 2.5 eV). The maximum kinetic energy of the photoelectrons will be:",
+  opts:["0.55 eV","2.55 eV","4.45 eV","None of these"], ans:3,
+  why:"ΔE(4→2)=E₄−E₂=2.55 eV; KE=Absorbed energy−work function=2.55−2.5=0.05 eV, which matches none of the listed values exactly."},
+{sec:'A', ref:"APSP Practice Test-1 Q.5", type:'single', q:"Calculate the number of photons emitted by a 100 W yellow lamp in 1.0 s. Take the wavelength of yellow light as 560 nm and assume 100% efficiency.",
+  opts:["6.8 × 10²⁰","4 × 10¹²","4 × 10²⁰","2.8 × 10²⁰"], ans:3,
+  why:"N = Pt·λ/(hc) = (100)(1.0)(560×10⁻⁹)/(6.626×10⁻³⁴ × 3×10⁸) ≈ 2.8×10²⁰ photons."},
+{sec:'A', ref:"APSP Practice Test-1 Q.6", type:'single', q:"In a photoelectric experiment, KE of photoelectrons was plotted against frequency of incident radiation (ν). Which statement is correct?",
+  opts:["The threshold frequency is ν₁","The slope of this line is equal to Planck's constant","As frequency increases beyond threshold, KE of photoelectrons decreases","It is impossible to obtain such a graph"], ans:1,
+  why:"Einstein's photoelectric equation KE=hν−hν₀ is a straight line with slope h (Planck's constant)."},
+{sec:'A', ref:"APSP Practice Test-1 Q.7", type:'single', q:"Which of the following processes does NOT lead to formation of isobars?",
+  opts:["1α particle and 2β particles are emitted","Positron emission","β particle (₋₁e⁰) emission","K-electron capture"], ans:0,
+  why:"Isobars share the same mass number. Alpha emission changes the mass number by 4, breaking the isobar relationship, unlike the other processes which only shift a proton/neutron internally."},
+{sec:'A', ref:"APSP Practice Test-1 Q.8", type:'single', q:"If the value of Eₙ = −78.4 kcal/mole, the order of the orbit in the hydrogen atom is:",
+  opts:["2","3","1","4"], ans:0,
+  why:"−78.4 kcal/mol converts to −3.4 eV, which matches the energy of the n=2 orbit in hydrogen (E₂=E₁/4=−13.6/4=−3.4 eV)."},
+{sec:'A', ref:"APSP Practice Test-1 Q.9", type:'single', q:"In what region of the electromagnetic spectrum would you look for the spectral line resulting from the electronic transition from the tenth to the fifth electronic level in hydrogen atoms?",
+  opts:["Microwave","Infrared","Visible","Ultraviolet"], ans:1,
+  why:"Transitions between high-lying levels (n=10 to n=5) in hydrogen fall in the infrared region of the spectrum."},
+{sec:'A', ref:"APSP Practice Test-1 Q.10", type:'single', q:"Consider Xenon (Z=54). The maximum number of electrons in this atom that can have n=4, l=3 and s=+½ in its ground state is:",
+  opts:["Zero","7","9","14"], ans:0,
+  why:"Xe's ground-state configuration is [Kr]4d¹⁰5s²5p⁶ — no 4f electrons (l=3, n=4) exist in its ground state, since the lanthanides (which fill 4f) come after Xe."},
+{sec:'A', ref:"APSP Practice Test-1 Q.11", type:'single', q:"The increasing order for the values of e/m (charge/mass) is:",
+  opts:["e, p, n, α","n, p, e, α","e, α, e","n, α, p, e"], ans:3,
+  why:"Neutron has e/m=0 (no charge); alpha has charge 2/mass 4; proton has charge 1/mass 1; electron has by far the largest e/m ratio — giving n < α < p < e."},
+{sec:'A', ref:"APSP Practice Test-1 Q.12", type:'single', q:"An electron in an atom jumps such that its kinetic energy changes from x to x/4. The change in potential energy will be:",
+  opts:["+3/2 x","−3/8 x","+3/4 x","−3/4 x"], ans:0,
+  why:"Using the virial relation for Bohr orbits, the change in potential energy works out to +3/2 x when KE drops from x to x/4."},
+{sec:'A', ref:"APSP Practice Test-1 Q.13", type:'single', q:"What atomic number would an element 'X' need, so that its 4th orbit fits inside the 1st Bohr orbit of hydrogen?",
+  opts:["3","4","16","25"], ans:2,
+  why:"r₄(X) = r₁ × 16/Z. Setting this equal to r₁(H) gives 16/Z=1, so Z=16."},
+{sec:'A', ref:"APSP Practice Test-1 Q.14", type:'single', q:"Select the INCORRECT graph for velocity of e⁻ in an orbit vs. Z, 1/n, and n (three separate plots).",
+  opts:["Graph (1)","Graph (2)","Graph (3)","Graph (4)"], ans:2,
+  why:"Velocity ∝ Z and ∝ 1/n, so v vs Z and v vs 1/n should both be straight lines through the origin, and v vs n should be a decreasing hyperbola-like curve; graph (3) misrepresents one of these relationships."},
+{sec:'A', ref:"APSP Practice Test-1 Q.15", type:'single', q:"Which of the following is discreted (quantized) in Bohr's theory?",
+  opts:["Potential energy","Kinetic energy","Velocity","Angular momentum"], ans:3,
+  why:"Bohr's postulate directly quantizes orbital angular momentum as nh/2π."},
+{sec:'A', ref:"APSP Practice Test-1 Q.16", type:'single', q:"The mass of a proton is 1836 times that of an electron. If a sub-atomic particle of mass 207 times the electron's mass is captured by the nucleus (replacing the electron), the first ionization potential of H:",
+  opts:["Decreases","Increases","Remains same","May decrease or increase"], ans:1,
+  why:"Ionization energy in the Bohr model scales with the orbiting particle's (reduced) mass; replacing the electron with a much heavier particle (207mₑ, like a muon) substantially increases the binding/ionization energy."},
+{sec:'A', ref:"APSP Practice Test-1 Q.17", type:'single', q:"In any subshell, the maximum number of electrons having the same value of spin quantum number is:",
+  opts:["√[l(l+1)]","l+2","2l+1","4l+2"], ans:2,
+  why:"A subshell has (2l+1) orbitals; at most one electron of a given spin can occupy each orbital, so the maximum sharing one spin value is 2l+1."},
+{sec:'A', ref:"APSP Practice Test-1 Q.18", type:'single', q:"Which quantum number defines the orientation of an orbital in space around the nucleus?",
+  opts:["Principal quantum number (n)","Angular momentum quantum number (l)","Magnetic quantum number (mₗ)","Spin quantum number (mₛ)"], ans:2,
+  why:"The magnetic quantum number specifies an orbital's spatial orientation."},
+{sec:'A', ref:"APSP Practice Test-1 Q.19", type:'single', q:"For similar orbitals having different values of n:",
+  opts:["The most probable distance increases with increase in n","The most probable distance decreases with increase in n","The most probable distance remains constant with increase in n","None of these"], ans:0,
+  why:"Higher n orbitals are larger and more diffuse, so the most probable radius grows with n."},
+{sec:'A', ref:"APSP Practice Test-1 Q.20", type:'single', q:"Maximum number of total nodes is present in:",
+  opts:["5s","5p","5d","All have the same number of nodes"], ans:3,
+  why:"Total nodes = n−1 depends only on n, not l — so 5s, 5p, and 5d (all n=5) each have exactly 4 total nodes."},
+{sec:'A', ref:"APSP Practice Test-1 Q.21", type:'single', q:"The possible set of quantum numbers for the unpaired electron of chlorine is:",
+  opts:["n=2, l=1, m=0","n=2, l=1, m=1","n=3, l=1, m=1","n=3, l=0, m=0"], ans:2,
+  why:"Cl: [Ne]3s²3p⁵ — the unpaired electron is in a 3p orbital, so n=3, l=1, with m being one of −1, 0, or +1 (option gives m=1)."},
+{sec:'A', ref:"APSP Practice Test-1 Q.22", type:'single', q:"Which of the following has the maximum number of unpaired electrons?",
+  opts:["Mn","Ti","V","Al"], ans:0,
+  why:"Mn: [Ar]3d⁵4s² has 5 unpaired d-electrons, more than Ti(2), V(3), or Al(1)."},
+{sec:'A', ref:"APSP Practice Test-1 Q.23", type:'single', q:"The angular velocity of an electron occupying the second Bohr orbit of He⁺ ion is (in sec⁻¹):",
+  opts:["2.067 × 10¹⁶","3.067 × 10¹⁶","1.067 × 10¹⁸","2.067 × 10¹⁷"], ans:0,
+  why:"Combining the Bohr velocity and radius formulas for He⁺ (Z=2, n=2) gives an angular velocity of 2.067×10¹⁶ s⁻¹."},
+{sec:'A', ref:"APSP Practice Test-1 Q.24", type:'single', q:"An excited state of an H-atom emits a photon of wavelength λ and returns to the ground state. The principal quantum number of the excited state is given by:",
+  opts:["√[λR(λR−1)]","√[λR/(λR−1)]","√[λR(λR−1)]","√[(λR−1)/λR]"], ans:1,
+  why:"From 1/λ=R(1−1/n²), solving for n gives n=√[λR/(λR−1)]."},
+{sec:'A', ref:"APSP Practice Test-1 Q.25", type:'single', q:"Light of wavelength λ strikes a metal surface with intensity X, and the metal emits Y electrons per second of average energy Z. What happens to Y and Z if X is halved?",
+  opts:["Y will be halved","Y will double","Y will remain the same","Z will be halved"], ans:0,
+  why:"The number of ejected photoelectrons is proportional to light intensity, so halving X halves Y; the energy per electron (Z) depends only on frequency, not intensity, so it stays unchanged."},
+{sec:'A', ref:"APSP Practice Test-1 Q.26", type:'single', q:"Neutron scattering shows nuclear radius ∝ (number of nucleons)^(1/3). From ⁷Li to ¹⁸⁹Os, the radius is:",
+  opts:["Halved","The same","Doubled","Tripled"], ans:3,
+  why:"(189/7)^(1/3) = 27^(1/3) = 3 — the radius triples."},
+{sec:'A', ref:"APSP Practice Test-1 Q.27", type:'single', q:"The nucleus is at the origin. If the probability of finding an electron in a dₓ²₋ᵧ² orbital in a tiny volume around x=a,y=0,z=0 is 1×10⁻⁵, what is the probability around x=0,y=a,z=0?",
+  opts:["1 × 10⁻⁵","1 × 10⁻⁵ × a","−1 × 10⁻⁵ × a","Zero"], ans:0,
+  why:"The dₓ²₋ᵧ² orbital's probability density is symmetric under swapping x and y (since (x²−y²)² is unchanged), so the probability is the same along both axes."},
+{sec:'A', ref:"APSP Practice Test-1 Q.28", type:'single', q:"Energy levels I, II and III of a certain atom are E, 4E/3 and 2E respectively. A photon of wavelength λ is emitted during a transition from III to I. What is the wavelength of emission for the transition II to I?",
+  opts:["λ/2","λ","2λ","3λ"], ans:3,
+  why:"ΔE(III→I)=E, giving hc/λ=E; ΔE(II→I)=E/3, giving hc/λ'=E/3=  (hc/λ)/3, so λ'=3λ."},
+{sec:'A', ref:"APSP Practice Test-1 Q.29", type:'single', q:"A compound of vanadium has a magnetic moment of 1.73 BM. What is the electronic configuration?",
+  opts:["1s²2s²2p⁶3s²3p⁶3d¹","1s²2s²2p⁶3s²3p⁶3d²","1s²2s²2p⁶3s²3p⁶3d³","1s²2s²2p⁶3s²3p⁶3d⁴"], ans:0,
+  why:"μ=1.73 BM corresponds to n=1 unpaired electron, matching V⁴⁺: [Ar]3d¹."},
+{sec:'A', ref:"APSP Practice Test-1 Q.30", type:'single', q:"Calculate the minimum and maximum number of electrons which may have magnetic quantum number m=+1 and spin quantum number s=−½ in chromium (Cr).",
+  opts:["0, 1","1, 2","4, 6","2, 3"], ans:3,
+  why:"Cr's config is [Ar]3d⁵4s¹. The 2p and 3p subshells must each contribute one electron with m=+1,s=−½; the 3d⁵ subshell's m=+1 orbital may or may not have spin −½ depending on filling convention, giving a range of 2 to 3 total."},
+
+/* ===== SECTION B: NSEC Stage-I (+4/0, no negative marking) ===== */
+{sec:'B', ref:"NSEC-2000 Q.1", type:'single', q:"Which pair of electrons is excluded from an atom?",
+  opts:["n=2,l=0,m=0,s=+½ and n=2,l=0,m=0,s=+½","n=2,l=1,m=+1,s=+½ and n=2,l=1,m=−1,s=+½","n=1,l=0,m=0,s=+½ and n=1,l=0,m=0,s=−½","n=3,l=2,m=−2,s=+½ and n=3,l=0,m=0,s=+½"], ans:0,
+  why:"Both electrons in (A) have identical values for all four quantum numbers, violating the Pauli exclusion principle — an impossible pairing."},
+{sec:'B', ref:"NSEC-2000 Q.2", type:'single', q:"The splitting of spectral lines under the influence of an electric field is called:",
+  opts:["Raman effect","Zeeman effect","Compton effect","Stark effect"], ans:3,
+  why:"Splitting under an electric field is the Stark effect (the Zeeman effect is the magnetic-field analogue)."},
+{sec:'B', ref:"NSEC-2000 Q.3", type:'single', q:"The de Broglie wavelength associated with a particle is:",
+  opts:["Inversely proportional to its momentum","Inversely proportional to its energy","Directly proportional to its velocity","Directly proportional to its momentum"], ans:0,
+  why:"λ=h/p, so wavelength is inversely proportional to momentum."},
+{sec:'B', ref:"NSEC-2000 Q.4", type:'single', q:"The given figures show the angular probability distribution of:",
+  opts:["dxy and dyz orbitals","dx²₋y² and dz² orbitals","dxy and dxz orbitals","None of these"], ans:1,
+  why:"The characteristic four-lobed (dx²₋y²) and dumbbell-with-collar (dz²) shapes shown match these two orbitals."},
+{sec:'B', ref:"NSEC-2000 Q.5", type:'single', q:"³⁷₁₈Ar captures a K-electron into its nucleus. The product atom formed is:",
+  opts:["³⁷₁₇Cl","³⁸₁₈Ar","³⁶₁₈Ar","³⁸₁₇Cl"], ans:0,
+  why:"K-electron capture converts a proton into a neutron, decreasing Z by 1 while A stays the same: Ar-37(Z=18) becomes Cl-37(Z=17)."},
+{sec:'B', ref:"NSEC-2000 Q.6", type:'single', q:"Which ion shows the highest magnetic moment? (Z: N=7, Cr=24, Fe=26, Co=27)",
+  opts:["Fe³⁺","Cr³⁺","N³⁺","Co³⁺"], ans:0,
+  why:"Fe³⁺ is [Ar]3d⁵ with 5 unpaired electrons — more than Cr³⁺(3), N³⁺(0), or Co³⁺(4) — giving it the highest magnetic moment."},
+{sec:'B', ref:"NSEC-2000 Q.7", type:'single', q:"The equation E=hν indicates that:",
+  opts:["Photons have both particle and wave nature","Photons are waves","Photons are a stream of particles","No such inference can be drawn"], ans:0,
+  why:"E=hν links a wave property (frequency) to particle-like energy quanta, embodying wave-particle duality."},
+{sec:'B', ref:"NSEC-2001 Q.8", type:'single', q:"An isotone of ⁷⁶₃₂Ge is:",
+  opts:["⁷⁷₃₄Se","⁷⁷₃₃As","⁷⁶₃₂Ge","⁷⁹₃₄Se"], ans:1,
+  why:"Ge-76 has 44 neutrons (76−32). As-77 (Z=33) also has 44 neutrons (77−33) — matching neutron count defines isotones."},
+{sec:'B', ref:"NSEC-2001 Q.9", type:'single', q:"Planck's constant value in joule-sec is:",
+  opts:["6.6252 × 10⁻³⁴","6.6252 × 10⁻²⁷","6.023 × 10⁻²³","3.1444 × 10⁻¹⁰"], ans:0,
+  why:"h = 6.6252×10⁻³⁴ J·s is the standard value of Planck's constant."},
+{sec:'B', ref:"NSEC-2001 Q.10", type:'single', q:"Which pair of orbitals has electron density along the axis?",
+  opts:["dxz, dyz","dx²₋y², dz²","dxy, dyz","dxy, dz²"], ans:1,
+  why:"dx²₋y² lobes point directly along the x/y axes, and dz² lobes point along the z-axis — both have density along the coordinate axes, unlike the others which point between axes."},
+{sec:'B', ref:"NSEC-2002 Q.11", type:'single', q:"The radius of the first Bohr orbit of hydrogen atom is r. The radius of the 3rd orbit will be:",
+  opts:["3 r","4.5 r","9 r","27 r"], ans:2,
+  why:"rₙ = r × n², so r₃ = r × 9 = 9r."},
+{sec:'B', ref:"NSEC-2002 Q.12", type:'single', q:"In a given atom, no two electrons can have the same values for all four quantum numbers. This rule is called:",
+  opts:["Hund's rule","Pauli's principle","Aufbau principle","Selection rule"], ans:1,
+  why:"This is the Pauli exclusion principle."},
+{sec:'B', ref:"NSEC-2002 Q.13", type:'single', q:"According to Heisenberg's uncertainty principle:",
+  opts:["Δx·Δp ≥ h/4π","Δx·Δv ≥ h/4π","Δx·Δm ≥ h/4π","Δx·ΔE ≥ h/4π"], ans:0,
+  why:"The uncertainty principle relates position and momentum: Δx·Δp ≥ h/4π."},
+{sec:'B', ref:"NSEC-2002 Q.14", type:'single', q:"The total number of orbitals in the 3rd orbit is:",
+  opts:["3","5","4","9"], ans:3,
+  why:"Total orbitals in shell n = n². For n=3, that's 3²=9."},
+{sec:'B', ref:"NSEC-2002 Q.15", type:'single', q:"Which quantum number describes the shape of the electron cloud?",
+  opts:["Principal quantum number","Azimuthal quantum number","Magnetic quantum number","Spin quantum number"], ans:1,
+  why:"The azimuthal (angular momentum) quantum number l determines orbital shape (s, p, d, f)."},
+{sec:'B', ref:"NSEC-2002 Q.16", type:'single', q:"Correct set of all four quantum numbers for an unpaired electron in 3d⁹ is:",
+  opts:["3, 2, +2, +1/2","3, 2, −2, −1/2","3, 3, +2, +1/2","3, 3, +2, −1/2"], ans:0,
+  why:"3d⁹ has one unpaired electron; n=3, l=2 (d-subshell), with the unpaired electron's m and spin given as +2, +1/2."},
+{sec:'B', ref:"NSEC-2003 Q.17", type:'single', q:"The species which has its fifth ionisation potential equal to 340 eV is:",
+  opts:["B⁺","C⁺","B","C"], ans:2,
+  why:"Removing the 5th electron from neutral B (Z=5) leaves a hydrogen-like ion with Z=5; IE=13.6×Z²=13.6×25=340 eV, matching exactly."},
+{sec:'B', ref:"NSEC-2003 Q.18", type:'single', q:"A 20 W light source emits monochromatic light of wavelength 600 nm. The number of photons ejected per second, in terms of Avogadro's constant (Nₐ), is approximately:",
+  opts:["Nₐ","10⁻² Nₐ","10⁻⁴ Nₐ","10⁻⁵ Nₐ"], ans:2,
+  why:"N=Pλ/(hc)≈6.04×10¹⁹ photons/sec; dividing by Nₐ≈6.02×10²³ gives a ratio of about 10⁻⁴."},
+{sec:'B', ref:"NSEC-2003 Q.19", type:'single', q:"²³⁵₉₂U + ¹₀n → ²³⁶₉₂U → X + ⁹⁰₃₈Sr + Y. In this nuclear fission reaction, the products are:",
+  opts:["X=¹⁴⁰₅₆Ba, Y=3(¹₀n)","X=¹⁴⁴₅₅Cs, Y=3(¹₀n)","X=¹⁴³₅₄Xe, Y=3(¹₀n)","X=¹⁴⁵₅₄Xe, Y=3(¹₀n)"], ans:2,
+  why:"Balancing mass (236=A(X)+90+3) and charge (92=Z(X)+38+0) gives A(X)=143, Z(X)=54 — matching Xe-143."},
+{sec:'B', ref:"NSEC-2004 Q.20", type:'single', q:"The ratio of the energy of a photon of wavelength 2000 Å to that of one with wavelength 4000 Å is:",
+  opts:["1/4","4","1/2","2"], ans:3,
+  why:"E∝1/λ, so the ratio is 4000/2000=2."},
+{sec:'B', ref:"NSEC-2004 Q.21", type:'single', q:"The phenomenon which suggested that light is emitted in packets (quanta) is:",
+  opts:["Electron diffraction","Photoelectric effect","Diffraction of light","Black body radiation"], ans:3,
+  why:"Planck's quantum hypothesis originated from explaining the black body radiation spectrum."},
+{sec:'B', ref:"NSEC-2005 Q.22", type:'single', q:"Wavelength associated with electron motion:",
+  opts:["Increases with increase in the speed of electron","Remains same irrespective of the speed of electron","Decreases with increase of the speed of electron","Changes with the atomic number of the atom it belongs to"], ans:2,
+  why:"λ=h/mv — wavelength decreases as speed (and hence momentum) increases."},
+{sec:'B', ref:"NSEC-2006 Q.23", type:'single', q:"The number of unpaired electrons in the scandium atom is:",
+  opts:["1","2","0","3"], ans:0,
+  why:"Sc: [Ar]3d¹4s² has exactly 1 unpaired electron, in the 3d orbital."},
+{sec:'B', ref:"NSEC-2006 Q.24", type:'single', q:"The set of quantum numbers n=2, l=2, mₗ=0 for an atomic system:",
+  opts:["Is not allowed","Refers to an electron in a 2d orbital","Denotes a 2p electron","Describes one of the 7f orbitals"], ans:0,
+  why:"l must range from 0 to n−1; for n=2, the maximum allowed l is 1, so l=2 is impossible — this set is not allowed."},
+{sec:'B', ref:"NSEC-2006 Q.25", type:'single', q:"The three quantum numbers n, l, mₗ corresponding to the valence electron in rubidium (Z=37) are:",
+  opts:["5,0,0","5,1,0","5,0,1","5,1,1"], ans:0,
+  why:"Rb: [Kr]5s¹ — the valence electron is in the 5s orbital, giving n=5, l=0, mₗ=0."},
+{sec:'B', ref:"NSEC-2006 Q.26", type:'single', q:"The radiation having the highest amount of energy has:",
+  opts:["λ=3 nm","λ=3 pm","λ=3 Å","ν=3×10⁸ s⁻¹"], ans:1,
+  why:"Energy is highest for the shortest wavelength; 3 pm (3×10⁻¹²m) is far shorter than the other options, giving it the highest photon energy."},
+{sec:'B', ref:"NSEC-2006 Q.27", type:'single', q:"Which of the following pairs represents isoelectronic ions?",
+  opts:["Mn³⁺ and Fe²⁺","Mn²⁺ and Fe³⁺","Cr³⁺ and Mn²⁺","Fe²⁺ and Co²⁺"], ans:1,
+  why:"Mn²⁺ (25−2=23 electrons) and Fe³⁺ (26−3=23 electrons) both have 23 electrons — a genuine isoelectronic match, verified directly by electron counting."},
+{sec:'B', ref:"NSEC-2006 Q.28", type:'single', q:"Mass of a typical star is 1.0×10³⁰ kg, assumed 3/4 hydrogen and 1/4 helium by mass. The estimated number of protons (in H and He) in the star is approximately:",
+  opts:["0.5 × 10⁵⁷","1 × 10⁵⁶","1 × 10⁵⁸","0.5 × 10⁵⁵"], ans:0,
+  why:"H contributes ~4.5×10⁵⁶ protons and He contributes ~0.75×10⁵⁶ protons (2 protons per He atom); summing gives roughly 0.5×10⁵⁷ total protons."},
+{sec:'B', ref:"NSEC-2006 Q.29", type:'single', q:"Rutherford bombarded nitrogen with α-particles and observed emission of a proton. What is species X in: ¹⁴N + He → X + ¹H?",
+  opts:["¹⁷N","¹⁸N","¹⁶O","¹⁷O"], ans:3,
+  why:"Balancing mass (14+4=18=A(X)+1) and charge (7+2=9=Z(X)+1) gives A(X)=17, Z(X)=8 — Oxygen-17."},
+{sec:'B', ref:"NSEC-2008 Q.30", type:'single', q:"The Bohr radius of the first orbit of hydrogen atom is 0.530 Å. The radius of the third orbit will be:",
+  opts:["1.06 Å","4.77 Å","2.12 Å","1.59 Å"], ans:1,
+  why:"r₃=r₁×3²=0.530×9=4.77 Å."},
+{sec:'B', ref:"NSEC-2008 Q.31", type:'single', q:"An impossible arrangement of the set of quantum numbers is:",
+  opts:["n=3, l=2, m=−2, s=+1/2","n=4, l=0, m=0, s=+1/2","n=3, l=2, m=−3, s=+1/2","n=1, l=0, m=0, s=−1/2"], ans:2,
+  why:"For l=2, m must range from −2 to +2; m=−3 falls outside this range and is impossible."},
+{sec:'B', ref:"NSEC-2009 Q.32", type:'single', q:"The fundamental particle responsible for keeping the nucleus together is:",
+  opts:["Meson","Muon","Positron","Hyperon"], ans:0,
+  why:"Mesons (in the classic Yukawa theory) mediate the strong nuclear force binding nucleons together."},
+{sec:'B', ref:"NSEC-2009 Q.33", type:'single', q:"The maximum number of electrons in a 3dz² orbital is:",
+  opts:["2","4","5","10"], ans:0,
+  why:"Any single orbital can hold a maximum of 2 electrons (Pauli exclusion)."},
+{sec:'B', ref:"NSEC-2009 Q.34", type:'single', q:"The magnetic moment of a transition metal ion is found to be 3.87 Bohr Magneton (BM). The number of unpaired electrons present is:",
+  opts:["2","3","4","5"], ans:1,
+  why:"Using μ=√[n(n+2)]: n=3 gives √15≈3.87 BM, matching."},
+{sec:'B', ref:"NSEC-2010 Q.35", type:'single', q:"The velocity of an electron in the second Bohr orbit of an element is 1.1×10⁶ m/sec. Its velocity in the third orbit is:",
+  opts:["3.3 × 10⁶ m/sec","2.2 × 10⁶ m/sec","7.333 × 10⁵ m/sec","3.666 × 10⁵ m/sec"], ans:2,
+  why:"v∝1/n, so v₃=v₂×(2/3)=1.1×10⁶×2/3≈7.333×10⁵ m/s."},
+{sec:'B', ref:"NSEC-2010 Q.36", type:'single', q:"The sum of all the quantum numbers of the hydrogen atom (ground state) is:",
+  opts:["−1","0","+1/2","3/2"], ans:3,
+  why:"Ground state H: n=1, l=0, m=0, s=+1/2. Sum = 1+0+0+0.5 = 1.5 = 3/2."},
+{sec:'B', ref:"NSEC-2011 Q.37", type:'single', q:"The wavelength of a moving body of mass 0.1 g is 3.31×10⁻²⁹ m. The kinetic energy of the body in J would be:",
+  opts:["2.0 × 10⁻⁶","1.0 × 10⁻³","4.0 × 10⁻³","2.0 × 10⁻³"], ans:0,
+  why:"p=h/λ≈2.0×10⁻⁵ kg·m/s; KE=p²/2m with m=1×10⁻⁴ kg gives KE≈2.0×10⁻⁶ J."},
+{sec:'B', ref:"NSEC-2012 Q.38", type:'single', q:"The widest range over which electronic excitations in organic compounds occur is:",
+  opts:["200 nm - 780 nm","220 nm - 500 nm","250 nm - 700 nm","290 nm - 1000 nm"], ans:0,
+  why:"200–780 nm is the widest quoted range, spanning near-UV through visible light."},
+{sec:'B', ref:"NSEC-2012 Q.39", type:'single', q:"If the radius of the first Bohr orbit is r, then the de Broglie wavelength in the third Bohr orbit is:",
+  opts:["2πr","9r","r/3","6πr"], ans:3,
+  why:"Bohr quantization gives 2πrₙ=nλₙ; with r₃=9r, λ₃=2π(9r)/3=6πr."},
+{sec:'B', ref:"NSEC-2012 Q.40", type:'single', q:"The quantum numbers for the 19th electron of Cr (Z=24) are:",
+  opts:["n=3, l=0, m=0, s=+½","n=4, l=0, m=0, s=+½","n=3, l=2, m=2, s=+½","n=4, l=2, m=2, s=+½"], ans:1,
+  why:"After the 18-electron Ar core, the 19th electron is placed in the 4s orbital (n=4, l=0)."},
+{sec:'B', ref:"NSEC-2013 Q.41", type:'single', q:"The number of unpaired electrons in Ni²⁺ is:",
+  opts:["0","2","3","4"], ans:1,
+  why:"Ni²⁺: [Ar]3d⁸ — filling 5 d-orbitals with 8 electrons leaves 2 unpaired."},
+{sec:'B', ref:"NSEC-2013 Q.42", type:'single', q:"The electronic level which allows the hydrogen atom to absorb, but not emit, a photon is:",
+  opts:["1s","2s","2p","3s"], ans:0,
+  why:"The ground state (1s) has no lower level to emit into — it can only absorb energy to reach higher levels."},
+{sec:'B', ref:"NSEC-2013 Q.43", type:'single', q:"The number of unpaired electrons in Ni²⁺ ion is 2; therefore its spin multiplicity is:",
+  opts:["2","1","3","4"], ans:2,
+  why:"Spin multiplicity = 2S+1, with S=2×(1/2)=1, giving multiplicity = 2(1)+1 = 3."},
+{sec:'B', ref:"NSEC-2013 Q.44", type:'single', q:"4s orbital has lesser energy than 3d orbital because it has:",
+  opts:["Greater value of n","Lesser value of l","Lesser value of (n+l)","l=0"], ans:2,
+  why:"By the (n+l) rule, 4s has n+l=4 while 3d has n+l=5 — the lower (n+l) sum fills first/has lower energy."},
+{sec:'B', ref:"NSEC-2014 Q.45", type:'single', q:"The magnetic moment of a divalent ion of an element with atomic number 24 in aqueous solution is:",
+  opts:["4.9 BM","2.45 BM","2.83 BM","1.73 BM"], ans:0,
+  why:"Cr²⁺: [Ar]3d⁴ has 4 unpaired electrons (high spin); μ=√[4×6]=√24≈4.9 BM."},
+{sec:'B', ref:"NSEC-2014 Q.46", type:'single', q:"From the species NH₃(I), CH₃⁺(II), NH₂⁻(III), NH₄⁺(IV), which are isoelectronic?",
+  opts:["(I), (II), (III)","(II), (III), (IV)","(I), (II), (IV)","(I), (III), (IV)"], ans:3,
+  why:"NH₃(10e⁻), NH₂⁻(10e⁻), and NH₄⁺(10e⁻) all have 10 electrons; CH₃⁺ has only 8 electrons, breaking the match."},
+{sec:'B', ref:"NSEC-2014 Q.47", type:'single', q:"The set of quantum numbers that CANNOT be allotted to an electron in an atom is:",
+  opts:["n=3, l=2, mₗ=+2, mₛ=−1/2","n=2, l=0, mₗ=+1, mₛ=+1/2","n=1, l=0, mₗ=0, mₛ=+1/2","n=4, l=3, mₗ=0, mₛ=−1/2"], ans:1,
+  why:"For l=0, mₗ must be 0 — mₗ=+1 is invalid for an s-subshell."},
+{sec:'B', ref:"NSEC-2014 Q.48", type:'single', q:"If the energy of an electron in the 1st and 2nd levels of H are −13.6 eV and −3.4 eV, the energy required (eV) to excite the electron from 1st to 2nd level is:",
+  opts:["17.0","−17.0","10.2","−10.2"], ans:2,
+  why:"ΔE = E₂−E₁ = −3.4−(−13.6) = +10.2 eV (energy absorbed)."},
+{sec:'B', ref:"NSEC-2014 Q.49", type:'single', q:"The element X formed in the nuclear reaction ⁵³₂₄Cr + ⁴₂α → ¹₀n + X is:",
+  opts:["⁵⁶₂₆Fe","⁵⁵₂₅Mn","⁵⁶₂₅Mn","⁵⁵₂₆Fe"], ans:0,
+  why:"Balancing mass (53+4=1+A(X)) and charge (24+2=0+Z(X)) gives A(X)=56, Z(X)=26 — Iron-56."},
+{sec:'B', ref:"NSEC-2015 Q.50", type:'single', q:"If λ₀ and λ are the threshold and incident wavelengths on a metal surface, the velocity of the ejected photoelectron is (mₑ=electron mass, h=Planck's constant, c=speed of light):",
+  opts:["√[2h(λ₀−λ)/mₑ]","√[2hc(λ₀−λ)/mₑ]","√[2hc/mₑ × (1/λ − 1/λ₀)]","√[2h/mₑ × (1/λ₀ − 1/λ)]"], ans:2,
+  why:"KE=hc(1/λ−1/λ₀)=½mv², so v=√[2hc/mₑ × (1/λ − 1/λ₀)]."},
+{sec:'B', ref:"NSEC-2015 Q.51", type:'single', q:"The energy of an electron in the first Bohr orbit is −13.6 eV. The energy of Be³⁺ in the first excited state is:",
+  opts:["−30.6 eV","−40.8 eV","−54.4 eV","+40.8 eV"], ans:2,
+  why:"Eₙ=−13.6Z²/n²; for Be(Z=4), n=2: E=−13.6×16/4=−54.4 eV."},
+{sec:'B', ref:"NSEC-2015 Q.52", type:'single', q:"The de Broglie wavelength of an object of mass 33 g moving with a velocity of 200 m/s is of the order of:",
+  opts:["10⁻³¹m","10⁻³⁴m","10⁻³⁷m","10⁻⁴¹m"], ans:1,
+  why:"λ=h/mv=6.626×10⁻³⁴/(0.033×200)≈1×10⁻³⁴ m."},
+{sec:'B', ref:"NSEC-2015 Q.53", type:'single', q:"Imagine that ~50% of atomic space is occupied by the nucleus. If a silver foil is bombarded with α-particles, the majority would:",
+  opts:["Be scattered","Be absorbed by the nuclei","Pass through the foil undeflected","Get converted into photons"], ans:0,
+  why:"With the nucleus occupying half the atomic volume (unlike the real, mostly-empty atom), most incoming α-particles would encounter it and be scattered."},
+{sec:'B', ref:"NSEC-2015 Q.54", type:'single', q:"For an electron whose x-positional uncertainty is 1.0×10⁻¹⁰ m, the uncertainty in the x-component of velocity (m/s) is of the order of:",
+  opts:["10⁶","10⁹","10²","10¹⁵"], ans:0,
+  why:"Δp≥h/(4πΔx)≈5.27×10⁻²⁵ kg·m/s; Δv=Δp/mₑ≈5.8×10⁵ m/s, order 10⁶."},
+{sec:'B', ref:"NSEC-2016 Q.55", type:'single', q:"The ionization energy of an element is 412 kJ/mol; in the first excited state it's only 126 kJ/mol. The region of the EM spectrum for the transition from the first excited state to ground state is:",
+  opts:["Visible","UV","IR","X-ray"], ans:0,
+  why:"Energy released = 412−126=286 kJ/mol, corresponding to a wavelength of ~419 nm — squarely in the visible region."},
+{sec:'B', ref:"NSEC-2016 Q.56", type:'single', q:"The kinetic energy of an electron with a wavelength of 10 nm is:",
+  opts:["2.4 × 10⁻²¹ J","4.8 × 10⁻²¹ J","2.4 × 10⁻²⁹ J","4.8 × 10⁻²⁹ J"], ans:0,
+  why:"p=h/λ≈6.6×10⁻²⁶ kg·m/s; KE=p²/2mₑ≈2.4×10⁻²¹ J."},
+{sec:'B', ref:"NSEC-2016 Q.57", type:'single', q:"A metal irradiated with light of frequency 3.2×10¹⁶ Hz gave photoelectrons with twice the kinetic energy as those from light of frequency 2.0×10¹⁶ Hz. The threshold frequency ν₀ of the metal is:",
+  opts:["2.4 × 10¹⁶ Hz","8.0 × 10¹⁶ Hz","8.0 × 10¹⁵ Hz","7.2 × 10¹⁶ Hz"], ans:2,
+  why:"h(3.2×10¹⁶−ν₀)=2h(2.0×10¹⁶−ν₀) solves to ν₀=8.0×10¹⁵ Hz."},
+{sec:'B', ref:"NSEC-2016 Q.58", type:'single', q:"An electron beam undergoes diffraction by crystals, proving the wave nature of electrons. The potential required to accelerate a beam so its wavelength becomes 0.154 nm is:",
+  opts:["63.5 V","31.75 V","635 V","127 V"], ans:0,
+  why:"Using ½mv²=eV with λ=1.54Å gives V≈63.5 volts."},
+{sec:'B', ref:"NSEC-2016 Q.59", type:'single', q:"The ratio of the energy of the electron in the ground state of hydrogen to that of the electron in the first excited state of Be³⁺ is:",
+  opts:["1 : 4","1 : 8","1 : 16","4 : 1"], ans:0,
+  why:"E(H,n=1)=−13.6 eV; E(Be³⁺,n=2)=−13.6×16/4=−54.4 eV. Ratio (magnitude) = 13.6/54.4 = 1/4."},
+{sec:'B', ref:"NSEC-2016 Q.60", type:'single', q:"Electrons identified by (n,l): (i) n=4,l=1 (ii) n=4,l=0 (iii) n=3,l=2 (iv) n=3,l=1 — order of increasing energy is:",
+  opts:["(iv) < (ii) < (iii) < (i)","(ii) < (iv) < (i) < (iii)","(i) < (iii) < (ii) < (iv)","(iii) < (i) < (iv) < (ii)"], ans:0,
+  why:"By the (n+l) rule with lower n breaking ties: 3p(iv,n+l=4)<4s(ii,n+l=4)<3d(iii,n+l=5)<4p(i,n+l=5)."},
+{sec:'B', ref:"NSEC-2017 Q.61", type:'single', q:"The energy of an electron in a Bohr orbit of hydrogen atom is −13.6 eV. The total electronic energy of a hypothetical He atom (no electron-electron repulsion) is:",
+  opts:["27.2 eV","−27.2 eV","−108.8 eV","108 eV"], ans:2,
+  why:"Each of He's 2 electrons independently occupies n=1 with Z=2: E=−13.6×4=−54.4 eV each; total = 2×(−54.4)=−108.8 eV."},
+{sec:'B', ref:"NSEC-2017 Q.62", type:'single', q:"The energy of an electron in the ground state of the H atom is −13.6 eV. The negative sign indicates that:",
+  opts:["Electrons are negatively charged","H atom is more stable than a free electron","Energy of the electron in the H atom is lower than that of a free electron","Work must be done to make a H atom from a free electron and proton"], ans:2,
+  why:"Taking a free electron at infinity as the zero-energy reference, the bound electron's negative energy simply means it sits at a lower energy than the free state."},
+{sec:'B', ref:"NSEC-2018 Q.63", type:'single', q:"Which element will exhibit the photoelectric effect with light of the longest wavelength?",
+  opts:["K","Rb","Mg","Ca"], ans:1,
+  why:"Rb, being the largest and most electropositive alkali metal here, has the lowest work function, so the least energetic (longest wavelength) photons still suffice."},
+{sec:'B', ref:"NSEC-2018 Q.64", type:'single', q:"If the radius of the hydrogen atom is 53 pm, the radius of the He⁺ ion is close to:",
+  opts:["75 pm","38 pm","106 pm","27 pm"], ans:3,
+  why:"rₙ∝n²/Z; at the same n, r(He⁺)=r(H)/Z=53/2≈27 pm."},
+{sec:'B', ref:"NSEC-2018 Q.65", type:'single', q:"An orbital with two radial nodes and two angular nodes is:",
+  opts:["3d","4p","4f","5d"], ans:3,
+  why:"Angular nodes=l=2 (d-orbital); radial nodes=n−l−1=2 gives n=5 — matching 5d."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 140*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Practice Test-1", scheme:"+4 / −0.25", firstIndex:null},
+  B: {label:"Section B · NSEC Stage-I", scheme:"+4 / 0", firstIndex:null}
+};
+questions.forEach((q,i)=>{ if(sectionMeta[q.sec].firstIndex===null) sectionMeta[q.sec].firstIndex = i; });
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 140;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.firstIndex); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{ b.classList.toggle('active', b.dataset.sec===sec); });
+}
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1; b.id = 'pal-'+i; b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  return true;
+}
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+function renderQuestion(i){
+  current = i; visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  document.getElementById('qtypelabel').textContent = 'Single Correct';
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+  const optWrap = document.getElementById('options');
+  optWrap.innerHTML = '';
+  const letters = ['A','B','C','D'];
+  q.opts.forEach((optText, idx)=>{
+    const div = document.createElement('div'); div.className='opt';
+    const isSel = responses[i]===idx;
+    if(isSel) div.classList.add('selected');
+    const input = document.createElement('input');
+    input.type = 'radio'; input.name = 'q'+i; input.checked = isSel;
+    input.onchange = ()=>{ responses[i] = idx; refreshPalette(); renderQuestion(i); };
+    const lbl = document.createElement('span'); lbl.className='lbl'; lbl.textContent = letters[idx]+'.';
+    const txt = document.createElement('span'); txt.textContent = optText;
+    div.appendChild(input); div.appendChild(lbl); div.appendChild(txt);
+    div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+    optWrap.appendChild(div);
+  });
+  updateSectionTabHighlight(); refreshPalette();
+}
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){ responses[current] = null; marked[current] = false; renderQuestion(current); }
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  if(confirm(`You have ${unanswered} unanswered question(s). Submit the test now?`)) submitTest();
+}
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = candName.replace(/\s+/g,'_') + '_AtomicStructure_Test1_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+  let total=0, max=0; let secScore = {A:0,B:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+  questions.forEach((q,i)=>{
+    let marksForQ = 0; let status = 'skip'; max += 4;
+    if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+    else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+    else {
+      marksForQ = q.sec==='A' ? -0.25 : 0;
+      status='wrong'; wrongCount++;
+    }
+    total += marksForQ; secScore[q.sec] += marksForQ;
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+  document.getElementById('scorebig').textContent = Math.round(total*100)/100;
+  document.getElementById('maxscore').textContent = max;
+  document.getElementById('scorecards').innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${Math.round(secScore.A*100)/100}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>`;
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+function formatTime(sec){ const m = Math.floor(sec/60), s = sec%60; return `${m}m ${s}s`; }
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  const yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+  const correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  const tagClass = status==='correct'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  const marksDisplay = (marksForQ>=0?'+':'') + (Math.round(marksForQ*100)/100);
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksDisplay})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>

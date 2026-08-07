@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Structure &amp; Nuclear Chemistry — CBT Mock Test 4</title>
+<style>
+  :root{
+    --navy:#0b2545;
+    --navy-2:#13315c;
+    --blue:#1a73c4;
+    --green:#3fa34d;
+    --red:#e0413a;
+    --purple:#7b3fa3;
+    --gray:#8a94a3;
+    --lightbg:#eef1f5;
+    --panelbg:#ffffff;
+    --border:#d7dce3;
+    --text:#1c2530;
+    --muted:#5a6572;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:var(--lightbg);color:var(--text);}
+  button{font-family:inherit;cursor:pointer;}
+  input[type=text],input[type=number]{font-family:inherit;}
+
+  /* ---------- LOGIN SCREEN ---------- */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 55%,#1a4a7a 100%);
+  }
+  .login-card{
+    background:#fff;width:420px;max-width:92vw;border-radius:10px;padding:36px 34px 30px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .login-card h1{font-size:19px;margin:0 0 2px;color:var(--navy);letter-spacing:.3px;}
+  .login-card .sub{font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+  .login-card label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin:16px 0 6px;}
+  .login-card input[type=text]{
+    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;
+  }
+  .duration-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .duration-grid button{
+    padding:9px 4px;border:1.5px solid var(--border);background:#fff;border-radius:6px;font-size:13px;color:var(--navy-2);
+  }
+  .duration-grid button.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;}
+  .custom-row{display:flex;gap:8px;margin-top:8px;}
+  .custom-row input{flex:1;padding:9px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;}
+  #startBtn{
+    margin-top:26px;width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:6px;
+    font-size:15px;font-weight:700;letter-spacing:.3px;
+  }
+  #startBtn:disabled{background:#a9b3bf;}
+  .login-note{margin-top:14px;font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .badge{display:inline-block;background:#eaf3fc;color:var(--blue);font-size:10.5px;font-weight:700;padding:3px 9px;border-radius:20px;margin-bottom:10px;}
+
+  /* ---------- TEST SCREEN ---------- */
+  #testScreen{display:none;height:100vh;flex-direction:column;}
+  .topbar{
+    background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:8px 16px;flex-shrink:0;
+  }
+  .topbar .brand{font-size:14px;font-weight:700;letter-spacing:.3px;}
+  .topbar .brand small{display:block;font-weight:400;font-size:10.5px;color:#b9c6da;}
+  .topbar .mid{display:flex;align-items:center;gap:18px;font-size:12.5px;}
+  .candidate{opacity:.9;}
+  .timer{
+    background:#0000003a;border:1px solid #ffffff33;padding:6px 14px;border-radius:6px;font-weight:700;font-size:15px;
+    letter-spacing:.5px;font-variant-numeric:tabular-nums;
+  }
+  .timer.low{background:#7a1f1f;border-color:#c0392b;}
+  .submitTopBtn{background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:5px;font-size:12.5px;font-weight:700;}
+
+  .sectiontabs{display:flex;gap:6px;background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;flex-shrink:0;}
+  .sectiontabs button{
+    border:1px solid var(--border);background:#f5f7fa;padding:8px 18px;border-radius:5px 5px 0 0;font-size:13px;font-weight:600;color:var(--navy-2);
+  }
+  .sectiontabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+
+  .main{flex:1;display:flex;overflow:hidden;}
+  .qpanel{flex:1;background:var(--panelbg);padding:22px 28px;overflow-y:auto;display:flex;flex-direction:column;}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .qmeta .qnoTag{font-size:13.5px;font-weight:700;color:var(--navy);}
+  .qmeta .marks{font-size:11.5px;color:var(--muted);}
+  .qmeta .marks b.pos{color:var(--green);}
+  .qmeta .marks b.neg{color:var(--red);}
+  .refTag{display:inline-block;font-size:10.5px;background:#eef2f8;color:var(--blue);border:1px solid #cfe0f2;
+    border-radius:4px;padding:2px 8px;margin-bottom:12px;font-weight:600;letter-spacing:.2px;}
+  .qtext{font-size:15.5px;line-height:1.6;margin-bottom:20px;color:var(--text);white-space:pre-line;}
+  .options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+  .option{
+    display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;
+    cursor:pointer;font-size:14px;transition:.12s;
+  }
+  .option:hover{border-color:var(--blue);background:#f7fafd;}
+  .option.selected{border-color:var(--blue);background:#eaf3fc;}
+  .option input{margin-top:2px;}
+  .optlabel{font-weight:700;color:var(--navy-2);margin-right:4px;}
+  .numeric-input-row{margin-bottom:24px;}
+  .numeric-input-row input{
+    width:220px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;font-size:15px;
+  }
+  .numeric-input-row .hint{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  .actionbar{display:flex;gap:10px;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .actionbar button{padding:10px 16px;border-radius:5px;font-size:12.5px;font-weight:700;border:1.5px solid transparent;}
+  .btn-mark{background:#fff;border-color:var(--purple);color:var(--purple);}
+  .btn-clear{background:#fff;border-color:var(--gray);color:var(--gray);}
+  .btn-prev{background:#fff;border-color:var(--navy-2);color:var(--navy-2);}
+  .btn-save{background:var(--green);color:#fff;margin-left:auto;}
+  .btn-submit{background:var(--red);color:#fff;}
+
+  .sidepanel{width:270px;background:#f7f9fb;border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+  .candbox{padding:14px 16px;border-bottom:1px solid var(--border);text-align:center;}
+  .candbox .avatar{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;
+    justify-content:center;font-size:20px;font-weight:700;margin:0 auto 6px;}
+  .candbox .cname{font-size:13px;font-weight:700;color:var(--navy);}
+  .legend{padding:10px 14px;border-bottom:1px solid var(--border);}
+  .legend-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:6px;}
+  .swatch{width:15px;height:15px;border-radius:3px;flex-shrink:0;display:inline-block;}
+  .sw-notvisited{background:#fff;border:1.5px solid var(--gray);}
+  .sw-notanswered{background:var(--red);}
+  .sw-answered{background:var(--green);}
+  .sw-marked{background:var(--purple);}
+  .sw-markedans{background:var(--purple);position:relative;}
+  .paletteWrap{flex:1;overflow-y:auto;padding:12px 14px;}
+  .paletteSection{font-size:11.5px;font-weight:700;color:var(--navy-2);margin:10px 0 8px;text-transform:uppercase;letter-spacing:.4px;}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .pnum{
+    width:100%;aspect-ratio:1;border-radius:5px;border:none;color:#fff;font-size:12.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;position:relative;background:var(--gray);
+  }
+  .pnum.notanswered{background:var(--red);}
+  .pnum.answered{background:var(--green);}
+  .pnum.marked{background:var(--purple);}
+  .pnum.markedans{background:var(--purple);}
+  .pnum.markedans::after{
+    content:"";position:absolute;bottom:3px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--green);
+    border:1px solid #fff;
+  }
+  .pnum.current{outline:2.5px solid var(--navy);outline-offset:2px;}
+  .submitBottom{padding:14px;border-top:1px solid var(--border);}
+  .submitBottom button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:6px;font-weight:700;font-size:13px;}
+
+  /* ---------- RESULTS SCREEN ---------- */
+  #resultScreen{display:none;background:var(--lightbg);min-height:100vh;padding:26px 20px 60px;}
+  .res-wrap{max-width:920px;margin:0 auto;}
+  .res-header{background:var(--navy);color:#fff;border-radius:10px;padding:26px 30px;margin-bottom:20px;}
+  .res-header h2{margin:0 0 4px;font-size:20px;}
+  .res-header .sub{font-size:12.5px;color:#c3cfe0;}
+  .scoreCards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .scard{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid var(--border);}
+  .scard .val{font-size:24px;font-weight:800;color:var(--navy);}
+  .scard .lab{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.3px;}
+  .secBreak{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;margin-bottom:22px;}
+  .secBreak h3{margin:0 0 12px;font-size:14.5px;color:var(--navy);}
+  table.secTable{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.secTable th,table.secTable td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);}
+  table.secTable th{color:var(--muted);font-weight:600;background:#f7f9fb;}
+  .pdfBtn{background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;margin-right:10px;}
+  .retryBtn{background:#fff;color:var(--navy);border:1.5px solid var(--navy);padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;}
+  .reviewList{display:flex;flex-direction:column;gap:14px;}
+  .revCard{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;}
+  .revCard.correct{border-left:5px solid var(--green);}
+  .revCard.incorrect{border-left:5px solid var(--red);}
+  .revCard.unanswered{border-left:5px solid var(--gray);}
+  .revTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .revTag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#fff;}
+  .revTag.correct{background:var(--green);}
+  .revTag.incorrect{background:var(--red);}
+  .revTag.unanswered{background:var(--gray);}
+  .revQtext{font-size:14px;line-height:1.55;margin-bottom:10px;white-space:pre-line;}
+  .revAns{font-size:12.5px;margin-bottom:4px;}
+  .revAns b{color:var(--navy-2);}
+  .revWhy{background:#f5f8fb;border-radius:7px;padding:10px 12px;font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.55;}
+  .revWhy b{color:var(--navy-2);}
+
+  @media print{
+    #loginScreen,#testScreen{display:none !important;}
+    #resultScreen{display:block !important;background:#fff;padding:0;}
+    .pdfBtn,.retryBtn{display:none !important;}
+    .revCard{break-inside:avoid;}
+  }
+  @media (max-width:820px){
+    .main{flex-direction:column;overflow:auto;}
+    .sidepanel{width:100%;order:2;}
+    .scoreCards{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="badge">FOLLOW-UP TEST · NO REPEATS FROM TESTS 1–3</div>
+    <h1>Atomic Structure &amp; Nuclear Chemistry</h1>
+    <div class="sub">CBT Mock Test 4 · 30 Questions · Section A + Section B</div>
+
+    <label for="nameInput">Candidate Name</label>
+    <input type="text" id="nameInput" placeholder="Enter your full name">
+
+    <label>Test Duration</label>
+    <div class="duration-grid" id="durationGrid">
+      <button type="button" data-min="20">20 min</button>
+      <button type="button" data-min="30">30 min</button>
+      <button type="button" data-min="45">45 min</button>
+      <button type="button" data-min="60">60 min</button>
+    </div>
+    <div class="custom-row">
+      <input type="number" id="customMin" placeholder="Custom minutes (optional)" min="1">
+    </div>
+
+    <button id="startBtn" disabled>Start Test</button>
+    <div class="login-note">Section A: 15 Single Correct MCQs (+4 / −1). Section B: 15 Numerical Value questions (+4 / 0). This test draws from the remaining MCQ pool, remaining subjective questions, and remaining one-or-more-correct questions not used in Tests 1–3. Timer starts as soon as the test begins and auto-submits at zero.</div>
+  </div>
+</div>
+
+<!-- ================= TEST SCREEN ================= -->
+<div id="testScreen">
+  <div class="topbar">
+    <div class="brand">Atomic Structure &amp; Nuclear Chemistry <small>CBT Mock Test 4</small></div>
+    <div class="mid">
+      <div class="candidate" id="candNameTop"></div>
+      <div class="timer" id="timerDisplay">00:00:00</div>
+    </div>
+    <button class="submitTopBtn" id="submitTopBtn">Submit Test</button>
+  </div>
+
+  <div class="sectiontabs" id="sectionTabs"></div>
+
+  <div class="main">
+    <div class="qpanel" id="qpanel"></div>
+
+    <div class="sidepanel">
+      <div class="candbox">
+        <div class="avatar" id="avatarInit">?</div>
+        <div class="cname" id="candNameSide"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-row"><span class="swatch sw-notvisited"></span> Not Visited</div>
+        <div class="legend-row"><span class="swatch sw-notanswered"></span> Not Answered</div>
+        <div class="legend-row"><span class="swatch sw-answered"></span> Answered</div>
+        <div class="legend-row"><span class="swatch sw-marked"></span> Marked for Review</div>
+        <div class="legend-row"><span class="swatch sw-markedans"></span> Answered &amp; Marked</div>
+      </div>
+      <div class="paletteWrap" id="paletteWrap"></div>
+      <div class="submitBottom"><button id="submitBottomBtn">Submit Test</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= RESULTS SCREEN ================= -->
+<div id="resultScreen">
+  <div class="res-wrap">
+    <div class="res-header">
+      <h2 id="resName">Result Summary</h2>
+      <div class="sub" id="resSub"></div>
+    </div>
+
+    <div class="scoreCards" id="scoreCards"></div>
+
+    <div class="secBreak">
+      <h3>Section-wise Breakdown</h3>
+      <table class="secTable">
+        <thead><tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Unanswered</th><th>Marks</th></tr></thead>
+        <tbody id="secTableBody"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <button class="pdfBtn" onclick="window.print()">⬇ Download as PDF</button>
+      <button class="retryBtn" onclick="location.reload()">Restart / New Attempt</button>
+    </div>
+
+    <h3 style="color:var(--navy);margin-bottom:12px;">Full Answer Review</h3>
+    <div class="reviewList" id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION BANK — TEST 4 (all refs distinct from Tests 1-3)
+   ========================================================= */
+const questions = [
+  // ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
+  {
+    id:"A1", section:"A", type:"mcq", ref:"Ex.1 Part-II A-5",
+    text:"The fraction of volume occupied by the nucleus with respect to the total volume of an atom is:",
+    options:["10⁻¹⁵","10⁻⁵","10⁻³⁰","10⁻¹⁰"],
+    correct:0,
+    why:"Nuclear radius (~10⁻¹⁵ m) is about 10⁻⁵ times the atomic radius (~10⁻¹⁰ m), so the volume ratio (r_nucleus/r_atom)³ ≈ (10⁻⁵)³ = 10⁻¹⁵."
+  },
+  {
+    id:"A2", section:"A", type:"mcq", ref:"Ex.1 Part-II B-3",
+    text:"Electromagnetic radiation of wavelength 242 nm is just sufficient to ionise a sodium atom. The ionisation energy of sodium in kJ/mol is:",
+    options:["494.65","400","247","600"],
+    correct:0,
+    why:"E = Nₐ×hc/λ = 6.022×10²³×(6.626×10⁻³⁴×3×10⁸)/(242×10⁻⁹) ≈ 4.9465×10⁵ J/mol = 494.65 kJ/mol."
+  },
+  {
+    id:"A3", section:"A", type:"mcq", ref:"Ex.1 Part-II C-4",
+    text:"If the velocity of an electron in the 1st orbit of the H atom is V, what will be the velocity of the electron in the 3rd orbit of Li²⁺?",
+    options:["V","V/3","3V","9V"],
+    correct:0,
+    why:"vₙ ∝ Z/n. For H (Z=1, n=1): v ∝ 1. For Li²⁺ (Z=3, n=3): v ∝ 3/3 = 1 — the same relative value, so the velocity is again V."
+  },
+  {
+    id:"A4", section:"A", type:"mcq", ref:"Ex.1 Part-II D-1",
+    text:"The energy of the hydrogen atom in its ground state is −13.6 eV. The energy of the level corresponding to n = 5 is:",
+    options:["−0.54 eV","−5.40 eV","−0.85 eV","−2.72 eV"],
+    correct:0,
+    why:"Eₙ = −13.6/n² eV. For n=5: E₅ = −13.6/25 ≈ −0.54 eV."
+  },
+  {
+    id:"A5", section:"A", type:"mcq", ref:"Ex.1 Part-II E-5",
+    text:"de-Broglie wavelength of an electron in the second orbit of the Li²⁺ ion will be equal to the de-Broglie wavelength of an electron in:",
+    options:["n=3 of H-atom","n=4 of C⁵⁺ ion","n=6 of Be³⁺ ion","n=3 of He⁺ ion"],
+    correct:1,
+    why:"λₙ ∝ n/Z. For Li²⁺ (Z=3), n=2: λ ∝ 2/3. For C⁵⁺ (Z=6), n=4: λ ∝ 4/6 = 2/3 — the same value, so option (B) matches."
+  },
+  {
+    id:"A6", section:"A", type:"mcq", ref:"Ex.1 Part-II F-5",
+    text:"3pᵧ orbital has ......... nodal plane:",
+    options:["XY","YZ","ZX","All of these"],
+    correct:2,
+    why:"The pᵧ orbital lies along the y-axis, so its nodal plane is the plane perpendicular to y containing the other two axes, i.e. the ZX (xz) plane."
+  },
+  {
+    id:"A7", section:"A", type:"mcq", ref:"Ex.1 Part-II G-7",
+    text:"Consider the ground state of the Cr atom (Z=24). The numbers of electrons with the azimuthal quantum numbers l=1 and l=2 are, respectively:",
+    options:["16 and 5","12 and 5","16 and 4","12 and 4"],
+    correct:1,
+    why:"Cr: [Ar]3d⁵4s¹ = 1s²2s²2p⁶3s²3p⁶3d⁵4s¹. Electrons with l=1 (p-electrons): 2p⁶+3p⁶ = 12. Electrons with l=2 (d-electrons): 3d⁵ = 5. So 12 and 5."
+  },
+  {
+    id:"A8", section:"A", type:"mcq", ref:"Ex.1 Part-II H-5",
+    text:"Which of the following nuclear emissions will generate an isotope?",
+    options:["β-emission","Neutron emission","α-emission","Positron emission"],
+    correct:1,
+    why:"Emitting a neutron does not change the atomic number Z, only the mass number decreases — so the resulting nuclide is an isotope of the original element. β, α, and positron emission all change Z."
+  },
+  {
+    id:"A9", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-1",
+    text:"Which is NOT true with respect to cathode rays?",
+    options:["A stream of electrons","Charged particles","Move with the same speed as that of light","Can be deflected by an electric field"],
+    correct:2,
+    why:"Cathode ray electrons travel at high but sub-light speeds depending on the accelerating voltage — they do not move at the speed of light, so statement (C) is the false one."
+  },
+  {
+    id:"A10", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-3",
+    text:"An oil drop has 6.39 × 10⁻¹⁹ C charge. Find the number of electrons in this oil drop.",
+    options:["2","4","6","8"],
+    correct:1,
+    why:"n = Q/e = 6.39×10⁻¹⁹/1.6×10⁻¹⁹ ≈ 4."
+  },
+  {
+    id:"A11", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-8",
+    text:"The angular momentum of an electron in a given orbit is J. Its kinetic energy will be:",
+    options:["(1/2)(J²/mr²)","Jv/r","J²/2m","J²/2"],
+    correct:0,
+    why:"J = mvr → v = J/(mr). KE = (1/2)mv² = (1/2)m×(J/(mr))² = J²/(2mr²)."
+  },
+  {
+    id:"A12", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-26",
+    text:"The value of the spin magnetic moment of a particular ion is 2.83 Bohr magneton. The ion is:",
+    options:["Fe²⁺","Ni²⁺","Mn²⁺","Co³⁺"],
+    correct:1,
+    why:"μ=√(n(n+2))=2.83 → n(n+2)≈8 → n=2 unpaired electrons. Ni²⁺: [Ar]3d⁸, which by Hund's rule (2,2,2,1,1) has exactly 2 unpaired electrons."
+  },
+  {
+    id:"A13", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-31",
+    text:"The number of α and β particles lost when ²³⁸₉₂U changes to ²⁰⁶₈₂Pb:",
+    options:["8α, 6β","6α, 6β","6α, 8β","4α, 4β"],
+    correct:0,
+    why:"Mass number drop = 238−206=32, so α count = 32/4=8. Expected Z drop from 8α alone = 16, but the actual Z drop = 92−82=10, so 6 β-particles must be emitted to make up the difference (16−10=6). Total: 8α, 6β."
+  },
+  {
+    id:"A14", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#1 Q-2",
+    text:"A laser producing monochromatic light is used to eject an electron from a sheet of gold having threshold frequency 6.15×10¹⁴ s⁻¹. Which of the following incident radiations will be suitable for the ejection of an electron?",
+    options:["1.5 moles of photons having frequency 3.05×10¹⁴ s⁻¹","0.5 moles of photons of frequency 12.3×10¹² s⁻¹","One photon with frequency 5.16×10¹⁵ s⁻¹","All of the above"],
+    correct:2,
+    why:"Photoelectric emission depends only on whether a single photon's frequency exceeds the threshold, not on the total number of photons. Options (A) and (B) both have frequencies below 6.15×10¹⁴ s⁻¹, so no amount of such photons can eject an electron. Only option (C)'s frequency exceeds the threshold, so it alone is suitable."
+  },
+  {
+    id:"A15", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#2 Q-4",
+    text:"The last line of the Brackett series for the H-atom has wavelength λ₁ Å and the 2nd line of the Lyman series has wavelength λ₂ Å, then:",
+    options:["128/λ₁ = 9/λ₂","16/λ₁ = 9/λ₂","4/λ₁ = 1/λ₂","128/λ₁ = 8/λ₂"],
+    correct:0,
+    why:"Brackett series limit (n=∞→4): 1/λ₁ = R/16. 2nd Lyman line (n=3→1): 1/λ₂ = R(1−1/9) = 8R/9. So 128/λ₁ = 128×R/16 = 8R, and 9/λ₂ = 9×8R/9 = 8R. Both equal 8R, so 128/λ₁ = 9/λ₂."
+  },
+
+  // ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
+  {
+    id:"B1", section:"B", type:"numeric", ref:"Ex.1 Part-I A-4(a)",
+    text:"Find the radius of the nucleus of an atom having atomic mass number equal to 125. (Take R₀ = 1.3 × 10⁻¹⁵ m). Express the answer as X × 10⁻¹⁵ m and find X (to 1 decimal place).",
+    answer:6.5,
+    why:"R = R₀A^(1/3) = 1.3×10⁻¹⁵×125^(1/3) = 1.3×10⁻¹⁵×5 = 6.5×10⁻¹⁵ m."
+  },
+  {
+    id:"B2", section:"B", type:"numeric", ref:"Ex.1 Part-I B-1",
+    text:"Calculate the total energy of 100 photons if the wavelength of the light is 2000 Å. Express the answer in eV (to 1 decimal place).",
+    answer:621.1,
+    why:"E(per photon) = hc/λ. Using precise values of h and c, E(per photon) ≈ 6.211 eV. For 100 photons: 100×6.211 ≈ 621.1 eV."
+  },
+  {
+    id:"B3", section:"B", type:"numeric", ref:"Ex.1 Part-I B-2",
+    text:"How many photons are emitted per second by a 5 mW laser operating at 620 nm? Express the answer as X × 10¹⁶ and find X (to 2 decimal places).",
+    answer:1.56,
+    why:"Photons/s = Pλ/(hc) = (5×10⁻³×620×10⁻⁹)/(6.626×10⁻³⁴×3×10⁸) ≈ 1.56×10¹⁶."
+  },
+  {
+    id:"B4", section:"B", type:"numeric", ref:"Ex.1 Part-I B-5",
+    text:"The eyes of a certain reptile pass a visual signal to the brain when the visual receptors are struck by photons of wavelength 850 nm. If a total energy of 3.15×10⁻¹⁴ J is required to trip the signal (h=6.6×10⁻³⁴ Js), find the minimum number of photons needed. Express the answer as X × 10⁵ and find X (to 2 decimal places).",
+    answer:1.35,
+    why:"E(per photon) = hc/λ = (6.6×10⁻³⁴×3×10⁸)/(850×10⁻⁹) ≈ 2.33×10⁻¹⁹ J. Number of photons = 3.15×10⁻¹⁴/2.33×10⁻¹⁹ ≈ 1.35×10⁵."
+  },
+  {
+    id:"B5", section:"B", type:"numeric", ref:"Ex.1 Part-I C-1",
+    text:"Which state (n) of the triply ionised beryllium (Be³⁺) ion has the same orbit radius as that of the ground state of the hydrogen atom? Enter the value of n.",
+    answer:2,
+    why:"rₙ = 0.529×n²/Z Å. Setting Be³⁺'s radius (Z=4) equal to H's ground-state radius (n=1, Z=1): n²/4 = 1²/1 → n² = 4 → n = 2."
+  },
+  {
+    id:"B6", section:"B", type:"numeric", ref:"Ex.1 Part-I C-7(d)",
+    text:"A single electron ion has nuclear charge +Ze. It requires 16.52 eV to excite the electron from the second Bohr orbit to the third Bohr orbit. Find the kinetic energy (in eV) of the electron in the first Bohr orbit.",
+    answer:122.4,
+    why:"Excitation energy (n=2→3) = 13.6Z²(1/4−1/9) = 13.6Z²(5/36) = 16.52 eV → Z²≈9 → Z=3. Ground state total energy E₁ = −13.6×9 = −122.4 eV. Since KE = −E in the Bohr model, KE in the first orbit = 122.4 eV."
+  },
+  {
+    id:"B7", section:"B", type:"numeric", ref:"Ex.1 Part-I E-1",
+    text:"An electron in a H-atom in its ground state absorbs 1.5 times as much energy as the minimum required for its escape (13.6 eV) from the atom. What is the wavelength (in Å, to 2 decimal places) associated with the ejected electron?",
+    answer:4.71,
+    why:"Energy absorbed = 1.5×13.6 = 20.4 eV. Energy used for ionisation = 13.6 eV, leaving KE = 20.4−13.6 = 6.8 eV. λ = 12.3/√(KE in eV) Å = 12.3/√6.8 ≈ 4.71 Å."
+  },
+  {
+    id:"B8", section:"B", type:"numeric", ref:"Ex.1 Part-I E-2",
+    text:"Deduce the condition when the de Broglie wavelength associated with an electron would be equal to that associated with a proton, if a proton is 1836 times heavier than an electron. If vₑ = k × v_p (where vₑ, v_p are the electron and proton velocities for equal wavelengths), find the value of k.",
+    answer:1836,
+    why:"Equal wavelengths require mₑvₑ = m_p v_p. Since m_p = 1836mₑ, we get vₑ = 1836 × v_p, so k = 1836."
+  },
+  {
+    id:"B9", section:"B", type:"numeric", ref:"Ex.1 Part-I F-1(b)",
+    text:"Find the number of angular nodes of the 3dyz atomic orbital.",
+    answer:2,
+    why:"Angular nodes = l. For a d-orbital, l = 2, so the 3dyz orbital has 2 angular nodes."
+  },
+  {
+    id:"B10", section:"B", type:"numeric", ref:"Ex.1 Part-I G-5",
+    text:"Which of the following sets of quantum numbers (n, l, m, s) are impossible for electrons?\n(i) n=1, l=0, m=1, s=+1/2\n(ii) n=3, l=0, m=0, s=−1/2\n(iii) n=1, l=2, m=2, s=+1/2\n(iv) n=4, l=3, m=−3, s=+1/2\n(v) n=5, l=2, m=1, s=−1/2\n(vi) n=3, l=2, m=1, s=0\nHow many of these six sets are impossible?",
+    answer:3,
+    why:"A set is impossible if it violates l ≤ n−1, |m| ≤ l, or s = ±1/2. (i) n=1 allows only l=0, but m must then be 0, not 1 — impossible. (ii) valid. (iii) n=1 allows only l=0, but l=2 here — impossible. (iv) valid. (v) valid. (vi) s=0 is not an allowed spin value — impossible. So 3 sets — (i), (iii), (vi) — are impossible."
+  },
+  {
+    id:"B11", section:"B", type:"numeric", ref:"Ex.2 Part-III Q-3",
+    text:"When alpha particles are sent towards a thin metal foil, most of them go straight through the foil because: (A) alpha particles are much heavier than electrons (B) alpha particles are positively charged (C) most part of the atom is empty space (D) alpha particles move with high speed. How many of these four options are correct reasons for this observation?",
+    answer:2,
+    why:"Most α-particles pass straight through because they are far heavier than electrons (electron collisions barely deflect them) and because most of the atom's volume is empty space (they rarely come close to the nucleus). B and D, while true statements about α-particles, are not the reasons for the observed straight-through behaviour. So 2 options (A, C) are correct."
+  },
+  {
+    id:"B12", section:"B", type:"numeric", ref:"Ex.2 Part-III Q-5",
+    text:"A sodium street light gives off yellow light of wavelength 600 nm. (For energy of a photon, E = 12400 eV·Å / λ(Å)). (A) frequency of this light is 7×10¹⁴ s⁻¹ (B) frequency of this light is 5×10¹⁴ s⁻¹ (C) wave number of the light is 3×10⁶ m⁻¹ (D) energy of the photon is approximately 2.07 eV. How many of these four options are correct?",
+    answer:2,
+    why:"ν = c/λ = 3×10⁸/(600×10⁻⁹) = 5×10¹⁴ s⁻¹ (B correct, A incorrect). Wave number = 1/λ = 1/(600×10⁻⁹) ≈ 1.67×10⁶ m⁻¹, not 3×10⁶ (C incorrect). E = 12400/6000 ≈ 2.07 eV (D correct). So 2 options (B, D) are correct."
+  },
+  {
+    id:"B13", section:"B", type:"numeric", ref:"Ex.2 Part-III Q-7",
+    text:"Choose the correct relations on the basis of Bohr's theory: (A) Velocity of electron ∝ 1/n (B) Frequency of revolution ∝ 1/n³ (C) Radius of orbit ∝ n²Z (D) Electrostatic force on electron ∝ 1/n⁴. How many of these four options are correct?",
+    answer:3,
+    why:"v ∝ Z/n, so v ∝ 1/n for fixed Z (A correct). Frequency of revolution f = v/(2πr) ∝ (1/n)/n² = 1/n³ (B correct). Radius r ∝ n²/Z, not n²Z (C incorrect). Coulomb force ∝ 1/r² ∝ 1/n⁴ (D correct). So 3 options (A, B, D) are correct."
+  },
+  {
+    id:"B14", section:"B", type:"numeric", ref:"Ex.2 Part-III Q-10",
+    text:"In a H-like sample, electrons make a transition from the 4th excited state up to the 2nd state. Then: (A) 10 different spectral lines are observed (B) 6 different spectral lines are observed (C) number of lines belonging to the Balmer series is 3 (D) number of lines belonging to the Paschen series is 2. How many of these four options are correct?",
+    answer:3,
+    why:"4th excited state is n=5. Transitions confined between n=5 and n=2 give (5−2)(5−2+1)/2 = 6 lines total (B correct, A incorrect). Balmer series (ending at n=2) lines: 5→2, 4→2, 3→2 = 3 lines (C correct). Paschen series (ending at n=3) lines: 5→3, 4→3 = 2 lines (D correct). So 3 options (B, C, D) are correct."
+  },
+  {
+    id:"B15", section:"B", type:"numeric", ref:"Ex.2 Part-III Q-13",
+    text:"Which of the following statements is/are correct for an electron with quantum numbers n=4 and m=2? (A) The value of l may be 2 (B) The value of l may be 3 (C) The value of s may be +1/2 (D) The value of l may be 0, 1, 2, 3. How many of these four options are correct?",
+    answer:3,
+    why:"For m=2 to be valid, l must be ≥2 (since |m|≤l), and l can range up to n−1=3. So l can be 2 or 3 (A and B both correct). s can always be +1/2 or −1/2, so C is correct. D is incorrect because l cannot be 0 or 1 when m=2. So 3 options (A, B, C) are correct."
+  }
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let candidateName = "";
+let totalSeconds = 0;
+let remainingSeconds = 0;
+let timerInterval = null;
+let currentSection = "A";
+let currentIndex = 0;
+
+const qState = {};
+questions.forEach(q=>{ qState[q.id] = {status:"notvisited", selected:null}; });
+
+const sectionOrder = ["A","B"];
+function questionsOf(sec){ return questions.filter(q=>q.section===sec); }
+
+/* =========================================================
+   LOGIN SCREEN LOGIC
+   ========================================================= */
+let chosenMinutes = null;
+const durationGrid = document.getElementById("durationGrid");
+durationGrid.addEventListener("click", e=>{
+  if(e.target.tagName !== "BUTTON") return;
+  [...durationGrid.children].forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  chosenMinutes = parseInt(e.target.dataset.min,10);
+  document.getElementById("customMin").value = "";
+  validateStart();
+});
+document.getElementById("customMin").addEventListener("input", e=>{
+  if(e.target.value){
+    [...durationGrid.children].forEach(b=>b.classList.remove("active"));
+    chosenMinutes = parseInt(e.target.value,10);
+  } else {
+    chosenMinutes = null;
+  }
+  validateStart();
+});
+document.getElementById("nameInput").addEventListener("input", validateStart);
+
+function validateStart(){
+  const name = document.getElementById("nameInput").value.trim();
+  const ok = name.length>0 && chosenMinutes && chosenMinutes>0;
+  document.getElementById("startBtn").disabled = !ok;
+}
+
+document.getElementById("startBtn").addEventListener("click", ()=>{
+  candidateName = document.getElementById("nameInput").value.trim();
+  totalSeconds = chosenMinutes*60;
+  remainingSeconds = totalSeconds;
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("testScreen").style.display="flex";
+  document.getElementById("candNameTop").textContent = candidateName;
+  document.getElementById("candNameSide").textContent = candidateName;
+  document.getElementById("avatarInit").textContent = candidateName.trim()[0].toUpperCase();
+  buildSectionTabs();
+  renderPalette();
+  goToQuestion("A",0);
+  startTimer();
+});
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    remainingSeconds--;
+    if(remainingSeconds<=0){
+      remainingSeconds=0;
+      updateTimerDisplay();
+      clearInterval(timerInterval);
+      finishTest(true);
+      return;
+    }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const h = Math.floor(remainingSeconds/3600);
+  const m = Math.floor((remainingSeconds%3600)/60);
+  const s = remainingSeconds%60;
+  const el = document.getElementById("timerDisplay");
+  el.textContent = [h,m,s].map(v=>String(v).padStart(2,"0")).join(":");
+  el.classList.toggle("low", remainingSeconds<=60);
+}
+
+/* =========================================================
+   SECTION TABS
+   ========================================================= */
+function buildSectionTabs(){
+  const wrap = document.getElementById("sectionTabs");
+  wrap.innerHTML="";
+  sectionOrder.forEach(sec=>{
+    const btn = document.createElement("button");
+    btn.textContent = sec==="A" ? "Section A — Single Correct (15)" : "Section B — Numerical Value (15)";
+    btn.dataset.sec = sec;
+    if(sec===currentSection) btn.classList.add("active");
+    btn.addEventListener("click", ()=>{
+      currentSection = sec;
+      goToQuestion(sec,0);
+    });
+    wrap.appendChild(btn);
+  });
+}
+function refreshSectionTabsActive(){
+  [...document.getElementById("sectionTabs").children].forEach(b=>{
+    b.classList.toggle("active", b.dataset.sec===currentSection);
+  });
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+function goToQuestion(sec, localIdx){
+  currentSection = sec;
+  const secQs = questionsOf(sec);
+  if(localIdx<0) localIdx=0;
+  if(localIdx>=secQs.length) localIdx=secQs.length-1;
+  const q = secQs[localIdx];
+  currentIndex = questions.indexOf(q);
+  if(qState[q.id].status==="notvisited") qState[q.id].status="notanswered";
+  refreshSectionTabsActive();
+  renderQuestion();
+  renderPalette();
+}
+
+/* =========================================================
+   RENDER QUESTION
+   ========================================================= */
+function renderQuestion(){
+  const q = questions[currentIndex];
+  const secQs = questionsOf(q.section);
+  const localIdx = secQs.findIndex(x=>x.id===q.id);
+  const panel = document.getElementById("qpanel");
+
+  let html = `
+    <div class="qmeta">
+      <div class="qnoTag">Section ${q.section} · Question ${localIdx+1} of ${secQs.length}</div>
+      <div class="marks">${q.type==="mcq" ? '<b class="pos">+4</b> / <b class="neg">−1</b>' : '<b class="pos">+4</b> / 0'}</div>
+    </div>
+    <div class="refTag">${q.ref}</div>
+    <div class="qtext">${q.text}</div>
+  `;
+
+  if(q.type==="mcq"){
+    html += `<div class="options">`;
+    q.options.forEach((opt,i)=>{
+      const sel = qState[q.id].selected===i ? "selected":"";
+      html += `
+        <label class="option ${sel}" data-idx="${i}">
+          <input type="radio" name="mcqOpt" ${qState[q.id].selected===i?"checked":""}>
+          <span><span class="optlabel">${String.fromCharCode(65+i)}.</span>${opt}</span>
+        </label>`;
+    });
+    html += `</div>`;
+  } else {
+    const val = qState[q.id].selected!==null ? qState[q.id].selected : "";
+    html += `
+      <div class="numeric-input-row">
+        <input type="number" step="any" id="numAnswer" placeholder="Enter numeric value" value="${val}">
+        <div class="hint">Enter your numeric answer (integer or decimal).</div>
+      </div>`;
+  }
+
+  html += `
+    <div class="actionbar">
+      <button class="btn-prev" id="btnPrev">← Previous</button>
+      <button class="btn-mark" id="btnMark">Mark for Review &amp; Next</button>
+      <button class="btn-clear" id="btnClear">Clear Response</button>
+      <button class="btn-save" id="btnSave">Save &amp; Next →</button>
+    </div>
+  `;
+  panel.innerHTML = html;
+
+  if(q.type==="mcq"){
+    panel.querySelectorAll(".option").forEach(optEl=>{
+      optEl.addEventListener("click", ()=>{
+        const i = parseInt(optEl.dataset.idx,10);
+        qState[q.id].selected = i;
+        panel.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+        optEl.classList.add("selected");
+        panel.querySelectorAll('input[name="mcqOpt"]').forEach((r,ri)=>r.checked = ri===i);
+        if(qState[q.id].status==="marked" || qState[q.id].status==="markedans"){
+          qState[q.id].status="markedans";
+        } else {
+          qState[q.id].status="answered";
+        }
+        renderPalette();
+      });
+    });
+  } else {
+    const numInput = document.getElementById("numAnswer");
+    numInput.addEventListener("input", ()=>{
+      const v = numInput.value;
+      if(v===""){
+        qState[q.id].selected=null;
+        qState[q.id].status = (qState[q.id].status==="markedans")?"marked":"notanswered";
+      } else {
+        qState[q.id].selected=v;
+        qState[q.id].status = (qState[q.id].status==="marked"||qState[q.id].status==="markedans")?"markedans":"answered";
+      }
+      renderPalette();
+    });
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", ()=>{
+    goToQuestion(q.section, localIdx-1<0 ? localIdx : localIdx-1);
+  });
+  document.getElementById("btnSave").addEventListener("click", ()=>{
+    saveCurrentAnswer();
+    moveNext(q.section, localIdx);
+  });
+  document.getElementById("btnMark").addEventListener("click", ()=>{
+    saveCurrentAnswer();
+    const st = qState[q.id];
+    st.status = (st.selected!==null && st.selected!==undefined && st.selected!=="") ? "markedans" : "marked";
+    renderPalette();
+    moveNext(q.section, localIdx);
+  });
+  document.getElementById("btnClear").addEventListener("click", ()=>{
+    qState[q.id].selected=null;
+    qState[q.id].status="notanswered";
+    renderQuestion();
+    renderPalette();
+  });
+}
+
+function saveCurrentAnswer(){
+  const q = questions[currentIndex];
+  if(q.type==="numeric"){
+    const numInput = document.getElementById("numAnswer");
+    if(numInput){
+      const v = numInput.value;
+      if(v!==""){
+        qState[q.id].selected=v;
+        if(qState[q.id].status!=="marked" && qState[q.id].status!=="markedans"){
+          qState[q.id].status="answered";
+        } else if(qState[q.id].status==="marked"){
+          qState[q.id].status="markedans";
+        }
+      }
+    }
+  }
+}
+
+function moveNext(sec, localIdx){
+  const secQs = questionsOf(sec);
+  if(localIdx+1 < secQs.length){
+    goToQuestion(sec, localIdx+1);
+  } else {
+    const secIdx = sectionOrder.indexOf(sec);
+    if(secIdx+1 < sectionOrder.length){
+      goToQuestion(sectionOrder[secIdx+1], 0);
+    } else {
+      renderPalette();
+    }
+  }
+}
+
+/* =========================================================
+   PALETTE
+   ========================================================= */
+function renderPalette(){
+  const wrap = document.getElementById("paletteWrap");
+  wrap.innerHTML="";
+  sectionOrder.forEach(sec=>{
+    const secQs = questionsOf(sec);
+    const label = document.createElement("div");
+    label.className="paletteSection";
+    label.textContent = "Section "+sec;
+    wrap.appendChild(label);
+    const grid = document.createElement("div");
+    grid.className="palette";
+    secQs.forEach((q,i)=>{
+      const st = qState[q.id];
+      const btn = document.createElement("button");
+      btn.className = "pnum " + st.status;
+      if(questions[currentIndex].id===q.id) btn.classList.add("current");
+      btn.textContent = i+1;
+      btn.addEventListener("click", ()=>{
+        saveCurrentAnswer();
+        goToQuestion(sec,i);
+      });
+      grid.appendChild(btn);
+    });
+    wrap.appendChild(grid);
+  });
+}
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+document.getElementById("submitTopBtn").addEventListener("click", confirmSubmit);
+document.getElementById("submitBottomBtn").addEventListener("click", confirmSubmit);
+function confirmSubmit(){
+  saveCurrentAnswer();
+  const unanswered = questions.filter(q=>{
+    const s=qState[q.id].status;
+    return s==="notvisited"||s==="notanswered"||s==="marked";
+  }).length;
+  const msg = unanswered>0
+    ? `You have ${unanswered} unanswered question(s). Are you sure you want to submit the test?`
+    : `Are you sure you want to submit the test?`;
+  if(confirm(msg)){
+    clearInterval(timerInterval);
+    finishTest(false);
+  }
+}
+
+function finishTest(auto){
+  document.getElementById("testScreen").style.display="none";
+  document.getElementById("resultScreen").style.display="block";
+  computeAndRenderResults(auto);
+  window.scrollTo(0,0);
+}
+
+function isNumericCorrect(q, val){
+  if(val===null || val===undefined || val==="") return false;
+  const num = parseFloat(val);
+  if(isNaN(num)) return false;
+  const tol = Math.max(0.03, Math.abs(q.answer)*0.01);
+  return Math.abs(num - q.answer) < tol;
+}
+
+function computeAndRenderResults(auto){
+  let totalScore=0;
+  const secStats = {A:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0},
+                     B:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0}};
+  const perQ = [];
+
+  questions.forEach(q=>{
+    const st = qState[q.id];
+    const stat = secStats[q.section];
+    const maxMark = 4;
+    stat.max += maxMark;
+    let userAnsText, isCorrect=false, attempted=false;
+
+    if(q.type==="mcq"){
+      const sel = st.selected;
+      attempted = sel!==null && sel!==undefined;
+      if(attempted){
+        isCorrect = sel===q.correct;
+        userAnsText = String.fromCharCode(65+sel)+". "+q.options[sel];
+        if(isCorrect){ stat.marks+=4; totalScore+=4; }
+        else { stat.marks-=1; totalScore-=1; }
+      } else {
+        userAnsText = "Not Answered";
+      }
+    } else {
+      const sel = st.selected;
+      attempted = sel!==null && sel!==undefined && sel!=="";
+      if(attempted){
+        isCorrect = isNumericCorrect(q, sel);
+        userAnsText = sel;
+        if(isCorrect){ stat.marks+=4; totalScore+=4; }
+      } else {
+        userAnsText = "Not Answered";
+      }
+    }
+
+    if(attempted){
+      stat.attempted++;
+      if(isCorrect) stat.correct++; else stat.wrong++;
+    } else {
+      stat.unanswered++;
+    }
+
+    perQ.push({q, userAnsText, isCorrect, attempted});
+  });
+
+  document.getElementById("resName").textContent = `Result — ${candidateName}`;
+  document.getElementById("resSub").textContent = auto
+    ? "Test auto-submitted (time expired)."
+    : "Test submitted successfully.";
+
+  const maxTotal = secStats.A.max + secStats.B.max;
+  const scoreCards = document.getElementById("scoreCards");
+  scoreCards.innerHTML = `
+    <div class="scard"><div class="val">${totalScore} / ${maxTotal}</div><div class="lab">Total Score</div></div>
+    <div class="scard"><div class="val">${secStats.A.correct+secStats.B.correct} / 30</div><div class="lab">Correct</div></div>
+    <div class="scard"><div class="val">${secStats.A.wrong+secStats.B.wrong}</div><div class="lab">Wrong</div></div>
+    <div class="scard"><div class="val">${secStats.A.unanswered+secStats.B.unanswered}</div><div class="lab">Unanswered</div></div>
+  `;
+
+  const tbody = document.getElementById("secTableBody");
+  tbody.innerHTML = `
+    <tr>
+      <td style="text-align:left;font-weight:600;">Section A — MCQ</td>
+      <td>${secStats.A.attempted}/15</td><td>${secStats.A.correct}</td><td>${secStats.A.wrong}</td><td>${secStats.A.unanswered}</td>
+      <td><b>${secStats.A.marks}</b> / ${secStats.A.max}</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;font-weight:600;">Section B — Numerical</td>
+      <td>${secStats.B.attempted}/15</td><td>${secStats.B.correct}</td><td>${secStats.B.wrong}</td><td>${secStats.B.unanswered}</td>
+      <td><b>${secStats.B.marks}</b> / ${secStats.B.max}</td>
+    </tr>
+  `;
+
+  const reviewList = document.getElementById("reviewList");
+  reviewList.innerHTML="";
+  perQ.forEach((item,idx)=>{
+    const q=item.q;
+    const cls = !item.attempted ? "unanswered" : (item.isCorrect?"correct":"incorrect");
+    const tag = !item.attempted ? "Unanswered" : (item.isCorrect?"Correct":"Incorrect");
+    const correctText = q.type==="mcq" ? (String.fromCharCode(65+q.correct)+". "+q.options[q.correct]) : q.answer;
+    const div = document.createElement("div");
+    div.className = "revCard "+cls;
+    div.innerHTML = `
+      <div class="revTop">
+        <div><span class="refTag">${q.ref}</span></div>
+        <div class="revTag ${cls}">${tag}</div>
+      </div>
+      <div class="revQtext"><b>Q${idx+1}.</b> ${q.text}</div>
+      <div class="revAns"><b>Your Answer:</b> ${item.userAnsText}</div>
+      <div class="revAns"><b>Correct Answer:</b> ${correctText}</div>
+      <div class="revWhy"><b>Why:</b> ${q.why}</div>
+    `;
+    reviewList.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>

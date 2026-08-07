@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atomic Structure &amp; Nuclear Chemistry — CBT Mock Test 1</title>
+<style>
+  :root{
+    --navy:#0b2545;
+    --navy-2:#13315c;
+    --blue:#1a73c4;
+    --green:#3fa34d;
+    --red:#e0413a;
+    --purple:#7b3fa3;
+    --gray:#8a94a3;
+    --lightbg:#eef1f5;
+    --panelbg:#ffffff;
+    --border:#d7dce3;
+    --text:#1c2530;
+    --muted:#5a6572;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:var(--lightbg);color:var(--text);}
+  button{font-family:inherit;cursor:pointer;}
+  input[type=text],input[type=number]{font-family:inherit;}
+
+  /* ---------- LOGIN SCREEN ---------- */
+  #loginScreen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 55%,#1a4a7a 100%);
+  }
+  .login-card{
+    background:#fff;width:420px;max-width:92vw;border-radius:10px;padding:36px 34px 30px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .login-card h1{font-size:19px;margin:0 0 2px;color:var(--navy);letter-spacing:.3px;}
+  .login-card .sub{font-size:12.5px;color:var(--muted);margin-bottom:22px;}
+  .login-card label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin:16px 0 6px;}
+  .login-card input[type=text]{
+    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;
+  }
+  .duration-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .duration-grid button{
+    padding:9px 4px;border:1.5px solid var(--border);background:#fff;border-radius:6px;font-size:13px;color:var(--navy-2);
+  }
+  .duration-grid button.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;}
+  .custom-row{display:flex;gap:8px;margin-top:8px;}
+  .custom-row input{flex:1;padding:9px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;}
+  #startBtn{
+    margin-top:26px;width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:6px;
+    font-size:15px;font-weight:700;letter-spacing:.3px;
+  }
+  #startBtn:disabled{background:#a9b3bf;}
+  .login-note{margin-top:14px;font-size:11.5px;color:var(--muted);line-height:1.5;}
+
+  /* ---------- TEST SCREEN ---------- */
+  #testScreen{display:none;height:100vh;flex-direction:column;}
+  .topbar{
+    background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;
+    padding:8px 16px;flex-shrink:0;
+  }
+  .topbar .brand{font-size:14px;font-weight:700;letter-spacing:.3px;}
+  .topbar .brand small{display:block;font-weight:400;font-size:10.5px;color:#b9c6da;}
+  .topbar .mid{display:flex;align-items:center;gap:18px;font-size:12.5px;}
+  .candidate{opacity:.9;}
+  .timer{
+    background:#0000003a;border:1px solid #ffffff33;padding:6px 14px;border-radius:6px;font-weight:700;font-size:15px;
+    letter-spacing:.5px;font-variant-numeric:tabular-nums;
+  }
+  .timer.low{background:#7a1f1f;border-color:#c0392b;}
+  .submitTopBtn{background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:5px;font-size:12.5px;font-weight:700;}
+
+  .sectiontabs{display:flex;gap:6px;background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;flex-shrink:0;}
+  .sectiontabs button{
+    border:1px solid var(--border);background:#f5f7fa;padding:8px 18px;border-radius:5px 5px 0 0;font-size:13px;font-weight:600;color:var(--navy-2);
+  }
+  .sectiontabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
+
+  .main{flex:1;display:flex;overflow:hidden;}
+  .qpanel{flex:1;background:var(--panelbg);padding:22px 28px;overflow-y:auto;display:flex;flex-direction:column;}
+  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+  .qmeta .qnoTag{font-size:13.5px;font-weight:700;color:var(--navy);}
+  .qmeta .marks{font-size:11.5px;color:var(--muted);}
+  .qmeta .marks b.pos{color:var(--green);}
+  .qmeta .marks b.neg{color:var(--red);}
+  .refTag{display:inline-block;font-size:10.5px;background:#eef2f8;color:var(--blue);border:1px solid #cfe0f2;
+    border-radius:4px;padding:2px 8px;margin-bottom:12px;font-weight:600;letter-spacing:.2px;}
+  .qtext{font-size:15.5px;line-height:1.6;margin-bottom:20px;color:var(--text);}
+  .options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
+  .option{
+    display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;
+    cursor:pointer;font-size:14px;transition:.12s;
+  }
+  .option:hover{border-color:var(--blue);background:#f7fafd;}
+  .option.selected{border-color:var(--blue);background:#eaf3fc;}
+  .option input{margin-top:2px;}
+  .optlabel{font-weight:700;color:var(--navy-2);margin-right:4px;}
+  .numeric-input-row{margin-bottom:24px;}
+  .numeric-input-row input{
+    width:220px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;font-size:15px;
+  }
+  .numeric-input-row .hint{font-size:11px;color:var(--muted);margin-top:6px;}
+
+  .actionbar{display:flex;gap:10px;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;}
+  .actionbar button{padding:10px 16px;border-radius:5px;font-size:12.5px;font-weight:700;border:1.5px solid transparent;}
+  .btn-mark{background:#fff;border-color:var(--purple);color:var(--purple);}
+  .btn-clear{background:#fff;border-color:var(--gray);color:var(--gray);}
+  .btn-prev{background:#fff;border-color:var(--navy-2);color:var(--navy-2);}
+  .btn-save{background:var(--green);color:#fff;margin-left:auto;}
+  .btn-submit{background:var(--red);color:#fff;}
+
+  .sidepanel{width:270px;background:#f7f9fb;border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+  .candbox{padding:14px 16px;border-bottom:1px solid var(--border);text-align:center;}
+  .candbox .avatar{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;
+    justify-content:center;font-size:20px;font-weight:700;margin:0 auto 6px;}
+  .candbox .cname{font-size:13px;font-weight:700;color:var(--navy);}
+  .legend{padding:10px 14px;border-bottom:1px solid var(--border);}
+  .legend-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:6px;}
+  .swatch{width:15px;height:15px;border-radius:3px;flex-shrink:0;display:inline-block;}
+  .sw-notvisited{background:#fff;border:1.5px solid var(--gray);}
+  .sw-notanswered{background:var(--red);}
+  .sw-answered{background:var(--green);}
+  .sw-marked{background:var(--purple);}
+  .sw-markedans{background:var(--purple);position:relative;}
+  .paletteWrap{flex:1;overflow-y:auto;padding:12px 14px;}
+  .paletteSection{font-size:11.5px;font-weight:700;color:var(--navy-2);margin:10px 0 8px;text-transform:uppercase;letter-spacing:.4px;}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
+  .pnum{
+    width:100%;aspect-ratio:1;border-radius:5px;border:none;color:#fff;font-size:12.5px;font-weight:700;
+    display:flex;align-items:center;justify-content:center;position:relative;background:var(--gray);
+  }
+  .pnum.notanswered{background:var(--red);}
+  .pnum.answered{background:var(--green);}
+  .pnum.marked{background:var(--purple);}
+  .pnum.markedans{background:var(--purple);}
+  .pnum.markedans::after{
+    content:"";position:absolute;bottom:3px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--green);
+    border:1px solid #fff;
+  }
+  .pnum.current{outline:2.5px solid var(--navy);outline-offset:2px;}
+  .submitBottom{padding:14px;border-top:1px solid var(--border);}
+  .submitBottom button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:6px;font-weight:700;font-size:13px;}
+
+  /* ---------- RESULTS SCREEN ---------- */
+  #resultScreen{display:none;background:var(--lightbg);min-height:100vh;padding:26px 20px 60px;}
+  .res-wrap{max-width:920px;margin:0 auto;}
+  .res-header{background:var(--navy);color:#fff;border-radius:10px;padding:26px 30px;margin-bottom:20px;}
+  .res-header h2{margin:0 0 4px;font-size:20px;}
+  .res-header .sub{font-size:12.5px;color:#c3cfe0;}
+  .scoreCards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+  .scard{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid var(--border);}
+  .scard .val{font-size:24px;font-weight:800;color:var(--navy);}
+  .scard .lab{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.3px;}
+  .secBreak{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;margin-bottom:22px;}
+  .secBreak h3{margin:0 0 12px;font-size:14.5px;color:var(--navy);}
+  table.secTable{width:100%;border-collapse:collapse;font-size:12.5px;}
+  table.secTable th,table.secTable td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);}
+  table.secTable th{color:var(--muted);font-weight:600;background:#f7f9fb;}
+  .pdfBtn{background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;margin-right:10px;}
+  .retryBtn{background:#fff;color:var(--navy);border:1.5px solid var(--navy);padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;}
+  .reviewList{display:flex;flex-direction:column;gap:14px;}
+  .revCard{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;}
+  .revCard.correct{border-left:5px solid var(--green);}
+  .revCard.incorrect{border-left:5px solid var(--red);}
+  .revCard.unanswered{border-left:5px solid var(--gray);}
+  .revTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
+  .revTag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#fff;}
+  .revTag.correct{background:var(--green);}
+  .revTag.incorrect{background:var(--red);}
+  .revTag.unanswered{background:var(--gray);}
+  .revQtext{font-size:14px;line-height:1.55;margin-bottom:10px;}
+  .revAns{font-size:12.5px;margin-bottom:4px;}
+  .revAns b{color:var(--navy-2);}
+  .revWhy{background:#f5f8fb;border-radius:7px;padding:10px 12px;font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.55;}
+  .revWhy b{color:var(--navy-2);}
+
+  @media print{
+    #loginScreen,#testScreen{display:none !important;}
+    #resultScreen{display:block !important;background:#fff;padding:0;}
+    .pdfBtn,.retryBtn{display:none !important;}
+    .revCard{break-inside:avoid;}
+  }
+  @media (max-width:820px){
+    .main{flex-direction:column;overflow:auto;}
+    .sidepanel{width:100%;order:2;}
+    .scoreCards{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= LOGIN SCREEN ================= -->
+<div id="loginScreen">
+  <div class="login-card">
+    <h1>Atomic Structure &amp; Nuclear Chemistry</h1>
+    <div class="sub">CBT Mock Test 1 · 30 Questions · Section A + Section B</div>
+
+    <label for="nameInput">Candidate Name</label>
+    <input type="text" id="nameInput" placeholder="Enter your full name">
+
+    <label>Test Duration</label>
+    <div class="duration-grid" id="durationGrid">
+      <button type="button" data-min="20">20 min</button>
+      <button type="button" data-min="30">30 min</button>
+      <button type="button" data-min="45">45 min</button>
+      <button type="button" data-min="60">60 min</button>
+    </div>
+    <div class="custom-row">
+      <input type="number" id="customMin" placeholder="Custom minutes (optional)" min="1">
+    </div>
+
+    <button id="startBtn" disabled>Start Test</button>
+    <div class="login-note">Section A: 15 Single Correct MCQs (+4 / −1). Section B: 15 Numerical Value questions (+4 / 0). Timer starts as soon as the test begins and auto-submits at zero.</div>
+  </div>
+</div>
+
+<!-- ================= TEST SCREEN ================= -->
+<div id="testScreen">
+  <div class="topbar">
+    <div class="brand">Atomic Structure &amp; Nuclear Chemistry <small>CBT Mock Test 1</small></div>
+    <div class="mid">
+      <div class="candidate" id="candNameTop"></div>
+      <div class="timer" id="timerDisplay">00:00:00</div>
+    </div>
+    <button class="submitTopBtn" id="submitTopBtn">Submit Test</button>
+  </div>
+
+  <div class="sectiontabs" id="sectionTabs"></div>
+
+  <div class="main">
+    <div class="qpanel" id="qpanel"></div>
+
+    <div class="sidepanel">
+      <div class="candbox">
+        <div class="avatar" id="avatarInit">?</div>
+        <div class="cname" id="candNameSide"></div>
+      </div>
+      <div class="legend">
+        <div class="legend-row"><span class="swatch sw-notvisited"></span> Not Visited</div>
+        <div class="legend-row"><span class="swatch sw-notanswered"></span> Not Answered</div>
+        <div class="legend-row"><span class="swatch sw-answered"></span> Answered</div>
+        <div class="legend-row"><span class="swatch sw-marked"></span> Marked for Review</div>
+        <div class="legend-row"><span class="swatch sw-markedans"></span> Answered &amp; Marked</div>
+      </div>
+      <div class="paletteWrap" id="paletteWrap"></div>
+      <div class="submitBottom"><button id="submitBottomBtn">Submit Test</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= RESULTS SCREEN ================= -->
+<div id="resultScreen">
+  <div class="res-wrap">
+    <div class="res-header">
+      <h2 id="resName">Result Summary</h2>
+      <div class="sub" id="resSub"></div>
+    </div>
+
+    <div class="scoreCards" id="scoreCards"></div>
+
+    <div class="secBreak">
+      <h3>Section-wise Breakdown</h3>
+      <table class="secTable">
+        <thead><tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Unanswered</th><th>Marks</th></tr></thead>
+        <tbody id="secTableBody"></tbody>
+      </table>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <button class="pdfBtn" onclick="window.print()">⬇ Download as PDF</button>
+      <button class="retryBtn" onclick="location.reload()">Restart / New Attempt</button>
+    </div>
+
+    <h3 style="color:var(--navy);margin-bottom:12px;">Full Answer Review</h3>
+    <div class="reviewList" id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION BANK
+   ========================================================= */
+const questions = [
+  // ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
+  {
+    id:"A1", section:"A", type:"mcq", ref:"Ex.1 Part-II A-4",
+    text:"Rutherford's alpha particle scattering experiment eventually led to the conclusion that",
+    options:["Mass and energy are related","Electrons occupy space around the nucleus","Neutrons are buried deep in the nucleus","The point of impact with matter can be precisely determined"],
+    correct:1,
+    why:"The large-angle deflection of a few α-particles showed that a small, dense, positively charged nucleus exists; the fact that most particles pass through undeflected shows that the rest of the atom's volume is occupied by electrons in space around this nucleus."
+  },
+  {
+    id:"A2", section:"A", type:"mcq", ref:"Ex.1 Part-II B-2",
+    text:"Photon of which light has maximum energy?",
+    options:["Red","Blue","Violet","Green"],
+    correct:2,
+    why:"Photon energy E = hc/λ, so energy increases as wavelength decreases. Among the given colours violet has the shortest wavelength, hence the maximum photon energy."
+  },
+  {
+    id:"A3", section:"A", type:"mcq", ref:"Ex.1 Part-II C-1",
+    text:"Correct order of radius of the 1st orbit of H, He⁺, Li²⁺, Be³⁺ is:",
+    options:["H > He⁺ > Li²⁺ > Be³⁺","Be³⁺ > Li²⁺ > He⁺ > H","He⁺ > Be³⁺ > Li²⁺ > H","He⁺ > H > Li²⁺ > Be³⁺"],
+    correct:0,
+    why:"Bohr radius rₙ = 0.529 × n²/Z Å. For the same orbit (n = 1) radius is inversely proportional to Z. Since Z(H)=1 &lt; Z(He⁺)=2 &lt; Z(Li²⁺)=3 &lt; Z(Be³⁺)=4, the radius order is H &gt; He⁺ &gt; Li²⁺ &gt; Be³⁺."
+  },
+  {
+    id:"A4", section:"A", type:"mcq", ref:"Ex.1 Part-II D-4",
+    text:"Total number of lines in the Lyman series of the H spectrum will be (where n = number of orbits considered):",
+    options:["n","n − 1","n − 2","n(n + 1)"],
+    correct:1,
+    why:"Lyman series lines are transitions from n = 2, 3, ... up to n down to n = 1, giving (n − 1) possible lines."
+  },
+  {
+    id:"A5", section:"A", type:"mcq", ref:"Ex.1 Part-II E-6",
+    text:"The wavelength of a charged particle ________ the square root of the potential difference through which it is accelerated:",
+    options:["is inversely proportional to","is directly proportional to","is independent of","is unrelated with"],
+    correct:0,
+    why:"de Broglie wavelength λ = h/√(2mqV), so λ ∝ 1/√V — inversely proportional to the square root of the accelerating potential."
+  },
+  {
+    id:"A6", section:"A", type:"mcq", ref:"Ex.1 Part-II F-7",
+    text:"According to the Schrödinger model, the nature of the electron in an atom is:",
+    options:["Particle only","Wave only","Particle and wave nature simultaneously","Sometimes waves and sometimes particle"],
+    correct:2,
+    why:"The Schrödinger wave equation treats the electron as having simultaneous wave–particle (dual) character, consistent with de Broglie's hypothesis."
+  },
+  {
+    id:"A7", section:"A", type:"mcq", ref:"Ex.1 Part-II G-1",
+    text:"The orbital with zero orbital angular momentum is:",
+    options:["s","p","d","f"],
+    correct:0,
+    why:"Orbital angular momentum L = (h/2π)√(l(l+1)). For s-orbitals l = 0, so L = 0."
+  },
+  {
+    id:"A8", section:"A", type:"mcq", ref:"Ex.1 Part-II H-4",
+    text:"²⁷₁₃Al is a stable isotope. ²⁹₁₃Al is expected to disintegrate by:",
+    options:["α-emission","β-emission","Positron emission","Proton emission"],
+    correct:1,
+    why:"²⁹Al has a higher neutron-to-proton ratio than the stable ²⁷Al, so it decays by β⁻-emission, converting a neutron into a proton to move toward the belt of stability."
+  },
+  {
+    id:"A9", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-4",
+    text:"Which of the following statements is true in the context of the photoelectric effect?",
+    options:["The kinetic energy of the ejected electron is independent of the intensity of a radiation","The number of photoelectrons ejected depends upon the intensity of the incident radiation","The kinetic energy of the emitted electrons depends on the frequency of the incident radiation","All of these"],
+    correct:3,
+    why:"All three statements hold: KE(max) depends only on frequency (not intensity), while the number of photoelectrons ejected depends on intensity."
+  },
+  {
+    id:"A10", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-6",
+    text:"In Bohr's model of the hydrogen atom, the ratio between the period of revolution of an electron in the orbit n = 1 to the period of revolution in the orbit n = 2 is:",
+    options:["1 : 2","2 : 1","1 : 4","1 : 8"],
+    correct:3,
+    why:"Time period T ∝ n³, so T₁ : T₂ = 1³ : 2³ = 1 : 8."
+  },
+  {
+    id:"A11", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-22",
+    text:"Which orbital is non-directional?",
+    options:["s","p","d","All"],
+    correct:0,
+    why:"The s-orbital is spherically symmetric about the nucleus, so its probability distribution has no preferred direction, unlike p and d orbitals."
+  },
+  {
+    id:"A12", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-28",
+    text:"After np orbitals are filled, the next orbital filled will be:",
+    options:["(n + 1)s","(n + 2)p","(n + 1)d","(n + 2)s"],
+    correct:0,
+    why:"Following the Aufbau (n + l) rule, after np is filled the next lowest (n + l) orbital is (n + 1)s."
+  },
+  {
+    id:"A13", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#1 Q-1",
+    text:"A beam of white light is dispersed into its wavelength components by a quartz prism and falls on a thin sheet of potassium metal. What is the correct decreasing order of maximum kinetic energy of the electrons emitted by the different light components?",
+    options:["Blue > green > orange > yellow","Violet > blue > orange > red","Yellow > green > blue > violet","Orange > yellow > blue > violet"],
+    correct:1,
+    why:"KE(max) = hν − hν₀, so higher-frequency (shorter wavelength) light gives higher KE(max). In decreasing order of frequency: violet &gt; blue &gt; orange &gt; red."
+  },
+  {
+    id:"A14", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#2 Q-5",
+    text:"Consider the following statements: (1) Spectral lines of He⁺ ion belonging to the Balmer series are not in the visible range. (2) In the Balmer series of the H-atom, maximum lines are in the ultraviolet region. (3) The 2nd line of the Lyman series of He⁺ ion has energy 48.4 eV. The statements 1, 2, 3 respectively are (T = True, F = False):",
+    options:["T F F","F T T","T F T","T T T"],
+    correct:3,
+    why:"All three are true: He⁺'s Balmer-analogous lines shift out of the visible range because of the Z² factor; most H-Balmer series lines converge into the near-UV beyond the first couple of visible lines; and the 2nd Lyman line of He⁺ (n = 3 → 1, Z = 2) has energy 13.6 × 4 × (1 − 1/9) = 48.4 eV."
+  },
+  {
+    id:"A15", section:"A", type:"mcq", ref:"Ex.1 Part-II H-1",
+    text:"¹¹₆C on decay produces:",
+    options:["Positron","β-particle","α-particle","None of these"],
+    correct:0,
+    why:"¹¹C is a proton-rich (neutron-deficient) nuclide, so it decays by positron (β⁺) emission, converting a proton into a neutron."
+  },
+
+  // ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
+  {
+    id:"B1", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-1",
+    text:"The ratio of specific charge (e/m) of a proton to that of an α-particle is:",
+    answer:2,
+    why:"Proton: charge e, mass 1u → e/m = e/1. α-particle: charge 2e, mass 4u → e/m = 2e/4 = e/2. Ratio (proton : α) = (e/1) ÷ (e/2) = 2."
+  },
+  {
+    id:"B2", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-2",
+    text:"Compare the energies of two radiations, one with wavelength 300 nm and the other 600 nm. Enter the ratio E(300 nm) / E(600 nm).",
+    answer:2,
+    why:"E ∝ 1/λ, so E₁/E₂ = λ₂/λ₁ = 600/300 = 2."
+  },
+  {
+    id:"B3", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-3",
+    text:"The latent heat of fusion of ice is 330 J/g. Calculate the number of photons of radiation of frequency 5 × 10¹³ s⁻¹ needed to melt 1 mole (18 g) of ice. Take h = 6.6 × 10⁻³⁴ J·s. If the answer is X × 10²², enter the value of X.",
+    answer:18,
+    why:"Total energy needed = 330 × 18 = 5940 J. Energy per photon = hν = 6.6×10⁻³⁴ × 5×10¹³ = 3.3×10⁻²⁰ J. Number of photons = 5940 / 3.3×10⁻²⁰ ≈ 1.8×10²³ = 18×10²², so X = 18."
+  },
+  {
+    id:"B4", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-4",
+    text:"The work function for a metal is 40 eV. To emit photoelectrons of zero velocity from the surface of the metal, the wavelength of incident light should be x nm. Find x.",
+    answer:31,
+    why:"Using λ = hc/W with hc = 1240 eV·nm: λ = 1240/40 = 31 nm."
+  },
+  {
+    id:"B5", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-5",
+    text:"Electrons in a sample of H-atoms make transitions from state n = x to some lower excited state. The emission spectrum contains only lines belonging to a particular series (Brackett, ending at n = 4). If one of the maximum-energy photons has energy 0.6375 eV [= (3/4) × 0.85 eV], find the value of x.",
+    answer:8,
+    why:"Since the sample only shows the series ending at n = 4, the maximum-energy photon corresponds to the x → 4 transition. Setting 13.6×(1/16 − 1/x²) = 0.6375 eV gives 1/x² = 1/64, so x = 8."
+  },
+  {
+    id:"B6", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-6",
+    text:"If the first ionisation potential of a hypothetical hydrogen-like atom is 16 V, then the first excitation potential will be:",
+    answer:12,
+    why:"Ionisation energy E₁ = 16 eV. First excited state energy magnitude = E₁/4 = 4 eV. First excitation energy = 16 − 4 = 12 eV, so the excitation potential is 12 V."
+  },
+  {
+    id:"B7", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-7",
+    text:"In a hydrogen atom, an orbit has a diameter of about 16.92 Å. What is the maximum number of electrons that can be accommodated in that shell?",
+    answer:32,
+    why:"Radius = 8.46 Å. Using rₙ = 0.529 n² Å (Z = 1): n² = 8.46/0.529 ≈ 16, so n = 4. Maximum electrons in the nth shell = 2n² = 2×16 = 32."
+  },
+  {
+    id:"B8", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-8",
+    text:"Electrons in H-atoms jump from some higher level down to the 3rd energy level. If six spectral lines are possible for this transition, find the initial position (n) of the electron.",
+    answer:6,
+    why:"Number of lines from level n down to level 3 = (n−3)(n−3+1)/2 = 6. Solving (n−3)(n−2) = 12 gives n − 3 = 3, so n = 6."
+  },
+  {
+    id:"B9", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-9",
+    text:"A photon having energy equal to the binding energy of the 4th state of the He⁺ atom is used to eject an electron from a metal surface of work function 1.4 eV. If the ejected electron is further accelerated through a potential difference of 4 V, the minimum de Broglie wavelength (in Å) associated with the electron is:",
+    answer:5,
+    why:"Binding energy of the n = 4 state of He⁺ = 13.6 × 4/16 = 3.4 eV. KE of photoelectron = 3.4 − 1.4 = 2.0 eV. After acceleration through 4 V, total KE = 2.0 + 4.0 = 6.0 eV. λ = 12.3/√(KE in eV) Å = 12.3/√6 ≈ 5 Å."
+  },
+  {
+    id:"B10", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-10",
+    text:"An electron in a Li²⁺ ion makes a transition from a higher state n₂ to the lower state n₁ = 6. The emitted photon is used to ionise an electron in an H-atom from its 2nd excited state (n = 3). The ejected electron has a de-Broglie wavelength λ = 12.016 Å. Find the value of n₂.",
+    answer:12,
+    why:"Using the book's identity (12.016)² = 150/(13.6/11) Å² = 150/KE(eV), the photoelectron's kinetic energy works out to 13.6/11 eV. Adding the H-atom's n = 3 binding energy (13.6/9 eV) gives the incoming photon's energy, which equals the Li²⁺ (Z = 3) transition energy from n₂ to 6; solving 13.6×9×(1/36 − 1/n₂²) for this energy gives n₂ = 12."
+  },
+  {
+    id:"B11", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-11",
+    text:"The radial distribution curve of the 2s sublevel consists of x nodes. Find the value of x.",
+    answer:1,
+    why:"Radial nodes = n − l − 1. For 2s: n = 2, l = 0, so radial nodes = 2 − 0 − 1 = 1."
+  },
+  {
+    id:"B12", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-12",
+    text:"The wave function of the 2s orbital of a hydrogen-like atom is ψ₂ₛ ∝ (2 − Zr)e^(−Zr/2), with r in Å. What is the radius (in Å) of the nodal surface for the He⁺ ion?",
+    answer:1,
+    why:"The node occurs where (2 − Zr) = 0, i.e. r = 2/Z. For He⁺, Z = 2, so r = 2/2 = 1 Å."
+  },
+  {
+    id:"B13", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-13",
+    text:"How many of these orbitals — dxy, dx²−y², dyz, dxz, dz², Px, Py, Pz, s — have their maximum orbital angular probability distribution at an angle of 45° to the axial direction? Enter the count.",
+    answer:3,
+    why:"Among the listed orbitals, dxy, dyz and dxz have their maximum probability along directions at 45° to the coordinate axes (in their respective planes), giving a count of 3, as confirmed by the answer key."
+  },
+  {
+    id:"B14", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-14",
+    text:"Total number of electrons having (n + l) = 3 in the Cr (Z = 24) atom in its ground state is:",
+    answer:8,
+    why:"Cr ground state: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ 4s¹. Orbitals with n+l = 3 are 2p (n=2,l=1) and 3s (n=3,l=0). Electrons = 6 (2p) + 2 (3s) = 8."
+  },
+  {
+    id:"B15", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-15",
+    text:"An ion Mnᵃ⁺ has a spin magnetic moment equal to 4.9 B.M. Find the value of a. (Atomic number of Mn = 25)",
+    answer:3,
+    why:"μ = √(n(n+2)) B.M. = 4.9 → n(n+2) ≈ 24 → n = 4 unpaired electrons. Mn: [Ar]3d⁵4s². A d⁴ configuration with 4 unpaired electrons corresponds to Mn³⁺, so a = 3."
+  }
+];
+
+/* =========================================================
+   STATE
+   ========================================================= */
+let candidateName = "";
+let totalSeconds = 0;
+let remainingSeconds = 0;
+let timerInterval = null;
+let currentSection = "A";
+let currentIndex = 0; // index within full questions array
+
+// per-question state
+const qState = {}; // id -> {status: 'notvisited'|'notanswered'|'answered'|'marked'|'markedans', selected: idx/num or null}
+questions.forEach(q=>{ qState[q.id] = {status:"notvisited", selected:null}; });
+
+const sectionOrder = ["A","B"];
+function questionsOf(sec){ return questions.filter(q=>q.section===sec); }
+
+/* =========================================================
+   LOGIN SCREEN LOGIC
+   ========================================================= */
+let chosenMinutes = null;
+const durationGrid = document.getElementById("durationGrid");
+durationGrid.addEventListener("click", e=>{
+  if(e.target.tagName !== "BUTTON") return;
+  [...durationGrid.children].forEach(b=>b.classList.remove("active"));
+  e.target.classList.add("active");
+  chosenMinutes = parseInt(e.target.dataset.min,10);
+  document.getElementById("customMin").value = "";
+  validateStart();
+});
+document.getElementById("customMin").addEventListener("input", e=>{
+  if(e.target.value){
+    [...durationGrid.children].forEach(b=>b.classList.remove("active"));
+    chosenMinutes = parseInt(e.target.value,10);
+  } else {
+    chosenMinutes = null;
+  }
+  validateStart();
+});
+document.getElementById("nameInput").addEventListener("input", validateStart);
+
+function validateStart(){
+  const name = document.getElementById("nameInput").value.trim();
+  const ok = name.length>0 && chosenMinutes && chosenMinutes>0;
+  document.getElementById("startBtn").disabled = !ok;
+}
+
+document.getElementById("startBtn").addEventListener("click", ()=>{
+  candidateName = document.getElementById("nameInput").value.trim();
+  totalSeconds = chosenMinutes*60;
+  remainingSeconds = totalSeconds;
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("testScreen").style.display="flex";
+  document.getElementById("candNameTop").textContent = candidateName;
+  document.getElementById("candNameSide").textContent = candidateName;
+  document.getElementById("avatarInit").textContent = candidateName.trim()[0].toUpperCase();
+  buildSectionTabs();
+  renderPalette();
+  goToQuestion("A",0);
+  startTimer();
+});
+
+/* =========================================================
+   TIMER
+   ========================================================= */
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    remainingSeconds--;
+    if(remainingSeconds<=0){
+      remainingSeconds=0;
+      updateTimerDisplay();
+      clearInterval(timerInterval);
+      finishTest(true);
+      return;
+    }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const h = Math.floor(remainingSeconds/3600);
+  const m = Math.floor((remainingSeconds%3600)/60);
+  const s = remainingSeconds%60;
+  const el = document.getElementById("timerDisplay");
+  el.textContent = [h,m,s].map(v=>String(v).padStart(2,"0")).join(":");
+  el.classList.toggle("low", remainingSeconds<=60);
+}
+
+/* =========================================================
+   SECTION TABS
+   ========================================================= */
+function buildSectionTabs(){
+  const wrap = document.getElementById("sectionTabs");
+  wrap.innerHTML="";
+  sectionOrder.forEach(sec=>{
+    const btn = document.createElement("button");
+    btn.textContent = sec==="A" ? "Section A — Single Correct (15)" : "Section B — Numerical Value (15)";
+    btn.dataset.sec = sec;
+    if(sec===currentSection) btn.classList.add("active");
+    btn.addEventListener("click", ()=>{
+      currentSection = sec;
+      goToQuestion(sec,0);
+    });
+    wrap.appendChild(btn);
+  });
+}
+function refreshSectionTabsActive(){
+  [...document.getElementById("sectionTabs").children].forEach(b=>{
+    b.classList.toggle("active", b.dataset.sec===currentSection);
+  });
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+function globalIndex(sec, localIdx){
+  return questions.findIndex(q=>q.section===sec) + localIdx;
+}
+function goToQuestion(sec, localIdx){
+  currentSection = sec;
+  const secQs = questionsOf(sec);
+  if(localIdx<0) localIdx=0;
+  if(localIdx>=secQs.length) localIdx=secQs.length-1;
+  const q = secQs[localIdx];
+  currentIndex = questions.indexOf(q);
+  if(qState[q.id].status==="notvisited") qState[q.id].status="notanswered";
+  refreshSectionTabsActive();
+  renderQuestion();
+  renderPalette();
+}
+function currentLocalIdx(){
+  const secQs = questionsOf(currentSection);
+  return secQs.findIndex(q=>q.id===questions[currentIndex].id);
+}
+
+/* =========================================================
+   RENDER QUESTION
+   ========================================================= */
+function renderQuestion(){
+  const q = questions[currentIndex];
+  const secQs = questionsOf(q.section);
+  const localIdx = secQs.findIndex(x=>x.id===q.id);
+  const panel = document.getElementById("qpanel");
+
+  let html = `
+    <div class="qmeta">
+      <div class="qnoTag">Section ${q.section} · Question ${localIdx+1} of ${secQs.length}</div>
+      <div class="marks">${q.type==="mcq" ? '<b class="pos">+4</b> / <b class="neg">−1</b>' : '<b class="pos">+4</b> / 0'}</div>
+    </div>
+    <div class="refTag">${q.ref}</div>
+    <div class="qtext">${q.text}</div>
+  `;
+
+  if(q.type==="mcq"){
+    html += `<div class="options">`;
+    q.options.forEach((opt,i)=>{
+      const sel = qState[q.id].selected===i ? "selected":"";
+      html += `
+        <label class="option ${sel}" data-idx="${i}">
+          <input type="radio" name="mcqOpt" ${qState[q.id].selected===i?"checked":""}>
+          <span><span class="optlabel">${String.fromCharCode(65+i)}.</span>${opt}</span>
+        </label>`;
+    });
+    html += `</div>`;
+  } else {
+    const val = qState[q.id].selected!==null ? qState[q.id].selected : "";
+    html += `
+      <div class="numeric-input-row">
+        <input type="number" step="any" id="numAnswer" placeholder="Enter numeric value" value="${val}">
+        <div class="hint">Enter your numeric answer (integer or decimal).</div>
+      </div>`;
+  }
+
+  html += `
+    <div class="actionbar">
+      <button class="btn-prev" id="btnPrev">← Previous</button>
+      <button class="btn-mark" id="btnMark">Mark for Review &amp; Next</button>
+      <button class="btn-clear" id="btnClear">Clear Response</button>
+      <button class="btn-save" id="btnSave">Save &amp; Next →</button>
+    </div>
+  `;
+  panel.innerHTML = html;
+
+  if(q.type==="mcq"){
+    panel.querySelectorAll(".option").forEach(optEl=>{
+      optEl.addEventListener("click", ()=>{
+        const i = parseInt(optEl.dataset.idx,10);
+        qState[q.id].selected = i;
+        panel.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
+        optEl.classList.add("selected");
+        panel.querySelectorAll('input[name="mcqOpt"]').forEach((r,ri)=>r.checked = ri===i);
+        if(qState[q.id].status==="marked" || qState[q.id].status==="markedans"){
+          qState[q.id].status="markedans";
+        } else {
+          qState[q.id].status="answered";
+        }
+        renderPalette();
+      });
+    });
+  } else {
+    const numInput = document.getElementById("numAnswer");
+    numInput.addEventListener("input", ()=>{
+      const v = numInput.value;
+      if(v===""){
+        qState[q.id].selected=null;
+        qState[q.id].status = (qState[q.id].status==="markedans")?"marked":"notanswered";
+      } else {
+        qState[q.id].selected=v;
+        qState[q.id].status = (qState[q.id].status==="marked"||qState[q.id].status==="markedans")?"markedans":"answered";
+      }
+      renderPalette();
+    });
+  }
+
+  document.getElementById("btnPrev").addEventListener("click", ()=>{
+    goToQuestion(q.section, localIdx-1<0 ? localIdx : localIdx-1);
+  });
+  document.getElementById("btnSave").addEventListener("click", ()=>{
+    saveCurrentAnswer();
+    moveNext(q.section, localIdx);
+  });
+  document.getElementById("btnMark").addEventListener("click", ()=>{
+    saveCurrentAnswer();
+    const st = qState[q.id];
+    st.status = (st.selected!==null && st.selected!==undefined && st.selected!=="") ? "markedans" : "marked";
+    renderPalette();
+    moveNext(q.section, localIdx);
+  });
+  document.getElementById("btnClear").addEventListener("click", ()=>{
+    qState[q.id].selected=null;
+    qState[q.id].status="notanswered";
+    renderQuestion();
+    renderPalette();
+  });
+}
+
+function saveCurrentAnswer(){
+  const q = questions[currentIndex];
+  if(q.type==="numeric"){
+    const numInput = document.getElementById("numAnswer");
+    if(numInput){
+      const v = numInput.value;
+      if(v!==""){
+        qState[q.id].selected=v;
+        if(qState[q.id].status!=="marked" && qState[q.id].status!=="markedans"){
+          qState[q.id].status="answered";
+        } else if(qState[q.id].status==="marked"){
+          qState[q.id].status="markedans";
+        }
+      }
+    }
+  }
+}
+
+function moveNext(sec, localIdx){
+  const secQs = questionsOf(sec);
+  if(localIdx+1 < secQs.length){
+    goToQuestion(sec, localIdx+1);
+  } else {
+    // move to next section's first question if exists
+    const secIdx = sectionOrder.indexOf(sec);
+    if(secIdx+1 < sectionOrder.length){
+      goToQuestion(sectionOrder[secIdx+1], 0);
+    } else {
+      renderPalette();
+    }
+  }
+}
+
+/* =========================================================
+   PALETTE
+   ========================================================= */
+function renderPalette(){
+  const wrap = document.getElementById("paletteWrap");
+  wrap.innerHTML="";
+  sectionOrder.forEach(sec=>{
+    const secQs = questionsOf(sec);
+    const label = document.createElement("div");
+    label.className="paletteSection";
+    label.textContent = "Section "+sec;
+    wrap.appendChild(label);
+    const grid = document.createElement("div");
+    grid.className="palette";
+    secQs.forEach((q,i)=>{
+      const st = qState[q.id];
+      const btn = document.createElement("button");
+      btn.className = "pnum " + st.status;
+      if(questions[currentIndex].id===q.id) btn.classList.add("current");
+      btn.textContent = i+1;
+      btn.addEventListener("click", ()=>{
+        saveCurrentAnswer();
+        goToQuestion(sec,i);
+      });
+      grid.appendChild(btn);
+    });
+    wrap.appendChild(grid);
+  });
+}
+
+/* =========================================================
+   SUBMIT
+   ========================================================= */
+document.getElementById("submitTopBtn").addEventListener("click", confirmSubmit);
+document.getElementById("submitBottomBtn").addEventListener("click", confirmSubmit);
+function confirmSubmit(){
+  saveCurrentAnswer();
+  const unanswered = questions.filter(q=>{
+    const s=qState[q.id].status;
+    return s==="notvisited"||s==="notanswered"||s==="marked";
+  }).length;
+  const msg = unanswered>0
+    ? `You have ${unanswered} unanswered question(s). Are you sure you want to submit the test?`
+    : `Are you sure you want to submit the test?`;
+  if(confirm(msg)){
+    clearInterval(timerInterval);
+    finishTest(false);
+  }
+}
+
+function finishTest(auto){
+  document.getElementById("testScreen").style.display="none";
+  document.getElementById("resultScreen").style.display="block";
+  computeAndRenderResults(auto);
+  window.scrollTo(0,0);
+}
+
+function isNumericCorrect(q, val){
+  if(val===null || val===undefined || val==="") return false;
+  const num = parseFloat(val);
+  if(isNaN(num)) return false;
+  return Math.abs(num - q.answer) < 0.05;
+}
+
+function computeAndRenderResults(auto){
+  let totalScore=0;
+  const secStats = {A:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0},
+                     B:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0}};
+  const perQ = [];
+
+  questions.forEach(q=>{
+    const st = qState[q.id];
+    const stat = secStats[q.section];
+    const maxMark = 4;
+    stat.max += maxMark;
+    let userAnsText, isCorrect=false, attempted=false;
+
+    if(q.type==="mcq"){
+      const sel = st.selected;
+      attempted = sel!==null && sel!==undefined;
+      if(attempted){
+        isCorrect = sel===q.correct;
+        userAnsText = String.fromCharCode(65+sel)+". "+q.options[sel];
+        if(isCorrect){ stat.marks+=4; totalScore+=4; }
+        else { stat.marks-=1; totalScore-=1; }
+      } else {
+        userAnsText = "Not Answered";
+      }
+    } else {
+      const sel = st.selected;
+      attempted = sel!==null && sel!==undefined && sel!=="";
+      if(attempted){
+        isCorrect = isNumericCorrect(q, sel);
+        userAnsText = sel;
+        if(isCorrect){ stat.marks+=4; totalScore+=4; }
+      } else {
+        userAnsText = "Not Answered";
+      }
+    }
+
+    if(attempted){
+      stat.attempted++;
+      if(isCorrect) stat.correct++; else stat.wrong++;
+    } else {
+      stat.unanswered++;
+    }
+
+    perQ.push({q, userAnsText, isCorrect, attempted});
+  });
+
+  // header
+  document.getElementById("resName").textContent = `Result — ${candidateName}`;
+  document.getElementById("resSub").textContent = auto
+    ? "Test auto-submitted (time expired)."
+    : "Test submitted successfully.";
+
+  // score cards
+  const maxTotal = secStats.A.max + secStats.B.max;
+  const scoreCards = document.getElementById("scoreCards");
+  scoreCards.innerHTML = `
+    <div class="scard"><div class="val">${totalScore} / ${maxTotal}</div><div class="lab">Total Score</div></div>
+    <div class="scard"><div class="val">${secStats.A.correct+secStats.B.correct} / 30</div><div class="lab">Correct</div></div>
+    <div class="scard"><div class="val">${secStats.A.wrong+secStats.B.wrong}</div><div class="lab">Wrong</div></div>
+    <div class="scard"><div class="val">${secStats.A.unanswered+secStats.B.unanswered}</div><div class="lab">Unanswered</div></div>
+  `;
+
+  // section table
+  const tbody = document.getElementById("secTableBody");
+  tbody.innerHTML = `
+    <tr>
+      <td style="text-align:left;font-weight:600;">Section A — MCQ</td>
+      <td>${secStats.A.attempted}/15</td><td>${secStats.A.correct}</td><td>${secStats.A.wrong}</td><td>${secStats.A.unanswered}</td>
+      <td><b>${secStats.A.marks}</b> / ${secStats.A.max}</td>
+    </tr>
+    <tr>
+      <td style="text-align:left;font-weight:600;">Section B — Numerical</td>
+      <td>${secStats.B.attempted}/15</td><td>${secStats.B.correct}</td><td>${secStats.B.wrong}</td><td>${secStats.B.unanswered}</td>
+      <td><b>${secStats.B.marks}</b> / ${secStats.B.max}</td>
+    </tr>
+  `;
+
+  // review list
+  const reviewList = document.getElementById("reviewList");
+  reviewList.innerHTML="";
+  perQ.forEach((item,idx)=>{
+    const q=item.q;
+    const cls = !item.attempted ? "unanswered" : (item.isCorrect?"correct":"incorrect");
+    const tag = !item.attempted ? "Unanswered" : (item.isCorrect?"Correct":"Incorrect");
+    const correctText = q.type==="mcq" ? (String.fromCharCode(65+q.correct)+". "+q.options[q.correct]) : q.answer;
+    const div = document.createElement("div");
+    div.className = "revCard "+cls;
+    div.innerHTML = `
+      <div class="revTop">
+        <div><span class="refTag">${q.ref}</span></div>
+        <div class="revTag ${cls}">${tag}</div>
+      </div>
+      <div class="revQtext"><b>Q${idx+1}.</b> ${q.text}</div>
+      <div class="revAns"><b>Your Answer:</b> ${item.userAnsText}</div>
+      <div class="revAns"><b>Correct Answer:</b> ${correctText}</div>
+      <div class="revWhy"><b>Why:</b> ${q.why}</div>
+    `;
+    reviewList.appendChild(div);
+  });
+}
+</script>
+</body>
+</html>
