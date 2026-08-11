@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Trigonometry CBT Mock Test 5 - JEE Advanced</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root{
+    --nv:#9e9e9e; --na:#e53935; --ans:#43a047; --mark:#8e24aa; --ansmark:#8e24aa;
+    --blue:#0b3d91; --lightblue:#e8f0fe; --border:#ccc;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:Arial, Helvetica, sans-serif; margin:0; background:#f0f2f5; color:#222;}
+  /* ---------- LOGIN ---------- */
+  #login-screen{display:flex; align-items:center; justify-content:center; height:100vh; background:linear-gradient(135deg,#0b3d91,#1a5fb4);}
+  .login-box{background:#fff; padding:40px 50px; border-radius:10px; width:440px; box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  .login-box h1{font-size:20px; margin:0 0 4px; color:var(--blue);}
+  .login-box p{font-size:13px; color:#666; margin:0 0 20px;}
+  .login-box label{display:block; font-size:13px; font-weight:bold; margin:14px 0 5px;}
+  .login-box input{width:100%; padding:10px; border:1px solid var(--border); border-radius:5px; font-size:14px;}
+  .login-box button{margin-top:22px; width:100%; padding:12px; background:var(--blue); color:#fff; border:none; border-radius:5px; font-size:15px; cursor:pointer; font-weight:bold;}
+  .login-box button:hover{background:#092c68;}
+  .instr{background:#f7f9fc; border:1px solid #dde3ee; border-radius:6px; padding:10px 12px; font-size:12px; color:#555; margin-top:16px; line-height:1.5;}
+  .badge{display:inline-block; background:#eef2fa; color:var(--blue); font-size:11px; padding:3px 8px; border-radius:10px; margin-top:8px; font-weight:bold;}
+  /* ---------- TEST SCREEN ---------- */
+  #test-screen{display:none; height:100vh; flex-direction:column;}
+  #topbar{background:var(--blue); color:#fff; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+  #topbar .title{font-size:15px; font-weight:bold;}
+  #topbar .sub{font-size:11px; opacity:.85;}
+  #timerBox{background:#fff; color:var(--blue); font-weight:bold; padding:6px 14px; border-radius:5px; font-size:16px; letter-spacing:1px;}
+  #timerBox.low{color:#c62828; animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+  #submitBtn{background:#e53935; color:#fff; border:none; padding:9px 18px; border-radius:5px; cursor:pointer; font-weight:bold; font-size:13px;}
+  #submitBtn:hover{background:#b71c1c;}
+  #sectionTabs{display:flex; background:#dde5f0; border-bottom:1px solid #c3cee0;}
+  .section-tab{padding:10px 22px; cursor:pointer; font-size:13px; font-weight:bold; color:#33507a; border-right:1px solid #c3cee0;}
+  .section-tab.active{background:#fff; color:var(--blue); border-bottom:3px solid var(--blue);}
+  #main{flex:1; display:flex; overflow:hidden;}
+  #qArea{flex:1; padding:20px 28px; overflow-y:auto; background:#fff;}
+  #qMeta{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  #qNumTag{font-weight:bold; color:var(--blue); font-size:15px;}
+  #qMarks{font-size:12px; color:#555; background:#eef2fa; padding:4px 10px; border-radius:12px;}
+  #qText{font-size:16px; line-height:1.9; margin:14px 0 22px;}
+  .opt{display:flex; align-items:flex-start; gap:10px; padding:11px 14px; border:1px solid #ddd; border-radius:6px; margin-bottom:10px; cursor:pointer;}
+  .opt:hover{background:#f5f8ff;}
+  .opt.selected{background:var(--lightblue); border-color:var(--blue);}
+  .opt input{margin-top:4px;}
+  #numericInputWrap{margin-top:6px;}
+  #numericInputWrap input{padding:10px; font-size:15px; width:220px; border:1px solid var(--border); border-radius:5px;}
+  #actionBar{display:flex; gap:10px; padding:14px 28px; border-top:1px solid #e0e0e0; background:#fafbfd; flex-wrap:wrap;}
+  #actionBar button{padding:10px 16px; font-size:13px; border-radius:5px; border:1px solid #bbb; background:#fff; cursor:pointer; font-weight:bold;}
+  .btn-mark{color:var(--mark); border-color:var(--mark);}
+  .btn-clear{color:#555;}
+  .btn-save{background:var(--blue)!important; color:#fff!important; border-color:var(--blue)!important;}
+  .btn-nav{margin-left:auto; color:var(--blue); border-color:var(--blue);}
+  #palette{width:260px; background:#f4f6fa; border-left:1px solid #dde3ee; padding:14px; overflow-y:auto;}
+  #palette h3{font-size:12px; margin:0 0 10px; color:#333;}
+  .legend{display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:10.5px; margin-bottom:14px;}
+  .legend-item{display:flex; align-items:center; gap:5px;}
+  .legend-swatch{width:14px; height:14px; border-radius:3px; flex-shrink:0;}
+  .pal-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:7px;}
+  .pal-btn{width:38px; height:34px; border-radius:5px; border:none; color:#fff; font-size:12px; font-weight:bold; cursor:pointer; position:relative;}
+  .pal-btn.nv{background:var(--nv); color:#333;}
+  .pal-btn.na{background:var(--na);}
+  .pal-btn.ans{background:var(--ans);}
+  .pal-btn.mark{background:var(--mark);}
+  .pal-btn.ansmark{background:var(--ansmark);}
+  .pal-btn.ansmark::after{content:''; position:absolute; bottom:3px; right:3px; width:6px; height:6px; border-radius:50%; background:var(--ans);}
+  .pal-btn.current{outline:3px solid #ffb300; outline-offset:1px;}
+  .ref-tag{font-size:10px; color:#999; margin-top:16px; font-style:italic;}
+  .flag-tag{font-size:10px; color:#b5651d; margin-top:4px; font-style:italic;}
+  /* ---------- RESULTS ---------- */
+  #result-screen{display:none; max-width:920px; margin:0 auto; padding:30px 20px 60px;}
+  .card{background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,.1); padding:22px 26px; margin-bottom:20px;}
+  .score-hero{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .score-hero .big{font-size:42px; font-weight:bold; color:var(--blue);}
+  .score-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;}
+  .stat{background:#f7f9fc; border-radius:6px; padding:12px; text-align:center;}
+  .stat .n{font-size:20px; font-weight:bold;}
+  .stat .l{font-size:11px; color:#666; margin-top:3px;}
+  .sec-breakdown{margin-top:18px;}
+  .sec-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; font-size:13px;}
+  #reviewList .rq{border:1px solid #e2e2e2; border-radius:6px; padding:16px 18px; margin-bottom:14px;}
+  .rq-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .status-pill{font-size:11px; padding:3px 10px; border-radius:10px; color:#fff; font-weight:bold;}
+  .pill-correct{background:var(--ans);}
+  .pill-wrong{background:var(--na);}
+  .pill-unattempt{background:#999;}
+  .rq .opt2{padding:7px 10px; border-radius:5px; margin:4px 0; font-size:13.5px; border:1px solid #eee;}
+  .opt2.correctAns{background:#e8f6ea; border-color:var(--ans); font-weight:bold;}
+  .opt2.wrongPick{background:#fdecea; border-color:var(--na); font-weight:bold;}
+  #topActions{display:flex; gap:10px; justify-content:flex-end; margin-bottom:14px;}
+  #topActions button{padding:10px 18px; border-radius:5px; border:1px solid var(--blue); background:var(--blue); color:#fff; cursor:pointer; font-weight:bold; font-size:13px;}
+  #topActions button.secondary{background:#fff; color:var(--blue);}
+  @media print{
+    #topActions{display:none;}
+    body{background:#fff;}
+    .card{box-shadow:none; border:1px solid #ccc;}
+  }
+  #confirmOverlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center; z-index:50;}
+  #confirmOverlay .box{background:#fff; padding:26px 30px; border-radius:8px; width:380px;}
+  #confirmOverlay h3{margin-top:0;}
+  #confirmOverlay .row{display:flex; gap:10px; margin-top:18px;}
+  #confirmOverlay button{flex:1; padding:10px; border-radius:5px; border:none; cursor:pointer; font-weight:bold;}
+  #confirmOverlay .yes{background:#e53935; color:#fff;}
+  #confirmOverlay .no{background:#eee;}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>Trigonometry CBT Mock Test — 5</h1>
+    <p>JEE Advanced Pattern · Fourth Follow-up Test (no overlap with Tests 1–4)</p>
+    <span class="badge">18 fresh questions — 0 repeats from Tests 1–4</span>
+    <label>Candidate Name</label>
+    <input type="text" id="candName" placeholder="Enter your name" />
+    <label>Test Duration (minutes)</label>
+    <input type="number" id="candDuration" value="45" min="5" max="180" />
+    <button onclick="startTest()">Start Test</button>
+    <div class="instr">
+      <b>Instructions:</b> Section A — 12 Single Correct MCQs (+4 / −1). Section B — 6 Numerical Value questions (+4 / 0, no negative marking). Use <b>Save &amp; Next</b> to record a response, <b>Mark for Review &amp; Next</b> to flag a question, and <b>Clear Response</b> to remove your answer. The test auto-submits when time expires.<br><br>
+      <b>Note on Section B:</b> the source PDFs for this batch of files have now run out of questions printed as genuine blank-style numeric items. All 6 items in Section B were originally MCQs whose four options were themselves candidate counts/values (e.g. "number of solutions is (1) 5 (2) 6 ..."). Since the underlying quantity is inherently numeric, these have been reformatted as direct numeric-entry questions; each answer value is taken verbatim from the source PDF's own confirmed key.
+    </div>
+  </div>
+</div>
+
+<!-- ============ TEST SCREEN ============ -->
+<div id="test-screen">
+  <div id="topbar">
+    <div>
+      <div class="title" id="candNameDisplay">Candidate</div>
+      <div class="sub">Trigonometry CBT Mock Test 5</div>
+    </div>
+    <div id="timerBox">45:00</div>
+    <button id="submitBtn" onclick="askSubmit()">Submit Test</button>
+  </div>
+  <div id="sectionTabs">
+    <div class="section-tab active" id="tabA" onclick="switchSection('A')">Section A — MCQ (1–12)</div>
+    <div class="section-tab" id="tabB" onclick="switchSection('B')">Section B — Numerical (13–18)</div>
+  </div>
+  <div id="main">
+    <div id="qArea">
+      <div id="qMeta">
+        <div id="qNumTag">Question 1</div>
+        <div id="qMarks">+4 / −1</div>
+      </div>
+      <div id="qText"></div>
+      <div id="optionsWrap"></div>
+      <div class="ref-tag" id="refTag"></div>
+      <div class="flag-tag" id="flagTag"></div>
+    </div>
+    <div id="palette">
+      <h3>QUESTION PALETTE</h3>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--nv)"></div>Not Visited</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--na)"></div>Not Answered</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--ans)"></div>Answered</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--mark)"></div>Marked</div>
+      </div>
+      <div class="pal-grid" id="palGrid"></div>
+    </div>
+  </div>
+  <div id="actionBar">
+    <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+    <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+    <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+    <button class="btn-nav" onclick="prevQ()">◀ Previous</button>
+  </div>
+</div>
+
+<!-- ============ CONFIRM SUBMIT ============ -->
+<div id="confirmOverlay">
+  <div class="box">
+    <h3>Submit Test?</h3>
+    <p id="confirmText" style="font-size:13px; color:#555;"></p>
+    <div class="row">
+      <button class="no" onclick="closeConfirm()">Cancel</button>
+      <button class="yes" onclick="finalSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div id="result-screen">
+  <div id="topActions">
+    <button class="secondary" onclick="window.print()">⬇ Download as PDF</button>
+  </div>
+  <div class="card score-hero">
+    <div>
+      <div style="font-size:13px; color:#666;">Total Score</div>
+      <div class="big" id="totalScore">0 / 72</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:13px; color:#666;">Candidate</div>
+      <div style="font-size:16px; font-weight:bold;" id="resultName">—</div>
+      <div style="font-size:12px; color:#888;" id="resultTime">—</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="score-grid">
+      <div class="stat"><div class="n" id="statCorrect">0</div><div class="l">Correct</div></div>
+      <div class="stat"><div class="n" id="statWrong">0</div><div class="l">Incorrect</div></div>
+      <div class="stat"><div class="n" id="statUnattempt">0</div><div class="l">Unattempted</div></div>
+      <div class="stat"><div class="n" id="statAccuracy">0%</div><div class="l">Accuracy (attempted)</div></div>
+    </div>
+    <div class="sec-breakdown">
+      <div class="sec-row"><b>Section A (MCQ, +4/−1)</b><span id="secAScore">—</span></div>
+      <div class="sec-row"><b>Section B (Numerical, +4/0)</b><span id="secBScore">—</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0;">Full Answer Review</h3>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION DATA — Test 5 (fourth follow-up). Every ref below
+   is DISTINCT from all 72 refs used in Tests 1-4 on this same
+   zip. Folders (A)(B)(C)(D)(E)(F)(H) are now fully exhausted;
+   this test draws only from (G) and (I) — the only folders
+   with files left. All 6 Section B items (ids 13-18) were
+   originally MCQs in the source PDF ("number of solutions" /
+   value-type) reformatted to direct numeric entry — flagged.
+   After this test: (G) has 4 files left, (I) has 3 files left.
+   ========================================================= */
+const QUESTIONS = [
+// ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
+{
+  id:1, section:'A', type:'mcq',
+  text:"If \\( \\alpha,-\\dfrac{\\pi}{2}<\\alpha<\\dfrac{\\pi}{2} \\) is the solution of \\( 4\\cos\\theta+5\\sin\\theta=1 \\), then the value of \\( \\tan\\alpha \\) is:",
+  options:["\\(\\dfrac{10-\\sqrt{10}}{6}\\)","\\(\\dfrac{10-\\sqrt{10}}{12}\\)","\\(\\dfrac{\\sqrt{10}-10}{12}\\)","\\(\\dfrac{\\sqrt{10}-10}{6}\\)"],
+  correct:2,
+  ref:"(G) Trigonometri equation 47_E24-7"
+},
+{
+  id:2, section:'A', type:'mcq',
+  text:"The number of roots of the equation \\( (81)^{\\sin^2x}+(81)^{\\cos^2x}=30 \\) in the interval \\([0,\\pi]\\) is equal to:",
+  options:["3","4","8","2"],
+  correct:1,
+  ref:"(G) Trigonometri equation 47_T21-12"
+},
+{
+  id:3, section:'A', type:'mcq',
+  text:"If \\( 15\\sin^4\\alpha+10\\cos^4\\alpha=6 \\), for some \\(\\alpha\\in\\mathbb{R}\\), then the value of \\( 27\\sec^6\\alpha+8\\csc^6\\alpha \\) is equal to:",
+  options:["350","500","400","250"],
+  correct:3,
+  ref:"(G) Trigonometri equation 47_T21-15"
+},
+{
+  id:4, section:'A', type:'mcq',
+  text:"The sum of all values of \\(x\\) in \\([0,2\\pi]\\), for which \\( \\sin x+\\sin2x+\\sin3x+\\sin4x=0 \\), is equal to:",
+  options:["\\(8\\pi\\)","\\(11\\pi\\)","\\(12\\pi\\)","\\(9\\pi\\)"],
+  correct:3,
+  ref:"(G) Trigonometri equation 47_T21-17"
+},
+{
+  id:5, section:'A', type:'mcq',
+  text:"If \\( \\tan\\left(\\dfrac{\\pi}{9}\\right),x,\\tan\\left(\\dfrac{7\\pi}{18}\\right) \\) are in arithmetic progression and \\( \\tan\\left(\\dfrac{\\pi}{9}\\right),y,\\tan\\left(\\dfrac{5\\pi}{18}\\right) \\) are also in arithmetic progression, then \\( |x-2y| \\) is equal to:",
+  options:["4","3","0","1"],
+  correct:2,
+  ref:"(G) Trigonometri equation 47_T21-8"
+},
+{
+  id:6, section:'A', type:'mcq',
+  text:"If \\( \\alpha,-\\dfrac{\\pi}{2}<\\alpha<\\dfrac{\\pi}{2} \\), is a solution of \\( e^{\\left(\\cos^2x+\\cos^4x+\\cos^6x+\\cdots\\infty\\right)\\log_e2}=t^2-9t+8 \\), then the value of \\( \\dfrac{2\\sin\\alpha}{\\sin\\alpha+\\sqrt3\\cos\\alpha} \\), \\(0<\\alpha<\\dfrac{\\pi}{2}\\), is:",
+  options:["\\(2\\sqrt3\\)","\\(\\dfrac32\\)","\\(\\sqrt3\\)","\\(\\dfrac12\\)"],
+  correct:3,
+  ref:"(G) Trigonometri equation 47_T21-9"
+},
+{
+  id:7, section:'A', type:'mcq',
+  text:"The sum of all real solutions of the equation \\( \\dfrac{3\\cos2x+\\cos^32x}{\\cos^6x-\\sin^6x}=x^3-x^2+6 \\) is:",
+  options:["0","1","\\(-1\\)","3"],
+  correct:2,
+  ref:"(G) Trigonometri equation 47_T24-6"
+},
+{
+  id:8, section:'A', type:'mcq',
+  text:"A man is observing, from the top of a tower, a boat speeding towards the tower from a certain point A, with uniform speed. At that point, angle of depression of the boat with the man's eye is \\(30^\\circ\\) (ignore man's height). After sailing for 20 seconds, towards the base of the tower (which is at the level of water), the boat has reached a point B, where the angle of depression is \\(45^\\circ\\). Then the time taken (in seconds) by the boat from B to reach the base of the tower is:",
+  options:["10","\\(10\\sqrt3\\)","\\(10(\\sqrt3+1)\\)","\\(10(\\sqrt3-1)\\)"],
+  correct:2,
+  ref:"(I) Heights and Distances 18_E21-25"
+},
+{
+  id:9, section:'A', type:'mcq',
+  text:"A vertical pole fixed to the horizontal ground is divided in the ratio 3:7 by a mark on it, with the lower part shorter than the upper part. If the two parts subtend equal angles at a point on the ground 18 m away from the base of the pole, then the height of the pole (in meters) is:",
+  options:["\\(12\\sqrt{15}\\)","\\(12\\sqrt{10}\\)","\\(8\\sqrt{10}\\)","\\(6\\sqrt{10}\\)"],
+  correct:1,
+  ref:"(I) Heights and Distances 18_E21-29"
+},
+{
+  id:10, section:'A', type:'mcq',
+  text:"From the base of a pole of height 20 meter, the angle of elevation of the top of a tower is \\(60^\\circ\\). The pole subtends an angle \\(30^\\circ\\) at the top of the tower. Then the height of the tower is:",
+  options:["\\(15\\sqrt3\\)","\\(20\\sqrt3\\)","\\(20+10\\sqrt3\\)","30"],
+  correct:3,
+  ref:"(I) Heights and Distances 18_E22-22"
+},
+{
+  id:11, section:'A', type:'mcq',
+  text:"Let a vertical tower AB of height 2h stand on a horizontal ground. From a point P on the ground a man can see up to height h of the tower with an angle of elevation \\(2\\alpha\\). When from P he moves a distance d in the direction of \\(\\overrightarrow{AP}\\), he can see the top B of the tower with an angle of elevation \\(\\alpha\\). If \\( d=\\sqrt7\\,h \\), then \\(\\tan\\alpha\\) is equal to:",
+  options:["\\(\\sqrt5-2\\)","\\(\\sqrt3-1\\)","\\(\\sqrt7-2\\)","\\(\\sqrt7-\\sqrt3\\)"],
+  correct:2,
+  ref:"(I) Heights and Distances 18_N22-24"
+},
+{
+  id:12, section:'A', type:'mcq',
+  text:"A 10 inches long pencil AB with mid point C and a small eraser P are placed on the horizontal top of a table such that \\( PC=\\sqrt5 \\) inches and \\( \\angle PCB = \\tan^{-1}(B) \\). The acute angle through which the pencil must be rotated about C so that the perpendicular distance between the eraser and pencil becomes exactly 1 inch is:",
+  options:["\\(\\tan^{-1}\\left(\\dfrac34\\right)\\)","\\(\\tan^{-1}(1)\\)","\\(\\tan^{-1}\\left(\\dfrac43\\right)\\)","\\(\\tan^{-1}\\left(\\dfrac12\\right)\\)"],
+  correct:0,
+  ref:"(I) Heights and Distances 18_T21-27"
+},
+
+// ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
+{
+  id:13, section:'B', type:'numeric',
+  text:"The number of solutions of \\( \\sin^7x+\\cos^7x=1 \\), \\( x\\in[0,4\\pi] \\), is ______.",
+  answer:5,
+  ref:"(G) Trigonometri equation 47_T21-16"
+},
+{
+  id:14, section:'B', type:'numeric',
+  text:"The number of solutions of the equation \\( 4\\sin^2x-4\\cos^3x+9-4\\cos x=0 \\), \\( x\\in[-2\\pi,2\\pi] \\), is ______.",
+  answer:0,
+  ref:"(G) Trigonometri equation 47_T24-4"
+},
+{
+  id:15, section:'B', type:'numeric',
+  text:"If \\( \\theta\\in\\left[-\\dfrac{7\\pi}{6},\\dfrac{4\\pi}{3}\\right] \\), then the number of solutions of \\( \\sqrt3\\csc^2\\theta-2(\\sqrt3-1)\\csc\\theta-4=0 \\) is ______.",
+  answer:6,
+  ref:"(G) Trigonometri equation 47_T25-8"
+},
+{
+  id:16, section:'B', type:'numeric',
+  text:"The number of solutions of the equation \\( \\cos\\left(x+\\dfrac{\\pi}{3}\\right)\\cos\\left(\\dfrac{\\pi}{3}-x\\right)=\\dfrac14\\cos^22x \\), \\( x\\in[-3\\pi,3\\pi] \\), is ______.",
+  answer:7,
+  ref:"(G) Trigonometri equation 47_T22-10"
+},
+{
+  id:17, section:'B', type:'numeric',
+  text:"Let \\( S=\\left\\{\\theta\\in\\left[-\\pi,\\dfrac{\\pi}{2}\\right]-\\left\\{-\\dfrac{\\pi}{2},-\\dfrac{\\pi}{4},-\\dfrac{3\\pi}{4},\\dfrac{\\pi}{4}\\right\\}: \\tan\\theta(1+\\sqrt5\\tan2\\theta)=\\sqrt5-\\tan2\\theta\\right\\} \\). If \\(T=\\displaystyle\\sum_{\\theta\\in S}\\cos2\\theta\\), then \\(T+n(S)\\) is equal to ______.",
+  answer:9,
+  ref:"(G) Trigonometri equation 47_T22-9"
+},
+{
+  id:18, section:'B', type:'numeric',
+  text:"The number of solutions of the equation \\( x+2\\tan x=\\dfrac{\\pi}{2} \\), \\( x\\in[0,2\\pi] \\), is ______.",
+  answer:3,
+  ref:"(G) Trigonometri equation 47_T21-13"
+}
+];
+
+/* ============ STATE ============ */
+let responses = {};      // id -> {selected: idx or numeric value, status}
+let currentIndex = 0;    // index into QUESTIONS
+let currentSection = 'A';
+let timerInterval = null;
+let secondsLeft = 45*60;
+let candidateName = '';
+let testStartTS = null;
+
+QUESTIONS.forEach(q=>{ responses[q.id] = {selected:null, status:'not-visited'}; });
+
+function sectionQs(sec){ return QUESTIONS.filter(q=>q.section===sec); }
+
+/* ============ LOGIN / START ============ */
+function startTest(){
+  const name = document.getElementById('candName').value.trim();
+  const dur = parseInt(document.getElementById('candDuration').value,10) || 45;
+  candidateName = name || 'Candidate';
+  secondsLeft = dur*60;
+  testStartTS = new Date();
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('test-screen').style.display='flex';
+  document.getElementById('candNameDisplay').textContent = candidateName;
+  buildPalette();
+  goToQuestion(0);
+  startTimer();
+}
+
+/* ============ TIMER ============ */
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft<=0){
+      clearInterval(timerInterval);
+      secondsLeft=0;
+      updateTimerDisplay();
+      finalSubmit();
+      return;
+    }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(secondsLeft/60);
+  const s = secondsLeft%60;
+  const box = document.getElementById('timerBox');
+  box.textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  box.classList.toggle('low', secondsLeft<=300);
+}
+
+/* ============ NAVIGATION ============ */
+function switchSection(sec){
+  currentSection = sec;
+  document.getElementById('tabA').classList.toggle('active', sec==='A');
+  document.getElementById('tabB').classList.toggle('active', sec==='B');
+  const qs = sectionQs(sec);
+  const firstIdx = QUESTIONS.findIndex(q=>q.id===qs[0].id);
+  goToQuestion(firstIdx);
+}
+
+function goToQuestion(idx){
+  currentIndex = idx;
+  const q = QUESTIONS[idx];
+  currentSection = q.section;
+  document.getElementById('tabA').classList.toggle('active', currentSection==='A');
+  document.getElementById('tabB').classList.toggle('active', currentSection==='B');
+  if(responses[q.id].status==='not-visited') responses[q.id].status='not-answered';
+
+  document.getElementById('qNumTag').textContent = 'Question '+q.id+' of 18';
+  document.getElementById('qMarks').textContent = q.type==='mcq' ? '+4 / \u22121' : '+4 / 0';
+  document.getElementById('qText').innerHTML = q.text;
+  document.getElementById('refTag').textContent = 'ref: '+q.ref;
+  document.getElementById('flagTag').textContent = (q.section==='B') ? 'Note: reformatted from source MCQ (count/value-type answer) to numeric entry — see login instructions.' : '';
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML='';
+  if(q.type==='mcq'){
+    q.options.forEach((opt,i)=>{
+      const div = document.createElement('div');
+      div.className='opt'+(responses[q.id].selected===i?' selected':'');
+      div.onclick=()=>selectMcq(q.id,i);
+      div.innerHTML = `<input type="radio" name="opt" ${responses[q.id].selected===i?'checked':''}/><span>(${i+1}) ${opt}</span>`;
+      wrap.appendChild(div);
+    });
+  } else {
+    const div = document.createElement('div');
+    div.id='numericInputWrap';
+    div.innerHTML = `<input type="number" step="any" id="numInput" placeholder="Enter numeric value" value="${responses[q.id].selected!==null?responses[q.id].selected:''}"/>`;
+    wrap.appendChild(div);
+    document.getElementById('numInput').addEventListener('input',(e)=>{
+      responses[q.id].selected = e.target.value===''? null : parseFloat(e.target.value);
+    });
+  }
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([wrap, document.getElementById('qText')]); }
+  refreshPalette();
+}
+
+function selectMcq(qid, i){
+  responses[qid].selected = i;
+  goToQuestion(currentIndex); // re-render to show selection
+}
+
+function saveAndNext(){
+  const q = QUESTIONS[currentIndex];
+  if(responses[q.id].selected!==null && responses[q.id].selected!==''){
+    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'answered-marked' : 'answered';
+  } else {
+    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'marked' : 'not-answered';
+  }
+  advance();
+}
+
+function clearResponse(){
+  const q = QUESTIONS[currentIndex];
+  responses[q.id].selected = null;
+  responses[q.id].status = (responses[q.id].status==='answered-marked')?'marked':'not-answered';
+  goToQuestion(currentIndex);
+}
+
+function markForReview(){
+  const q = QUESTIONS[currentIndex];
+  responses[q.id].status = (responses[q.id].selected!==null) ? 'answered-marked' : 'marked';
+  advance();
+}
+
+function advance(){
+  if(currentIndex < QUESTIONS.length-1){
+    goToQuestion(currentIndex+1);
+  } else {
+    refreshPalette();
+  }
+}
+function prevQ(){
+  if(currentIndex>0) goToQuestion(currentIndex-1);
+}
+
+/* ============ PALETTE ============ */
+function buildPalette(){
+  const grid = document.getElementById('palGrid');
+  grid.innerHTML='';
+  QUESTIONS.forEach((q,idx)=>{
+    const btn = document.createElement('button');
+    btn.className='pal-btn nv';
+    btn.id='pal-'+q.id;
+    btn.textContent=q.id;
+    btn.onclick=()=>goToQuestion(idx);
+    grid.appendChild(btn);
+  });
+}
+function refreshPalette(){
+  QUESTIONS.forEach((q)=>{
+    const btn = document.getElementById('pal-'+q.id);
+    if(!btn) return;
+    btn.className='pal-btn '+statusClass(responses[q.id].status);
+    if(QUESTIONS[currentIndex].id===q.id) btn.classList.add('current');
+  });
+}
+function statusClass(status){
+  switch(status){
+    case 'not-visited': return 'nv';
+    case 'not-answered': return 'na';
+    case 'answered': return 'ans';
+    case 'marked': return 'mark';
+    case 'answered-marked': return 'ansmark';
+    default: return 'nv';
+  }
+}
+
+/* ============ SUBMIT ============ */
+function askSubmit(){
+  const answered = QUESTIONS.filter(q=>responses[q.id].selected!==null).length;
+  document.getElementById('confirmText').textContent =
+    `You have answered ${answered} of 18 questions. Once submitted, you cannot change your responses.`;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){ document.getElementById('confirmOverlay').style.display='none'; }
+
+function finalSubmit(){
+  closeConfirm();
+  if(timerInterval) clearInterval(timerInterval);
+  document.getElementById('test-screen').style.display='none';
+  computeAndShowResults();
+  document.getElementById('result-screen').style.display='block';
+  window.scrollTo(0,0);
+}
+
+/* ============ SCORING & REVIEW ============ */
+function computeAndShowResults(){
+  let correct=0, wrong=0, unattempt=0;
+  let scoreA=0, scoreB=0;
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML='';
+
+  QUESTIONS.forEach(q=>{
+    const r = responses[q.id];
+    let isCorrect=false, attempted = (r.selected!==null && r.selected!=='');
+    if(q.type==='mcq'){
+      isCorrect = attempted && r.selected===q.correct;
+      if(attempted){
+        if(isCorrect){ correct++; scoreA+=4; } else { wrong++; scoreA-=1; }
+      } else unattempt++;
+    } else {
+      isCorrect = attempted && Math.abs(parseFloat(r.selected)-q.answer)<1e-9;
+      if(attempted){
+        if(isCorrect){ correct++; scoreB+=4; } else { wrong++; }
+      } else unattempt++;
+    }
+
+    const rq = document.createElement('div');
+    rq.className='rq';
+    let pillClass = !attempted?'pill-unattempt':(isCorrect?'pill-correct':'pill-wrong');
+    let pillText = !attempted?'Unattempted':(isCorrect?'Correct':'Incorrect');
+
+    let bodyHtml = `<div class="rq-head"><b>Q${q.id}. [Section ${q.section}]</b><span class="status-pill ${pillClass}">${pillText}</span></div>`;
+    bodyHtml += `<div style="margin-bottom:8px;">${q.text}</div>`;
+
+    if(q.type==='mcq'){
+      q.options.forEach((opt,i)=>{
+        let cls='opt2';
+        if(i===q.correct) cls+=' correctAns';
+        else if(i===r.selected && !isCorrect) cls+=' wrongPick';
+        bodyHtml += `<div class="${cls}">(${i+1}) ${opt}${i===q.correct?' &nbsp;✓ Correct Answer':''}${(i===r.selected && i!==q.correct)?' &nbsp;✗ Your Answer':''}</div>`;
+      });
+    } else {
+      bodyHtml += `<div class="opt2 correctAns">Correct Answer: ${q.answer}</div>`;
+      if(attempted){
+        bodyHtml += `<div class="opt2 ${isCorrect?'':'wrongPick'}">Your Answer: ${r.selected}</div>`;
+      } else {
+        bodyHtml += `<div class="opt2">Your Answer: — (not attempted)</div>`;
+      }
+    }
+    bodyHtml += `<div class="ref-tag">ref: ${q.ref}</div>`;
+    rq.innerHTML = bodyHtml;
+    reviewList.appendChild(rq);
+  });
+
+  const total = scoreA+scoreB;
+  document.getElementById('totalScore').textContent = total+' / 72';
+  document.getElementById('resultName').textContent = candidateName;
+  document.getElementById('resultTime').textContent = 'Submitted: '+new Date().toLocaleString();
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statUnattempt').textContent = unattempt;
+  const attemptedCount = correct+wrong;
+  document.getElementById('statAccuracy').textContent = attemptedCount>0 ? Math.round((correct/attemptedCount)*100)+'%' : '0%';
+  document.getElementById('secAScore').textContent = scoreA+' / 48  (12 Q × +4/−1)';
+  document.getElementById('secBScore').textContent = scoreB+' / 24  (6 Q × +4/0)';
+
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([reviewList]); }
+}
+</script>
+</body>
+</html>

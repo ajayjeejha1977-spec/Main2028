@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quadratic Equations CBT Mock Test 2 - JEE Advanced</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root{
+    --nv:#9e9e9e; --na:#e53935; --ans:#43a047; --mark:#8e24aa; --ansmark:#8e24aa;
+    --blue:#0b3d91; --lightblue:#e8f0fe; --border:#ccc;
+  }
+  *{box-sizing:border-box;}
+  body{font-family:Arial, Helvetica, sans-serif; margin:0; background:#f0f2f5; color:#222;}
+  /* ---------- LOGIN ---------- */
+  #login-screen{display:flex; align-items:center; justify-content:center; height:100vh; background:linear-gradient(135deg,#0b3d91,#1a5fb4);}
+  .login-box{background:#fff; padding:40px 50px; border-radius:10px; width:440px; box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  .login-box h1{font-size:20px; margin:0 0 4px; color:var(--blue);}
+  .login-box p{font-size:13px; color:#666; margin:0 0 20px;}
+  .login-box label{display:block; font-size:13px; font-weight:bold; margin:14px 0 5px;}
+  .login-box input{width:100%; padding:10px; border:1px solid var(--border); border-radius:5px; font-size:14px;}
+  .login-box button{margin-top:22px; width:100%; padding:12px; background:var(--blue); color:#fff; border:none; border-radius:5px; font-size:15px; cursor:pointer; font-weight:bold;}
+  .login-box button:hover{background:#092c68;}
+  .instr{background:#f7f9fc; border:1px solid #dde3ee; border-radius:6px; padding:10px 12px; font-size:12px; color:#555; margin-top:16px; line-height:1.5;}
+  .badge{display:inline-block; background:#eef2fa; color:var(--blue); font-size:11px; padding:3px 8px; border-radius:10px; margin-top:8px; font-weight:bold;}
+  /* ---------- TEST SCREEN ---------- */
+  #test-screen{display:none; height:100vh; flex-direction:column;}
+  #topbar{background:var(--blue); color:#fff; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
+  #topbar .title{font-size:15px; font-weight:bold;}
+  #topbar .sub{font-size:11px; opacity:.85;}
+  #timerBox{background:#fff; color:var(--blue); font-weight:bold; padding:6px 14px; border-radius:5px; font-size:16px; letter-spacing:1px;}
+  #timerBox.low{color:#c62828; animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+  #submitBtn{background:#e53935; color:#fff; border:none; padding:9px 18px; border-radius:5px; cursor:pointer; font-weight:bold; font-size:13px;}
+  #submitBtn:hover{background:#b71c1c;}
+  #sectionTabs{display:flex; background:#dde5f0; border-bottom:1px solid #c3cee0;}
+  .section-tab{padding:10px 22px; cursor:pointer; font-size:13px; font-weight:bold; color:#33507a; border-right:1px solid #c3cee0;}
+  .section-tab.active{background:#fff; color:var(--blue); border-bottom:3px solid var(--blue);}
+  #main{flex:1; display:flex; overflow:hidden;}
+  #qArea{flex:1; padding:20px 28px; overflow-y:auto; background:#fff;}
+  #qMeta{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
+  #qNumTag{font-weight:bold; color:var(--blue); font-size:15px;}
+  #qMarks{font-size:12px; color:#555; background:#eef2fa; padding:4px 10px; border-radius:12px;}
+  #qText{font-size:16px; line-height:1.9; margin:14px 0 22px;}
+  .opt{display:flex; align-items:flex-start; gap:10px; padding:11px 14px; border:1px solid #ddd; border-radius:6px; margin-bottom:10px; cursor:pointer;}
+  .opt:hover{background:#f5f8ff;}
+  .opt.selected{background:var(--lightblue); border-color:var(--blue);}
+  .opt input{margin-top:4px;}
+  #numericInputWrap{margin-top:6px;}
+  #numericInputWrap input{padding:10px; font-size:15px; width:220px; border:1px solid var(--border); border-radius:5px;}
+  #actionBar{display:flex; gap:10px; padding:14px 28px; border-top:1px solid #e0e0e0; background:#fafbfd; flex-wrap:wrap;}
+  #actionBar button{padding:10px 16px; font-size:13px; border-radius:5px; border:1px solid #bbb; background:#fff; cursor:pointer; font-weight:bold;}
+  .btn-mark{color:var(--mark); border-color:var(--mark);}
+  .btn-clear{color:#555;}
+  .btn-save{background:var(--blue)!important; color:#fff!important; border-color:var(--blue)!important;}
+  .btn-nav{margin-left:auto; color:var(--blue); border-color:var(--blue);}
+  #palette{width:260px; background:#f4f6fa; border-left:1px solid #dde3ee; padding:14px; overflow-y:auto;}
+  #palette h3{font-size:12px; margin:0 0 10px; color:#333;}
+  .legend{display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:10.5px; margin-bottom:14px;}
+  .legend-item{display:flex; align-items:center; gap:5px;}
+  .legend-swatch{width:14px; height:14px; border-radius:3px; flex-shrink:0;}
+  .pal-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:7px;}
+  .pal-btn{width:38px; height:34px; border-radius:5px; border:none; color:#fff; font-size:12px; font-weight:bold; cursor:pointer; position:relative;}
+  .pal-btn.nv{background:var(--nv); color:#333;}
+  .pal-btn.na{background:var(--na);}
+  .pal-btn.ans{background:var(--ans);}
+  .pal-btn.mark{background:var(--mark);}
+  .pal-btn.ansmark{background:var(--ansmark);}
+  .pal-btn.ansmark::after{content:''; position:absolute; bottom:3px; right:3px; width:6px; height:6px; border-radius:50%; background:var(--ans);}
+  .pal-btn.current{outline:3px solid #ffb300; outline-offset:1px;}
+  .ref-tag{font-size:10px; color:#999; margin-top:16px; font-style:italic;}
+  /* ---------- RESULTS ---------- */
+  #result-screen{display:none; max-width:920px; margin:0 auto; padding:30px 20px 60px;}
+  .card{background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,.1); padding:22px 26px; margin-bottom:20px;}
+  .score-hero{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+  .score-hero .big{font-size:42px; font-weight:bold; color:var(--blue);}
+  .score-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;}
+  .stat{background:#f7f9fc; border-radius:6px; padding:12px; text-align:center;}
+  .stat .n{font-size:20px; font-weight:bold;}
+  .stat .l{font-size:11px; color:#666; margin-top:3px;}
+  .sec-breakdown{margin-top:18px;}
+  .sec-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; font-size:13px;}
+  #reviewList .rq{border:1px solid #e2e2e2; border-radius:6px; padding:16px 18px; margin-bottom:14px;}
+  .rq-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+  .status-pill{font-size:11px; padding:3px 10px; border-radius:10px; color:#fff; font-weight:bold;}
+  .pill-correct{background:var(--ans);}
+  .pill-wrong{background:var(--na);}
+  .pill-unattempt{background:#999;}
+  .rq .opt2{padding:7px 10px; border-radius:5px; margin:4px 0; font-size:13.5px; border:1px solid #eee;}
+  .opt2.correctAns{background:#e8f6ea; border-color:var(--ans); font-weight:bold;}
+  .opt2.wrongPick{background:#fdecea; border-color:var(--na); font-weight:bold;}
+  #topActions{display:flex; gap:10px; justify-content:flex-end; margin-bottom:14px;}
+  #topActions button{padding:10px 18px; border-radius:5px; border:1px solid var(--blue); background:var(--blue); color:#fff; cursor:pointer; font-weight:bold; font-size:13px;}
+  #topActions button.secondary{background:#fff; color:var(--blue);}
+  @media print{
+    #topActions{display:none;}
+    body{background:#fff;}
+    .card{box-shadow:none; border:1px solid #ccc;}
+  }
+  #confirmOverlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center; z-index:50;}
+  #confirmOverlay .box{background:#fff; padding:26px 30px; border-radius:8px; width:380px;}
+  #confirmOverlay h3{margin-top:0;}
+  #confirmOverlay .row{display:flex; gap:10px; margin-top:18px;}
+  #confirmOverlay button{flex:1; padding:10px; border-radius:5px; border:none; cursor:pointer; font-weight:bold;}
+  #confirmOverlay .yes{background:#e53935; color:#fff;}
+  #confirmOverlay .no{background:#eee;}
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>Quadratic Equations CBT Mock Test — 2</h1>
+    <p>JEE Advanced Pattern · Follow-up Test (no overlap with Test 1)</p>
+    <span class="badge">18 fresh questions — 0 repeats from Test 1</span>
+    <label>Candidate Name</label>
+    <input type="text" id="candName" placeholder="Enter your name" />
+    <label>Test Duration (minutes)</label>
+    <input type="number" id="candDuration" value="45" min="5" max="180" />
+    <button onclick="startTest()">Start Test</button>
+    <div class="instr">
+      <b>Instructions:</b> Section A — 12 Single Correct MCQs (+4 / −1). Section B — 6 Numerical Value questions (+4 / 0, no negative marking). Use <b>Save &amp; Next</b> to record a response, <b>Mark for Review &amp; Next</b> to flag a question, and <b>Clear Response</b> to remove your answer. The test auto-submits when time expires.
+    </div>
+  </div>
+</div>
+
+<!-- ============ TEST SCREEN ============ -->
+<div id="test-screen">
+  <div id="topbar">
+    <div>
+      <div class="title" id="candNameDisplay">Candidate</div>
+      <div class="sub">Quadratic Equations CBT Mock Test 2</div>
+    </div>
+    <div id="timerBox">45:00</div>
+    <button id="submitBtn" onclick="askSubmit()">Submit Test</button>
+  </div>
+  <div id="sectionTabs">
+    <div class="section-tab active" id="tabA" onclick="switchSection('A')">Section A — MCQ (1–12)</div>
+    <div class="section-tab" id="tabB" onclick="switchSection('B')">Section B — Numerical (13–18)</div>
+  </div>
+  <div id="main">
+    <div id="qArea">
+      <div id="qMeta">
+        <div id="qNumTag">Question 1</div>
+        <div id="qMarks">+4 / −1</div>
+      </div>
+      <div id="qText"></div>
+      <div id="optionsWrap"></div>
+      <div class="ref-tag" id="refTag"></div>
+    </div>
+    <div id="palette">
+      <h3>QUESTION PALETTE</h3>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--nv)"></div>Not Visited</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--na)"></div>Not Answered</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--ans)"></div>Answered</div>
+        <div class="legend-item"><div class="legend-swatch" style="background:var(--mark)"></div>Marked</div>
+      </div>
+      <div class="pal-grid" id="palGrid"></div>
+    </div>
+  </div>
+  <div id="actionBar">
+    <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+    <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+    <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+    <button class="btn-nav" onclick="prevQ()">◀ Previous</button>
+  </div>
+</div>
+
+<!-- ============ CONFIRM SUBMIT ============ -->
+<div id="confirmOverlay">
+  <div class="box">
+    <h3>Submit Test?</h3>
+    <p id="confirmText" style="font-size:13px; color:#555;"></p>
+    <div class="row">
+      <button class="no" onclick="closeConfirm()">Cancel</button>
+      <button class="yes" onclick="finalSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RESULTS ============ -->
+<div id="result-screen">
+  <div id="topActions">
+    <button class="secondary" onclick="window.print()">⬇ Download as PDF</button>
+  </div>
+  <div class="card score-hero">
+    <div>
+      <div style="font-size:13px; color:#666;">Total Score</div>
+      <div class="big" id="totalScore">0 / 72</div>
+    </div>
+    <div style="text-align:right;">
+      <div style="font-size:13px; color:#666;">Candidate</div>
+      <div style="font-size:16px; font-weight:bold;" id="resultName">—</div>
+      <div style="font-size:12px; color:#888;" id="resultTime">—</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="score-grid">
+      <div class="stat"><div class="n" id="statCorrect">0</div><div class="l">Correct</div></div>
+      <div class="stat"><div class="n" id="statWrong">0</div><div class="l">Incorrect</div></div>
+      <div class="stat"><div class="n" id="statUnattempt">0</div><div class="l">Unattempted</div></div>
+      <div class="stat"><div class="n" id="statAccuracy">0%</div><div class="l">Accuracy (attempted)</div></div>
+    </div>
+    <div class="sec-breakdown">
+      <div class="sec-row"><b>Section A (MCQ, +4/−1)</b><span id="secAScore">—</span></div>
+      <div class="sec-row"><b>Section B (Numerical, +4/0)</b><span id="secBScore">—</span></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3 style="margin-top:0;">Full Answer Review</h3>
+    <div id="reviewList"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   QUESTION DATA — Test 2 (follow-up). Every ref below is
+   DISTINCT from the 18 refs used in Test 1 on this same zip:
+   excluded: (A) E20-3, E21-2, E22-1, N22-7, N22-2, N23-1
+   | (B) N23-3, T22-10 | (C) E21-9, E20-8 | (D) E23-7
+   | (E) N20-10, N25-11 | (F) N21-12, T22-11
+   | (G) E20-12, T21-13, N21-16
+   ========================================================= */
+const QUESTIONS = [
+// ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
+{
+  id:1, section:'A', type:'mcq',
+  text:"Let \\(f(x)\\) be a quadratic polynomial such that \\( f(-2)+f(3)=0 \\). If one of the roots of \\( f(x)=0 \\) is \\(-1\\), then the sum of the roots of \\( f(x)=0 \\) is equal to:",
+  options:["\\(\\dfrac{11}{3}\\)","\\(\\dfrac{7}{3}\\)","\\(\\dfrac{13}{3}\\)","\\(\\dfrac{14}{3}\\)"],
+  correct:0,
+  ref:"(A) Relation between the roots and coefficients_43_E22-4"
+},
+{
+  id:2, section:'A', type:'mcq',
+  text:"Let \\(\\alpha\\) and \\(\\beta\\) be the roots of the equation \\( px^2+qx-r=0 \\), where \\(p\\ne0\\). If \\(p,q\\) and \\(r\\) be the consecutive terms of a non-constant G.P and \\( \\dfrac1\\alpha+\\dfrac1\\beta=\\dfrac34 \\), then the value of \\( (\\alpha-\\beta)^2 \\) is:",
+  options:["\\(\\dfrac{80}{9}\\)","9","\\(\\dfrac{20}{3}\\)","8"],
+  correct:0,
+  ref:"(A) Relation between the roots and coefficients_43_E24-1"
+},
+{
+  id:3, section:'A', type:'mcq',
+  text:"Let \\( f(x)=ax^2+bx+c \\) be such that \\( f(1)=3 \\), \\( f(-2)=\\lambda \\) and \\( f(3)=4 \\). If \\( f(0)+f(1)+f(-2)+f(3)=14 \\), then \\(\\lambda\\) is equal to:",
+  options:["\\(-4\\)","\\(\\dfrac{13}{2}\\)","\\(\\dfrac{23}{2}\\)","4"],
+  correct:3,
+  ref:"(A) Relation between the roots and coefficients_43_N22-8"
+},
+{
+  id:4, section:'A', type:'mcq',
+  text:"Let \\(\\alpha_\\theta\\) and \\(\\beta_\\theta\\) be the distinct roots of \\( 2x^2+(\\cos\\theta)x-1=0 \\), \\(\\theta\\in(0,2\\pi)\\). If \\(m\\) and \\(M\\) are the minimum and the maximum values of \\( \\alpha_\\theta^4+\\beta_\\theta^4 \\), then \\( 16(M+m) \\) equals:",
+  options:["27","17","24","25"],
+  correct:3,
+  ref:"(A) Relation between the roots and coefficients_43_N25-1"
+},
+{
+  id:5, section:'A', type:'mcq',
+  text:"Let \\(\\alpha,\\beta,\\gamma\\) be the three roots of the equation \\( x^3+bx+c=0 \\). If \\( \\beta\\gamma=1=-\\alpha \\), then \\( b^3+2c^3-3\\alpha^3-6\\beta^3-8\\gamma^3 \\) is equal to:",
+  options:["21","\\(\\dfrac{169}{8}\\)","19","\\(\\dfrac{155}{8}\\)"],
+  correct:2,
+  ref:"(B) Relation between roots and coefficients_6_N23-4"
+},
+{
+  id:6, section:'A', type:'mcq',
+  text:"Consider the equation \\( x^2+4x-n=0 \\), where \\( n\\in[20,100] \\) is a natural number. Then the number of all distinct values of \\(n\\), for which the given equation has integral roots, is equal to:",
+  options:["7","6","5","8"],
+  correct:1,
+  ref:"(B) Relation between roots and coefficients_6_N25-10"
+},
+{
+  id:7, section:'A', type:'mcq',
+  text:"The value of \\( 4+\\cfrac{1}{5+\\cfrac{1}{4+\\cfrac{1}{5+\\cfrac{1}{4+\\cdots\\infty}}}} \\) is:",
+  options:["\\(2+\\dfrac25\\sqrt{30}\\)","\\(2+\\dfrac{4}{\\sqrt5}\\sqrt{30}\\)","\\(4+\\dfrac{4}{\\sqrt5}\\sqrt{30}\\)","\\(5+\\dfrac25\\sqrt{30}\\)"],
+  correct:0,
+  ref:"(C) Nature of Roots_6_E21-10"
+},
+{
+  id:8, section:'A', type:'mcq',
+  text:"Let \\( S=\\left\\{x: x\\in\\mathbb{R} \\text{ and } (\\sqrt3+\\sqrt2)^{x^2-4}+(\\sqrt3-\\sqrt2)^{x^2-4}=10\\right\\} \\). Then \\(n(S)\\) is equal to:",
+  options:["2","4","6","0"],
+  correct:1,
+  ref:"(C) Nature of Roots_6_E23-6"
+},
+{
+  id:9, section:'A', type:'mcq',
+  text:"Let the sum of the maximum and the minimum values of the function \\( f(x)=\\dfrac{2x^2-3x+8}{2x^2+3x+8} \\) be \\( \\dfrac{m}{n} \\), where \\(\\gcd(m,n)=1\\). Then \\(m+n\\) is equal to:",
+  options:["182","217","195","201"],
+  correct:3,
+  ref:"(D) Range of quadratic expression_and_sign_of_3_E24-12"
+},
+{
+  id:10, section:'A', type:'mcq',
+  text:"The number of integral values of \\(k\\), for which one root of the equation \\( 2x^2-8x+k=0 \\) lies in the interval \\((1,2)\\) and its other root lies in the interval \\((2,3)\\), is:",
+  options:["2","0","1","3"],
+  correct:2,
+  ref:"(E) Location of Roots_5_N23-8"
+},
+{
+  id:11, section:'A', type:'mcq',
+  text:"The sum of all the real roots of the equation \\( (e^{2x}-4)(6e^{2x}-5e^x+1)=0 \\) is:",
+  options:["\\(\\log_e3\\)","\\(-\\log_e3\\)","\\(\\log_e6\\)","\\(-\\log_e6\\)"],
+  correct:1,
+  ref:"(G) Qr_eq_Miscellaneous15_N22-14"
+},
+{
+  id:12, section:'A', type:'mcq',
+  text:"Let \\( S=\\left\\{x\\in\\left(-\\dfrac{\\pi}{2},\\dfrac{\\pi}{2}\\right): 9^{1-\\tan^2x}+9^{\\tan^2x}=10\\right\\} \\) and \\( \\beta=\\displaystyle\\sum_{x\\in S}\\tan^2\\left(\\dfrac{x}{3}\\right) \\). Then \\( \\dfrac16(\\beta-14)^2 \\) is equal to:",
+  options:["32","8","64","16"],
+  correct:0,
+  ref:"(G) Qr_eq_Miscellaneous15_N23-13"
+},
+
+// ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
+{
+  id:13, section:'B', type:'numeric',
+  text:"Let \\(\\alpha\\) and \\(\\beta\\) be two real numbers such that \\( \\alpha+\\beta=1 \\) and \\( \\alpha\\beta=-1 \\). Let \\( p_n=\\alpha^n+\\beta^n \\), \\( p_{n-1}=11 \\) and \\( p_{n+1}=29 \\) for some integer \\(n\\ge1\\). Then the value of \\( p_n^2 \\) is ______.",
+  answer:324,
+  ref:"(A) Relation between the roots and coefficients_43_E21-3"
+},
+{
+  id:14, section:'B', type:'numeric',
+  text:"Let \\(\\alpha,\\beta\\in\\mathbb{N}\\) be roots of the equation \\( x^2-70x+\\lambda=0 \\), where \\( \\dfrac{\\lambda}{2},\\dfrac{\\lambda}{3}\\notin\\mathbb{N} \\). If \\(\\lambda\\) assumes the minimum possible value, then \\( \\dfrac{(\\sqrt{\\alpha-1}+\\sqrt{\\beta-1})(\\lambda+35)}{|\\alpha-\\beta|} \\) is equal to ______.",
+  answer:60,
+  ref:"(A) Relation between the roots and coefficients_43_N24-3"
+},
+{
+  id:15, section:'B', type:'numeric',
+  text:"Let \\(a,b,c\\) be the lengths of three sides of a triangle satisfying the condition \\( (a^2+b^2)x^2-2b(a+c)x+(b^2+c^2)=0 \\). If the set of all possible values of \\(x\\) is the interval \\((\\alpha,\\beta)\\), then \\( 12(\\alpha^2+\\beta^2) \\) is equal to ______.",
+  answer:36,
+  ref:"(D) Range of quadratic expression_and_sign_of_3_N24-11"
+},
+{
+  id:16, section:'B', type:'numeric',
+  text:"If the value of real number \\(a>0\\) for which \\( x^2-5ax+1=0 \\) and \\( x^2-ax-5=0 \\) have a common real root is \\( \\dfrac{3}{\\sqrt{2\\beta}} \\), then \\(\\beta\\) is equal to ______.",
+  answer:13,
+  ref:"(F) Common Roots_5_N23-9"
+},
+{
+  id:17, section:'B', type:'numeric',
+  text:"Let \\(\\alpha,\\beta\\) be the roots of the equation \\( x^2-4\\lambda x+5=0 \\) and \\(\\alpha,\\gamma\\) be the roots of the equation \\( x^2-\\left(3\\sqrt2+2\\sqrt3\\right)x+7+3\\lambda\\sqrt3=0 \\). If \\( \\beta+\\gamma=3\\sqrt2 \\), then \\( (\\alpha+2\\beta+\\gamma)^2 \\) is equal to ______.",
+  answer:98,
+  ref:"(F) Common Roots_5_T22-12"
+},
+{
+  id:18, section:'B', type:'numeric',
+  text:"The number of real roots of the equation \\( e^{4x}-e^{3x}-4e^{2x}-e^x+1=0 \\) is equal to ______.",
+  answer:2,
+  ref:"(G) Qr_eq_Miscellaneous15_T21-14"
+}
+];
+
+/* ============ STATE ============ */
+let responses = {};      // id -> {selected: idx or numeric value, status}
+let currentIndex = 0;    // index into QUESTIONS
+let currentSection = 'A';
+let timerInterval = null;
+let secondsLeft = 45*60;
+let candidateName = '';
+let testStartTS = null;
+
+QUESTIONS.forEach(q=>{ responses[q.id] = {selected:null, status:'not-visited'}; });
+
+function sectionQs(sec){ return QUESTIONS.filter(q=>q.section===sec); }
+
+/* ============ LOGIN / START ============ */
+function startTest(){
+  const name = document.getElementById('candName').value.trim();
+  const dur = parseInt(document.getElementById('candDuration').value,10) || 45;
+  candidateName = name || 'Candidate';
+  secondsLeft = dur*60;
+  testStartTS = new Date();
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('test-screen').style.display='flex';
+  document.getElementById('candNameDisplay').textContent = candidateName;
+  buildPalette();
+  goToQuestion(0);
+  startTimer();
+}
+
+/* ============ TIMER ============ */
+function startTimer(){
+  updateTimerDisplay();
+  timerInterval = setInterval(()=>{
+    secondsLeft--;
+    if(secondsLeft<=0){
+      clearInterval(timerInterval);
+      secondsLeft=0;
+      updateTimerDisplay();
+      finalSubmit();
+      return;
+    }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(secondsLeft/60);
+  const s = secondsLeft%60;
+  const box = document.getElementById('timerBox');
+  box.textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+  box.classList.toggle('low', secondsLeft<=300);
+}
+
+/* ============ NAVIGATION ============ */
+function switchSection(sec){
+  currentSection = sec;
+  document.getElementById('tabA').classList.toggle('active', sec==='A');
+  document.getElementById('tabB').classList.toggle('active', sec==='B');
+  const qs = sectionQs(sec);
+  const firstIdx = QUESTIONS.findIndex(q=>q.id===qs[0].id);
+  goToQuestion(firstIdx);
+}
+
+function goToQuestion(idx){
+  currentIndex = idx;
+  const q = QUESTIONS[idx];
+  currentSection = q.section;
+  document.getElementById('tabA').classList.toggle('active', currentSection==='A');
+  document.getElementById('tabB').classList.toggle('active', currentSection==='B');
+  if(responses[q.id].status==='not-visited') responses[q.id].status='not-answered';
+
+  document.getElementById('qNumTag').textContent = 'Question '+q.id+' of 18';
+  document.getElementById('qMarks').textContent = q.type==='mcq' ? '+4 / \u22121' : '+4 / 0';
+  document.getElementById('qText').innerHTML = q.text;
+  document.getElementById('refTag').textContent = 'ref: '+q.ref;
+
+  const wrap = document.getElementById('optionsWrap');
+  wrap.innerHTML='';
+  if(q.type==='mcq'){
+    q.options.forEach((opt,i)=>{
+      const div = document.createElement('div');
+      div.className='opt'+(responses[q.id].selected===i?' selected':'');
+      div.onclick=()=>selectMcq(q.id,i);
+      div.innerHTML = `<input type="radio" name="opt" ${responses[q.id].selected===i?'checked':''}/><span>(${i+1}) ${opt}</span>`;
+      wrap.appendChild(div);
+    });
+  } else {
+    const div = document.createElement('div');
+    div.id='numericInputWrap';
+    div.innerHTML = `<input type="number" step="any" id="numInput" placeholder="Enter numeric value" value="${responses[q.id].selected!==null?responses[q.id].selected:''}"/>`;
+    wrap.appendChild(div);
+    document.getElementById('numInput').addEventListener('input',(e)=>{
+      responses[q.id].selected = e.target.value===''? null : parseFloat(e.target.value);
+    });
+  }
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([wrap, document.getElementById('qText')]); }
+  refreshPalette();
+}
+
+function selectMcq(qid, i){
+  responses[qid].selected = i;
+  goToQuestion(currentIndex); // re-render to show selection
+}
+
+function saveAndNext(){
+  const q = QUESTIONS[currentIndex];
+  if(responses[q.id].selected!==null && responses[q.id].selected!==''){
+    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'answered-marked' : 'answered';
+  } else {
+    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'marked' : 'not-answered';
+  }
+  advance();
+}
+
+function clearResponse(){
+  const q = QUESTIONS[currentIndex];
+  responses[q.id].selected = null;
+  responses[q.id].status = (responses[q.id].status==='answered-marked')?'marked':'not-answered';
+  goToQuestion(currentIndex);
+}
+
+function markForReview(){
+  const q = QUESTIONS[currentIndex];
+  responses[q.id].status = (responses[q.id].selected!==null) ? 'answered-marked' : 'marked';
+  advance();
+}
+
+function advance(){
+  if(currentIndex < QUESTIONS.length-1){
+    goToQuestion(currentIndex+1);
+  } else {
+    refreshPalette();
+  }
+}
+function prevQ(){
+  if(currentIndex>0) goToQuestion(currentIndex-1);
+}
+
+/* ============ PALETTE ============ */
+function buildPalette(){
+  const grid = document.getElementById('palGrid');
+  grid.innerHTML='';
+  QUESTIONS.forEach((q,idx)=>{
+    const btn = document.createElement('button');
+    btn.className='pal-btn nv';
+    btn.id='pal-'+q.id;
+    btn.textContent=q.id;
+    btn.onclick=()=>goToQuestion(idx);
+    grid.appendChild(btn);
+  });
+}
+function refreshPalette(){
+  QUESTIONS.forEach((q)=>{
+    const btn = document.getElementById('pal-'+q.id);
+    if(!btn) return;
+    btn.className='pal-btn '+statusClass(responses[q.id].status);
+    if(QUESTIONS[currentIndex].id===q.id) btn.classList.add('current');
+  });
+}
+function statusClass(status){
+  switch(status){
+    case 'not-visited': return 'nv';
+    case 'not-answered': return 'na';
+    case 'answered': return 'ans';
+    case 'marked': return 'mark';
+    case 'answered-marked': return 'ansmark';
+    default: return 'nv';
+  }
+}
+
+/* ============ SUBMIT ============ */
+function askSubmit(){
+  const answered = QUESTIONS.filter(q=>responses[q.id].selected!==null).length;
+  document.getElementById('confirmText').textContent =
+    `You have answered ${answered} of 18 questions. Once submitted, you cannot change your responses.`;
+  document.getElementById('confirmOverlay').style.display='flex';
+}
+function closeConfirm(){ document.getElementById('confirmOverlay').style.display='none'; }
+
+function finalSubmit(){
+  closeConfirm();
+  if(timerInterval) clearInterval(timerInterval);
+  document.getElementById('test-screen').style.display='none';
+  computeAndShowResults();
+  document.getElementById('result-screen').style.display='block';
+  window.scrollTo(0,0);
+}
+
+/* ============ SCORING & REVIEW ============ */
+function computeAndShowResults(){
+  let correct=0, wrong=0, unattempt=0;
+  let scoreA=0, scoreB=0;
+  const reviewList = document.getElementById('reviewList');
+  reviewList.innerHTML='';
+
+  QUESTIONS.forEach(q=>{
+    const r = responses[q.id];
+    let isCorrect=false, attempted = (r.selected!==null && r.selected!=='');
+    if(q.type==='mcq'){
+      isCorrect = attempted && r.selected===q.correct;
+      if(attempted){
+        if(isCorrect){ correct++; scoreA+=4; } else { wrong++; scoreA-=1; }
+      } else unattempt++;
+    } else {
+      isCorrect = attempted && Math.abs(parseFloat(r.selected)-q.answer)<1e-9;
+      if(attempted){
+        if(isCorrect){ correct++; scoreB+=4; } else { wrong++; }
+      } else unattempt++;
+    }
+
+    const rq = document.createElement('div');
+    rq.className='rq';
+    let pillClass = !attempted?'pill-unattempt':(isCorrect?'pill-correct':'pill-wrong');
+    let pillText = !attempted?'Unattempted':(isCorrect?'Correct':'Incorrect');
+
+    let bodyHtml = `<div class="rq-head"><b>Q${q.id}. [Section ${q.section}]</b><span class="status-pill ${pillClass}">${pillText}</span></div>`;
+    bodyHtml += `<div style="margin-bottom:8px;">${q.text}</div>`;
+
+    if(q.type==='mcq'){
+      q.options.forEach((opt,i)=>{
+        let cls='opt2';
+        if(i===q.correct) cls+=' correctAns';
+        else if(i===r.selected && !isCorrect) cls+=' wrongPick';
+        bodyHtml += `<div class="${cls}">(${i+1}) ${opt}${i===q.correct?' &nbsp;✓ Correct Answer':''}${(i===r.selected && i!==q.correct)?' &nbsp;✗ Your Answer':''}</div>`;
+      });
+    } else {
+      bodyHtml += `<div class="opt2 correctAns">Correct Answer: ${q.answer}</div>`;
+      if(attempted){
+        bodyHtml += `<div class="opt2 ${isCorrect?'':'wrongPick'}">Your Answer: ${r.selected}</div>`;
+      } else {
+        bodyHtml += `<div class="opt2">Your Answer: — (not attempted)</div>`;
+      }
+    }
+    bodyHtml += `<div class="ref-tag">ref: ${q.ref}</div>`;
+    rq.innerHTML = bodyHtml;
+    reviewList.appendChild(rq);
+  });
+
+  const total = scoreA+scoreB;
+  document.getElementById('totalScore').textContent = total+' / 72';
+  document.getElementById('resultName').textContent = candidateName;
+  document.getElementById('resultTime').textContent = 'Submitted: '+new Date().toLocaleString();
+  document.getElementById('statCorrect').textContent = correct;
+  document.getElementById('statWrong').textContent = wrong;
+  document.getElementById('statUnattempt').textContent = unattempt;
+  const attemptedCount = correct+wrong;
+  document.getElementById('statAccuracy').textContent = attemptedCount>0 ? Math.round((correct/attemptedCount)*100)+'%' : '0%';
+  document.getElementById('secAScore').textContent = scoreA+' / 48  (12 Q × +4/−1)';
+  document.getElementById('secBScore').textContent = scoreB+' / 24  (6 Q × +4/0)';
+
+  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([reviewList]); }
+}
+</script>
+</body>
+</html>
