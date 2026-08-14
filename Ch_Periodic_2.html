@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Periodic Table & Periodicity — Test 1 (Exercise 1 & 2)</title>
+<style>
+  :root{--nta-blue:#0b3d91;--nta-blue-dark:#082a66;--panel-bg:#f0f0f0;--ans-green:#3cb043;--notans-red:#d9363e;--notvisited-gray:#9e9e9e;--marked-purple:#8e44ad;--border:#c9c9c9;--text:#1b1b1b;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;} .btn-clear{background:#7f8c8d;color:#fff;} .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;} .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);} .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;} .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;max-height:340px;overflow-y:auto;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);} #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);} #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);} .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);} .reviewrow.wrong{border-left:4px solid var(--notans-red);} .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;} .reviewrow .qt{font-size:13px;margin:4px 0 8px;} .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;} .tag.bad{background:#fbe4e4;color:#c0392b;} .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+  @media print{body{background:#fff;} #login,#test,#pdfactions,#retrybtn{display:none !important;} #results{display:block !important;max-width:100%;padding:0;} #app{max-width:100%;} .reviewrow{break-inside:avoid;page-break-inside:avoid;} .scard{break-inside:avoid;}}
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+  @media(max-width:820px){#main{flex-direction:column;} #side{width:100%;border-left:none;border-top:1px solid var(--border);} #palette{grid-template-columns:repeat(8,1fr);max-height:none;}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="login">
+    <div class="card">
+      <h1>Periodic Table & Periodicity</h1>
+      <p>CBT Mock Test 1 &middot; Exercise 1 &amp; 2 &middot; Vyas Edification</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="240" value="150" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        110 Questions &middot; Default 150 Minutes (editable above)<br>
+        Section A: Single Correct (69Q, +4/&minus;1)<br>
+        Section B: Numerical Value (16Q, +4/0)<br>
+        Section C: Multiple Correct (25Q, partial marking, &minus;2 for wrong)<br>
+        Covers: development of the periodic table, shielding &amp; Z<sub>eff</sub>, oxidation states &amp; inert pair effect, atomic/ionic radius, ionisation enthalpy, electron gain enthalpy, electronegativity, both match-the-column sets, and all four comprehensions.
+      </div>
+    </div>
+  </div>
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div><div class="title">Periodic Table & Periodicity — Test 1</div><div class="sub" id="candlabel"></div></div>
+      <div id="timerbox">150:00</div>
+    </div>
+    <div id="sectiontabs"></div>
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="any" id="numinput" placeholder="Enter numerical value" />
+          <div class="hint">Enter the exact numeric answer (integer or decimal).</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+      <div id="side">
+        <div><h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div><div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div><div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions"><button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button></div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+</div>
+<script>
+const questions = [
+/* ===== SECTION A: Single Correct — Ex.1 Part-II ===== */
+{sec:'A', ref:"Ex.1 Part-II A-1", type:'single', q:"The period number in the long form of the periodic table is equal to:",
+  opts:["Magnetic quantum number of any element of the period","Atomic number of any element of the period","Maximum Principal quantum number of any element of the period","Maximum Azimuthal quantum number of any element of the period"], ans:2,
+  why:"Each period begins by filling a new principal shell (n), so the period number equals the maximum principal quantum number reached."},
+{sec:'A', ref:"Ex.1 Part-II A-2", type:'single', q:"Which statement about the modern periodic table is INCORRECT?",
+  opts:["The p-block has 6 columns (max 6 electrons in a p-subshell)","The d-block has 8 columns (max 8 electrons in a d-subshell)","Each block contains columns equal to the electrons that subshell can hold","The block indicates the azimuthal quantum number of the last-filled subshell"], ans:1,
+  why:"A d-subshell holds a maximum of 10 electrons, not 8 — so the d-block actually has 10 columns."},
+{sec:'A', ref:"Ex.1 Part-II A-3", type:'single', q:"Elements in which electrons are progressively filled in the 4f-orbital are called:",
+  opts:["Actinoids","Transition elements","Lanthanoids","Halogens"], ans:2,
+  why:"4f-filling defines the lanthanoid series; 5f-filling defines the actinoids."},
+{sec:'A', ref:"Ex.1 Part-II A-4", type:'single', q:"Which statement is NOT correct regarding hydrogen?",
+  opts:["It resembles halogens in some properties","It resembles alkali metals in some properties","It can be placed in the 17th group of the modern periodic table","It cannot be placed in the 1st group of the modern periodic table"], ans:3,
+  why:"Hydrogen (1s¹) is conventionally placed in group 1 alongside the alkali metals — so saying it 'cannot' be placed there is false."},
+{sec:'A', ref:"Ex.1 Part-II A-5", type:'single', q:"Atomic number of Ag is 47. In the same group, the atomic numbers of the elements placed above and below Ag (long form) are:",
+  opts:["29, 65","39, 79","29, 79","39, 65"], ans:2,
+  why:"Group 11: Cu (29) is above Ag (47), and Au (79) is below it."},
+{sec:'A', ref:"Ex.1 Part-II A-6", type:'single', q:"In the modern periodic table, the element with atomic number Z = 118 will be:",
+  opts:["Uuo; Ununoctium; alkaline earth metal","Uno; Unniloctium; transition metal","Uno; Unniloctium; alkali metal","Uuo; Ununoctium; noble gas"], ans:3,
+  why:"Z=118 (Oganesson) completes period 7's p-block, placing it in the noble gas group."},
+{sec:'A', ref:"Ex.1 Part-II B-1", type:'single', q:"The order of screening effect of s, p, d, f electrons of a given shell on outer shell electrons is:",
+  opts:["s > p > d > f","f > d > p > s","p < d < s > f","f > p > s > d"], ans:0,
+  why:"s-orbitals penetrate closest to the nucleus and shield outer electrons most effectively; f-orbitals shield least."},
+{sec:'A', ref:"Ex.1 Part-II B-2", type:'single', q:"Which is generally true regarding effective nuclear charge (Zeff)?",
+  opts:["It increases moving left to right in a period","It remains almost constant moving top to bottom in a group","For isoelectronic species, as Z increases, Zeff decreases","Both (A) and (B)"], ans:3,
+  why:"Zeff rises across a period (less shielding added per proton) and stays roughly constant down a group (each new shell largely offsets the added protons)."},
+{sec:'A', ref:"Ex.1 Part-II B-3", type:'single', q:"Among Sn, Sn⁴⁺, In, In⁺, which has maximum Zeff?",
+  opts:["Sn","Sn⁴⁺","In","In⁺"], ans:1,
+  why:"Sn⁴⁺ has lost the most electrons for its proton count, giving it the highest effective nuclear charge felt by remaining electrons."},
+{sec:'A', ref:"Ex.1 Part-II B-4", type:'single', q:"From each set, pick the species with highest Zeff: (a) O²⁻, F⁻, Na⁺ (b) Li, Be, Na (c) He, Li⁺, H⁻",
+  opts:["Na⁺, Be, Li⁺","O²⁻, Li, H⁻","F⁻, Na, He","Na⁺, Be, He"], ans:0,
+  why:"In each isoelectronic-ish set, the species with fewest electrons per proton (most positive/least negative) has the highest Zeff: Na⁺, Be, Li⁺."},
+{sec:'A', ref:"Ex.1 Part-II C-1", type:'single', q:"The atomic number of an element which CANNOT show the oxidation state of +3 is:",
+  opts:["13","32","33","17"], ans:1,
+  why:"Z=32 is Ge, which typically shows +2 and +4 (not +3)."},
+{sec:'A', ref:"Ex.1 Part-II C-2", type:'single', q:"The most common oxidation state of an element is –2. The number of electrons in its outermost shell is:",
+  opts:["2","4","6","8"], ans:2,
+  why:"An element needing 2 more electrons to complete an octet (6 valence electrons) commonly shows –2, like the oxygen family."},
+{sec:'A', ref:"Ex.1 Part-II C-3", type:'single', q:"Most stable oxidation state of gold is:",
+  opts:["+1","+3","+2","Zero"], ans:3,
+  why:"Metallic gold (oxidation state zero) is famously unreactive/noble — more stable than its compounds, which readily reduce back to the metal."},
+{sec:'A', ref:"Ex.1 Part-II C-4", type:'single', q:"Which can have both +ve and –ve oxidation states in its compounds?",
+  opts:["F","I","Na","Al"], ans:1,
+  why:"Iodine ranges from –1 (iodides) up to +7 (periodates), showing both signs; F is always –1, Na always +1, Al always +3."},
+{sec:'A', ref:"Ex.1 Part-II C-5", type:'single', q:"The oxidation state of nitrogen varies from:",
+  opts:["–3 to +5","0 to +5","–3 to 1","+3 to +5"], ans:0,
+  why:"Nitrogen spans –3 (NH₃) all the way to +5 (HNO₃)."},
+{sec:'A', ref:"Ex.1 Part-II C-6", type:'single', q:"Which metal exhibits more than one oxidation state in its compounds?",
+  opts:["Na","Mg","Al","Fe"], ans:3,
+  why:"Fe commonly shows +2 and +3; Na, Mg, Al are essentially fixed at +1, +2, +3 respectively."},
+{sec:'A', ref:"Ex.1 Part-II C-7", type:'single', q:"Electrons of which subshell do NOT participate in bonding due to the inert pair effect?",
+  opts:["6s","6p","5d","4f"], ans:0,
+  why:"The 6s² pair in heavy p-block elements (like Tl, Pb, Bi) resists participating in bonding — the classic inert pair effect."},
+{sec:'A', ref:"Ex.1 Part-II C-8", type:'single', q:"Thallium shows different oxidation states because:",
+  opts:["Of its high reactivity","Of its inert pair of electrons","Of its amphoteric nature","It is a transition metal"], ans:1,
+  why:"Tl's 6s² inert pair makes +1 competitive with the 'normal' group-13 +3 state."},
+{sec:'A', ref:"Ex.1 Part-II C-9", type:'single', q:"In which of the following elements is the +3 oxidation state more stable than +5?",
+  opts:["P","As","N","Bi"], ans:3,
+  why:"Bi shows a strong inert pair effect, making Bi³⁺ more stable than Bi⁵⁺, unlike the lighter pnictogens."},
+{sec:'A', ref:"Ex.1 Part-II C-10", type:'single', q:"Which is the correct order of stability?",
+  opts:["Tl³⁺ > Bi³⁺","PbO₂ > PbO","BiI₅ < BiF₅","Sn²⁺ = Ge²⁺"], ans:2,
+  why:"BiF₅ is far more stable than BiI₅ — fluorine's small size/high electronegativity better stabilises the higher +5 oxidation state via the inert pair effect trend."},
+{sec:'A', ref:"Ex.1 Part-II D-1", type:'single', q:"Select the correct statement about atomic radius:",
+  opts:["Van der Waals radii are larger than covalent radii, since van der Waals forces are much weaker than bonding forces","Metallic radii are smaller than van der Waals radii, since metallic bonding forces are much stronger","Both (A) & (B)","None of these"], ans:2,
+  why:"Both statements correctly describe why radius ranks: van der Waals (weakest interaction, largest radius) > covalent ≈ metallic (strong bonding, smaller radius)."},
+{sec:'A', ref:"Ex.1 Part-II D-2", type:'single', q:"Match atomic radius (pm) with element: (i) Be (ii) C (iii) O (iv) B (v) N with codes (p)74 (q)88 (r)111 (s)77 (t)66",
+  opts:["(i)-r,(ii)-q,(iii)-t,(iv)-s,(v)-p","(i)-t,(ii)-s,(iii)-r,(iv)-p,(v)-q","(i)-r,(ii)-s,(iii)-t,(iv)-q,(v)-p","(i)-t,(ii)-p,(iii)-r,(iv)-s,(v)-q"], ans:2,
+  why:"Matching real covalent radii: Be=111(r), C=77(s), O=66(t), B=88(q), N=74(p)."},
+{sec:'A', ref:"Ex.1 Part-II D-3", type:'single', q:"Choose the correct order of atomic radii of Fluorine and Neon (in pm):",
+  opts:["72, 160","160, 160","72, 72","160, 72"], ans:0,
+  why:"F's covalent radius is ~72 pm; Ne (forming no bonds) is measured by its much larger van der Waals radius, ~160 pm."},
+{sec:'A', ref:"Ex.1 Part-II D-4", type:'single', q:"The size of isoelectronic species O²⁻, F⁻ and Na⁺ is affected by:",
+  opts:["Nuclear charge (Z)","Valence principal quantum number (n)","Electron-electron interaction in outer orbitals","None of the factors, because their size is the same"], ans:0,
+  why:"With identical electron count, size is governed purely by nuclear charge — more protons pull the same electron cloud in tighter."},
+{sec:'A', ref:"Ex.1 Part-II D-5", type:'single', q:"Which order of atomic/ionic radius is NOT correct?",
+  opts:["F < Cl < Br < I","Y³⁺ > Sr²⁺ > Rb⁺","Nb ≈ Ta","Li > Be > B"], ans:1,
+  why:"This order is reversed — with increasing positive charge and similar size, the correct order should place Rb⁺ largest and Y³⁺ smallest, not the other way round."},
+{sec:'A', ref:"Ex.1 Part-II E-1", type:'single', q:"Which statement is INCORRECT regarding ionisation enthalpy?",
+  opts:["Ionization enthalpy increases for each successive electron","The greatest increase is experienced on removing an electron from a noble-gas core","End of valence electrons is marked by a big jump in ionization enthalpy","Removal of an electron from orbitals with lower n is easier than from orbitals with higher n"], ans:3,
+  why:"The opposite is true — electrons in lower-n orbitals are held closer/tighter to the nucleus and are HARDER to remove, not easier."},
+{sec:'A', ref:"Ex.1 Part-II E-2", type:'single', q:"The first ionisation enthalpies (in eV) of N & O are respectively:",
+  opts:["14.6, 13.6","13.6, 14.6","13.6, 13.6","14.6, 14.6"], ans:0,
+  why:"N's stable half-filled 2p³ configuration gives it a higher IE1 (14.6 eV) than O (13.6 eV), reversing the usual left-to-right trend."},
+{sec:'A', ref:"Ex.1 Part-II E-3", type:'single', q:"The first ionisation enthalpies of Na, Mg, Al and Si are in the order:",
+  opts:["Na < Mg > Al < Si","Na > Mg > Al > Si","Na < Mg < Al < Si","Na > Mg > Al < Si"], ans:0,
+  why:"Mg's filled 3s² gives it a local peak above Al (whose lone 3p¹ electron is easier to remove), before rising again to Si."},
+{sec:'A', ref:"Ex.1 Part-II E-4", type:'single', q:"Which represents an alkali metal, based on (IE)₁ and (IE)₂ values (kJ/mol): X(500,1000), Y(600,2000), Z(550,7500), M(700,1400)?",
+  opts:["X","Y","Z","M"], ans:2,
+  why:"An alkali metal loses its single valence electron easily (low IE1) but then needs a huge jump to break into the noble-gas core (very high IE2) — matching Z's 550→7500 jump."},
+{sec:'A', ref:"Ex.1 Part-II E-5", type:'single', q:"Which relation is correct regarding first (I) and second (II) ionization enthalpies of potassium and calcium?",
+  opts:["I(Ca) > II(K)","I(K) > I(Ca)","II(Ca) > II(K)","II(K) > II(Ca)"], ans:3,
+  why:"Removing a second electron from K⁺ (breaking into a noble-gas core) takes far more energy than removing the second electron from Ca⁺ (still just losing a normal valence electron)."},
+{sec:'A', ref:"Ex.1 Part-II F-1", type:'single', q:"Among halogens, the correct order of energy released in electron gain (electron gain enthalpy) is:",
+  opts:["F > Cl > Br > I","F < Cl < Br < I","F < Cl > Br > I","Cl > Br > F > I"], ans:2,
+  why:"F is anomalously less exothermic than Cl (small size/electron repulsion), then the magnitude falls steadily: F < Cl > Br > I."},
+{sec:'A', ref:"Ex.1 Part-II F-2", type:'single', q:"Among F, P, S, Cl, which has the most negative and which the least negative electron gain enthalpy?",
+  opts:["P, Cl","Cl, F","Cl, S","Cl, P"], ans:1,
+  why:"Cl has the most negative (most exothermic) EGE among these; F, despite its high electronegativity, is the least negative due to strong electron-electron repulsion in its small 2p subshell."},
+{sec:'A', ref:"Ex.1 Part-II F-3", type:'single', q:"The order of electron gain enthalpy (magnitude) of O, S and Se is:",
+  opts:["O > S > Se","S > Se > O","Se > S > O","S > O > Se"], ans:1,
+  why:"O's small size causes electron-repulsion penalties, so S (down one period) actually has the most negative EGE, ahead of Se and O."},
+{sec:'A', ref:"Ex.1 Part-II F-4", type:'single', q:"Configurations: (i) 1s²2s²2p⁶ (ii) 1s²2s²2p⁴ (iii) 1s²2s²2p⁶3s¹ (iv) 1s²2s²2p⁵. Correct order of increasing tendency to gain an electron:",
+  opts:["(i) < (iii) < (ii) < (iv)","(i) < (ii) < (iii) < (iv)","(iv) < (ii) < (iii) < (i)","(iv) < (i) < (ii) < (iii)"], ans:0,
+  why:"A filled shell (i, Ne-like) resists gaining an electron most, then an alkali metal (iii), then oxygen-like (ii), with the halogen-like configuration (iv) most eager to gain an electron."},
+{sec:'A', ref:"Ex.1 Part-II F-5", type:'single', q:"Which statement is correct?",
+  opts:["Electron gain enthalpy may be positive for some elements","Second electron gain enthalpy always remains positive for all elements","ΔegH(K⁺) = –IE(K)","All of these"], ans:3,
+  why:"All are valid: some elements (noble gases, N, Be) have positive EGE; adding a second electron to an anion is always endothermic; and gaining an electron to reform a neutral atom from its cation is thermodynamically the reverse of ionisation."},
+{sec:'A', ref:"Ex.1 Part-II G-1", type:'single', q:"Which of the following is affected by the stable electron configuration of an atom — (a) Electronegativity (b) Ionisation enthalpy (c) Electron gain enthalpy?",
+  opts:["Only electronegativity","Only ionisation enthalpy","Both electron gain enthalpy and ionisation enthalpy","All of the above"], ans:2,
+  why:"Stable (filled/half-filled) configurations cause anomalies in both IE (extra stability resists electron removal) and EGE (resists gaining an electron); electronegativity is a derived/relative concept less directly tied to configuration stability in this context."},
+{sec:'A', ref:"Ex.1 Part-II G-2", type:'single', q:"The electronegativity values of C, N, O and F on the Pauling scale:",
+  opts:["Decrease from carbon to fluorine","Increase from carbon to fluorine","Increase up to oxygen then decrease up to fluorine","Decrease from carbon to nitrogen then increase continuously"], ans:1,
+  why:"Electronegativity rises steadily across period 2 from C to F as nuclear charge increases with roughly constant shielding."},
+{sec:'A', ref:"Ex.1 Part-II G-3", type:'single', q:"Correct order of electronegativity of N, P, C and Si on the Pauling scale is:",
+  opts:["N > P > C > Si","C > Si > N > P","N < P < C < Si","N > C > P > Si"], ans:3,
+  why:"N (period 2, group 15) is most electronegative; C (period 2, group 14) next; then P and Si follow in period 3, with P > Si."},
+{sec:'A', ref:"Ex.1 Part-II G-4", type:'single', q:"The correct order of electronegativity on the Pauling scale is:",
+  opts:["F > Cl > O > S","Li > Na > K > Rb > Cs","Be < B < N < C","Both (A) and (B)"], ans:3,
+  why:"Both trends hold: F>Cl>O>S follows period/group positioning, and electronegativity decreases steadily down group 1 from Li to Cs."},
+{sec:'A', ref:"Ex.1 Part-II G-5", type:'single', q:"Which of the following is the most electronegative element?",
+  opts:["Li","Mg","H","Na"], ans:2,
+  why:"H (2.20 on Pauling scale) is far more electronegative than the alkali/alkaline-earth metals listed."},
+
+/* ===== SECTION A continued: Ex.2 Part-I ===== */
+{sec:'A', ref:"Ex.2 Part-I Q.1", type:'single', q:"The statement that is NOT correct for periodic classification of elements is:",
+  opts:["Properties of elements are periodic functions of their atomic numbers","Non-metallic elements are fewer in number than metallic elements","For transition elements, 3d-orbitals are filled after 3p and before 4s","First ionisation enthalpies generally increase with atomic number along a period"], ans:2,
+  why:"Filling order actually places 4s before 3d in energy — 3d fills AFTER 4s, not before, making this statement incorrect."},
+{sec:'A', ref:"Ex.2 Part-I Q.2", type:'single', q:"Which is true about the element ₃₃As?",
+  opts:["It is a 5th period element","It is a p-block element","It belongs to the 16th group","It is one among the 'typical' elements"], ans:1,
+  why:"As (Z=33) is period 4, group 15 — a p-block element."},
+{sec:'A', ref:"Ex.2 Part-I Q.3", type:'single', q:"Which set contains atomic numbers of only s-block elements?",
+  opts:["55, 12, 18, 53","13, 33, 54, 83","3, 20, 55, 87","22, 33, 55, 66"], ans:2,
+  why:"3(Li), 20(Ca), 55(Cs), 87(Fr) are all s-block; the other sets mix in p-, d-block elements or noble gases."},
+{sec:'A', ref:"Ex.2 Part-I Q.4", type:'single', q:"Screening effect is not observed in:",
+  opts:["He⁺","Li²⁺","Be³⁺","In all cases"], ans:3,
+  why:"He⁺, Li²⁺ and Be³⁺ are all one-electron species — with no other electrons present, there's nothing to be shielded by, so screening isn't observed in any of them."},
+{sec:'A', ref:"Ex.2 Part-I Q.5", type:'single', q:"Which of the following has a higher Zeff than Fluorine?",
+  opts:["Cl","O","F⁻","None of these"], ans:3,
+  why:"F's very small size gives it an exceptionally high Zeff among neutral/negatively-charged species here — none of Cl, O, or F⁻ exceed it."},
+{sec:'A', ref:"Ex.2 Part-I Q.6", type:'single', q:"The oxidation number that iron does NOT exhibit in its common compounds or elemental state is:",
+  opts:["0","+1","+2","+3"], ans:1,
+  why:"Fe commonly shows 0 (metal), +2, and +3 — but +1 is not a typical iron oxidation state."},
+{sec:'A', ref:"Ex.2 Part-I Q.7", type:'single', q:"Which of the following can show +7 oxidation state?",
+  opts:["Mn","F","In","N"], ans:0,
+  why:"Mn reaches +7 in permanganate (MnO₄⁻); F, In and N cannot reach +7."},
+{sec:'A', ref:"Ex.2 Part-I Q.8", type:'single', q:"Which of the following does NOT exist?",
+  opts:["TlI₃","PbF₄","Both (A) and (B)","None of these"], ans:3,
+  why:"Both actually exist: TlI₃ exists as Tl⁺[I₃]⁻ (not true Tl(III) iodide), and PbF₄ is stabilised by fluorine's small size — so neither is truly non-existent."},
+{sec:'A', ref:"Ex.2 Part-I Q.9", type:'single', q:"Elements of which period show maximum inert pair effect?",
+  opts:["3","4","5","6"], ans:3,
+  why:"Period 6 elements (Tl, Pb, Bi) show the strongest inert pair effect, due to poor shielding from the intervening 4f and 5d electrons."},
+{sec:'A', ref:"Ex.2 Part-I Q.10", type:'single', q:"Arranging the five anions in decreasing ionic radius, the correct sequence is:",
+  opts:["Se²⁻, I⁻, Br⁻, O²⁻, F⁻","I⁻, Se²⁻, Br⁻, F⁻, O²⁻","Se²⁻, I⁻, Br⁻, F⁻, O²⁻","I⁻, Se²⁻, Br⁻, O²⁻, F⁻"], ans:3,
+  why:"Larger anions (further down/more diffuse) rank first: I⁻ largest, then Se²⁻, Br⁻, O²⁻, with F⁻ smallest."},
+{sec:'A', ref:"Ex.2 Part-I Q.11", type:'single', q:"In which compound does manganese show its maximum radius?",
+  opts:["MnO₂","KMnO₄","MnO","K₃[Mn(CN)₆]"], ans:2,
+  why:"MnO has Mn in its lowest oxidation state (+2) among these, and lower oxidation state means larger ionic radius."},
+{sec:'A', ref:"Ex.2 Part-I Q.13", type:'single', q:"Considering B, Al, Mg, and K, the correct order of metallic character is:",
+  opts:["B > Al > Mg > K","Al > Mg > B > K","Mg > Al > K > B","K > Mg > Al > B"], ans:3,
+  why:"Metallic character increases down and to the left: K (most metallic) > Mg > Al > B (least metallic)."},
+{sec:'A', ref:"Ex.2 Part-I Q.14", type:'single', q:"Fluorine has the highest electronegativity among the ns²np⁵ group, but its electron affinity is less than that of chlorine because:",
+  opts:["The atomic number of fluorine is less than chlorine","Fluorine, being the first family member, behaves unusually","Chlorine can accommodate an electron better using its vacant 3d-orbital","Small size, high electron density, and increased electron repulsion make adding an electron to fluorine less favourable"], ans:3,
+  why:"F's very small 2p subshell already has high electron density, so the incoming electron faces strong repulsion, making the process less exothermic than for chlorine."},
+{sec:'A', ref:"Ex.2 Part-I Q.15", type:'single', q:"Which arrangement represents the correct order of electron gain enthalpy (magnitude, negative sign) of the given atomic species?",
+  opts:["Cl < F < S < O","O < S < F < Cl","S < O < Cl < F","F < Cl < O < S"], ans:1,
+  why:"Magnitude rises: O (small, some repulsion) < S < F (repulsion penalty) < Cl (largest magnitude among these)."},
+{sec:'A', ref:"Ex.2 Part-I Q.16", type:'single', q:"Which statement is INCORRECT?",
+  opts:["The tendency to attract bonded electron pairs in hybrid orbitals follows sp > sp² > sp³","Alkali metals generally have negative electron gain enthalpy","Cs⁺(g) releases more energy upon gaining an electron than Cl(g)","Electronegativity values for 2p-series elements are less than for 3p-series elements due to small size/high inter-electronic repulsion"], ans:2,
+  why:"This is backwards — Cl(g) releases far more energy gaining an electron (very exothermic EGE) than Cs⁺(g), which has little tendency to gain an electron back to its stable noble-gas-like state."},
+
+/* ===== SECTION A continued: Ex.2 Part-IV Comprehensions ===== */
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.1", type:'single', q:"The element with atomic number 57 belongs to:",
+  opts:["s-block","p-block","d-block","f-block"], ans:3,
+  why:"Z=57 is Lanthanum, conventionally grouped with the f-block lanthanoid series despite its 5d¹ electron entry."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.2", type:'single', q:"The last element of the p-block in the 6th period has the outermost electronic configuration:",
+  opts:["7s²7p⁶","5f¹⁴6d¹⁰7s²7p⁰","4f¹⁴5d¹⁰6s²6p⁶","4f¹⁴5d¹⁰6s²6p⁴"], ans:2,
+  why:"The last 6th-period p-block element is Radon (Z=86): [Xe]4f¹⁴5d¹⁰6s²6p⁶."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.3", type:'single', q:"Which atomic number cannot be accommodated in the present set-up of the long-form periodic table?",
+  opts:["107","118","126","102"], ans:2,
+  why:"The current table only extends through period 7, ending at Z=118 — Z=126 would require an undefined period 8."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.4", type:'single', q:"The electronic configuration of the element just above the element with atomic number 43, in the same group, is:",
+  opts:["1s²2s²2p⁶3s²3p⁶3d⁵4s²","1s²2s²2p⁶3s²3p⁶3d⁵4s³4p⁶","1s²2s²2p⁶3s²3p⁶3d⁶4s²","1s²2s²2p⁶3s²3p⁶3d⁷4s²"], ans:0,
+  why:"Z=43 is Tc (group 7); directly above it is Mn (Z=25): [Ar]3d⁵4s²."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.1 Q.5", type:'single', q:"The elements with atomic numbers 35, 53 and 85 are all:",
+  opts:["Noble gases","Halogens","Heavy metals","Light metals"], ans:1,
+  why:"Br(35), I(53), and At(85) are all group 17 halogens."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.2 Q.6", type:'single', q:"Which relation is correct, considered for the same element?",
+  opts:["r(Van der Waals) > r(Covalent) > r(Metallic)","r(Covalent) > r(Metallic) > r(Van der Waals)","r(Van der Waals) > r(Metallic) > r(Covalent)","r(Metallic) > r(Covalent) > r(Van der Waals)"], ans:2,
+  why:"Van der Waals radius (weakest interaction) is largest; metallic bonding is typically weaker/more diffuse than covalent bonding, giving covalent radius the smallest value."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.2 Q.7", type:'single', q:"K⁺, Cl⁻, Ca²⁺, S²⁻ ions are isoelectronic. The decreasing order of their size is:",
+  opts:["Ca²⁺ > K⁺ > Cl⁻ > S²⁻","S²⁻ > Cl⁻ > K⁺ > Ca²⁺","K⁺ > Cl⁻ > Ca²⁺ > S²⁻","S²⁻ > Cl⁻ > Ca²⁺ > K⁺"], ans:1,
+  why:"With equal electron count, size falls as nuclear charge rises: S²⁻(16p) > Cl⁻(17p) > K⁺(19p) > Ca²⁺(20p)."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.2 Q.8", type:'single', q:"Select the INCORRECT option regarding atomic/ionic sizes:",
+  opts:["Zn > Cu","Pb²⁺ > Pb⁴⁺","Zr ≈ Hf","N³⁻ < Al³⁺"], ans:3,
+  why:"This is backwards — N³⁻ (many electrons, few protons) should be far LARGER than Al³⁺ (fewer electrons, more protons), not smaller."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.9", type:'single', q:"The correct order of metallic character is:",
+  opts:["Al > Mg > Na > Si","Na > Mg < Al > Si","Na > Mg > Al > Si","Al > Mg > Si > Na"], ans:2,
+  why:"Metallic character decreases across period 3: Na > Mg > Al > Si."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.10", type:'single', q:"Considering B, C, N, F, and Si, the correct order of non-metallic character is:",
+  opts:["B > C > Si > N > F","Si > C > B > N > F","F > N > C > B > Si","F > N > C > Si > B"], ans:2,
+  why:"F is most non-metallic, decreasing through N, C, B, with Si (period 3, metalloid-ish) least non-metallic of this set."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.3 Q.11", type:'single', q:"Which statement is correct?",
+  opts:["Ionisation enthalpies decrease along a period and increase along a group","In the 3rd period, the two most reactive elements are sodium and fluorine","Fluorine has the least negative electron gain enthalpy among all halogens","Ionisation enthalpy of Pb is greater than that of Sn"], ans:3,
+  why:"Due to poor shielding by intervening d/f electrons, Pb's IE1 is slightly higher than Sn's, despite being below it in the group."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.12", type:'single', q:"For the content in Column-1 (Graphite / Transition elements / Amalgam / Polonium) matched to Column-2 (d-block / Group-16 / Allotropicity / Mercury) and Column-3 (Liquid / 6s²6p⁴ / Lubricant / Variable oxidation number), the correct combination for GRAPHITE is:",
+  opts:["(I), (iii), R","(II), (iv), R","(II), (iii), S","(IV), (iv), Q"], ans:0,
+  why:"Graphite is a carbon allotrope (allotropicity) and is famously used as a lubricant."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.13", type:'single', q:"Using the same table as above, the correct combination for IRON is:",
+  opts:["(III), (iv), Q","(II), (i), S","(IV), (i), Q","(I), (ii), P"], ans:1,
+  why:"Iron is a transition element (II), belonging to d-block (i), and shows variable oxidation number (S)."},
+{sec:'A', ref:"Ex.2 Part-IV Comp.4 Q.14", type:'single', q:"Using the same table as above, the INCORRECT combination is:",
+  opts:["(III), (iv), P","(III), (i), S","(II), (ii), S","(IV), (ii), Q"], ans:1,
+  why:"Amalgam (III) corresponds to Mercury (iv), not to d-block elements (i) — 'variable oxidation number' also doesn't describe amalgam, making this the mismatched combination."},
+
+/* ===== SECTION B: Numerical Value (+4/0) — Ex.2 Part-II ===== */
+{sec:'B', ref:"Ex.2 Part-II Q.1", type:'numerical', q:"Identify the group (in the modern periodic table) and valency of a hypothetical element with atomic number 119. If group number is x and valency is y, give the value of x + y.", ans:2,
+  why:"Z=119 would start a new period-8 alkali metal in group 1, with valency 1 → x+y = 1+1 = 2."},
+{sec:'B', ref:"Ex.2 Part-II Q.2", type:'numerical', q:"An element belonging to the 3d series has a spin magnetic moment of 5.92 B.M. in its +3 oxidation state. Determine the atomic number of the element.", ans:26,
+  why:"5.92 B.M. corresponds to 5 unpaired electrons (d⁵ configuration) — matching Fe³⁺, so the element is Fe (Z=26)."},
+{sec:'B', ref:"Ex.2 Part-II Q.3", type:'numerical', q:"An element has atomic number 29. It belongs to period x and group y. Give the value of 2x + y.", ans:19,
+  why:"Z=29 is Cu: period 4, group 11 → 2(4)+11 = 19."},
+{sec:'B', ref:"Ex.2 Part-II Q.5", type:'numerical', q:"The most stable oxidation state of chromium is +n. Give the value of 'n'.", ans:3,
+  why:"Cr³⁺ is chromium's most thermodynamically stable oxidation state in aqueous chemistry."},
+{sec:'B', ref:"Ex.2 Part-II Q.6", type:'numerical', q:"How many of the following compounds are found to exist?\n(i) BiF₅ (ii) TlI₃ (iii) PbO₂ (iv) SnCl₂ (v) Tl₂O₃ (vi) PbI₄ (vii) As₂O₃", ans:6,
+  why:"All exist except PbI₄ (vi) — Pb⁴⁺ is such a strong oxidiser that it oxidises I⁻ to I₂ rather than forming this compound, leaving 6 that exist."},
+{sec:'B', ref:"Ex.2 Part-II Q.7", type:'numerical', q:"Lanthanides are characterised by a uniform [+n] oxidation state shown by all lanthanides. What is the value of 'n'?", ans:3,
+  why:"+3 is the characteristic, uniform oxidation state across the lanthanide series."},
+{sec:'B', ref:"Ex.2 Part-II Q.8", type:'numerical', q:"Highest oxidation states shown by Chromium & Manganese are +x & +y respectively. Give the value of x + y.", ans:13,
+  why:"Cr's highest is +6 and Mn's highest is +7, so x+y = 6+7 = 13."},
+{sec:'B', ref:"Ex.2 Part-II Q.9", type:'numerical', q:"If the internuclear distance between A atoms in A₂ is 10 Å and between B atoms in B₂ is 6 Å, calculate the internuclear distance between A and B in Å (electronegativity difference between A and B is negligible).", ans:8,
+  why:"With negligible electronegativity difference, the A-B bond length is simply the average of the two homonuclear bond lengths: (10+6)/2 = 8 Å."},
+{sec:'B', ref:"Ex.2 Part-II Q.10", type:'numerical', q:"Report the atomic number of the element having the largest size among Ni, Cu, Zn.", ans:30,
+  why:"Zn (Z=30), with its filled 3d¹⁰4s² configuration, is generally the largest of the three due to reduced effective attraction on the outer 4s electrons."},
+{sec:'B', ref:"Ex.2 Part-II Q.11", type:'numerical', q:"How many of the following atoms have greater ionization energy than boron?\n(i) Be (ii) N (iii) P (iv) Ga (v) S (vi) Mg", ans:2,
+  why:"Be (stable filled 2s²) and N (stable half-filled 2p³) both exceed boron's IE1 — the rest (P, Ga, S, Mg) do not."},
+{sec:'B', ref:"Ex.2 Part-II Q.12", type:'numerical', q:"For 3rd-period elements a–h following the typical IE1-vs-atomic-number zig-zag graph (dips at the Mg→Al and P→S transitions), if the difference between atomic numbers of elements b and e is x, and the difference between c and f is y, find x − y.", ans:0,
+  why:"Matching the graph's peaks/dips to Mg(b), P(e), Al(c), S(f): |Mg−P|=3=x and |Al−S|=3=y, so x−y = 0."},
+{sec:'B', ref:"Ex.2 Part-II Q.13", type:'numerical', q:"Values of IE₁, IE₂, IE₃ of an element are 9.3, 18.2 and 553.8 eV. Predict the group number in the modern periodic table.", ans:2,
+  why:"The huge jump between IE₂ (18.2) and IE₃ (553.8) shows only 2 valence electrons — placing the element in group 2."},
+{sec:'B', ref:"Ex.2 Part-II Q.14", type:'numerical', q:"A⁻(g) → A²⁺(g), ΔH = 1100 kJ/mol. A(g) → A²⁺(g), ΔH = 1200 kJ/mol. Electron gain enthalpy of A is P × 10² kJ/mol. What is the value of P?", ans:1,
+  why:"The 100 kJ/mol difference between the two pathways equals the magnitude of A's electron gain enthalpy, giving P×100=100, so P=1."},
+{sec:'B', ref:"Ex.2 Part-II Q.15", type:'numerical', q:"The electron gain enthalpy of a hypothetical element 'A' is –3 eV per atom. How much energy (in kCal) is released when 10 g of 'A' is completely converted to A⁻ ions in the gaseous state? (1 eV per atom = 23 kCal/mol; molar mass of A = 30 g)", ans:23,
+  why:"Moles = 10/30 = 1/3 mol; energy per mole = 3×23 = 69 kCal/mol; total released = 69 × (1/3) = 23 kCal."},
+{sec:'B', ref:"Ex.2 Part-II Q.16", type:'numerical', q:"What is the atomic number of the element which has maximum electron affinity in the modern periodic table?", ans:17,
+  why:"Chlorine (Z=17) has the highest electron affinity magnitude of any element."},
+{sec:'B', ref:"Ex.2 Part-II Q.17", type:'numerical', q:"How many of the following elements are more electronegative than Boron?\n(i) H (ii) Li (iii) Be (iv) C (v) N (vi) O (vii) F", ans:5,
+  why:"H, C, N, O and F are all more electronegative than B; Li and Be (metals to its left) are less electronegative — 5 qualify."},
+
+/* ===== SECTION C: Multiple Correct (partial marking, -2 wrong) — Ex.1 Part-III Match ===== */
+{sec:'C', ref:"Ex.1 Part-III Match-1 (A)", type:'multi', q:"For the element with atomic number 57 (La), which characteristics apply?",
+  opts:["Is a d-block or p-block element","Is a 4th period element","Violates the Aufbau principle","Is a non-metal"], ans:[0,2],
+  why:"La ([Xe]5d¹6s²) is conventionally treated in the d/f-block group, and its electron entering 5d before 4f is an Aufbau-principle exception."},
+{sec:'C', ref:"Ex.1 Part-III Match-1 (B)", type:'multi', q:"For the element with atomic number 17 (Cl), which characteristics apply?",
+  opts:["Is a d-block or p-block element","Is a 4th period element","Violates the Aufbau principle","Is a non-metal"], ans:[0,3],
+  why:"Cl is a p-block element and a classic non-metal."},
+{sec:'C', ref:"Ex.1 Part-III Match-1 (C)", type:'multi', q:"For the element with atomic number 19 (K), which characteristics apply?",
+  opts:["Is a 4th period element","Is an s-block element","Violates the Aufbau principle","Is a non-metal"], ans:[0,1],
+  why:"K ([Ar]4s¹) is a straightforward period-4 s-block alkali metal, following the Aufbau principle normally."},
+{sec:'C', ref:"Ex.1 Part-III Match-1 (D)", type:'multi', q:"For the element with atomic number 29 (Cu), which characteristics apply?",
+  opts:["Is a d-block or p-block element","Is a 4th period element","Violates the Aufbau principle","Is a non-metal"], ans:[0,1,2],
+  why:"Cu is a period-4 d-block element whose actual [Ar]3d¹⁰4s¹ configuration violates the expected [Ar]3d⁹4s² Aufbau filling."},
+{sec:'C', ref:"Ex.1 Part-III Match-2 (A)", type:'multi', q:"For the process O(g) + e⁻ → O⁻(g), which characteristics apply?",
+  opts:["Positive electron gain enthalpy","Negative electron gain enthalpy","Exothermic","Endothermic"], ans:[1,2],
+  why:"Adding the first electron to a neutral O atom releases energy — negative EGE, exothermic."},
+{sec:'C', ref:"Ex.1 Part-III Match-2 (B)", type:'multi', q:"For the process O⁻(g) + e⁻ → O²⁻(g), which characteristics apply?",
+  opts:["Positive electron gain enthalpy","Negative electron gain enthalpy","Exothermic","Endothermic"], ans:[0,3],
+  why:"Forcing a second electron onto an already-negative ion requires overcoming repulsion — positive EGE, endothermic."},
+{sec:'C', ref:"Ex.1 Part-III Match-2 (C)", type:'multi', q:"For the process Na⁻(g) → Na(g) + e⁻, which characteristic applies?",
+  opts:["Positive electron gain enthalpy","Negative electron gain enthalpy","Exothermic","Endothermic"], ans:[3],
+  why:"This is the reverse of electron gain (ionisation of an anion) — it requires energy input, making it endothermic."},
+{sec:'C', ref:"Ex.1 Part-III Match-2 (D)", type:'multi', q:"For the process Mg⁺(g) + e⁻ → Mg(g), which characteristics apply?",
+  opts:["Positive electron gain enthalpy","Negative electron gain enthalpy","Exothermic","Endothermic"], ans:[1,2],
+  why:"Mg⁺ readily reaccepts an electron to reform neutral Mg, releasing energy — negative EGE, exothermic."},
+
+/* ===== SECTION C continued: Ex.2 Part-III ===== */
+{sec:'C', ref:"Ex.2 Part-III Q.1", type:'multi', q:"The group in the modern periodic table in which NOT all elements have the same number of outermost-shell electrons (up to the 6th period) is:",
+  opts:["13th","11th","9th","18th"], ans:[2,3],
+  why:"Group 9 and group 18 both include exceptions (e.g., Co vs Rh/Ir electron configuration quirks, and He's 2 valence electrons vs the rest's 8) that break the 'same outermost electron count' pattern."},
+{sec:'C', ref:"Ex.2 Part-III Q.2", type:'multi', q:"Which atomic number(s) belong to a p-block element in the modern periodic table?",
+  opts:["19","35","53","83"], ans:[1,2,3],
+  why:"35(Br), 53(I), and 83(Bi) are p-block; 19(K) is s-block."},
+{sec:'C', ref:"Ex.2 Part-III Q.3", type:'multi', q:"Which of the following have greater Zeff than Zn?",
+  opts:["Cu⁺","Cu²⁺","Fe³⁺","Zn²⁺"], ans:[0,1,2,3],
+  why:"All four are cations with fewer electrons shielding the same/similar nuclear charge as neutral Zn, giving each a higher Zeff than neutral Zn."},
+{sec:'C', ref:"Ex.2 Part-III Q.4", type:'multi', q:"Which of the following is/are correct regarding oxidation states of elements in their compounds?",
+  opts:["All d-block elements show multiple oxidation states","All p-block elements show multiple oxidation states","All s-block elements show a single oxidation state","Some group-18 elements can show multiple oxidation states"], ans:[2,3],
+  why:"s-block elements are essentially fixed at one oxidation state; some noble gases (like Xe) do show multiple oxidation states in compounds — but 'all' d-block/p-block elements showing multiple states is an overgeneralisation."},
+{sec:'C', ref:"Ex.2 Part-III Q.5", type:'multi', q:"Which of the following elements have +3 as their most popular oxidation state?",
+  opts:["Al","Xe","Cu","Sc"], ans:[0,3],
+  why:"Al and Sc are reliably +3; Cu is most commonly +2, and Xe doesn't typically show +3."},
+{sec:'C', ref:"Ex.2 Part-III Q.6", type:'multi', q:"Which of the following show non-zero MULTIPLE oxidation states?",
+  opts:["S","O","Zn","H"], ans:[0,1,3],
+  why:"S (-2,+4,+6), O (-2, and +2 in OF₂), and H (-1,+1) all show more than one non-zero state; Zn is essentially fixed at +2."},
+{sec:'C', ref:"Ex.2 Part-III Q.7", type:'multi', q:"Which pairs of elements show a similar set of oxidation states?",
+  opts:["O¹⁶, O¹⁸","Na, K","C, Be","Zn, Rb"], ans:[0,1],
+  why:"Isotopes O-16/O-18 trivially share identical chemistry/oxidation states, and both Na and K (alkali metals) are fixed at +1; C and Be, or Zn and Rb, don't share similar oxidation-state ranges."},
+{sec:'C', ref:"Ex.2 Part-III Q.8", type:'multi', q:"Which of the following elements have their LOWER oxidation state as the more stable one?",
+  opts:["O","Pb","Tl","Bi"], ans:[0,1,2,3],
+  why:"Pb, Tl and Bi all show the classic inert-pair-effect preference for the lower oxidation state; O's typical -2 state is also its most stable form among its accessible oxidation states."},
+{sec:'C', ref:"Ex.2 Part-III Q.9", type:'multi', q:"Which is/are the correct order(s) of atomic radius?",
+  opts:["Li < B < Be","Be < B < Li","Li > Be > B","N > O > F"], ans:[2,3],
+  why:"Both trends correctly decrease across period 2: Li>Be>B and N>O>F."},
+{sec:'C', ref:"Ex.2 Part-III Q.10", type:'multi', q:"Which is/are the correct order(s) of atomic radius?",
+  opts:["Mn > Fe > Co","Mn ≈ Fe ≈ Co","Sc > Ti > V","Zn < Cu < Ni"], ans:[1,2],
+  why:"Transition metals show near-constant radius across a row due to poor d-shielding (Mn≈Fe≈Co), while early transition metals still show a modest decreasing trend (Sc>Ti>V)."},
+{sec:'C', ref:"Ex.2 Part-III Q.11", type:'multi', q:"Which of the following orders is/are correct for size?",
+  opts:["Al ≈ Ga","Te²⁻ > I⁻ > Cs⁺ > Ba²⁺","Cr³⁺ < Cr⁶⁺","Pd ≈ Pt"], ans:[0,1,3],
+  why:"Al≈Ga (d-block contraction) and Pd≈Pt (lanthanide contraction) are correct; the isoelectronic Te²⁻>I⁻>Cs⁺>Ba²⁺ trend with increasing charge is also correct. Cr³⁺ should actually be LARGER than Cr⁶⁺, not smaller."},
+{sec:'C', ref:"Ex.2 Part-III Q.12", type:'multi', q:"The ionic radii depend upon which of the following factors?",
+  opts:["Charge on cation","Charge on anion","Shell number of valence electron(s) of the ion","Effective nuclear charge"], ans:[0,1,2,3],
+  why:"All four genuinely influence ionic radius — charge, shell/period, and effective nuclear charge together determine size."},
+{sec:'C', ref:"Ex.2 Part-III Q.13", type:'multi', q:"Which of the following statements is/are correct?",
+  opts:["The second ionization enthalpy of oxygen is greater than that of fluorine","The third ionization enthalpy of phosphorus is greater than that of aluminium","The first ionization enthalpy of aluminium is slightly greater than that of gallium","The second ionization enthalpy of copper is greater than that of zinc"], ans:[0,1,3],
+  why:"A, B and D hold; but experimentally Ga's IE1 is slightly HIGHER than Al's (due to poor d-shielding), not the reverse, so C is false."},
+{sec:'C', ref:"Ex.2 Part-III Q.14", type:'multi', q:"Which of the following elements will gain one electron more readily than other elements of their own group?",
+  opts:["S(g)","N(g)","O(g)","Cl(g)"], ans:[0,3],
+  why:"S and Cl accept an electron more readily than the smaller first members of their groups (O and F), which suffer extra electron-electron repulsion."},
+{sec:'C', ref:"Ex.2 Part-III Q.15", type:'multi', q:"Which of the following is/are correct order(s) of electron affinity?",
+  opts:["N < C < O < F","P < Si < S < Cl","Si < P < S < Cl","C < N < O < F"], ans:[0,1],
+  why:"A and B correctly place N's/P's half-filled-subshell anomaly as a local dip below the neighbouring elements, while C and D reverse that anomaly incorrectly."},
+{sec:'C', ref:"Ex.2 Part-III Q.16", type:'multi', q:"Which of the following is the correct order of electronegativity?",
+  opts:["Cs > Rb > Na","Li < Be < B","C < N < O","Cl > F > Br"], ans:[1,2],
+  why:"B and C correctly increase across period 2. A is backwards (EN decreases down a group, so Na>Rb>Cs), and D is backwards (F is the most electronegative halogen, not Cl)."},
+{sec:'C', ref:"Ex.2 Part-III Q.17", type:'multi', q:"Choose the correct statement(s):",
+  opts:["In general, more the ionisation energy, more the electronegativity","Electronegativity increase means metallic character increases","In general, lower the ionisation energy, easier to remove an electron","Electron affinity of S is less than that of Cl"], ans:[0,2,3],
+  why:"A, C and D are all correct trends; B is backwards — higher electronegativity actually corresponds to LESS metallic (more non-metallic) character."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 150*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+4 / −1", firstIndex:null},
+  B: {label:"Section B · Numerical Value", scheme:"+4 / 0", firstIndex:null},
+  C: {label:"Section C · Multiple Correct", scheme:"Partial / −2", firstIndex:null}
+};
+questions.forEach((q,i)=>{ if(sectionMeta[q.sec].firstIndex===null) sectionMeta[q.sec].firstIndex = i; });
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 150;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.firstIndex); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{ b.classList.toggle('active', b.dataset.sec===sec); });
+}
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1; b.id = 'pal-'+i; b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+function renderQuestion(i){
+  current = i; visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+4 / −1)', numerical:'Numerical Value (+4 / 0)', multi:'Multiple Correct (Partial / −2)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+  if(q.type==='numerical'){
+    optWrap.style.display='none'; numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none'; optWrap.style.display='flex';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div'); div.className='opt';
+      const isSel = q.type==='single' ? responses[i]===idx : (Array.isArray(responses[i]) && responses[i].includes(idx));
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = q.type==='single' ? 'radio' : 'checkbox';
+      input.name = 'q'+i; input.checked = isSel;
+      input.onchange = ()=>{
+        if(q.type==='single'){ responses[i] = idx; }
+        else{
+          let arr = Array.isArray(responses[i]) ? responses[i].slice() : [];
+          if(input.checked) arr.push(idx); else arr = arr.filter(a=>a!==idx);
+          responses[i] = arr;
+        }
+        refreshPalette(); renderQuestion(i);
+      };
+      const lbl = document.createElement('span'); lbl.className='lbl'; lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span'); txt.textContent = optText;
+      div.appendChild(input); div.appendChild(lbl); div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight(); refreshPalette();
+}
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = questions[current].type==='multi' ? [] : null;
+  marked[current] = false; renderQuestion(current);
+}
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  if(confirm(`You have ${unanswered} unanswered question(s). Submit the test now?`)) submitTest();
+}
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = candName.replace(/\s+/g,'_') + '_PeriodicTable_Test1_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+  let total=0, max=0; let secScore = {A:0,B:0,C:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+  questions.forEach((q,i)=>{
+    let marksForQ = 0; let status = 'skip'; max += 4;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.02){ marksForQ=4; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    } else if(q.type==='multi'){
+      const sel = Array.isArray(responses[i]) ? responses[i] : [];
+      if(sel.length===0){ status='skip'; skipCount++; }
+      else{
+        const wrongPicked = sel.some(s=>!q.ans.includes(s));
+        if(wrongPicked){ marksForQ=-2; status='wrong'; wrongCount++; }
+        else if(sel.length===q.ans.length){ marksForQ=4; status='correct'; correctCount++; }
+        else { marksForQ=sel.length; status='partial'; correctCount++; }
+      }
+    }
+    total += marksForQ; secScore[q.sec] += marksForQ;
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+  document.getElementById('scorecards').innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct / Partial</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+    <div class="scard"><div class="n">${secScore.C}</div><div class="l">Section C Score</div></div>`;
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+function formatTime(sec){ const m = Math.floor(sec/60), s = sec%60; return `${m}m ${s}s`; }
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else if(q.type==='numerical'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  } else {
+    const sel = Array.isArray(responses[i])?responses[i]:[];
+    yourAnsText = sel.length? sel.map(s=>letters[s]).join(', ') : '—';
+    correctAnsText = q.ans.map(s=>letters[s]).join(', ');
+  }
+  const tagClass = status==='correct'?'ok':status==='partial'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='partial'?'Partial':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct'||status==='partial' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>
