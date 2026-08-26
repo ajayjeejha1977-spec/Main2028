@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VG Sir Main Test - Set 6 | CBT</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root{
+    --nta-blue:#1e3a5f;
+    --nta-header:#003366;
+    --green:#3cb043;
+    --red:#d9363e;
+    --purple:#7b3fa0;
+    --grey:#e2e2e2;
+    --orange:#f4a300;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Segoe UI, Arial, sans-serif;background:#f2f2f2;color:#1a1a1a;}
+  header{background:var(--nta-header);color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  header h1{font-size:16px;margin:0;font-weight:600;}
+  #timer{background:#012a52;padding:6px 14px;border-radius:4px;font-weight:600;font-size:14px;}
+  .layout{display:flex;height:calc(100vh - 52px);min-height:600px;}
+  .main{flex:1;overflow-y:auto;padding:0;display:flex;flex-direction:column;}
+  .qmeta{background:#fff;padding:10px 20px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:6px;}
+  .qtype-tag{background:var(--purple);color:#fff;padding:3px 10px;border-radius:3px;font-size:12px;font-weight:600;}
+  .section-tag{background:#eee;padding:3px 10px;border-radius:3px;font-size:12px;color:#333;}
+  .qbody{background:#fff;padding:22px 26px;flex:1;overflow-y:auto;}
+  .qnum{font-weight:700;font-size:15px;margin-bottom:14px;}
+  .qtext{font-size:16px;line-height:1.7;margin-bottom:22px;}
+  .options label{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:8px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:background .15s;}
+  .options label:hover{background:#f7f9fc;}
+  .options input{margin-top:4px;flex-shrink:0;}
+  .options .opt-letter{font-weight:700;min-width:18px;}
+  .navrow{background:#fff;border-top:1px solid #ddd;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .btn{border:none;padding:9px 18px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;}
+  .btn-clear{background:#fff;border:1px solid #999;color:#333;}
+  .btn-save{background:var(--green);color:#fff;}
+  .btn-mark{background:var(--purple);color:#fff;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:var(--red);color:#fff;}
+  .sidebar{width:280px;background:#fafafa;border-left:1px solid #ddd;padding:14px;overflow-y:auto;flex-shrink:0;}
+  .sidebar h3{font-size:13px;margin:0 0 10px;color:#444;}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;margin-bottom:14px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .swatch{width:14px;height:14px;border-radius:3px;display:inline-block;flex-shrink:0;}
+  .palette-section-title{font-size:12px;font-weight:700;color:#003366;margin:14px 0 8px;border-bottom:1px solid #ddd;padding-bottom:4px;}
+  .palette{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;}
+  .pnum{width:100%;aspect-ratio:1;border-radius:5px;border:none;font-size:13px;font-weight:700;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;}
+  .st-notvisited{background:#fff;color:#333;border:1px solid #999 !important;}
+  .st-notanswered{background:var(--red);}
+  .st-answered{background:var(--green);}
+  .st-marked{background:var(--purple);}
+  .st-markedanswered{background:var(--purple);}
+  .st-markedanswered::after{content:'';position:absolute;bottom:3px;right:3px;width:6px;height:6px;background:var(--green);border-radius:50%;}
+  .pnum.current{outline:3px solid var(--orange);outline-offset:1px;}
+  .submitbar{margin-top:16px;}
+  .submitbar button{width:100%;}
+  .hidden{display:none !important;}
+  #resultScreen{padding:30px;max-width:900px;margin:0 auto;}
+  .score-cards{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0;}
+  .score-card{background:#fff;border-radius:8px;padding:16px 22px;box-shadow:0 1px 4px rgba(0,0,0,.1);min-width:150px;}
+  .score-card .val{font-size:26px;font-weight:700;}
+  .score-card .lbl{font-size:12px;color:#666;margin-top:4px;}
+  .review-q{background:#fff;border-radius:8px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  .review-q .status{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff;display:inline-block;margin-bottom:8px;}
+  .status-correct{background:var(--green);}
+  .status-incorrect{background:var(--red);}
+  .status-unattempted{background:#999;}
+  .opt-row{padding:6px 10px;border-radius:4px;margin-bottom:4px;font-size:14px;}
+  .opt-correct{background:#e6f7e9;border:1px solid var(--green);}
+  .opt-wrong-selected{background:#fdeaea;border:1px solid var(--red);}
+  .opt-plain{background:#f7f7f7;}
+  #startScreen{max-width:700px;margin:60px auto;background:#fff;padding:34px 40px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+  #startScreen h2{margin-top:0;color:var(--nta-header);}
+  #startScreen ul{line-height:1.9;}
+  #startScreen button{margin-top:20px;padding:12px 30px;font-size:15px;}
+  .backlink{margin-top:24px;}
+  @media (max-width:800px){
+    .layout{flex-direction:column;height:auto;}
+    .sidebar{width:100%;order:2;}
+    .main{order:1;}
+  }
+</style>
+</head>
+<body>
+
+<div id="startScreen">
+  <h2>VG Sir Main Test &mdash; Set 6</h2>
+  <p>Mathematics practice test — Set 6 of the question bank. 11 single-correct questions (HP/GP series, log equations, triangle side-root relations, quadratics with common roots). No overlap with Sets 1&ndash;5.</p>
+  <ul>
+    <li><b>Type:</b> Single Correct MCQ throughout.</li>
+    <li><b>Marking:</b> +4 for correct, &minus;1 for incorrect, 0 for unattempted.</li>
+  </ul>
+  <button class="btn btn-next" onclick="startTest()">Start Test</button>
+</div>
+
+<div id="testScreen" class="hidden">
+  <header>
+    <h1>VG Sir Main Test &mdash; Set 6 (Mathematics)</h1>
+    <div id="timer">Time Elapsed: 00:00</div>
+  </header>
+  <div class="layout">
+    <div class="main">
+      <div class="qmeta">
+        <div><span class="section-tag">Single Correct</span></div>
+        <div id="qCounter">Question 1 of 11</div>
+      </div>
+      <div class="qbody">
+        <div class="qnum" id="qNumLabel">Q1.</div>
+        <div class="qtext" id="qText"></div>
+        <div id="answerArea"></div>
+      </div>
+      <div class="navrow">
+        <div>
+          <button class="btn btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-save" id="prevBtn" onclick="prevQuestion()">&larr; Previous</button>
+          <button class="btn btn-next" onclick="saveAndNext()">Save &amp; Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <h3>Legend</h3>
+      <div class="legend">
+        <div><span class="swatch st-notvisited"></span>Not Visited</div>
+        <div><span class="swatch st-notanswered"></span>Not Answered</div>
+        <div><span class="swatch st-answered"></span>Answered</div>
+        <div><span class="swatch st-marked"></span>Marked</div>
+      </div>
+      <div class="palette-section-title">Questions</div>
+      <div class="palette" id="palette1"></div>
+      <div class="submitbar">
+        <button class="btn btn-submit" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="resultScreen" class="hidden"></div>
+
+<script>
+const questions = [
+  {
+    text: "The general solution of $2 - \\cos x = 2\\tan\\dfrac{x}{2}$ is:",
+    options: ["$(2n+1)\\dfrac{\\pi}{2}$", "$(4n+1)\\dfrac{\\pi}{2}$", "$2n\\pi$", "$4n+1$"],
+    correct: 1
+  },
+  {
+    text: "If $a_1, a_2, a_3, a_4$ are in HP, then $\\dfrac{1}{a_1a_4}\\displaystyle\\sum_{r=1}^{3} a_r a_{r+1}$ is a root of:",
+    options: ["$x^2+2x+15=0$", "$x^2+2x-15=0$", "$x^2-2x+15=0$", "$x^2-2x-15=0$"],
+    correct: 1
+  },
+  {
+    text: "Let r be the common ratio of the GP $a_1, a_2, a_3 \\dots a_n$, then $\\dfrac{1}{a_1^m+a_2^m} + \\dfrac{1}{a_2^m+a_3^m} + \\dots + \\dfrac{1}{a_{n-1}^m+a_n^m}$ is:",
+    options: [
+      "$\\dfrac{1-r^{m(1-n)}}{a_1^m(r^m-r^{-m})}$",
+      "$\\dfrac{1+r^{m(1-n)}}{a_1^m(r^m-r^{-m})}$",
+      "$\\dfrac{1-r^{m(1-n)}}{a_1^m(r^m+r^{-m})}$",
+      "None of these"
+    ],
+    correct: 0
+  },
+  {
+    text: "If a, b, c are the 3 solutions of the equation $x^{\\log_{10}^2 x + \\log_{10}x^3 + 3} = \\dfrac{2}{\\frac{1}{\\sqrt{x+1}-1} - \\frac{1}{\\sqrt{x+1}+1}}$, where $a &lt; b &lt; c$, then:",
+    options: ["$\\dfrac{a-b}{b-c} = \\dfrac{a}{a}$", "$\\dfrac{a-b}{b-c} = \\dfrac{a}{b}$", "$\\dfrac{a-b}{b-c} = \\dfrac{a}{c}$", "None of these"],
+    correct: 1
+  },
+  {
+    text: "If the sides a, b, c of a triangle ABC are roots of the equation $x^3 - 15x^2 + 47x - 82 = 0$, then the value of $\\dfrac{\\cos A}{a} + \\dfrac{\\cos B}{b} + \\dfrac{\\cos C}{c}$ equals:",
+    options: ["$\\dfrac{225}{164}$", "$\\dfrac{131}{164}$", "$\\dfrac{131}{82}$", "$\\dfrac{169}{82}$"],
+    correct: 1
+  },
+  {
+    text: "If $\\dfrac{1}{1^2} + \\dfrac{1}{2^2} + \\dfrac{1}{3^2} + \\dots$ upto $\\infty = \\dfrac{\\pi^2}{6}$, then the value of $1 - \\dfrac{1}{2^2} + \\dfrac{1}{3^2} - \\dfrac{1}{4^2} + \\dots$ up to $\\infty$ is equal to:",
+    options: ["$\\dfrac{\\pi^2}{8}$", "$\\dfrac{\\pi^2}{9}$", "$\\dfrac{\\pi^2}{12}$", "Can't be determined"],
+    correct: 2
+  },
+  {
+    text: "Suppose a, b, c are three non-zero real numbers. The equation $x^2 + (a+b+c)x + (a^2+b^2+c^2) = 0$ has:",
+    options: ["two negative real roots", "two positive real roots", "two real roots with opposite signs", "no real roots"],
+    correct: 3
+  },
+  {
+    text: "If a, b, c are in A.P. and if the equations $(b-c)x^2 + (c-a)x + (a-b) = 0$ &nbsp;(1)<br>and $2(c+a)x^2 + (b+c)x = 0$ &nbsp;(2)<br>have a common root, then:",
+    options: ["$a^2, b^2, c^2$ are in A.P.", "$a^2, c^2, b^2$ are in A.P.", "$c^2, a^2, b^2$ are in A.P.", "None of these"],
+    correct: 1
+  },
+  {
+    text: "Solution set of the inequality $\\log_x(2x^2+x-1) &gt; \\log_x(2) - 1$ is:",
+    options: ["$(1/2, 1)$", "$(1/2, 1) \\cup (1, \\infty)$", "$(1, \\infty)$", "$(0, 1)$"],
+    correct: 1
+  },
+  {
+    text: "If $a_1, a_2, \\dots, a_{2n+1}$ are in G.P. then $\\dfrac{\\sqrt{a_1a_2}+\\sqrt{a_3a_4}+\\dots+\\sqrt{a_{2n-1}a_{2n}}}{\\sqrt{a_2a_3}+\\sqrt{a_4a_5}+\\dots+\\sqrt{a_{2n}a_{2n+1}}}$ is equal to (where each $a_i &gt; 0$):",
+    options: [
+      "$a_1+a_2+\\dots+a_{2n-1}$",
+      "$a_2+a_4+\\dots+a_{2n}$",
+      "$\\dfrac{a_2+a_4+\\dots+a_{2n}}{a_1+a_3+\\dots+a_{2n-1}}$",
+      "$\\dfrac{a_1+a_3+\\dots+a_{2n-1}}{a_2+a_4+\\dots+a_{2n}}$"
+    ],
+    correct: 3
+  },
+  {
+    text: "The value of a for which one root of the quadratic equation $(a^2-5a+3)x^2+(3a-1)x+2=0$ is twice as large as the other, is:",
+    options: ["$-2/3$", "$1/3$", "$-1/3$", "$2/3$"],
+    correct: 3
+  }
+];
+
+const N = questions.length;
+let current = 0;
+let responses = new Array(N).fill(null);
+let visited = new Array(N).fill(false);
+let marked = new Array(N).fill(false);
+let startTime = null;
+let timerInterval = null;
+
+function startTest(){
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('testScreen').classList.remove('hidden');
+  startTime = Date.now();
+  timerInterval = setInterval(updateTimer, 1000);
+  buildPalette();
+  renderQuestion(0);
+}
+
+function updateTimer(){
+  const secs = Math.floor((Date.now()-startTime)/1000);
+  const m = String(Math.floor(secs/60)).padStart(2,'0');
+  const s = String(secs%60).padStart(2,'0');
+  document.getElementById('timer').textContent = `Time Elapsed: ${m}:${s}`;
+}
+
+function buildPalette(){
+  const p1 = document.getElementById('palette1');
+  p1.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const btn = document.createElement('button');
+    btn.className = 'pnum';
+    btn.textContent = i+1;
+    btn.id = 'pnum-'+i;
+    btn.onclick = ()=>{ saveCurrentResponse(); renderQuestion(i); };
+    p1.appendChild(btn);
+  });
+  refreshPalette();
+}
+
+function statusClass(i){
+  if(marked[i] && hasResponse(i)) return 'st-markedanswered';
+  if(marked[i]) return 'st-marked';
+  if(hasResponse(i)) return 'st-answered';
+  if(visited[i]) return 'st-notanswered';
+  return 'st-notvisited';
+}
+
+function hasResponse(i){
+  const r = responses[i];
+  return r!==null && r!==undefined;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const el = document.getElementById('pnum-'+i);
+    el.className = 'pnum ' + statusClass(i) + (i===current ? ' current' : '');
+  });
+}
+
+function renderQuestion(i){
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qCounter').textContent = `Question ${i+1} of ${N}`;
+  document.getElementById('qNumLabel').textContent = `Q${i+1}.`;
+  document.getElementById('qText').innerHTML = q.text;
+
+  const area = document.getElementById('answerArea');
+  area.innerHTML = '';
+  const letters = ['A','B','C','D'];
+
+  const wrap = document.createElement('div');
+  wrap.className = 'options';
+  q.options.forEach((opt,idx)=>{
+    const label = document.createElement('label');
+    const input = document.createElement('input');
+    input.type = 'radio';
+    input.name = 'opt';
+    input.value = idx;
+    if(responses[i] === idx) input.checked = true;
+    const letterSpan = document.createElement('span');
+    letterSpan.className = 'opt-letter';
+    letterSpan.textContent = letters[idx];
+    const textSpan = document.createElement('span');
+    textSpan.innerHTML = opt;
+    label.appendChild(input);
+    label.appendChild(letterSpan);
+    label.appendChild(textSpan);
+    wrap.appendChild(label);
+  });
+  area.appendChild(wrap);
+
+  document.getElementById('prevBtn').style.visibility = i===0 ? 'hidden' : 'visible';
+  refreshPalette();
+  if(window.MathJax && MathJax.typesetPromise){
+    MathJax.typesetPromise([area, document.getElementById('qText')]);
+  }
+}
+
+function saveCurrentResponse(){
+  const sel = document.querySelector('#answerArea input[type=radio]:checked');
+  responses[current] = sel ? parseInt(sel.value) : null;
+}
+
+function saveAndNext(){
+  saveCurrentResponse();
+  refreshPalette();
+  if(current < N-1){ renderQuestion(current+1); }
+}
+
+function prevQuestion(){
+  saveCurrentResponse();
+  if(current>0){ renderQuestion(current-1); }
+}
+
+function markForReview(){
+  saveCurrentResponse();
+  marked[current] = true;
+  refreshPalette();
+  if(current < N-1){ renderQuestion(current+1); }
+}
+
+function clearResponse(){
+  responses[current] = null;
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function confirmSubmit(){
+  saveCurrentResponse();
+  const unanswered = responses.filter(r=>r===null || r===undefined).length;
+  if(confirm(`You have ${unanswered} unanswered question(s) out of ${N}. Submit the test now?`)){
+    submitTest();
+  }
+}
+
+function submitTest(){
+  clearInterval(timerInterval);
+  document.getElementById('testScreen').classList.add('hidden');
+  const resultDiv = document.getElementById('resultScreen');
+  resultDiv.classList.remove('hidden');
+
+  let totalScore = 0, maxScore = 0, correctCount=0, incorrectCount=0, unattemptedCount=0;
+  let html = `<h2>Test Result — VG Sir Main Test, Set 6</h2><div class="score-cards" id="scoreCards"></div>`;
+  html += `<div id="reviewList">`;
+  const letters = ['A','B','C','D'];
+
+  questions.forEach((q,i)=>{
+    let status = 'unattempted', marksAwarded = 0;
+    const resp = responses[i];
+    if(resp===null || resp===undefined){ status='unattempted'; }
+    else if(resp===q.correct){ status='correct'; marksAwarded=4; }
+    else { status='incorrect'; marksAwarded=-1; }
+
+    if(status==='correct') correctCount++;
+    else if(status==='incorrect') incorrectCount++;
+    else unattemptedCount++;
+
+    totalScore += marksAwarded;
+    maxScore += 4;
+
+    const statusClassMap = {correct:'status-correct', incorrect:'status-incorrect', unattempted:'status-unattempted'};
+    const statusLabelMap = {correct:'Correct', incorrect:'Incorrect', unattempted:'Unattempted'};
+
+    html += `<div class="review-q">
+      <span class="status ${statusClassMap[status]}">${statusLabelMap[status]}</span>
+      <span style="float:right;font-size:12px;color:#555;">Marks: ${marksAwarded>0?'+':''}${marksAwarded}</span>
+      <div class="qnum">Q${i+1}.</div>
+      <div class="qtext" style="font-size:15px;">${q.text}</div>
+      <div class="options" style="margin-top:8px;">`;
+    q.options.forEach((opt,idx)=>{
+      const isCorrectOpt = q.correct===idx;
+      const wasSelected = resp===idx;
+      let cls = 'opt-plain';
+      if(isCorrectOpt) cls = 'opt-correct';
+      else if(wasSelected && !isCorrectOpt) cls = 'opt-wrong-selected';
+      html += `<div class="opt-row ${cls}"><b>${letters[idx]}.</b> ${opt} ${isCorrectOpt?' &#10003;':''}${(wasSelected && !isCorrectOpt)?' (your answer)':''}</div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  html += `</div>
+    <div class="backlink"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
+
+  resultDiv.innerHTML = html;
+
+  document.getElementById('scoreCards').innerHTML = `
+    <div class="score-card"><div class="val">${totalScore} / ${maxScore}</div><div class="lbl">Total Score</div></div>
+    <div class="score-card"><div class="val">${correctCount}</div><div class="lbl">Correct</div></div>
+    <div class="score-card"><div class="val">${incorrectCount}</div><div class="lbl">Incorrect</div></div>
+    <div class="score-card"><div class="val">${unattemptedCount}</div><div class="lbl">Unattempted</div></div>
+  `;
+
+  if(window.MathJax && MathJax.typesetPromise){
+    MathJax.typesetPromise([resultDiv]);
+  }
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
