@@ -2,471 +2,343 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Atomic Structure & Nuclear Chemistry — Test 3 (Practice Test-2, JEE Advanced)</title>
+<title>Chemistry Revision Test 1 — Atomic Structure & Dual Nature</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  :root{--nta-blue:#0b3d91;--nta-blue-dark:#082a66;--panel-bg:#f0f0f0;--ans-green:#3cb043;--notans-red:#d9363e;--notvisited-gray:#9e9e9e;--marked-purple:#8e44ad;--border:#c9c9c9;--text:#1b1b1b;}
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
-  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
-  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
-  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
-  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
-  #login p{font-size:12px;color:#666;margin:0 0 20px;}
-  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
-  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
-  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
-  #login button:hover{background:var(--nta-blue-dark);}
-  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
-  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
-  #topbar .title{font-size:14px;font-weight:bold;}
-  #topbar .sub{font-size:11px;opacity:.85;}
-  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
-  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
-  @keyframes blink{50%{opacity:.4;}}
-  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
-  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
-  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
-  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
-  #main{display:flex;flex:1;min-height:0;}
-  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
-  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
-  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
-  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
-  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
-  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
-  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
-  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
-  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
-  .opt input{margin-top:3px;flex-shrink:0;}
-  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
-  #numwrap{margin-top:4px;}
-  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
-  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
-  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
-  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
-  .btn-mark{background:#8e44ad;color:#fff;} .btn-clear{background:#7f8c8d;color:#fff;} .btn-save{background:var(--ans-green);color:#fff;}
-  .btn-prev{background:#eee;color:#333;} .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
-  #navrow button:hover{filter:brightness(1.08);}
-  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
-  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
-  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
-  .legend div{display:flex;align-items:center;gap:5px;}
-  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
-  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);} .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
-  .sw.pg{background:var(--marked-purple);position:relative;} .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
-  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
-  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
-  #palette button.answered{background:var(--ans-green);} #palette button.notanswered{background:var(--notans-red);}
-  #palette button.marked{background:var(--marked-purple);} #palette button.markedans{background:var(--marked-purple);}
-  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
-  #palette button.current{outline:2px solid #000;outline-offset:1px;}
-  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
-  #summarybox span{float:right;font-weight:bold;}
-  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
-  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
-  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
-  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
-  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
-  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
-  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);} .scard .l{font-size:11px;color:#666;margin-top:4px;}
-  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
-  .reviewrow.correct{border-left:4px solid var(--ans-green);} .reviewrow.wrong{border-left:4px solid var(--notans-red);} .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
-  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;} .reviewrow .qt{font-size:13px;margin:4px 0 8px;} .reviewrow .ans{font-size:12px;}
-  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
-  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
-  .tag.ok{background:#e3f6e5;color:#1e7e34;} .tag.bad{background:#fbe4e4;color:#c0392b;} .tag.sk{background:#eee;color:#666;}
-  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
-  @media print{body{background:#fff;} #login,#test,#pdfactions,#retrybtn{display:none !important;} #results{display:block !important;max-width:100%;padding:0;} #app{max-width:100%;} .reviewrow{break-inside:avoid;page-break-inside:avoid;} .scard{break-inside:avoid;}}
-  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
-  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
-  .btn-pdf:hover{filter:brightness(1.1);}
-  @media(max-width:820px){#main{flex-direction:column;} #side{width:100%;border-left:none;border-top:1px solid var(--border);} #palette{grid-template-columns:repeat(8,1fr);}}
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
 </style>
 </head>
 <body>
 <div id="app">
-  <div id="login">
-    <div class="card">
-      <h1>Atomic Structure & Nuclear Chemistry</h1>
-      <p>CBT Mock Test 3 &middot; Practice Test-2, JEE Advanced Pattern &middot; Vyas Edification</p>
-      <label for="candname">Candidate Name</label>
-      <input id="candname" placeholder="Enter your name" />
-      <label for="timerinput">Test Duration (minutes)</label>
-      <input id="timerinput" type="number" min="1" max="180" value="60" />
-      <button onclick="startTest()">Start Test</button>
-      <div class="meta">
-        22 Questions &middot; Default 60 Minutes (editable above, matches the book's stated 1 Hr) &middot; Max Marks: 66<br>
-        Section A: Single Correct — Sections 1, 4 &amp; 5 combined (11Q, +3/&minus;1)<br>
-        Section B: Multiple Correct (5Q, +3 only if ALL correct options are selected and none wrong, else 0 — no partial credit, no negative, per the book's own scheme)<br>
-        Section C: Integer Value 0&ndash;9 (6Q, +3/0)<br>
-        Includes the Heisenberg uncertainty-principle comprehension and the spectral-series matching-list question.
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test 1 — Atomic Structure & Dual Nature</h1>
+    <p>Based on your wrong answers • 34 Questions • 60 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 34 &nbsp;|&nbsp; Duration: 60 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test 1 — Atomic Structure & Dual Nature</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/34</div></div>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
       </div>
     </div>
   </div>
-  <div id="test" style="display:none;">
-    <div id="topbar">
-      <div><div class="title">Atomic Structure & Nuclear Chemistry — Test 3</div><div class="sub" id="candlabel"></div></div>
-      <div id="timerbox">60:00</div>
-    </div>
-    <div id="sectiontabs"></div>
-    <div id="main">
-      <div id="qpane">
-        <div id="qheader">
-          <div class="qnum" id="qnumlabel"></div>
-          <div style="display:flex;align-items:center;gap:8px;">
-            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
-            <div class="qtype" id="qtypelabel"></div>
-          </div>
-        </div>
-        <div id="qtext"></div>
-        <div id="options"></div>
-        <div id="numwrap" style="display:none;">
-          <input type="number" step="1" min="0" max="9" id="numinput" placeholder="Enter a single digit 0–9" />
-          <div class="hint">Answer is a single-digit integer, 0 to 9 inclusive.</div>
-        </div>
-        <div id="navrow">
-          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
-          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
-          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
-          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
-          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
-        </div>
-      </div>
-      <div id="side">
-        <div><h3>Legend</h3>
-          <div class="legend">
-            <div><span class="sw g"></span>Answered</div><div><span class="sw r"></span>Not Answered</div>
-            <div><span class="sw n"></span>Not Visited</div><div><span class="sw p"></span>Marked</div>
-            <div><span class="sw pg"></span>Marked&amp;Ans</div>
-          </div>
-        </div>
-        <div id="summarybox"></div>
-        <h3 style="margin-bottom:0;">Question Palette</h3>
-        <div id="palette"></div>
-        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
-      </div>
-    </div>
-  </div>
+
   <div id="results">
-    <h1>Test Result</h1>
-    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
-    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
-    <div id="pdfactions"><button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button></div>
-    <div class="scorebig" id="scorebig">0</div>
-    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
-    <div class="scorecards" id="scorecards"></div>
-    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
-    <div id="reviewlist"></div>
-    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test 1 — Atomic Structure & Dual Nature</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 136)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
   </div>
+
 </div>
+
 <script>
-const questions = [
-/* ===== SECTION A: Single Correct (+3/-1) — combines the book's Sections 1, 4, 5 ===== */
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.1", type:'single', q:"Find the principal quantum number of the excited state of electrons in He⁺ ion which, on transition to the first excited state, emits photons of wavelength 108.5 nm. (Rₕ = 1.09678 × 10⁷ m⁻¹)",
-  opts:["6","5","4","2"], ans:1,
-  why:"1/λ = RₕZ²[1/2² − 1/n²]; solving with Z=2 and λ=108.5nm gives n=5."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.2", type:'single', q:"For a 3s orbital, ψ(3s) ∝ (6 − 6σ + σ²), where σ = 2Zr/3a₀. What is the maximum radial distance of a node from the nucleus?",
-  opts:["(2/3)(3+√3)a₀/Z","(3/2)(3+√3)a₀/Z","(3/2)(3−3√3)a₀/Z","(3/2)(3−√3)a₀/Z"], ans:1,
-  why:"Setting the bracket to zero and solving the quadratic in σ gives σ=3±√3; taking the larger root and converting back to r gives r=(3/2)(3+√3)a₀/Z."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.3", type:'single', q:"A glow-worm of mass 5.0 g emits red light (650 nm) with a power of 0.10 W, entirely in the backward direction. To what speed will it have accelerated after 10 years if released into free space?",
-  opts:["21 ms⁻¹","29 ms⁻¹","31.8 ms⁻¹","0.08 ms⁻¹"], ans:0,
-  why:"Each emitted photon imparts momentum p=E/c; summing over the total energy emitted (power × time) and dividing by the worm's mass gives a final speed of about 21 m/s."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.4", type:'single', q:"Calculate the minimum frequency of photon needed to break the H–H bond, given the energy required to excite one litre of hydrogen gas at 1 atm/298K to the first excited state of atomic hydrogen (H–H bond dissociation energy = 436 kJ/mol).",
-  opts:["98.19 Hz","10.93 × 10¹⁴ Hz","10¹⁵ Hz","6.22 × 10¹⁴ Hz"], ans:1,
-  why:"The H–H bond energy per molecule (436×10³/6.023×10²³ J) equated to hν gives ν≈10.93×10¹⁴ Hz."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.5", type:'single', q:"O₂ undergoes photochemical dissociation into a normal oxygen atom (O) and a more energetic oxygen atom O*, which has 1.967 eV more energy than O. The normal dissociation energy of O₂ is 498 kJ/mol. What is the maximum wavelength effective for the photochemical dissociation of O₂?",
-  opts:["1.01 nm","1.64 nm","174 nm","2.74 nm"], ans:2,
-  why:"Per-molecule dissociation energy (8.27×10⁻¹⁹ J) plus the extra 1.967 eV (3.15×10⁻¹⁹ J) gives a total energy of 11.42×10⁻¹⁹ J; λ=hc/E≈174 nm."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.6", type:'single', q:"If the subsidiary (azimuthal) quantum number of a subenergy level is 4, the maximum and minimum values of the spin multiplicities are:",
-  opts:["9, 1","10, 1","10, 2","4, −4"], ans:2,
-  why:"l=4 gives 2l+1=9 degenerate orbitals. Maximum multiplicity (all unpaired, Hund's rule): 2S+1=2(9/2)+1=10. Minimum multiplicity when fully paired configuration is considered comes out to 2."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.7", type:'single', q:"1 mol of He⁺ ion is excited. Spectral analysis shows 50% of ions in the 3rd level, 25% in the 2nd level, and 25% in the ground state. Ionization energy of He⁺ is 54.4 eV. Calculate the total energy evolved when all ions return to the ground state.",
-  opts:["331.13 × 10⁴ J","400.14 × 10⁴ J","10⁴ J","6.66 × 10⁴ J"], ans:0,
-  why:"Summing the energy released by the 3rd-level and 2nd-level populations returning to ground state, scaled by Avogadro's number, gives approximately 331.13×10⁴ J."},
-
-/* ===== SECTION A continued: Comprehension (Sec-4, +3/-1) — Heisenberg uncertainty principle ===== */
-{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.19", type:'single', q:"Heisenberg's uncertainty principle: Δx·Δ(mv) ≥ h/4π. If the uncertainties in position and momentum are equal, the uncertainty in velocity is:",
-  opts:["√(h/π)","√(h/2π)","(1/2m)√(h/π)","None of these"], ans:2,
-  why:"Setting Δx=Δp and solving Δx·Δp≥h/4π gives Δp≥½√(h/π); dividing by mass gives Δv=(1/2m)√(h/π)."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.20", type:'single', q:"If the uncertainty in velocity and position is the same, the uncertainty in momentum will be:",
-  opts:["√(hm/4π)","m√(h/4π)","√(h/4πm)","(1/m)√(h/4π)"], ans:0,
-  why:"Setting Δx=Δv=δ and using Δx·(mΔv)≥h/4π gives mδ²≥h/4π, so δ≥√(h/4πm); then Δp=mδ=√(hm/4π)."},
-{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.21", type:'single', q:"What would be the minimum uncertainty in de Broglie wavelength of a moving electron accelerated by a potential difference of 6 volts, whose uncertainty in position is 7/22 nm?",
-  opts:["6.25 Å","6 Å","0.625 Å","0.1325 Å"], ans:2,
-  why:"At 6V, λ=√(150/6)=5Å exactly. Using Δx·Δp≥h/4π with Δp≈hΔλ/λ² gives Δλ≥λ²/(4πΔx)=25/(4π×3.18)≈0.625Å."},
-
-/* ===== SECTION A continued: Matching List (Sec-5, +3/-1) ===== */
-{sec:'A', ref:"APSP Practice Test-2 Sec-5 Q.22", type:'single', q:"Match List-I with List-II:\nP. Lyman series  Q. Balmer series  R. In a sample of H-atom for 5→2 transition  S. In a single isolated H-atom for 3→1 transition\n1. Maximum number of spectral lines observed = 6\n2. Maximum number of spectral lines observed = 2\n3. 2nd line has wave number 8R/9\n4. 2nd line has wave number 3R/16",
-  opts:["P=3, Q=4, R=1, S=2","P=1, Q=2, R=4, S=3","P=3, Q=1, R=2, S=4","P=2, Q=3, R=1, S=4"], ans:0,
-  why:"Lyman's 2nd line (3→1) has wave number 8R/9 (P=3); Balmer's 2nd line (4→2) has wave number 3R/16 (Q=4); a sample undergoing 5→2 transitions produces (5−2)(5−2+1)/2=6 maximum lines (R=1); a single isolated atom doing 3→1 can only show 2 lines via 3→2 then 2→1 (S=2)."},
-
-/* ===== SECTION B: Multiple Correct (+3 only if fully correct, else 0 — no negative, no partial) ===== */
-{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.8", type:'multi', q:"Consider six electronic configurations (I)–(VI) for various species (remaining inner orbitals completely filled). Which statement(s) are correct?",
-  opts:["Stability order: II > I > IV > III","Order of spin multiplicity: IV > III = I > II","V does not violate all three rules of electronic configuration","If VI represents A and A⁺, kept near a magnet, A acts as a diamagnetic substance"], ans:[0,1,2],
-  why:"The stability ordering, spin multiplicity ordering, and the statement about configuration V (not violating all three rules) are each correct per the detailed configuration analysis; the diamagnetism claim about VI does not hold."},
-{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.9", type:'multi', q:"Choose the correct statement(s):",
-  opts:["The shape of an atomic orbital depends upon the azimuthal quantum number","The orientation of an atomic orbital depends upon the magnetic quantum number","The energy of an electron in an atomic orbital of a multi-electron atom depends upon the principal quantum number only","The number of degenerate atomic orbitals of one type depends upon the value of the azimuthal quantum number"], ans:[0,1,3],
-  why:"Shape (l), orientation (mₗ), and orbital degeneracy count (2l+1, depending on l) are all correctly described. In multi-electron atoms, energy depends on BOTH n and l, not n alone, making that statement false."},
-{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.10", type:'multi', q:"The radial distribution function P(r) is used to find the most probable radius for a 1s-orbital of a hydrogen-like atom with atomic number Z, given by dP/dr = (4Z³/a₀³)(2r − 2Zr²/a₀)e⁻²Zʳ/ᵃ⁰. Which statement(s) are correct?",
-  opts:["At the point of maximum radial distribution function, dP(r)/dr=0; one antinode is present","Most probable radius of Li²⁺ is a₀/3 pm","Most probable radius of He⁺ is a₀/2 pm","Most probable radius of hydrogen atom is a₀ pm"], ans:[0,1,2,3],
-  why:"Setting dP/dr=0 gives r=a₀/Z as the most probable radius; substituting Z=3 (Li²⁺), Z=2 (He⁺), and Z=1 (H) correctly gives a₀/3, a₀/2, and a₀ respectively — all four statements check out."},
-{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.11", type:'multi', q:"For radial probability curves, which of the following is/are correct?",
-  opts:["The number of maxima in the 2s orbital are two","The number of spherical (radial) nodes is equal to n−l−1","The number of angular nodes is 'l'","3dz² has 3 angular nodes"], ans:[0,1,2],
-  why:"2s indeed shows two radial probability maxima (n−l=2); the radial-node and angular-node formulas are standard and correct. However, dz² has l=2, giving 2 angular nodes, not 3 — making the last option false."},
-{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.12", type:'multi', q:"A dxy orbital has four lobes between the x- and y-axes. The wave functions of two lobes are positive and the other two are negative. The positive wave function signifies that:",
-  opts:["Both x and y are positive","Both x and y are negative","Either x or y is negative","None of these"], ans:[0,1],
-  why:"dxy's sign follows the product xy — positive when x and y share the same sign, which happens in two separate lobes: one where both are positive, and one where both are negative."},
-
-/* ===== SECTION C: Integer Value 0-9 (+3/0) ===== */
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.13", type:'numerical', q:"The dissociation energy of H₂ is 430.53 kJ/mol. If H₂ is exposed to radiant energy of wavelength 253.7 nm, what % of the radiant energy will be converted into kinetic energy? (Report as nearest integer)", ans:9,
-  why:"Photon energy (7.83×10⁻¹⁹J) minus per-molecule dissociation energy (7.15×10⁻¹⁹J) leaves 0.68×10⁻¹⁹J converted to KE — about 8.68% of the photon energy, rounding to 9."},
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.14", type:'numerical', q:"The IE₁ of H is 13.6 eV. It is exposed to electromagnetic waves of 1028 Å and gives out induced radiation. Find the orbit (n) of this induced radiation.", ans:3,
-  why:"The 1028Å radiation supplies 12.07 eV, exciting the atom to a state where n²=13.6/1.53≈9, giving n=3."},
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.15", type:'numerical', q:"A hydrogen-like atom (atomic number Z) in a higher excited state n makes a transition to the first excited state by emitting two photons of 10.20 eV and 17.00 eV. Alternatively, from the same state it can transition to the second excited state by emitting two photons of 4.25 eV and 5.95 eV. Determine n and Z (IE of hydrogen=13.6 eV). Give the answer as n+Z.", ans:9,
-  why:"Setting up the two energy equations and dividing them to eliminate Z gives n=6; substituting back gives Z=3. So n+Z=6+3=9."},
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.16", type:'numerical', q:"A moving particle has wavelength 5×10⁻⁸m. If its momentum is reduced to half its value, compute the new wavelength. If the answer is 10⁻ˣ m, find x.", ans:7,
-  why:"Since λ=h/p, halving momentum doubles wavelength to 1×10⁻⁷m=10⁻⁷m, so x=7."},
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.17", type:'numerical', q:"According to Bohr theory, Eₙ=−21.76×10⁻¹⁹/n² J for hydrogen. Calculate the longest wavelength of light needed to remove an electron from the third Bohr orbit of the He⁺ ion. If the wavelength is x×10⁻⁷ m and x is an integer, report x.", ans:2,
-  why:"For He⁺ (Z=2), the energy to ionize from n=3 is 9.67×10⁻¹⁹J; converting to wavelength gives λ≈2.055×10⁻⁷m, so x=2."},
-{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.18", type:'numerical', q:"⁷₄Be captures a K-electron into its nucleus. What is the sum of the mass number and atomic number of the nuclide formed?", ans:10,
-  why:"K-electron capture converts a proton to a neutron: Z drops from 4 to 3, while mass number A=7 stays the same. Sum = 7+3 = 10."}
-];
-
-/* ================= STATE ================= */
-let responses = new Array(questions.length).fill(null);
-let visited = new Array(questions.length).fill(false);
-let marked = new Array(questions.length).fill(false);
+const QUESTIONS = [{"q": "What will be the relation between wavelength of photon and electron of same energy?", "options": ["\u03bbph < \u03bbe", "\u03bbph > \u03bbe", "\u03bbph = \u03bbe", "None of these"], "correct": 1, "explanation": "\u03bbe = h/\u221a(2mE) for electron; E = hc/\u03bbp for photon. So \u03bbe \u221d \u221a\u03bbp. So \u03bbph > \u03bbe"}, {"q": "Photoelectric effect was explained by", "options": ["Hertz", "Max Planck", "Einstein", "Newton"], "correct": 2, "explanation": "Photoelectric effect was explained by Einstein."}, {"q": "The statement, \"Radiations is an energy form with a dual nature\" is given by", "options": ["J.J. Thomson", "Max Planck", "Bohr", "de Broglie"], "correct": 3, "explanation": "The de Broglie equation is one of the equations that is commonly used to define the wave properties of matter. It describes the wave nature of the electron. Electromagnetic radiation exhibits the dual nature of a particle (having momentum) and wave (expressed in frequency and wavelength). Microscopic particle-like electrons also possess this dual nature property."}, {"type": "multi", "q": "Which of the following is wrong (select all that apply)", "options": ["For anode rays e/m value does not depend on nature of gas taken in discharge tube.", "Cathode rays are generated from anode.", "Cathode rays are positively charged.", "For cathode rays e/m value depends on nature of gas taken in discharge tube"], "correct": [2, 3], "explanation": "The e/m value (charge-to-mass ratio) does not depend on the nature of the gas in the discharge tube for cathode rays, but for anode rays e/m depends on the nature of gas taken in the discharge tube. Cathode rays are negatively charged, not positively charged."}, {"q": "If W is the atomic mass and N is the atomic number of an element, the number of -", "options": ["Electrons = W", "Protons = W \u2212 N", "Electrons = W \u2212 N", "Neutrons = W \u2212 N"], "correct": 3, "explanation": "Atomic mass = Number of protons + Number of neutrons. Atomic number = Number of protons. Number of neutrons = Atomic mass \u2212 Number of protons = W \u2212 N"}, {"q": "Suppose in Rutherford's scattering experiment we use a thin sheet of solid hydrogen in place of gold foil. Then:", "options": ["Large angle scattering of \u03b1-particles is not possible", "Small angle scattering is not possible", "hydrogen atom may get ionized.", "Large angle scattering of \u03b1-particles is possible"], "correct": 0, "explanation": "If the gold foil is replaced with a thin sheet of hydrogen, the scattering angles would be much smaller, because the mass of a hydrogen nucleus is much less than the mass of an alpha particle, so it is not heavy enough to deflect the alpha particle at a large angle. Therefore large angle scattering of \u03b1-particles is not possible."}, {"q": "An \u03b1-particle accelerated through V volt is fired towards a nucleus. Its distance of closest approach is r. If a proton accelerated through the same potential is fired towards the same nucleus, the distance of closest approach of the proton will be:", "options": ["r", "r/2", "2r", "r/4"], "correct": 0, "explanation": "At closest approach, Kinetic Energy = Potential Energy: qV = (1/4\u03c0\u03b5\u2080)(q\u00b7Q)/r, where q is the particle's own charge, which cancels from both sides. So r is independent of the charge of the accelerated particle, and the proton's distance of closest approach is also r."}, {"type": "multi", "q": "Rutherford's experiment established that: (select all that apply)", "options": ["Size of the nucleus is very small", "Nucleus contains protons and neutrons", "Most of the space in the atoms is empty", "Inside the atom there is a heavy positive centre"], "correct": [0, 2, 3], "explanation": "Rutherford's gold foil experiment (1909) showed that most alpha particles passed straight through the gold foil while a small number were deflected at large angles. This established that the atom has a dense, positively charged nucleus at its centre (heavy positive centre), that the size of the nucleus is very small, and that most of the space in the atom is empty. It did NOT establish that the nucleus contains protons and neutrons \u2014 the neutron was discovered later by Chadwick."}, {"type": "multi", "q": "Which of the following statements regarding \u03b1 particle scattering experiment or Rutherford Model is/are correct? (select all that apply)", "options": ["If an \u03b1 particle is projected exactly on the line passing through the center, it will experience a deviation by 180\u00b0.", "Volume of the nucleus is approximately 10\u207b\u2075 times volume of the atom.", "The \u03b1 particles which were deviated by large angles are the ones which are projected close to the center.", "The number of particles deviated by large angles is less than those deviated by small angles."], "correct": [0, 2], "explanation": "An alpha particle aimed directly at the nucleus, precisely on the line passing through the center, is reflected backward, giving a deviation of 180\u00b0. The alpha particles deviated by large angles are the ones projected close to the center (nucleus), since most of the atom is empty space. The actual volume of the nucleus compared to the atom is far smaller than 10\u207b\u2075 times, so that statement is incorrect."}, {"q": "The frequency of a wave is 6 \u00d7 10^15 s\u207b\u00b9. Its wave number would be -", "options": ["10^5 cm\u207b\u00b9", "2 \u00d7 10^-5 cm\u207b\u00b9", "2 \u00d7 10^-7 cm", "2 \u00d7 10^5 cm\u207b\u00b9"], "correct": 3, "explanation": "c = \u03bb\u03bd, so \u03bb = c/\u03bd = (3\u00d710^10 cm/s)/(6\u00d710^15 s\u207b\u00b9) = 0.5\u00d710^-5 cm. Wave number = 1/\u03bb = 2\u00d710^5 cm\u207b\u00b9."}, {"q": "An electron beam can undergo diffraction by crystals. Through what potential should a beam of electrons be accelerated so that its wavelength becomes equal to 1.54 \u00c5?", "options": ["15.4 volt", "54.3 volt", "80.51 volt", "63.3 volt"], "correct": 2, "explanation": "By de-Broglie's equation, \u03bb = h/(mv), and using v from eV = (1/2)mv\u00b2, we get \u03bb = h/\u221a(2meV). Solving for V with \u03bb=1.54 \u00c5 gives V \u2248 80.51 volt."}, {"q": "Which of the options is not correct regarding the order of frequency of electromagnetic radiation?", "options": ["Far infra red > Radio waves > Cosmic ray", "Green light < U-V light < \u03b3-radiations", "Radio waves < Microwaves < X-rays", "Microwaves < Near Infrared ray < U-V rays"], "correct": 0, "explanation": "The order of frequency of electromagnetic radiation increases from radio waves (lowest) through microwaves, infrared, visible light, UV, X-rays, to gamma rays (highest). So 'Far infra red > Radio waves > Cosmic ray' is incorrect, since cosmic/gamma rays actually have much higher frequency than infrared and radio waves."}, {"type": "multi", "q": "According to Planck's quantum theory: (select all that apply)", "options": ["Energy is absorbed or lost discontinuously in the form of quantum", "Electromagnetic radiations are made of small energy packets known as quantum", "Quantum, which has \u03bb = 3800\u00c5 - 7600\u00c5 is known as photon", "Energy is absorbed or lost continuously in the form of quantum"], "correct": [0, 1], "explanation": "According to Planck's quantum theory, electromagnetic radiation is made of small energy packets called quanta, and energy is absorbed or emitted discontinuously (not continuously) in the form of these quanta. The quantum of light is called a photon regardless of wavelength, not restricted to 3800-7600 \u00c5."}, {"q": "When the wavelength of incident light on a metallic plate is halved, the K.E. of emitted photoelectron will be -", "options": ["increased more than double", "halved", "doubled", "unchanged"], "correct": 0, "explanation": "E = K.E + W (work function). hc/\u03bb = K.E + W, so K.E = hc/\u03bb \u2212 W. When \u03bb is halved, hc/\u03bb doubles, so K.E = 2(hc/\u03bb) \u2212 W, which is more than double the original K.E (since W is subtracted only once) \u2014 K.E increases more than double."}, {"q": "When a certain metal was irradiated with light of frequency 3.2 \u00d7 10^16 Hz, photoelectrons emitted had twice the kinetic energy as did photoelectrons emitted when the same metal was irradiated with light of frequency 2.0 \u00d7 10^16 Hz. Hence threshold frequency is -", "options": ["0.8 \u00d7 10^15 Hz", "8.0 \u00d7 10^15 Hz", "6.4 \u00d7 10^16 Hz", "0.8 \u00d7 10^14 Hz"], "correct": 1, "explanation": "Using KE = h\u03bd \u2212 h\u03bd\u2080 for both cases: h(3.2\u00d710^16) \u2212 h\u03bd\u2080 = 2[h(2.0\u00d710^16) \u2212 h\u03bd\u2080]. Solving gives \u03bd\u2080 = 8.0 \u00d7 10^15 Hz."}, {"q": "The speed of a proton is one hundredth of the speed of light in vacuum. What is its de-Broglie wavelength? Assume that one mole of protons has a mass equal to one gram. [h = 6.626 \u00d7 10\u207b\u00b2\u2077 erg sec]", "options": ["1.31 \u00d7 10\u207b\u00b2 \u00c5", "13.13 \u00d7 10\u207b\u00b2 \u00c5", "1.33 \u00d7 10\u207b\u00b3 \u00c5", "13.31 \u00d7 10\u207b\u00b3 \u00c5"], "correct": 2, "explanation": "De-Broglie wavelength \u03bb = h/(mv). Mass of one proton = 1g/N\u2090 = 1.672\u00d710\u207b\u00b2\u2074 g = 1.672\u00d710\u207b\u00b2\u2077 kg. Speed v = c/100 = 3\u00d710\u2076 m/s. \u03bb = (6.626\u00d710\u207b\u00b3\u2074 J\u00b7s)/(1.672\u00d710\u207b\u00b2\u2077 kg \u00d7 3\u00d710\u2076 m/s) \u2248 1.33\u00d710\u207b\u00b3 \u00c5."}, {"type": "multi", "q": "Radiation of wavelength 200\u00c5 falls on a platinum surface. If the work function of the metal is 5 eV, which of the following results are correct about the experiment? (select all that apply)", "options": ["The velocity of photoelectrons increases with increase in intensity of radiation", "the threshold frequency of the metal is 1.21 \u00d7 10^15 sec\u207b\u00b9", "Photo-emission of electrons takes place", "the velocity of the photo-electrons is 4.48 \u00d7 10^6 m/sec."], "correct": [1, 2, 3], "explanation": "Using h\u03bd = h\u03bd\u2080 + (1/2)mV\u00b2: the threshold frequency of platinum (work function 5 eV) is 1.21\u00d710^15 s\u207b\u00b9, and since the incident radiation's energy exceeds the work function, photo-emission occurs with photoelectron velocity 4.48\u00d710^6 m/s. The velocity of photoelectrons depends on the frequency of radiation, not its intensity \u2014 intensity only affects the number of photoelectrons, not their velocity."}, {"type": "multi", "q": "When the KE of released electron (y-axis) is plotted against the frequency, \u03bd, of the incident light (x-axis) then, which of the following is/are correct? (select all that apply)", "options": ["The plot is straight line passing through the origin and slope equal to h.", "The intercept of the plot with x-axis represent threshold frequency, \u03bd\u2080.", "The plot is straight line with an intercept on Y-axis and slope equal to h.", "The plot is straight line with an intercept with x-axis and slope equal to h."], "correct": [1, 3], "explanation": "KE = h\u03bd \u2212 h\u03bd\u2080 (Einstein's photoelectric equation) is a straight line of slope h, with x-intercept at \u03bd = \u03bd\u2080 (the threshold frequency), not passing through the origin and not having a y-axis intercept."}, {"q": "Which colour of light deviates the most?", "options": ["red", "violet", "green", "yellow"], "correct": 1, "explanation": "Among the 7 constituent colours of light, violet light has the least wavelength and hence it deviates the most, while red light having the largest wavelength deviates the least."}, {"q": "The element, helium, was discovered in the sun by which method?", "options": ["oil drop method", "filtration", "Cathode ray experiment", "spectroscopic method"], "correct": 3, "explanation": "The element helium was discovered in the sun by the spectroscopic method."}, {"q": "Which frequency region is used for heating?", "options": ["infrared region", "microwave region", "ultraviolet region", "radio frequency region"], "correct": 0, "explanation": "Infrared region, around 10^13 Hz, is used for heating."}, {"q": "The S.I. unit of wavelength is", "options": ["meter", "Hz", "K", "m\u207b\u00b9"], "correct": 0, "explanation": "The S.I. unit of wavelength is meter."}, {"q": "The number of waves that passes a given point in one second is called", "options": ["frequency", "speed", "wavelength", "wave number"], "correct": 0, "explanation": "Frequency is defined as the number of waves passing through a point in one second. It is also defined as the number of vibrations made by a particle of the medium in one second."}, {"q": "Polarisation of light was first successfully explained by", "options": ["photoelectric effect", "black body radiation", "None of these", "electromagnetic wave theory"], "correct": 3, "explanation": "Polarisation of light was first successfully explained by electromagnetic wave theory."}, {"q": "The phenomenon of the black body radiation was given by", "options": ["Maxwell", "Rutherford", "Max Planck", "J.J. Thomson"], "correct": 2, "explanation": "Max Planck constructed a theory of blackbody radiation \u2014 the radiation emitted and absorbed by nonreflective bodies in thermal equilibrium with one another."}, {"q": "Which mechanics deals with the study of the motion of all macroscopic objects?", "options": ["Classical mechanics", "Quadrangle Mechanics", "Quantum mechanics", "Both classical and quantum mechanics"], "correct": 0, "explanation": "Classical mechanics is a physical theory describing the motion of macroscopic objects, from projectiles to parts of machinery and astronomical objects, such as spacecraft, planets, stars, and galaxies."}, {"q": "The number of wavelengths per unit length is defined as-", "options": ["wave length", "frequency", "speed", "wavenumber"], "correct": 3, "explanation": "Wavenumber is defined as the number of wavelengths per unit length."}, {"q": "Ultraviolet region is around -", "options": ["10^13 Hz", "10^16 Hz", "10^10 Hz", "10^6 Hz"], "correct": 1, "explanation": "Ultraviolet region is around 10^16 Hz."}, {"q": "Which of the following rays has maximum frequency?", "options": ["X-rays", "IR ray", "UV-rays", "Microwave"], "correct": 0, "explanation": "On the electromagnetic spectrum, frequency increases from radio waves through microwave, infrared, visible, ultraviolet, to X-rays and gamma rays. Among the given options, X-rays have the maximum (highest) frequency."}, {"q": "In vacuum the speed of light depends upon", "options": ["frequency", "velocity of light", "wavelength", "nature of medium"], "correct": 3, "explanation": "The speed of light is independent of the frequency, wavelength, and velocity of the light source. It only depends on the refractive index (nature) of the medium."}, {"q": "Yellow light emitted from a sodium lamp has a wavelength (\u03bb) of 580 nm. Calculate the wavenumber of the yellow light.", "options": ["5.724 \u00d7 10^6 s\u207b\u00b9", "5.17 \u00d7 10^14 m\u207b\u00b9", "1.724 \u00d7 10^6 m\u207b\u00b9", "1.724 \u00d7 10^6 cm\u207b\u00b9"], "correct": 2, "explanation": "Wave number \u03bd\u0304 = 1/\u03bb = 1/(580\u00d710\u207b\u2079 m) = 1.72 \u00d7 10^6 m\u207b\u00b9."}, {"q": "Yellow light emitted from a sodium lamp has a wavelength (\u03bb) of 580 nm. Calculate the frequency of the yellow light.", "options": ["5.17 \u00d7 10^6 s\u207b\u00b9", "1.724 \u00d7 10^14 s\u207b\u00b9", "1.724 \u00d7 10^6 s\u207b\u00b9", "5.17 \u00d7 10^14 s\u207b\u00b9"], "correct": 3, "explanation": "\u03bd = c/\u03bb = (3\u00d710^8 m/s)/(580\u00d710\u207b\u2079 m) = 5.17 \u00d7 10^14 s\u207b\u00b9."}, {"q": "Components of the electromagnetic spectrum in vacuum have the same", "options": ["energy", "wavelength", "velocity", "frequency"], "correct": 2, "explanation": "Components of the electromagnetic spectrum in vacuum have the same velocity. All electromagnetic waves (gamma, infrared, radio waves, etc.) travel at the same constant speed of 3\u00d710^8 m/s in vacuum."}, {"q": "In which year the phenomenon of the black body radiation was given?", "options": ["1917", "1903", "1897", "1900"], "correct": 3, "explanation": "The first concrete explanation for the phenomenon of black body radiation was given by Max Planck in 1900."}];
+const DURATION_SEC = 60*60;
 let current = 0;
-let TOTAL_TIME = 60*60;
-let timeLeft = TOTAL_TIME;
-let timerId = null;
-let candName = "Candidate";
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
 
-const sectionMeta = {
-  A: {label:"Section A · Single Correct", scheme:"+3 / −1", firstIndex:null},
-  B: {label:"Section B · Multiple Correct", scheme:"+3 (all-or-nothing)", firstIndex:null},
-  C: {label:"Section C · Integer (0–9)", scheme:"+3 / 0", firstIndex:null}
-};
-questions.forEach((q,i)=>{ if(sectionMeta[q.sec].firstIndex===null) sectionMeta[q.sec].firstIndex = i; });
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
 
 function startTest(){
-  const n = document.getElementById('candname').value.trim();
-  candName = n || "Candidate";
-  const tInput = parseInt(document.getElementById('timerinput').value, 10);
-  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 60;
-  TOTAL_TIME = mins * 60;
-  timeLeft = TOTAL_TIME;
-  document.getElementById('login').style.display='none';
-  document.getElementById('test').style.display='block';
-  document.getElementById('candlabel').textContent = "Candidate: " + candName;
-  buildSectionTabs();
-  buildPalette();
-  renderQuestion(0);
-  startTimer();
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
 }
-function buildSectionTabs(){
-  const wrap = document.getElementById('sectiontabs');
-  wrap.innerHTML = '';
-  Object.keys(sectionMeta).forEach(key=>{
-    const m = sectionMeta[key];
-    const btn = document.createElement('button');
-    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
-    btn.dataset.sec = key;
-    btn.onclick = ()=>{ goTo(m.firstIndex); };
-    wrap.appendChild(btn);
-  });
-  updateSectionTabHighlight();
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
 }
-function updateSectionTabHighlight(){
-  const sec = questions[current].sec;
-  document.querySelectorAll('#sectiontabs button').forEach(b=>{ b.classList.toggle('active', b.dataset.sec===sec); });
-}
-function buildPalette(){
-  const p = document.getElementById('palette');
-  p.innerHTML = '';
-  questions.forEach((q,i)=>{
-    const b = document.createElement('button');
-    b.textContent = i+1; b.id = 'pal-'+i; b.onclick = ()=>goTo(i);
-    p.appendChild(b);
-  });
-  refreshPalette();
-}
-function statusOf(i){
-  const hasResp = isAnswered(i);
-  if(marked[i] && hasResp) return 'markedans';
-  if(marked[i]) return 'marked';
-  if(hasResp) return 'answered';
-  if(visited[i]) return 'notanswered';
-  return '';
-}
-function isAnswered(i){
-  const r = responses[i];
-  if(r===null || r===undefined) return false;
-  if(Array.isArray(r)) return r.length>0;
-  if(typeof r==='string') return r.trim()!=='';
-  return true;
-}
-function refreshPalette(){
-  questions.forEach((q,i)=>{
-    const b = document.getElementById('pal-'+i);
-    b.className = statusOf(i);
-    b.classList.toggle('current', i===current);
-  });
-  const answered = responses.filter((r,i)=>isAnswered(i)).length;
-  const markedCount = marked.filter(Boolean).length;
-  const notVisited = visited.filter(v=>!v).length;
-  document.getElementById('summarybox').innerHTML =
-    `Answered <span>${answered}</span><br>`+
-    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
-    `Marked for Review <span>${markedCount}</span><br>`+
-    `Not Visited <span>${notVisited}</span>`;
-}
-function renderQuestion(i){
-  current = i; visited[i] = true;
-  const q = questions[i];
-  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
-  const typeLabelMap = {single:'Single Correct (+3 / −1)', numerical:'Integer 0–9 (+3 / 0)', multi:'Multiple Correct (+3 all-or-nothing)'};
-  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
-  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
   document.getElementById('qtext').textContent = q.q;
-  const optWrap = document.getElementById('options');
-  const numWrap = document.getElementById('numwrap');
-  optWrap.innerHTML = '';
-  if(q.type==='numerical'){
-    optWrap.style.display='none'; numWrap.style.display='block';
-    const inp = document.getElementById('numinput');
-    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
-    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
-  } else {
-    numWrap.style.display='none'; optWrap.style.display='flex';
-    const letters = ['A','B','C','D'];
-    q.opts.forEach((optText, idx)=>{
-      const div = document.createElement('div'); div.className='opt';
-      const isSel = q.type==='single' ? responses[i]===idx : (Array.isArray(responses[i]) && responses[i].includes(idx));
-      if(isSel) div.classList.add('selected');
-      const input = document.createElement('input');
-      input.type = q.type==='single' ? 'radio' : 'checkbox';
-      input.name = 'q'+i; input.checked = isSel;
-      input.onchange = ()=>{
-        if(q.type==='single'){ responses[i] = idx; }
-        else{
-          let arr = Array.isArray(responses[i]) ? responses[i].slice() : [];
-          if(input.checked) arr.push(idx); else arr = arr.filter(a=>a!==idx);
-          responses[i] = arr;
-        }
-        refreshPalette(); renderQuestion(i);
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
       };
-      const lbl = document.createElement('span'); lbl.className='lbl'; lbl.textContent = letters[idx]+'.';
-      const txt = document.createElement('span'); txt.textContent = optText;
-      div.appendChild(input); div.appendChild(lbl); div.appendChild(txt);
-      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
-      optWrap.appendChild(div);
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
     });
   }
-  updateSectionTabHighlight(); refreshPalette();
+  renderPalette();
 }
-function goTo(i){ renderQuestion(i); }
-function goPrev(){ if(current>0) renderQuestion(current-1); }
-function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
-function markForReview(){ marked[current]=true; saveAndNext(); }
-function clearResponse(){
-  responses[current] = questions[current].type==='multi' ? [] : null;
-  marked[current] = false; renderQuestion(current);
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
 }
-function startTimer(){
-  updateTimerDisplay();
-  timerId = setInterval(()=>{
-    timeLeft--;
-    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
-    updateTimerDisplay();
-  },1000);
-}
-function updateTimerDisplay(){
-  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
-  const s = (timeLeft%60).toString().padStart(2,'0');
-  const box = document.getElementById('timerbox');
-  box.textContent = `${m}:${s}`;
-  box.classList.toggle('low', timeLeft<=300);
-}
-function confirmSubmit(){
-  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
-  if(confirm(`You have ${unanswered} unanswered question(s). Submit the test now?`)) submitTest();
-}
-function downloadPDF(){
-  const prevTitle = document.title;
-  document.title = candName.replace(/\s+/g,'_') + '_AtomicStructure_Test3_Result_' + new Date().toISOString().slice(0,10);
-  window.print();
-  document.title = prevTitle;
-}
-function submitTest(){
-  clearInterval(timerId);
-  document.getElementById('test').style.display='none';
-  document.getElementById('results').style.display='block';
-  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
-  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
-  let total=0, max=0; let secScore = {A:0,B:0,C:0};
-  let correctCount=0, wrongCount=0, skipCount=0;
-  const reviewHTML = [];
-  questions.forEach((q,i)=>{
-    let marksForQ = 0; let status = 'skip'; max += 3;
-    if(q.type==='single'){
-      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
-      else if(responses[i]===q.ans){ marksForQ=3; status='correct'; correctCount++; }
-      else { marksForQ=-1; status='wrong'; wrongCount++; }
-    } else if(q.type==='numerical'){
-      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
-      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.001){ marksForQ=3; status='correct'; correctCount++; }
-      else { marksForQ=0; status='wrong'; wrongCount++; }
-    } else if(q.type==='multi'){
-      const sel = Array.isArray(responses[i]) ? responses[i] : [];
-      if(sel.length===0){ status='skip'; skipCount++; }
-      else{
-        const exactMatch = sel.length===q.ans.length && sel.every(s=>q.ans.includes(s));
-        if(exactMatch){ marksForQ=3; status='correct'; correctCount++; }
-        else { marksForQ=0; status='wrong'; wrongCount++; }
-      }
-    }
-    total += marksForQ; secScore[q.sec] += marksForQ;
-    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
-  });
-  document.getElementById('scorebig').textContent = total;
-  document.getElementById('maxscore').textContent = max;
-  document.getElementById('scorecards').innerHTML = `
-    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct</div></div>
-    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
-    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
-    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
-    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
-    <div class="scard"><div class="n">${secScore.C}</div><div class="l">Section C Score</div></div>`;
-  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
-}
-function formatTime(sec){ const m = Math.floor(sec/60), s = sec%60; return `${m}m ${s}s`; }
-function renderReviewRow(q,i,status,marksForQ){
-  const letters=['A','B','C','D'];
-  let yourAnsText, correctAnsText;
-  if(q.type==='single'){
-    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
-    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
-  } else if(q.type==='numerical'){
-    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
-    correctAnsText = q.ans;
-  } else {
-    const sel = Array.isArray(responses[i])?responses[i]:[];
-    yourAnsText = sel.length? sel.map(s=>letters[s]).join(', ') : '—';
-    correctAnsText = q.ans.map(s=>letters[s]).join(', ');
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
   }
-  const tagClass = status==='correct'?'ok':status==='wrong'?'bad':'sk';
-  const tagText = status==='correct'?'Correct':status==='wrong'?'Incorrect':'Skipped';
-  const rowClass = status==='correct' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
-  return `<div class="reviewrow ${rowClass}">
-    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
-    <div class="qt">${escapeHTML(q.q)}</div>
-    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
-    <div class="why">${escapeHTML(q.why)}</div>
-  </div>`;
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
 }
-function escapeHTML(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
 </script>
 </body>
 </html>

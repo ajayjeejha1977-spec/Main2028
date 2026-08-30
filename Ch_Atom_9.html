@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Revision Test 2 — Atomic Structure & Dual Nature</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test 2 — Atomic Structure & Dual Nature</h1>
+    <p>Based on your wrong answers • 33 Questions • 60 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 33 &nbsp;|&nbsp; Duration: 60 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test 2 — Atomic Structure & Dual Nature</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/33</div></div>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test 2 — Atomic Structure & Dual Nature</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 132)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [{"q": "Which scientist measured the ratio of electrical charge to the mass of electron?", "options": ["J.J. Thomson", "Chadwick", "Dalton", "Rutherford"], "correct": 0, "explanation": "Thomson found that the mass-to-charge ratio of cathode rays is independent of the nature of the metal electrodes or the gas, which suggested that electrons were fundamental components of all atoms."}, {"q": "The charge on the electron is", "options": ["-1.602 \u00d7 10^19 C", "-1.602 \u00d7 10^-19 C", "9.1094 \u00d7 10^-31 Kg", "6.022 \u00d7 10^23 C"], "correct": 1, "explanation": "The charge on the electron is -1.602 \u00d7 10\u207b\u00b9\u2079 C."}, {"q": "Which of the following phosphorescent material is used in cathode ray discharge tube?", "options": ["Zinc sulphate", "Zinc nitrate", "Zinc sulphide", "Copper sulphide"], "correct": 2, "explanation": "The presence of cathode rays was confirmed by making a hole in the anode which resulted in cathode rays striking the fluorescent zinc sulphide (ZnS) coating on the tube behind the anode."}, {"q": "Atomic mass is denoted by", "options": ["Z", "X", "M", "A"], "correct": 3, "explanation": "The mass number (represented by the letter A) is defined as the total number of protons and neutrons in an atom."}, {"q": "The value of (e/m) for electron is-", "options": ["1.67 \u00d7 10^-27 Kg", "1.60 \u00d7 10^-19 C", "9.10 \u00d7 10^-31 kg", "1.75 \u00d7 10^11 C kg\u207b\u00b9"], "correct": 3, "explanation": "The charge to mass ratio of the electron is e/m = 1.758820 \u00d7 10^11 C/kg, where m = 9.109\u00d710\u207b\u00b3\u00b9 kg and e = 1.602\u00d710\u207b\u00b9\u2079 C."}, {"q": "Which scientist was awarded the Nobel Prize for the conduction of electricity by gases?", "options": ["Dalton", "J.J. Thomson", "Chadwick", "Rutherford"], "correct": 1, "explanation": "Thomson was awarded the Nobel Prize for physics in 1906, for his theoretical and experimental investigations on the conduction of electricity by gases."}, {"q": "What is the mass of electron?", "options": ["1.67 \u00d7 10^-27 kg", "9.109 \u00d7 10^-31 kg", "9.109 \u00d7 10^-27 kg", "1.602 \u00d7 10^-19"], "correct": 1, "explanation": "The rest mass of the electron is 9.1093837015 \u00d7 10\u207b\u00b3\u00b9 kg."}, {"q": "A variation of an element that possesses the same atomic number but a different mass number is called", "options": ["isomers", "isotopes", "isobars", "isotones"], "correct": 1, "explanation": "A variation of an element that possesses the same atomic number but a different mass number is called isotopes."}, {"q": "What is the mass of neutron in kg?", "options": ["1.67493 \u00d7 10^-27 kg", "1.67262 \u00d7 10^-24 kg", "1.67493 \u00d7 10^-24 kg", "1.67262 \u00d7 10^-27 kg"], "correct": 0, "explanation": "The mass of a free neutron is 1.6749286 \u00d7 10\u207b\u00b2\u2077 kg."}, {"q": "Which of the following is/are an example of a fluorescent substance?", "options": ["Diamond", "Calcite", "All of these", "Emeralds"], "correct": 2, "explanation": "Substances that absorb energy from incident electromagnetic waves falling in the ultraviolet range and emit light in the visible range of wavelength are called fluorescent substances. Diamond, calcite and emerald are all fluorescent in nature."}, {"q": "What is the mass of electron in amu?", "options": ["1.00867", "0.00054", "1.00727", "0.00867"], "correct": 1, "explanation": "Mass of electron in amu = mass of electron (in kg) \u00f7 mass of 1 amu = (9.109\u00d710\u207b\u00b3\u00b9 kg)/(1.66\u00d710\u207b\u00b2\u2077 kg) \u2248 0.00054 amu."}, {"q": "What is the relative charge on neutron?", "options": ["0", "+1", "+2", "-1"], "correct": 0, "explanation": "Relative charge on neutron is 0. Neutrons are neutral particles in the nucleus."}, {"q": "The number of electrons, protons and neutrons in a species are equal to 18, 16 and 16 respectively. Assign the proper symbol of the species-", "options": ["\u2081\u2086\u00b3\u00b2S", "\u2081\u2086\u00b3\u00b2S\u207a\u00b9", "\u2081\u2086\u00b3\u00b2S\u00b2\u207b", "\u2081\u2086\u00b3\u00b2S\u00b2\u207a"], "correct": 3, "explanation": "The number of electrons, protons and neutrons in the species are 18, 16 and 16 respectively. The proper symbol of the species is \u2081\u2086\u00b3\u00b2S\u00b2\u207a."}, {"q": "The cathode rays start from ______________ and move towards the______________", "options": ["cathode, cathode", "anode, anode", "cathode, anode", "anode, cathode"], "correct": 2, "explanation": "The cathode is a negatively-charged electrode, and the anode is a positively-charged conductor. Electrons carry negative charge, so they flow off the cathode and are attracted towards the positive electrode, anode. A tiny hole in the anode allows some of the electrons to pass through it, creating a beam of electrons, known as cathode rays."}, {"q": "Calculate the number of protons in \u2083\u2085\u2078\u2070Br.", "options": ["80", "35", "45", "55"], "correct": 1, "explanation": "Atomic number Z=35, Mass number=80. No. of protons p=35, No. of neutrons n=80\u221235=45, No. of electrons e=35."}, {"q": "Certain amount of a gas is enclosed in a discharged tube. Bulb in the arrangement can be made to glow when", "options": ["the amount of gas in the discharged tube is decreased.", "the gas replaced by the same amount of an easily ionisable gas.", "the other gas of low molecular weight is introduced.", "Vaccum is created in the discharge tube."], "correct": 0, "explanation": "If the amount of gas in the tube is decreased, the pressure inside the tube decreases, causing the gas molecules to move more freely and ionize more readily, allowing the bulb to glow (as in a discharge tube experiment)."}, {"q": "The electron was the first fundamental particle that was discovered by", "options": ["Rutherford", "Chadwick", "John Dalton", "J.J. Thomson"], "correct": 3, "explanation": "The subatomic particle electron was discovered by J.J. Thomson."}, {"q": "If the intensity of incident photons is increased then the photoelectric current will-", "options": ["remain same", "decreases", "increase", "first decrease then increase"], "correct": 2, "explanation": "If the number of incident photons increases, then the number of emitted photoelectrons also increases, consequently the photoelectric current increases."}, {"q": "The de Broglie wavelength of an electron is 8.7 \u00d7 10\u207b\u00b9\u00b9 m. The mass of an electron is 9.1 \u00d7 10\u207b\u00b3\u00b9 kg, the velocity of this electron is -", "options": ["8.4 \u00d7 10^3 m/s", "1.2 \u00d7 10\u207b\u2077 m/s", "0.0837 \u00d7 10^8 m/s", "6.9 \u00d7 10\u207b\u2075 m/s"], "correct": 2, "explanation": "By de Broglie's hypothesis, \u03bb = h/(mv), so v = h/(m\u03bb) = (6.626\u00d710\u207b\u00b3\u2074)/(9.109\u00d710\u207b\u00b3\u00b9 \u00d7 8.7\u00d710\u207b\u00b9\u00b9) = 8.37\u00d710^6 m/s = 0.0837\u00d710^8 m/s."}, {"q": "Calculate the mass of a photon with wavelength 3.6 \u00c5", "options": ["6.135 \u00d7 10\u207b\u00b2\u2077 g", "6.135 \u00d7 10\u207b\u00b9\u2079 g", "6.135 \u00d7 10\u207b\u00b2\u2079 kg", "6.135 \u00d7 10\u207b\u00b2\u2077 kg"], "correct": 2, "explanation": "\u03bb = 3.6\u00d710\u207b\u00b9\u2070 m. Using de-Broglie: \u03bb = h/(mv), so m = h/(\u03bbv) = (6.626\u00d710\u207b\u00b3\u2074)/(3.6\u00d710\u207b\u00b9\u2070 \u00d7 3\u00d710^8) = 6.135\u00d710\u207b\u00b2\u2079 kg."}, {"q": "The number of photoelectrons emitted from a metal when light of frequency (\u03bd) is incident on it is proportional to", "options": ["intensity of Light", "threshold frequency", "frequency of light", "All of these"], "correct": 0, "explanation": "The number of photoelectrons emitted is directly proportional to the intensity of light. It does not depend on threshold frequency or frequency of light (those affect the kinetic energy of photoelectrons, not their number)."}, {"q": "The mass of an electron is 9.1 \u00d7 10\u207b\u00b3\u00b9 kg. If its K.E is 3.0 \u00d7 10\u207b\u00b2\u2075 J, calculate its wavelength.", "options": ["896.7 \u00d7 10^4 nm", "896.7 m", "896.7 nm", "896.7 pm"], "correct": 2, "explanation": "From de Broglie's equation, \u03bb = h/mv. Since K.E = 1/2 mv\u00b2, velocity v = \u221a(2\u00b7K.E/m). Substituting K.E = 3.0\u00d710\u207b\u00b2\u2075 J and m = 9.109\u00d710\u207b\u00b3\u00b9 kg gives \u03bb \u2248 896.7 nm."}, {"q": "What will be the wavelength of a ball of mass 0.1 kg moving with a velocity of 10 m/s?", "options": ["0.626 \u00d7 10\u207b\u00b3\u2074 m", "6.626 \u00d7 10\u207b\u00b3\u2070 m", "66.26 \u00d7 10\u207b\u00b3\u2074 m", "6.626 \u00d7 10\u207b\u00b3\u2074 m"], "correct": 3, "explanation": "\u03bb = h/(mv) = (6.625\u00d710\u207b\u00b3\u2074)/(0.1\u00d710) = 6.625\u00d710\u207b\u00b3\u2074 m."}, {"q": "The first use of quantum theory to explain the structure of atom was made by", "options": ["Bohr", "Heisenberg", "Planck", "Einstein"], "correct": 0, "explanation": "It was in 1913 that Niels Bohr put forth the stability of the atom and, with the help of Planck's quantum theory, explained the reason for spectral lines. Bohr first made use of quantum theory to explain the structure of atoms and proposed that the energy of electrons in an atom is quantized."}, {"q": "The ratio of velocity of the electron in 4th and 5th orbit of Be\u00b3\u207a would be -", "options": ["4 : 5", "25 : 16", "16 : 25", "5 : 4"], "correct": 3, "explanation": "V = KZ/n, so V\u2081/V\u2082 = n\u2082/n\u2081 (same Z for same atom). For 4th and 5th orbits: V\u2084/V\u2085 = 5/4."}, {"q": "In hydrogen atom, energy of the first excited state is -3.4 eV. Then find out the K.E. of the same orbit of H-atom.", "options": ["+6.8 eV", "+3.4 eV", "\u221213.6 eV", "+13.6 eV"], "correct": 1, "explanation": "\u2212T.E. = K.E. = \u2212P.E./2. Energy of first excited state (T.E.) = \u22123.4 eV, so K.E. of the same orbit = +3.4 eV."}, {"q": "Potential energy of electron present in He\u207a is -", "options": ["e\u00b2/(2\u03c0\u03b5\u2080r)", "\u22122e\u00b2/(4\u03c0\u03b5\u2080r)", "3e\u00b2/(4\u03c0\u03b5\u2080r)", "\u2212e\u00b2/(4\u03c0\u03b5\u2080r\u00b2)"], "correct": 1, "explanation": "Potential energy of an electron in nth orbit is given as \u2212Ze\u00b2/(4\u03c0\u03b5\u2080r). For He\u207a, Z = 2, so P.E. = \u22122e\u00b2/(4\u03c0\u03b5\u2080r)."}, {"q": "The one electron species having ionization energy of 54.4 eV is", "options": ["H", "Li\u00b2\u207a", "He\u207a", "B\u2074\u207a"], "correct": 2, "explanation": "E = \u221213.6(Z\u00b2/n\u00b2). For ionization energy, n=1: 54.4 = 13.6\u00d7Z\u00b2, so Z\u00b2 = 4, Z = 2 (Helium). Hence the species is He\u207a."}, {"type": "multi", "q": "Which of the following statements (regarding an atom of H) are correct? (select all that apply)", "options": ["Kinetic energy of the electron is maximum in the first orbit", "Potential energy of the electron is maximum in the first orbit", "Radius of the second orbit is four times the radius of the first orbit", "Various energy levels are equally spaced"], "correct": [0, 2], "explanation": "Electrons in higher energy levels (larger orbits) are less bound to the nucleus, leading to higher (less negative) potential energy, so potential energy is minimum (most negative), not maximum, in the first orbit \u2014 kinetic energy is maximum in the first orbit. Radius of nth orbit \u221d n\u00b2, so the second orbit's radius is 4 times the first orbit's radius. Energy levels are not equally spaced; they get closer together at higher n."}, {"type": "multi", "q": "Energy of one electron system according to Bohr theory can be given by formula: (select all that apply)", "options": ["\u221221.79 \u00d7 (Z/n) eV/atom", "\u221221.79 \u00d7 (Z\u00b2/n\u00b2) J/atom", "\u221213.6 \u00d7 (Z\u00b2/n\u00b2) eV/atom", "\u22122\u03c0\u00b2mk\u00b2e\u2074z\u00b2/(n\u00b2\u210f\u00b2)"], "correct": [1, 3], "explanation": "Energy of one electron system according to Bohr theory can be given by the formula: \u221221.79 \u00d7 10\u207b\u00b9\u2079 \u00d7 (Z\u00b2/n\u00b2) J/atom, which is equivalent to \u22122\u03c0\u00b2mk\u00b2e\u2074z\u00b2/(n\u00b2\u210f\u00b2)."}, {"q": "Wave-length of the first line of Paschen Series of hydrogen spectrum is -", "options": ["18750 \u00c5", "6243 \u00c5", "3452 \u00c5", "2854 \u00c5"], "correct": 0, "explanation": "The Paschen series corresponds to spectral lines in the hydrogen spectrum from electronic transitions to the n=3 energy level. Using the Rydberg formula for the first line (n=4 to n=3), the wavelength comes out to be 18750 \u00c5."}, {"q": "Number of possible spectral lines which may be emitted in Bracket series in H atom, if electrons present in 9th excited level returns to ground level, are", "options": ["6", "9", "5", "8"], "correct": 0, "explanation": "9th excited level means n=10. Brackett series corresponds to transitions ending at n=4. The electron can come down from n=10 to n=4 via levels 5,6,7,8,9,10, giving 6 possible spectral lines in the Brackett series."}, {"q": "The first emission line in the atomic spectrum of hydrogen in the Balmer series appears at -", "options": ["5R/36 cm\u207b\u00b9", "7R/144 cm\u207b\u00b9", "9R/400 cm\u207b\u00b9", "3R/4 cm\u207b\u00b9"], "correct": 0, "explanation": "For the first emission line in the Balmer series, n\u2081=2 and n\u2082=3. Wavenumber = R(1/n\u2081\u00b2 \u2212 1/n\u2082\u00b2) = R(1/4 \u2212 1/9) = 5R/36 cm\u207b\u00b9."}];
+const DURATION_SEC = 60*60;
+let current = 0;
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
+
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
+  document.getElementById('qtext').textContent = q.q;
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
+      };
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
+    });
+  }
+  renderPalette();
+}
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
+}
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
+  }
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
