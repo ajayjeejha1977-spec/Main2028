@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Atomic Structure & Nuclear Chemistry — Test 3 (Practice Test-2, JEE Advanced)</title>
+<style>
+  :root{--nta-blue:#0b3d91;--nta-blue-dark:#082a66;--panel-bg:#f0f0f0;--ans-green:#3cb043;--notans-red:#d9363e;--notvisited-gray:#9e9e9e;--marked-purple:#8e44ad;--border:#c9c9c9;--text:#1b1b1b;}
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#e5e5e5;color:var(--text);font-size:14px;}
+  #app{max-width:1200px;margin:0 auto;background:#fff;min-height:100vh;display:flex;flex-direction:column;}
+  #login{display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(135deg,#0b3d91,#082a66);}
+  #login .card{background:#fff;padding:36px 40px;border-radius:6px;width:400px;box-shadow:0 10px 30px rgba(0,0,0,.3);}
+  #login h1{font-size:18px;margin:0 0 4px;color:var(--nta-blue);}
+  #login p{font-size:12px;color:#666;margin:0 0 20px;}
+  #login label{font-size:12px;font-weight:bold;display:block;margin-bottom:6px;}
+  #login input{width:100%;padding:9px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:16px;font-size:14px;}
+  #login button{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:11px;border-radius:4px;font-size:14px;font-weight:bold;cursor:pointer;}
+  #login button:hover{background:var(--nta-blue-dark);}
+  #login .meta{font-size:11px;color:#888;margin-top:14px;line-height:1.6;border-top:1px solid #eee;padding-top:12px;}
+  #topbar{background:var(--nta-blue);color:#fff;padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+  #topbar .title{font-size:14px;font-weight:bold;}
+  #topbar .sub{font-size:11px;opacity:.85;}
+  #timerbox{background:#fff;color:var(--nta-blue);padding:6px 14px;border-radius:4px;font-weight:bold;font-size:15px;letter-spacing:.5px;min-width:110px;text-align:center;}
+  #timerbox.low{color:#c0392b;animation:blink 1s infinite;}
+  @keyframes blink{50%{opacity:.4;}}
+  #sectiontabs{display:flex;background:#dce4f2;border-bottom:1px solid var(--border);overflow-x:auto;}
+  #sectiontabs button{flex:1;min-width:170px;background:transparent;border:none;padding:10px 8px;font-size:12px;font-weight:bold;color:var(--nta-blue);cursor:pointer;border-right:1px solid var(--border);}
+  #sectiontabs button.active{background:var(--nta-blue);color:#fff;}
+  #sectiontabs button .scheme{display:block;font-weight:normal;font-size:10px;opacity:.8;margin-top:2px;}
+  #main{display:flex;flex:1;min-height:0;}
+  #qpane{flex:1;padding:20px 24px;display:flex;flex-direction:column;min-height:520px;}
+  #qheader{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid var(--nta-blue);padding-bottom:8px;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+  #qheader .qnum{font-weight:bold;color:var(--nta-blue);font-size:15px;}
+  #qheader .qtype{font-size:11px;background:#eef2fb;color:var(--nta-blue);padding:3px 9px;border-radius:12px;font-weight:bold;}
+  #qtext{font-size:15px;line-height:1.6;margin-bottom:18px;white-space:pre-wrap;}
+  #options{display:flex;flex-direction:column;gap:10px;flex:1;}
+  .opt{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:6px;padding:10px 12px;cursor:pointer;transition:.15s;}
+  .opt:hover{background:#f5f8ff;border-color:#9fb4e0;}
+  .opt.selected{background:#e9f0ff;border-color:var(--nta-blue);}
+  .opt input{margin-top:3px;flex-shrink:0;}
+  .opt .lbl{font-weight:bold;color:var(--nta-blue);margin-right:4px;}
+  #numwrap{margin-top:4px;}
+  #numwrap input{width:220px;padding:10px 12px;font-size:15px;border:1px solid var(--border);border-radius:6px;}
+  #numwrap .hint{font-size:11px;color:#888;margin-top:6px;}
+  #navrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;border-top:1px solid #eee;padding-top:16px;}
+  #navrow button{padding:9px 16px;border-radius:4px;border:none;font-size:12px;font-weight:bold;cursor:pointer;}
+  .btn-mark{background:#8e44ad;color:#fff;} .btn-clear{background:#7f8c8d;color:#fff;} .btn-save{background:var(--ans-green);color:#fff;}
+  .btn-prev{background:#eee;color:#333;} .btn-submit{background:#c0392b;color:#fff;margin-left:auto;}
+  #navrow button:hover{filter:brightness(1.08);}
+  #side{width:250px;border-left:1px solid var(--border);background:var(--panel-bg);padding:14px;display:flex;flex-direction:column;gap:12px;}
+  #side h3{font-size:12px;margin:0 0 6px;color:var(--nta-blue);}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:10.5px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .sw{width:14px;height:14px;border-radius:3px;flex-shrink:0;display:inline-block;color:#fff;font-size:9px;text-align:center;line-height:14px;}
+  .sw.g{background:var(--ans-green);} .sw.r{background:var(--notans-red);} .sw.n{background:var(--notvisited-gray);} .sw.p{background:var(--marked-purple);}
+  .sw.pg{background:var(--marked-purple);position:relative;} .sw.pg:after{content:'';position:absolute;bottom:-1px;right:-1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;border:1px solid #fff;}
+  #palette{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;}
+  #palette button{aspect-ratio:1;border-radius:4px;border:none;font-size:11px;font-weight:bold;color:#fff;cursor:pointer;position:relative;background:var(--notvisited-gray);}
+  #palette button.answered{background:var(--ans-green);} #palette button.notanswered{background:var(--notans-red);}
+  #palette button.marked{background:var(--marked-purple);} #palette button.markedans{background:var(--marked-purple);}
+  #palette button.markedans:after{content:'';position:absolute;bottom:1px;right:1px;width:6px;height:6px;background:var(--ans-green);border-radius:50%;}
+  #palette button.current{outline:2px solid #000;outline-offset:1px;}
+  #summarybox{font-size:11px;background:#fff;border:1px solid var(--border);border-radius:6px;padding:10px;line-height:1.9;}
+  #summarybox span{float:right;font-weight:bold;}
+  .btn-submitfull{width:100%;background:var(--nta-blue);color:#fff;border:none;padding:10px;border-radius:4px;font-weight:bold;font-size:12px;cursor:pointer;}
+  #results{display:none;padding:24px 30px;max-width:900px;margin:0 auto;}
+  #results h1{color:var(--nta-blue);font-size:22px;margin-bottom:4px;}
+  #results .scorebig{font-size:44px;font-weight:bold;color:var(--nta-blue);}
+  .scorecards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:20px 0;}
+  .scard{background:#f5f7fb;border:1px solid var(--border);border-radius:8px;padding:14px;text-align:center;}
+  .scard .n{font-size:22px;font-weight:bold;color:var(--nta-blue);} .scard .l{font-size:11px;color:#666;margin-top:4px;}
+  .reviewrow{border:1px solid var(--border);border-radius:6px;padding:12px 14px;margin-bottom:8px;}
+  .reviewrow.correct{border-left:4px solid var(--ans-green);} .reviewrow.wrong{border-left:4px solid var(--notans-red);} .reviewrow.skip{border-left:4px solid var(--notvisited-gray);}
+  .reviewrow .qn{font-size:11px;font-weight:bold;color:#888;} .reviewrow .qt{font-size:13px;margin:4px 0 8px;} .reviewrow .ans{font-size:12px;}
+  .reviewrow .why{font-size:11.5px;color:#555;margin-top:6px;background:#f9f9f9;padding:6px 8px;border-radius:4px;}
+  .tag{display:inline-block;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:10px;margin-left:6px;}
+  .tag.ok{background:#e3f6e5;color:#1e7e34;} .tag.bad{background:#fbe4e4;color:#c0392b;} .tag.sk{background:#eee;color:#666;}
+  #retrybtn{background:var(--nta-blue);color:#fff;border:none;padding:10px 20px;border-radius:4px;font-weight:bold;cursor:pointer;margin-top:10px;}
+  @media print{body{background:#fff;} #login,#test,#pdfactions,#retrybtn{display:none !important;} #results{display:block !important;max-width:100%;padding:0;} #app{max-width:100%;} .reviewrow{break-inside:avoid;page-break-inside:avoid;} .scard{break-inside:avoid;}}
+  #pdfactions{display:flex;gap:10px;margin:6px 0 18px;}
+  .btn-pdf{background:#0b3d91;color:#fff;border:none;padding:10px 18px;border-radius:4px;font-weight:bold;cursor:pointer;font-size:12px;}
+  .btn-pdf:hover{filter:brightness(1.1);}
+  @media(max-width:820px){#main{flex-direction:column;} #side{width:100%;border-left:none;border-top:1px solid var(--border);} #palette{grid-template-columns:repeat(8,1fr);}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="login">
+    <div class="card">
+      <h1>Atomic Structure & Nuclear Chemistry</h1>
+      <p>CBT Mock Test 3 &middot; Practice Test-2, JEE Advanced Pattern &middot; Vyas Edification</p>
+      <label for="candname">Candidate Name</label>
+      <input id="candname" placeholder="Enter your name" />
+      <label for="timerinput">Test Duration (minutes)</label>
+      <input id="timerinput" type="number" min="1" max="180" value="60" />
+      <button onclick="startTest()">Start Test</button>
+      <div class="meta">
+        22 Questions &middot; Default 60 Minutes (editable above, matches the book's stated 1 Hr) &middot; Max Marks: 66<br>
+        Section A: Single Correct — Sections 1, 4 &amp; 5 combined (11Q, +3/&minus;1)<br>
+        Section B: Multiple Correct (5Q, +3 only if ALL correct options are selected and none wrong, else 0 — no partial credit, no negative, per the book's own scheme)<br>
+        Section C: Integer Value 0&ndash;9 (6Q, +3/0)<br>
+        Includes the Heisenberg uncertainty-principle comprehension and the spectral-series matching-list question.
+      </div>
+    </div>
+  </div>
+  <div id="test" style="display:none;">
+    <div id="topbar">
+      <div><div class="title">Atomic Structure & Nuclear Chemistry — Test 3</div><div class="sub" id="candlabel"></div></div>
+      <div id="timerbox">60:00</div>
+    </div>
+    <div id="sectiontabs"></div>
+    <div id="main">
+      <div id="qpane">
+        <div id="qheader">
+          <div class="qnum" id="qnumlabel"></div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="qtype" id="reflabel" style="background:#fff4e5;color:#8a5a00;"></div>
+            <div class="qtype" id="qtypelabel"></div>
+          </div>
+        </div>
+        <div id="qtext"></div>
+        <div id="options"></div>
+        <div id="numwrap" style="display:none;">
+          <input type="number" step="1" min="0" max="9" id="numinput" placeholder="Enter a single digit 0–9" />
+          <div class="hint">Answer is a single-digit integer, 0 to 9 inclusive.</div>
+        </div>
+        <div id="navrow">
+          <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
+          <button class="btn-prev" onclick="goPrev()">&larr; Previous</button>
+          <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
+          <button class="btn-submit" onclick="confirmSubmit()">Submit Test</button>
+        </div>
+      </div>
+      <div id="side">
+        <div><h3>Legend</h3>
+          <div class="legend">
+            <div><span class="sw g"></span>Answered</div><div><span class="sw r"></span>Not Answered</div>
+            <div><span class="sw n"></span>Not Visited</div><div><span class="sw p"></span>Marked</div>
+            <div><span class="sw pg"></span>Marked&amp;Ans</div>
+          </div>
+        </div>
+        <div id="summarybox"></div>
+        <h3 style="margin-bottom:0;">Question Palette</h3>
+        <div id="palette"></div>
+        <button class="btn-submitfull" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+  <div id="results">
+    <h1>Test Result</h1>
+    <div id="resultname" style="font-size:12px;color:#666;margin-bottom:4px;"></div>
+    <div id="resultmeta" style="font-size:11px;color:#888;margin-bottom:16px;"></div>
+    <div id="pdfactions"><button class="btn-pdf" onclick="downloadPDF()">⬇ Download Result as PDF</button></div>
+    <div class="scorebig" id="scorebig">0</div>
+    <div style="font-size:12px;color:#666;margin-bottom:10px;">out of <span id="maxscore"></span> marks</div>
+    <div class="scorecards" id="scorecards"></div>
+    <h2 style="font-size:15px;color:var(--nta-blue);margin-top:26px;">Answer Review</h2>
+    <div id="reviewlist"></div>
+    <button id="retrybtn" onclick="location.reload()">Retake Test</button>
+  </div>
+</div>
+<script>
+const questions = [
+/* ===== SECTION A: Single Correct (+3/-1) — combines the book's Sections 1, 4, 5 ===== */
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.1", type:'single', q:"Find the principal quantum number of the excited state of electrons in He⁺ ion which, on transition to the first excited state, emits photons of wavelength 108.5 nm. (Rₕ = 1.09678 × 10⁷ m⁻¹)",
+  opts:["6","5","4","2"], ans:1,
+  why:"1/λ = RₕZ²[1/2² − 1/n²]; solving with Z=2 and λ=108.5nm gives n=5."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.2", type:'single', q:"For a 3s orbital, ψ(3s) ∝ (6 − 6σ + σ²), where σ = 2Zr/3a₀. What is the maximum radial distance of a node from the nucleus?",
+  opts:["(2/3)(3+√3)a₀/Z","(3/2)(3+√3)a₀/Z","(3/2)(3−3√3)a₀/Z","(3/2)(3−√3)a₀/Z"], ans:1,
+  why:"Setting the bracket to zero and solving the quadratic in σ gives σ=3±√3; taking the larger root and converting back to r gives r=(3/2)(3+√3)a₀/Z."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.3", type:'single', q:"A glow-worm of mass 5.0 g emits red light (650 nm) with a power of 0.10 W, entirely in the backward direction. To what speed will it have accelerated after 10 years if released into free space?",
+  opts:["21 ms⁻¹","29 ms⁻¹","31.8 ms⁻¹","0.08 ms⁻¹"], ans:0,
+  why:"Each emitted photon imparts momentum p=E/c; summing over the total energy emitted (power × time) and dividing by the worm's mass gives a final speed of about 21 m/s."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.4", type:'single', q:"Calculate the minimum frequency of photon needed to break the H–H bond, given the energy required to excite one litre of hydrogen gas at 1 atm/298K to the first excited state of atomic hydrogen (H–H bond dissociation energy = 436 kJ/mol).",
+  opts:["98.19 Hz","10.93 × 10¹⁴ Hz","10¹⁵ Hz","6.22 × 10¹⁴ Hz"], ans:1,
+  why:"The H–H bond energy per molecule (436×10³/6.023×10²³ J) equated to hν gives ν≈10.93×10¹⁴ Hz."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.5", type:'single', q:"O₂ undergoes photochemical dissociation into a normal oxygen atom (O) and a more energetic oxygen atom O*, which has 1.967 eV more energy than O. The normal dissociation energy of O₂ is 498 kJ/mol. What is the maximum wavelength effective for the photochemical dissociation of O₂?",
+  opts:["1.01 nm","1.64 nm","174 nm","2.74 nm"], ans:2,
+  why:"Per-molecule dissociation energy (8.27×10⁻¹⁹ J) plus the extra 1.967 eV (3.15×10⁻¹⁹ J) gives a total energy of 11.42×10⁻¹⁹ J; λ=hc/E≈174 nm."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.6", type:'single', q:"If the subsidiary (azimuthal) quantum number of a subenergy level is 4, the maximum and minimum values of the spin multiplicities are:",
+  opts:["9, 1","10, 1","10, 2","4, −4"], ans:2,
+  why:"l=4 gives 2l+1=9 degenerate orbitals. Maximum multiplicity (all unpaired, Hund's rule): 2S+1=2(9/2)+1=10. Minimum multiplicity when fully paired configuration is considered comes out to 2."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-1 Q.7", type:'single', q:"1 mol of He⁺ ion is excited. Spectral analysis shows 50% of ions in the 3rd level, 25% in the 2nd level, and 25% in the ground state. Ionization energy of He⁺ is 54.4 eV. Calculate the total energy evolved when all ions return to the ground state.",
+  opts:["331.13 × 10⁴ J","400.14 × 10⁴ J","10⁴ J","6.66 × 10⁴ J"], ans:0,
+  why:"Summing the energy released by the 3rd-level and 2nd-level populations returning to ground state, scaled by Avogadro's number, gives approximately 331.13×10⁴ J."},
+
+/* ===== SECTION A continued: Comprehension (Sec-4, +3/-1) — Heisenberg uncertainty principle ===== */
+{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.19", type:'single', q:"Heisenberg's uncertainty principle: Δx·Δ(mv) ≥ h/4π. If the uncertainties in position and momentum are equal, the uncertainty in velocity is:",
+  opts:["√(h/π)","√(h/2π)","(1/2m)√(h/π)","None of these"], ans:2,
+  why:"Setting Δx=Δp and solving Δx·Δp≥h/4π gives Δp≥½√(h/π); dividing by mass gives Δv=(1/2m)√(h/π)."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.20", type:'single', q:"If the uncertainty in velocity and position is the same, the uncertainty in momentum will be:",
+  opts:["√(hm/4π)","m√(h/4π)","√(h/4πm)","(1/m)√(h/4π)"], ans:0,
+  why:"Setting Δx=Δv=δ and using Δx·(mΔv)≥h/4π gives mδ²≥h/4π, so δ≥√(h/4πm); then Δp=mδ=√(hm/4π)."},
+{sec:'A', ref:"APSP Practice Test-2 Sec-4 Q.21", type:'single', q:"What would be the minimum uncertainty in de Broglie wavelength of a moving electron accelerated by a potential difference of 6 volts, whose uncertainty in position is 7/22 nm?",
+  opts:["6.25 Å","6 Å","0.625 Å","0.1325 Å"], ans:2,
+  why:"At 6V, λ=√(150/6)=5Å exactly. Using Δx·Δp≥h/4π with Δp≈hΔλ/λ² gives Δλ≥λ²/(4πΔx)=25/(4π×3.18)≈0.625Å."},
+
+/* ===== SECTION A continued: Matching List (Sec-5, +3/-1) ===== */
+{sec:'A', ref:"APSP Practice Test-2 Sec-5 Q.22", type:'single', q:"Match List-I with List-II:\nP. Lyman series  Q. Balmer series  R. In a sample of H-atom for 5→2 transition  S. In a single isolated H-atom for 3→1 transition\n1. Maximum number of spectral lines observed = 6\n2. Maximum number of spectral lines observed = 2\n3. 2nd line has wave number 8R/9\n4. 2nd line has wave number 3R/16",
+  opts:["P=3, Q=4, R=1, S=2","P=1, Q=2, R=4, S=3","P=3, Q=1, R=2, S=4","P=2, Q=3, R=1, S=4"], ans:0,
+  why:"Lyman's 2nd line (3→1) has wave number 8R/9 (P=3); Balmer's 2nd line (4→2) has wave number 3R/16 (Q=4); a sample undergoing 5→2 transitions produces (5−2)(5−2+1)/2=6 maximum lines (R=1); a single isolated atom doing 3→1 can only show 2 lines via 3→2 then 2→1 (S=2)."},
+
+/* ===== SECTION B: Multiple Correct (+3 only if fully correct, else 0 — no negative, no partial) ===== */
+{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.8", type:'multi', q:"Consider six electronic configurations (I)–(VI) for various species (remaining inner orbitals completely filled). Which statement(s) are correct?",
+  opts:["Stability order: II > I > IV > III","Order of spin multiplicity: IV > III = I > II","V does not violate all three rules of electronic configuration","If VI represents A and A⁺, kept near a magnet, A acts as a diamagnetic substance"], ans:[0,1,2],
+  why:"The stability ordering, spin multiplicity ordering, and the statement about configuration V (not violating all three rules) are each correct per the detailed configuration analysis; the diamagnetism claim about VI does not hold."},
+{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.9", type:'multi', q:"Choose the correct statement(s):",
+  opts:["The shape of an atomic orbital depends upon the azimuthal quantum number","The orientation of an atomic orbital depends upon the magnetic quantum number","The energy of an electron in an atomic orbital of a multi-electron atom depends upon the principal quantum number only","The number of degenerate atomic orbitals of one type depends upon the value of the azimuthal quantum number"], ans:[0,1,3],
+  why:"Shape (l), orientation (mₗ), and orbital degeneracy count (2l+1, depending on l) are all correctly described. In multi-electron atoms, energy depends on BOTH n and l, not n alone, making that statement false."},
+{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.10", type:'multi', q:"The radial distribution function P(r) is used to find the most probable radius for a 1s-orbital of a hydrogen-like atom with atomic number Z, given by dP/dr = (4Z³/a₀³)(2r − 2Zr²/a₀)e⁻²Zʳ/ᵃ⁰. Which statement(s) are correct?",
+  opts:["At the point of maximum radial distribution function, dP(r)/dr=0; one antinode is present","Most probable radius of Li²⁺ is a₀/3 pm","Most probable radius of He⁺ is a₀/2 pm","Most probable radius of hydrogen atom is a₀ pm"], ans:[0,1,2,3],
+  why:"Setting dP/dr=0 gives r=a₀/Z as the most probable radius; substituting Z=3 (Li²⁺), Z=2 (He⁺), and Z=1 (H) correctly gives a₀/3, a₀/2, and a₀ respectively — all four statements check out."},
+{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.11", type:'multi', q:"For radial probability curves, which of the following is/are correct?",
+  opts:["The number of maxima in the 2s orbital are two","The number of spherical (radial) nodes is equal to n−l−1","The number of angular nodes is 'l'","3dz² has 3 angular nodes"], ans:[0,1,2],
+  why:"2s indeed shows two radial probability maxima (n−l=2); the radial-node and angular-node formulas are standard and correct. However, dz² has l=2, giving 2 angular nodes, not 3 — making the last option false."},
+{sec:'B', ref:"APSP Practice Test-2 Sec-2 Q.12", type:'multi', q:"A dxy orbital has four lobes between the x- and y-axes. The wave functions of two lobes are positive and the other two are negative. The positive wave function signifies that:",
+  opts:["Both x and y are positive","Both x and y are negative","Either x or y is negative","None of these"], ans:[0,1],
+  why:"dxy's sign follows the product xy — positive when x and y share the same sign, which happens in two separate lobes: one where both are positive, and one where both are negative."},
+
+/* ===== SECTION C: Integer Value 0-9 (+3/0) ===== */
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.13", type:'numerical', q:"The dissociation energy of H₂ is 430.53 kJ/mol. If H₂ is exposed to radiant energy of wavelength 253.7 nm, what % of the radiant energy will be converted into kinetic energy? (Report as nearest integer)", ans:9,
+  why:"Photon energy (7.83×10⁻¹⁹J) minus per-molecule dissociation energy (7.15×10⁻¹⁹J) leaves 0.68×10⁻¹⁹J converted to KE — about 8.68% of the photon energy, rounding to 9."},
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.14", type:'numerical', q:"The IE₁ of H is 13.6 eV. It is exposed to electromagnetic waves of 1028 Å and gives out induced radiation. Find the orbit (n) of this induced radiation.", ans:3,
+  why:"The 1028Å radiation supplies 12.07 eV, exciting the atom to a state where n²=13.6/1.53≈9, giving n=3."},
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.15", type:'numerical', q:"A hydrogen-like atom (atomic number Z) in a higher excited state n makes a transition to the first excited state by emitting two photons of 10.20 eV and 17.00 eV. Alternatively, from the same state it can transition to the second excited state by emitting two photons of 4.25 eV and 5.95 eV. Determine n and Z (IE of hydrogen=13.6 eV). Give the answer as n+Z.", ans:9,
+  why:"Setting up the two energy equations and dividing them to eliminate Z gives n=6; substituting back gives Z=3. So n+Z=6+3=9."},
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.16", type:'numerical', q:"A moving particle has wavelength 5×10⁻⁸m. If its momentum is reduced to half its value, compute the new wavelength. If the answer is 10⁻ˣ m, find x.", ans:7,
+  why:"Since λ=h/p, halving momentum doubles wavelength to 1×10⁻⁷m=10⁻⁷m, so x=7."},
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.17", type:'numerical', q:"According to Bohr theory, Eₙ=−21.76×10⁻¹⁹/n² J for hydrogen. Calculate the longest wavelength of light needed to remove an electron from the third Bohr orbit of the He⁺ ion. If the wavelength is x×10⁻⁷ m and x is an integer, report x.", ans:2,
+  why:"For He⁺ (Z=2), the energy to ionize from n=3 is 9.67×10⁻¹⁹J; converting to wavelength gives λ≈2.055×10⁻⁷m, so x=2."},
+{sec:'C', ref:"APSP Practice Test-2 Sec-3 Q.18", type:'numerical', q:"⁷₄Be captures a K-electron into its nucleus. What is the sum of the mass number and atomic number of the nuclide formed?", ans:10,
+  why:"K-electron capture converts a proton to a neutron: Z drops from 4 to 3, while mass number A=7 stays the same. Sum = 7+3 = 10."}
+];
+
+/* ================= STATE ================= */
+let responses = new Array(questions.length).fill(null);
+let visited = new Array(questions.length).fill(false);
+let marked = new Array(questions.length).fill(false);
+let current = 0;
+let TOTAL_TIME = 60*60;
+let timeLeft = TOTAL_TIME;
+let timerId = null;
+let candName = "Candidate";
+
+const sectionMeta = {
+  A: {label:"Section A · Single Correct", scheme:"+3 / −1", firstIndex:null},
+  B: {label:"Section B · Multiple Correct", scheme:"+3 (all-or-nothing)", firstIndex:null},
+  C: {label:"Section C · Integer (0–9)", scheme:"+3 / 0", firstIndex:null}
+};
+questions.forEach((q,i)=>{ if(sectionMeta[q.sec].firstIndex===null) sectionMeta[q.sec].firstIndex = i; });
+
+function startTest(){
+  const n = document.getElementById('candname').value.trim();
+  candName = n || "Candidate";
+  const tInput = parseInt(document.getElementById('timerinput').value, 10);
+  const mins = (Number.isFinite(tInput) && tInput > 0) ? tInput : 60;
+  TOTAL_TIME = mins * 60;
+  timeLeft = TOTAL_TIME;
+  document.getElementById('login').style.display='none';
+  document.getElementById('test').style.display='block';
+  document.getElementById('candlabel').textContent = "Candidate: " + candName;
+  buildSectionTabs();
+  buildPalette();
+  renderQuestion(0);
+  startTimer();
+}
+function buildSectionTabs(){
+  const wrap = document.getElementById('sectiontabs');
+  wrap.innerHTML = '';
+  Object.keys(sectionMeta).forEach(key=>{
+    const m = sectionMeta[key];
+    const btn = document.createElement('button');
+    btn.innerHTML = m.label + '<span class="scheme">'+m.scheme+'</span>';
+    btn.dataset.sec = key;
+    btn.onclick = ()=>{ goTo(m.firstIndex); };
+    wrap.appendChild(btn);
+  });
+  updateSectionTabHighlight();
+}
+function updateSectionTabHighlight(){
+  const sec = questions[current].sec;
+  document.querySelectorAll('#sectiontabs button').forEach(b=>{ b.classList.toggle('active', b.dataset.sec===sec); });
+}
+function buildPalette(){
+  const p = document.getElementById('palette');
+  p.innerHTML = '';
+  questions.forEach((q,i)=>{
+    const b = document.createElement('button');
+    b.textContent = i+1; b.id = 'pal-'+i; b.onclick = ()=>goTo(i);
+    p.appendChild(b);
+  });
+  refreshPalette();
+}
+function statusOf(i){
+  const hasResp = isAnswered(i);
+  if(marked[i] && hasResp) return 'markedans';
+  if(marked[i]) return 'marked';
+  if(hasResp) return 'answered';
+  if(visited[i]) return 'notanswered';
+  return '';
+}
+function isAnswered(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r==='string') return r.trim()!=='';
+  return true;
+}
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const b = document.getElementById('pal-'+i);
+    b.className = statusOf(i);
+    b.classList.toggle('current', i===current);
+  });
+  const answered = responses.filter((r,i)=>isAnswered(i)).length;
+  const markedCount = marked.filter(Boolean).length;
+  const notVisited = visited.filter(v=>!v).length;
+  document.getElementById('summarybox').innerHTML =
+    `Answered <span>${answered}</span><br>`+
+    `Not Answered <span>${visited.filter((v,i)=>v && !isAnswered(i)).length}</span><br>`+
+    `Marked for Review <span>${markedCount}</span><br>`+
+    `Not Visited <span>${notVisited}</span>`;
+}
+function renderQuestion(i){
+  current = i; visited[i] = true;
+  const q = questions[i];
+  document.getElementById('qnumlabel').textContent = `Question ${i+1} of ${questions.length}`;
+  const typeLabelMap = {single:'Single Correct (+3 / −1)', numerical:'Integer 0–9 (+3 / 0)', multi:'Multiple Correct (+3 all-or-nothing)'};
+  document.getElementById('qtypelabel').textContent = typeLabelMap[q.type];
+  document.getElementById('reflabel').textContent = 'Ref: ' + q.ref;
+  document.getElementById('qtext').textContent = q.q;
+  const optWrap = document.getElementById('options');
+  const numWrap = document.getElementById('numwrap');
+  optWrap.innerHTML = '';
+  if(q.type==='numerical'){
+    optWrap.style.display='none'; numWrap.style.display='block';
+    const inp = document.getElementById('numinput');
+    inp.value = (responses[i]!==null && responses[i]!==undefined) ? responses[i] : '';
+    inp.oninput = ()=>{ responses[i] = inp.value; refreshPalette(); };
+  } else {
+    numWrap.style.display='none'; optWrap.style.display='flex';
+    const letters = ['A','B','C','D'];
+    q.opts.forEach((optText, idx)=>{
+      const div = document.createElement('div'); div.className='opt';
+      const isSel = q.type==='single' ? responses[i]===idx : (Array.isArray(responses[i]) && responses[i].includes(idx));
+      if(isSel) div.classList.add('selected');
+      const input = document.createElement('input');
+      input.type = q.type==='single' ? 'radio' : 'checkbox';
+      input.name = 'q'+i; input.checked = isSel;
+      input.onchange = ()=>{
+        if(q.type==='single'){ responses[i] = idx; }
+        else{
+          let arr = Array.isArray(responses[i]) ? responses[i].slice() : [];
+          if(input.checked) arr.push(idx); else arr = arr.filter(a=>a!==idx);
+          responses[i] = arr;
+        }
+        refreshPalette(); renderQuestion(i);
+      };
+      const lbl = document.createElement('span'); lbl.className='lbl'; lbl.textContent = letters[idx]+'.';
+      const txt = document.createElement('span'); txt.textContent = optText;
+      div.appendChild(input); div.appendChild(lbl); div.appendChild(txt);
+      div.onclick = (e)=>{ if(e.target!==input){ input.click(); } };
+      optWrap.appendChild(div);
+    });
+  }
+  updateSectionTabHighlight(); refreshPalette();
+}
+function goTo(i){ renderQuestion(i); }
+function goPrev(){ if(current>0) renderQuestion(current-1); }
+function saveAndNext(){ if(current<questions.length-1) renderQuestion(current+1); else refreshPalette(); }
+function markForReview(){ marked[current]=true; saveAndNext(); }
+function clearResponse(){
+  responses[current] = questions[current].type==='multi' ? [] : null;
+  marked[current] = false; renderQuestion(current);
+}
+function startTimer(){
+  updateTimerDisplay();
+  timerId = setInterval(()=>{
+    timeLeft--;
+    if(timeLeft<=0){ clearInterval(timerId); submitTest(); return; }
+    updateTimerDisplay();
+  },1000);
+}
+function updateTimerDisplay(){
+  const m = Math.floor(timeLeft/60).toString().padStart(2,'0');
+  const s = (timeLeft%60).toString().padStart(2,'0');
+  const box = document.getElementById('timerbox');
+  box.textContent = `${m}:${s}`;
+  box.classList.toggle('low', timeLeft<=300);
+}
+function confirmSubmit(){
+  const unanswered = responses.filter((r,i)=>!isAnswered(i)).length;
+  if(confirm(`You have ${unanswered} unanswered question(s). Submit the test now?`)) submitTest();
+}
+function downloadPDF(){
+  const prevTitle = document.title;
+  document.title = candName.replace(/\s+/g,'_') + '_AtomicStructure_Test3_Result_' + new Date().toISOString().slice(0,10);
+  window.print();
+  document.title = prevTitle;
+}
+function submitTest(){
+  clearInterval(timerId);
+  document.getElementById('test').style.display='none';
+  document.getElementById('results').style.display='block';
+  document.getElementById('resultname').textContent = `Candidate: ${candName} · Time used: ${formatTime(TOTAL_TIME-timeLeft)}`;
+  document.getElementById('resultmeta').textContent = 'Submitted on: ' + new Date().toLocaleString();
+  let total=0, max=0; let secScore = {A:0,B:0,C:0};
+  let correctCount=0, wrongCount=0, skipCount=0;
+  const reviewHTML = [];
+  questions.forEach((q,i)=>{
+    let marksForQ = 0; let status = 'skip'; max += 3;
+    if(q.type==='single'){
+      if(responses[i]===null||responses[i]===undefined){ status='skip'; skipCount++; }
+      else if(responses[i]===q.ans){ marksForQ=3; status='correct'; correctCount++; }
+      else { marksForQ=-1; status='wrong'; wrongCount++; }
+    } else if(q.type==='numerical'){
+      if(responses[i]===null||responses[i]===undefined||responses[i]===''){ status='skip'; skipCount++; }
+      else if(Math.abs(parseFloat(responses[i])-q.ans)<0.001){ marksForQ=3; status='correct'; correctCount++; }
+      else { marksForQ=0; status='wrong'; wrongCount++; }
+    } else if(q.type==='multi'){
+      const sel = Array.isArray(responses[i]) ? responses[i] : [];
+      if(sel.length===0){ status='skip'; skipCount++; }
+      else{
+        const exactMatch = sel.length===q.ans.length && sel.every(s=>q.ans.includes(s));
+        if(exactMatch){ marksForQ=3; status='correct'; correctCount++; }
+        else { marksForQ=0; status='wrong'; wrongCount++; }
+      }
+    }
+    total += marksForQ; secScore[q.sec] += marksForQ;
+    reviewHTML.push(renderReviewRow(q,i,status,marksForQ));
+  });
+  document.getElementById('scorebig').textContent = total;
+  document.getElementById('maxscore').textContent = max;
+  document.getElementById('scorecards').innerHTML = `
+    <div class="scard"><div class="n">${correctCount}</div><div class="l">Correct</div></div>
+    <div class="scard"><div class="n">${wrongCount}</div><div class="l">Incorrect</div></div>
+    <div class="scard"><div class="n">${skipCount}</div><div class="l">Unattempted</div></div>
+    <div class="scard"><div class="n">${secScore.A}</div><div class="l">Section A Score</div></div>
+    <div class="scard"><div class="n">${secScore.B}</div><div class="l">Section B Score</div></div>
+    <div class="scard"><div class="n">${secScore.C}</div><div class="l">Section C Score</div></div>`;
+  document.getElementById('reviewlist').innerHTML = reviewHTML.join('');
+}
+function formatTime(sec){ const m = Math.floor(sec/60), s = sec%60; return `${m}m ${s}s`; }
+function renderReviewRow(q,i,status,marksForQ){
+  const letters=['A','B','C','D'];
+  let yourAnsText, correctAnsText;
+  if(q.type==='single'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined) ? '—' : letters[responses[i]]+'. '+q.opts[responses[i]];
+    correctAnsText = letters[q.ans]+'. '+q.opts[q.ans];
+  } else if(q.type==='numerical'){
+    yourAnsText = (responses[i]===null||responses[i]===undefined||responses[i]==='') ? '—' : responses[i];
+    correctAnsText = q.ans;
+  } else {
+    const sel = Array.isArray(responses[i])?responses[i]:[];
+    yourAnsText = sel.length? sel.map(s=>letters[s]).join(', ') : '—';
+    correctAnsText = q.ans.map(s=>letters[s]).join(', ');
+  }
+  const tagClass = status==='correct'?'ok':status==='wrong'?'bad':'sk';
+  const tagText = status==='correct'?'Correct':status==='wrong'?'Incorrect':'Skipped';
+  const rowClass = status==='correct' ? 'correct' : status==='wrong' ? 'wrong' : 'skip';
+  return `<div class="reviewrow ${rowClass}">
+    <div class="qn">Q${i+1} · Section ${q.sec} · Ref: ${q.ref} <span class="tag ${tagClass}">${tagText} (${marksForQ>=0?'+':''}${marksForQ})</span></div>
+    <div class="qt">${escapeHTML(q.q)}</div>
+    <div class="ans"><b>Your answer:</b> ${escapeHTML(String(yourAnsText))} &nbsp;|&nbsp; <b>Correct answer:</b> ${escapeHTML(String(correctAnsText))}</div>
+    <div class="why">${escapeHTML(q.why)}</div>
+  </div>`;
+}
+function escapeHTML(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+</script>
+</body>
+</html>
