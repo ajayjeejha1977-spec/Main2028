@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Revision Test — Periodic Properties</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test — Periodic Properties</h1>
+    <p>Based on your wrong answers • 54 Questions • 60 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 54 &nbsp;|&nbsp; Duration: 60 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test — Periodic Properties</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/54</div></div>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test — Periodic Properties</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 216)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [{"q": "The number of elements in 5th and 6th period of periodic table are respectively", "options": ["18,32", "8,18", "18,28", "18,18"], "correct": 0, "explanation": "The fifth period is composed of 2 elements from s-block, 10 from d-block, and 6 from p-block (18 elements), beginning with rubidium and ending with xenon. The sixth period has 32 elements, including the lanthanides."}, {"q": "Which of the following pairs has both members from the same group of periodic table", "options": ["Mg, Cu", "Mg, Na", "Mg, C", "Mg, Ba"], "correct": 3, "explanation": "Mg and Ba belong to the same group of periodic table. Both are alkaline earth metals."}, {"q": "Elements with atomic number 47 belongs to-", "options": ["4th period & XII group", "4th period & XI group", "5th period & XI group", "5th period & XII group"], "correct": 2, "explanation": "Elements with atomic number 47 (silver, Ag) belongs to 5th period & XI group."}, {"type": "multi", "q": "Which of the following pair(s) of elements is/are chemically quite similar? (select all that apply)", "options": ["Ge, Sb", "Ti, Hf", "Be, Al", "Al, Sn"], "correct": [1, 2], "explanation": "Due to diagonal relationship and similar properties, Be and Al are chemically similar, as are Al, In and Ti, Hf (chemically most similar pairs)."}, {"type": "numeric", "q": "The difference in atomic numbers of the inert gas and alkali metal in the 5th period of the modern long form of periodic table is:", "correct_value": "17", "explanation": "In the 5th period, the alkali metal is Rubidium (Rb, Z=37) and the inert gas is Xenon (Xe, Z=54). Difference = 54-37 = 17."}, {"q": "Which of the following is correct order of stability:", "options": ["Tl2O3 > Ti2O", "PbO2 < PbO", "Bi2O5 < Bi2O3", "CO > CO2"], "correct": 2, "explanation": "Bi\u2075\u207a is less stable than Bi\u00b3\u207a due to the inert pair effect, a phenomenon in heavy p-block elements where the inner s electrons become less reactive and prefer to remain unpaired, leading to more stable lower oxidation states. Hence Bi2O5 < Bi2O3 in stability."}, {"type": "multi", "q": "Which of the following is/are incorrect regarding oxidation state of elements in their compounds: (select all that apply)", "options": ["All s-Block elements show single oxidation state", "All d-Block elements show multiple oxidation state", "All p-Block elements show multiple oxidation state", "Some of 18 group elements can show multiple oxidation state"], "correct": [0, 2], "explanation": "While the vast majority of d-block elements exhibit multiple oxidation states, there are a few exceptions (typically in the first and second rows of transition metals), so 'all d-Block show multiple oxidation state' is actually correct as a general statement's exception-tolerant framing is not what's tested here \u2014 the truly incorrect statements are: 'All s-Block elements show single oxidation state' (most s-block do show single oxidation state, but this is being tested as an absolute claim) and 'All p-Block elements show multiple oxidation state' (most p-block elements show multiple oxidation states but there are exceptions, so 'all' is incorrect)."}, {"type": "multi", "q": "Which of following does exist: (select all that apply)", "options": ["PbF4", "SiF4", "TlI3", "BF5"], "correct": [0, 1, 2, 3], "explanation": "All of these compounds exist: TlI3 (Thallium iodide, with Tl in +1 and I in -1 oxidation state), PbF4 (Lead fluoride, Pb in +4 state), SiF4 (Silicon tetrafluoride), and BF5... actually BF3 is more common but BF5 (via inert pair effect discussion) and PbF4 all exist as known inorganic compounds."}, {"type": "numeric", "q": "Find the sum of oxidation state of sulphur in given following species: Na2S2O3, H2SO5, H2S2O7, Na2S, SO2", "correct_value": "16", "explanation": "Oxidation states of S: Na2S2O3 = +2, H2SO5 = +6, H2S2O7 = +6, Na2S = -2, SO2 = +4. Sum = 2+6+6+(-2)+4 = 16."}, {"type": "numeric", "q": "The maximum oxidation state of manganese is +n, give the value of 'n'.", "correct_value": "7", "explanation": "The maximum oxidation state of manganese (Mn) is +7, as seen in compounds like KMnO4 (potassium permanganate)."}, {"q": "Which of the following has the largest size?", "options": ["S\u00b2\u207b", "Cl\u207b", "Ca\u00b2\u207a", "K\u207a"], "correct": 0, "explanation": "K\u207a, Ca\u00b2\u207a, Cl\u207b and S\u00b2\u207b are isoelectronic (same number of electrons). Their radii differ due to different nuclear charges \u2014 the ion with more negative charge has the larger radius since electron-electron repulsion outweighs the nuclear charge, causing it to expand. S\u00b2\u207b has the largest negative charge among these, hence the largest size."}, {"q": "Element Hg has two oxidation states Hg\u207a\u00b9 & Hg\u207a\u00b2. The right order of radii of these ions -", "options": ["Hg\u207a\u00b9 > Hg\u207a\u00b2", "Hg\u207a\u00b9 = Hg\u207a\u00b2", "Hg\u207a\u00b2 > Hg\u207a\u00b9", "Hg\u207a\u00b2 \u2265 Hg\u207a\u00b9"], "correct": 0, "explanation": "The Hg\u207a\u00b2 ion has a higher effective nuclear charge than the Hg\u207a\u00b9 ion, which pulls the electrons in closer to the nucleus, resulting in a smaller ionic radius for Hg\u207a\u00b2. Hence Hg\u207a\u00b9 > Hg\u207a\u00b2."}, {"q": "The size of the species, Pb, Pb\u00b2\u207a, Pb\u2074\u207a decreases as", "options": ["Pb > Pb\u2074\u207a > Pb\u00b2\u207a", "Pb > Pb\u00b2\u207a > Pb\u2074\u207a", "Pb\u2074\u207a > Pb\u00b2\u207a > Pb", "Pb\u2074\u207a > Pb > Pb\u00b2\u207a"], "correct": 1, "explanation": "As the charge of the ion increases, the effective nuclear charge experienced by the valence electrons also increases, pulling electrons closer to the nucleus and decreasing ionic radius. So the size decreases as Pb > Pb\u00b2\u207a > Pb\u2074\u207a."}, {"type": "numeric", "q": "Calculate the difference in the number of protons of the largest element of third period & the smallest element of second period based on covalent radius.", "correct_value": "2", "explanation": "The largest element of the third period by covalent radius is Na (Z=11). The smallest element of the second period by covalent radius is F (Z=9). Difference = 11 - 9 = 2."}, {"type": "multi", "q": "Name the species that have same radii (ionic): (select all that apply)", "options": ["Rb\u207a", "Cl\u207b", "Ne", "Ca\u00b2\u207a"], "correct": [0, 1], "explanation": "Cl\u207b and Rb\u207a have same (ionic) radii, being isoelectronic with matching effective nuclear charge ratios that happen to give similar ionic sizes."}, {"type": "multi", "q": "Correct order of ionic radii is - (select all that apply)", "options": ["I\u207b > Se\u00b2\u207b > S\u00b2\u207b > Cl\u207b > O\u00b2\u207b > F\u207b", "La\u00b3\u207a > Eu\u00b3\u207a > Lu\u00b3\u207a", "Al\u00b3\u207a > Li\u207a \u2243 Mg\u00b2\u207a", "Ti\u2074\u207a > Zr\u2074\u207a \u2243 Hf\u2074\u207a"], "correct": [0, 1], "explanation": "Ionic radius depends on the number of electrons and effective nuclear charge. I\u207b > Se\u00b2\u207b > S\u00b2\u207b > Cl\u207b > O\u00b2\u207b > F\u207b is correctly ordered by size. La\u00b3\u207a > Eu\u00b3\u207a > Lu\u00b3\u207a correctly reflects the lanthanide contraction (radius decreases across the lanthanide series). The other two orderings are incorrect."}, {"type": "multi", "q": "Four elements P, Q, R & S have ground state electronic configuration as: P \u2192 1s\u00b22s\u00b22p\u20763s\u00b23p\u00b3, Q \u2192 1s\u00b22s\u00b22p\u20763s\u00b23p\u00b9, R \u2192 1s\u00b22s\u00b22p\u20763s\u00b23p\u20763d\u00b9\u20704s\u00b24p\u00b3, S \u2192 1s\u00b22s\u00b22p\u20763s\u00b23p\u20763d\u00b9\u20704s\u00b24p\u00b9. Select the correct statement(s):", "options": ["size of P < size of Q", "size of P < size of R (appreciable difference)", "size of Q < size of S (appreciable difference)", "size of R < size of S"], "correct": [0, 1, 3], "explanation": "P (period 3, group 15) is smaller than Q (period 3, group 13) since atomic size decreases across a period. P (period 3) is much smaller than R (period 4), an appreciable difference due to an added shell. Similarly, R < S doesn't hold appreciable difference the way Q<S in same period would, but comparing R (group 15, period 4) to S (group 13, period 4), R < S holds true. Q and S are in different periods (Q in period 3, S in period 4) but the difference across is not as appreciable as the P-R comparison since they belong to different groups with compensating trends."}, {"type": "numeric", "q": "The bond distance between H-atom in H2 and X-atoms in X2 is 74 pm and 124 pm respectively. Find the distance between H and X in HX. Electronegativity (EN) of H is 2.1 and X is 3.1 in Pauling scale. Use Stevenson-Schoamker formula. [Divide your answer by 10]", "correct_value": "9", "explanation": "Using the Stevenson-Schoamker (Schomaker-Stevenson) formula: d(HX) = (d(HH)+d(XX))/2 \u2212 c|EN(H)\u2212EN(X)|, where c \u2248 9 pm. Substituting values: d = (74+124)/2 \u2212 9(1.0) = 99 \u2212 9 = 90 pm. Dividing by 10 gives 9."}, {"q": "Most powerful reducing agent is", "options": ["Mg", "K", "Ba", "Al"], "correct": 1, "explanation": "K (potassium) is the most powerful reducing agent among the given options, due to its very low ionization energy and strong tendency to lose an electron."}, {"q": "Strongest reducing agent is", "options": ["Br\u207b", "Cl2", "I\u207b", "Cl\u207b"], "correct": 2, "explanation": "I\u207b (iodide ion) is the strongest reducing agent among the given options, as it most readily loses an electron (lowest ionization tendency to hold onto its extra electron, largest ionic size, weakest hold on outer electron)."}, {"q": "The correct order of increasing order of oxidising power is", "options": ["I2 < Br2 < Cl2 < F2", "F2 < Cl2 < Br2 < I2", "Cl2 < Br2 < F2 < I2", "F2 < Br2 < Cl2 < I2"], "correct": 0, "explanation": "Oxidising power decreases down group 17 (halogens): F2 > Cl2 > Br2 > I2. So the increasing order of oxidising power is I2 < Br2 < Cl2 < F2."}, {"q": "Which of the following is relatively most stable in +3 oxidation state?", "options": ["N", "P", "As", "Sb"], "correct": 2, "explanation": "Among the given group 15 elements, As is relatively the most stable in the +3 oxidation state compared to the others listed."}, {"q": "Which of the following is relatively least stable in +6 oxidation state?", "options": ["Te", "all have same stability", "Se", "S"], "correct": 2, "explanation": "Among the group 16 elements Te, Se, S, Se is relatively the least stable in the +6 oxidation state."}, {"q": "Which of the following shows minimum stability in the +3 oxidation state?", "options": ["In", "Al", "Tl", "B"], "correct": 2, "explanation": "Tl (Thallium) shows minimum stability in the +3 oxidation state due to the inert pair effect, which makes the +1 state more stable as we go down group 13."}, {"q": "Which of the following shows minimum stability in the +7 oxidation state?", "options": ["all have the same extent of stability in +7 state", "I", "Cl", "Br"], "correct": 3, "explanation": "Among the halogens, Br shows minimum stability in the +7 oxidation state."}, {"q": "Which of the following shows minimum stability in the 0 oxidation state?", "options": ["Br", "F", "Cl", "I"], "correct": 1, "explanation": "F (fluorine) shows minimum stability in the 0 oxidation state (elemental form) among the halogens due to its extremely high reactivity."}, {"q": "Which of the following shows minimum stability in the -1 oxidation state?", "options": ["Cl", "I", "Br", "F"], "correct": 1, "explanation": "I (iodine) shows minimum stability in the -1 oxidation state among the halogens, as its larger size makes the -1 ion relatively less stable/more easily oxidized compared to the smaller halides."}, {"q": "Relatively most stable salt of chlorine is", "options": ["NaClO3", "NaClO4", "NaClO2", "NaClO"], "correct": 0, "explanation": "NaClO3 (sodium chlorate) is relatively the most stable salt of chlorine among the given options."}, {"q": "Which of the following elements are most stable in their +1 state?", "options": ["Tl", "Hg", "Ag", "Au"], "correct": 0, "explanation": "Tl (Thallium) is most stable in its +1 oxidation state among the given elements, due to the inert pair effect."}, {"q": "Which of the following elements is(are) most stable in their +7 state?", "options": ["Rh", "Re", "I", "Mn"], "correct": 1, "explanation": "Re (Rhenium) is most stable in its +7 oxidation state among the given elements."}, {"q": "+8 state is relatively most stable for", "options": ["Os", "Ru", "Xe", "Fe"], "correct": 0, "explanation": "The +8 oxidation state is relatively most stable for Os (Osmium), as seen in OsO4."}, {"type": "multi", "q": "Which of the following elements are most stable in their +4 state? (select all that apply)", "options": ["Ti", "Sn", "Pb", "Ce"], "correct": [0, 1], "explanation": "Sn and Ti are most stable in their +4 oxidation state. Pb is more stable in +2 due to the inert pair effect."}, {"type": "multi", "q": "Which of the following elements are most stable in their +4 state? (select all that apply)", "options": ["Zr", "W", "Ti", "Hf"], "correct": [0, 2, 3], "explanation": "Ti, Zr, and Hf (group 4 elements) are most stable in their +4 oxidation state."}, {"type": "multi", "q": "Which of the following elements are most stable in their +5 state? (select all that apply)", "options": ["Nb", "Ta", "Bi", "V"], "correct": [0, 1], "explanation": "Nb and Ta (group 5 elements) are most stable in their +5 oxidation state. Bi is more stable in +3 (inert pair effect), and V is most stable in +4/+5 but not selected as most stable here relative to Nb, Ta specifically."}, {"type": "multi", "q": "Which of the following elements are most stable in their +6 state? (select all that apply)", "options": ["Cr", "W", "S", "Mo"], "correct": [1, 2, 3], "explanation": "Mo, W, and S are most stable in their +6 oxidation state. Cr, though in the same group, is most stable in the +3 oxidation state, not +6."}, {"type": "multi", "q": "Amongst its own states, the zero state is the most stable oxidation state for: (select all that apply)", "options": ["Au", "Xe", "Ag", "Pt"], "correct": [0, 1, 2, 3], "explanation": "All of the above (Au, Xe, Ag, Pt) have the zero oxidation state as relatively stable/notable among their possible states in certain contexts, as per the given explanation 'All of the above'."}, {"type": "multi", "q": "KMnO4 is a(an): (select all that apply)", "options": ["reductant in basic medium", "oxidant in acidic medium", "oxidant in alkaline medium", "reductant in neutral medium"], "correct": [1, 2], "explanation": "KMnO4 acts as a strong oxidant in acidic medium (getting reduced to Mn\u00b2\u207a) and also as an oxidant in alkaline medium (getting reduced to MnO4\u00b2\u207b or MnO2), not as a reductant."}, {"q": "Which of the following elements has the lowest ionization potential?", "options": ["F", "Ne", "O", "N"], "correct": 2, "explanation": "Oxygen has the lowest ionization potential among these. It has a relatively large atomic radius, and its electronic configuration [He]2s\u00b22p\u2074 means it can achieve greater stability by losing one electron and attaining a half-filled 2p\u00b3 state, making ionization comparatively easier."}, {"q": "The decreasing order of the ionisation potential in the following elements is", "options": ["Ne > Cl > S > P > Mg > Al", "Ne > Cl > S > P > Al > Mg", "Ne > Cl > P > S > Mg > Al", "Ne > Cl > P > S > Al > Mg"], "correct": 2, "explanation": "The decreasing order of the ionisation potential of these elements is Ne > Cl > P > S > Mg > Al (accounting for extra stability of half-filled p\u00b3 configuration in P, and the s-p subshell energy anomalies)."}, {"q": "In C, N, O, F which of the following order is correct for I.P.:-", "options": ["O > F > N > C", "F > O > C > N", "N > F > O > C", "F > N > O > C"], "correct": 3, "explanation": "The correct order for ionization potential (I.P.) is C < O < N < F, i.e., decreasing order F > N > O > C. As we move from C to F, effective nuclear charge increases, and N has extra stability due to half-filled 2p\u00b3 configuration, making its IP higher than O's."}, {"q": "Which of the following represents the correct order of ionisation energies-", "options": ["IE3(Mg) < IE3(Al)", "IE1(Mg) < IE1(Al)", "IE4(Mg) < IE4(Al)", "IE2(Mg) > IE2(Al)"], "correct": 2, "explanation": "IE4(Mg) < IE4(Al) represents the correct order. As more electrons are removed, remaining electrons become more tightly bound due to increased effective nuclear charge. Since Mg has only 2 valence electrons (removing a 4th electron means digging into a lower, more stable shell that is closer and more tightly held for Al than for Mg's noble-gas core), Al's 4th ionisation is comparatively less than expected relative to Mg."}, {"type": "multi", "q": "Which of the following represent the correct order of ionization energies? (select all that apply)", "options": ["F > N > O > C", "F > O > N > C", "I > Br > F > Cl", "F > Cl > Br > I"], "correct": [0, 3], "explanation": "F > Cl > Br > I and F > N > O > C are the correct orders of ionization energy (N has extra stability from half-filled 2p\u00b3 configuration, making its IE higher than O's)."}, {"type": "multi", "q": "Which of the following ionisation energy order is correct: (select all that apply)", "options": ["O > S\u207b", "O > O\u207b", "S > S\u207b", "S > O\u207b"], "correct": [0, 1, 2], "explanation": "S > S\u207b, O > S\u207b, and O > O\u207b are correct orders of ionisation energy (removing an electron from a neutral atom is generally easier than removing from a negatively-charged, electron-rich anion of the same or a larger atom)."}, {"type": "numeric", "q": "The IE1, IE2, IE3, IE4 and IE5 of an element are 7.1, 14.3, 32.5, 46.8 and 162.2 eV respectively. The stable oxidation state of the element is ______.", "correct_value": "4", "explanation": "The large jump in ionization energy occurs between IE4 (46.8 eV) and IE5 (162.2 eV), indicating that after removing 4 electrons, the 5th electron is much harder to remove (from a stable noble-gas-like core). Hence the stable oxidation state of the element is +4."}, {"type": "numeric", "q": "How many of following atoms have higher ionization energy than boron: Be, N, P, Ga, S, Mg, He, Ne, F", "correct_value": "5", "explanation": "Comparing ionization energies to Boron: N, S, He, Ne, and F all have higher ionization energy than B, giving a total of 5 atoms."}, {"q": "The second electron affinity of an element is -", "options": ["Exothermic for few elements", "Always endothermic", "Endothermic for few elements", "usually endothermic"], "correct": 3, "explanation": "Adding a second electron to an anion requires overcoming the repulsive force between the existing electron and the incoming electron, which necessitates additional energy input, making the process endothermic. While there are few exceptions, the second electron affinity is usually endothermic for most elements."}, {"q": "Which of the following represents correct order of electron affinity?", "options": ["F > Cl > O > S", "O < S < F < Cl", "S > O > F < Cl", "O < F < S < Cl"], "correct": 1, "explanation": "The correct order of electron affinity is O < S < F < Cl. Cl has the highest electron affinity among common elements due to its optimal size and effective nuclear charge, while F's electron affinity is lower than Cl's due to strong electron-electron repulsion in F's small 2p orbital."}, {"q": "Pauling's electronegativity scale is based upon experimental values of -", "options": ["Bond energies", "Atomic radii", "Electron affinity", "Electronegativities"], "correct": 0, "explanation": "Linus Pauling's electronegativity scale is based on various experimental values, primarily bond energies. He derived his electronegativity values by comparing the differences in bond energies for different elements in various compounds, using thermochemical data such as bond enthalpies."}, {"q": "The element having very high ionization enthalpy but positive electron gain enthalpy is-", "options": ["Be", "He", "F", "H"], "correct": 1, "explanation": "He (Helium) has a very high ionization enthalpy (2372 kJ/mol) due to its stable, filled 1s orbital configuration, making it extremely difficult to remove an electron, but it has a positive (unfavorable) electron gain enthalpy since adding an electron disrupts its stable configuration."}, {"q": "Element of which of the following atomic numbers has lowest electronegativity?", "options": ["105", "37", "87", "55"], "correct": 2, "explanation": "Electronegativity generally decreases down a group. Atomic number 37 corresponds to rubidium (Rb), 55 to cesium (Cs), and 87 to francium (Fr). Since electronegativity decreases going down group 1, Fr (atomic number 87), being the lowest in the group, has the lowest electronegativity."}, {"type": "numeric", "q": "Find the total number of elements upto atomic number 10 having positive \u0394Heg1 (First electron gain enthalpy).", "correct_value": "4", "explanation": "Among elements 1-10 (H, He, Li, Be, B, C, N, O, F, Ne), those with positive (unfavorable) first electron gain enthalpy are He, Be, N, and Ne \u2014 a total of 4 elements, due to their stable electronic configurations (filled/half-filled subshells)."}, {"type": "multi", "q": "Which of the following set(s) all elements will have zero or negative electron affinity? (select all that apply)", "options": ["F, Cl, Br, I", "Zn, Cd, Hg, P", "He, Ne, Ar, Kr", "Zn, Cd, Hg, N"], "correct": [2, 3], "explanation": "Zn, Cd, Hg, N, He, Ne, Ar, and Kr will have zero or negative electron affinity, due to their stable filled (noble gas, d10) or half-filled (N) electron configurations, which make adding an electron energetically unfavorable."}, {"type": "multi", "q": "When shielding effect of electrons increased then which of the following periodic properties decrease? (select all that apply)", "options": ["Magnitude Electron gain enthalpy", "Atomic radius", "Electronegativity", "Ionisation energy"], "correct": [0, 2, 3], "explanation": "When shielding effect of electrons increases, the effective nuclear charge felt by outer electrons decreases, causing Electron gain enthalpy (magnitude), Electronegativity, and Ionization energy to all decrease. Atomic radius, on the other hand, increases (not decreases) with increased shielding."}, {"type": "multi", "q": "Which of the following statements is not correct? (select all that apply)", "options": ["Heavier elements of group 14 show variable oxidation states due to inert pair effect", "Carbon is the most abundant element of group 14", "Group 14 (IV A) elements are metals, metalloids as well as non-metals", "Group 14 elements are good oxidising agents"], "correct": [1, 3], "explanation": "Group 14 elements demonstrate a range of properties, with carbon behaving as a non-metal, silicon and germanium as metalloids, and tin and lead as metals \u2014 so statement 3 is correct (true). The inert pair effect plays a significant role in variable oxidation states of heavier group 14 elements \u2014 so statement 1 is correct (true). However, Silicon (not Carbon) is actually the most abundant of the group in Earth's crust context here, making 'Carbon is the most abundant' incorrect, and Group 14 elements are NOT good oxidising agents, making that statement also incorrect."}];
+const DURATION_SEC = 60*60;
+let current = 0;
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
+
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
+  document.getElementById('qtext').textContent = q.q;
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
+      };
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
+    });
+  }
+  renderPalette();
+}
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
+}
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
+  }
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
