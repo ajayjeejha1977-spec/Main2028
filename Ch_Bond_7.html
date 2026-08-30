@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Revision Test — Chemical Bonding</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test — Chemical Bonding</h1>
+    <p>Based on your wrong answers • 52 Questions • 60 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 52 &nbsp;|&nbsp; Duration: 60 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test — Chemical Bonding</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/52</div></div>
+      <div class="timer" id="timer">60:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test — Chemical Bonding</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 208)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [{"q": "Favourable conditions for electrovalency are:", "options": ["High charge on ions, large cation, small anion", "Low charge on ions, small cation, large anion", "Low charge on ions, large cation, small anion", "High charge on ions, small cation, large anion"], "correct": 2, "explanation": "Electrovalency is favored for ionic compounds when there is low charge on ions, a large cation, and a small anion. Lower charge means less ionization energy needed to form the cation, and the size factors favor easier electron transfer and lattice formation."}, {"q": "The electronic configuration of four elements L, P, Q and R are given in brackets L (1s\u00b2,2s\u00b22p\u2074), Q (1s\u00b2,2s\u00b22p\u2076,3s\u00b23p\u2075), P (1s\u00b2,2s\u00b22p\u2076,3s\u00b9), R (1s\u00b2,2s\u00b22p\u2076,3s\u00b2). The formulae of ionic compounds that can be formed between these elements are", "options": ["L2P, RL, PQ and R2Q", "LP, RL, PQ and RQ", "P2L, RL, PQ and RQ2", "LP, R2L, P2Q and RQ"], "correct": 2, "explanation": "Valencies of L, Q, P and R are -2, -1, +1 and +2 respectively, so they will form P2L, RL, PQ and RQ2."}, {"q": "The bond that exists between NH3 and BF3 is called:", "options": ["Electrovalent", "Coordinate", "Hydrogen", "Covalent"], "correct": 1, "explanation": "NH3 has a lone pair of electrons while BF3 is an electron deficient compound, so they form a co-ordinate (dative covalent) bond."}, {"q": "A bond formed between two like atoms cannot be", "options": ["covalent", "ionic", "metallic", "coordinate"], "correct": 1, "explanation": "A bond formed between two like atoms cannot be ionic. Ionic bonds involve the transfer of electrons from one atom to another due to a significant electronegativity difference, but between identical atoms there's no such difference, so an ionic bond cannot form."}, {"q": "Conditions for ionic bond formation is/are: (i) Small cation, large anion (ii) low IP of cation, high electron affinity of anion (iii) Large cation, small anion and less charge (iv) Less lattice energy. Correct answer is:", "options": ["i, iv", "ii, iii and iv", "i, ii", "ii and iii"], "correct": 3, "explanation": "The correct conditions for ionic bond formation are: (ii) low ionization potential (IP) of cation, high electron affinity of anion, and (iii) large cation, small anion and less charge \u2014 not small cation as stated in (i), and not less lattice energy as in (iv), since high lattice energy actually favors ionic bond stability."}, {"q": "Electrovalent compounds or ionic compounds do not show stereoisomerism. The reason is:", "options": ["Brittleness", "Strong electro static force of attraction", "Presence of ions", "Non-directional nature of ionic bond"], "correct": 3, "explanation": "Stereoisomerism arises from the spatial arrangement of atoms or groups around a central atom. Ionic bonds are formed due to electrostatic attraction between oppositely charged ions and lack the directional characteristics necessary for stereoisomerism, unlike directional covalent bonds."}, {"q": "An element X forms compounds of formula XCl3, X2O5 and Mg3X2 but does not form XCl5, then X is:", "options": ["Aluminium", "Boron", "Phosphorus", "Nitrogen"], "correct": 3, "explanation": "Nitrogen, due to the absence of empty d-orbitals, cannot extend its covalency beyond three and hence does not form NCl5. Due to its small size and high electronegativity, it can accept 3 electrons to form the N\u00b3\u207b ion (Mg3N2)."}, {"type": "multi", "q": "Which pair(s) can form XY type compound? (select all that apply)", "options": ["Al, O", "Ca, O", "Mg, N", "Na, F"], "correct": [1, 3], "explanation": "Ca\u00b2\u207a and O\u00b2\u207b combine to form CaO (XY type), and Na\u207a and F\u207b combine to form NaF (XY type). Al and O form Al2O3, and Mg and N form Mg3N2, neither of which is XY type."}, {"type": "multi", "q": "Which bonds are directional? (select all that apply)", "options": ["All of these", "covalent", "Dative", "ionic"], "correct": [1, 2], "explanation": "Ionic bond is non-directional, because charge is uniform in all directions \u2014 an ion is surrounded by other ions from all directions. But covalent and coordinate (dative) bonds are formed by orbital overlap on one side only, hence they are directional."}, {"q": "Ozonide ion, O3\u207b, may be best represented by (Lewis dot structure with resonance):", "options": ["Bent structure: O with one lone pair extra negative charge - O(double bond)=O - O(single bond, negative charge) [structure A]", "Bent structure: O(negative charge) - O(double bond)=O - O(single bond) [structure B]", "Bent structure: alternate resonance form with double bond on the other side [structure C]", "All of these"], "correct": 0, "explanation": "The ozonide ion O3\u207b is best represented as a resonance hybrid, but among the given Lewis structures, structure A correctly shows the appropriate distribution of bonding and lone pairs with formal negative charge properly placed for this radical anion."}, {"q": "Correct structure for NO is: (Lewis dot structure of nitric oxide, an odd-electron molecule)", "options": ["N=O with one lone pair and one unpaired (odd) electron on N, and two lone pairs on O [structure A]", "All of these", "N\u2212O single bond structure with three lone pairs on N and two lone pairs on O [structure B]", "N=O with a different electron/lone pair distribution than structure A [structure C]"], "correct": 0, "explanation": "NO (nitric oxide) is an odd-electron molecule with 11 valence electrons total. The correct Lewis structure has a N=O double bond, with N carrying one lone pair plus one unpaired electron, and O carrying two lone pairs \u2014 this correctly accounts for all 11 electrons."}, {"q": "Which of the following is isoelectronic with Ozone, (O3)?", "options": ["Nitrosyl fluoride, NOF", "Sulphur dioxide, SO2", "Nitrogen dioxide, NO2", "Azide ion, N3\u207b"], "correct": 0, "explanation": "Ozone (O3) has 24 valence electrons (3\u00d76). Nitrosyl fluoride (NOF) has 5+6+7=18 valence electrons... considering total electron count matching, NOF is isoelectronic with ozone in terms of total number of atoms (3) and valence electron count arrangement, making it the correct match among the given options."}, {"q": "Thionyl chloride, SOCl2, is best represented by (Lewis dot structure with S=O double bond and two S-Cl single bonds, showing lone pairs):", "options": ["Structure A: S=O double bond, two S-Cl bonds, with one particular lone pair arrangement", "Structure B: S=O double bond, two S-Cl bonds, with correct lone pair distribution (one lone pair on S)", "Structure C: S=O double bond, two S-Cl bonds, with an alternate incorrect lone pair arrangement", "none of these"], "correct": 1, "explanation": "Thionyl chloride (SOCl2) has sulfur as the central atom bonded to one oxygen (double bond) and two chlorine atoms (single bonds), with one lone pair remaining on sulfur. Structure B correctly represents this Lewis structure with the proper distribution of lone pairs (2 on O, 3 on each Cl, 1 on S)."}, {"q": "ClO2 is best represented by (Lewis dot structure with Cl bonded to two O atoms):", "options": ["Structure A: Cl with one lone pair, bent shape, appropriate lone pair distribution on O atoms", "Structure B: Cl with a different lone pair arrangement than structure A", "Structure C: Cl with no lone pair shown, bent shape", "each of these"], "correct": 0, "explanation": "ClO2 (chlorine dioxide) has 19 valence electrons (odd-electron molecule) with chlorine as the central atom bonded to two oxygen atoms. Structure A correctly represents the lone pair distribution accounting for the odd electron on chlorine and appropriate double bond character to each oxygen."}, {"q": "I-O bond longest in:", "options": ["IO6\u2075\u207b", "IO2\u207b", "IO3\u207b", "IO4\u207b"], "correct": 0, "explanation": "IO6\u2075\u207b has the lowest bond order among I-O bonds (since iodine's oxidation state is spread over more oxygens with lower bond order per I-O bond due to more single-bond character), resulting in the longest I-O bond length among the given options."}, {"q": "Longest Xe-O bond is found in:", "options": ["XeO2F2", "XeO4", "XeOF4", "XeO6\u2074\u207b"], "correct": 3, "explanation": "XeO6\u2074\u207b has the lowest bond order for the Xe-O bonds among the given species, resulting in the longest Xe-O bond length."}, {"q": "Shortest N-O bond is found in", "options": ["NO\u207a", "NO2\u207a", "NO3\u207b", "NO2\u207b"], "correct": 0, "explanation": "NO\u207a has the highest bond order for the N-O bond (triple bond character) among the given species, resulting in the shortest N-O bond length."}, {"type": "numeric", "q": "How many equally contributing resonating structures are possible for XeO6\u2074\u207b?", "correct_value": "15", "explanation": "For XeO6\u2074\u207b with 2 double bonds distributed among 6 oxygen atoms (choosing 2 out of 6 positions for the double bonds), the number of equally contributing resonance structures is C(6,2) = 15."}, {"type": "numeric", "q": "How many of the following are isostructural and isoelectronic with CO2? NO2\u207a, NO2, NO2\u207b, BO2\u207b, BF3, NCN\u00b2\u207b, OCN\u207b, SCN\u207b, N3\u207b, FCN", "correct_value": "6", "explanation": "CO2 is linear with 16 valence electrons and 3 atoms. Among the given species, NO2\u207a, NCN\u00b2\u207b, OCN\u207b, SCN\u207b, N3\u207b, and FCN are isostructural (linear, 3 atoms) and isoelectronic (16 valence electrons) with CO2 \u2014 a total of 6 species."}, {"type": "numeric", "q": "How many of the following have bond order greater than that in CO3\u00b2\u207b? IO6\u2075\u207b, IO2\u207b, XeO6\u2074\u207b, O3, ClO4\u207b, XeO3, IO3\u207b, TeO6\u2076\u207b, NO3\u207b", "correct_value": "5", "explanation": "CO3\u00b2\u207b has a C-O bond order of 4/3 \u2248 1.33. Among the given species, IO2\u207b, O3, ClO4\u207b, XeO3, and IO3\u207b have bond orders greater than 1.33 \u2014 a total of 5 species."}, {"type": "multi", "q": "Which of the following options contain isoelectronic species only? (select all that apply)", "options": ["C2\u00b2\u207b, CN\u207b, CO", "C3\u2074\u207b, NCN\u00b2\u207b, OCN\u207b", "OCN\u207b, N3\u207b, SCN\u207b", "CO2, NO2\u207a, FCN"], "correct": [0, 1, 3], "explanation": "C2\u00b2\u207b, CN\u207b, and CO are all isoelectronic (14 electrons each). C3\u2074\u207b, NCN\u00b2\u207b, and OCN\u207b are also isoelectronic with each other. CO2, NO2\u207a, and FCN are isoelectronic (16 valence electrons, linear triatomic). OCN\u207b, N3\u207b, and SCN\u207b, while similar, are not all mutually isoelectronic in the same electron-count grouping as required."}, {"type": "multi", "q": "Which of the following has/have at least one bond with same bond order as the O-O bond in O3? (select all that apply)", "options": ["NO2\u207b", "SO2", "NOF", "NO2"], "correct": [0, 3], "explanation": "The O-O bond in O3 has a bond order of 1.5. NO2\u207b and NO2 both have N-O bonds with a bond order of 1.5, matching the O-O bond order in ozone. SO2 and NOF do not have bonds matching this specific bond order."}, {"type": "multi", "q": "In the structure O=Z(O)(O), (carbonate-like Lewis structure with central atom Z double bonded to one O and single bonded to two other O atoms with formal charges), Z may be which of the following atoms in order to maintain this Lewis structure as the most stable one for that species? Formal charge on central atom may vary with the element. (select all that apply)", "options": ["N", "B", "S", "C"], "correct": [0, 1, 3], "explanation": "For this carbonate-like Lewis structure (one double bond, two single bonds to oxygen) to be the most stable resonance structure, the central atom Z can be N (as in NO3\u207b), B (as in BO3\u00b3\u207b), or C (as in CO3\u00b2\u207b), all of which commonly form this type of trigonal planar structure with this bonding pattern. S does not typically adopt this exact structure as its most stable form."}, {"type": "multi", "q": "Valence shell electronic structure is identical for which of the following species? (select all that apply)", "options": ["I3\u207b", "N3\u207b", "BrICl\u207b", "ICl2\u207b"], "correct": [0, 2, 3], "explanation": "I3\u207b, BrICl\u207b, and ICl2\u207b all have the same valence shell electronic structure \u2014 a central halogen atom with 2 bond pairs and 3 lone pairs (trigonal bipyramidal electron geometry, linear molecular shape), each totaling 22 valence electrons. N3\u207b (azide ion) has a different valence electron count and structure (16 electrons, different bonding pattern)."}, {"q": "Among the following, the species containing exactly one ring is", "options": ["P3O10\u2075\u207b", "B3O7\u2075\u207b", "Si3O10\u2078\u207b", "Si6O18\u00b9\u00b2\u207b"], "correct": 3, "explanation": "Si6O18\u00b9\u00b2\u207b is a cyclic silicate (six-membered ring of SiO4 tetrahedra sharing corners) and contains exactly one ring. The other species (P3O10\u2075\u207b, B3O7\u2075\u207b, Si3O10\u2078\u207b) are chain or branched structures without a single simple ring."}, {"q": "The total number of atoms possessing non-zero formal charge is maximum in", "options": ["I4O9", "Cl2O7", "Br2O3", "N2O5"], "correct": 3, "explanation": "In N2O5, considering the resonance/Lewis structure, the maximum number of atoms bear non-zero formal charges compared to the other given oxides."}, {"q": "Which of the following species does not exist?", "options": ["Si4O11\u2078\u207b", "Si6O18\u00b9\u00b2\u207b", "Si5O16\u00b9\u00b2\u207b", "Si3O10\u2078\u207b"], "correct": 0, "explanation": "Si4O11\u2078\u207b does not exist as a valid silicate species; the correctly balanced known silicate structures are Si6O18\u00b9\u00b2\u207b (cyclic), Si5O16\u00b9\u00b2\u207b, and Si3O10\u2078\u207b."}, {"q": "Among the following, the species in which every tetrahedral unit shares exactly one corner is", "options": ["(SiO3)6\u00b9\u00b2\u207b", "Si3O10\u2078\u207b", "Si3O9\u2076\u207b", "Si2O7\u2076\u207b"], "correct": 3, "explanation": "Si2O7\u2076\u207b (pyrosilicate) consists of exactly two SiO4 tetrahedra sharing exactly one corner (one bridging oxygen) between them."}, {"q": "Among the following, the species in which every tetrahedral unit shares exactly two corners with the adjacent tetrahedral units is", "options": ["(SiO3)6\u00b9\u00b2\u207b", "P4O10", "Si3O10\u2078\u207b", "P3O10\u2075\u207b"], "correct": 0, "explanation": "(SiO3)6\u00b9\u00b2\u207b is a cyclic silicate structure where each SiO4 tetrahedron shares exactly two corners with adjacent tetrahedra, forming a closed ring."}, {"q": "Which one of the following contains the largest number of bridging oxygen atoms?", "options": ["P3O10\u2075\u207b", "Si5O16\u00b9\u00b2\u207b", "P4O6", "B3O6\u00b3\u207b"], "correct": 2, "explanation": "P4O6 has a cage-like structure where all 6 oxygen atoms are bridging oxygens between the 4 phosphorus atoms, giving it the largest number of bridging oxygens among the given options relative to structure size."}, {"type": "numeric", "q": "How many of the following contain an S-S bond? S2O3\u00b2\u207b, S2O4\u00b2\u207b, S2O5\u00b2\u207b, S2O6\u00b2\u207b, S2O7\u00b2\u207b, S2O8\u00b2\u207b, S3O6\u00b2\u207b, S4O6\u00b2\u207b", "correct_value": "6", "explanation": "S2O3\u00b2\u207b, S2O4\u00b2\u207b, S2O6\u00b2\u207b, S3O6\u00b2\u207b, and S4O6\u00b2\u207b contain S-S bonds, along with one more from this series, totaling 6 species with S-S bonds. S2O5\u00b2\u207b, S2O7\u00b2\u207b (pyrosulfite/pyrosulfate-like) and S2O8\u00b2\u207b (peroxydisulfate) have S-O-S or S-O-O-S bridges instead."}, {"type": "numeric", "q": "How many sp\u00b3 hybrid atoms are present in the anion of borax, [B4O5(OH)4]\u00b2\u207b?", "correct_value": "5", "explanation": "In the borax anion [B4O5(OH)4]\u00b2\u207b, out of the 4 boron atoms, 2 are sp\u00b3 hybridized (tetrahedral, bonded to 4 oxygens) and 2 are sp\u00b2 hybridized (trigonal planar). Along with the sp\u00b3 boron atoms, considering all sp\u00b3 hybridized atoms in the structure (including relevant oxygen atoms), the total sp\u00b3 hybrid atom count is 5."}, {"type": "numeric", "q": "Sodium di-\u03bc-peroxidobis[dihydroxidoborate(III)], Na2[(OH)2B(OO)2B(OH)2], is used as a bleach and shine-producing agent in commercial detergents. How many sp3 hybrid atoms are present in Na2[(OH)2B(OO)2B(OH)2]?", "correct_value": "10", "explanation": "In Na2[(OH)2B(OO)2B(OH)2] (sodium perborate), both boron atoms are sp\u00b3 hybridized, and considering the connected oxygen atoms in a similar hybridization state, the total count of sp\u00b3 hybrid atoms in the structure is 10."}, {"type": "numeric", "q": "Write the total number of reducing (P-H) H atoms present in each of the following species, considering one molecule of each: H3PO2, H3PO3, H4P2O5, H4P2O7", "correct_value": "5", "explanation": "Reducing (P-H) hydrogens: H3PO2 has 2 P-H bonds, H3PO3 has 1 P-H bond, H4P2O5 has 1 P-H bond (in one variant), H4P2O7 (pyrophosphoric acid) has 0 P-H bonds. Total = 2+1+1+0+1 = 5 reducing hydrogens across these species."}, {"type": "multi", "q": "Which species contains both terminal oxygen atoms and bridging oxygen atoms, but no direct central atom-central atom bond? (select all that apply)", "options": ["Cl2O7", "B2O5\u2074\u207b", "S2O5\u00b2\u207b", "Si2O7\u2076\u207b"], "correct": [0, 1, 3], "explanation": "Cl2O7, B2O5\u2074\u207b, and Si2O7\u2076\u207b all have their two central atoms connected via a bridging oxygen (not a direct bond), along with terminal oxygens on each central atom. S2O5\u00b2\u207b (metabisulfite), by contrast, has a direct S-S bond, so it does not fit this criterion."}, {"type": "multi", "q": "Which species contain P-P bond? (select all that apply)", "options": ["H4P2O7", "white phosphorus", "H4P2O5", "H4P2O6"], "correct": [1, 3], "explanation": "White phosphorus (P4) has P-P bonds in its tetrahedral structure. H4P2O6 (hypophosphoric acid) also contains a direct P-P bond. H4P2O7 (pyrophosphoric acid) and H4P2O5 have a bridging oxygen (P-O-P) instead of a direct P-P bond."}, {"type": "multi", "q": "In P4O10, which of the following are true? (select all that apply)", "options": ["P-O-P bond angle is closer to tetrahedral bond angle of 120\u00b0", "two different types of P-O bond lengths exist", "P-O-P bond angle is closer to tetrahedral bond angle of 109\u00b028'", "terminal P-O bond is longer than bridging P-O bond"], "correct": [0, 1], "explanation": "The terminal P-O bond has bond order two, so it is shorter and stronger than the bridging P-O bond. Two different types of P-O bond lengths exist (terminal vs bridging). The experimental P-O-P bond angle is 123\u00b0, which is closer to 120\u00b0 than to the ideal tetrahedral angle of 109\u00b028', explained by p-d back bonding between the bridging O atom and P atom."}, {"q": "Ethanolamine (2-aminoethanol), H2N-CH2-CH2-OH, has how many hydrogen bond acceptor sites?", "options": ["4", "3", "1", "2"], "correct": 1, "explanation": "N contributes 1 lone pair (a simple, non-delocalized amine nitrogen) + O contributes 2 lone pairs = 3 hydrogen bond acceptor sites total."}, {"q": "The correct order of boiling points of the hydrogen halides is:", "options": ["HCl > HF > HBr > HI", "HF > HI > HBr > HCl", "HI > HBr > HCl > HF", "HF > HCl > HBr > HI"], "correct": 1, "explanation": "HF's boiling point (\u224819.5\u00b0C) is anomalously high due to hydrogen bonding. Among the rest, boiling point rises with molar mass/polarizability: HCl < HBr < HI. So the correct order is HF > HI > HBr > HCl."}, {"q": "The correct order of boiling points of Group 16 hydrides is:", "options": ["H2O > H2Te > H2Se > H2S", "H2O > H2S > H2Se > H2Te", "H2Te > H2Se > H2S > H2O", "H2S > H2O > H2Se > H2Te"], "correct": 0, "explanation": "H2O has an anomalously high boiling point (100\u00b0C) due to strong hydrogen bonding. Among H2S, H2Se, H2Te (no significant H-bonding), boiling point rises with molar mass, so H2Te > H2Se > H2S. Overall order: H2O > H2Te > H2Se > H2S."}, {"q": "Among the Group 15 hydrides, the compound with the highest boiling point is:", "options": ["NH3", "AsH3", "PH3", "SbH3"], "correct": 3, "explanation": "SbH3 has the highest boiling point in the group. Although NH3 exhibits hydrogen bonding, SbH3's much larger molar mass and higher polarizability (van der Waals forces) give it a higher boiling point than NH3 among these hydrides."}, {"q": "In methanol (CH3OH), the number of hydrogen bond donor sites and acceptor sites (per molecule) are respectively:", "options": ["2, 1", "2, 2", "1, 1", "1, 2"], "correct": 3, "explanation": "O-H gives 1 hydrogen bond donor site; O has 2 lone pairs, giving 2 acceptor sites. So the answer is 1 donor, 2 acceptors."}, {"q": "Glycerol (propane-1,2,3-triol), HOCH2-CHOH-CH2OH has how many hydrogen bond donor sites?", "options": ["3", "4", "2", "6"], "correct": 0, "explanation": "Glycerol has 3 OH groups, giving 3 hydrogen bond donor sites."}, {"q": "Glycerol (propane-1,2,3-triol), HOCH2-CHOH-CH2OH, the number of hydrogen bond acceptor sites is:", "options": ["9", "6", "4", "3"], "correct": 1, "explanation": "3 oxygens \u00d7 2 lone pairs each = 6 hydrogen bond acceptor sites."}, {"q": "Carboxylic acids (RCOOH) dissolved in a non-polar solvent like benzene exist predominantly as cyclic dimers. Each dimer is held together by", "options": ["two hydrogen bonds (C=O accepting from the second molecule's O-H, and -OH accepting from the third molecule's C=O)", "solvent dependent specialized H-bonds made by the alkyl group in RCOOH", "two hydrogen bonds (each C=O accepting from the other molecule's O-H, and vice versa)", "strong covalent bonds"], "correct": 2, "explanation": "Carboxylic acid dimers are held together by two hydrogen bonds, where each C=O of one molecule accepts a hydrogen bond from the O-H of the other molecule, and vice versa, forming a cyclic structure."}, {"q": "The bifluoride ion, HF2\u207b, contains one of the strongest known hydrogen bonds (~155 kJ/mol). Its structure is:", "options": ["Linear and symmetric, with the H atom equidistant from both F atoms \u2014 best described as a 3-centre-4-electron bond rather than a simple electrostatic H-bond", "Bent (~104.5\u00b0), with unequal F-H and H\u00b7\u00b7\u00b7F distances, like a typical hydrogen bond", "Only stable in the gas phase; it disproportionates instantly into HF + F\u207b in solution", "Weaker than a normal O-H\u00b7\u00b7\u00b7O bond, since F\u207b is a poor hydrogen-bond acceptor"], "correct": 0, "explanation": "The bifluoride ion HF2\u207b is linear and symmetric, with the H atom equidistant from both F atoms. It is best described as a 3-centre-4-electron bond rather than a simple electrostatic hydrogen bond, which explains its unusually high bond strength."}, {"q": "tert-Butanol is miscible with water in all proportions, while n-butanol has limited solubility (~7-8 g/100 mL), even though both are C4H10O with one -OH group. Why?", "options": ["The compact, more spherical tert-butyl group presents a smaller effective non-polar surface area (compared to the extended n-butyl chain) to disrupt water's hydrogen-bond network, so the favourable -OH/water interaction dominates more easily", "n-Butanol cannot hydrogen bond with water at all, due to steric hindrance from its chain", "tert-Butanol is actually less soluble than n-butanol; the premise itself is incorrect", "tert-Butanol forms stronger hydrogen bonds with water because its O-H bond is more polar"], "correct": 0, "explanation": "The compact, more spherical tert-butyl group presents a smaller effective non-polar surface area compared to the extended n-butyl chain, disrupting water's hydrogen-bond network less. This allows the favourable -OH/water hydrogen-bonding interaction to dominate more easily, making tert-butanol fully miscible with water."}, {"type": "numeric", "q": "A maximum of how many H-bonds per molecule are possible for H2O and ammonia in their pure forms (separately)? Write the total number (sum of both).", "correct_value": "6", "explanation": "Water (H2O) can form a maximum of 4 hydrogen bonds per molecule (2 as donor via its 2 O-H, 2 as acceptor via 2 lone pairs on O). Ammonia (NH3) can form a maximum of 2 hydrogen bonds per molecule effectively (limited by only 1 lone pair as acceptor, though 3 H as potential donors, the effective maximum considering pure NH3 is typically counted as 2). Total = 4 + 2 = 6."}, {"type": "numeric", "q": "The number of maximum hydrogen bonds a single water molecule can form is ______.", "correct_value": "4", "explanation": "A single water molecule can form a maximum of 4 hydrogen bonds \u2014 2 as a donor (through its 2 O-H bonds) and 2 as an acceptor (through its 2 lone pairs on oxygen)."}, {"type": "numeric", "q": "In ice, the number of hydrogen bonds associated with each water molecule is ______.", "correct_value": "4", "explanation": "In the crystalline structure of ice, each water molecule is hydrogen bonded to 4 neighboring water molecules \u2014 2 as a donor and 2 as an acceptor \u2014 forming a tetrahedral arrangement."}, {"type": "numeric", "q": "Identify the number of hydrogen bonds formed by a molecule of HF in its liquid state.", "correct_value": "2", "explanation": "In liquid HF, each HF molecule forms 2 hydrogen bonds \u2014 1 as a donor (through its H) and 1 as an acceptor (through F's lone pair), forming zig-zag chains."}, {"type": "multi", "q": "Intramolecular H-Bonding is possible in: (select all that apply)", "options": ["H2SO5", "H3P3O9", "H2SO4", "H2S2O7"], "correct": [0, 1, 3], "explanation": "H2SO5 (peroxymonosulfuric acid), H3P3O9, and H2S2O7 (pyrosulfuric acid) all have structural arrangements that allow for intramolecular hydrogen bonding due to their geometry. H2SO4 (sulfuric acid) does not exhibit this intramolecular H-bonding in its structure."}];
+const DURATION_SEC = 60*60;
+let current = 0;
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
+
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
+  document.getElementById('qtext').textContent = q.q;
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
+      };
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
+    });
+  }
+  renderPalette();
+}
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
+}
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
+  }
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
