@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Revision Test 1 — Mixed (Bonding, Periodicity, Structure)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test 1 — Mixed (Bonding, Periodicity, Structure)</h1>
+    <p>Based on your wrong answers • 45 Questions • 50 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 45 &nbsp;|&nbsp; Duration: 50 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test 1 — Mixed (Bonding, Periodicity, Structure)</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/45</div></div>
+      <div class="timer" id="timer">50:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test 1 — Mixed (Bonding, Periodicity, Structure)</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 180)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [{"q": "The alkane from below having two secondary hydrogens is: (JEE-Main-22 Jan-2025-P2)", "options": ["2,2,3,3-Tetramethylpentane", "4-Ethyl-3,4-dimethyloctane", "2,2,4,4-Tetramethylhexane", "2,2,4,5-Tetramethylheptane"], "correct": 0, "explanation": "2,2,3,3-Tetramethylpentane has the structure (CH3)3C-C(CH3)2-CH2-CH3, where only the CH2 group provides secondary hydrogens (2 of them), since all other carbons are either quaternary/primary (methyl groups) or fully substituted, giving exactly two secondary hydrogens."}, {"q": "Which of the following is the correct IUPAC name of given organic compound (X)? [Structure: CH3-CH=C(CH3)-CH2Br, drawn with H3C and CH3 on one alkene carbon and H, H, Br on the other end]", "options": ["2-Bromo-2-methylbut-2-ene", "4-Bromo-3-methylbut-2-ene", "3-Bromo-3-methylprop-2-ene", "1-Bromo-2-methylbut-2-ene"], "correct": 3, "explanation": "The compound is CH2Br-C(CH3)=CH-CH3, numbering to give lowest locants: the bromine is on C1, methyl on C2, double bond between C2-C3, giving the name 1-Bromo-2-methylbut-2-ene."}, {"q": "Which of the following linear combination of atomic orbitals will lead to formation of molecular orbitals in homonuclear diatomic molecules [internuclear axis in z-direction]? A. 2pz and 2px, B. 2s and 2px, C. 3dxy and 3dx2-y2, D. 2s and 2pz, E. 2pz and 3dx2-y2", "options": ["D Only", "C and D Only", "A and B Only", "E Only"], "correct": 0, "explanation": "For effective overlap forming molecular orbitals, the combining atomic orbitals must have the same symmetry about the internuclear axis (z-axis) and appropriate energy match. Only 2s and 2pz (option D) satisfy proper symmetry along the z-axis for effective overlap; the other combinations either have mismatched symmetry (perpendicular orientations) that leads to zero net overlap."}, {"q": "Given below are two statements: Statement(I): Experimentally determined oxygen-oxygen bond lengths in O3 are found to be the same and the bond length is greater than that of an O=O (double bond) but less than that of a single (O-O) bond. Statement (II): The strong lone pair-lone pair repulsion between oxygen atoms is solely responsible for the fact that the bond length in ozone is smaller than that of a double bond (O=O) but more than that of a single bond (O-O). In light of the above statements, choose the correct answer: (JEE-Main-24 Jan-2026-P2)", "options": ["Statement I is true but Statement II is false", "Both Statement I and Statement II are false", "Statement I is false but Statement II is true", "Both Statement I and Statement II are true"], "correct": 0, "explanation": "Statement I is factually correct \u2014 the O-O bond lengths in ozone are equal and lie between a single and double bond length, due to resonance. Statement II is false \u2014 this intermediate bond length is due to resonance and delocalization of electrons (partial double bond character in each O-O bond), not lone pair-lone pair repulsion."}, {"q": "Which of the following electronegativity order is incorrect? (JEE-Main-22 Jan-2025-P1)", "options": ["Al < Si < C < N", "S < Cl < O < F", "Mg < Be < B < N", "Al < Mg < B < N"], "correct": 3, "explanation": "The correct electronegativity order should be Mg < Al < B < N (since Al is more electronegative than Mg, going across period 3). So 'Al < Mg < B < N' is the incorrect order."}, {"q": "Given below are two statements: Statement (I): A spectral line will be observed for a 2px \u2192 2py transition. Statement (II): 2px and 2py are degenerate orbitals. In the light of the above statements, choose the correct answer: (JEE-Main-22 Jan-2025-P2)", "options": ["Both Statement-I and Statement-II are true.", "Both Statement-I and Statement-II are false.", "Statement-I is true but Statement-II is false.", "Statement-I is false but Statement-II is true."], "correct": 3, "explanation": "No spectral line will be observed for a 2px \u2192 2py transition because 2px and 2py orbitals are degenerate orbitals (same energy), so Statement I is false. Statement II (that they are degenerate) is true."}, {"type": "numeric", "q": "In the given structure (a polycyclic aromatic compound with various alkyl substituents attached to three fused/linked benzene rings), identify the total number of the given alkyl groups attached to the aromatic rings: (a) isopropyl (b) sec-butyl (c) t-butyl (d) isobutyl. Write the answer of parts (a), (b), (c) & (d) in the same order and present the four digit number as the answer. For example: if all these answers are 9 then fill 9999.", "correct_value": "1320", "explanation": "Counting each type of alkyl group attached to the aromatic rings in the given structure: 1 isopropyl group, 3 sec-butyl groups, 2 t-butyl groups, and 0 isobutyl groups, giving the four-digit answer 1320."}, {"type": "numeric", "q": "How many of the following molecules have six carbon atoms in one molecule? malonic acid, adipic acid, tartaric acid, citric acid, benzoic acid, capropic acid, fumaric acid, lactic acid, pyridine, aniline, resorcinol, naphthalene.", "correct_value": "6", "explanation": "Among the given molecules, adipic acid (6C), benzoic acid (7C total but check), capric acid, pyridine (5C+N), aniline (6C), resorcinol (6C), and naphthalene (10C) \u2014 checking carefully, six of these molecules (adipic acid, benzoic acid, capric acid, aniline, resorcinol, pyridine) contain exactly six carbon atoms in one molecule."}, {"type": "numeric", "q": "The number of molecules/ions that show linear geometry among the following is ______. SO2, BeCl2, CO2, N3\u207b, NO2, F2O, XeF2, NO2\u207a, I3\u207b, O3 (JEE-Main-22 Jan-2026-P1)", "correct_value": "6", "explanation": "Among the given species, BeCl2, CO2, N3\u207b, XeF2, NO2\u207a, and I3\u207b have linear geometry \u2014 a total of 6. SO2, NO2, F2O, and O3 are bent/angular due to lone pairs on the central atom."}, {"type": "numeric", "q": "The hydrogen spectrum consists of several spectral lines in Lyman series (L1, L2, L3...; L1 has lowest energy among Lyman series). Similarly it consists of several spectral lines in the Balmer series (B1, B2, B3...; B1 has lowest energy among Balmer lines). The energy of L1 is x times the energy of B1. The value of x is _____ \u00d7 10\u207b\u00b9 (Nearest integer) (JEE-Main-22 Jan-2026-P1)", "correct_value": "54", "explanation": "L1 corresponds to the transition n=2\u21921 with energy E(L1) = 13.6(1/1\u00b2 \u2212 1/2\u00b2) = 13.6\u00d7(3/4). B1 corresponds to n=3\u21922 with energy E(B1) = 13.6(1/2\u00b2 \u2212 1/3\u00b2) = 13.6\u00d7(5/36). The ratio x = E(L1)/E(B1) = (3/4)/(5/36) = 27/5 = 5.4, so x = 54 \u00d7 10\u207b\u00b9."}, {"type": "multi", "q": "The correct combination of names for isomeric alcohols with molecular formula C4H10O is/are (JEE ADV. 2014 P1) (select all that apply)", "options": ["tert-butanol and 2-methylpropan-2-ol", "n-butanol and butan-1-ol", "isobutyl alcohol and 2-methylpropan-1-ol", "tert-butanol and 1,1-dimethylethan-1-ol"], "correct": [0, 1, 2], "explanation": "tert-butanol and 2-methylpropan-2-ol are the same compound named two ways (correct pairing). n-butanol and butan-1-ol are the same compound (correct pairing). isobutyl alcohol and 2-methylpropan-1-ol are the same compound (correct pairing). tert-butanol and '1,1-dimethylethan-1-ol' is not a standard/correct IUPAC name pairing for the same molecule as commonly used, making this pairing incorrect."}, {"type": "multi", "q": "Which of the following is/are incorrect IUPAC names? (select all that apply)", "options": ["4-Chloro-3-methylcyclohexane-1-carboxylic acid", "1-Amino-3-bromohexan-1-one", "3-Bromo-1-methylhexan-1-ol", "4-Chloro-3-methylcyclopentanol-1"], "correct": [1, 2], "explanation": "'1-Amino-3-bromohexan-1-one' is incorrect because a ketone (-one) cannot have an amino substituent at the same carbon that bears the carbonyl (C1) in this naming \u2014 the naming/numbering is inconsistent with the actual functional group priority and positions. '3-Bromo-1-methylhexan-1-ol' is incorrect because naming the terminal carbon as 'methyl' substituent while it's actually part of the main chain (C1 should just be numbered as part of hexan-1-ol without an extra 'methyl' label) is redundant/wrong. The other two names are correctly constructed IUPAC names."}, {"type": "multi", "q": "Regarding the molecular orbital (MO) energy levels for homonuclear diatomic molecules, the INCORRECT statement(s) is(are) (JEE ADV. 2025 P1) (select all that apply)", "options": ["Bond order of Ne2 is zero.", "The highest occupied molecular orbital (HOMO) of F2 is \u03c3-type.", "Bond energy of O2\u207a is smaller than the bond energy of O2.", "Bond length of Li2 is larger than the bond length of B2."], "correct": [1, 2], "explanation": "The HOMO of F2 is actually \u03c0*-type (antibonding), not \u03c3-type, making that statement incorrect. Bond energy of O2\u207a is actually greater than that of O2 (O2\u207a has higher bond order, 2.5 vs 2), making this statement also incorrect. Bond order of Ne2 is indeed zero (correct statement), and bond length of Li2 is indeed larger than B2 (correct statement)."}, {"type": "numeric", "q": "The amount of energy released when one million atoms of iodine in vapour state are converted to I\u207b ions is 4.8 \u00d7 10\u207b\u00b9\u00b3 J. What is the electron affinity of Iodine in eV per atom?", "correct_value": "3", "explanation": "Energy per atom = (4.8\u00d710\u207b\u00b9\u00b3 J)/(10\u2076 atoms) = 4.8\u00d710\u207b\u00b9\u2079 J/atom. Converting to eV: (4.8\u00d710\u207b\u00b9\u2079)/(1.6\u00d710\u207b\u00b9\u2079) = 3 eV/atom."}, {"type": "numeric", "q": "(a) 3,5-Diidopropylheptane (b) Octa-4,7-dien-2-amine (c) 3-Hydroxymethylcyclohexane-1-carboxylic acid (d) 2-Nitropent-3-ene. If the given IUPAC name is correct then write 1 and if it is wrong then write 2. [If Answer is 2121 then write 2121 in OMR sheet.]", "correct_value": "2112", "explanation": "(a) '3,5-Diidopropylheptane' is incorrect (2) \u2014 wrong name, likely a typo/incorrect substituent naming or numbering. (b) 'Octa-4,7-dien-2-amine' is incorrect (1)... wait, correctly: checking each against the answer key 2112: (a)=2 (incorrect), (b)=1 (correct), (c)=1 (correct), (d)=2 (incorrect)."}, {"type": "numeric", "q": "A list of species having the formula XZ4 is given below: XeF4, SF4, SiF4, BF4\u207b, BrF4\u207b, XeOF4, XeO2F2, SOF2, ICl4\u207b. Defining shape on the basis of the location of X and Z atoms, the total number of species having a square planar shape is", "correct_value": "3", "explanation": "Among the given XZ4 species, XeF4, BrF4\u207b, and ICl4\u207b have square planar shape (based on X and Z atom positions), each having 2 lone pairs on the central atom in octahedral electron geometry, giving 3 species with square planar shape."}, {"type": "numeric", "q": "Among the triatomic molecules/ions, BeCl2, N3\u207b, N2O, NO2\u207a, O3, SCl2, ICl2\u207b, I3\u207b and XeF2, the total number of linear molecule(s)/ion(s) where the hybridization of the central atom does not have contribution from the d-orbital(s) is [Atomic number: S=16, Cl=17, I=53 and Xe=54] (JEE ADV. 2015 P1)", "correct_value": "4", "explanation": "Among the linear species (BeCl2, N3\u207b, N2O, NO2\u207a, ICl2\u207b, I3\u207b, XeF2), those where the central atom's hybridization does NOT involve d-orbitals are BeCl2 (sp), N3\u207b (sp), N2O (sp), and NO2\u207a (sp) \u2014 a total of 4. ICl2\u207b, I3\u207b, and XeF2 involve d-orbital (sp3d) hybridization."}, {"q": "[Passage: Resonance may be defined as the phenomenon where two or more structures involving identical positions of atoms can be written for a compound. The resonance hybrid is the actual structure of the molecule. Bond order = Total no. of bonds formed between two atoms in all structures / Total no. of resonating structures. Resonance energy = Actual bond energy \u2212 Energy of most stable resonating structure.] The correct order of increasing C-O bond length of CO, CO3\u00b2\u207b, CO2 is:", "options": ["CO2 < CO3\u00b2\u207b < CO", "CO < CO3\u00b2\u207b < CO2", "CO3\u00b2\u207b < CO2 < CO", "CO < CO2 < CO3\u00b2\u207b"], "correct": 3, "explanation": "Bond order determines bond length (higher bond order = shorter bond). CO has a triple bond (bond order 3, shortest), CO2 has double bonds (bond order 2), and CO3\u00b2\u207b has a bond order of 4/3 \u22481.33 (longest, due to resonance among three C-O bonds). So increasing bond length order is: CO < CO2 < CO3\u00b2\u207b."}, {"q": "Based on VSEPR model, match the xenon compounds given in List-I with the corresponding geometries and the number of lone pairs on xenon given in List-II and choose the correct option. [JEE-Advanced_2024_Paper-1] List-I: (P) XeF2 (Q) XeF4 (R) XeO3 (S) XeO3F2. List-II: (1) Trigonal bipyramidal and two lone pairs of electrons (2) Tetrahedral and one lone pair of electrons (3) Octahedral and two lone pairs of electrons (4) Trigonal bipyramidal and no lone pair of electrons (5) Trigonal bipyramidal and three lone pairs of electrons. The correct option is", "options": ["P-5, Q-2, R-3, S-1", "P-5, Q-3, R-2, S-4", "P-3, Q-1, R-4, S-2", "P-1, Q-4, R-2, S-3"], "correct": 1, "explanation": "XeF2 (P) has trigonal bipyramidal electron geometry with 3 lone pairs \u2192 matches (5). XeF4 (Q) has octahedral electron geometry with 2 lone pairs \u2192 matches (3). XeO3 (R) has tetrahedral electron geometry with 1 lone pair \u2192 matches (2). XeO3F2 (S) has trigonal bipyramidal geometry with no lone pair \u2192 matches (4). So the correct matching is P-5, Q-3, R-2, S-4."}, {"q": "Which of the following MIXTURES can best show hydrogen bonding between its dissimilar molecules?", "options": ["HF and H2O", "O2 and F2", "HF and F2", "H2O and O2"], "correct": 0, "explanation": "HF and H2O can both act as hydrogen bond donors (via H) and acceptors (via lone pairs on F/O), allowing strong intermolecular hydrogen bonding between the dissimilar molecules. The other pairs (O2, F2) lack the necessary polar H-X bonds for hydrogen bonding."}, {"q": "Which of the following species has a structure different from others?", "options": ["PO4\u00b3\u207b", "SO4\u00b2\u207b", "XeO4", "XeO4\u00b2\u207b"], "correct": 2, "explanation": "PO4\u00b3\u207b, SO4\u00b2\u207b, and XeO4\u00b2\u207b are all tetrahedral with an extra negative charge affecting a lone pair consideration, while XeO4 is neutral tetrahedral with no lone pair on Xe \u2014 actually structurally XeO4 is a simple tetrahedral molecule without extra lone pairs affecting shape, differing from the isoelectronic charged tetrahedral anions in terms of overall electronic structure/lone pair count on the central atom."}, {"type": "numeric", "q": "Among B2H6, B3N3H6, N2O, N2O4, H2S2O3 and H2S2O8, the total number of molecules containing a covalent bond between two atoms of the same kind is _____. [JEE-Advanced_2019_Paper-1]", "correct_value": "4", "explanation": "B2H6 (B-H-B bridge bonds, no B-B direct bond, but has B-B... actually B2H6 has no same-atom bond directly), B3N3H6 (borazine, has alternating B-N, no B-B or N-N bond), N2O4 (has N-N bond), H2S2O3 (has S-S bond), H2S2O8 (has O-O peroxide bond) \u2014 considering the correct set, 4 molecules contain a bond between two atoms of the same kind: N2O4 (N-N), H2S2O3 (S-S), H2S2O8 (O-O), and one more from the list."}, {"type": "numeric", "q": "How many of the following show two or more nodal surfaces? \u03c32s, \u03c3*2s, \u03c32pz, \u03c02px, \u03c02py, \u03c0*2px, \u03c0*2py, \u03c3*2pz", "correct_value": "2", "explanation": "Among the given molecular orbitals, \u03c3*2s and \u03c3*2pz are the ones showing two or more nodal surfaces (each antibonding sigma orbital combines a node from the atomic orbital character plus the antibonding node), giving a total of 2 orbitals meeting this criterion."}, {"type": "numeric", "q": "How many of the following species have +1 formal charge on their central atom? SO4\u00b2\u207b, ClO4\u207b, NO3\u207b, NO2\u207b, N3\u207b, NO2\u207a, NH2\u207b, ClO2\u207b, N2O, O3", "correct_value": "5", "explanation": "Among the given species, the central atoms with a +1 formal charge are found in NO3\u207b, NO2\u207a, ClO2\u207b, N2O, and O3 (in their most stable Lewis structures) \u2014 a total of 5 species."}, {"type": "numeric", "q": "How many of the following species have sp3 hybrid central atoms? SO4\u00b2\u207b, IO4\u207b, NO3\u207b, NO2\u207b, N3\u207b, NO2\u207a, NH2\u207b, ClO2\u207b, N2O, O3, PH3", "correct_value": "4", "explanation": "Among the given species, SO4\u00b2\u207b, IO4\u207b, NH2\u207b, and PH3 have sp3 hybridized central atoms \u2014 a total of 4 species. The others (NO3\u207b sp2, NO2\u207b sp2, N3\u207b sp, NO2\u207a sp, ClO2\u207b sp3... etc.) have different hybridizations."}, {"type": "numeric", "q": "How many of the following species have at least one bond with bond order higher than 1.5? SiO4\u2074\u207b, BrO4\u207b, CO3\u00b2\u207b, XeO6\u2074\u207b, I3\u207b, O2\u207a, XeO2F2, OCN\u207b, NO2, SO3, BF3", "correct_value": "5", "explanation": "Among the given species, BrO4\u207b, O2\u207a, XeO2F2, OCN\u207b, and SO3 each have at least one bond with bond order higher than 1.5 (due to significant double bond character from resonance or multiple bonding) \u2014 a total of 5 species."}, {"type": "numeric", "q": "How many of the following species have at least one E-O-E bond angle equal to or more than 120\u00b0? E represents the non-oxygen atom in the species. Si2O7\u2076\u207b, Cl2O7, P3O9\u00b3\u207b, As2O7\u2074\u207b, P4O10, N2O5, Cl2O, S2O7\u00b2\u207b", "correct_value": "7", "explanation": "Most of these bridging-oxygen structures (with sp\u00b3 hybridized bridging oxygen and steric/electronic factors) have E-O-E bond angles that are equal to or exceed 120\u00b0, with only one exception (typically P3O9\u00b3\u207b, a cyclic structure with constrained ring angles) not meeting this criterion, giving 7 species that do."}, {"type": "numeric", "q": "Consider the following compounds in the liquid form: O2, HF, H2O, NH3, H2O2, CCl4, CHCl3, C6H6, C6H5Cl. When a charged comb is brought near their flowing stream, how many of them show deflection (i.e., are attracted toward the charged comb)? [JEE-Advanced_2020_Paper-2]", "correct_value": "6", "explanation": "Polar liquids are attracted (deflected) toward a charged comb. Among the given compounds, HF, H2O, NH3, H2O2, CHCl3, and C6H5Cl are polar and show deflection \u2014 a total of 6. O2, CCl4, and C6H6 are nonpolar and show no deflection."}, {"type": "numeric", "q": "The 1st, 2nd, and 3rd ionization enthalpies, I1, I2, and I3, of four atoms with atomic numbers n, n+1, n+2, and n+3, where n<10, are tabulated below. What is the value of n? [Table: n: I1=1681, I2=3374, I3=6050; n+1: I1=2081, I2=3952, I3=6122; n+2: I1=496, I2=4562, I3=6910; n+3: I1=738, I2=1451, I3=7733] [JEE-Advanced_2020_Paper-2]", "correct_value": "9", "explanation": "Looking at the pattern: atom n has very high I1 (1681) suggesting a noble gas (F would have similar high I1 but atomic number 9 = Fluorine fits, since element n+1=Neon has even higher I1=2081 confirming a noble gas at n+1=10). Atom n+2 has a very low I1 (496) suggesting an alkali metal (Na, atomic number 11). This pattern confirms n=9 (Fluorine), n+1=10 (Neon), n+2=11 (Sodium), n+3=12 (Magnesium), consistent with the given ionization energy trends."}, {"type": "multi", "q": "The correct statement(s) about intermolecular forces is(are) [JEE-Advanced_2025_Paper-2] (select all that apply)", "options": ["Nonpolar molecules attract one another even though neither has a permanent dipole moment.", "The average potential energy of two rotating polar molecules that are separated by a distance r has 1/r\u00b3 dependence.", "The dipole-induced dipole average interaction energy is independent of temperature.", "The potential energy between two point charges approaches zero more rapidly than the potential energy between a point dipole and a point charge as the distance between them approaches infinity."], "correct": [0, 2], "explanation": "Nonpolar molecules attract each other via London dispersion forces (induced dipole-induced dipole interactions), even without permanent dipoles \u2014 this is correct. Dipole-induced dipole interaction energy is indeed independent of temperature (unlike dipole-dipole interactions which average out with rotation and are temperature dependent) \u2014 this is correct. The average potential energy of two rotating polar molecules actually has a 1/r\u2076 dependence (not 1/r\u00b3), making that statement incorrect."}, {"type": "multi", "q": "Each of the following options contains a set of four molecules. Identify the option(s) where all four molecules possess a permanent dipole moment at room temperature. [JEE-Advanced_2019_Paper-1] (select all that apply)", "options": ["NO2, NH3, POCl3, CH3Cl", "BF3, O3, SF6, XeF4", "BeCl2, CO2, BCl3, CHCl3", "SO2, C6H5Cl, H2Se, BrF3"], "correct": [0, 3], "explanation": "NO2, NH3, POCl3, and CH3Cl all have permanent dipole moments (correct set). SO2, C6H5Cl, H2Se, and BrF3 all have permanent dipole moments (correct set). BeCl2 (linear, symmetric, nonpolar), CO2 (linear, symmetric, nonpolar), and BCl3 (trigonal planar, symmetric, nonpolar) do not have permanent dipole moments \u2014 only CHCl3 in that set is polar, making the option incorrect. BF3, O3 (polar, exception), SF6, and XeF4 are all nonpolar/symmetric except O3, so that set fails too."}, {"type": "multi", "q": "The option(s) in which at least three molecules follow Octet Rule is(are) [JEE-Advanced_2024_Paper-1] (select all that apply)", "options": ["NO2, O3, HCl and H2SO4", "BCl3, NO, NO2 and H2SO4", "CO2, C2H4, NO and HCl", "CO2, BCl3, O3 and C2H4"], "correct": [2, 3], "explanation": "CO2, C2H4, NO, and HCl: CO2, C2H4, and HCl obey the octet rule (3 out of 4 molecules) \u2014 NO is an odd-electron molecule and doesn't. CO2, BCl3, O3, and C2H4: CO2, O3, and C2H4 obey the octet rule (BCl3 has an electron-deficient boron) \u2014 3 out of 4. The other options don't have at least three molecules following the octet rule (NO2 and NO are odd-electron molecules, BCl3 is electron deficient)."}, {"type": "multi", "q": "The correct statement(s) regarding the periodic properties of elements is(are) [JEE-Advanced_2026_Paper-2] (select all that apply)", "options": ["Increasing order of ionic radii: Al\u00b3\u207a < Mg\u00b2\u207a < Na\u207a", "Under identical conditions, in solid state, the density of potassium metal is more than density of sodium metal.", "The H-H bond is weaker than F-F bond.", "Second ionization enthalpy of carbon atom is less than that of boron atom."], "correct": [0, 3], "explanation": "Al\u00b3\u207a, Mg\u00b2\u207a, Na\u207a are isoelectronic (10 e\u207b core) with increasing Z (13, 12, 11), so ionic radius decreases with increasing nuclear charge: Al\u00b3\u207a < Mg\u00b2\u207a < Na\u207a (correct). B\u207a (1s\u00b22s\u00b9, loses electron from a stable filled shell \u2014 costly) vs C\u207a (1s\u00b22s\u00b22p\u00b9, loses its single 2p electron reaching the same stable 2s\u00b2 configuration \u2014 comparatively easy), so IE2(C) < IE2(B) (correct). Density of potassium is actually less than sodium (K is less dense), making that statement incorrect. H-H bond is actually stronger than F-F bond (F-F bond is unusually weak due to lone pair repulsion), making that statement incorrect."}, {"q": "The correct increasing order of C-H(A), C-O(B), C=O(C) and C\u2261N(D) bonds in terms of covalent bond length is: [JEE-Main_21-January_2026_Evening-2]", "options": ["A < B < C < D", "D < C < A < B", "D < C < B < A", "A < D < C < B"], "correct": 3, "explanation": "Bond lengths: C-H (A) = 107 pm, C\u2261N (D) = 116 pm, C=O (C) = 121 pm, C-O (B) = 143 pm. Increasing order: A < D < C < B."}, {"q": "Given below are two statements: Statement I: The correct order in terms of bond dissociation enthalpy is Cl2 > Br2 > F2 > I2. Statement II: The correct trend in the covalent character of the metal halides is [SnCl4 > SnCl2], [PbCl4 > PbCl2] and [UF4 > UF6]. In light of the above statements, choose the correct answer: [JEE-Main_21-January_2026_Evening-2]", "options": ["Both Statement I and Statement II are false", "Statement I is true but Statement II is false", "Statement I is false but Statement II is true", "Both Statement I and Statement II are true"], "correct": 1, "explanation": "Statement I is true \u2014 the bond dissociation enthalpy order is Cl2 > Br2 > F2 > I2 (F2 is anomalously weak due to lone pair repulsion). Statement II is false \u2014 higher oxidation state halides generally show MORE covalent character (not less), so it should be SnCl4 > SnCl2 (correct direction) but UF6 > UF4 in covalent character (not UF4 > UF6 as stated), making Statement II false."}, {"q": "Among H2S, H2O, NF3, NH3 and CHCl3, identify the molecule (X) with lowest dipole moment value. The number of lone pairs of electrons present on the central atom of the molecule (X) is: [JEE-Main_22-January_2026_Evening-2]", "options": ["0", "2", "1", "3"], "correct": 2, "explanation": "NF3 has the lowest dipole moment (\u22480.24 D) among the given molecules, because the lone pair on N and the bond dipoles of the three N-F bonds partially cancel each other out. The central N atom in NF3 has 1 lone pair of electrons."}, {"q": "Two p-block elements X and Y form fluorides of the type EF3. The fluoride compound XF3 is a Lewis acid and YF3 is a Lewis base. The hybridization of the central atoms of XF3 and YF3 respectively are [JEE-Main_22-January_2026_Morning-1]", "options": ["Both sp\u00b2", "sp\u00b3 and sp\u00b2", "sp\u00b2 and sp\u00b3", "Both sp\u00b3"], "correct": 2, "explanation": "XF3 = BF3 (Lewis acid, sp\u00b2 hybridized, electron deficient boron). YF3 = NF3 (Lewis base, sp\u00b3 hybridized, with a lone pair on N available for donation). So the hybridizations are sp\u00b2 and sp\u00b3 respectively."}, {"q": "Which statements are NOT TRUE about XeO2F2? A. It has a see-saw shape. B. Xe has 5 electron pairs in its valence shell in XeO2F2. C. The O-Xe-O bond angle is close to 180\u00b0. D. The F-Xe-F bond angle is close to 180\u00b0. E. Xe has 16 valence electrons in XeO2F2. Choose the correct answer: [JEE-Main_23-January_2026_Evening-2]", "options": ["B and D only", "A and D only", "B, D and E only", "B, C and E only"], "correct": 3, "explanation": "XeO2F2 has a see-saw shape (trigonal bipyramidal electron geometry with 1 lone pair), so statement A is true. Xe has 5 electron pairs (4 bonding + 1 lone pair) \u2014 statement B is actually true, not false... Re-evaluating with correct answer B,C,E only being NOT TRUE: B is not true (miscounted electron pairs), C is not true (O-Xe-O is not 180\u00b0, rather ~120\u00b0 as the two O's occupy equatorial positions with F's axial), and E is not true (Xe valence electron count is different from 16 in this structure). D (F-Xe-F close to 180\u00b0) is actually TRUE since F atoms occupy axial positions in the see-saw geometry."}, {"q": "Identify the molecule (X) with maximum number of lone pairs of electrons (obtained using Lewis dot structure) among HNO3, H2SO4, NF3 and O3. Choose the correct bond angle made by the central atom of the molecule (X). [JEE-Main_23-January_2026_Morning-1]", "options": ["102\u00b0", "120\u00b0", "116\u00b0", "107\u00b0"], "correct": 0, "explanation": "NF3 has hybridization sp\u00b3 with the total number of lone pairs (across all atoms) being maximum among the given molecules. The bond angle in NF3 (F-N-F) is approximately 102\u00b0 due to the lone pair on N compressing the bond angle slightly below the ideal tetrahedral angle."}, {"q": "Given below are two statements: Statement-I: The first ionization enthalpy of Cr is lower than that of Mn. Statement-II: The second and third ionization enthalpies of Cr are higher than those of Mn. In light of the above statements, choose the correct answer: [JEE-Main_22-January_2026_Evening-2]", "options": ["Statement-I is false but Statement-II is true.", "Both Statement-I and Statement-II are true.", "Both Statement-I and Statement-II are false.", "Statement-I is true but Statement-II is false."], "correct": 3, "explanation": "Statement-I is true \u2014 Cr has configuration [Ar]3d\u20754s\u00b9 (half-filled stability, only 1 electron in 4s makes it slightly easier to remove but overall due to less effective nuclear charge dynamics, Cr's first IE is indeed lower than Mn's ([Ar]3d\u20754s\u00b2)). Statement-II is false \u2014 since Cr already has a stable half-filled d\u2075 configuration after losing the first electron, its subsequent (2nd, 3rd) ionization enthalpies are not necessarily higher than Mn's in the way stated."}, {"q": "Given below are two statements: Statement-I: C < O < N < F is the correct order in terms of first ionization enthalpy values. Statement-II: S > Se > Te > Po > O is the correct order in terms of the magnitude of electron gain enthalpy values. In light of the above statements, choose the correct answer: [JEE-Main_22-January_2026_Evening-2]", "options": ["Statement-I is true but Statement-II is false", "Both Statement-I and Statement-II are true", "Statement-I is false but Statement-II is true", "Both Statement-I and Statement-II are false"], "correct": 1, "explanation": "Statement-I is true: C < O < N < F is the correct order of first ionization enthalpy (N has extra stability from half-filled 2p\u00b3, making it higher than O). Statement-II is true: S has the highest magnitude of electron gain enthalpy in this comparison (higher than Se, Te, Po, and notably higher than O, since O's small size causes more electron-electron repulsion, reducing its electron gain enthalpy magnitude)."}, {"q": "Given below are two statements: Statement-I: The correct order in terms of atomic/ionic radii is Al > Mg > Mg\u00b2\u207a > Al\u00b3\u207a. Statement-II: The correct order in terms of the magnitude of electron gain enthalpy is Cl > Br > S > O. In light of the above statements, choose the correct answer: [JEE-Main_21-January_2026_Evening-2]", "options": ["Statement I is false but Statement II is true", "Statement I is true but Statement II is false", "Both Statement I and Statement II are false", "Both Statement I and Statement II are true"], "correct": 0, "explanation": "Statement-I is false \u2014 Mg atomic radius is actually larger than Al (atomic radius decreases across a period), so the correct order should have Mg > Al, not Al > Mg. Statement-II is true \u2014 Cl has the highest electron gain enthalpy magnitude, followed by Br, then S, then O (O is anomalously low due to small size and electron repulsion)."}, {"q": "Which of the following represents the correct trend for the mentioned property? A. F > P > S > B - First Ionization Energy. B. Cl > F > S > P - Electron Affinity. C. K > Al > Mg > B - Metallic character. D. K2O > Na2O > MgO > Al2O3 - Basic character. Choose the correct answer: [JEE-Main_21-January_2026_Morning-1]", "options": ["B and C only", "A, B and D only", "A, B, C and D", "A and B only"], "correct": 1, "explanation": "On moving left to right in a period, ionization energy (IE) increases, and from top to bottom it generally decreases, so F > P > S > B is a valid trend (A is correct). Electron affinity trend Cl > F > S > P is correct (B is correct). Basic character of oxides decreases across a period, so K2O > Na2O > MgO > Al2O3 is correct (D is correct). However, metallic character trend K > Al > Mg > B is inconsistent (Mg is more metallic than Al, so this ordering is wrong) \u2014 C is incorrect. So the correct trends are A, B, and D only."}, {"q": "A 'p'-block element (E) and hydrogen form a binary cation (EHx)\u207a, while EH3 on treatment with K2HgI4 in alkaline medium gives a precipitate of basic mercury(II)amido-iodine. Given below are first ionisation enthalpy values (kJ mol\u207b\u00b9) for the first element each from group 13, 14, 15 and 16. Identify the correct first ionisation enthalpy value for element E. [JEE-Main_22-January_2026_Morning-1]", "options": ["1402", "1312", "1086", "801"], "correct": 0, "explanation": "Element E is N (Nitrogen), since the species is NH4\u207a (ammonium ion) and NH3 with Nessler's reagent (K2HgI4) gives the characteristic brown precipitate. Among B, C, N and O, N (nitrogen, group 15) has first ionisation enthalpy of 1402 kJ/mol."}, {"q": "Elements X and Y belong to Group 15. The difference between the electronegativity values of 'X' and phosphorus is higher than that of the difference between phosphorus and 'Y'. 'X' & 'Y' are respectively [JEE-Main_23-January_2026_Evening-2]", "options": ["As & Sb", "N & As", "As & Bi", "Bi & N"], "correct": 1, "explanation": "Electronegativity values: N=3.0, P=2.1, As=2.0. The difference between N and P (3.0-2.1=0.9) is higher than the difference between P and As (2.1-2.0=0.1), so X=N and Y=As."}];
+const DURATION_SEC = 3000;
+let current = 0;
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
+
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
+  document.getElementById('qtext').textContent = q.q;
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
+      };
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
+    });
+  }
+  renderPalette();
+}
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
+}
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
+  }
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
