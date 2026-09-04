@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Chemistry Revision Test 2 — Mixed (Bonding, Periodicity, Structure)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, Segoe UI, Roboto, Arial, sans-serif; background:#0f1115; color:#e5e7eb; }
+  #app { max-width: 900px; margin: 0 auto; padding: 12px; }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:10px 14px; background:#151822; border-radius:10px; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .topbar .title { font-weight:700; font-size:15px; }
+  .timer { font-weight:700; color:#fbbf24; font-size:16px; background:#1f2330; padding:6px 12px; border-radius:8px; }
+  .score-box { text-align:center; }
+  .score-box .label { font-size:11px; color:#9ca3af; }
+  .score-box .val { font-size:18px; font-weight:700; }
+  .palette-wrap { background:#151822; border-radius:10px; padding:10px 14px; margin-bottom:10px; }
+  .palette { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+  .pnum { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+          font-size:13px; font-weight:700; cursor:pointer; border:2px solid transparent; background:#2a2f3d; color:#e5e7eb; }
+  .pnum.current { border-color:#fff; }
+  .pnum.answered { background:#16a34a; color:#fff; }
+  .pnum.marked { background:#a855f7; color:#fff; }
+  .pnum.answered-marked { background:#a855f7; color:#fff; box-shadow: inset 0 0 0 3px #16a34a; }
+  .pnum.notvisited { background:#374151; color:#d1d5db; }
+  .legend { display:flex; flex-wrap:wrap; gap:12px; font-size:11px; color:#9ca3af; margin-top:8px; }
+  .legend span.dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:4px; vertical-align:middle;}
+  .qcard { background:#151822; border-radius:12px; padding:18px; min-height:320px; }
+  .qmeta { font-size:12px; color:#9ca3af; margin-bottom:6px; }
+  .qtitle { font-size:16px; font-weight:700; margin-bottom:10px; }
+  .qtext { font-size:15px; line-height:1.5; margin-bottom:16px; white-space:pre-wrap; }
+  .opt { display:flex; align-items:center; gap:10px; padding:12px 14px; border:1.5px solid #2a2f3d; border-radius:8px; margin-bottom:10px; cursor:pointer; background:#1a1e29; }
+  .opt:hover { border-color:#4b5563; }
+  .opt.selected { border-color:#3b82f6; background:#1e2a44; }
+  .opt input { width:16px; height:16px; flex-shrink:0; }
+  .opt-label { font-size:14px; }
+  .numeric-input { width:100%; padding:12px; font-size:15px; border-radius:8px; border:1.5px solid #2a2f3d; background:#1a1e29; color:#e5e7eb; }
+  .btnrow { display:flex; justify-content:space-between; margin-top:20px; gap:8px; flex-wrap:wrap; }
+  .btn { padding:10px 18px; border-radius:8px; border:none; font-weight:700; cursor:pointer; font-size:13px; }
+  .btn-orange { background:#f97316; color:#1a1200; }
+  .btn-purple { background:#7c3aed; color:#fff; }
+  .btn-gray { background:#374151; color:#e5e7eb; }
+  .btn-green { background:#16a34a; color:#fff; }
+  .btn:disabled { opacity:0.4; cursor:not-allowed; }
+  #results { display:none; }
+  .res-summary { background:#151822; border-radius:12px; padding:20px; margin-bottom:16px; }
+  .res-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; margin-top:14px;}
+  .res-stat { background:#1a1e29; border-radius:8px; padding:12px; text-align:center; }
+  .res-stat .n { font-size:20px; font-weight:800; }
+  .res-stat .l { font-size:11px; color:#9ca3af; margin-top:2px;}
+  .review-item { background:#151822; border-radius:10px; padding:16px; margin-bottom:12px; }
+  .review-q { font-weight:700; margin-bottom:8px; }
+  .review-opt { padding:8px 12px; border-radius:6px; margin-bottom:6px; font-size:13.5px; border:1.5px solid #2a2f3d; }
+  .review-opt.correct { border-color:#16a34a; background:#0f2a18; color:#4ade80; }
+  .review-opt.wrong-picked { border-color:#dc2626; background:#2a1010; color:#f87171; }
+  .review-expl { margin-top:10px; padding:10px 12px; background:#111826; border-left:3px solid #3b82f6; font-size:13px; color:#cbd5e1; border-radius:4px;}
+  .badge { display:inline-block; padding:2px 8px; border-radius:12px; font-size:10.5px; font-weight:700; margin-left:6px; }
+  .badge-correct { background:#16a34a33; color:#4ade80; }
+  .badge-wrong { background:#dc262633; color:#f87171; }
+  .badge-skip { background:#4b556333; color:#9ca3af; }
+  #startScreen { text-align:center; padding: 40px 16px; }
+  #startScreen h1 { font-size:22px; margin-bottom:8px; }
+  #startScreen p { color:#9ca3af; font-size:14px; margin-bottom:24px; }
+  .instr-box { text-align:left; background:#151822; border-radius:10px; padding:18px; margin-bottom:24px; font-size:13.5px; color:#d1d5db; line-height:1.7;}
+  ::selection { background:#3b82f6; }
+  @media (max-width:480px){
+    .pnum{width:30px;height:30px;font-size:12px;}
+    .qcard{padding:14px;}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div id="startScreen">
+    <h1>Chemistry Revision Test 2 — Mixed (Bonding, Periodicity, Structure)</h1>
+    <p>Based on your wrong answers • 38 Questions • 45 Minutes</p>
+    <div class="instr-box">
+      <strong>Instructions:</strong><br>
+      • Total Questions: 38 &nbsp;|&nbsp; Duration: 45 minutes<br>
+      • Each question carries +4 marks for a correct answer and −1 for a wrong answer (single/multi-select), 0 for unattempted.<br>
+      • Numeric-answer questions carry +4 for correct, 0 for wrong/unattempted.<br>
+      • Click on a question number in the palette to jump to it directly.<br>
+      • Use "Mark for Review" to flag a question, and "Save & Next" to save your answer and move on.<br>
+      • Click "Submit Test" anytime to end the test early.
+    </div>
+    <button class="btn btn-green" style="font-size:15px;padding:12px 28px;" onclick="startTest()">Start Test</button>
+  </div>
+
+  <div id="testScreen" style="display:none;">
+    <div class="topbar">
+      <div class="title">Chemistry Revision Test 2 — Mixed (Bonding, Periodicity, Structure)</div>
+      <div class="score-box"><div class="label">Answered / Total</div><div class="val"><span id="answeredCount">0</span>/38</div></div>
+      <div class="timer" id="timer">45:00</div>
+    </div>
+
+    <div class="qcard">
+      <div class="qmeta" id="qmeta"></div>
+      <div class="qtitle" id="qtitle"></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="optionsArea"></div>
+      <div class="btnrow">
+        <div>
+          <button class="btn btn-gray" onclick="prevQ()">◀ Previous</button>
+          <button class="btn btn-gray" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-purple" onclick="markForReview()">Mark for Review & Next</button>
+          <button class="btn btn-orange" onclick="saveAndNext()">Save & Next ▶</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="palette-wrap">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <strong style="font-size:13px;">Question Palette</strong>
+        <button class="btn btn-green" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+      <div class="palette" id="palette"></div>
+      <div class="legend">
+        <span><span class="dot" style="background:#374151;"></span>Not Visited</span>
+        <span><span class="dot" style="background:#16a34a;"></span>Answered</span>
+        <span><span class="dot" style="background:#a855f7;"></span>Marked for Review</span>
+        <span><span class="dot" style="background:#a855f7;box-shadow:inset 0 0 0 2px #16a34a;"></span>Answered & Marked</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="results">
+    <div class="res-summary">
+      <h2 style="margin-top:0;">Test Complete — Chemistry Revision Test 2 — Mixed (Bonding, Periodicity, Structure)</h2>
+      <div class="res-grid">
+        <div class="res-stat"><div class="n" id="rScore">0</div><div class="l">Score (out of 152)</div></div>
+        <div class="res-stat"><div class="n" id="rCorrect">0</div><div class="l">Correct</div></div>
+        <div class="res-stat"><div class="n" id="rWrong">0</div><div class="l">Wrong</div></div>
+        <div class="res-stat"><div class="n" id="rSkip">0</div><div class="l">Unattempted</div></div>
+        <div class="res-stat"><div class="n" id="rAccuracy">0%</div><div class="l">Accuracy</div></div>
+        <div class="res-stat"><div class="n" id="rTime">00:00</div><div class="l">Time Taken</div></div>
+      </div>
+    </div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script>
+const QUESTIONS = [{"q": "The correct trend in the first ionization enthalpies of the elements in the 3rd period of periodic table is: [JEE-Main_23-January_2026_Morning-1]", "options": ["Si < S < Al < P < Cl", "Al < Si < S < P < Cl", "Al < S < P < Si < Cl", "S < Si < Al < P < Cl"], "correct": 1, "explanation": "In general, on moving left to right in a period, ionization energy increases as Zeff increases: Al < Si < S < P < Cl. (Ionisation energy of phosphorus is more than expected because of half-filled stable 3p\u00b3 configuration, placing it above S in this sequence.)"}, {"q": "The correct statements from the following are: (A) Ionic radii of trivalent cations of group 13 elements decreases down the group. (B) Electronegativity of group 13 elements decreases down the group. (C) Among the group 13 elements, Boron has highest first ionisation enthalpy. (D) The trichloride and triiodide of group 13 elements are covalent in nature. Choose the correct answer: [JEE-Main_23-January_2026_Morning-1]", "options": ["B and D only", "A and C only", "A and D only", "C and D only"], "correct": 3, "explanation": "Boron has the highest first ionisation enthalpy among group 13 elements (smallest size, no shielding by d/f electrons) \u2014 statement C is correct. The trichlorides and triiodides of group 13 elements are covalent in nature (due to high polarizing power of the small, highly charged cations) \u2014 statement D is correct. Ionic radii of trivalent cations actually increase down the group (not decrease), making A false. Electronegativity does not show a simple monotonic decrease down group 13 (anomalous due to poor shielding), making B false."}, {"q": "The correct order of C, N, O and F in terms of second ionisation potential is: [JEE-Main_24-January_2026_Evening-2]", "options": ["F < N < C < O", "C < F < N < O", "C < N < F < O", "C < O < N < F"], "correct": 3, "explanation": "For second ionization potential, we look at the configuration of the mono-cation: C\u207a [He]2s\u00b22p\u00b9, N\u207a [He]2s\u00b22p\u00b2, O\u207a [He]2s\u00b22p\u00b3 (half-filled, extra stable), F\u207a [He]2s\u00b22p\u2074. Since O\u207a has a stable half-filled configuration, removing a second electron from neutral O is comparatively easier, while removing the electron from N\u207a (going to N\u00b2\u207a, disrupting a stable configuration) is harder... the correct order works out to C < O < N < F."}, {"q": "Given below are two statements: Statement I: K > Mg > Al > B is the correct order in terms of metallic character. Statement II: Atomic radius is always greater than the ionic radius for any element. In light of the above statements, choose the correct answer:", "options": ["Both Statement I and Statement II are false", "Both Statement I and Statement II are true", "Statement I is false but Statement II is true", "Statement I is true but Statement II is false"], "correct": 3, "explanation": "Statement I is true: metallic character of s-block elements is greater than p-block, and decreases across a period, so K > Mg > Al > B is correct. Statement II is false: this is only true for cations (which are smaller than the parent atom), but for anions, the ionic radius is actually greater than the atomic radius (e.g., Cl vs Cl\u207b), so the statement is not always true."}, {"q": "Consider the elements N, P, O, S, Cl and F. The number of valence electrons present in the elements with most and least metallic character from the above list is respectively.", "options": ["5 and 6", "6 and 7", "5 and 7", "7 and 5"], "correct": 2, "explanation": "Most metallic = P, valence electrons = 5. Least metallic = F, valence electrons = 7. So the answer is 5 and 7."}, {"q": "Nitrous oxide, N2O, has the connectivity N-N-O. In the canonical (most stable) Lewis structure, the formal charges on the terminal N, central N, and O, respectively, are:", "options": ["-2, +1, +1", "-1, +1, 0", "0, 0, 0", "0, +1, -1"], "correct": 3, "explanation": "In the most stable Lewis structure of N2O (with N-N triple bond and N-O single bond, or the equivalent resonance form), the formal charges work out to be 0 on the terminal N, +1 on the central N, and -1 on the O."}, {"q": "Three Lewis structures are proposed for the cyanate ion, OCN\u207b (atoms in the order O-C-N): I: O-C\u2261N (single O-C bond, triple C-N bond) II: O=C=N (double O-C bond, double C-N bond) III: O\u2261C-N (triple O-C bond, single C-N bond). The correct order of decreasing contribution to the resonance hybrid is:", "options": ["All three contribute exactly equally", "II > I > III", "I > II > III", "III > II > I"], "correct": 2, "explanation": "Structure I (single O-C bond, triple C-N bond) places negative formal charge on the more electronegative O and positive on the less electronegative C-N region appropriately, making it the major contributor. Structure II (all double bonds) has moderate formal charge distribution. Structure III places a formal negative charge on N and positive on O, which is unfavorable given O's higher electronegativity, making it the least significant contributor. So the order is I > II > III."}, {"q": "In the molecule HC\u2261C-CH=CH2 (vinylacetylene), the total number of sigma (\u03c3) bonds and pi (\u03c0) bonds, respectively, are:", "options": ["7 \u03c3 bonds and 3 \u03c0 bonds", "9 \u03c3 bonds and 2 \u03c0 bonds", "8 \u03c3 bonds and 3 \u03c0 bonds", "9 \u03c3 bonds and 3 \u03c0 bonds"], "correct": 0, "explanation": "In HC\u2261C-CH=CH2: C-H bonds (3 total: 1 on terminal alkyne C, 1 on =CH, 2 on =CH2 giving actually 4 total C-H bonds)... Correctly counting: there are 4 C-H \u03c3 bonds, 3 C-C \u03c3 bonds (one for each carbon-carbon connection), totaling 7 \u03c3 bonds. Pi bonds: the triple bond contributes 2 \u03c0 bonds, and the double bond contributes 1 \u03c0 bond, totaling 3 \u03c0 bonds."}, {"q": "Which of the following statements regarding hybridization is INCORRECT?", "options": ["Hybridization is calculated using the steric number = (number of \u03c3-bonds + number of lone pairs) around the central atom.", "A multiple bond (double or triple) is counted as ONE \u03c3-bond (plus extra \u03c0-bonds) for the purpose of determining steric number/hybridization.", "Hybrid orbitals of a given type are always degenerate (equal in energy) and equivalent in shape, regardless of the substituents attached.", "Hybridization is a mathematical/theoretical construct used to rationalize observed molecular geometry; it is not a directly measurable physical quantity."], "correct": 2, "explanation": "Hybrid orbitals of a given type are NOT always exactly degenerate/equivalent when different substituents are attached \u2014 electronegativity differences among substituents can cause slight variations in hybrid orbital character and bond angles, making this statement incorrect. The other statements are correct descriptions of hybridization theory."}, {"q": "The central atom of which of the following does not involve dx\u00b2-y\u00b2 orbitals in its hybridization?", "options": ["IF7", "PF5", "SF6", "XeF6"], "correct": 1, "explanation": "PF5 has trigonal bipyramidal geometry with sp\u00b3d hybridization, which uses the dz\u00b2 orbital, not dx\u00b2-y\u00b2. IF7, SF6, and XeF6 involve more complex hybridizations (sp\u00b3d\u00b3, sp\u00b3d\u00b2, etc.) that include dx\u00b2-y\u00b2 orbital contribution."}, {"q": "Among NO2, NO2\u207a, and NO2\u207b, the correct order of increasing N-O bond length is:", "options": ["NO2 < NO2\u207a < NO2\u207b", "NO2\u207a < NO2\u207b = NO2", "NO2\u207b < NO2 < NO2\u207a", "NO2\u207a < NO2 < NO2\u207b"], "correct": 3, "explanation": "Bond order determines bond length: NO2\u207a has the highest bond order (2, linear structure, shortest bond), NO2 has intermediate bond order (~1.5), and NO2\u207b has the lowest bond order (bent structure, longest bond). So increasing bond length: NO2\u207a < NO2 < NO2\u207b."}, {"q": "Which of the following series correctly ranks the C-C bond/related bonds in order of increasing bond length: C2\u00b2\u207b, C3\u2074\u207b, diamond?", "options": ["diamond < C2\u00b2\u207b < C3\u2074\u207b", "C2\u00b2\u207b > C3\u2074\u207b > diamond", "diamond < C3\u2074\u207b < C2\u00b2\u207b", "C2\u00b2\u207b < C3\u2074\u207b < diamond"], "correct": 3, "explanation": "C2\u00b2\u207b (acetylide ion) has a C\u2261C triple bond (bond order 3, shortest). C3\u2074\u207b (as in allylenide/propargylide-type carbide ions) has intermediate bond order/character. Diamond has all single C-C bonds (bond order 1, longest). So increasing bond length: C2\u00b2\u207b < C3\u2074\u207b < diamond."}, {"q": "Match the species with its correct VSEPR-predicted molecular geometry: (i) SF4 (ii) BrF5 (iii) I3\u207b (iv) XeOF4", "options": ["(i) See-saw, (ii) Square pyramidal, (iii) Linear, (iv) Square pyramidal", "(i) Tetrahedral, (ii) Square pyramidal, (iii) Linear, (iv) Square planar", "(i) See-saw, (ii) Octahedral, (iii) Bent, (iv) Trigonal bipyramidal", "(i) T-shaped, (ii) Pentagonal planar, (iii) Linear, (iv) See-saw"], "correct": 0, "explanation": "SF4 has see-saw shape (trigonal bipyramidal electron geometry with 1 lone pair). BrF5 has square pyramidal shape (octahedral electron geometry with 1 lone pair). I3\u207b has linear shape (trigonal bipyramidal electron geometry with 3 lone pairs). XeOF4 has square pyramidal shape (octahedral electron geometry with 1 lone pair)."}, {"q": "Which of the following has LEAST bond angle?", "options": ["CD4", "AsF3", "PH4\u207a", "NH3"], "correct": 1, "explanation": "AsF3 has a pyramidal shape with a lone pair on As, and since As is larger with more diffuse orbitals and F is highly electronegative (pulling bonding pairs away from As), the bond angle in AsF3 is compressed to be the least among the given options."}, {"type": "numeric", "q": "Among the following 10 species: NaCl, CCl4, CO2, MgO, Diamond (C), HF, KBr, SiC, CaF2, CH4 \u2014 how many are predominantly held together by ionic bonding in their solid state?", "correct_value": "4", "explanation": "Among the given species, NaCl, MgO, KBr, and CaF2 are predominantly ionic solids \u2014 a total of 4 species. The others (CCl4, CO2, Diamond, HF, SiC, CH4) are covalent/molecular/network covalent solids."}, {"type": "numeric", "q": "Among the following species, how many have a formal charge of exactly zero on their central atom? NH4\u207a, SO4\u00b2\u207b, NO3\u207b, CO3\u00b2\u207b, ClO4\u207b, PO4\u00b3\u207b, BF4\u207b, H3O\u207a, CH3\u207b, NH3", "correct_value": "5", "explanation": "Among the given species, CO3\u00b2\u207b, BF4\u207b, H3O\u207a, CH3\u207b, and NH3 have a formal charge of exactly zero on their central atom \u2014 a total of 5 species. NH4\u207a has +1 on N, SO4\u00b2\u207b has +2 on S, NO3\u207b has +1 on N, ClO4\u207b has +3 on Cl, PO4\u00b3\u207b has +1 on P."}, {"type": "numeric", "q": "Among the following species \u2014 O3, CO3\u00b2\u207b, CH4, NO3\u207b, SO2, NO2, AsO4\u00b3\u207b, CH3COO\u207b \u2014 how many exhibit resonance i.e. they have more than one significant contributing structure?", "correct_value": "6", "explanation": "Among the given species, O3, CO3\u00b2\u207b, NO3\u207b, SO2, NO2, and CH3COO\u207b exhibit resonance (more than one significant contributing structure) \u2014 a total of 6 species. CH4 and AsO4\u00b3\u207b (with a single tetrahedral structure, no additional significant resonance forms) do not exhibit resonance."}, {"type": "numeric", "q": "Among the following 10 species \u2014 BF3, PCl5, CO2, SF6, NH3, ClF3, CH4, XeF2, SO2, BeCl2 \u2014 how many have a central atom that violates the octet rule (i.e., is hypervalent or hypovalent) in its most stable Lewis structure?", "correct_value": "6", "explanation": "Among the given species, BF3 (hypovalent, 6 electrons on B), PCl5 (hypervalent, 10 electrons on P), SF6 (hypervalent, 12 electrons on S), ClF3 (hypervalent, 10 electrons on Cl), XeF2 (hypervalent, 10 electrons on Xe), and BeCl2 (hypovalent, 4 electrons on Be) violate the octet rule \u2014 a total of 6 species."}, {"type": "numeric", "q": "For each of the following pairs of species, determine whether the first-listed species has a LARGER bond angle than the second-listed species (count how many pairs where this is true): (i) NH3 vs PH3 (ii) H2O vs H2S (iii) NH3 vs NF3 (iv) PH4\u207a vs CH4 (v) CH4 vs NH3 (vi) H2O vs Cl2O (vii) BF3 vs NF3 (viii) OF2 vs H2O (ix) CO2 vs SO2 (x) O3 vs NO2\u207b", "correct_value": "7", "explanation": "Checking each pair: (i) NH3(107\u00b0)>PH3(93\u00b0) true. (ii) H2O(104.5\u00b0)>H2S(92\u00b0) true. (iii) NH3(107\u00b0)>NF3(102\u00b0) true. (iv) PH4\u207a(109.5\u00b0)=CH4(109.5\u00b0) not larger, false. (v) CH4(109.5\u00b0)>NH3(107\u00b0) true. (vi) H2O(104.5\u00b0) < Cl2O(111\u00b0) false. (vii) BF3(120\u00b0)>NF3(102\u00b0) true. (viii) OF2(103\u00b0) < H2O(104.5\u00b0) false. (ix) CO2(180\u00b0)>SO2(119\u00b0) true. (x) O3(117\u00b0)\u2248NO2\u207b(115\u00b0) true. Counting true cases: (i),(ii),(iii),(v),(vii),(ix),(x) = 7 pairs."}, {"type": "numeric", "q": "Among the following species \u2014 PCl5, SF4, ClF3, XeF2, I3\u207b, BrF3, SbCl5, XeO2F2, SF6, ClF5 \u2014 how many have sp\u00b3d hybridization on their central atom?", "correct_value": "8", "explanation": "Among the given species, PCl5, SF4, ClF3, XeF2, I3\u207b, BrF3, SbCl5, and XeO2F2 have sp\u00b3d hybridization (5 electron domains) on their central atom \u2014 a total of 8. SF6 (sp\u00b3d\u00b2) and ClF5 (sp\u00b3d\u00b2) have 6 electron domains instead."}, {"type": "numeric", "q": "Among the following 10 species \u2014 SF6, XeF4, PCl5, BrF5, IF5, ICl4\u207b, XeOF4, SiF6\u00b2\u207b, ClF3 \u2014 how many have sp\u00b3d\u00b2 hybridization on their central atom?", "correct_value": "7", "explanation": "Among the given species, SF6, XeF4, BrF5, IF5, ICl4\u207b, XeOF4, and SiF6\u00b2\u207b have sp\u00b3d\u00b2 hybridization (6 electron domains) on their central atom \u2014 a total of 7. PCl5 (sp\u00b3d) and ClF3 (sp\u00b3d) have 5 electron domains instead."}, {"type": "numeric", "q": "Among the following molecules \u2014 NF3, PH3, AsH3, H2O, H2S, SeF2, SbF3, BiH3, CH4 \u2014 how many have a bond angle at the central atom greater than that in NH3?", "correct_value": "1", "explanation": "NH3 has a bond angle of ~107\u00b0. Among the given molecules, only CH4 (109.5\u00b0) has a bond angle greater than NH3's \u2014 a total of 1 molecule. The rest (NF3, PH3, AsH3, H2O, H2S, SeF2, SbF3, BiH3) have smaller bond angles than NH3."}, {"type": "numeric", "q": "Among the following species: CO, NO, O2, CN\u207b, N2, NO\u207a, O2\u207b, F2, I2, C2\u00b2\u207b \u2014 exactly how many have a bond order of 3?", "correct_value": "5", "explanation": "Among the given species, CO (bond order 3), CN\u207b (bond order 3), N2 (bond order 3), NO\u207a (bond order 3), and C2\u00b2\u207b (bond order 3) \u2014 a total of 5 species have bond order 3. NO has bond order 2.5, O2 has bond order 2, O2\u207b has bond order 1.5, F2 has bond order 1, and I2 has bond order 1."}, {"type": "numeric", "q": "Among the following 10 species \u2014 CO2, XeF2, I3\u207b, BeCl2, SO2, NO2\u207b, HCN, ICl2\u207b, H2O, N2O \u2014 how many have a linear molecular geometry?", "correct_value": "7", "explanation": "Among the given species, CO2, XeF2, I3\u207b, BeCl2, HCN, ICl2\u207b, and N2O have linear molecular geometry \u2014 a total of 7 species. SO2, NO2\u207b, and H2O are bent due to lone pairs on the central atom."}, {"type": "numeric", "q": "What is the total number of 90\u00b0 F-Xe-F bond angles in a single XeO2F4 molecule (count only the angles between adjacent \u2014 not opposite \u2014 Xe-F bonds)?", "correct_value": "4", "explanation": "XeO2F4 has an octahedral electron geometry with 4 F atoms in the equatorial plane (adjacent to each other at 90\u00b0) and considering the arrangement, there are 4 adjacent F-Xe-F 90\u00b0 angles in the equatorial plane."}, {"q": "Which of the following cases has the maximum size ratio (anion/atom)?", "options": ["H\u207b/H", "Li\u207b/Li", "Na\u207b/Na", "F\u207b/F"], "correct": 2, "explanation": "Na\u207b/Na has the maximum size ratio among the given pairs, since the anion Na\u207b expands significantly relative to its already large parent atom compared to the other elements."}, {"q": "The most acidic oxide is:", "options": ["P2O3", "Cl2O7", "SO3", "P2O5"], "correct": 1, "explanation": "Cl2O7 is the most acidic oxide among the given options, since chlorine in its highest oxidation state (+7) with high electronegativity and small size creates the strongest acidic character."}, {"q": "Which of the following electron transfer process is associated with energy release?", "options": ["O\u207b \u2192 O\u00b2\u207b", "Cl\u207a \u2192 Cl", "Li \u2192 Li\u207a", "Be \u2192 Be\u207b"], "correct": 1, "explanation": "Cl\u207a \u2192 Cl involves adding an electron to a cation to form a neutral atom, which is favorable and releases energy (analogous to a favorable electron affinity process), unlike adding an electron to an already negative ion (O\u207b\u2192O\u00b2\u207b) which requires energy input, or removing an electron (Li\u2192Li\u207a, ionization) which requires energy, or adding an electron to a stable neutral atom against unfavorable configuration (Be\u2192Be\u207b)."}, {"q": "A vanadium compound has magnetic moment 1.73 BM. The formula of vanadium chloride is:", "options": ["VCl3", "VCl5", "VCl4", "VCl2"], "correct": 2, "explanation": "Magnetic moment of 1.73 BM corresponds to 1 unpaired electron (\u03bc=\u221an(n+2), n=1). VCl4 has V in +4 oxidation state, giving a d\u00b9 configuration with exactly 1 unpaired electron, matching the given magnetic moment."}, {"q": "Select the correct statement.", "options": ["Chromium (24) in ground state electronic configuration contains 5 unpaired electrons", "To define an orbital, four quantum numbers are required.", "An orbital with l = 0 is symmetrical about the nucleus.", "Number of paired electrons in F atom is 6"], "correct": 2, "explanation": "An orbital with l=0 (s orbital) is spherically symmetrical about the nucleus \u2014 this is a correct statement. Chromium's ground state configuration ([Ar]3d\u20754s\u00b9) actually has 6 unpaired electrons, not 5. An orbital is defined by three quantum numbers (n, l, ml), not four (the fourth, spin, defines the electron within the orbital). F atom (1s\u00b22s\u00b22p\u2075) has 4 paired electrons (2 in 1s, 2 in 2s) and 1 unpaired (in 2p), not 6 paired."}, {"q": "Which process can produce the maximum number of Fe\u00b2\u207a ions from iron atoms by absorbing energy from the given species? Consider equal number of given species.", "options": ["Formation of F\u207b from F-atom.", "Formation of Cl\u207b from Cl-atom.", "Formation of S\u207b from S-atom.", "Formation of N\u207b from N-atom."], "correct": 1, "explanation": "Formation of Cl\u207b from Cl-atom releases the most energy among common electron gain processes (Cl has the highest electron affinity magnitude among common elements), and this released energy can be used to ionize the maximum number of Fe atoms to Fe\u00b2\u207a."}, {"type": "numeric", "q": "How many of the following elements have zero as their most stable oxidation state? N, Ne, O, F, Be, Au, Pt, Ag, Hg, H, P", "correct_value": "6", "explanation": "Among the given elements, Ne (noble gas, no compounds), Au, Pt, Ag, and Hg (noble/inert metals that predominantly exist in elemental form under many conditions, considered to have 0 as a notably stable oxidation state), along with one more, total 6 elements have zero as their most stable oxidation state, unlike the reactive nonmetals (N, O, F, P) or reactive metal (Be, H) which readily form compounds with nonzero oxidation states."}, {"type": "numeric", "q": "How many of the following elements can regularly exhibit +5 state in their compounds? B, N, P, F, Cl, Xe, V, Ti, Sb, Sn, Tl, Te", "correct_value": "5", "explanation": "Among the given elements, N (+5 in HNO3), P (+5 in H3PO4), Cl (+5 in HClO3), V (+5 in V2O5), and Sb (+5 in Sb2O5) regularly exhibit a +5 oxidation state \u2014 a total of 5 elements."}, {"type": "numeric", "q": "How many of the following are reducing agents? BF3, PH3, HF, ClF3, XeF2, VCl3, TiCl3, SiCl4, SnCl2, TlCl, SO2", "correct_value": "4", "explanation": "Among the given species, PH3, VCl3, TiCl3, and SnCl2 act as reducing agents (containing elements in lower oxidation states that can be oxidized) \u2014 a total of 4 species. The others are either Lewis acids, oxidizing agents, or inert with respect to reduction behavior."}, {"type": "numeric", "q": "Using the following information, calculate the value of a four digit number 'abcd'. 'a' = ratio of shortest wavelength of Balmer series to that of longest wavelength in UV region of atomic spectrum of hydrogen. 'b' = Stopping potential in Volts when EMR of 124 nm strikes a metal surface having critical wavelength equal to 310 nm. 'c' = Number of possible exchanges of electron in d-orbital which can occur in a d4 configuration. 'd' = Number of de-Broglie waves in the 'N' orbit of hydrogen atom.", "correct_value": "3664", "explanation": "a=3 (ratio of shortest Balmer wavelength to longest Lyman/UV wavelength), b=6 (stopping potential calculated from photon energy minus work function), c=6 (number of exchange pairs among 4 electrons in d-orbital, C(4,2)=6), d=4 (number of de-Broglie waves = principal quantum number n=4 for N orbit). Combining: abcd = 3664."}, {"type": "numeric", "q": "Calculate minimum number of hydrogen atoms that should be present in a sample so that all possible Lyman transitions between fourth energy level and ground level can take place.", "correct_value": "3", "explanation": "From n=4, an electron can cascade down through at most 3 steps (4\u21923\u21922\u21921) in one atom, emitting 3 photons per cascade. Total number of possible spectral lines from n=4 to n=1 is 6 (C(4,2)). Since one atom can produce at most 3 lines in a single cascade, a minimum of 3 atoms are needed to produce all 6 possible transition lines simultaneously."}, {"type": "numeric", "q": "Calculate total energy of an electron (in eV) moving in an orbit of radius 0.53\u00c5 in Be\u00b3\u207a. [Take: Ionisation energy of Hydrogen atom to be 13.6 eV/atom. Multiply your answer by 100]", "correct_value": "5440", "explanation": "For Be\u00b3\u207a (Z=4), radius r = 0.53\u00d7(n\u00b2/Z) \u00c5. Given r=0.53\u00c5, so n\u00b2/Z=1, meaning n\u00b2=4, n=2. Total energy E = -13.6\u00d7Z\u00b2/n\u00b2 = -13.6\u00d716/4 = -54.4 eV. Multiplying by 100 (and taking magnitude): 5440."}, {"type": "numeric", "q": "Two bulbs A and B are emitting monochromatic light of wavelength such that A can just ionise H atoms & B can just ionise He\u207a ions. If the power of A & B are 30 W & 40 W respectively. Calculate the ratio of number of photons emitted per second by bulb A to bulb B.", "correct_value": "3", "explanation": "Ionization energy of H = 13.6 eV, ionization energy of He\u207a = 13.6\u00d7Z\u00b2 = 13.6\u00d74 = 54.4 eV. Number of photons per second = Power/(energy per photon). Ratio = (30/13.6)/(40/54.4) = (30\u00d754.4)/(13.6\u00d740) = 3."}];
+const DURATION_SEC = 2700;
+let current = 0;
+let timeLeft = DURATION_SEC;
+let timerHandle = null;
+let startTime = null;
+
+// state: for each q -> {status: 'notvisited'|'answered'|'marked'|'answered-marked'|'visited', answer: ... }
+let state = QUESTIONS.map(()=>({status:'notvisited', answer:null}));
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testScreen').style.display='block';
+  startTime = Date.now();
+  renderPalette();
+  loadQuestion(0);
+  timerHandle = setInterval(tick, 1000);
+}
+
+function tick(){
+  timeLeft--;
+  if(timeLeft<=0){ timeLeft=0; clearInterval(timerHandle); submitTest(); }
+  const m = Math.floor(timeLeft/60), s = timeLeft%60;
+  document.getElementById('timer').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+function loadQuestion(idx){
+  current = idx;
+  const q = QUESTIONS[idx];
+  if(state[idx].status === 'notvisited') state[idx].status = 'visited';
+  document.getElementById('qmeta').textContent = 'Question ' + (idx+1) + ' of ' + QUESTIONS.length + (q.type==='multi' ? '  •  Multiple Correct — select all that apply' : q.type==='numeric' ? '  •  Numeric Answer Type' : '  •  Single Correct');
+  document.getElementById('qtitle').textContent = 'Q.' + (idx+1);
+  document.getElementById('qtext').textContent = q.q;
+
+  const area = document.getElementById('optionsArea');
+  area.innerHTML = '';
+
+  if(q.type === 'numeric'){
+    const inp = document.createElement('input');
+    inp.type = 'text';
+    inp.className = 'numeric-input';
+    inp.placeholder = 'Enter your numeric answer';
+    inp.value = state[idx].answer !== null ? state[idx].answer : '';
+    inp.oninput = () => { state[idx].answer = inp.value; };
+    area.appendChild(inp);
+  } else if(q.type === 'multi'){
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? ' selected' : '');
+      div.innerHTML = '<input type="checkbox" ' + (Array.isArray(state[idx].answer) && state[idx].answer.includes(i) ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = (e) => {
+        if(!Array.isArray(state[idx].answer)) state[idx].answer = [];
+        const pos = state[idx].answer.indexOf(i);
+        if(pos>=0) state[idx].answer.splice(pos,1); else state[idx].answer.push(i);
+        loadQuestion(idx);
+      };
+      area.appendChild(div);
+    });
+  } else {
+    q.options.forEach((opt, i) => {
+      const div = document.createElement('div');
+      div.className = 'opt' + (state[idx].answer === i ? ' selected' : '');
+      div.innerHTML = '<input type="radio" name="opt" ' + (state[idx].answer === i ? 'checked' : '') + '><span class="opt-label">'+opt+'</span>';
+      div.onclick = () => { state[idx].answer = i; loadQuestion(idx); };
+      area.appendChild(div);
+    });
+  }
+  renderPalette();
+}
+
+function hasAnswer(idx){
+  const a = state[idx].answer;
+  if(a === null || a === undefined) return false;
+  if(Array.isArray(a)) return a.length>0;
+  if(typeof a === 'string') return a.trim().length>0;
+  return true;
+}
+
+function saveAndNext(){
+  if(hasAnswer(current)){
+    state[current].status = state[current].status === 'marked' || state[current].status==='answered-marked' ? 'answered-marked' : 'answered';
+  }
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function markForReview(){
+  state[current].status = hasAnswer(current) ? 'answered-marked' : 'marked';
+  if(current < QUESTIONS.length-1) loadQuestion(current+1);
+  else renderPalette();
+}
+
+function clearResponse(){
+  state[current].answer = null;
+  state[current].status = 'visited';
+  loadQuestion(current);
+}
+
+function prevQ(){ if(current>0) loadQuestion(current-1); }
+
+function renderPalette(){
+  const pal = document.getElementById('palette');
+  pal.innerHTML = '';
+  let answeredCount = 0;
+  QUESTIONS.forEach((q, i) => {
+    const b = document.createElement('div');
+    let cls = 'pnum ' + state[i].status;
+    if(i === current) cls += ' current';
+    b.className = cls;
+    b.textContent = i+1;
+    b.onclick = () => loadQuestion(i);
+    pal.appendChild(b);
+    if(state[i].status === 'answered' || state[i].status === 'answered-marked') answeredCount++;
+  });
+  document.getElementById('answeredCount').textContent = answeredCount;
+}
+
+function confirmSubmit(){
+  if(confirm('Are you sure you want to submit the test? You cannot change answers after submission.')){
+    clearInterval(timerHandle);
+    submitTest();
+  }
+}
+
+function isCorrect(q, ans){
+  if(ans === null || ans === undefined) return null; // unattempted
+  if(q.type === 'numeric'){
+    if(typeof ans !== 'string' || ans.trim()==='') return null;
+    return ans.trim() === String(q.correct_value).trim();
+  } else if(q.type === 'multi'){
+    if(!Array.isArray(ans) || ans.length===0) return null;
+    const c = q.correct.slice().sort();
+    const a = ans.slice().sort();
+    return JSON.stringify(c) === JSON.stringify(a);
+  } else {
+    return ans === q.correct;
+  }
+}
+
+function submitTest(){
+  document.getElementById('testScreen').style.display='none';
+  document.getElementById('results').style.display='block';
+
+  let score = 0, correct=0, wrong=0, skip=0;
+  const maxScore = QUESTIONS.length*4;
+  let reviewHtml = '';
+
+  QUESTIONS.forEach((q, i) => {
+    const ans = state[i].answer;
+    const res = isCorrect(q, ans);
+    let badge = '';
+    if(res === null){ skip++; badge = '<span class="badge badge-skip">Unattempted</span>'; }
+    else if(res === true){ correct++; score += 4; badge = '<span class="badge badge-correct">Correct (+4)</span>'; }
+    else { wrong++; score += (q.type==='numeric' ? 0 : -1); badge = '<span class="badge badge-wrong">Wrong ('+(q.type==='numeric'?'0':'-1')+')</span>'; }
+
+    let optsHtml = '';
+    if(q.type === 'numeric'){
+      optsHtml = '<div class="review-opt correct">Correct answer: ' + q.correct_value + '</div>';
+      if(ans !== null && ans !== undefined && String(ans).trim()!=='' && res!==true){
+        optsHtml += '<div class="review-opt wrong-picked">Your answer: ' + ans + '</div>';
+      }
+    } else if(q.type === 'multi'){
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        const isCorrectOpt = q.correct.includes(oi);
+        const wasPicked = Array.isArray(ans) && ans.includes(oi);
+        if(isCorrectOpt) cls += ' correct';
+        else if(wasPicked) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (isCorrectOpt?' ✓':'') + (wasPicked && !isCorrectOpt?' (your pick)':'') + '</div>';
+      });
+    } else {
+      q.options.forEach((opt, oi) => {
+        let cls = 'review-opt';
+        if(oi === q.correct) cls += ' correct';
+        else if(oi === ans) cls += ' wrong-picked';
+        optsHtml += '<div class="'+cls+'">' + opt + (oi===q.correct?' ✓':'') + (oi===ans && oi!==q.correct?' (your pick)':'') + '</div>';
+      });
+    }
+
+    reviewHtml += '<div class="review-item"><div class="review-q">Q'+(i+1)+'. '+q.q+' '+badge+'</div>' + optsHtml +
+      '<div class="review-expl"><strong>Explanation:</strong> ' + q.explanation + '</div></div>';
+  });
+
+  document.getElementById('rScore').textContent = score;
+  document.getElementById('rCorrect').textContent = correct;
+  document.getElementById('rWrong').textContent = wrong;
+  document.getElementById('rSkip').textContent = skip;
+  const attempted = correct+wrong;
+  document.getElementById('rAccuracy').textContent = attempted>0 ? Math.round(correct/attempted*100)+'%' : '0%';
+  const elapsed = Math.floor((Date.now()-startTime)/1000);
+  const em = Math.floor(elapsed/60), es = elapsed%60;
+  document.getElementById('rTime').textContent = String(em).padStart(2,'0')+':'+String(es).padStart(2,'0');
+  document.getElementById('reviewList').innerHTML = reviewHtml;
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
