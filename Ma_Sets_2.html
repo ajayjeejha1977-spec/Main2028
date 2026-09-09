@@ -73,6 +73,7 @@ window.MathJax = {
   .status-correct{background:var(--green);}
   .status-incorrect{background:var(--red);}
   .status-unattempted{background:#999;}
+  .time-badge{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff;display:inline-block;margin-bottom:8px;margin-left:6px;background:#0b5fa5;}
   .opt-row{padding:6px 10px;border-radius:4px;margin-bottom:4px;font-size:14px;}
   .opt-correct{background:#e6f7e9;border:1px solid var(--green);}
   .opt-wrong-selected{background:#fdeaea;border:1px solid var(--red);}
@@ -205,6 +206,31 @@ let marked = new Array(N).fill(false);
 let startTime = null;
 let timerInterval = null;
 
+/* ---- per-question time tracking ---- */
+let questionTime = new Array(N).fill(0); // seconds spent on each question index
+let activeIndex = null;
+let questionEnterTS = null;
+
+function switchActiveQuestion(newIndex){
+  const now = Date.now();
+  if(activeIndex !== null && questionEnterTS !== null){
+    const elapsed = (now - questionEnterTS) / 1000;
+    questionTime[activeIndex] = (questionTime[activeIndex] || 0) + elapsed;
+  }
+  activeIndex = newIndex;
+  questionEnterTS = now;
+}
+
+function formatTime(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds || 0));
+  const h = Math.floor(totalSeconds/3600);
+  const m = Math.floor((totalSeconds%3600)/60);
+  const s = totalSeconds%60;
+  if(h>0) return `${h}h ${m}m ${s}s`;
+  if(m>0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
 function startTest(){
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('testScreen').classList.remove('hidden');
@@ -256,6 +282,7 @@ function refreshPalette(){
 }
 
 function renderQuestion(i){
+  if(activeIndex !== i){ switchActiveQuestion(i); }
   current = i;
   visited[i] = true;
   const q = questions[i];
@@ -334,6 +361,7 @@ function confirmSubmit(){
 
 function submitTest(){
   clearInterval(timerInterval);
+  switchActiveQuestion(null); // flush the last question's elapsed time
   document.getElementById('testScreen').classList.add('hidden');
   const resultDiv = document.getElementById('resultScreen');
   resultDiv.classList.remove('hidden');
@@ -362,6 +390,7 @@ function submitTest(){
 
     html += `<div class="review-q">
       <span class="status ${statusClassMap[status]}">${statusLabelMap[status]}</span>
+      <span class="time-badge">⏱ ${formatTime(questionTime[i])}</span>
       <span style="float:right;font-size:12px;color:#555;">Marks: ${marksAwarded>0?'+':''}${marksAwarded}</span>
       <div class="qnum">Q${i+1}.</div>
       <div class="qtext" style="font-size:15px;">${q.text}</div>
@@ -382,11 +411,15 @@ function submitTest(){
 
   resultDiv.innerHTML = html;
 
+  const totalTimeSeconds = questionTime.reduce((a,b)=>a+(b||0), 0);
+  const avgTimeSeconds = totalTimeSeconds / N;
   document.getElementById('scoreCards').innerHTML = `
     <div class="score-card"><div class="val">${totalScore} / ${maxScore}</div><div class="lbl">Total Score</div></div>
     <div class="score-card"><div class="val">${correctCount}</div><div class="lbl">Correct</div></div>
     <div class="score-card"><div class="val">${incorrectCount}</div><div class="lbl">Incorrect</div></div>
     <div class="score-card"><div class="val">${unattemptedCount}</div><div class="lbl">Unattempted</div></div>
+    <div class="score-card"><div class="val">${formatTime(totalTimeSeconds)}</div><div class="lbl">Total Time Used</div></div>
+    <div class="score-card"><div class="val">${formatTime(avgTimeSeconds)}</div><div class="lbl">Avg Time / Question</div></div>
   `;
 
   if(window.MathJax && MathJax.typesetPromise){

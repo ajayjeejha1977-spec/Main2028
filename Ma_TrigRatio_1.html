@@ -87,6 +87,7 @@ window.MathJax = {
   #reviewList .rq{border:1px solid #e2e2e2; border-radius:6px; padding:16px 18px; margin-bottom:14px;}
   .rq-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
   .status-pill{font-size:11px; padding:3px 10px; border-radius:10px; color:#fff; font-weight:bold;}
+  .time-pill{font-size:11px; padding:3px 10px; border-radius:10px; background:#eef2fa; color:#33507a; font-weight:bold;}
   .pill-correct{background:var(--ans);}
   .pill-wrong{background:var(--na);}
   .pill-unattempt{background:#999;}
@@ -209,6 +210,8 @@ window.MathJax = {
     <div class="sec-breakdown">
       <div class="sec-row"><b>Section A (MCQ, +4/−1)</b><span id="secAScore">—</span></div>
       <div class="sec-row"><b>Section B (Numerical, +4/0)</b><span id="secBScore">—</span></div>
+      <div class="sec-row"><b>Total Time Used</b><span id="totalTimeUsed">—</span></div>
+      <div class="sec-row"><b>Average Time / Question</b><span id="avgTimeUsed">—</span></div>
     </div>
   </div>
   <div class="card">
@@ -359,7 +362,7 @@ const QUESTIONS = [
 ];
 
 /* ============ STATE ============ */
-let responses = {};      // id -> {selected: idx or numeric value, status}
+let responses = {};      // id -> {selected: idx or numeric value, status, timeSpent}
 let currentIndex = 0;    // index into QUESTIONS
 let currentSection = 'A';
 let timerInterval = null;
@@ -367,7 +370,31 @@ let secondsLeft = 45*60;
 let candidateName = '';
 let testStartTS = null;
 
-QUESTIONS.forEach(q=>{ responses[q.id] = {selected:null, status:'not-visited'}; });
+/* ---- per-question time tracking ---- */
+let activeQId = null;        // id of the question currently being timed
+let questionEnterTS = null;  // timestamp (ms) the active question was entered
+
+QUESTIONS.forEach(q=>{ responses[q.id] = {selected:null, status:'not-visited', timeSpent:0}; });
+
+function switchActiveQuestion(newId){
+  const now = Date.now();
+  if(activeQId !== null && questionEnterTS !== null){
+    const elapsed = (now - questionEnterTS) / 1000;
+    responses[activeQId].timeSpent = (responses[activeQId].timeSpent || 0) + elapsed;
+  }
+  activeQId = newId;
+  questionEnterTS = now;
+}
+
+function formatTime(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds || 0));
+  const h = Math.floor(totalSeconds/3600);
+  const m = Math.floor((totalSeconds%3600)/60);
+  const s = totalSeconds%60;
+  if(h>0) return `${h}h ${m}m ${s}s`;
+  if(m>0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
 
 function sectionQs(sec){ return QUESTIONS.filter(q=>q.section===sec); }
 
@@ -422,6 +449,7 @@ function switchSection(sec){
 function goToQuestion(idx){
   currentIndex = idx;
   const q = QUESTIONS[idx];
+  if(activeQId !== q.id){ switchActiveQuestion(q.id); }
   currentSection = q.section;
   document.getElementById('tabA').classList.toggle('active', currentSection==='A');
   document.getElementById('tabB').classList.toggle('active', currentSection==='B');
@@ -538,6 +566,7 @@ function closeConfirm(){ document.getElementById('confirmOverlay').style.display
 function finalSubmit(){
   closeConfirm();
   if(timerInterval) clearInterval(timerInterval);
+  switchActiveQuestion(null); // flush the last question's elapsed time
   document.getElementById('test-screen').style.display='none';
   computeAndShowResults();
   document.getElementById('result-screen').style.display='block';
@@ -571,7 +600,7 @@ function computeAndShowResults(){
     let pillClass = !attempted?'pill-unattempt':(isCorrect?'pill-correct':'pill-wrong');
     let pillText = !attempted?'Unattempted':(isCorrect?'Correct':'Incorrect');
 
-    let bodyHtml = `<div class="rq-head"><b>Q${q.id}. [Section ${q.section}]</b><span class="status-pill ${pillClass}">${pillText}</span></div>`;
+    let bodyHtml = `<div class="rq-head"><b>Q${q.id}. [Section ${q.section}]</b><div style="display:flex;gap:8px;align-items:center;"><span class="time-pill">⏱ ${formatTime(r.timeSpent)}</span><span class="status-pill ${pillClass}">${pillText}</span></div></div>`;
     bodyHtml += `<div style="margin-bottom:8px;">${q.text}</div>`;
 
     if(q.type==='mcq'){
@@ -605,6 +634,11 @@ function computeAndShowResults(){
   document.getElementById('statAccuracy').textContent = attemptedCount>0 ? Math.round((correct/attemptedCount)*100)+'%' : '0%';
   document.getElementById('secAScore').textContent = scoreA+' / 48  (12 Q × +4/−1)';
   document.getElementById('secBScore').textContent = scoreB+' / 24  (6 Q × +4/0)';
+
+  const totalTimeSeconds = QUESTIONS.reduce((sum,q)=> sum + (responses[q.id].timeSpent||0), 0);
+  const avgTimeSeconds = totalTimeSeconds / QUESTIONS.length;
+  document.getElementById('totalTimeUsed').textContent = formatTime(totalTimeSeconds);
+  document.getElementById('avgTimeUsed').textContent = formatTime(avgTimeSeconds) + ' / question';
 
   if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([reviewList]); }
 }
