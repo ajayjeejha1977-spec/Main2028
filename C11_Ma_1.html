@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VG Advanced Practice — Paper 1 | CBT</title>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root{
+    --nta-blue:#1e3a5f;
+    --nta-header:#003366;
+    --green:#3cb043;
+    --red:#d9363e;
+    --purple:#7b3fa0;
+    --grey:#e2e2e2;
+    --orange:#f4a300;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:Segoe UI, Arial, sans-serif;background:#f2f2f2;color:#1a1a1a;}
+  header{background:var(--nta-header);color:#fff;padding:10px 18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;}
+  header h1{font-size:16px;margin:0;font-weight:600;}
+  #timer{background:#012a52;padding:6px 14px;border-radius:4px;font-weight:600;font-size:14px;}
+  #timer.warn{background:#8c1c1c;}
+  .layout{display:flex;height:calc(100vh - 52px);min-height:600px;}
+  .main{flex:1;overflow-y:auto;padding:0;display:flex;flex-direction:column;}
+  .qmeta{background:#fff;padding:10px 20px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center;font-size:13px;flex-wrap:wrap;gap:6px;}
+  .qtype-tag{background:var(--purple);color:#fff;padding:3px 10px;border-radius:3px;font-size:12px;font-weight:600;}
+  .section-tag{background:#eee;padding:3px 10px;border-radius:3px;font-size:12px;color:#333;}
+  .marks-tag{font-size:12px;color:#555;}
+  .qbody{background:#fff;padding:22px 26px;flex:1;overflow-y:auto;}
+  .qnum{font-weight:700;font-size:15px;margin-bottom:14px;}
+  .qtext{font-size:16px;line-height:1.7;margin-bottom:22px;}
+  .matchtbl{border-collapse:collapse;margin:12px 0;width:100%;max-width:640px;}
+  .matchtbl th,.matchtbl td{border:1px solid #ccc;padding:8px 10px;font-size:14px;text-align:left;}
+  .matchtbl th{background:#f2f2f2;}
+  .options label{display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:8px;border:1px solid #ddd;border-radius:6px;cursor:pointer;transition:background .15s;}
+  .options label:hover{background:#f7f9fc;}
+  .options input{margin-top:4px;flex-shrink:0;}
+  .options .opt-letter{font-weight:700;min-width:18px;}
+  .numeric-wrap{margin-top:6px;}
+  .numeric-wrap input{font-size:16px;padding:10px 14px;border:1px solid #bbb;border-radius:6px;width:220px;}
+  .numeric-wrap .hint{font-size:12px;color:#777;margin-top:6px;}
+  .navrow{background:#fff;border-top:1px solid #ddd;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;}
+  .btn{border:none;padding:9px 18px;border-radius:5px;font-size:13px;font-weight:600;cursor:pointer;}
+  .btn-clear{background:#fff;border:1px solid #999;color:#333;}
+  .btn-save{background:var(--green);color:#fff;}
+  .btn-mark{background:var(--purple);color:#fff;}
+  .btn-next{background:var(--nta-blue);color:#fff;}
+  .btn-submit{background:var(--red);color:#fff;}
+  .sidebar{width:290px;background:#fafafa;border-left:1px solid #ddd;padding:14px;overflow-y:auto;flex-shrink:0;}
+  .sidebar h3{font-size:13px;margin:0 0 10px;color:#444;}
+  .legend{display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:11px;margin-bottom:14px;}
+  .legend div{display:flex;align-items:center;gap:5px;}
+  .swatch{width:14px;height:14px;border-radius:3px;display:inline-block;flex-shrink:0;}
+  .palette-section-title{font-size:12px;font-weight:700;color:#003366;margin:14px 0 8px;border-bottom:1px solid #ddd;padding-bottom:4px;}
+  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;}
+  .pnum{width:100%;aspect-ratio:1;border-radius:5px;border:none;font-size:13px;font-weight:700;cursor:pointer;color:#fff;display:flex;align-items:center;justify-content:center;position:relative;}
+  .st-notvisited{background:#fff;color:#333;border:1px solid #999 !important;}
+  .st-notanswered{background:var(--red);}
+  .st-answered{background:var(--green);}
+  .st-marked{background:var(--purple);}
+  .st-markedanswered{background:var(--purple);}
+  .st-markedanswered::after{content:'';position:absolute;bottom:3px;right:3px;width:6px;height:6px;background:var(--green);border-radius:50%;}
+  .pnum.current{outline:3px solid var(--orange);outline-offset:1px;}
+  .submitbar{margin-top:16px;}
+  .submitbar button{width:100%;}
+  .hidden{display:none !important;}
+  #resultScreen{padding:30px;max-width:900px;margin:0 auto;}
+  .score-cards{display:flex;gap:14px;flex-wrap:wrap;margin:20px 0;}
+  .score-card{background:#fff;border-radius:8px;padding:16px 22px;box-shadow:0 1px 4px rgba(0,0,0,.1);min-width:150px;}
+  .score-card .val{font-size:26px;font-weight:700;}
+  .score-card .lbl{font-size:12px;color:#666;margin-top:4px;}
+  .review-q{background:#fff;border-radius:8px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  .review-q .status{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff;display:inline-block;margin-bottom:8px;}
+  .status-correct{background:var(--green);}
+  .status-incorrect{background:var(--red);}
+  .status-unattempted{background:#999;}
+  .time-badge{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff;display:inline-block;margin-bottom:8px;margin-left:6px;background:#0b5fa5;}
+  .opt-row{padding:6px 10px;border-radius:4px;margin-bottom:4px;font-size:14px;}
+  .opt-correct{background:#e6f7e9;border:1px solid var(--green);}
+  .opt-wrong-selected{background:#fdeaea;border:1px solid var(--red);}
+  .opt-plain{background:#f7f7f7;}
+  #startScreen{max-width:700px;margin:60px auto;background:#fff;padding:34px 40px;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1);}
+  #startScreen h2{margin-top:0;color:var(--nta-header);}
+  #startScreen ul{line-height:1.9;}
+  #startScreen button{margin-top:20px;padding:12px 30px;font-size:15px;}
+  .backlink{margin-top:24px;}
+  @media (max-width:800px){
+    .layout{flex-direction:column;height:auto;}
+    .sidebar{width:100%;order:2;}
+    .main{order:1;}
+  }
+</style>
+</head>
+<body>
+
+<div id="startScreen">
+  <h2>VG Advanced Practice — Paper 1</h2>
+  <p>Mathematics practice test rebuilt from your reviewed screenshots (18 questions, 60 minutes).</p>
+  <ul>
+    <li><b>Duration:</b> 60 minutes. The test auto-submits when time runs out.</li>
+    <li><b>Matching Type &amp; Single Correct:</b> one correct option. +4 for correct, −1 for incorrect.</li>
+    <li><b>Multiple Correct Type:</b> one or more options may be correct. +4 only if all correct options are selected with none wrong; 0 otherwise.</li>
+    <li><b>Numerical Value Type:</b> enter the answer as a number. +4 for correct, 0 for incorrect.</li>
+    <li>Use <b>Mark for Review</b> to flag a question, and the palette on the right to jump to any question.</li>
+  </ul>
+  <button class="btn btn-next" onclick="startTest()">Start Test</button>
+</div>
+
+<div id="testScreen" class="hidden">
+  <header>
+    <h1>VG Advanced Practice — Paper 1</h1>
+    <div id="timer">Time Left: 60:00</div>
+  </header>
+  <div class="layout">
+    <div class="main">
+      <div class="qmeta">
+        <div><span class="section-tag" id="sectionTag"></span> &nbsp; <span class="qtype-tag" id="typeTag"></span> &nbsp; <span class="marks-tag" id="marksTag"></span></div>
+        <div id="qCounter">Question 1 of 18</div>
+      </div>
+      <div class="qbody">
+        <div class="qnum" id="qNumLabel">Q1.</div>
+        <div class="qtext" id="qText"></div>
+        <div id="answerArea"></div>
+      </div>
+      <div class="navrow">
+        <div>
+          <button class="btn btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
+          <button class="btn btn-clear" onclick="clearResponse()">Clear Response</button>
+        </div>
+        <div>
+          <button class="btn btn-save" id="prevBtn" onclick="prevQuestion()">&larr; Previous</button>
+          <button class="btn btn-next" onclick="saveAndNext()">Save &amp; Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <h3>Legend</h3>
+      <div class="legend">
+        <div><span class="swatch st-notvisited"></span>Not Visited</div>
+        <div><span class="swatch st-notanswered"></span>Not Answered</div>
+        <div><span class="swatch st-answered"></span>Answered</div>
+        <div><span class="swatch st-marked"></span>Marked</div>
+      </div>
+      <div id="paletteGroups"></div>
+      <div class="submitbar">
+        <button class="btn btn-submit" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="resultScreen" class="hidden"></div>
+
+<script>
+// ---------- Question Data ----------
+const questions = [{"type": "single", "group": "Matching Type", "text": "Match the entries in Column-I with Column-II:\n<table class=\"matchtbl\">\n<tr><th>Column-I</th><th>Column-II</th></tr>\n<tr><td>(a) If $\\theta=\\dfrac{\\pi}{4n}$, $n\\in N$, $n>13$, then $\\displaystyle\\prod_{r=1}^{(2n-1)}\\tan(r\\theta)$ is equal to</td><td>(p) 0</td></tr>\n<tr><td>(b) The value of $\\sin^2\\dfrac{\\pi}{18}+\\sin^2\\dfrac{\\pi}{9}+\\sin^2\\dfrac{7\\pi}{18}+\\sin^2\\dfrac{4\\pi}{9}$ is equal to</td><td>(q) $\\dfrac12$</td></tr>\n<tr><td>(c) The maximum value of the expression $\\sin^8\\theta+\\cos^{14}\\theta,\\ \\forall\\theta\\in R$ is equal to</td><td>(r) 1</td></tr>\n<tr><td>(d) If $\\sin x+\\sin y=3(\\cos y-\\cos x)$, where $x-y\\in\\left(\\dfrac{\\pi}{3},\\dfrac{\\pi}{2}\\right)$, then value of $\\sin 3x+\\sin 3y$ is equal to</td><td>(s) $\\dfrac32$</td></tr>\n<tr><td></td><td>(t) 2</td></tr>\n</table>", "options": ["(a) \u2192 (p); (b) \u2192 (r); (c) \u2192 (s); (d) \u2192 (t)", "(a) \u2192 (r); (b) \u2192 (t); (c) \u2192 (r); (d) \u2192 (p)", "(a) \u2192 (p); (b) \u2192 (r); (c) \u2192 (t); (d) \u2192 (s)", "(a) \u2192 (r); (b) \u2192 (t); (c) \u2192 (q); (d) \u2192 (s)"], "correct": 1}, {"type": "single", "group": "Single Correct", "text": "In a $\\triangle ABC$ let $A(2,2)$ and equations of perpendicular bisectors of sides AB and AC are $x+2y-4=0$ and $2x-y-7=0$ respectively.<br>Equation of the side BC is", "options": ["x + 5y \u2212 6 = 0", "x \u2212 12y \u2212 6 = 0", "x + 12y \u2212 6 = 0", "None of these"], "correct": 2}, {"type": "single", "group": "Single Correct", "text": "In a $\\triangle ABC$ let $A(2,2)$ and equations of perpendicular bisectors of sides AB and AC are $x+2y-4=0$ and $2x-y-7=0$ respectively.<br>Area of the triangle ABC is", "options": ["2 units", "8 units", "9/2 units", "4 units"], "correct": 3}, {"type": "single", "group": "Single Correct", "text": "Let $1,\\ \\log_y x,\\ \\log_z y$ and $-15\\log_x z$ be the first four terms of an Arithmetic Progression with common difference d. All terms of the A.P. being real.<br>Common difference d of the A.P. satisfies the equation", "options": ["$6d^3+11d^2+6d-16=0$", "$6d^3+11d^2-6d-16=0$", "$6d^3+11d^2+6d+16=0$", "$6d^3+11d^2-6d+16=0$"], "correct": 2}, {"type": "single", "group": "Single Correct", "text": "Let $1,\\ \\log_y x,\\ \\log_z y$ and $-15\\log_x z$ be the first four terms of an Arithmetic Progression with common difference d. All terms of the A.P. being real.<br>The value of $\\left(\\dfrac{x}{z^3}+xy+yz^3\\right)$ equal to", "options": ["0", "1", "2", "3"], "correct": 3}, {"type": "numeric", "group": "Numerical Value", "text": "Find the number of all real ordered pair(s) of $(x,y)$ satisfying the equation $16x^4+y^4+8x^2+2y^2-24xy+8=0$", "answer": "2"}, {"type": "numeric", "group": "Numerical Value", "text": "Find minimum value of $\\log_{x_1}\\left(x_2-\\dfrac14\\right)+\\log_{x_2}\\left(x_3-\\dfrac14\\right)+\\log_{x_3}\\left(x_4-\\dfrac14\\right)+\\log_{x_4}\\left(x_1-\\dfrac14\\right)$ where $x_i\\in\\left(\\dfrac14,1\\right)$", "answer": "8"}, {"type": "numeric", "group": "Numerical Value", "text": "Find the number of real values of x satisfying the equation $\\sqrt{x+14-8\\sqrt{x-2}}+\\sqrt{x+23-10\\sqrt{x-2}}=3$.", "answer": "2"}, {"type": "numeric", "group": "Numerical Value", "text": "Let equation $x^2-6x+a=0$ and $x^2-cx+6=0$ have one root in common. The other roots of the first equation and the second equation are integers in the ratio $4:3$. Find the common root.", "answer": "2"}, {"type": "numeric", "group": "Numerical Value", "text": "Find the number of real solution of the equation $1-\\log_9(x+1)^2=\\dfrac12\\log_{\\sqrt3}\\left(\\dfrac{x+5}{x+3}\\right)$", "answer": "3"}, {"type": "numeric", "group": "Numerical Value", "text": "A circle is inscribed in a triangle with sides of lengths 3, 4 and 5. Another circle, interior to the triangle, is tangent to the first circle and to both sides of the larger acute angle of the triangle. If the radius of the second circle can be expressed as $\\dfrac{\\sin18^\\circ}{\\cos\\beta}$, where $\\beta$ is in degree and lies in $(0,90^\\circ)$. Find $\\beta$.", "answer": "36"}, {"type": "numeric", "group": "Numerical Value", "text": "Let 'p' be an integer for which both roots of the quadratic equation $x^2+2(p-3)x+9=0$ lie in $(-6,1)$. Find p.", "answer": "6"}, {"type": "numeric", "group": "Numerical Value", "text": "Let M denotes the maximum value of the expression $f(\\theta)=\\dfrac{7+6\\cos2\\theta}{4-3\\cos2\\theta},\\ \\theta\\in R$ and m denotes the minimum value of the expression $g(\\theta)=2\\sin^2\\theta+\\cos^4\\theta+3;\\ \\theta\\in R$. Find the value of $(M-m)$.", "answer": "9"}, {"type": "multi", "group": "Multiple Correct", "text": "Let the function $f(x)=\\displaystyle\\sum_{n=1}^{3}\\left[(\\sin^2x)^n+(\\cos^2x)^n\\right]$ for all $x\\in R$, then:", "options": ["The maximum value of f(x) is 5/2", "The maximum value of f(x) is 3", "The minimum value of f(x) is 7/4", "The minimum value of f(x) is 9/4"], "correct": [1, 2]}, {"type": "multi", "group": "Multiple Correct", "text": "For $a>1, b>1$, it is given that $7(\\log_b a-\\log_a b)=48$ and $a=8b$.<br>If $a-2b=3\\sqrt{k}$ then k is", "options": ["Even natural number", "odd natural number", "Perfect cube of a natural number", "Perfect square of a natural number"], "correct": [0, 2]}, {"type": "multi", "group": "Multiple Correct", "text": "The value(s) of 'x' satisfies the equation $\\dfrac{1-2(\\log_{10}x^2)^2}{\\log_{10}x-2(\\log_{10}x)^2}=1$ (is/are):", "options": ["$\\dfrac{1}{\\sqrt{10}}$", "$\\sqrt[3]{10}$", "$\\dfrac{1}{\\sqrt{20}}$", "$\\sqrt{10}$"], "correct": [0, 1]}, {"type": "multi", "group": "Multiple Correct", "text": "For all $\\lambda\\in R$, the equation $ax^2+(b-\\lambda)x+(a-b-\\lambda)=0,\\ a\\neq0$ has real roots. Then which of the following may be true.", "options": ["a = b", "b < a < 0", "b > a > 0", "a > b > 0"], "correct": [0, 1, 2]}, {"type": "single", "group": "Single Correct", "text": "If $\\tan\\alpha=\\dfrac17$ and $\\sin\\beta=\\dfrac{1}{\\sqrt{10}}$, where $0<\\alpha,\\beta<\\dfrac{\\pi}{2}$, then $\\alpha+2\\beta$ equals to", "options": ["$\\pi/4$", "$\\pi/3$", "$3\\pi/4$", "$\\pi/2$"], "correct": 0}];
+
+const N = questions.length;
+let current = 0;
+let responses = new Array(N).fill(null); // multi: array of idx; single: idx; numeric: string
+let visited = new Array(N).fill(false);
+let marked = new Array(N).fill(false);
+let timerInterval = null;
+let secondsLeft = 60*60;
+
+/* ---- per-question time tracking ---- */
+let questionTime = new Array(N).fill(0);
+let activeIndex = null;
+let questionEnterTS = null;
+
+function switchActiveQuestion(newIndex){
+  const now = Date.now();
+  if(activeIndex !== null && questionEnterTS !== null){
+    const elapsed = (now - questionEnterTS) / 1000;
+    questionTime[activeIndex] = (questionTime[activeIndex] || 0) + elapsed;
+  }
+  activeIndex = newIndex;
+  questionEnterTS = now;
+}
+
+function formatTime(totalSeconds){
+  totalSeconds = Math.max(0, Math.round(totalSeconds || 0));
+  const h = Math.floor(totalSeconds/3600);
+  const m = Math.floor((totalSeconds%3600)/60);
+  const s = totalSeconds%60;
+  if(h>0) return `${h}h ${m}m ${s}s`;
+  if(m>0) return `${m}m ${s}s`;
+  return `${s}s`;
+}
+
+// Build the ordered list of unique group labels, in first-appearance order
+const GROUPS = [];
+questions.forEach(q=>{ if(!GROUPS.includes(q.group)) GROUPS.push(q.group); });
+
+function startTest(){
+  document.getElementById('startScreen').classList.add('hidden');
+  document.getElementById('testScreen').classList.remove('hidden');
+  timerInterval = setInterval(updateTimer, 1000);
+  buildPalette();
+  renderQuestion(0);
+}
+
+function updateTimer(){
+  secondsLeft--;
+  if(secondsLeft <= 0){
+    secondsLeft = 0;
+    updateTimerDisplay();
+    clearInterval(timerInterval);
+    submitTest();
+    return;
+  }
+  updateTimerDisplay();
+}
+function updateTimerDisplay(){
+  const m = String(Math.floor(secondsLeft/60)).padStart(2,'0');
+  const s = String(secondsLeft%60).padStart(2,'0');
+  document.getElementById('timer').textContent = `Time Left: ${m}:${s}`;
+  document.getElementById('timer').classList.toggle('warn', secondsLeft <= 300);
+}
+
+function buildPalette(){
+  const wrap = document.getElementById('paletteGroups');
+  wrap.innerHTML = '';
+  GROUPS.forEach(g=>{
+    const title = document.createElement('div');
+    title.className = 'palette-section-title';
+    title.textContent = g;
+    wrap.appendChild(title);
+    const pal = document.createElement('div');
+    pal.className = 'palette';
+    questions.forEach((q,i)=>{
+      if(q.group !== g) return;
+      const btn = document.createElement('button');
+      btn.className = 'pnum';
+      btn.textContent = i+1;
+      btn.id = 'pnum-'+i;
+      btn.onclick = ()=>{ saveCurrentResponse(); renderQuestion(i); };
+      pal.appendChild(btn);
+    });
+    wrap.appendChild(pal);
+  });
+  refreshPalette();
+}
+
+function statusClass(i){
+  if(marked[i] && hasResponse(i)) return 'st-markedanswered';
+  if(marked[i]) return 'st-marked';
+  if(hasResponse(i)) return 'st-answered';
+  if(visited[i]) return 'st-notanswered';
+  return 'st-notvisited';
+}
+
+function hasResponse(i){
+  const r = responses[i];
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r === 'string') return r.trim().length>0;
+  return true;
+}
+
+function refreshPalette(){
+  questions.forEach((q,i)=>{
+    const el = document.getElementById('pnum-'+i);
+    if(el) el.className = 'pnum ' + statusClass(i) + (i===current ? ' current' : '');
+  });
+}
+
+const typeLabel = {single:'Single Correct', multi:'Multiple Correct', numeric:'Numerical Value'};
+
+function renderQuestion(i){
+  if(activeIndex !== i){ switchActiveQuestion(i); }
+  current = i;
+  visited[i] = true;
+  const q = questions[i];
+  document.getElementById('sectionTag').textContent = q.group;
+  document.getElementById('typeTag').textContent = typeLabel[q.type] || q.type;
+  document.getElementById('marksTag').textContent =
+    q.type==='single' ? 'Marks: +4 / −1' : (q.type==='multi' ? 'Marks: +4 / 0' : 'Marks: +4 / 0');
+  document.getElementById('qCounter').textContent = `Question ${i+1} of ${N}`;
+  document.getElementById('qNumLabel').textContent = `Q${i+1}.`;
+  document.getElementById('qText').innerHTML = q.text;
+
+  const area = document.getElementById('answerArea');
+  area.innerHTML = '';
+  const letters = ['A','B','C','D'];
+
+  if(q.type==='single' || q.type==='multi'){
+    const wrap = document.createElement('div');
+    wrap.className = 'options';
+    q.options.forEach((opt,idx)=>{
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = q.type==='multi' ? 'checkbox' : 'radio';
+      input.name = 'opt';
+      input.value = idx;
+      const existing = responses[i];
+      if(q.type==='multi'){
+        if(Array.isArray(existing) && existing.includes(idx)) input.checked = true;
+      } else {
+        if(existing === idx) input.checked = true;
+      }
+      const letterSpan = document.createElement('span');
+      letterSpan.className = 'opt-letter';
+      letterSpan.textContent = letters[idx];
+      const textSpan = document.createElement('span');
+      textSpan.innerHTML = opt;
+      label.appendChild(input);
+      label.appendChild(letterSpan);
+      label.appendChild(textSpan);
+      wrap.appendChild(label);
+    });
+    area.appendChild(wrap);
+  } else if(q.type==='numeric'){
+    const wrap = document.createElement('div');
+    wrap.className = 'numeric-wrap';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.inputMode = 'decimal';
+    input.placeholder = 'Enter numerical answer';
+    input.id = 'numericInput';
+    if(typeof responses[i] === 'string') input.value = responses[i];
+    wrap.appendChild(input);
+    const hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = 'Enter integer or decimal value (e.g. -76, 4, 6)';
+    wrap.appendChild(hint);
+    area.appendChild(wrap);
+  }
+
+  document.getElementById('prevBtn').style.visibility = i===0 ? 'hidden' : 'visible';
+  refreshPalette();
+  if(window.MathJax && MathJax.typesetPromise){
+    MathJax.typesetPromise([area, document.getElementById('qText')]);
+  }
+}
+
+function saveCurrentResponse(){
+  const q = questions[current];
+  if(q.type==='multi'){
+    const checked = Array.from(document.querySelectorAll('#answerArea input[type=checkbox]:checked')).map(el=>parseInt(el.value));
+    responses[current] = checked;
+  } else if(q.type==='single'){
+    const sel = document.querySelector('#answerArea input[type=radio]:checked');
+    responses[current] = sel ? parseInt(sel.value) : null;
+  } else if(q.type==='numeric'){
+    const input = document.getElementById('numericInput');
+    responses[current] = input ? input.value : '';
+  }
+}
+
+function saveAndNext(){
+  saveCurrentResponse();
+  refreshPalette();
+  if(current < N-1){ renderQuestion(current+1); }
+}
+
+function prevQuestion(){
+  saveCurrentResponse();
+  if(current>0){ renderQuestion(current-1); }
+}
+
+function markForReview(){
+  saveCurrentResponse();
+  marked[current] = true;
+  refreshPalette();
+  if(current < N-1){ renderQuestion(current+1); }
+}
+
+function clearResponse(){
+  const q = questions[current];
+  if(q.type==='multi') responses[current] = [];
+  else if(q.type==='single') responses[current] = null;
+  else responses[current] = '';
+  marked[current] = false;
+  renderQuestion(current);
+}
+
+function confirmSubmit(){
+  saveCurrentResponse();
+  const unanswered = responses.filter(r=>!hasResponseVal(r)).length;
+  if(confirm(`You have ${unanswered} unanswered question(s) out of ${N}. Submit the test now?`)){
+    submitTest();
+  }
+}
+function hasResponseVal(r){
+  if(r===null || r===undefined) return false;
+  if(Array.isArray(r)) return r.length>0;
+  if(typeof r === 'string') return r.trim().length>0;
+  return true;
+}
+
+function arraysEqualAsSet(a,b){
+  if(a.length!==b.length) return false;
+  const sa = [...a].sort(), sb=[...b].sort();
+  return sa.every((v,i)=>v===sb[i]);
+}
+
+function submitTest(){
+  clearInterval(timerInterval);
+  switchActiveQuestion(null);
+  document.getElementById('testScreen').classList.add('hidden');
+  const resultDiv = document.getElementById('resultScreen');
+  resultDiv.classList.remove('hidden');
+
+  let totalScore = 0, maxScore = 0, correctCount=0, incorrectCount=0, unattemptedCount=0;
+  const groupScore = {}; GROUPS.forEach(g=>groupScore[g]=0);
+  let html = `<h2>Test Result — VG Advanced Practice — Paper 1</h2><div class="score-cards" id="scoreCards"></div>`;
+  html += `<div id="reviewList">`;
+
+  questions.forEach((q,i)=>{
+    let status = 'unattempted', marksAwarded = 0, userAnsDisplay = '';
+    const letters = ['A','B','C','D'];
+
+    if(q.type==='multi'){
+      const resp = Array.isArray(responses[i]) ? responses[i] : [];
+      if(resp.length===0){ status='unattempted'; }
+      else if(arraysEqualAsSet(resp, q.correct)){ status='correct'; marksAwarded=4; }
+      else { status='incorrect'; marksAwarded=0; }
+      userAnsDisplay = resp.length ? resp.map(idx=>letters[idx]).join(', ') : '—';
+    } else if(q.type==='single'){
+      const resp = responses[i];
+      if(resp===null || resp===undefined){ status='unattempted'; }
+      else if(resp===q.correct){ status='correct'; marksAwarded=4; }
+      else { status='incorrect'; marksAwarded=-1; }
+      userAnsDisplay = (resp!==null && resp!==undefined) ? letters[resp] : '—';
+    } else if(q.type==='numeric'){
+      const resp = (typeof responses[i]==='string') ? responses[i].trim() : '';
+      if(resp===''){ status='unattempted'; }
+      else if(parseFloat(resp)===parseFloat(q.answer)){ status='correct'; marksAwarded=4; }
+      else { status='incorrect'; marksAwarded=0; }
+      userAnsDisplay = resp!=='' ? resp : '—';
+    }
+
+    if(status==='correct') correctCount++;
+    else if(status==='incorrect') incorrectCount++;
+    else unattemptedCount++;
+
+    totalScore += marksAwarded;
+    maxScore += 4;
+    groupScore[q.group] += marksAwarded;
+
+    const statusClassMap = {correct:'status-correct', incorrect:'status-incorrect', unattempted:'status-unattempted'};
+    const statusLabelMap = {correct:'Correct', incorrect:'Incorrect', unattempted:'Unattempted'};
+
+    html += `<div class="review-q">
+      <span class="status ${statusClassMap[status]}">${statusLabelMap[status]}</span>
+      <span class="time-badge">⏱ ${formatTime(questionTime[i])}</span>
+      <span style="float:right;font-size:12px;color:#555;">Marks: ${marksAwarded>0?'+':''}${marksAwarded}</span>
+      <div class="qnum">${q.group} — Q${i+1}.</div>
+      <div class="qtext" style="font-size:15px;">${q.text}</div>`;
+
+    if(q.type==='multi' || q.type==='single'){
+      html += `<div class="options" style="margin-top:8px;">`;
+      q.options.forEach((opt,idx)=>{
+        const isCorrectOpt = q.type==='multi' ? q.correct.includes(idx) : q.correct===idx;
+        const resp = q.type==='multi' ? (Array.isArray(responses[i])?responses[i]:[]) : [responses[i]];
+        const wasSelected = resp.includes(idx);
+        let cls = 'opt-plain';
+        if(isCorrectOpt) cls = 'opt-correct';
+        else if(wasSelected && !isCorrectOpt) cls = 'opt-wrong-selected';
+        html += `<div class="opt-row ${cls}"><b>${letters[idx]}.</b> ${opt} ${isCorrectOpt?' ✓':''}${(wasSelected && !isCorrectOpt)?' (your answer)':''}</div>`;
+      });
+      html += `</div>`;
+    } else {
+      html += `<div style="margin-top:8px;font-size:14px;">
+        <div>Your answer: <b>${userAnsDisplay}</b></div>
+        <div style="color:var(--green);font-weight:600;">Correct answer: ${q.answer}</div>
+      </div>`;
+    }
+    html += `</div>`;
+  });
+
+  html += `</div>
+    <div class="backlink"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
+
+  resultDiv.innerHTML = html;
+
+  const totalTimeSeconds = questionTime.reduce((a,b)=>a+(b||0), 0);
+  const avgTimeSeconds = totalTimeSeconds / N;
+
+  let cardsHtml = `
+    <div class="score-card"><div class="val">${totalScore} / ${maxScore}</div><div class="lbl">Total Score</div></div>
+    <div class="score-card"><div class="val">${correctCount}</div><div class="lbl">Correct</div></div>
+    <div class="score-card"><div class="val">${incorrectCount}</div><div class="lbl">Incorrect</div></div>
+    <div class="score-card"><div class="val">${unattemptedCount}</div><div class="lbl">Unattempted</div></div>`;
+  GROUPS.forEach(g=>{
+    cardsHtml += `<div class="score-card"><div class="val">${groupScore[g]}</div><div class="lbl">${g}</div></div>`;
+  });
+  cardsHtml += `
+    <div class="score-card"><div class="val">${formatTime(totalTimeSeconds)}</div><div class="lbl">Total Time Used</div></div>
+    <div class="score-card"><div class="val">${formatTime(avgTimeSeconds)}</div><div class="lbl">Avg Time / Question</div></div>`;
+  document.getElementById('scoreCards').innerHTML = cardsHtml;
+
+  if(window.MathJax && MathJax.typesetPromise){
+    MathJax.typesetPromise([resultDiv]);
+  }
+  window.scrollTo(0,0);
+}
+</script>
+</body>
+</html>
