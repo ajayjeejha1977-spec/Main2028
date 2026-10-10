@@ -96,6 +96,29 @@ window.MathJax = {
     .sidebar{width:100%;order:2;}
     .main{order:1;}
   }
+
+  .an-card{background:#fff;border-radius:8px;padding:18px 20px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+  .an-card h3{margin:0 0 10px;color:#003366;font-size:16px;}
+  .an-tw{overflow-x:auto;}
+  .an-card table{border-collapse:collapse;width:100%;}
+  .an-card th,.an-card td{border:1px solid #ccc;padding:6px 8px;font-size:13px;text-align:left;}
+  .an-card th{background:#eef2f7;}
+  .chip{padding:2px 8px;border-radius:10px;color:#fff;font-size:12px;white-space:nowrap;}
+  .chip.correct{background:var(--green);}.chip.incorrect{background:var(--red);}.chip.unattempted{background:#777;}
+  .tbar{height:14px;border-radius:7px;min-width:2px;}
+  .tbar.correct{background:var(--green);}.tbar.incorrect{background:var(--red);}.tbar.unattempted{background:#9a9a9a;}
+  .tline{display:grid;grid-template-columns:44px 1fr 64px;gap:8px;align-items:center;margin:5px 0;font-size:13px;}
+  @media print{
+    @page{size:A4;margin:12mm;}
+    body{background:#fff;font-size:12px;}
+    .noprint,#startScreen{display:none !important;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    #resultScreen{padding:0;max-width:none;}
+    .score-card,.an-card,.review-q{box-shadow:none;border:1px solid #bbb;break-inside:avoid;}
+    .an-card.tall{break-inside:auto;}
+    .an-card th,.an-card td{font-size:11px;padding:4px 6px;}
+    .pbreak{break-before:page;}
+  }
 </style>
 </head>
 <body>
@@ -110,6 +133,7 @@ window.MathJax = {
     <li><b>Numerical Value Type:</b> enter the answer as a number. +4 for correct, 0 for incorrect.</li>
     <li>Use <b>Mark for Review</b> to flag a question, and the palette on the right to jump to any question.</li>
   </ul>
+  <p><label>Candidate name<br><input type="text" id="candName" placeholder="Enter your name" style="padding:9px 12px;border:1px solid #bbb;border-radius:6px;width:280px;font-size:14px;"></label></p>
   <button class="btn btn-next" onclick="startTest()">Start Test</button>
 </div>
 
@@ -172,6 +196,8 @@ let secondsLeft = 60*60;
 
 /* ---- per-question time tracking ---- */
 let questionTime = new Array(N).fill(0);
+let visitCount = new Array(N).fill(0);
+let candidateName = "Student";
 let activeIndex = null;
 let questionEnterTS = null;
 
@@ -183,6 +209,7 @@ function switchActiveQuestion(newIndex){
   }
   activeIndex = newIndex;
   questionEnterTS = now;
+  if(newIndex !== null) visitCount[newIndex] = (visitCount[newIndex]||0)+1;
 }
 
 function formatTime(totalSeconds){
@@ -200,6 +227,7 @@ const GROUPS = [];
 questions.forEach(q=>{ if(!GROUPS.includes(q.group)) GROUPS.push(q.group); });
 
 function startTest(){
+  candidateName = (document.getElementById("candName").value||"").trim() || "Student";
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('testScreen').classList.remove('hidden');
   timerInterval = setInterval(updateTimer, 1000);
@@ -402,6 +430,46 @@ function arraysEqualAsSet(a,b){
   return sa.every((v,i)=>v===sb[i]);
 }
 
+
+function buildAnalysis(REC, totalScore, maxScore){
+  const mm = s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+  const L={correct:'Correct',incorrect:'Incorrect',unattempted:'Unattempted'};
+  const tT=REC.reduce((a,r)=>a+r.t,0), mt=Math.max(1,...REC.map(r=>r.t));
+  const cnt=(rs,k)=>rs.filter(r=>r.status===k).length;
+  const sumT=rs=>rs.reduce((a,r)=>a+r.t,0), sumM=rs=>rs.reduce((a,r)=>a+r.marks,0);
+  const row=(label,rs)=>{const att=rs.length-cnt(rs,'unattempted');return `<tr><td>${label}</td><td>${rs.length}</td><td>${cnt(rs,'correct')}</td><td>${cnt(rs,'incorrect')}</td><td>${cnt(rs,'unattempted')}</td><td>${att?Math.round(cnt(rs,'correct')/att*100):0}%</td><td><b>${sumM(rs)}</b></td><td>${mm(sumT(rs))}</td></tr>`;};
+  const head='<tr><th>#</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Accuracy</th><th>Marks</th><th>Time</th></tr>';
+  const secRows=GROUPS.map(g=>row(g,REC.filter(r=>r.group===g))).join('');
+  const hasTopic=REC.some(r=>r.topic), topicIsGroup=REC.every(r=>r.topic===r.group);
+  const T2=r=>({single:'Single correct',multi:'Multiple correct',numeric:'Numerical value'}[r.type]||r.type);
+  const byTopic=hasTopic&&!topicIsGroup;
+  const keys2=byTopic?[...new Set(REC.map(r=>r.topic))]:[...new Set(REC.map(T2))];
+  const topRows=keys2.map(k=>row(k,REC.filter(r=>(byTopic?r.topic:T2(r))===k))).join('');
+  const title2=byTopic?'Topic-wise summary':'Question-type summary';
+  const topics=[...new Set(REC.map(r=>r.topic))];
+  const qRows=REC.map(r=>`<tr><td><b>${r.i+1}</b></td><td>${r.topic||r.group}</td><td>${r.yours}</td><td>${r.correct}</td><td><span class="chip ${r.status}">${L[r.status]}</span></td><td><b>${r.marks>0?'+':''}${r.marks}</b></td><td><b>${mm(r.t)}</b></td><td>${r.visits}</td></tr>`).join('');
+  const bars=REC.map(r=>`<div class="tline"><span>Q${r.i+1}</span><div><div class="tbar ${r.status}" style="width:${Math.max(1,r.t/mt*100)}%"></div></div><b style="text-align:right">${mm(r.t)}</b></div>`).join('');
+  const att=REC.length-cnt(REC,'unattempted');
+  const acc=att?Math.round(cnt(REC,'correct')/att*100):0;
+  const obs=[];
+  const slow=REC.slice().sort((a,b)=>b.t-a.t)[0];
+  obs.push(`Most time went on <b>Q${slow.i+1}</b> (${mm(slow.t)}) – result: ${L[slow.status].toLowerCase()}.`);
+  const wr=REC.filter(r=>r.status==='incorrect'), sk=REC.filter(r=>r.status==='unattempted'), ok=REC.filter(r=>r.status==='correct');
+  if(wr.length) obs.push(`${mm(sumT(wr))} (${Math.round(sumT(wr)/Math.max(tT,1)*100)}%) of your time went into the ${wr.length} wrongly answered question(s).`);
+  if(sk.length) obs.push(`${mm(sumT(sk))} was spent on ${sk.length} question(s) you left unattempted – decide faster when to skip.`);
+  if(ok.length&&wr.length) obs.push(`Average time on correct answers: ${mm(sumT(ok)/ok.length)}; on wrong answers: ${mm(sumT(wr)/wr.length)}.`);
+  const tp=(hasTopic?topics:[]).map(t=>{const rs=REC.filter(r=>r.topic===t);const a=rs.length-cnt(rs,'unattempted');return{t,a,acc:a?cnt(rs,'correct')/a:null,n:rs.length,c:cnt(rs,'correct')}}).filter(x=>x.a>0).sort((a,b)=>a.acc-b.acc);
+  if(hasTopic&&tp.length) obs.push(`Weakest topic: <b>${tp[0].t}</b> (${tp[0].c}/${tp[0].n} correct). Strongest: <b>${tp[tp.length-1].t}</b> (${tp[tp.length-1].c}/${tp[tp.length-1].n}).`);
+  const quick=REC.filter(r=>r.status==='incorrect'&&r.t<30);
+  if(quick.length) obs.push(`${quick.length} wrong answer(s) were given in under 30 s (Q${quick.map(r=>r.i+1).join(', Q')}) – likely hasty or guessed.`);
+  return `<div class="score-cards"><div class="score-card"><div class="val">${acc}%</div><div class="lbl">Accuracy (of attempted)</div></div><div class="score-card"><div class="val">${att}/${REC.length}</div><div class="lbl">Attempted</div></div></div>
+  <div class="an-card"><h3>Section-wise summary</h3><div class="an-tw"><table>${head.replace('#',hasTopic&&topicIsGroup?'Topic':'Section')}${secRows}</table></div></div>
+  ${hasTopic?`<div class="an-card"><h3>${title2}</h3><div class="an-tw"><table>${head.replace('#',byTopic?'Topic':'Type')}${topRows}</table></div></div>`:''}
+  <div class="an-card tall pbreak"><h3>Question-wise analysis</h3><div class="an-tw"><table><tr><th>Q</th><th>Topic</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Marks</th><th>Time spent</th><th>Visits</th></tr>${qRows}</table></div></div>
+  <div class="an-card"><h3>Time spent on every question</h3>${bars}<div style="font-size:12px;color:#666;margin-top:6px;">Green = correct · Red = incorrect · Grey = unattempted</div></div>
+  <div class="an-card"><h3>Observations</h3><ul style="margin:0;padding-left:20px;line-height:1.7;">${obs.map(o=>'<li>'+o+'</li>').join('')}</ul></div>`;
+}
+
 function submitTest(){
   clearInterval(timerInterval);
   switchActiveQuestion(null);
@@ -411,7 +479,8 @@ function submitTest(){
 
   let totalScore = 0, maxScore = 0, correctCount=0, incorrectCount=0, unattemptedCount=0;
   const groupScore = {}; GROUPS.forEach(g=>groupScore[g]=0);
-  let html = `<h2>Test Result — VG Sir Review — Advanced Paper 2</h2><div class="score-cards" id="scoreCards"></div>`;
+  const REC = [];
+  let html = `<div class="noprint" style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:8px;"><button class="btn btn-next" onclick="window.print()">🖨 Print / Save as PDF</button><button class="btn btn-save" onclick="location.reload()">Retake Test</button></div><h2 style="margin-bottom:2px;">Test Analysis Report — VG Sir Review — Advanced Paper 2</h2><div style="color:#555;font-size:13px;">Candidate: <b>${candidateName}</b> &nbsp;·&nbsp; ${new Date().toLocaleString()}</div><div class="score-cards" id="scoreCards"></div><div id="analysis"></div><h3 class="pbreak" style="color:#003366;">Question review</h3>`;
   html += `<div id="reviewList">`;
 
   questions.forEach((q,i)=>{
@@ -443,6 +512,9 @@ function submitTest(){
     else unattemptedCount++;
 
     totalScore += marksAwarded;
+    REC.push({i, status, marks:marksAwarded, topic:q.topic||'', group:q.group, type:q.type,
+      yours:userAnsDisplay, correct: q.type==='numeric' ? String(q.answer) : (q.type==='multi' ? q.correct.map(x=>letters[x]).join(', ') : letters[q.correct]),
+      t:questionTime[i]||0, visits:visitCount[i]||0});
     maxScore += 4;
     groupScore[q.group] += marksAwarded;
 
@@ -478,9 +550,10 @@ function submitTest(){
   });
 
   html += `</div>
-    <div class="backlink"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
+    <div class="backlink noprint"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
 
   resultDiv.innerHTML = html;
+  document.getElementById('analysis').innerHTML = buildAnalysis(REC, totalScore, maxScore);
 
   const totalTimeSeconds = questionTime.reduce((a,b)=>a+(b||0), 0);
   const avgTimeSeconds = totalTimeSeconds / N;
