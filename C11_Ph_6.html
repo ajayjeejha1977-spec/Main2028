@@ -94,6 +94,34 @@
     #paletteGrid{grid-template-columns:repeat(7,1fr);}
     .scoreGrid{grid-template-columns:repeat(2,1fr);}
   }
+  :root{--green:#3fae4f;--red:#e04b4b;}
+  .score-cards{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0;}
+  .score-card{background:#f4f6fb;border:1px solid #dce;border-radius:6px;padding:12px 20px;min-width:150px;}
+  .score-card .val{font-size:24px;font-weight:700;color:#082b66;}.score-card .lbl{font-size:12px;color:#666;margin-top:2px;}
+  .an-card{background:#fff;border-radius:8px;padding:18px 20px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+  .an-card h3{margin:0 0 10px;color:#003366;font-size:16px;}
+  .an-tw{overflow-x:auto;}
+  .an-card table{border-collapse:collapse;width:100%;}
+  .an-card th,.an-card td{border:1px solid #ccc;padding:6px 8px;font-size:13px;text-align:left;}
+  .an-card th{background:#eef2f7;}
+  .chip{padding:2px 8px;border-radius:10px;color:#fff;font-size:12px;white-space:nowrap;}
+  .chip.partial{background:#c97a1a;}.tbar.partial{background:#c97a1a;}
+  .chip.correct{background:var(--green);}.chip.incorrect{background:var(--red);}.chip.unattempted{background:#777;}
+  .tbar{height:14px;border-radius:7px;min-width:2px;}
+  .tbar.correct{background:var(--green);}.tbar.incorrect{background:var(--red);}.tbar.unattempted{background:#9a9a9a;}
+  .tline{display:grid;grid-template-columns:78px 1fr 64px;gap:8px;align-items:center;margin:5px 0;font-size:13px;}
+    @media print{
+    @page{size:A4;margin:12mm;}
+    body{background:#fff;font-size:12px;}
+    .noprint,#instrOverlay,#appWrap{display:none !important;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    #resultsOverlayOuter{background:#fff !important;min-height:0 !important;}
+    #resultsWrap{margin:0;max-width:none;padding:0;}
+    .an-card,.scoreCard,.reviewItem{border:1px solid #bbb;break-inside:avoid;}
+    .an-card.tall{break-inside:auto;}
+    .an-card th,.an-card td{font-size:11px;padding:4px 6px;}
+    .pbreak{break-before:page;}
+  }
 </style>
 </head>
 <body>
@@ -111,6 +139,7 @@
       <li><b>Note:</b> Questions 19 and 20 refer to a shared "nails and thread" setup whose descriptive paragraph/figure wasn't in the uploaded screenshots — you may be missing context for those two.</li>
       <li>Use <b>Save & Next</b>, <b>Mark for Review & Next</b>, or <b>Clear Response</b>. The question palette on the right shows status of every question — click any number to jump to it.</li>
     </ul>
+    <p style="font-size:14px;"><label>Candidate name<br><input type="text" id="candNamePh" placeholder="Enter your name" style="padding:9px 12px;border:1px solid #bbb;border-radius:6px;width:280px;font-size:14px;"></label></p>
     <div class="btnRow"><button class="btn btn-save" id="startBtn">Start Test</button></div>
   </div>
 </div>
@@ -261,8 +290,10 @@ function renderPalette(){
   });
 }
 
+const VISITS={};
 function loadQuestion(idx){
   const qid = ORDER[idx];
+  VISITS[qid]=(VISITS[qid]||0)+1;
   const type = ANSW[qid].type;
   document.getElementById('qNoLabel').textContent = 'Question No. '+(idx+1)+' (orig #'+ANSW[qid].origQ+')';
   document.getElementById('qCounter').textContent = 'Question '+(idx+1)+' of '+TOTAL_Q;
@@ -444,8 +475,52 @@ function gradeQuestion(qid){
   }
 }
 
+const PH_TL={mcq:"Single correct",mcq_multi:"Multiple correct",num:"Numerical value"};
+const PH_GROUPS=[...new Set(ORDER.map(q=>PH_TL[ANSW[q].type]||ANSW[q].type))];
+
+function buildAnalysis(REC, totalScore, maxScore){
+  const mm = s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+  const hasP=REC.some(r=>r.mc);
+  const L={partial:'Partial',correct:'Correct',incorrect:'Incorrect',unattempted:'Unattempted'};
+  const tT=REC.reduce((a,r)=>a+r.t,0), mt=Math.max(1,...REC.map(r=>r.t));
+  const cnt=(rs,k)=>rs.filter(r=>r.status===k).length;
+  const sumT=rs=>rs.reduce((a,r)=>a+r.t,0), sumM=rs=>rs.reduce((a,r)=>a+r.marks,0);
+  const row=(label,rs)=>{const att=rs.length-cnt(rs,'unattempted');return `<tr><td>${label}</td><td>${rs.length}</td><td>${cnt(rs,'correct')}</td>${hasP?`<td>${cnt(rs,'partial')}</td>`:''}<td>${cnt(rs,'incorrect')}</td><td>${cnt(rs,'unattempted')}</td><td>${att?Math.round(cnt(rs,'correct')/att*100):0}%</td><td><b>${sumM(rs)}</b></td><td>${mm(sumT(rs))}</td></tr>`;};
+  const head='<tr><th>#</th><th>Qs</th><th>Correct</th>'+(hasP?'<th>Partial</th>':'')+'<th>Wrong</th><th>Skipped</th><th>Accuracy</th><th>Marks</th><th>Time</th></tr>';
+  const secRows=PH_GROUPS.map(g=>row(g,REC.filter(r=>r.group===g))).join('');
+  const hasTopic=REC.some(r=>r.topic), topicIsGroup=REC.every(r=>r.topic===r.group);
+  const T2=r=>({single:'Single correct',multi:'Multiple correct',numeric:'Numerical value'}[r.type]||r.type);
+  const byTopic=hasTopic&&!topicIsGroup;
+  const keys2=byTopic?[...new Set(REC.map(r=>r.topic))]:[...new Set(REC.map(T2))];
+  const topRows=keys2.map(k=>row(k,REC.filter(r=>(byTopic?r.topic:T2(r))===k))).join('');
+  const title2=byTopic?'Topic-wise summary':'Question-type summary';
+  const topics=[...new Set(REC.map(r=>r.topic))];
+  const qRows=REC.map(r=>`<tr><td><b>${r.lbl||r.i+1}</b></td><td>${r.topic||r.group}</td><td>${r.yours}</td><td>${r.correct}</td><td><span class="chip ${r.status}">${L[r.status]}</span></td><td><b>${r.marks>0?'+':''}${r.marks}</b></td><td><b>${mm(r.t)}</b></td><td>${r.visits}</td></tr>`).join('');
+  const bars=REC.map(r=>`<div class="tline"><span>Q${r.lbl||r.i+1}</span><div><div class="tbar ${r.status}" style="width:${Math.max(1,r.t/mt*100)}%"></div></div><b style="text-align:right">${mm(r.t)}</b></div>`).join('');
+  const att=REC.length-cnt(REC,'unattempted');
+  const acc=att?Math.round(cnt(REC,'correct')/att*100):0;
+  const obs=[];
+  const slow=REC.slice().sort((a,b)=>b.t-a.t)[0];
+  obs.push(`Most time went on <b>Q${slow.lbl||slow.i+1}</b> (${mm(slow.t)}) – result: ${L[slow.status].toLowerCase()}.`);
+  const wr=REC.filter(r=>r.status==='incorrect'), sk=REC.filter(r=>r.status==='unattempted'), ok=REC.filter(r=>r.status==='correct');
+  if(wr.length) obs.push(`${mm(sumT(wr))} (${Math.round(sumT(wr)/Math.max(tT,1)*100)}%) of your time went into the ${wr.length} wrongly answered question(s).`);
+  if(sk.length) obs.push(`${mm(sumT(sk))} was spent on ${sk.length} question(s) you left unattempted – decide faster when to skip.`);
+  if(ok.length&&wr.length) obs.push(`Average time on correct answers: ${mm(sumT(ok)/ok.length)}; on wrong answers: ${mm(sumT(wr)/wr.length)}.`);
+  const tp=(hasTopic?topics:[]).map(t=>{const rs=REC.filter(r=>r.topic===t);const a=rs.length-cnt(rs,'unattempted');return{t,a,acc:a?cnt(rs,'correct')/a:null,n:rs.length,c:cnt(rs,'correct')}}).filter(x=>x.a>0).sort((a,b)=>a.acc-b.acc);
+  if(hasTopic&&tp.length) obs.push(`Weakest topic: <b>${tp[0].t}</b> (${tp[0].c}/${tp[0].n} correct). Strongest: <b>${tp[tp.length-1].t}</b> (${tp[tp.length-1].c}/${tp[tp.length-1].n}).`);
+  const quick=REC.filter(r=>r.status==='incorrect'&&r.t<30);
+  if(quick.length) obs.push(`${quick.length} wrong answer(s) were given in under 30 s (Q${quick.map(r=>r.lbl||r.i+1).join(', Q')}) – likely hasty or guessed.`);
+  return `<div class="score-cards"><div class="score-card"><div class="val">${acc}%</div><div class="lbl">Accuracy (of attempted)</div></div><div class="score-card"><div class="val">${att}/${REC.length}</div><div class="lbl">Attempted</div></div></div>
+  <div class="an-card"><h3>Section-wise summary</h3><div class="an-tw"><table>${head.replace('#','Type')}${secRows}</table></div></div>
+  ${hasTopic?`<div class="an-card"><h3>${title2}</h3><div class="an-tw"><table>${head.replace('#',byTopic?'Topic':'Type')}${topRows}</table></div></div>`:''}
+  <div class="an-card tall pbreak"><h3>Question-wise analysis</h3><div class="an-tw"><table><tr><th>Q</th><th>Type</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Marks</th><th>Time spent</th><th>Visits</th></tr>${qRows}</table></div></div>
+  <div class="an-card"><h3>Time spent on every question</h3>${bars}<div style="font-size:12px;color:#666;margin-top:6px;">Green = correct · Amber = partial · Red = incorrect · Grey = unattempted</div></div>
+  <div class="an-card"><h3>Observations</h3><ul style="margin:0;padding-left:20px;line-height:1.7;">${obs.map(o=>'<li>'+o+'</li>').join('')}</ul></div>`;
+}
+
 function renderResults(auto){
   let correctCount=0, partialCount=0, wrongCount=0, skipCount=0, score=0;
+  const REC = [];
   let rows = '';
   let reviewHtml = '';
   const maxTime = Math.max(1, ...ORDER.map(q=>state.timeSpent[q]));
@@ -461,6 +536,9 @@ function renderResults(auto){
     else { skipCount++; rowCls='rowSkip'; tag='Skipped (0)'; headCls='skip'; }
 
     const t = state.timeSpent[qid];
+    REC.push({i:idx, lbl:(idx+1)+' (#'+ANSW[qid].origQ+')', status:headCls==='correct'?'correct':headCls==='partial'?'partial':headCls==='wrong'?'incorrect':'unattempted',
+      marks:g.mark, topic:'', group:PH_TL[ANSW[qid].type]||ANSW[qid].type, type:ANSW[qid].type, mc:ANSW[qid].type==='mcq_multi',
+      yours:(ans!==undefined&&ans!==null&&ans!=='')?String(ans):'—', correct:String(key), t:t, visits:VISITS[qid]||0});
     const barPct = Math.round((t/maxTime)*100);
     rows += `<tr class="${rowCls}"><td>${idx+1} (#${ANSW[qid].origQ})</td><td>${tag}</td><td>${ans!==undefined && ans!==null && ans!=='' ? ans : '—'}</td><td>${key}</td><td>${t}s
       <div style="background:#cfd8ea;border-radius:3px;height:6px;margin-top:3px;"><div style="background:#0b3d91;height:6px;border-radius:3px;width:${barPct}%;"></div></div>
@@ -474,8 +552,10 @@ function renderResults(auto){
   const totalTimeUsed = TOTAL_TIME - remaining;
   const maxScore = ORDER.reduce((sum,q)=> sum + 4, 0);
   const html = `
+    <div class="noprint" style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:8px;"><button class="btn btn-save" onclick="window.print()">🖨 Print / Save as PDF</button><button class="btn btn-clear" onclick="location.reload()">Retake Test</button></div>
     <h1>${auto? 'Time Up — Test Auto-Submitted' : 'Test Submitted'}</h1>
     <p style="color:#555;font-size:14px;">JEE Advanced-Style Mock · AM Sir Set · 28 Questions · 145 minutes</p>
+    <div style="color:#555;font-size:13px;margin-bottom:6px;">Candidate: <b>${(document.getElementById("candNamePh").value||"").trim()||"Student"}</b> &nbsp;·&nbsp; ${new Date().toLocaleString()}</div>
     <div class="scoreGrid">
       <div class="scoreCard"><div class="val">${score}</div><div class="lbl">Score (out of ${maxScore})</div></div>
       <div class="scoreCard"><div class="val">${correctCount}</div><div class="lbl">Fully Correct</div></div>
@@ -483,12 +563,8 @@ function renderResults(auto){
       <div class="scoreCard"><div class="val">${wrongCount}</div><div class="lbl">Wrong</div></div>
     </div>
     <p style="font-size:13px;color:#555;">Attempted: <b>${attempted}</b>/${TOTAL_Q} &nbsp;|&nbsp; Skipped: <b>${skipCount}</b> &nbsp;|&nbsp; Total time used: <b>${fmtMMSS(totalTimeUsed)}</b> of 145:00</p>
-    <h3>Time Analysis (per question)</h3>
-    <table class="timeTbl">
-      <tr><th>Q#</th><th>Result</th><th>Your Answer</th><th>Correct</th><th>Time Spent</th></tr>
-      ${rows}
-    </table>
-    <h3 style="margin-top:28px;">Full Review — Question &amp; Answer Key</h3>
+    ${buildAnalysis(REC, score, maxScore)}
+    <h3 class="pbreak" style="margin-top:28px;">Full Review — Question &amp; Answer Key</h3>
     ${reviewHtml}
   `;
   document.getElementById('resultsWrap').innerHTML = html;
