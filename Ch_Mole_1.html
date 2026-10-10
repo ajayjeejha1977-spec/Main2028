@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mole Concept T2 – Revision CBT</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--tx:#1d2733;--mut:#5c6b7a;--bd:#d3dae2;--pri:#1565c0;--na:#e0e0e0;--nv:#e53935;--an:#43a047;--mk:#7e57c2;--am:#7e57c2}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1e242b;--tx:#e8edf2;--mut:#9aa8b6;--bd:#37414c;--na:#3a434d}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,Arial,sans-serif}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{background:var(--pri);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+header b{font-size:16px}#tm{background:#fff;color:#000;padding:4px 10px;border-radius:4px;font-weight:700}
+.wrap{display:flex;gap:12px;padding:12px;flex-wrap:wrap}.main{flex:1 1 520px;min-width:0}.side{flex:0 0 240px;max-width:100%}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-bottom:10px}
+.tag{display:inline-block;font-size:12px;background:var(--na);padding:2px 8px;border-radius:10px;color:var(--tx);margin-left:6px}
+.q{font-size:16px;line-height:1.55;white-space:pre-line}
+.opt{display:block;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer}
+.opt.sel{border-color:var(--pri);background:rgba(21,101,192,.12)}
+input[type=number]{font-size:18px;padding:8px;width:200px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx)}
+button{font-size:14px;padding:9px 14px;border:1px solid var(--bd);border-radius:5px;background:var(--card);color:var(--tx);cursor:pointer}
+button.p{background:var(--pri);color:#fff;border-color:var(--pri)}button.g{background:var(--an);color:#fff;border-color:var(--an)}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+.pal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pb{height:40px;border-radius:6px 6px 14px 14px;border:0;color:#fff;font-weight:700;background:var(--na);color:var(--tx)}
+.pb.nv{background:var(--nv);color:#fff}.pb.an{background:var(--an);color:#fff}.pb.mk{background:var(--mk);color:#fff;border-radius:50%}.pb.am{background:var(--mk);color:#fff;border-radius:50%;outline:3px solid var(--an)}.pb.cur{box-shadow:0 0 0 3px var(--pri)}
+.lg{font-size:12px;color:var(--mut);line-height:1.9}.lg i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:5px}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+.ok{color:var(--an);font-weight:700}.bad{color:var(--nv);font-weight:700}.sk{color:var(--mut);font-weight:700}
+.hide{display:none}.ctr{text-align:center;max-width:560px;margin:30px auto}
+@media print{header,.bar,.noprint{display:none}}
+</style></head><body>
+<div id="start" class="card ctr">
+<h2>Mole Concept – T2 &amp; T3 Revision Test</h2>
+<p>T2 Compounds, ions &amp; quantitative interpretation of formulae · T3 POAC<br>18 questions · A: 13 MCQ (+4 / −1) · B: 3 Multiple-correct (+4 / −2, all correct options needed) · C: 2 Numerical (+4 / 0)</p>
+<p>Time (minutes): <select id="mins"><option>20</option><option>30</option><option selected>40</option><option>60</option></select></p>
+<button class="p" onclick="begin()">Start Test</button></div>
+
+<div id="test" class="hide">
+<header><b>Mole Concept T2 &amp; T3 · Revision CBT</b><span>Time Left: <span id="tm">00:00</span></span></header>
+<div class="wrap"><div class="main">
+<div class="card"><div><b id="qn"></b><span class="tag" id="sec"></span><span class="tag" id="src"></span></div><hr style="border:0;border-top:1px solid var(--bd)"><div class="q" id="qt"></div><div id="op"></div></div>
+<div class="bar"><button onclick="mark()">Mark for Review &amp; Next</button><button onclick="clr()">Clear Response</button><button class="p" onclick="save()">Save &amp; Next</button></div></div>
+<div class="side"><div class="card"><div class="pal" id="pal"></div></div>
+<div class="card lg"><i style="background:var(--na)"></i>Not Visited<br><i style="background:var(--nv)"></i>Not Answered<br><i style="background:var(--an)"></i>Answered<br><i style="background:var(--mk);border-radius:50%"></i>Marked for Review<br><i style="background:var(--mk);border-radius:50%;outline:2px solid var(--an)"></i>Answered &amp; Marked</div>
+<button class="g" style="width:100%" onclick="submitT(false)">Submit Test</button></div></div></div>
+
+<div id="res" class="hide wrap"><div class="main"><div class="card"><h2>Result</h2><div id="sc"></div>
+<div class="bar noprint"><button class="p" onclick="window.print()">Download PDF (Print → Save as PDF)</button><button onclick="location.reload()">Retake</button></div></div>
+<div class="card" style="overflow-x:auto"><table id="rt"></table></div></div></div>
+
+<script>
+const Q=[
+{s:'A',src:'T2 Ex-2 Q1 (NEET level)',q:'Weight of 1×10²² molecules of CuSO₄·5H₂O?',o:['41.59 g','415.9 g','4.159 g','8.31 g'],a:2,sol:'Molar mass = 250 g/mol. Moles = 10²²/6.022×10²³ = 0.0166. Mass = 0.0166×250 ≈ 4.159 g.'},
+{s:'A',src:'T2 Ex-3 Q1 · JEE Main 2019',q:'5 moles of AB₂ weigh 125×10⁻³ kg and 10 moles of A₂B₂ weigh 300×10⁻³ kg. The molar masses of A (M_A) and B (M_B) in kg mol⁻¹ are:',o:['M_A = 25×10⁻³, M_B = 50×10⁻³','M_A = 5×10⁻³, M_B = 10×10⁻³','M_A = 10×10⁻³, M_B = 5×10⁻³','M_A = 50×10⁻³, M_B = 25×10⁻³'],a:1,sol:'A+2B = 25×10⁻³; 2A+2B = 30×10⁻³. Subtract: A = 5×10⁻³, so B = 10×10⁻³.'},
+{s:'A',src:'T2 Ex-3 Q5 · JEE Main 2026',q:'Match List-I (mass) with List-II (number of atoms):\nA. 1.8 mg water      I. 2×10⁻⁴ × N_A\nB. 9.8 mg sulphuric acid   II. 1.5×10⁻⁴ × N_A\nC. 1.8 mg carbon      III. 3×10⁻⁴ × N_A\nD. 5.85 mg NaCl      IV. 7×10⁻⁴ × N_A',o:['A-IV, B-III, C-I, D-II','A-III, B-II, C-IV, D-I','A-III, B-IV, C-II, D-I','A-III, B-IV, C-I, D-II'],a:2,sol:'Water: (1.8×10⁻³/18)×3 = 3×10⁻⁴. H₂SO₄: (9.8×10⁻³/98)×7 = 7×10⁻⁴. C: (1.8×10⁻³/12) = 1.5×10⁻⁴. NaCl: (5.85×10⁻³/58.5)×2 = 2×10⁻⁴. So A-III, B-IV, C-II, D-I.'},
+{s:'A',src:'T2 Ex-3 Q6 · JEE Main 2025',q:'0.1 mol of the antiviral compound (P), molecular formula C₉H₁₀FIN₂O₅, will weigh ___ g.',o:['3.72 g','37.2 g','372 g','0.372 g'],a:1,sol:'M = 9(12)+10(1)+19+127+2(14)+5(16) = 372 g/mol. 0.1 mol = 37.2 g.'},
+{s:'A',src:'T2 Ex-3 Q7 · JEE Main 2022',q:'The number of N atoms in 681 g of C₇H₅N₃O₆ is x×10²¹. The value of x is:',o:['1806','3612','5418','7224'],a:2,sol:'M = 84+5+42+96 = 227. Moles = 681/227 = 3. N atoms = 3×3 = 9 mol = 9×6.02×10²³ = 5418×10²¹. Pick exactly one option.'},
+{s:'A',src:'T2 Ex-3 Q10 · JEE Main 2024',q:'A sample of CaCO₃ and MgCO₃ weighing 2.21 g is ignited to a constant weight of 1.152 g. The composition of the mixture is (molar mass: CaCO₃ = 100, MgCO₃ = 84):',o:['1.023 g CaCO₃ + 1.187 g MgCO₃','1.023 g CaCO₃ + 1.023 g MgCO₃','1.187 g CaCO₃ + 1.187 g MgCO₃','1.187 g CaCO₃ + 1.023 g MgCO₃'],a:3,sol:'x+y = 2.21 and 0.56x + (40/84)y = 1.152. Solving: x = 1.187 g (CaCO₃), y = 1.023 g (MgCO₃).'},
+{s:'A',src:'T2 Ex-4 Q3 · JEE Advanced 2011',q:'mL of 0.1 M AgNO₃ required for complete precipitation of Cl⁻ in 30 mL of 0.01 M [Cr(H₂O)₅Cl]Cl₂ is:',o:['3','8','6','5'],a:2,sol:'Only 2 Cl⁻ are ionisable. mmol complex = 30×0.01 = 0.3, so mmol Cl⁻ = 0.6. Volume of AgNO₃ = 0.6/0.1 = 6 mL.'},
+{s:'A',src:'T3 Ex-1 Q18 · POAC',q:'0.2 mol MgCO₃ and 0.1 mol CaCO₃ are heated together completely to give oxides and CO₂. Total moles of CO₂ evolved (without double-counting O in both carbonate and oxide)?',o:['0.1','0.2','0.3','0.6'],a:2,sol:'Each carbonate gives exactly 1 CO₂ (C is conserved once). Total = 0.2 + 0.1 = 0.3 mol.'},
+{s:'A',src:'T3 Ex-2 Q4 · NEET level',q:'A sample containing 1.2 mol carbon atoms undergoes partial combustion, producing only CO and CO₂. If 0.4 mol CO₂ is formed, find the moles of CO formed.',o:['0.4','0.6','0.8','1.0'],a:2,sol:'POAC on C: 1.2 = n(CO) + 0.4, so n(CO) = 0.8 mol.'},
+{s:'A',src:'T3 Ex-2 Q7 · NEET level',q:'FeS₂ is roasted in excess O₂; the SO₂ formed is converted completely (100% yield) to SO₃ and then to H₂SO₄. If 12 g of FeS₂ (M = 120) is roasted, find the mass of H₂SO₄ (M = 98) finally obtained. Use POAC on the correct element; do not balance the equations.',o:['9.8 g','14.7 g','19.6 g','24.5 g'],a:2,sol:'Track S (Fe leaves as Fe₂O₃). mol FeS₂ = 12/120 = 0.1, so S = 0.2 mol = mol H₂SO₄. Mass = 0.2×98 = 19.6 g.'},
+{s:'A',src:'T3 Ex-3 Q2 · JEE Main level',q:'How many moles of KI are required to produce 0.4 mol K₂HgI₄ from HgCl₂?',o:['0.4','0.8','3.2','1.6'],a:3,sol:'Each K₂HgI₄ contains 4 I. POAC on I: mol KI = 4×0.4 = 1.6.'},
+{s:'A',src:'T3 Ex-3 Q4 · JEE Main 2023',q:'A hydrocarbon A on combustion requires 9.5 equivalents of oxygen and produces 3 equivalents of water. The molecular formula of A is:',o:['C₉H₉','C₆H₆','C₉H₆','C₈H₆'],a:3,sol:'CₓHᵧ + (x+y/4)O₂ → xCO₂ + (y/2)H₂O. y/2 = 3 so y = 6; x + 6/4 = 9.5 so x = 8. Formula C₈H₆.'},
+{s:'A',src:'T3 Ex-3 Q5 · JEE Main 2023',q:'A hydrocarbon A on complete combustion requires 11 equivalents of oxygen and produces 4 equivalents of water. The molecular formula of A is:',o:['C₁₁H₈','C₁₁H₄','C₅H₈','C₉H₈'],a:3,sol:'y/2 = 4 so y = 8; x + 8/4 = 11 so x = 9. Formula C₉H₈.'},
+{s:'B',m:1,src:'T2 Ex-4 Q7 · JEE Advanced level',q:'Consider (NH₄)₃PO₄ (N = 14, H = 1, P = 31, O = 16). Which statements are correct?',o:['Its formula mass is 149 u.','One formula unit contains 15 atoms.','Complete dissociation gives 7 ions per formula unit.','The total number of electrons in one neutral formula unit is 74.'],a:[0],sol:'Mass = 3(18)+31+64 = 149 u (A true). Atoms = 3N+12H+P+4O = 20 (B false). Ions = 3 NH₄⁺ + 1 PO₄³⁻ = 4 (C false). Electrons = 21+12+15+32 = 80 (D false). Answer: A only.'},
+{s:'B',m:1,src:'T2 Ex-4 Q9 · JEE Advanced level',q:'Consider the species CO₃²⁻, NO₃⁻, NH₄⁺, OH⁻. Which statements are correct?',o:['CO₃²⁻ and NO₃⁻ contain the same number of electrons.','NH₄⁺ contains 22 fewer electrons than CO₃²⁻.','OH⁻ and NH₄⁺ contain the same number of electrons.','The total number of atoms in CO₃²⁻ is greater than that in NH₄⁺.'],a:[0,1,2],sol:'Electrons: CO₃²⁻ = 32, NO₃⁻ = 32, NH₄⁺ = 10, OH⁻ = 10. A, B (32−10 = 22), C true. Atoms: CO₃²⁻ = 4, NH₄⁺ = 5, so D false. Answer: A, B, C.'},
+{s:'B',m:1,src:'T3 Ex-4 Q4 · JEE Advanced level',q:'33.1 g of Pb(NO₃)₂ (M = 331) decomposes completely: 2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂. Which statements are correct?',o:['Moles of PbO formed = 0.1','Moles of Pb atoms conserved through the reaction = 0.2','Moles of O₂ formed = 0.05','Moles of NO₂ formed = 0.2'],a:[0,2,3],sol:'mol Pb(NO₃)₂ = 0.1. POAC on Pb: PbO = 0.1 (A true), Pb conserved = 0.1 not 0.2 (B false). From the 2:4:1 ratio: NO₂ = 0.2 (D true), O₂ = 0.05 (C true). Answer: A, C, D.'},
+{s:'C',src:'T2 Ex-3 Q9 · JEE Main 2021 (NAT)',q:'The NaNO₃ weighed out to make 50 mL of an aqueous solution containing 70.0 mg Na⁺ per mL is ___ g. (Round off to the nearest integer. Na = 23, N = 14, O = 16)',n:1,a:13,sol:'Na⁺ = 70×50 = 3500 mg = 3.5 g. Moles = 3.5/23. Mass NaNO₃ = (3.5/23)×85 = 12.9 ≈ 13 g.'},
+{s:'C',n:1,src:'T3 Ex-4 Q10 · JEE Advanced level (NAT)',q:'Hydrated thorium(IV) nitrate, Th(NO₃)₄·xH₂O, weighing 28.5 g is heated and loses exactly 4.5 g of water, leaving anhydrous Th(NO₃)₄ (M = 480). This residue is dissolved in water and treated with excess NaOH, precipitating all the thorium as Th(OH)₄ (M = 300). Find the mass (in g) of Th(OH)₄ precipitated.',a:15,sol:'Anhydrous salt = 28.5 − 4.5 = 24.0 g; mol = 24.0/480 = 0.05. POAC on Th (1:1): mol Th(OH)₄ = 0.05; mass = 0.05×300 = 15.0 g.'}];
+const L='ABCD';let cur=0,ans=[],st=[],tl=0,iv;
+function begin(){tl=+document.getElementById('mins').value*60;ans=Q.map(()=>null);st=Q.map(()=>0);
+ document.getElementById('start').classList.add('hide');document.getElementById('test').classList.remove('hide');
+ iv=setInterval(()=>{tl--;tick();if(tl<=0)submitT(true)},1000);tick();show(0)}
+function tick(){const m=Math.floor(tl/60),s=tl%60;document.getElementById('tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+// st: 0 not visited,1 not answered,2 answered,3 marked,4 answered+marked
+function show(i){cur=i;if(st[i]==0)st[i]=1;const q=Q[i];
+ qn.textContent='Question '+(i+1);sec.textContent='Section '+q.s+(q.n?' · Numerical':q.m?' · Multiple correct':' · MCQ');src.textContent=q.src;qt.textContent=q.q;
+ op.innerHTML=q.n?'<p>Your answer (integer):</p><input type="number" id="num" value="'+(ans[i]??'')+'" oninput="ans[cur]=this.value===\'\'?null:this.value">':
+ q.o.map((t,k)=>{const on=q.m?(ans[i]||[]).includes(k):ans[i]===k;return '<label class="opt'+(on?' sel':'')+'"><input type="'+(q.m?'checkbox':'radio')+'" '+(on?'checked':'')+' onclick="pick('+k+')"> ('+L[k]+') '+t+'</label>'}).join('');
+ pal()}
+function pick(k){const q=Q[cur];if(q.m){let a=ans[cur]||[];a=a.includes(k)?a.filter(x=>x!=k):[...a,k];ans[cur]=a.length?a:null}else ans[cur]=k;show(cur)}
+function pal(){document.getElementById('pal').innerHTML=Q.map((_,i)=>'<button class="pb '+['','nv','an','mk','am'][st[i]]+(i==cur?' cur':'')+'" onclick="show('+i+')">'+(i+1)+'</button>').join('')}
+function has(i){return ans[i]!==null&&ans[i]!==''}
+function save(){st[cur]=has(cur)?2:1;next()}
+function mark(){st[cur]=has(cur)?4:3;next()}
+function clr(){ans[cur]=null;st[cur]=1;show(cur)}
+function next(){show(cur<Q.length-1?cur+1:cur)}
+function submitT(auto){if(!auto&&!confirm('Submit the test now?'))return;clearInterval(iv);
+ let sc=0,c=0,w=0,sk=0,rows='<tr><th>#</th><th>Source</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Solution</th></tr>';
+ Q.forEach((q,i)=>{const a=ans[i],h=a!==null&&a!=='';let r,ya=h?(q.n?a:q.m?a.map(x=>L[x]).join(', '):L[a]):'—',ca=q.n?q.a:q.m?q.a.map(x=>L[x]).join(', '):L[q.a]+') '+q.o[q.a];
+  if(!h){sk++;r='<span class="sk">Skipped</span>'}else if(q.n?(+a===q.a):q.m?(a.slice().sort().join()===q.a.join()):(a===q.a)){c++;sc+=4;r='<span class="ok">Correct +4</span>'}else{w++;const pn=q.n?0:q.m?2:1;sc-=pn;r='<span class="bad">Wrong '+(pn?'−'+pn:'0')+'</span>'}
+  rows+='<tr><td>'+(i+1)+'</td><td>'+q.src+'</td><td>'+ya+'</td><td>'+ca+'</td><td>'+r+'</td><td>'+q.sol+'</td></tr>'});
+ document.getElementById('test').classList.add('hide');document.getElementById('res').classList.remove('hide');
+ sc_.innerHTML='<p style="font-size:20px"><b>Score: '+sc+' / '+Q.length*4+'</b></p><p>Correct: '+c+' · Wrong: '+w+' · Skipped: '+sk+'</p>';rt.innerHTML=rows}
+const sc_=document.getElementById('sc');
+</script></body></html>
