@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mole Concept T11, T12 & T14 – Practice CBT</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--tx:#1d2733;--mut:#5c6b7a;--bd:#d3dae2;--pri:#1565c0;--na:#e0e0e0;--nv:#e53935;--an:#43a047;--mk:#7e57c2;--am:#7e57c2}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1e242b;--tx:#e8edf2;--mut:#9aa8b6;--bd:#37414c;--na:#3a434d}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,Arial,sans-serif}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{background:var(--pri);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+header b{font-size:16px}#tm{background:#fff;color:#000;padding:4px 10px;border-radius:4px;font-weight:700}
+.wrap{display:flex;gap:12px;padding:12px;flex-wrap:wrap}.main{flex:1 1 520px;min-width:0}.side{flex:0 0 240px;max-width:100%}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-bottom:10px}
+.tag{display:inline-block;font-size:12px;background:var(--na);padding:2px 8px;border-radius:10px;color:var(--tx);margin-left:6px}
+.q{font-size:16px;line-height:1.55;white-space:pre-line}
+.opt{display:block;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer}
+.opt.sel{border-color:var(--pri);background:rgba(21,101,192,.12)}
+input[type=number]{font-size:18px;padding:8px;width:200px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx)}
+button{font-size:14px;padding:9px 14px;border:1px solid var(--bd);border-radius:5px;background:var(--card);color:var(--tx);cursor:pointer}
+button.p{background:var(--pri);color:#fff;border-color:var(--pri)}button.g{background:var(--an);color:#fff;border-color:var(--an)}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+.pal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pb{height:40px;border-radius:6px 6px 14px 14px;border:0;color:#fff;font-weight:700;background:var(--na);color:var(--tx)}
+.pb.nv{background:var(--nv);color:#fff}.pb.an{background:var(--an);color:#fff}.pb.mk{background:var(--mk);color:#fff;border-radius:50%}.pb.am{background:var(--mk);color:#fff;border-radius:50%;outline:3px solid var(--an)}.pb.cur{box-shadow:0 0 0 3px var(--pri)}
+.lg{font-size:12px;color:var(--mut);line-height:1.9}.lg i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:5px}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+.ok{color:var(--an);font-weight:700}.bad{color:var(--nv);font-weight:700}.sk{color:var(--mut);font-weight:700}
+.hide{display:none}.ctr{text-align:center;max-width:560px;margin:30px auto}
+@media print{header,.bar,.noprint{display:none}}
+</style></head><body>
+<div id="start" class="card ctr">
+<h2>Mole Concept – T11, T12 &amp; T14 Practice Test</h2>
+<p>Selected questions · T11 Multiple redox · T12 Stoichiometry · T14 Impure reactants &amp; advanced stoichiometry<br>30 questions · A: 22 MCQ (+4 / −1) · B: 2 Multiple-correct (+4 / −2, all correct options needed) · C: 6 Numerical (+4 / 0, small rounding tolerance allowed)</p>
+<p>Time (minutes): <select id="mins"><option>30</option><option>45</option><option selected>60</option><option>90</option></select></p>
+<button class="p" onclick="begin()">Start Test</button></div>
+
+<div id="test" class="hide">
+<header><b>Mole Concept T11, T12 &amp; T14 · Practice CBT</b><span>Time Left: <span id="tm">00:00</span></span></header>
+<div class="wrap"><div class="main">
+<div class="card"><div><b id="qn"></b><span class="tag" id="sec"></span><span class="tag" id="src"></span></div><hr style="border:0;border-top:1px solid var(--bd)"><div class="q" id="qt"></div><div id="op"></div></div>
+<div class="bar"><button onclick="mark()">Mark for Review &amp; Next</button><button onclick="clr()">Clear Response</button><button class="p" onclick="save()">Save &amp; Next</button></div></div>
+<div class="side"><div class="card"><div class="pal" id="pal"></div></div>
+<div class="card lg"><i style="background:var(--na)"></i>Not Visited<br><i style="background:var(--nv)"></i>Not Answered<br><i style="background:var(--an)"></i>Answered<br><i style="background:var(--mk);border-radius:50%"></i>Marked for Review<br><i style="background:var(--mk);border-radius:50%;outline:2px solid var(--an)"></i>Answered &amp; Marked</div>
+<button class="g" style="width:100%" onclick="submitT(false)">Submit Test</button></div></div></div>
+
+<div id="res" class="hide wrap"><div class="main"><div class="card"><h2>Result</h2><div id="sc"></div>
+<div class="bar noprint"><button class="p" onclick="window.print()">Download PDF (Print → Save as PDF)</button><button onclick="location.reload()">Retake</button></div></div>
+<div class="card" style="overflow-x:auto"><table id="rt"></table></div></div></div>
+
+<script>
+const Q=[
+{s:'A',src:'T11 Ex-1 Q4',q:'For a mixture of 0.1 mol Fe²⁺ and 0.05 mol C₂O₄²⁻ fully oxidised by acidified KMnO₄, the moles of MnO₄⁻ required are:',o:['0.02','0.04','0.06','0.08'],a:1,sol:'Electrons lost = 0.1×1 + 0.05×2 = 0.2 mol. Each MnO₄⁻ gains 5 e⁻, so MnO₄⁻ = 0.2/5 = 0.04 mol.'},
+{s:'A',src:'T11 Ex-1 Q6',q:'1 mol of S₂O₃²⁻ reacts with Cl₂(aq) such that 60% is oxidised only to S₄O₆²⁻ (2S₂O₃²⁻ → S₄O₆²⁻ + 2e⁻) and the remaining 40% is fully oxidised to SO₄²⁻ (S₂O₃²⁻ → 2SO₄²⁻ + 8e⁻). Total moles of Cl₂ consumed:',o:['1.2','1.9','2.4','3.8'],a:1,sol:'Electrons released = 0.6×1 + 0.4×8 = 3.8 mol. Each Cl₂ accepts 2 e⁻, so Cl₂ = 3.8/2 = 1.9 mol.'},
+{s:'A',src:'T11 Ex-1 Q10',q:'1 mol Cu reacts with HNO₃ giving a gas mixture that is NO : NO₂ = 3 : 1 by mole. The moles of NO produced are:',o:['0.4','0.5','0.6','0.8'],a:2,sol:'Cu → Cu²⁺ supplies 2 mol e⁻. With 3x mol NO (3 e⁻ each) and x mol NO₂ (1 e⁻ each): 9x + x = 2, so x = 0.2 and NO = 0.6 mol.'},
+{s:'A',src:'T11 Ex-1 Q23',q:'8.5 mol Zn reacts completely with dilute HNO₃ giving NO and N₂O in mole ratio 3 : 1. Moles of N₂O formed:',o:['0.5','1','1.5','2'],a:1,sol:'Zn releases 2 e⁻ each = 17 mol e⁻. With NO = 3y and N₂O = y: 9y + 8y = 17y = 17, so y = 1 mol.'},
+{s:'A',src:'T11 Ex-2 Q3 · NEET level',q:'0.02 mol Mn²⁺ is oxidised to MnO₄⁻ (5 e⁻ each) while simultaneously reducing a mixture of PbO₂ and Cl₂ (2 e⁻ each) present in equal moles. The moles of each oxidant reduced are:',o:['0.025','0.01','0.05','0.1'],a:0,sol:'Electrons released = 0.02×5 = 0.1 mol. With PbO₂ = Cl₂ = n: 2n + 2n = 0.1, so n = 0.025 mol.'},
+{s:'A',src:'T11 Ex-2 Q5 · NEET level',q:'Using the SM Direct-Balance Method on 2MnO + 5PbO₂ + 10HNO₃ → 2HMnO₄ + 5Pb(NO₃)₂ + 4H₂O: net oxidation multiplier per Mn = 5, net reduction multiplier per Pb = 2. The smallest whole-number ratio MnO : PbO₂ is:',o:['5 : 2','7 : 2','10 : 4','2 : 5'],a:3,sol:'LCM(5, 2) = 10: MnO = 10/5 = 2 and PbO₂ = 10/2 = 5, so 2 : 5.'},
+{s:'A',src:'T12/T13 Ex-1 Q20',q:'For the reaction X + 2Y + 3Z → W, 4 mol X, 6 mol Y and 6 mol Z are mixed. The limiting reactant and the maximum moles of W formed are:',o:['Z, 2 mol','Y, 3 mol','X, 4 mol','Z, 6 mol'],a:0,sol:'Moles ÷ coefficient: X = 4, Y = 3, Z = 2. Z is limiting, so W = 2 mol.'},
+{s:'A',src:'T12/T13 Ex-1 Q21',q:'6.5 g of zinc is heated with 4.8 g of sulphur as Zn + S → ZnS. The mass of the excess reactant left unreacted is: (Zn = 65, S = 32)',o:['0.8 g','3.2 g','4.8 g','1.6 g'],a:3,sol:'Zn = 0.1 mol; S = 0.15 mol. Zn is limiting. S left = 0.05 mol = 1.6 g.'},
+{s:'A',src:'T12/T13 Ex-1 Q30',q:'CO + 2H₂ → CH₃OH is carried out with 60% yield and 9.6 g of methanol is obtained. The mass of CO that must be taken (H₂ in excess) is: (C = 12, O = 16, H = 1)',o:['5.04 g','8.4 g','14.0 g','28.0 g'],a:2,sol:'9.6 g CH₃OH = 0.3 mol is the actual yield. Theoretical = 0.3/0.6 = 0.5 mol, so CO = 0.5 × 28 = 14.0 g.'},
+{s:'A',src:'T12/T13 Ex-1 Q31',q:'54 g of aluminium is mixed with 80 g of Fe₂O₃ as 2Al + Fe₂O₃ → Al₂O₃ + 2Fe. If the yield of iron is 75%, the mass of iron actually obtained is: (Al = 27, Fe = 56, O = 16)',o:['28 g','56 g','84 g','42 g'],a:3,sol:'Al = 2 mol; Fe₂O₃ = 0.5 mol (needs 1 mol Al), so Fe₂O₃ is limiting. Fe = 1 mol = 56 g; 75% of that is 42 g.'},
+{s:'A',src:'T14 Ex-1 Q6',q:'20 g of impure sulphur (80% pure, rest inert) is burnt in 8 g of oxygen as S + O₂ → SO₂. The mass of SO₂ formed is: (S = 32, O = 16)',o:['16 g','32 g','24 g','8 g'],a:0,sol:'Pure S = 16 g = 0.5 mol; O₂ = 0.25 mol, so O₂ is limiting. SO₂ = 0.25 mol = 16 g.'},
+{s:'A',src:'T14 Ex-1 Q17',q:'Benzene is chlorinated by two parallel reactions: C₆H₆ + Cl₂ → C₆H₅Cl + HCl and C₆H₆ + 2Cl₂ → C₆H₄Cl₂ + 2HCl. When 8.0 mol of C₆H₆ has reacted, the mixture contains 6.0 mol C₆H₅Cl and 2.0 mol C₆H₄Cl₂. The selectivity for C₆H₅Cl (moles of benzene converted to C₆H₅Cl per mole of benzene converted) is:',o:['25%','75%','33%','60%'],a:1,sol:'6.0 of the 8.0 mol benzene converted forms C₆H₅Cl, so selectivity = 6/8 = 75%.'},
+{s:'A',src:'T14 Ex-1 Q19',q:'A reactor has 80% conversion of the reactant and 75% selectivity for the desired product. The yield of the desired product based on reactant fed is:',o:['77.5%','95%','60%','80%'],a:2,sol:'Yield = conversion × selectivity = 0.80 × 0.75 = 60%.'},
+{s:'A',src:'T14 Ex-1 Q20',q:'In a reactor the yield of the desired product (based on reactant fed) is 35% and the conversion of the reactant is 50%. The selectivity for the desired product is:',o:['17.5%','85%','15%','70%'],a:3,sol:'Selectivity = yield/conversion = 35/50 = 70%.'},
+{s:'A',src:'T14 Ex-2 Q9 · NEET level',q:'Assertion: In the reaction of A (1:1 stoichiometry to the desired product P, along with side products), if 40% of A fed is converted and the yield of P (based on A fed) is 30%, the selectivity for P is 75%.\nReason: Fractional yield of P = conversion of A × selectivity for P, where selectivity = moles of A converted into P / total moles of A converted.',o:['Both true, and Reason is the correct explanation','Both true, but Reason is NOT the correct explanation','Assertion true, Reason false','Assertion false, Reason true'],a:0,sol:'Selectivity = yield/conversion = 0.30/0.40 = 75%. The Reason is the relation that gives it.'},
+{s:'A',src:'T14 Ex-2 Q2 · NEET level',q:'5 g of an impure sample of Na₂CO₃ (impurity inert towards acid) requires 40 mL of 1 M HCl for complete reaction to form NaCl, CO₂ and H₂O. The percentage of Na₂CO₃ in the sample is: (Na = 23, C = 12, O = 16)',o:['21.2%','53%','84.8%','42.4%'],a:3,sol:'HCl = 0.04 mol and Na₂CO₃ : HCl = 1 : 2, so Na₂CO₃ = 0.02 mol = 2.12 g. Percentage = 2.12/5 × 100 = 42.4%.'},
+{s:'A',src:'T14 Ex-3 Q1 · JEE Main level',q:'SO₂Cl₂ reacts with excess water: SO₂Cl₂ + 2H₂O → H₂SO₄ + 2HCl. 16 moles of NaOH is required for complete neutralisation of the resultant acidic mixture. The number of moles of SO₂Cl₂ used is:',o:['16','8','4','2'],a:2,sol:'x mol SO₂Cl₂ gives x mol H₂SO₄ (2x mol NaOH) and 2x mol HCl (2x mol NaOH). Total NaOH = 4x = 16, so x = 4.'},
+{s:'A',src:'T14 Ex-3 Q2 · JEE Main level',q:'An ore contains 1.34% argentite, Ag₂S, by weight. How many grams of ore must be processed to obtain 1.00 g of pure silver? (Ag = 108, S = 32)',o:['74.6 g','85.7 g','107.9 g','134.0 g'],a:1,sol:'Ag fraction in Ag₂S = 216/248. Ag in ore = 0.0134 × 216/248 = 0.01167 g per g of ore. Ore = 1/0.01167 = 85.7 g.'},
+{s:'A',src:'T14 Ex-4 Q1 · JEE Advanced',q:'Hydroxylamine (NH₂OH) reduces Fe(III) to Fe(II), and the Fe(II) formed is estimated by titration with KMnO₄ in acidic medium. After accounting for the dilution factors in the procedure, the amount of hydroxylamine present in 1 L of the original solution is found to be:',o:['19.8 g','29.7 g','39.6 g','49.5 g'],a:2,sol:'Key answer: 39.6 g per litre, from meq NH₂OH = meq KMnO₄ and the dilution factors. The printed question does not give the titration figures.'},
+{s:'A',src:'T14 Ex-4 Q2 · JEE Advanced',q:'100 mol pure C₂H₄ is reacted with excess O₂ over a catalyst. Only three parallel reactions occur: (I) 2C₂H₄ + O₂ → 2C₂H₄O; (II) C₂H₄ + 3O₂ → 2CO₂ + 2H₂O; (III) C₂H₄ + 2O₂ → 2CO + 2H₂O. The conversion of C₂H₄ is 75%, CO₂ formed is 30 mol and total O₂ consumed is 105 mol. Selectivity for C₂H₄O = moles of C₂H₄O / total moles of C₂H₄O, CO₂ and CO formed × 100. The selectivity is:',o:['40.0%','53.3%','36.4%','57.1%'],a:2,sol:'Let x, y, z mol C₂H₄ react by (I), (II), (III). CO₂ = 2y = 30 gives y = 15, so x + z = 60. O₂: x/2 + 3(15) + 2z = 105 gives x = 40, z = 20. Products: C₂H₄O = 40, CO₂ = 30, CO = 2z = 40. Selectivity = 40/110 = 36.4%.'},
+{s:'A',src:'T14 Ex-4 Q6(i) · JEE Advanced',q:'Zn ore roasting passage: a 388 g sample of zinc ore contains ZnS as the only reactive component, the rest being inert gangue. It is roasted with exactly 3.0 mol O₂ (completely consumed) by 2ZnS + 3O₂ → 2ZnO + 2SO₂ (I) and ZnS + 2O₂ → ZnSO₄ (II). The roasting gives 97.2 g ZnO and 75% of the ZnS originally present is converted. (Zn = 65, S = 32, O = 16)\nThe percentage purity (by mass of ZnS) of the ore is:',o:['45%','50%','60%','75%'],a:2,sol:'ZnO = 97.2/81 = 1.2 mol uses 1.8 mol O₂; the remaining 1.2 mol O₂ gives ZnSO₄ = 0.6 mol. ZnS converted = 1.8 mol = 75% of the total, so ZnS = 2.4 mol = 232.8 g. Purity = 232.8/388 = 60%.'},
+{s:'A',src:'T14 Ex-4 Q6(iii) · JEE Advanced',q:'Zn ore roasting passage (388 g ore, ZnS the only reactive part): 2ZnS + 3O₂ → 2ZnO + 2SO₂ (I) and ZnS + 2O₂ → ZnSO₄ (II); exactly 3.0 mol O₂ is consumed, 97.2 g ZnO forms and 75% of the ZnS originally present is converted; no SO₂ comes from (II). SO₂ → SO₃ has 80% yield and SO₃ → H₂SO₄ has 75% yield. Selectivity toward ZnO = mol ZnS → ZnO / total mol ZnS converted; yield of a product = mol ZnS → that product / mol ZnS originally present. (Zn = 65, S = 32, O = 16, H = 1)\nThe mass of H₂SO₄ finally obtained is:',o:['47.04 g','70.56 g','88.20 g','94.08 g'],a:1,sol:'SO₂ comes only from (I) = 1.2 mol. SO₃ = 1.2 × 0.8 = 0.96 mol. H₂SO₄ = 0.96 × 0.75 = 0.72 mol = 0.72 × 98 = 70.56 g.'},
+{s:'B',m:1,src:'T14 Ex-4 Q5 · JEE Advanced',q:'100 mol of C₂H₄ is fed to a reactor with two parallel reactions: C₂H₄ + ½O₂ → C₂H₄O (desired) and C₂H₄ + 3O₂ → 2CO₂ + 2H₂O (undesired). The conversion of C₂H₄ is 60% and the selectivity toward C₂H₄O is 80%. Which statements are correct?',o:['The moles of C₂H₄O formed is 60','The moles of O₂ consumed is 60','The yield of C₂H₄O based on C₂H₄ fed is 48%','If the selectivity increases to 90% at the same conversion, the yield of C₂H₄O becomes 54%'],a:[1,2,3],sol:'Converted = 60 mol: 48 mol → C₂H₄O (A false, 60 is the total converted) and 12 mol → CO₂ route. O₂ = 48×½ + 12×3 = 60 (B). Yield = 48/100 = 48% (C). At 90%: 0.6 × 0.9 = 54% (D). Answer: B, C, D.'},
+{s:'B',m:1,src:'T14 Ex-4 Q6(ii) · JEE Advanced',q:'Zn ore roasting passage (388 g ore, ZnS the only reactive part): 2ZnS + 3O₂ → 2ZnO + 2SO₂ (I) and ZnS + 2O₂ → ZnSO₄ (II); exactly 3.0 mol O₂ is consumed, 97.2 g ZnO forms and 75% of the ZnS originally present is converted; no SO₂ comes from (II). SO₂ → SO₃ has 80% yield and SO₃ → H₂SO₄ has 75% yield. Selectivity toward ZnO = mol ZnS → ZnO / total mol ZnS converted; yield of a product = mol ZnS → that product / mol ZnS originally present. (Zn = 65, S = 32, O = 16, H = 1)\nWhich statements are correct?',o:['The selectivity toward ZnO is 66.67%','The mass of unreacted ZnS left in the residue is 97 g','The mass of the solid residue after roasting is 407.2 g','The yield of ZnO based on ZnS originally present is 50%'],a:[0,2,3],sol:'ZnO = 1.2 mol, ZnS converted = 1.8 mol: selectivity 1.2/1.8 = 66.67% (A). Unreacted ZnS = 2.4 − 1.8 = 0.6 mol = 58.2 g, not 97 g (B false). Residue = gangue 155.2 + ZnO 97.2 + ZnSO₄ 96.6 + ZnS 58.2 = 407.2 g (C). Yield of ZnO = 1.2/2.4 = 50% (D). Answer: A, C, D.'},
+{s:'C',n:1,t:0.01,src:'T11 Ex-3 Q5 · JEE Main (NAT)',q:'Balance in acidic medium: K₄[Fe(CN)₆] + KMnO₄ + H₂SO₄ → K₂SO₄ + MnSO₄ + CO₂ + NO + Fe₂(SO₄)₃ + H₂O. Find the sum of all stoichiometric coefficients.',a:698,sol:'Each [Fe(CN)₆]⁴⁻ loses 1 (Fe) + 12 (6 C: +2→+4) + 30 (6 N: −3→+2) = 43 e⁻; MnO₄⁻ gains 5, so 10 : 86. 10K₄[Fe(CN)₆] + 86KMnO₄ + 164H₂SO₄ → 63K₂SO₄ + 86MnSO₄ + 60CO₂ + 60NO + 5Fe₂(SO₄)₃ + 164H₂O. Sum = 698.'},
+{s:'C',n:1,t:0.01,src:'T11 Ex-3 Q6 · JEE Main (NAT)',q:'Balance in acidic medium: Cu₃P + Cr₂O₇²⁻ → Cu²⁺ + H₃PO₄ + Cr³⁺. Find the sum of all stoichiometric coefficients.',a:240,sol:'Each Cu₃P loses 3 (3 Cu: +1→+2) + 8 (P: −3→+5) = 11 e⁻; Cr₂O₇²⁻ gains 6, so 6 : 11. 6Cu₃P + 11Cr₂O₇²⁻ + 124H⁺ → 18Cu²⁺ + 6H₃PO₄ + 22Cr³⁺ + 53H₂O. Sum = 6+11+124+18+6+22+53 = 240.'},
+{s:'C',n:1,t:0.05,src:'T14 Ex-3 Q5 · JEE Main (NAT)',q:'The available nitrogen in a urea sample is found to be 45% by weight. Find the percentage of urea in the sample (two decimal places). (C = 12, N = 14, O = 16, H = 1)',a:96.43,sol:'Pure urea, CO(NH₂)₂, has 28/60 of its mass as N. Purity = 45 ÷ (28/60) = 96.43%.'},
+{s:'C',n:1,t:0.05,src:'T14 Ex-3 Q6 · JEE Main (NAT)',q:'A sample of caustic soda flakes contains 74.6% Na₂O by weight. Find the percentage purity of the NaOH (two decimal places). (Na = 23, O = 16, H = 1)',a:96.26,sol:'2NaOH ≡ Na₂O, so pure NaOH has 62/80 of its mass as Na₂O equivalent. Purity = 74.6 ÷ (62/80) = 96.26%.'},
+{s:'C',n:1,t:0.05,src:'T14 Ex-4 Q8 · JEE Advanced (NAT)',q:'A sample of hydrazine sulfate (N₂H₆SO₄, M = 130) is dissolved in water. The titration and dilution data correspond to 0.20 equivalent of N₂H₆SO₄ per litre of the original solution (N goes −2 → 0). Find the mass (in g) of hydrazine sulfate in 1 L of the solution.',a:6.5,sol:'Each N goes −2 → 0 (2 e⁻), and there are 2 N, so n-factor = 4. Equivalent mass = 130/4 = 32.5 g/eq. Mass = 0.20 × 32.5 = 6.5 g.'},
+{s:'C',n:1,t:0.5,src:'T14 Ex-4 Q9 · IIT JEE (NAT)',q:'A 1.00 g commercial sample of AgNO₃ is dissolved in 50.0 mL water and treated with 50.0 mL KI solution. AgI is filtered off, and the excess I⁻ in the filtrate requires 66.67 mL of 0.10 M KIO₃ for complete oxidation. In a separate titration, 20.0 mL of the same KI solution requires 30.0 mL of 0.10 M KIO₃. Find the percentage purity of AgNO₃ (Ag = 108, N = 14, O = 16). Use 1 mol KIO₃ ≡ 6 mol I⁻ in the titration.',a:85,sol:'20 mL KI ≡ 3 mmol KIO₃, so 50 mL KI = 7.5 mmol KIO₃ ≡ 45 mmol I⁻. Excess I⁻ = 6 × 6.667 = 40 mmol. I⁻ used = 5 mmol = AgNO₃ = 0.005 × 169.9 = 0.85 g. Purity = 85%.'}
+];
+const L='ABCD';let cur=0,ans=[],st=[],tl=0,iv;
+function begin(){tl=+document.getElementById('mins').value*60;ans=Q.map(()=>null);st=Q.map(()=>0);
+ document.getElementById('start').classList.add('hide');document.getElementById('test').classList.remove('hide');
+ iv=setInterval(()=>{tl--;tick();if(tl<=0)submitT(true)},1000);tick();show(0)}
+function tick(){const m=Math.floor(tl/60),s=tl%60;document.getElementById('tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+// st: 0 not visited,1 not answered,2 answered,3 marked,4 answered+marked
+function show(i){cur=i;if(st[i]==0)st[i]=1;const q=Q[i];
+ qn.textContent='Question '+(i+1);sec.textContent='Section '+q.s+(q.n?' · Numerical':q.m?' · Multiple correct':' · MCQ');src.textContent=q.src;qt.textContent=q.q;
+ op.innerHTML=q.n?'<p>Your answer (integer):</p><input type="number" id="num" value="'+(ans[i]??'')+'" oninput="ans[cur]=this.value===\'\'?null:this.value">':
+ q.o.map((t,k)=>{const on=q.m?(ans[i]||[]).includes(k):ans[i]===k;return '<label class="opt'+(on?' sel':'')+'"><input type="'+(q.m?'checkbox':'radio')+'" '+(on?'checked':'')+' onclick="pick('+k+')"> ('+L[k]+') '+t+'</label>'}).join('');
+ pal()}
+function pick(k){const q=Q[cur];if(q.m){let a=ans[cur]||[];a=a.includes(k)?a.filter(x=>x!=k):[...a,k];ans[cur]=a.length?a:null}else ans[cur]=k;show(cur)}
+function pal(){document.getElementById('pal').innerHTML=Q.map((_,i)=>'<button class="pb '+['','nv','an','mk','am'][st[i]]+(i==cur?' cur':'')+'" onclick="show('+i+')">'+(i+1)+'</button>').join('')}
+function has(i){return ans[i]!==null&&ans[i]!==''}
+function save(){st[cur]=has(cur)?2:1;next()}
+function mark(){st[cur]=has(cur)?4:3;next()}
+function clr(){ans[cur]=null;st[cur]=1;show(cur)}
+function next(){show(cur<Q.length-1?cur+1:cur)}
+function submitT(auto){if(!auto&&!confirm('Submit the test now?'))return;clearInterval(iv);
+ let sc=0,c=0,w=0,sk=0,rows='<tr><th>#</th><th>Source</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Solution</th></tr>';
+ Q.forEach((q,i)=>{const a=ans[i],h=a!==null&&a!=='';let r,ya=h?(q.n?a:q.m?a.map(x=>L[x]).join(', '):L[a]):'—',ca=q.n?q.a:q.m?q.a.map(x=>L[x]).join(', '):L[q.a]+') '+q.o[q.a];
+  if(!h){sk++;r='<span class="sk">Skipped</span>'}else if(q.n?(Math.abs(+a-q.a)<=(q.t||1e-9)):q.m?(a.slice().sort().join()===q.a.join()):(a===q.a)){c++;sc+=4;r='<span class="ok">Correct +4</span>'}else{w++;const pn=q.n?0:q.m?2:1;sc-=pn;r='<span class="bad">Wrong '+(pn?'−'+pn:'0')+'</span>'}
+  rows+='<tr><td>'+(i+1)+'</td><td>'+q.src+'</td><td>'+ya+'</td><td>'+ca+'</td><td>'+r+'</td><td>'+q.sol+'</td></tr>'});
+ document.getElementById('test').classList.add('hide');document.getElementById('res').classList.remove('hide');
+ sc_.innerHTML='<p style="font-size:20px"><b>Score: '+sc+' / '+Q.length*4+'</b></p><p>Correct: '+c+' · Wrong: '+w+' · Skipped: '+sk+'</p>';rt.innerHTML=rows}
+const sc_=document.getElementById('sc');
+</script></body></html>
