@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mole Concept T8 & T9 – Revision CBT</title>
+<style>
+:root{--bg:#f4f6f9;--card:#fff;--tx:#1d2733;--mut:#5c6b7a;--bd:#d3dae2;--pri:#1565c0;--na:#e0e0e0;--nv:#e53935;--an:#43a047;--mk:#7e57c2;--am:#7e57c2}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1e242b;--tx:#e8edf2;--mut:#9aa8b6;--bd:#37414c;--na:#3a434d}}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,Arial,sans-serif}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+header{background:var(--pri);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+header b{font-size:16px}#tm{background:#fff;color:#000;padding:4px 10px;border-radius:4px;font-weight:700}
+.wrap{display:flex;gap:12px;padding:12px;flex-wrap:wrap}.main{flex:1 1 520px;min-width:0}.side{flex:0 0 240px;max-width:100%}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-bottom:10px}
+.tag{display:inline-block;font-size:12px;background:var(--na);padding:2px 8px;border-radius:10px;color:var(--tx);margin-left:6px}
+.q{font-size:16px;line-height:1.55;white-space:pre-line}
+.opt{display:block;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer}
+.opt.sel{border-color:var(--pri);background:rgba(21,101,192,.12)}
+input[type=number]{font-size:18px;padding:8px;width:200px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx)}
+button{font-size:14px;padding:9px 14px;border:1px solid var(--bd);border-radius:5px;background:var(--card);color:var(--tx);cursor:pointer}
+button.p{background:var(--pri);color:#fff;border-color:var(--pri)}button.g{background:var(--an);color:#fff;border-color:var(--an)}
+.bar{display:flex;gap:8px;flex-wrap:wrap}
+.pal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.pb{height:40px;border-radius:6px 6px 14px 14px;border:0;color:#fff;font-weight:700;background:var(--na);color:var(--tx)}
+.pb.nv{background:var(--nv);color:#fff}.pb.an{background:var(--an);color:#fff}.pb.mk{background:var(--mk);color:#fff;border-radius:50%}.pb.am{background:var(--mk);color:#fff;border-radius:50%;outline:3px solid var(--an)}.pb.cur{box-shadow:0 0 0 3px var(--pri)}
+.lg{font-size:12px;color:var(--mut);line-height:1.9}.lg i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:5px}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
+.ok{color:var(--an);font-weight:700}.bad{color:var(--nv);font-weight:700}.sk{color:var(--mut);font-weight:700}
+.hide{display:none}.ctr{text-align:center;max-width:560px;margin:30px auto}
+@media print{header,.bar,.noprint{display:none}}
+</style></head><body>
+<div id="start" class="card ctr">
+<h2>Mole Concept – T8, T9 &amp; T10 Revision Test</h2>
+<p>T8 Gaseous calculations · T9 Oxidation numbers &amp; redox · T10 Redox balancing<br>32 questions · A: 17 MCQ (+4 / −1) · B: 2 Multiple-correct (+4 / −2, all correct options needed) · C: 13 Numerical (+4 / 0, small rounding tolerance allowed)</p>
+<p>Time (minutes): <select id="mins"><option>30</option><option>45</option><option selected>60</option><option>90</option></select></p>
+<button class="p" onclick="begin()">Start Test</button></div>
+
+<div id="test" class="hide">
+<header><b>Mole Concept T8–T10 · Revision CBT</b><span>Time Left: <span id="tm">00:00</span></span></header>
+<div class="wrap"><div class="main">
+<div class="card"><div><b id="qn"></b><span class="tag" id="sec"></span><span class="tag" id="src"></span></div><hr style="border:0;border-top:1px solid var(--bd)"><div class="q" id="qt"></div><div id="op"></div></div>
+<div class="bar"><button onclick="mark()">Mark for Review &amp; Next</button><button onclick="clr()">Clear Response</button><button class="p" onclick="save()">Save &amp; Next</button></div></div>
+<div class="side"><div class="card"><div class="pal" id="pal"></div></div>
+<div class="card lg"><i style="background:var(--na)"></i>Not Visited<br><i style="background:var(--nv)"></i>Not Answered<br><i style="background:var(--an)"></i>Answered<br><i style="background:var(--mk);border-radius:50%"></i>Marked for Review<br><i style="background:var(--mk);border-radius:50%;outline:2px solid var(--an)"></i>Answered &amp; Marked</div>
+<button class="g" style="width:100%" onclick="submitT(false)">Submit Test</button></div></div></div>
+
+<div id="res" class="hide wrap"><div class="main"><div class="card"><h2>Result</h2><div id="sc"></div>
+<div class="bar noprint"><button class="p" onclick="window.print()">Download PDF (Print → Save as PDF)</button><button onclick="location.reload()">Retake</button></div></div>
+<div class="card" style="overflow-x:auto"><table id="rt"></table></div></div></div>
+
+<script>
+const Q=[
+{s:'A',src:'T9 Ex-2 Q57',q:'Oxidation numbers of N, H, Se and O respectively in (NH₄)₂SeO₃?',o:['−3, +1, +6, −2','−3, +1, +3, −2','−3, +1, +4, −2','+3, +1, +4, −2'],a:2,sol:'2(−3) + 8(+1) + Se + 3(−2) = 0, so Se = +4. N in NH₄⁺ is −3.'},
+{s:'A',src:'T9 Ex-3 Q5 · JEE Main',q:'Which elements can exhibit more than one oxidation state in compounds?\n1. Cr   2. Pb   3. Sr',o:['1 only','1 and 2 only','2 and 3 only','1, 2 and 3'],a:1,sol:'Cr (+2, +3, +6) and Pb (+2, +4) show several states. Sr is fixed at +2 in ordinary compounds.'},
+{s:'A',src:'T9 Ex-4 Q2 · JEE Advanced',q:'The oxidation number of oxygen in O₂PtF₆ is:',o:['0','+1/2','+1','−1/2'],a:1,sol:'The compound is [O₂]⁺[PtF₆]⁻. The two O atoms carry +1 in total, so each O is +1/2.'},
+{s:'A',src:'T9 Ex-4 Q7 · JEE Advanced',q:'Match the species in List-I with the (average) oxidation number in List-II.\nI. Cr in CrO₅ (two peroxo linkages)   A. +2\nII. S in Na₂S₂O₃ (average)   B. −2\nIII. N in N₂H₅⁺   C. +8/3\nIV. Mn in Mn₃O₄ (average)   D. +6',o:['I→D, II→A, III→B, IV→C','I→D, II→C, III→A, IV→B','I→A, II→D, III→C, IV→B','I→D, II→A, III→C, IV→B'],a:0,sol:'CrO₅ has 4 O at −1 and 1 O at −2, so Cr = +6. Na₂S₂O₃: 2 + 2S − 6 = 0 gives S = +2. N₂H₅⁺: 2N + 5 = +1 gives N = −2. Mn₃O₄: 3Mn − 8 = 0 gives +8/3.'},
+{s:'A',src:'T8 Ex-2 Q2 · NEET level',q:'A 2 L sample of a gaseous hydrocarbon is burnt in sufficient oxygen. The only products are 8 L of CO₂(g) and 10 L of H₂O(g), all at 100°C and 1 atm. The formula of the hydrocarbon is:',o:['C₅H₁₂','C₂H₄','C₄H₁₀','C₈H₁₀'],a:2,sol:'Volumes are proportional to moles. Per 1 L of hydrocarbon: 4 L CO₂ so x = 4; 5 L H₂O so y/2 = 5 and y = 10. Formula C₄H₁₀.'},
+{s:'A',src:'T8 Ex-2 Q3 · NEET level',q:'36 g of an ideal gas in an 11.2 L vessel at 273 K exerts 2 atm pressure. The gram atomic mass of the gas is 12. What is its atomicity?',o:['1','2','3','4'],a:2,sol:'n = PV/RT = (2×11.2)/(0.0821×273) ≈ 1 mol, so molar mass = 36 g/mol. Atomicity = 36/12 = 3.'},
+{s:'A',src:'T8 Ex-3 Q4 · JEE Main 2023',q:'A metal chloride contains 55.0% chlorine by weight. 100 mL of its vapour at STP weighs 0.57 g. The molecular formula of the metal chloride is (Cl = 35.5):',o:['MCl₃','MCl₄','MCl₂','MCl'],a:2,sol:'Molar mass = 0.57/100 × 22400 = 127.68. Mass of Cl = 0.55×127.68 = 70.2 g, so moles of Cl = 70.2/35.5 ≈ 2. Formula MCl₂.'},
+{s:'A',src:'T8 Ex-4 Q2 · JEE Advanced',q:'An alkane on complete combustion with 500 mL of oxygen under normal conditions shows a contraction of 300 mL (water is liquid). The formula of the alkane is:',o:['C₃H₈','C₄H₁₀','C₅H₁₂','cannot be predicted'],a:0,sol:'C₃H₈ + 5O₂ → 3CO₂ + 4H₂O(l). 100 mL alkane + 500 mL O₂ = 600 mL before; 300 mL CO₂ after, so contraction = 300 mL. The contraction includes the alkane volume; solving in general gives n = 3.'},
+{s:'A',src:'T8 Ex-4 Q6(i) · JEE Advanced',q:'A rigid sealed 10 L container at 300 K holds OsO₄ (254 g/mol) and MoF₆ (210 g/mol). Total mass of gas = 23.2 g and total pressure = 0.246 atm (R = 0.0821). What is the partial pressure of OsO₄?',o:['0.062 atm','0.123 atm','0.184 atm','0.246 atm'],a:1,sol:'n = PV/RT = 0.246×10/(0.0821×300) = 0.1 mol. 254x + 210(0.1−x) = 23.2 gives x = 0.05 mol OsO₄, so mole fraction 0.5 and partial pressure 0.123 atm.'},
+{s:'A',src:'T8 Ex-4 Q7 · JEE Advanced',q:'Match List I with List II.\nA. 16 g of CH₄(g)   I. Weighs 28 g\nB. 1 g of H₂(g)   II. 60.2×10²³ electrons\nC. 1 mole of N₂(g)   III. Weighs 32 g\nD. 0.5 mol of SO₂(g)   IV. Occupies 11.2 L at STP',o:['A-II, B-III, C-IV, D-I','A-I, B-III, C-II, D-IV','A-II, B-IV, C-III, D-I','A-II, B-IV, C-I, D-III'],a:3,sol:'CH₄: 1 mol × 10 e⁻ = 6.02×10²⁴ e⁻ (II). 1 g H₂ = 0.5 mol = 11.2 L (IV). 1 mol N₂ = 28 g (I). 0.5 mol SO₂ = 32 g (III).'},
+{s:'A',src:'T10 Ex-2 Q1 · NEET level',q:'Which of the following is a disproportionation reaction?',o:['CaCO₃ + 2H⁺ → Ca²⁺ + H₂O + CO₂','Cl₂ + 2OH⁻ → Cl⁻ + ClO⁻ + H₂O','2CrO₄²⁻ + 2H⁺ → H₂O + Cr₂O₇²⁻','[Cu(H₂O)₄]²⁺ + 4NH₃ → [Cu(NH₃)₄]²⁺ + 4H₂O'],a:1,sol:'In Cl₂ (0) the same element goes to −1 (Cl⁻) and +1 (ClO⁻), so it is oxidised and reduced at once. The other three show no change in oxidation number.'},
+{s:'A',src:'T10 Ex-2 Q2 · NEET level',q:'The coefficient of O₂ in the balanced equation Sb₂S₃ + O₂ → Sb₂O₃ + SO₂ (smallest whole numbers) is:',o:['9','7','5','4'],a:0,sol:'Sb stays +3; S goes −2 → +4, losing 18 e⁻ per Sb₂S₃. Each O₂ gains 4 e⁻. So 2Sb₂S₃ + 9O₂ → 2Sb₂O₃ + 6SO₂.'},
+{s:'A',src:'T10 Ex-2 Q3 · NEET level',q:'In alkaline solution, chlorine disproportionates to chloride and chlorate. What is the ratio of chloride ions to chlorate ions formed?',o:['1:1','3:1','5:1','7:1'],a:2,sol:'3Cl₂ + 6OH⁻ → 5Cl⁻ + ClO₃⁻ + 3H₂O, so Cl⁻ : ClO₃⁻ = 5 : 1.'},
+{s:'A',src:'T10 Ex-2 Q4 · NEET level',q:'For MnO₄⁻ + C₂O₄²⁻ + H⁺ → Mn²⁺ + CO₂ + H₂O, the coefficients of MnO₄⁻, C₂O₄²⁻ and H⁺ respectively are:',o:['2, 5, 16','16, 5, 2','5, 16, 2','2, 16, 5'],a:0,sol:'MnO₄⁻ gains 5 e⁻; C₂O₄²⁻ loses 2 e⁻, so 2 MnO₄⁻ : 5 C₂O₄²⁻. Charge balance needs 16 H⁺: 2MnO₄⁻ + 5C₂O₄²⁻ + 16H⁺ → 2Mn²⁺ + 10CO₂ + 8H₂O. Read the order of the options carefully.'},
+{s:'A',src:'T10 Ex-2 Q6 · NEET 2023',q:'On balancing a Cr₂O₇²⁻ + b SO₃²⁻ + c H⁺ → 2a Cr³⁺ + b SO₄²⁻ + (c/2) H₂O, the coefficients a, b and c are, respectively:',o:['8, 1, 3','1, 3, 8','3, 8, 1','1, 8, 3'],a:1,sol:'Cr₂O₇²⁻ gains 6 e⁻; each SO₃²⁻ loses 2 e⁻, so b = 3 when a = 1. Charge: −2 − 6 + c = +6 − 6, so c = 8. Cr₂O₇²⁻ + 3SO₃²⁻ + 8H⁺ → 2Cr³⁺ + 3SO₄²⁻ + 4H₂O.'},
+{s:'A',src:'T10 Ex-3 Q1 · JEE Main level',q:'When IO₃⁻ + I⁻ + H⁺ → I₂ + H₂O is balanced, the coefficient of I⁻ is:',o:['2','4','5','8'],a:2,sol:'I in IO₃⁻ goes +5 → 0 (5 e⁻); I⁻ goes −1 → 0 (1 e⁻), so 5 I⁻ per IO₃⁻: IO₃⁻ + 5I⁻ + 6H⁺ → 3I₂ + 3H₂O.'},
+{s:'A',src:'T10 Ex-3 Q5 · JEE Main level',q:'In As₂S₃ + O₂ → As₂O₃ + SO₂, the smallest whole-number coefficient of O₂ is:',o:['3','5','7','9'],a:3,sol:'As stays +3; S goes −2 → +4, losing 18 e⁻ per As₂S₃. O₂ gains 4 e⁻ per molecule, so 2As₂S₃ + 9O₂ → 2As₂O₃ + 6SO₂.'},
+{s:'B',m:1,src:'T9 Ex-4 Q6(iii) · JEE Advanced',q:'Cl₂ + 2NaOH → NaCl + NaOCl + H₂O (cold, dilute NaOH). Which statements are correct?',o:['The reaction is an example of disproportionation','Chlorine acts as both the oxidising agent and the reducing agent','The average oxidation number of chlorine in the products (over both species) is 0','NaOH undergoes a change in oxidation state'],a:[0,1,2],sol:'Cl goes 0 → −1 (NaCl) and 0 → +1 (NaOCl): disproportionation, so Cl₂ is both oxidant and reductant. The average of −1 and +1 is 0. Na, O and H in NaOH do not change. Answer: A, B, C.'},
+{s:'B',m:1,src:'T10 Ex-4 Q3 · JEE Advanced',q:'For 3Cu + 8HNO₃(dilute) → 3Cu(NO₃)₂ + 2NO + 4H₂O, which statements are correct?',o:['6 of the 8 HNO₃ are retained unchanged as NO₃⁻ (acid role)','The n-factor of the oxidiser-role HNO₃ (N: +5 → +2) is 3','The total electrons transferred = 6','With concentrated HNO₃ (Cu + 4HNO₃ → Cu(NO₃)₂ + 2NO₂ + 2H₂O), the fraction of HNO₃ acting as oxidiser rises from 25% to 50%'],a:[0,1,2,3],sol:'3 Cu lose 6 e⁻; 2 HNO₃ gain 3 e⁻ each = 6 e⁻ (A, B, C). Dilute: 2 of 8 = 25% oxidiser. Concentrated: 2 of 4 = 50% (D). Answer: A, B, C, D.'},
+{s:'C',n:1,t:0.01,src:'T9 Ex-3 Q6 · JEE Main (NAT)',q:'In basic medium, SnS₂ + NaOH → Na₂SnS₃ + Na₂SnO₃ + H₂O is balanced as a SnS₂ + b NaOH → c Na₂SnS₃ + d Na₂SnO₃ + e H₂O. Find a + b + c + d + e.',a:15,sol:'Sn stays +4, so balance by atoms: 3SnS₂ + 6NaOH → 2Na₂SnS₃ + Na₂SnO₃ + 3H₂O. Sum = 3+6+2+1+3 = 15.'},
+{s:'C',n:1,t:0.01,src:'T9 Ex-3 Q7 · JEE Main (NAT)',q:'IO₃⁻ + H₂O₂ + H⁺ → I₂ + O₂ + H₂O is balanced with the smallest whole-number coefficients. If the coefficient of IO₃⁻ is 2, what is the total number of moles of electrons transferred?',a:10,sol:'2IO₃⁻ + 5H₂O₂ + 2H⁺ → I₂ + 5O₂ + 6H₂O. Each I goes +5 → 0, so 2 I gain 10 e⁻; 5 H₂O₂ lose 10 e⁻.'},
+{s:'C',n:1,t:0.01,src:'T9 Ex-4 Q8 · IIT JEE 1989 (NAT)',q:'A fixed amount of a reducing agent needs 20 mL of 1 M KMnO₄ in acidic medium (n-factor 5). What volume (mL) of 1 M K₂Cr₂O₇ (n-factor 6) in acidic medium would it need? (two decimal places)',a:16.67,sol:'Equivalents: 1×5×20 = 1×6×V, so V = 100/6 = 16.67 mL.'},
+{s:'C',n:1,t:0.01,src:'T9 Ex-4 Q9 · IIT JEE 1984 (NAT)',q:'2.68×10⁻³ mol of an ion Aⁿ⁺ requires 1.61×10⁻³ mol of MnO₄⁻ for oxidation to AO₃⁻ in acid medium. Find n.',a:2,sol:'A goes from +n to +5, losing (5−n) e⁻ per ion; MnO₄⁻ gains 5 e⁻. 2.68×10⁻³(5−n) = 1.61×10⁻³×5, so 5−n = 3 and n = 2.'},
+{s:'C',n:1,t:0.01,src:'T8 Ex-3 Q7 · JEE Main (NAT)',q:'The empirical formula of a gas is CH. At 500 K, 0.145 g of the compound occupies 100 mL at 0.74 atm. If the molecular formula is (CH)ₙ, find n. (R = 0.08 atm L/mol K)',a:6,sol:'PV = (m/M)RT gives M = 0.145×0.08×500/(0.74×0.1) = 78.4 g/mol. n = 78/13 = 6 (C₆H₆).'},
+{s:'C',n:1,t:0.5,src:'T8 Ex-3 Q9 · JEE Main 2021 (NAT)',q:'2SO₂(g) + O₂(g) → 2SO₃(g) is carried out in a vessel starting with P(SO₂) = 250 mbar, P(O₂) = 750 mbar and P(SO₃) = 0. When the reaction is complete, the total pressure is ___ mbar (nearest integer).',a:875,sol:'SO₂ is limiting: 250 mbar SO₂ uses 125 mbar O₂ and gives 250 mbar SO₃. Final: O₂ = 625, SO₃ = 250, total = 875 mbar.'},
+{s:'C',n:1,t:0.01,src:'T8 Ex-3 Q10 · JEE Main 2021 (NAT)',q:'A gaseous hydrocarbon CₓHᵧ requires 6 times its own volume of O₂ for complete oxidation and produces 4 times its own volume of CO₂. The value of y is ___.',a:8,sol:'Per 1 volume: x = 4 and x + y/4 = 6, so y/4 = 2 and y = 8 (C₄H₈).'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-3 Q6 · JEE Main (NAT)',q:'Fe₂(SO₄)₃(aq) + Fe(s) → 3FeSO₄(aq). The net ionic equation is a Fe³⁺ + b Fe → c Fe²⁺. Find a + b + c.',a:6,sol:'2Fe³⁺ + Fe → 3Fe²⁺ (atoms and charge +6 balance). a + b + c = 2 + 1 + 3 = 6.'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-3 Q7 · JEE Main (NAT)',q:'Balance by the oxidation-number method: N₂H₄ + K₂Cr₂O₇ + HCl → KCl + CrCl₃ + N₂ + H₂O. Find the sum of all coefficients (smallest whole numbers).',a:46,sol:'N₂H₄ → N₂ loses 4 e⁻; K₂Cr₂O₇ gains 6 e⁻, so 3 N₂H₄ : 2 K₂Cr₂O₇. 3N₂H₄ + 2K₂Cr₂O₇ + 16HCl → 4KCl + 4CrCl₃ + 3N₂ + 14H₂O. Sum = 3+2+16+4+4+3+14 = 46.'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-3 Q8 · JEE Main (NAT)',q:'Balance SnCl₂ + KMnO₄ + HCl → KCl + MnCl₂ + SnCl₄ + H₂O. Find the sum of all coefficients.',a:40,sol:'Sn²⁺ → Sn⁴⁺ loses 2 e⁻; Mn(+7) → +2 gains 5 e⁻, so 5 SnCl₂ : 2 KMnO₄. 5SnCl₂ + 2KMnO₄ + 16HCl → 2KCl + 2MnCl₂ + 5SnCl₄ + 8H₂O. Sum = 5+2+16+2+2+5+8 = 40.'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-3 Q9 · JEE Main (NAT)',q:'Balance K₂Cr₂O₇ + HCl → CrCl₃ + H₂O + Cl₂ + KCl. Find the sum of all coefficients.',a:29,sol:'Two Cr gain 6 e⁻; each Cl⁻ → Cl₂ loses 1 e⁻, so 6 Cl⁻ are oxidised to 3 Cl₂. K₂Cr₂O₇ + 14HCl → 2CrCl₃ + 7H₂O + 3Cl₂ + 2KCl. Sum = 1+14+2+7+3+2 = 29.'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-3 Q10 · JEE Main 2011 (NAT)',q:'The mass (in g) of potassium dichromate required to oxidise 750 cm³ of 0.6 M Mohr salt solution is: (K₂Cr₂O₇ = 294, Mohr salt = 392)',a:22.05,sol:'Mohr salt: 0.6 × 0.75 = 0.45 mol Fe²⁺ (1 e⁻ each). K₂Cr₂O₇ gains 6 e⁻, so 0.45/6 = 0.075 mol. Mass = 0.075 × 294 = 22.05 g.'},
+{s:'C',n:1,t:0.01,src:'T10 Ex-4 Q9 · IIT JEE 2011 (NAT)',q:'Br₂ + Na₂CO₃ → NaBr + NaBrO₃ + CO₂. The number of NaBr molecules in the balanced equation is:',a:5,sol:'Br disproportionates 0 → −1 and 0 → +5: 3Br₂ + 3Na₂CO₃ → 5NaBr + NaBrO₃ + 3CO₂. NaBr = 5.'}
+];
+const L='ABCD';let cur=0,ans=[],st=[],tl=0,iv;
+function begin(){tl=+document.getElementById('mins').value*60;ans=Q.map(()=>null);st=Q.map(()=>0);
+ document.getElementById('start').classList.add('hide');document.getElementById('test').classList.remove('hide');
+ iv=setInterval(()=>{tl--;tick();if(tl<=0)submitT(true)},1000);tick();show(0)}
+function tick(){const m=Math.floor(tl/60),s=tl%60;document.getElementById('tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
+// st: 0 not visited,1 not answered,2 answered,3 marked,4 answered+marked
+function show(i){cur=i;if(st[i]==0)st[i]=1;const q=Q[i];
+ qn.textContent='Question '+(i+1);sec.textContent='Section '+q.s+(q.n?' · Numerical':q.m?' · Multiple correct':' · MCQ');src.textContent=q.src;qt.textContent=q.q;
+ op.innerHTML=q.n?'<p>Your answer (integer):</p><input type="number" id="num" value="'+(ans[i]??'')+'" oninput="ans[cur]=this.value===\'\'?null:this.value">':
+ q.o.map((t,k)=>{const on=q.m?(ans[i]||[]).includes(k):ans[i]===k;return '<label class="opt'+(on?' sel':'')+'"><input type="'+(q.m?'checkbox':'radio')+'" '+(on?'checked':'')+' onclick="pick('+k+')"> ('+L[k]+') '+t+'</label>'}).join('');
+ pal()}
+function pick(k){const q=Q[cur];if(q.m){let a=ans[cur]||[];a=a.includes(k)?a.filter(x=>x!=k):[...a,k];ans[cur]=a.length?a:null}else ans[cur]=k;show(cur)}
+function pal(){document.getElementById('pal').innerHTML=Q.map((_,i)=>'<button class="pb '+['','nv','an','mk','am'][st[i]]+(i==cur?' cur':'')+'" onclick="show('+i+')">'+(i+1)+'</button>').join('')}
+function has(i){return ans[i]!==null&&ans[i]!==''}
+function save(){st[cur]=has(cur)?2:1;next()}
+function mark(){st[cur]=has(cur)?4:3;next()}
+function clr(){ans[cur]=null;st[cur]=1;show(cur)}
+function next(){show(cur<Q.length-1?cur+1:cur)}
+function submitT(auto){if(!auto&&!confirm('Submit the test now?'))return;clearInterval(iv);
+ let sc=0,c=0,w=0,sk=0,rows='<tr><th>#</th><th>Source</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Solution</th></tr>';
+ Q.forEach((q,i)=>{const a=ans[i],h=a!==null&&a!=='';let r,ya=h?(q.n?a:q.m?a.map(x=>L[x]).join(', '):L[a]):'—',ca=q.n?q.a:q.m?q.a.map(x=>L[x]).join(', '):L[q.a]+') '+q.o[q.a];
+  if(!h){sk++;r='<span class="sk">Skipped</span>'}else if(q.n?(Math.abs(+a-q.a)<=(q.t||1e-9)):q.m?(a.slice().sort().join()===q.a.join()):(a===q.a)){c++;sc+=4;r='<span class="ok">Correct +4</span>'}else{w++;const pn=q.n?0:q.m?2:1;sc-=pn;r='<span class="bad">Wrong '+(pn?'−'+pn:'0')+'</span>'}
+  rows+='<tr><td>'+(i+1)+'</td><td>'+q.src+'</td><td>'+ya+'</td><td>'+ca+'</td><td>'+r+'</td><td>'+q.sol+'</td></tr>'});
+ document.getElementById('test').classList.add('hide');document.getElementById('res').classList.remove('hide');
+ sc_.innerHTML='<p style="font-size:20px"><b>Score: '+sc+' / '+Q.length*4+'</b></p><p>Correct: '+c+' · Wrong: '+w+' · Skipped: '+sk+'</p>';rt.innerHTML=rows}
+const sc_=document.getElementById('sc');
+</script></body></html>
