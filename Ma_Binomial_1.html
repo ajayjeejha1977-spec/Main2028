@@ -1,0 +1,337 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Binomial Theorem: Rules Sheet and Recall CBT</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#eef2f7;font-family:"Segoe UI",Roboto,Arial,sans-serif}
+body{display:flex;flex-direction:column}
+nav{display:flex;gap:6px;padding:6px 10px;background:#1a4f8b;flex:0 0 auto}
+nav button{border:0;border-radius:5px;padding:8px 16px;font-size:15px;font-weight:600;cursor:pointer;background:#e7f1fd;color:#1a4f8b}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 #2a6fb5}
+iframe{flex:1 1 auto;width:100%;border:0;background:#fff;min-height:0}
+iframe[hidden]{display:none}
+#lock{position:fixed;inset:0;background:rgba(15,25,40,.6);display:flex;align-items:center;justify-content:center;z-index:9}
+#lock[hidden]{display:none}
+#lock div{background:#fff;border-radius:8px;padding:22px 26px;max-width:420px;margin:12px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+#lock h3{margin:0 0 8px;color:#a3281f}#lock p{margin:0 0 16px;line-height:1.5;color:#1d2733}
+#lock button{padding:9px 18px;font-size:15px;font-weight:600;border:0;border-radius:5px;background:#2a6fb5;color:#fff;cursor:pointer}
+</style></head><body>
+<nav><button id="b1" class="on">Rules Sheet</button><button id="b2">Recall CBT</button></nav>
+<iframe id="f1" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Binomial Theorem - Must-Remember Rules&lt;/title&gt;
+&lt;script&gt;window.MathJax={tex:{inlineMath:[[&#x27;\\(&#x27;,&#x27;\\)&#x27;]]}};&lt;/script&gt;
+&lt;script async src=&quot;https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+body{font-family:&quot;Segoe UI&quot;,Roboto,Arial,sans-serif;margin:0;color:#1d2733;background:#f3f6fa}
+.page{max-width:1000px;margin:0 auto;padding:18px 22px 40px;background:#fff}
+h1{margin:0 0 2px;font-size:24px;color:#1a4f8b}.sub{color:#5a6a7e;font-size:14px;margin-bottom:14px}
+section{break-inside:avoid;margin:16px 0}
+h2{font-size:16px;margin:0 0 6px;padding:5px 10px;background:#e7f1fd;border-left:5px solid #2a6fb5;color:#1a4f8b}
+h2 .pg{float:right;font-weight:400;font-size:12.5px;color:#5a6a7e}
+.it{display:flex;gap:10px;align-items:center;padding:5px 6px;border-bottom:1px dotted #d3dbe6;font-size:15.5px;overflow-x:auto}
+.n{min-width:26px;color:#8a97a8;font-size:12px;text-align:right}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 16px;margin-top:22px;font-size:14px}.notes li{margin:5px 0}
+.bar{margin:10px 0 0}.bar button{padding:6px 12px;font-size:13px;cursor:pointer}
+@media print{.bar{display:none}.page{padding:0}body{background:#fff}.it{font-size:14px}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;page&quot;&gt;
+&lt;h1&gt;Binomial Theorem &amp;mdash; Must-Remember Rules&lt;/h1&gt;
+&lt;div class=&quot;sub&quot;&gt;The circled and cloud-boxed items from the class notes, plus the method rules written beside the worked problems &amp;middot; 36 items &amp;middot; page numbers are the notebook&#x27;s own&lt;/div&gt;
+&lt;div class=&quot;bar&quot;&gt;&lt;button onclick=&quot;window.print()&quot;&gt;Print / Save as PDF&lt;/button&gt;&lt;/div&gt;
+&lt;section&gt;&lt;h2&gt;1. Expansion, general term, middle term &lt;span class=&quot;pg&quot;&gt;pp. 55-57&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (a+b)^n=\binom n0a^n+\binom n1a^{n-1}b+\binom n2a^{n-2}b^2+\cdots+\binom nnb^n=\sum_{r=0}^{n}\binom nr a^{n-r}b^r,\ \ n\in\mathbb N\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Standard convention: }\binom n0a^n\text{ is the 1st term, }\binom n1a^{n-1}b\text{ the 2nd; in all }(n+1)\text{ terms}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{General term: }T_{r+1}=\binom nr a^{n-r}b^r\ \ (r+1)^{\text{th}}\text{ term};\ \ (2x+3y)^{11}:\ T_7=\binom{11}6(2x)^5(3y)^6,\ \text{coeff}=\binom{11}6 2^53^6,\ \text{binomial coeff}=\binom{11}6\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Sum of coefficients: }\text{put every variable}=1\ (\text{“combine power of }x,y=1\text{”}):\ (2x+3y)^{11}\to5^{11};\ \ (2x-3y+4z)^{20}\to3^{20}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle n\text{ even: one middle term }T_{\frac n2+1}=\binom n{n/2}a^{n/2}b^{n/2}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle n\text{ odd: two middle terms }T_{\frac{n+1}2}=\binom n{\frac{n-1}2}a^{\frac{n+1}2}b^{\frac{n-1}2},\quad T_{\frac{n+3}2}=\binom n{\frac{n+1}2}a^{\frac{n-1}2}b^{\frac{n+1}2}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Binomial coefficient of the middle term is maximum: }\binom n{n/2}\ (n\text{ even});\ \ \binom n{\frac{n-1}2}=\binom n{\frac{n+1}2}\ (n\text{ odd})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \binom nr\ge\binom n{r-1}\Rightarrow r\le\tfrac{n+1}2;\ \ \binom nr\ge\binom n{r+1}\Rightarrow r\ge\tfrac{n-1}2;\ \ \text{so }\tfrac{n-1}2\le r\le\tfrac{n+1}2\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;2. Finding terms &lt;span class=&quot;pg&quot;&gt;pp. 57-60&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Write }T_{r+1}\text{ and equate the power of }x\text{: coeff. of }x^{15}\text{ in }(x+x^2)^{10}:\ 10-r+2r=15,\ r=5\Rightarrow\binom{10}5\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Term independent of }x:\ \text{power of }x=0\ \ (\text{e.g. }x^{2(9-r)}=x^r\Rightarrow r=6)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (1+x+x^2)(1-x)=1-x^3\ \Rightarrow\ (1+x+x^2)^{50}(1-x)^{51}=(1-x^3)^{50}(1-x)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (1+x+x^2+x^3)^{12}=(1+x^2)^{12}(1+x)^{12};\ \text{multinomial: }a^{m_1}b^{m_2}c^{m_3}d^{m_4},\ \ m_1+m_2+m_3+m_4=12\ \ (\text{coeff. }\tfrac{12!}{m_1!m_2!m_3!m_4!})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Binomial in binomial: }(2+(3x^2-x))^6\text{ — expand the outer, then pick the needed power from each inner term}\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;3. Greatest term and divisibility &lt;span class=&quot;pg&quot;&gt;pp. 61-65&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Greatest term: }T_{r+1}\ge T_r\ \text{and}\ T_{r+1}\ge T_{r+2}\ (\text{series increases, then decreases});\ \text{numerically greatest: use }|T|\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Remainders: }\text{write in the form }(17k\pm1)^n,\ (kN\pm1)^n;\ \ (1+x)^n=\binom n0+\binom n1x+\cdots\ \text{(all other terms carry a power of }N)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Last three digits: }\text{use the form }(10x\pm1)^n\ \text{— interest starts from }10^3;\ \ \text{e.g. }9^{50}=(10-1)^{50}\to001\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;4. Sum and difference of expansions; integer and fractional part &lt;span class=&quot;pg&quot;&gt;p. 66-67&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (a+b)^n+(a-b)^n=2\left[\binom n0a^n+\binom n2a^{n-2}b^2+\binom n4a^{n-4}b^4+\cdots\right]\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (a+b)^n-(a-b)^n=2\left[\binom n1a^{n-1}b+\binom n3a^{n-3}b^3+\binom n5a^{n-5}b^5+\cdots\right]\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle x=[x]+\{x\},\ x\in\mathbb R\ (\text{greatest integer + fractional part});\qquad 0\le\{x\}&lt;1\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{To remove }\sqrt7\text{ give it even powers: }(3+\sqrt7)^n+(3-\sqrt7)^n=2k\ \Rightarrow\ \{x\}+N=1\ \Rightarrow\ [x]\text{ odd},\ \ N=(3-\sqrt7)^n,\ 0&lt;N&lt;1\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle x=(7+4\sqrt3)^n:\ \ (1-\{x\})\,x=(7-4\sqrt3)^n(7+4\sqrt3)^n=1\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \binom n0+\binom n2(3)+\binom n4(3)^2+\cdots=\tfrac{(1+\sqrt3)^n+(1-\sqrt3)^n}2\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;5. Differentiation and integration ideas &lt;span class=&quot;pg&quot;&gt;pp. 67-71&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Coefficient multiplied}\Rightarrow\text{differentiation;}\quad\textbf{coefficient divided}\Rightarrow\text{integration}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle r\binom nr=n\binom{n-1}{r-1}\ \ (\text{differentiation idea});\qquad\dfrac{\binom nr}{r+1}=\dfrac{\binom{n+1}{r+1}}{n+1}\ \ (\text{integration idea})\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{r=1}^{n}r\binom nr=n\,2^{n-1};\qquad\sum_{r=1}^{n}(-1)^rr\binom nr=0;\qquad\sum_{r=2}^{n}r(r-1)\binom nr=n(n-1)2^{n-2}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{r=1}^{n}(-1)^rr^p\binom nr=0\quad\text{for }p&lt;n\quad\text{(the note says }p\in\mathbb N\text{; see the correction below)}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{r=0}^{n}\dfrac{\binom nr}{r+1}=\dfrac{2^{n+1}-1}{n+1}\quad(\text{integrate }(1+x)^n\text{ from }0\text{ to }1)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{If }r,n\text{ are co-prime then }\binom nr\text{ is divisible by }n;\ \text{hence }r\binom nr\text{ is also divisible by }n\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{r=0}^{n}(4r+1)\binom nr=4n\,2^{n-1}+2^n;\qquad\sum_{r\ \text{odd}}r^2\binom nr=\tfrac12\left[n(n-1)2^{n-2}+n2^{n-1}\right]=n(n+1)2^{n-3}\ (n\ge3)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{r=0}^{n}\dfrac{\binom nr3^r}{(r+1)(r+2)}=\dfrac{4^{n+2}-(3n+7)}{9(n+1)(n+2)}\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;6. Product of expansions and (1+x+x²)ⁿ &lt;span class=&quot;pg&quot;&gt;pp. 72-76&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \binom n0^2+\binom n1^2+\cdots+\binom nn^2=\binom{2n}{n}\quad(\text{coefficient of }x^n\text{ in }(1+x)^{2n})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \binom n0\binom n4+\binom n1\binom n5+\cdots+\binom n{n-4}\binom nn=\binom{2n}{n-4}\quad(\text{recognise which }x^k\text{ carries the coefficient})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;33&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \binom n0^2-\binom n1^2+\binom n2^2-\cdots=\begin{cases}0,&amp;n\ \text{odd}\\(-1)^{n/2}\binom n{n/2},&amp;n\ \text{even}\end{cases}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (1+x+x^2)^n=\sum_{r=0}^{2n}a_rx^r:\ \ a_r=a_{2n-r};\quad\sum_{r=0}^{n-1}a_r=\tfrac12(3^n-a_n);\quad a_0^2-a_1^2+a_2^2-\cdots+a_{2n}^2=a_n;\quad a_0a_1-a_1a_2+\cdots=0\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (r+1)a_{r+1}=(n-r)a_r+(2n-r+1)a_{r-1}\quad(\text{differentiation idea; see the correction below})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sum_{0\le i&lt;j\le n}\binom ni=\sum_{0\le i&lt;j\le n}\binom nj=n\,2^{n-1};\qquad\sum_{0\le i&lt;j\le n}\left(\tbinom ni+\tbinom nj\right)^2=(n-1)\binom{2n}{n}+4^n\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;div class=&quot;notes&quot;&gt;&lt;b&gt;Things in the handwritten notes that I read differently (please check against the originals):&lt;/b&gt;&lt;ul&gt;&lt;li&gt;p. 58, Q4: the question is printed with (1+x+x²)&lt;sup&gt;30&lt;/sup&gt;, but the solution uses the power 50 with (1−x)&lt;sup&gt;51&lt;/sup&gt;; I used 50.&lt;/li&gt;&lt;li&gt;p. 59, Q5 (method 1): the final answer should be C(12,0)·C(12,4) + C(12,1)·C(12,2) + C(12,2)·C(12,0) = 1353, not C(12,2)·C(12,4) in the last pair. The multinomial method gives the same 1353.&lt;/li&gt;&lt;li&gt;p. 60, Q6: the last line drops the factors 2³ and 2² (they should multiply the 2nd and 3rd terms). Full value: 2160 + 1440 + 60 = 3660.&lt;/li&gt;&lt;li&gt;p. 68: “Σ (−1)&lt;sup&gt;r&lt;/sup&gt; r&lt;sup&gt;p&lt;/sup&gt; C(n,r) = 0, p ∈ N” holds only for p &amp;lt; n (for p = n the sum is (−1)&lt;sup&gt;n&lt;/sup&gt; n!).&lt;/li&gt;&lt;li&gt;p. 70: M-2 shows n·2&lt;sup&gt;n+1&lt;/sup&gt;·4; differentiating x(1+x⁴)&lt;sup&gt;n&lt;/sup&gt; at x=1 gives 2&lt;sup&gt;n&lt;/sup&gt; + 4n·2&lt;sup&gt;n−1&lt;/sup&gt;. The last line of the odd-r² sum has a stray “·0”; the result is n(n+1)2&lt;sup&gt;n−3&lt;/sup&gt; (valid for n ≥ 3).&lt;/li&gt;&lt;li&gt;p. 73, Q8: (iv) is printed as … + a&lt;sub&gt;2n−1&lt;/sub&gt;a&lt;sub&gt;n&lt;/sub&gt;; it should end with a&lt;sub&gt;2n−1&lt;/sub&gt;a&lt;sub&gt;2n&lt;/sub&gt;. (v) is printed with a&lt;sub&gt;r+1&lt;/sub&gt; in the last term; it should be a&lt;sub&gt;r−1&lt;/sub&gt; (check n=1: a₀=a₁=a₂=1).&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+<iframe id="f2" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Binomial Theorem Recall CBT&lt;/title&gt;
+&lt;script&gt;
+window.MathJax = { tex: { inlineMath: [[&#x27;\\(&#x27;, &#x27;\\)&#x27;]] }, options: { skipHtmlTags: [&#x27;script&#x27;,&#x27;noscript&#x27;,&#x27;style&#x27;,&#x27;textarea&#x27;] } };
+&lt;/script&gt;
+&lt;script async src=&quot;https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+:root{--blue:#1a4f8b;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box}
+body{margin:0;font-family:&quot;Segoe UI&quot;,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px}
+header{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 16px;gap:12px;flex-wrap:wrap}
+header h1{font-size:17px;margin:0;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-variant-numeric:tabular-nums;font-size:18px}
+.timer.low{color:var(--red)}
+.wrap{display:flex;gap:12px;padding:12px;align-items:flex-start}
+.main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.side{width:290px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:8px}
+.tabs{display:flex;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{padding:9px 14px;cursor:pointer;font-size:14px;border-right:1px solid var(--line);background:#f6f8fb}
+.tab.on{background:var(--blue2);color:#fff;font-weight:600}
+.qhead{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);font-size:14px;color:#46566a;flex-wrap:wrap;gap:6px}
+.qhead b{color:var(--ink)}
+.qbody{padding:18px 20px;min-height:260px}
+.stem{font-size:19px;line-height:1.9;margin-bottom:16px;overflow-x:auto}
+.opt{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer;font-size:18px;overflow-x:auto}
+.opt:hover{background:#f3f8ff}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue)}
+.numbox{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.numin{font-size:22px;padding:8px 10px;width:210px;border:2px solid var(--blue2);border-radius:6px;text-align:right}
+.keys{display:grid;grid-template-columns:repeat(3,56px);gap:6px}
+.keys button{height:44px;font-size:18px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+.bar{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd}
+button.b{padding:9px 14px;border:1px solid var(--blue2);background:#fff;color:var(--blue);border-radius:5px;cursor:pointer;font-size:14px;font-weight:600}
+button.b.p{background:var(--blue2);color:#fff}
+button.b.g{background:var(--green);border-color:var(--green);color:#fff}
+button.b.r{background:var(--red);border-color:var(--red);color:#fff}
+button.b:disabled{opacity:.45;cursor:default}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0;max-height:46vh;overflow:auto;padding:2px}
+.pal button{height:38px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)} .pal button.an{background:var(--green)} .pal button.mk{background:var(--purple)} .pal button.am{background:var(--purple)}
+.pal button.am::after{content:&quot;&quot;;position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:#5ee07e;border:1px solid #fff}
+.pal button.cur{outline:3px solid var(--amber)}
+.legend{font-size:12.5px;display:grid;grid-template-columns:1fr 1fr;gap:5px 8px;margin-top:6px}
+.legend span i{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:5px;color:#fff;font-style:normal;margin-right:5px;font-size:12px}
+.secsum{font-size:13px;color:#46566a;margin:4px 0 6px}
+.start{max-width:760px;margin:26px auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px 28px}
+.start h2{margin-top:0;color:var(--blue)}
+.start label.m{display:block;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:8px 0;cursor:pointer}
+.start label.m:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+.start input[type=text]{padding:8px 10px;font-size:16px;border:1px solid var(--line);border-radius:5px;width:260px}
+.start ul{line-height:1.7}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:10}
+.modal .box{background:#fff;border-radius:8px;padding:20px 24px;max-width:480px;width:92%}
+table.sm{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+table.sm th,table.sm td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+table.sm th{background:#f1f5fa}
+.res{max-width:1000px;margin:14px auto;padding:0 12px 40px}
+.cards{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.card .v{font-size:26px;font-weight:700;color:var(--blue)}
+.rq{background:#fff;border:1px solid var(--line);border-left:6px solid var(--grey);border-radius:6px;padding:12px 16px;margin:10px 0}
+.rq.ok{border-left-color:var(--green)} .rq.bad{border-left-color:var(--red)} .rq.skip{border-left-color:var(--amber)}
+.rq .meta{font-size:12.5px;color:#5a6a7e;margin-bottom:4px}
+.rq .ans{font-size:15px;margin:6px 0}
+.rq .exp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:15px;margin-top:6px;overflow-x:auto}
+.filters{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.chip{padding:6px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:14px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+.tagpill{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:14px;padding:3px 10px;margin:3px;font-size:13.5px}
+@media (max-width:860px){.wrap{flex-direction:column}.side{width:100%;position:static}}
+@media print{header,.filters,.noprint{display:none!important}.rq{break-inside:avoid}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+const DATA = [{&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.55 General term&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;T_{r+1}\\ \\text{of}\\ (a+b)^n=\\ ?&quot;, &quot;opts&quot;: [&quot;\\binom nr a^{r}b^{n-r}&quot;, &quot;\\binom{n}{r+1}a^{n-r}b^{r}&quot;, &quot;\\binom nr a^{n-r}b^{r}&quot;, &quot;\\binom nr a^{n-r}b^{r+1}&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;(r+1)^{\\text{th}}\\text{ term}=\\binom nr a^{n-r}b^r&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.55 Number of terms&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(a+b)^n,\\ n\\in\\mathbb N\\ \\text{has how many terms?}&quot;, &quot;opts&quot;: [&quot;n&quot;, &quot;n-1&quot;, &quot;n+1&quot;, &quot;2n&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\binom n0a^n+\\cdots+\\binom nnb^n:\\ (n+1)\\text{ terms}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.56 Sum of coefficients&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Sum of all coefficients of }(2x-3y+4z)^{20}&quot;, &quot;opts&quot;: [&quot;2^{20}&quot;, &quot;3^{20}&quot;, &quot;1&quot;, &quot;9^{20}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x=y=z=1:\\ (2-3+4)^{20}=3^{20}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.56 Middle term, n even&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;n\\text{ even: the middle term of }(a+b)^n\\text{ is}&quot;, &quot;opts&quot;: [&quot;T_{n/2}&quot;, &quot;\\binom n{n/2}a^{n/2}b^{n/2}=T_{\\frac n2+1}&quot;, &quot;T_{\\frac n2+2}&quot;, &quot;\\text{two middle terms}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{odd number of terms }(n+1)\\Rightarrow T_{\\frac n2+1}=\\binom n{n/2}a^{n/2}b^{n/2}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.56 Middle terms, n odd&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;n\\text{ odd: the two middle terms are}&quot;, &quot;opts&quot;: [&quot;T_{\\frac{n-1}2}\\text{ and }T_{\\frac{n+1}2}&quot;, &quot;T_{\\frac{n+1}2}\\text{ and }T_{\\frac{n+3}2}&quot;, &quot;T_{\\frac{n+3}2}\\text{ and }T_{\\frac{n+5}2}&quot;, &quot;T_{\\frac n2}\\text{ and }T_{\\frac n2+1}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;T_{\\frac{n+1}2}=\\binom n{\\frac{n-1}2}a^{\\frac{n+1}2}b^{\\frac{n-1}2},\\ \\ T_{\\frac{n+3}2}=\\binom n{\\frac{n+1}2}a^{\\frac{n-1}2}b^{\\frac{n+1}2}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.56-57 Maximum binomial coefficient&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;n\\text{ odd: }\\binom nr\\text{ is maximum for}&quot;, &quot;opts&quot;: [&quot;r=\\tfrac n2&quot;, &quot;r=\\tfrac{n-1}2\\text{ and }r=\\tfrac{n+1}2&quot;, &quot;r=\\tfrac{n+1}2\\text{ only}&quot;, &quot;r=\\tfrac{n-1}2\\text{ only}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\tfrac{n-1}2\\le r\\le\\tfrac{n+1}2,\\ \\text{both integers}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.57 Explanation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\binom nr\\ge\\binom n{r-1}\\ \\Longleftrightarrow&quot;, &quot;opts&quot;: [&quot;r\\ge\\tfrac{n+1}2&quot;, &quot;r\\le\\tfrac{n+1}2&quot;, &quot;r\\le\\tfrac{n-1}2&quot;, &quot;r\\ge\\tfrac n2&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\tfrac{n-r+1}{r}\\ge1\\Rightarrow r\\le\\tfrac{n+1}2&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.66 Sum of expansions&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(a+b)^n+(a-b)^n=&quot;, &quot;opts&quot;: [&quot;2\\left[\\binom n1a^{n-1}b+\\binom n3a^{n-3}b^3+\\cdots\\right]&quot;, &quot;\\binom n0a^n+\\binom n2a^{n-2}b^2+\\cdots&quot;, &quot;2\\left[\\binom n0a^n+\\binom n2a^{n-2}b^2+\\binom n4a^{n-4}b^4+\\cdots\\right]&quot;, &quot;2a^n&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\text{odd powers of }b\\text{ cancel}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.66 Difference of expansions&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(a+b)^n-(a-b)^n=&quot;, &quot;opts&quot;: [&quot;2\\left[\\binom n1a^{n-1}b+\\binom n3a^{n-3}b^3+\\binom n5a^{n-5}b^5+\\cdots\\right]&quot;, &quot;2\\left[\\binom n0a^n+\\binom n2a^{n-2}b^2+\\cdots\\right]&quot;, &quot;2b^n&quot;, &quot;\\binom n1a^{n-1}b+\\binom n3a^{n-3}b^3+\\cdots&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{even powers of }b\\text{ cancel}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.66 Fractional part&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;x=[x]+\\{x\\},\\ x\\in\\mathbb R.\\ \\text{Which is true?}&quot;, &quot;opts&quot;: [&quot;0\\le\\{x\\}\\le1&quot;, &quot;0&lt;\\{x\\}&lt;1&quot;, &quot;0\\le\\{x\\}&lt;1&quot;, &quot;-1&lt;\\{x\\}\\le0&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;0\\le\\{x\\}&lt;1&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.69 Differentiation idea&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;r\\binom nr=&quot;, &quot;opts&quot;: [&quot;n\\binom{n-1}{r-1}&quot;, &quot;n\\binom{n-1}{r}&quot;, &quot;\\binom{n+1}{r+1}&quot;, &quot;n\\binom{n}{r-1}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;r\\cdot\\tfrac{n!}{r!(n-r)!}=n\\cdot\\tfrac{(n-1)!}{(r-1)!(n-r)!}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.69 Integration idea&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\dfrac{\\binom nr}{r+1}=&quot;, &quot;opts&quot;: [&quot;\\dfrac{\\binom{n+1}{r+1}}{n+1}&quot;, &quot;\\dfrac{\\binom{n+1}{r}}{n+1}&quot;, &quot;\\dfrac{\\binom{n}{r+1}}{n}&quot;, &quot;\\dfrac{\\binom{n+1}{r+1}}{n}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\tfrac{n!}{(r+1)!(n-r)!}=\\tfrac{1}{n+1}\\binom{n+1}{r+1}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.68 Coefficient multiply = differentiate&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=1}^{n}r\\binom nr=&quot;, &quot;opts&quot;: [&quot;2^n&quot;, &quot;n\\,2^{n-1}&quot;, &quot;n(n-1)2^{n-2}&quot;, &quot;n^2&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{differentiate }(1+x)^n,\\ x=1&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.68 Twice differentiation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=2}^{n}r(r-1)\\binom nr=&quot;, &quot;opts&quot;: [&quot;n(n-1)2^{n-2}&quot;, &quot;n(n-1)2^{n}&quot;, &quot;n\\,2^{n-1}&quot;, &quot;2^{n-2}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{differentiate twice, }x=1&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.68 Alternating sums (corrected)&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=1}^{n}(-1)^r r^p\\binom nr=0\\ \\text{ holds for}&quot;, &quot;opts&quot;: [&quot;\\text{every }p\\in\\mathbb N&quot;, &quot;p&lt;n&quot;, &quot;p&gt;n&quot;, &quot;p=n\\text{ only}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{For }p=n\\text{ the sum is }(-1)^nn!\\ne0&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.69 Integration result&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=0}^{n}\\dfrac{\\binom nr}{r+1}=&quot;, &quot;opts&quot;: [&quot;\\dfrac{2^{n+1}-1}{n+1}&quot;, &quot;\\dfrac{2^n}{n+1}&quot;, &quot;\\dfrac{2^n-1}{n}&quot;, &quot;\\dfrac{2^{n+1}}{n+1}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\int_0^1(1+x)^ndx&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.72 Product of expansions&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\binom n0^2+\\binom n1^2+\\cdots+\\binom nn^2=&quot;, &quot;opts&quot;: [&quot;2^n&quot;, &quot;\\binom{2n}{n}&quot;, &quot;\\binom n{n/2}&quot;, &quot;n\\,2^n&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{coefficient of }x^n\\text{ in }(1+x)^{2n}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Alternating squares&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;n\\text{ odd: }\\binom n0^2-\\binom n1^2+\\binom n2^2-\\cdots=&quot;, &quot;opts&quot;: [&quot;1&quot;, &quot;0&quot;, &quot;-1&quot;, &quot;\\binom n{(n-1)/2}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{coeff. of }x^n\\text{ in }(1-x^2)^n\\text{ needs }2r=n,\\text{ impossible for odd }n&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Symmetry&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(1+x+x^2)^n=\\sum_{r=0}^{2n}a_rx^r\\ \\Rightarrow\\ a_r=&quot;, &quot;opts&quot;: [&quot;a_{n-r}&quot;, &quot;a_{2n-r}&quot;, &quot;a_{2n+r}&quot;, &quot;a_{r+1}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x\\to1/x:\\ \\text{the expansion is symmetric}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.74 Sum with symmetry&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=0}^{n-1}a_r=&quot;, &quot;opts&quot;: [&quot;\\tfrac{3^n+a_n}2&quot;, &quot;3^n-a_n&quot;, &quot;\\tfrac{3^n-a_n}2&quot;, &quot;\\tfrac{3^n}2&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;x=1:\\ 3^n=2\\sum_{r=0}^{n-1}a_r+a_n&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.74 Squares with signs&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;a_0^2-a_1^2+a_2^2-\\cdots+a_{2n}^2=&quot;, &quot;opts&quot;: [&quot;0&quot;, &quot;a_n&quot;, &quot;a_{2n}&quot;, &quot;3^n&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{coeff. of }x^{2n}\\text{ in }(1+x^2+x^4)^n=a_n&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.55 Coefficient of a term&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{In }(2x+3y)^{11},\\ \\text{the coefficient of }T_7\\text{ is}&quot;, &quot;opts&quot;: [&quot;\\binom{11}{6}2^53^6&quot;, &quot;\\binom{11}{7}2^53^6&quot;, &quot;\\binom{11}{6}2^63^5&quot;, &quot;\\binom{11}{6}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;r=6:\\ \\binom{11}6(2x)^5(3y)^6&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.58 Independent of x&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Term independent of }x\\text{ in }\\left(\\tfrac32x^2-\\tfrac1{3x}\\right)^9&quot;, &quot;opts&quot;: [&quot;\\tfrac7{18}&quot;, &quot;-\\tfrac7{18}&quot;, &quot;\\tfrac{21}2&quot;, &quot;\\tfrac16&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;18-2r=r\\Rightarrow r=6:\\ \\binom96\\left(\\tfrac32\\right)^3\\left(\\tfrac13\\right)^6=\\tfrac7{18}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.58-59 Product of expansions&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Coefficient of }x^{33}\\text{ in }(1+x+x^2)^{50}(1-x)^{51}&quot;, &quot;opts&quot;: [&quot;\\binom{50}{11}&quot;, &quot;0&quot;, &quot;\\binom{50}{10}&quot;, &quot;-\\binom{50}{11}&quot;], &quot;ans&quot;: 3, &quot;exp&quot;: &quot;(1-x^3)^{50}(1-x):\\ (-x^3)^{11}\\cdot1\\Rightarrow-\\binom{50}{11}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.58-59 Product of expansions&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Coefficient of }x^{34}\\text{ in the same expansion}&quot;, &quot;opts&quot;: [&quot;-\\binom{50}{11}&quot;, &quot;0&quot;, &quot;\\binom{50}{12}&quot;, &quot;\\binom{50}{11}&quot;], &quot;ans&quot;: 3, &quot;exp&quot;: &quot;(-x^3)^{11}(-x)=+x^{34}\\binom{50}{11}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.61 Greatest term&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;x=\\tfrac13:\\ \\text{greatest term of }(1+4x)^8\\text{ is}&quot;, &quot;opts&quot;: [&quot;T_5&quot;, &quot;T_6&quot;, &quot;T_7&quot;, &quot;T_4&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;r\\le\\tfrac{36}7\\Rightarrow r=5:\\ T_6=\\binom85\\left(\\tfrac43\\right)^5&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.62 Numerically greatest&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(3-2x)^9:\\ \\text{numerically greatest terms}&quot;, &quot;opts&quot;: [&quot;T_4\\text{ only}&quot;, &quot;T_4\\text{ and }T_5&quot;, &quot;T_5\\text{ only}&quot;, &quot;T_3\\text{ and }T_4&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;r\\le4\\text{ and }r\\ge3\\Rightarrow r=3,4&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.62-63 Greatest term, find x&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;T_4\\text{ is the only greatest term of }\\left(2+\\tfrac{3x}8\\right)^{10}.\\ x\\in&quot;, &quot;opts&quot;: [&quot;\\left(-\\tfrac{64}{21},-2\\right)\\cup\\left(2,\\tfrac{64}{21}\\right)&quot;, &quot;\\left(2,\\tfrac{64}{21}\\right)&quot;, &quot;[-2,2]&quot;, &quot;\\left(-\\tfrac{64}{21},\\tfrac{64}{21}\\right)&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;2&lt;|x|&lt;\\tfrac{64}{21}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.63-64 Remainder&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Remainder when }2^{2005}\\text{ is divided by }17&quot;, &quot;opts&quot;: [&quot;2&quot;, &quot;15&quot;, &quot;16&quot;, &quot;1&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;2(17-1)^{501}\\equiv-2\\equiv15&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.65 Last three digits&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{Last three digits of }9^{50}&quot;, &quot;opts&quot;: [&quot;081&quot;, &quot;501&quot;, &quot;001&quot;, &quot;901&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;(10-1)^{50}:\\ \\text{last three terms}\\to 001&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.66 Integer part&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;x=(3+\\sqrt7)^n,\\ n\\in\\mathbb N.\\ [x]\\text{ is}&quot;, &quot;opts&quot;: [&quot;\\text{even}&quot;, &quot;\\text{odd}&quot;, &quot;\\text{prime}&quot;, &quot;\\text{depends on }n&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x+(3-\\sqrt7)^n=2k,\\ \\{x\\}+(3-\\sqrt7)^n=1\\Rightarrow[x]=2k-1&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.67 Fractional part&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;x=(7+4\\sqrt3)^n,\\ (1-\\{x\\})\\,x=&quot;, &quot;opts&quot;: [&quot;0&quot;, &quot;1&quot;, &quot;(7+4\\sqrt3)^n&quot;, &quot;2^n&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;1-\\{x\\}=(7-4\\sqrt3)^n,\\ (7-4\\sqrt3)(7+4\\sqrt3)=1&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.69-70 Series&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{r=0}^{n}(4r+1)\\binom nr=&quot;, &quot;opts&quot;: [&quot;4n\\,2^{n-1}+2^n&quot;, &quot;2^n+2n&quot;, &quot;n\\,2^n&quot;, &quot;4\\cdot2^n+1&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;4\\sum r\\binom nr+\\sum\\binom nr&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.76 Double sum&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\sum_{0\\le i&lt;j\\le n}\\left(\\tbinom ni+\\tbinom nj\\right)^2=&quot;, &quot;opts&quot;: [&quot;(n-1)\\binom{2n}{n}+4^n&quot;, &quot;n\\binom{2n}{n}+4^n&quot;, &quot;(n-1)\\binom{2n}{n}+2^n&quot;, &quot;\\binom{2n}{n}+4^n&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;(n-1)\\sum\\binom ni^2+\\left(\\sum\\binom ni\\right)^2&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.58-59 Coefficient&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Coefficient of }x^4\\text{ in }(1+x+x^2+x^3)^{12}&quot;, &quot;ans&quot;: 1353, &quot;exp&quot;: &quot;\\binom{12}0\\binom{12}4+\\binom{12}1\\binom{12}2+\\binom{12}2\\binom{12}0=495+792+66&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.60 Coefficient&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Coefficient of }x^4\\text{ in }(2-x+3x^2)^6&quot;, &quot;ans&quot;: 3660, &quot;exp&quot;: &quot;2160+1440+60&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.64 Remainder&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Remainder when }5^{99}\\text{ is divided by }13&quot;, &quot;ans&quot;: 8, &quot;exp&quot;: &quot;5(26-1)^{49}\\equiv-5\\equiv8&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.64 Remainder&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Remainder when }7^{103}\\text{ is divided by }25&quot;, &quot;ans&quot;: 18, &quot;exp&quot;: &quot;7(50-1)^{51}\\equiv-7\\equiv18&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.64-65 Remainder&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Remainder when }2^{(32)^{32}}\\text{ is divided by }7&quot;, &quot;ans&quot;: 2, &quot;exp&quot;: &quot;(32)^{32}=3k+1\\Rightarrow2(1+7)^k\\equiv2&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.65 Last digits&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Last three digits of }17^{256}=(290-1)^{128}&quot;, &quot;ans&quot;: 681, &quot;exp&quot;: &quot;1-128\\cdot290+\\tfrac{128\\cdot127}2290^2\\equiv681&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.56 Sum of coefficients&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{If the sum of coefficients of }(2x-3y+4z)^n\\text{ is }243,\\ n=\\ ?&quot;, &quot;ans&quot;: 5, &quot;exp&quot;: &quot;3^n=243&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.69-70 Series&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;n=3:\\ \\sum_{r=0}^{3}(4r+1)\\binom 3r=\\ ?&quot;, &quot;ans&quot;: 56, &quot;exp&quot;: &quot;4\\cdot3\\cdot2^2+2^3=48+8&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.72 Product&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\binom50^2+\\binom51^2+\\cdots+\\binom55^2=\\ ?&quot;, &quot;ans&quot;: 252, &quot;exp&quot;: &quot;\\binom{10}5=252&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.74 (1+x+x^2)^n&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;n=3:\\ a_0^2-a_1^2+a_2^2-\\cdots+a_6^2=a_3=\\ ?&quot;, &quot;ans&quot;: 7, &quot;exp&quot;: &quot;(1+x+x^2)^3=1+3x+6x^2+7x^3+\\cdots&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.75 Double sum&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;n=4:\\ \\sum_{0\\le i&lt;j\\le4}\\binom 4i=\\ ?&quot;, &quot;ans&quot;: 32, &quot;exp&quot;: &quot;n\\,2^{n-1}=4\\cdot8&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.56 Maximum coefficient&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Greatest binomial coefficient in }(1+x)^{11}&quot;, &quot;ans&quot;: 462, &quot;exp&quot;: &quot;\\binom{11}5=462&quot;}];
+const SEC = {A:{name:&#x27;Rules &amp;amp; Formula Recall&#x27;,budget:60,pos:4,neg:1}, B:{name:&#x27;Class Problems (MCQ)&#x27;,budget:150,pos:4,neg:1}, C:{name:&#x27;Class Problems (Numerical)&#x27;,budget:180,pos:4,neg:0}};
+const $ = s =&gt; document.querySelector(s);
+const M = s =&gt; &#x27;\\(&#x27; + s + &#x27;\\)&#x27;;
+function typeset(el,n){ n=n||0; if(window.MathJax &amp;&amp; MathJax.typesetPromise){ MathJax.typesetPromise(el?[el]:undefined).catch(()=&gt;{}); } else if(n&lt;40){ setTimeout(()=&gt;typeset(el,n+1),400); } else if(!window.__mjWarn){ window.__mjWarn=1; alert(&#x27;Formula rendering (MathJax) could not load. Please connect to the internet and reload this page.&#x27;); } }
+const fmt = s =&gt; { s=Math.max(0,Math.floor(s)); const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60; return (h?h+&#x27;:&#x27;:&#x27;&#x27;)+String(m).padStart(2,&#x27;0&#x27;)+&#x27;:&#x27;+String(x).padStart(2,&#x27;0&#x27;); };
+
+let Qs=[], R=[], cur=0, secActive=&#x27;A&#x27;, total=0, left=0, tick=null, qStart=0, name=&#x27;&#x27;, mode=&#x27;full&#x27;;
+
+function startScreen(){
+  const cnt = k =&gt; DATA.filter(q=&gt;q.sec===k).length;
+  const mins = ks =&gt; Math.round(DATA.filter(q=&gt;ks.includes(q.sec)).reduce((s,q)=&gt;s+SEC[q.sec].budget,0)/60);
+  $(&#x27;#app&#x27;).innerHTML = `
+  &lt;header&gt;&lt;h1&gt;Binomial Theorem Recall Test &amp;middot; from the class notes&lt;/h1&gt;&lt;/header&gt;
+  &lt;div class=&quot;start&quot;&gt;
+    &lt;h2&gt;Binomial Theorem &amp;mdash; Rules Recall &amp;amp; Class Problems&lt;/h2&gt;
+    &lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; &lt;input type=&quot;text&quot; id=&quot;nm&quot; placeholder=&quot;Candidate name&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Choose test:&lt;/b&gt;&lt;/p&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;full&quot; checked&gt; &lt;b&gt;Full test&lt;/b&gt; &amp;mdash; ${DATA.length} questions &amp;middot; ${mins([&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;])} min&lt;/label&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;A&quot;&gt; &lt;b&gt;Part 1: Rules &amp;amp; Formula Recall only&lt;/b&gt; (the circled / boxed items) &amp;mdash; ${cnt(&#x27;A&#x27;)} questions &amp;middot; ${mins([&#x27;A&#x27;])} min&lt;/label&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;BC&quot;&gt; &lt;b&gt;Part 2: Class Problems only&lt;/b&gt; &amp;mdash; ${cnt(&#x27;B&#x27;)} MCQ + ${cnt(&#x27;C&#x27;)} numerical &amp;middot; ${mins([&#x27;B&#x27;,&#x27;C&#x27;])} min&lt;/label&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Section A &amp;amp; B: single correct, &lt;b&gt;+4&lt;/b&gt; correct, &lt;b&gt;&amp;minus;1&lt;/b&gt; wrong, 0 if unanswered.&lt;/li&gt;
+      &lt;li&gt;Section C: type a number (tolerance &amp;plusmn;0.01), &lt;b&gt;+4&lt;/b&gt; correct, no negative marking.&lt;/li&gt;
+      &lt;li&gt;Timer auto-submits. You can mark questions for review and jump through the palette.&lt;/li&gt;
+      &lt;li&gt;After submitting you get a per-question review with the page reference in the notebook, and a &lt;b&gt;&quot;formulas to revise&quot;&lt;/b&gt; list built from your wrong / skipped answers.&lt;/li&gt;
+      &lt;li&gt;Needs internet once for MathJax (formula rendering).&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class=&quot;b p&quot; id=&quot;go&quot; style=&quot;font-size:16px;padding:11px 26px&quot;&gt;Start Test&lt;/button&gt;
+  &lt;/div&gt;`;
+  $(&#x27;#go&#x27;).onclick = () =&gt; {
+    name = $(&#x27;#nm&#x27;).value.trim(); mode = document.querySelector(&#x27;input[name=md]:checked&#x27;).value;
+    const keep = mode===&#x27;full&#x27;?[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;]:mode===&#x27;A&#x27;?[&#x27;A&#x27;]:[&#x27;B&#x27;,&#x27;C&#x27;];
+    Qs = DATA.filter(q=&gt;keep.includes(q.sec));
+    R = Qs.map(()=&gt;({sel:null,num:&#x27;&#x27;,vis:false,mark:false,t:0}));
+    total = Qs.reduce((s,q)=&gt;s+SEC[q.sec].budget,0); left = total; cur = 0; secActive = Qs[0].sec;
+    renderExam(); go(0, true);
+    qStart = Date.now();
+    tick = setInterval(()=&gt;{ left--; paintTimer(); if(left&lt;=0) submit(true); },1000);
+    window.__active=true;
+  };
+}
+function paintTimer(){ const t=$(&#x27;#tm&#x27;); if(!t) return; t.textContent=fmt(left); t.classList.toggle(&#x27;low&#x27;,left&lt;300); }
+function answered(i){ const q=Qs[i],r=R[i]; return q.kind===&#x27;mcq&#x27; ? r.sel!==null : r.num.trim()!==&#x27;&#x27;; }
+function status(i){ const r=R[i]; if(!r.vis) return &#x27;&#x27;; const a=answered(i); if(r.mark) return a?&#x27;am&#x27;:&#x27;mk&#x27;; return a?&#x27;an&#x27;:&#x27;na&#x27;; }
+function renderExam(){
+  const secs = [...new Set(Qs.map(q=&gt;q.sec))];
+  $(&#x27;#app&#x27;).innerHTML = `
+  &lt;header&gt;&lt;h1&gt;Binomial Theorem Recall Test${name?&#x27; &amp;middot; &#x27;+name:&#x27;&#x27;}&lt;/h1&gt;&lt;div&gt;Time left: &lt;span class=&quot;timer&quot; id=&quot;tm&quot;&gt;${fmt(left)}&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+  &lt;div class=&quot;wrap&quot;&gt;
+    &lt;div class=&quot;main&quot;&gt;
+      &lt;div class=&quot;tabs&quot; id=&quot;tabs&quot;&gt;${secs.map(s=&gt;`&lt;div class=&quot;tab&quot; data-s=&quot;${s}&quot;&gt;${s}. ${SEC[s].name}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+      &lt;div class=&quot;qhead&quot; id=&quot;qh&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;qbody&quot; id=&quot;qb&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;bar&quot;&gt;
+        &lt;button class=&quot;b p&quot; id=&quot;sn&quot;&gt;Save &amp;amp; Next&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;mn&quot; style=&quot;color:var(--purple);border-color:var(--purple)&quot;&gt;Mark for Review &amp;amp; Next&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;cl&quot;&gt;Clear Response&lt;/button&gt;
+        &lt;span style=&quot;flex:1&quot;&gt;&lt;/span&gt;
+        &lt;button class=&quot;b&quot; id=&quot;pv&quot;&gt;&amp;laquo; Back&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;nx&quot;&gt;Next &amp;raquo;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;side&quot;&gt;
+      &lt;div class=&quot;secsum&quot; id=&quot;ss&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;pal&quot; id=&quot;pal&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;legend&quot;&gt;
+        &lt;span&gt;&lt;i style=&quot;background:var(--grey)&quot;&gt;&amp;nbsp;&lt;/i&gt;Not visited&lt;/span&gt;&lt;span&gt;&lt;i style=&quot;background:var(--red)&quot;&gt;&amp;nbsp;&lt;/i&gt;Not answered&lt;/span&gt;
+        &lt;span&gt;&lt;i style=&quot;background:var(--green)&quot;&gt;&amp;nbsp;&lt;/i&gt;Answered&lt;/span&gt;&lt;span&gt;&lt;i style=&quot;background:var(--purple)&quot;&gt;&amp;nbsp;&lt;/i&gt;Marked&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p style=&quot;text-align:center;margin:14px 0 4px&quot;&gt;&lt;button class=&quot;b g&quot; id=&quot;sub&quot; style=&quot;width:100%;padding:11px&quot;&gt;Submit Test&lt;/button&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;`;
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach(t=&gt;t.onclick=()=&gt;{ const i=Qs.findIndex(q=&gt;q.sec===t.dataset.s); go(i); });
+  $(&#x27;#sn&#x27;).onclick=()=&gt;{ nextAfter(); };
+  $(&#x27;#mn&#x27;).onclick=()=&gt;{ R[cur].mark=true; nextAfter(true); };
+  $(&#x27;#cl&#x27;).onclick=()=&gt;{ R[cur].sel=null; R[cur].num=&#x27;&#x27;; paintQ(); paintPal(); };
+  $(&#x27;#pv&#x27;).onclick=()=&gt;go(Math.max(0,cur-1));
+  $(&#x27;#nx&#x27;).onclick=()=&gt;go(Math.min(Qs.length-1,cur+1));
+  $(&#x27;#sub&#x27;).onclick=confirmSubmit;
+}
+function nextAfter(){ if(cur&lt;Qs.length-1) go(cur+1); else { paintQ(); paintPal(); } }
+function go(i, first){
+  if(!first){ R[cur].t += (Date.now()-qStart)/1000; }
+  cur=i; qStart=Date.now(); R[cur].vis=true; secActive=Qs[cur].sec; paintQ(); paintPal();
+}
+function paintQ(){
+  const q=Qs[cur], r=R[cur], S=SEC[q.sec];
+  const idxInSec = Qs.filter(x=&gt;x.sec===q.sec).indexOf(q)+1, nSec = Qs.filter(x=&gt;x.sec===q.sec).length;
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach(t=&gt;t.classList.toggle(&#x27;on&#x27;,t.dataset.s===q.sec));
+  $(&#x27;#qh&#x27;).innerHTML = `&lt;span&gt;&lt;b&gt;Question ${cur+1}&lt;/b&gt; of ${Qs.length} &amp;nbsp;|&amp;nbsp; ${q.sec}${idxInSec}/${nSec}&lt;/span&gt;&lt;span&gt;Marks: &lt;b style=&quot;color:var(--green)&quot;&gt;+${S.pos}&lt;/b&gt; / &lt;b style=&quot;color:var(--red)&quot;&gt;&amp;minus;${S.neg}&lt;/b&gt;&lt;/span&gt;`;
+  let h = `&lt;div class=&quot;stem&quot;&gt;${M(q.stem)}&lt;/div&gt;`;
+  if(q.kind===&#x27;mcq&#x27;){
+    h += q.opts.map((o,k)=&gt;`&lt;div class=&quot;opt ${r.sel===k?&#x27;sel&#x27;:&#x27;&#x27;}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;L&quot;&gt;${&#x27;ABCD&#x27;[k]}.&lt;/span&gt;&lt;span&gt;${M(o)}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  } else {
+    h += `&lt;div class=&quot;numbox&quot;&gt;&lt;div&gt;&lt;input class=&quot;numin&quot; id=&quot;ni&quot; value=&quot;${r.num}&quot; inputmode=&quot;decimal&quot; placeholder=&quot;Enter answer&quot;&gt;&lt;div style=&quot;font-size:12px;color:#667;margin-top:4px&quot;&gt;Type the numerical value (e.g. 16 or 0.5)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;keys&quot;&gt;${[&#x27;7&#x27;,&#x27;8&#x27;,&#x27;9&#x27;,&#x27;4&#x27;,&#x27;5&#x27;,&#x27;6&#x27;,&#x27;1&#x27;,&#x27;2&#x27;,&#x27;3&#x27;,&#x27;0&#x27;,&#x27;.&#x27;,&#x27;-&#x27;].map(k=&gt;`&lt;button data-k=&quot;${k}&quot;&gt;${k}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;button data-k=&quot;bk&quot; style=&quot;grid-column:span 2&quot;&gt;&amp;larr; Backspace&lt;/button&gt;&lt;button data-k=&quot;cl&quot;&gt;Clear&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+  }
+  $(&#x27;#qb&#x27;).innerHTML = h;
+  if(q.kind===&#x27;mcq&#x27;) document.querySelectorAll(&#x27;.opt&#x27;).forEach(o=&gt;o.onclick=()=&gt;{ r.sel=(r.sel===+o.dataset.k)?null:+o.dataset.k; paintQ(); paintPal(); });
+  else {
+    const ni=$(&#x27;#ni&#x27;); ni.oninput=()=&gt;{ r.num=ni.value; paintPal(); };
+    document.querySelectorAll(&#x27;.keys button&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ const k=b.dataset.k; if(k===&#x27;bk&#x27;) r.num=r.num.slice(0,-1); else if(k===&#x27;cl&#x27;) r.num=&#x27;&#x27;; else r.num+=k; ni.value=r.num; paintPal(); });
+  }
+  $(&#x27;#pv&#x27;).disabled = cur===0; $(&#x27;#nx&#x27;).disabled = cur===Qs.length-1;
+  typeset($(&#x27;#qb&#x27;));
+}
+function paintPal(){
+  const secs=[...new Set(Qs.map(q=&gt;q.sec))];
+  $(&#x27;#ss&#x27;).innerHTML = secs.map(s=&gt;{ const ids=Qs.map((q,i)=&gt;q.sec===s?i:-1).filter(i=&gt;i&gt;=0); return `&lt;b&gt;${s}&lt;/b&gt;: ${ids.filter(answered).length}/${ids.length} answered`; }).join(&#x27; &amp;middot; &#x27;);
+  const ids = Qs.map((q,i)=&gt;i).filter(i=&gt;Qs[i].sec===secActive);
+  let n=0, base = Qs.findIndex(q=&gt;q.sec===secActive);
+  $(&#x27;#pal&#x27;).innerHTML = ids.map((i,j)=&gt;`&lt;button class=&quot;${status(i)} ${i===cur?&#x27;cur&#x27;:&#x27;&#x27;}&quot; data-i=&quot;${i}&quot;&gt;${j+1}&lt;/button&gt;`).join(&#x27;&#x27;);
+  document.querySelectorAll(&#x27;#pal button&#x27;).forEach(b=&gt;b.onclick=()=&gt;go(+b.dataset.i));
+}
+function confirmSubmit(){
+  const secs=[...new Set(Qs.map(q=&gt;q.sec))];
+  const rows = secs.map(s=&gt;{ const ids=Qs.map((q,i)=&gt;q.sec===s?i:-1).filter(i=&gt;i&gt;=0); const a=ids.filter(answered).length, mk=ids.filter(i=&gt;R[i].mark).length; return `&lt;tr&gt;&lt;td&gt;${s}&lt;/td&gt;&lt;td&gt;${ids.length}&lt;/td&gt;&lt;td&gt;${a}&lt;/td&gt;&lt;td&gt;${ids.length-a}&lt;/td&gt;&lt;td&gt;${mk}&lt;/td&gt;&lt;/tr&gt;`; }).join(&#x27;&#x27;);
+  const d=document.createElement(&#x27;div&#x27;); d.className=&#x27;modal&#x27;; d.innerHTML=`&lt;div class=&quot;box&quot;&gt;&lt;h3 style=&quot;margin-top:0&quot;&gt;Submit test?&lt;/h3&gt;
+  &lt;table class=&quot;sm&quot;&gt;&lt;tr&gt;&lt;th&gt;Section&lt;/th&gt;&lt;th&gt;Questions&lt;/th&gt;&lt;th&gt;Answered&lt;/th&gt;&lt;th&gt;Not answered&lt;/th&gt;&lt;th&gt;Marked&lt;/th&gt;&lt;/tr&gt;${rows}&lt;/table&gt;
+  &lt;p style=&quot;font-size:14px&quot;&gt;Time left: &lt;b&gt;${fmt(left)}&lt;/b&gt;. You cannot change answers after submitting.&lt;/p&gt;
+  &lt;div style=&quot;display:flex;gap:10px;justify-content:flex-end&quot;&gt;&lt;button class=&quot;b&quot; id=&quot;no&quot;&gt;Go back&lt;/button&gt;&lt;button class=&quot;b g&quot; id=&quot;yes&quot;&gt;Yes, submit&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+  document.body.appendChild(d); $(&#x27;#no&#x27;).onclick=()=&gt;d.remove(); $(&#x27;#yes&#x27;).onclick=()=&gt;{ d.remove(); submit(false); };
+}
+function correct(i){ const q=Qs[i],r=R[i]; if(!answered(i)) return null; if(q.kind===&#x27;mcq&#x27;) return r.sel===q.ans; const v=parseFloat(r.num); return isFinite(v) &amp;&amp; Math.abs(v-q.ans) &lt;= 0.01; }
+function submit(auto){
+  window.__active=false;
+  clearInterval(tick); R[cur].t += (Date.now()-qStart)/1000;
+  const used = total-left;
+  const per = {}; let score=0, max=0, cor=0, wr=0, sk=0;
+  Qs.forEach((q,i)=&gt;{ const S=SEC[q.sec]; per[q.sec]=per[q.sec]||{n:0,c:0,w:0,s:0,sc:0,mx:0,t:0}; const p=per[q.sec]; p.n++; p.mx+=S.pos; max+=S.pos; p.t+=R[i].t;
+    const c=correct(i); if(c===null){p.s++;sk++;} else if(c){p.c++;cor++;p.sc+=S.pos;score+=S.pos;} else {p.w++;wr++;p.sc-=S.neg;score-=S.neg;} });
+  const attempted=cor+wr;
+  const weak = {}; Qs.forEach((q,i)=&gt;{ if(correct(i)!==true){ (weak[q.tag]=weak[q.tag]||[]).push(i+1); } });
+  let h = `&lt;header&gt;&lt;h1&gt;Result &amp;middot; Binomial Theorem Recall Test${name?&#x27; &amp;middot; &#x27;+name:&#x27;&#x27;}&lt;/h1&gt;&lt;div class=&quot;noprint&quot;&gt;&lt;button class=&quot;b&quot; onclick=&quot;window.print()&quot;&gt;Print / Save PDF&lt;/button&gt; &lt;button class=&quot;b&quot; onclick=&quot;location.reload()&quot;&gt;Take again&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;&lt;div class=&quot;res&quot;&gt;`;
+  h += `&lt;div class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Score&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${score} / ${max}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Accuracy&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${attempted?Math.round(100*cor/attempted):0}%&lt;/div&gt;&lt;div style=&quot;font-size:12px&quot;&gt;${cor} correct of ${attempted} attempted&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Correct / Wrong / Skipped&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;&lt;span style=&quot;color:var(--green)&quot;&gt;${cor}&lt;/span&gt; / &lt;span style=&quot;color:var(--red)&quot;&gt;${wr}&lt;/span&gt; / &lt;span style=&quot;color:var(--amber)&quot;&gt;${sk}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Time used&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${fmt(used)}&lt;/div&gt;${auto?&#x27;&lt;div style=&quot;font-size:12px&quot;&gt;auto-submitted&lt;/div&gt;&#x27;:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`;
+  h += `&lt;table class=&quot;sm&quot;&gt;&lt;tr&gt;&lt;th&gt;Section&lt;/th&gt;&lt;th&gt;Questions&lt;/th&gt;&lt;th&gt;Correct&lt;/th&gt;&lt;th&gt;Wrong&lt;/th&gt;&lt;th&gt;Skipped&lt;/th&gt;&lt;th&gt;Marks&lt;/th&gt;&lt;th&gt;Avg time / Q&lt;/th&gt;&lt;/tr&gt;${Object.keys(per).map(s=&gt;{const p=per[s];return `&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;${s}. ${SEC[s].name}&lt;/td&gt;&lt;td&gt;${p.n}&lt;/td&gt;&lt;td&gt;${p.c}&lt;/td&gt;&lt;td&gt;${p.w}&lt;/td&gt;&lt;td&gt;${p.s}&lt;/td&gt;&lt;td&gt;${p.sc} / ${p.mx}&lt;/td&gt;&lt;td&gt;${Math.round(p.t/p.n)} s&lt;/td&gt;&lt;/tr&gt;`}).join(&#x27;&#x27;)}&lt;/table&gt;`;
+  const wk=Object.keys(weak);
+  h += `&lt;h3&gt;Formulas / topics to revise&lt;/h3&gt;` + (wk.length ? `&lt;div&gt;${wk.map(t=&gt;`&lt;span class=&quot;tagpill&quot;&gt;${t} &lt;small&gt;(Q ${weak[t].join(&#x27;, &#x27;)})&lt;/small&gt;&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;` : `&lt;p&gt;Nothing &amp;mdash; every question was correct. Excellent recall!&lt;/p&gt;`);
+  h += `&lt;h3&gt;Question-wise review&lt;/h3&gt;&lt;div class=&quot;filters&quot;&gt;&lt;span class=&quot;chip on&quot; data-f=&quot;all&quot;&gt;All&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;bad&quot;&gt;Wrong&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;skip&quot;&gt;Skipped&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;ok&quot;&gt;Correct&lt;/span&gt;&lt;/div&gt;&lt;div id=&quot;rl&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+  $(&#x27;#app&#x27;).innerHTML=h;
+  const paint = f =&gt; {
+    $(&#x27;#rl&#x27;).innerHTML = Qs.map((q,i)=&gt;{ const c=correct(i); const cls=c===null?&#x27;skip&#x27;:c?&#x27;ok&#x27;:&#x27;bad&#x27;; if(f!==&#x27;all&#x27;&amp;&amp;f!==cls) return &#x27;&#x27;;
+      const yours = c===null?&#x27;&lt;i&gt;not answered&lt;/i&gt;&#x27; : q.kind===&#x27;mcq&#x27; ? `${&#x27;ABCD&#x27;[R[i].sel]}. ${M(q.opts[R[i].sel])}` : R[i].num;
+      const right = q.kind===&#x27;mcq&#x27; ? `${&#x27;ABCD&#x27;[q.ans]}. ${M(q.opts[q.ans])}` : q.ans;
+      return `&lt;div class=&quot;rq ${cls}&quot;&gt;&lt;div class=&quot;meta&quot;&gt;Q${i+1} &amp;middot; Section ${q.sec} &amp;middot; ${q.tag} &amp;middot; time ${Math.round(R[i].t)} s &amp;middot; ${c===null?&#x27;Skipped&#x27;:c?&#x27;Correct&#x27;:&#x27;Wrong&#x27;}&lt;/div&gt;&lt;div class=&quot;stem&quot; style=&quot;font-size:17px;margin-bottom:6px&quot;&gt;${M(q.stem)}&lt;/div&gt;&lt;div class=&quot;ans&quot;&gt;&lt;b&gt;Your answer:&lt;/b&gt; ${yours}&lt;/div&gt;&lt;div class=&quot;ans&quot;&gt;&lt;b&gt;Correct answer:&lt;/b&gt; ${right}&lt;/div&gt;&lt;div class=&quot;exp&quot;&gt;${M(q.exp)}&lt;/div&gt;&lt;/div&gt;`; }).join(&#x27;&#x27;);
+    typeset($(&#x27;#rl&#x27;));
+  };
+  paint(&#x27;all&#x27;);
+  document.querySelectorAll(&#x27;.chip&#x27;).forEach(c=&gt;c.onclick=()=&gt;{ document.querySelectorAll(&#x27;.chip&#x27;).forEach(x=&gt;x.classList.remove(&#x27;on&#x27;)); c.classList.add(&#x27;on&#x27;); paint(c.dataset.f); });
+  window.scrollTo(0,0);
+}
+startScreen();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" hidden></iframe>
+<div id="lock" hidden><div><h3>Test in progress</h3><p>You cannot open the Rules Sheet while the Recall Test is running. Please <b>submit the test first</b>, then open the Rules Sheet.</p><button id="ok">Back to test</button></div></div>
+<script>
+function active(){try{return !!document.getElementById('f2').contentWindow.__active}catch(e){return false}}
+function show(n){
+  if(n===1&&active()){document.getElementById('lock').hidden=false;return}
+  for(const i of [1,2]){document.getElementById('f'+i).hidden=i!==n;document.getElementById('b'+i).className=i===n?'on':''}
+}
+b1.onclick=()=>show(1);b2.onclick=()=>show(2);
+ok.onclick=()=>{document.getElementById('lock').hidden=true};
+</script></body></html>

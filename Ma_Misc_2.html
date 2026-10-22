@@ -1,0 +1,358 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Logarithm and Graphs: Rules Sheet and Recall CBT</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html,body{height:100%;margin:0;background:#eef2f7;font-family:"Segoe UI",Roboto,Arial,sans-serif}
+body{display:flex;flex-direction:column}
+nav{display:flex;gap:6px;padding:6px 10px;background:#1a4f8b;flex:0 0 auto}
+nav button{border:0;border-radius:5px;padding:8px 16px;font-size:15px;font-weight:600;cursor:pointer;background:#e7f1fd;color:#1a4f8b}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 #2a6fb5}
+iframe{flex:1 1 auto;width:100%;border:0;background:#fff;min-height:0}
+iframe[hidden]{display:none}
+#lock{position:fixed;inset:0;background:rgba(15,25,40,.6);display:flex;align-items:center;justify-content:center;z-index:9}
+#lock[hidden]{display:none}
+#lock div{background:#fff;border-radius:8px;padding:22px 26px;max-width:420px;margin:12px;box-shadow:0 8px 30px rgba(0,0,0,.35)}
+#lock h3{margin:0 0 8px;color:#a3281f}#lock p{margin:0 0 16px;line-height:1.5;color:#1d2733}
+#lock button{padding:9px 18px;font-size:15px;font-weight:600;border:0;border-radius:5px;background:#2a6fb5;color:#fff;cursor:pointer}
+</style></head><body>
+<nav><button id="b1" class="on">Rules Sheet</button><button id="b2">Recall CBT</button></nav>
+<iframe id="f1" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Logarithm and Graphs - Must-Remember Rules&lt;/title&gt;
+&lt;script&gt;window.MathJax={tex:{inlineMath:[[&#x27;\\(&#x27;,&#x27;\\)&#x27;]]}};&lt;/script&gt;
+&lt;script async src=&quot;https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+body{font-family:&quot;Segoe UI&quot;,Roboto,Arial,sans-serif;margin:0;color:#1d2733;background:#f3f6fa}
+.page{max-width:1000px;margin:0 auto;padding:18px 22px 40px;background:#fff}
+h1{margin:0 0 2px;font-size:24px;color:#1a4f8b}.sub{color:#5a6a7e;font-size:14px;margin-bottom:14px}
+section{break-inside:avoid;margin:16px 0}
+h2{font-size:16px;margin:0 0 6px;padding:5px 10px;background:#e7f1fd;border-left:5px solid #2a6fb5;color:#1a4f8b}
+h2 .pg{float:right;font-weight:400;font-size:12.5px;color:#5a6a7e}
+.it{display:flex;gap:10px;align-items:center;padding:5px 6px;border-bottom:1px dotted #d3dbe6;font-size:15.5px;overflow-x:auto}
+.n{min-width:26px;color:#8a97a8;font-size:12px;text-align:right}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 16px;margin-top:22px;font-size:14px}.notes li{margin:5px 0}
+.bar{margin:10px 0 0}.bar button{padding:6px 12px;font-size:13px;cursor:pointer}
+@media print{.bar{display:none}.page{padding:0}body{background:#fff}.it{font-size:14px}}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;div class=&quot;page&quot;&gt;
+&lt;h1&gt;Logarithm and Graphs &amp;mdash; Must-Remember Rules&lt;/h1&gt;
+&lt;div class=&quot;sub&quot;&gt;The circled, cloud-boxed and starred items from the class notes, plus the method rules written beside the worked problems &amp;middot; 51 items &amp;middot; page numbers are the notebook&#x27;s own&lt;/div&gt;
+&lt;div class=&quot;bar&quot;&gt;&lt;button onclick=&quot;window.print()&quot;&gt;Print / Save as PDF&lt;/button&gt;&lt;/div&gt;
+&lt;section&gt;&lt;h2&gt;1. Definition and domain &lt;span class=&quot;pg&quot;&gt;pp. 70-71&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle N=a^x\ \Longleftrightarrow\ \log_aN=x,\qquad a&gt;0,\ a\ne1,\ N&gt;0\quad(\text{circled});\ \ a=\text{base},\ x=\text{power/exponent}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ab=\text{the power to which base }a\text{ must be raised to get }b;\quad\text{let }\log_ab=x\text{ then }a^x=b\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Log is defined for a unique value (e.g. }15=2^x\Rightarrow3&lt;x&lt;4);\quad\log_11=x\Rightarrow x\in\mathbb R\ \text{(so base 1 is not allowed)}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Domain of }\log_af(x):\ f(x)&gt;0,\ a&gt;0,\ a\ne1;\ \ \text{e.g. }\log_{(3x-4)}(x^2-2x-3)\text{ needs }x^2-2x-3&gt;0,\ 3x-4&gt;0,\ 3x-4\ne1\Rightarrow x&gt;3\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Antilog: }\operatorname{antilog}_ab=a^b\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;2. Properties &lt;span class=&quot;pg&quot;&gt;pp. 71-74&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle a^{\log_ab}=b,\qquad a&gt;0,\ a\ne1,\ b&gt;0\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_am+\log_an=\log_a(mn);\qquad\log_am-\log_an=\log_a\!\left(\tfrac mn\right);\qquad\log_am^n=n\log_am\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_am_1+\log_am_2+\log_am_3=\log_a(m_1m_2m_3);\qquad n_1\log_am_1-n_2\log_am_2+n_3\log_am_3+n_4\log_am_4=\log_a\!\left(\tfrac{m_1^{n_1}m_3^{n_3}m_4^{n_4}}{m_2^{n_2}}\right)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Proof habit: let }\log_am=x,\ \log_an=y\Rightarrow a^x=m,\ a^y=n\Rightarrow mn=a^{x+y}\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;3. Base change theorem and consequences &lt;span class=&quot;pg&quot;&gt;p. 73&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ab=\dfrac{\log_cb}{\log_ca}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle (\log_ab)(\log_ba)=1\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_{(a^m)}b=\dfrac1m\log_ab,\ m\ne0;\qquad\log_{(a^m)}b^n=\dfrac nm\log_ab,\ m\ne0\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle a^{\log_bc}=c^{\log_ba}\quad(\text{proof: }\log_bc=\tfrac{\log_ac}{\log_ab})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;14&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log N=\log_eN=\ln N\ \text{(natural log)},\ e\approx2.7\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;4. Logarithmic equations: working rules &lt;span class=&quot;pg&quot;&gt;pp. 81-85&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Always use }x&gt;0\text{ (or the argument}&gt;0)\text{ and base}&gt;0,\ne1\text{ to reject roots; e.g. }x^2+7^{\log_7x}-2=0\Rightarrow x=1\ (\text{reject }-2)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Substitute }t=\log x\text{ (or }a=\log_2(x-1)):\ \ t^2-t-2=0\ \to\ t=2,-1;\ \ \text{then use }\log_ab=x\Leftrightarrow b=a^x\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;17&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Note: }\log_a(x^2)=2\log_a|x|\text{; the left side allows }x&lt;0,\ 2\log_ax\text{ needs }x&gt;0\ \ (\text{remember }x^2=|x|^2)\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Check: }a^b=a^c\Rightarrow b=c\text{ only if }a\ne0,\pm1\text{; test }a=1,-1,0\text{ separately}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;19&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{After squaring any equation, check the roots }(4^2=16\ \not\Rightarrow\ -4=4)\quad(\text{star})\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;5. Graphs and inequalities of log and exponential &lt;span class=&quot;pg&quot;&gt;pp. 86-88&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle y=\log_ax:\ D=(0,\infty),\ R=\mathbb R,\ \text{passes through }(1,0);\ \ a&gt;1\text{ increasing},\ 0&lt;a&lt;1\text{ decreasing}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ab&gt;0\text{ if }a,b\text{ are on the same side of unity};\ \ \log_ab&lt;0\text{ if on opposite sides}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle y=a^x:\ D=\mathbb R,\ R=(0,\infty),\ \text{passes through }(0,1);\ \ a&gt;1\text{ increasing},\ 0&lt;a&lt;1\text{ decreasing}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ax_1&gt;\log_ax_2\ \Rightarrow\ x_1&gt;x_2&gt;0\ [a&gt;1];\ \ 0&lt;x_1&lt;x_2\ [0&lt;a&lt;1]\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;24&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle a^{x_1}&gt;a^{x_2}\ \Rightarrow\ x_1&gt;x_2\ [a&gt;1];\ \ x_1&lt;x_2\ [0&lt;a&lt;1]\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Take care of the domain of every log first (e.g. }\log_{1/3}(\log_4(x^2-5))&gt;0\Rightarrow0&lt;\log_4(x^2-5)&lt;1)\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;6. Characteristic and mantissa &lt;span class=&quot;pg&quot;&gt;pp. 90, 94&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ab=\text{Integer}+\text{Number in }[0,1)\ =\ \text{characteristic}+\text{mantissa}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_ab=-8.8952=-9+0.1048=\overline{9}.1048;\qquad-9.815=-10+0.185=\overline{10}.185\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;28&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Characteristic of }\log_ax\text{ is }k\ \Rightarrow\ k\le\log_ax&lt;k+1\ \Rightarrow\ a^k\le x&lt;a^{k+1}\ (a&gt;1)\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;7. Slope, derivative and continuity &lt;span class=&quot;pg&quot;&gt;pp. 95-97&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Slope}=\tan\theta,\ \ \theta=\text{inclination}\in[0,\pi);\qquad\tan\theta=\dfrac{y_2-y_1}{x_2-x_1}\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f&#x27;(a)=\lim_{x\to a}\dfrac{f(x)-f(a)}{x-a}=\text{slope of the tangent at }x=a=\text{instantaneous rate of change}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;31&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \lim_{\Delta x\to0}\dfrac{\Delta y}{\Delta x}=\dfrac{dy}{dx};\qquad f(x)=x^9\Rightarrow f&#x27;(a)=9a^8\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;32&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \text{Continuous: the graph can be drawn without lifting the pen. }\log_2x\text{ is continuous in its domain; }\tan x\text{ is not}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;33&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{IVT: }f\text{ continuous},\ f(x_1)=7,\ f(x_2)=13.5\Rightarrow\exists\,c\in(x_1,x_2):f(c)=8\ (\text{every value in between is taken})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f=g\pm h\ \text{or}\ g\cdot h\ \text{or}\ \tfrac gh\ \text{is continuous if }g,h\text{ are (for division }h(x)\ne0)\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;8. Increasing, decreasing and concavity &lt;span class=&quot;pg&quot;&gt;pp. 98-100&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;35&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \dfrac{dy}{dx}=f&#x27;(x)&gt;0\Rightarrow f\text{ is (strictly) increasing},\ \theta\in\left[0,\tfrac\pi2\right);\qquad f&#x27;(x)&lt;0\Rightarrow f\text{ is decreasing},\ \text{slope}\in\left[\tfrac\pi2,\pi\right]\quad(\text{clouds})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;36&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f&#x27;&#x27;(x)=\dfrac{d}{dx}[f&#x27;(x)]=\dfrac{d^2f}{dx^2}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;37&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f&#x27;&#x27;(x)&gt;0\Rightarrow\text{concave upward},\ f&#x27;\text{ increasing}\ (\theta:0^\circ\to90^\circ\text{ or }90^\circ\to180^\circ,\ \tan\theta\uparrow);\ \ \text{chord lies above the graph}\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;38&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f&#x27;&#x27;(x)&lt;0\Rightarrow\text{concave downward},\ f&#x27;\text{ decreasing};\qquad f&#x27;&#x27;(x)=0\ \text{(line): slope constant}\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;section&gt;&lt;h2&gt;9. Sketching, shift of origin and symmetry &lt;span class=&quot;pg&quot;&gt;pp. 100-109&lt;/span&gt;&lt;/h2&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;39&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Steps for a sketch: }(i)\ \text{domain};\ (ii)\ \text{intervals of increase/decrease};\ (iii)\ \text{concavity}\ (\text{usually concavity does not matter})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \log_2x:\ D=(0,\infty),\ f&#x27;=\tfrac1{x\ln2}&gt;0,\ f&#x27;&#x27;=-\tfrac1{x^2\ln2}&lt;0;\qquad\sec x:\ T=2\pi,\ R=(-\infty,-1]\cup[1,\infty)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;41&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \csc x:\ D=\mathbb R-\{n\pi\},\ R=(-\infty,-1]\cup[1,\infty),\ T=2\pi;\qquad\cot x:\ D=\mathbb R-\{n\pi\},\ R=\mathbb R,\ T=\pi\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;42&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(x)=x+\tfrac1x:\ D=\mathbb R-\{0\},\ f&#x27;=\tfrac{(x-1)(x+1)}{x^2};\ \text{increasing on }(-\infty,-1],[1,\infty);\ R=(-\infty,-2]\cup[2,\infty)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;43&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{Shift of origin to }(\alpha,\beta):\ \ \alpha+X=x\Rightarrow X=x-\alpha;\quad\beta+Y=y\Rightarrow Y=y-\beta\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;44&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \sin x+\sqrt3\cos x=2\sin\!\left(x+\tfrac\pi3\right)\ \to\ Y=2\sin X,\ X=x+\tfrac\pi3;\quad\sin x+\cos x=\sqrt2\sin\!\left(x+\tfrac\pi4\right)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;45&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle y=\dfrac{3x-5}{x+2}=3-\dfrac{11}{x+2}\Rightarrow Y=-\dfrac{11}X\ \text{about }(-2,3);\ D=\mathbb R-\{-2\},\ R=\mathbb R-\{3\}\ (\text{be careful for }x=0)\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;46&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(x)=x^n,\ x\ge0:\ n&gt;1\ \ f&#x27;&gt;0,\ f&#x27;&#x27;&gt;0,\ f&#x27;(0)=0;\quad0&lt;n&lt;1\ \ f&#x27;&gt;0,\ f&#x27;&#x27;&lt;0,\ f&#x27;\to\infty\text{ as }x\to0^+;\quad n&lt;0\ \ f&#x27;&lt;0,\ f&#x27;&#x27;&gt;0\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;47&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(x)=f(-x)\ \forall x\in D_f\ \Rightarrow\ \text{symmetric about the }y\text{-axis (even)}\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;48&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(x)+f(-x)=0\ \forall x\in D_f\ \Rightarrow\ \text{symmetric about the origin (odd)}\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;49&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(\alpha+x)=f(\alpha-x)\ \forall x\in D_f\ \Rightarrow\ \text{symmetric about the line }x=\alpha\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;50&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle f(\alpha+x)+f(\alpha-x)=2\beta\ \forall x\in D_f\ \Rightarrow\ \text{symmetric about the point }(\alpha,\beta)\quad(\text{circled})\)&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;it&quot;&gt;&lt;span class=&quot;n&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;f&quot;&gt;\(\displaystyle \textbf{The graph of a function cannot be symmetric about the }x\text{-axis}\quad(\text{cloud})\)&lt;/span&gt;&lt;/div&gt;
+&lt;/section&gt;
+&lt;div class=&quot;notes&quot;&gt;&lt;b&gt;Things in the handwritten notes that I read differently (please check against the originals):&lt;/b&gt;&lt;ul&gt;&lt;li&gt;p. 72, proof (iii): the last term is written log&lt;sub&gt;b&lt;/sub&gt; n; it should be log&lt;sub&gt;a&lt;/sub&gt; n.&lt;/li&gt;&lt;li&gt;p. 84, last problem: from (t² + 5t − 12)t = 2t the roots are t = 0, 2 and &lt;b&gt;−7&lt;/b&gt; (t² + 5t − 14 = 0); the note shows 7.&lt;/li&gt;&lt;li&gt;p. 88, first problem: “(1/3 &amp;lt; 0)” should read (1/3 &amp;lt; 1); that is why the inequality reverses.&lt;/li&gt;&lt;li&gt;pp. 101-102: the domain of sec x is written R − {(2n+1)π}; it should be R − {(2n+1)π/2}.&lt;/li&gt;&lt;li&gt;p. 108: for y = −2x² the range is written (−∞, 0); it includes 0, so it is (−∞, 0].&lt;/li&gt;&lt;li&gt;p. 86 note: “log&lt;sub&gt;a&lt;/sub&gt; b &amp;gt; 0 if a &amp;gt; 1, b &amp;gt; 1 or a &amp;lt; 1, b &amp;lt; 1” needs 0 &amp;lt; a &amp;lt; 1 and 0 &amp;lt; b &amp;lt; 1 in the second case (both positive).&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+<iframe id="f2" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
+&lt;title&gt;Logarithm and Graphs Recall CBT&lt;/title&gt;
+&lt;script&gt;
+window.MathJax = { tex: { inlineMath: [[&#x27;\\(&#x27;, &#x27;\\)&#x27;]] }, options: { skipHtmlTags: [&#x27;script&#x27;,&#x27;noscript&#x27;,&#x27;style&#x27;,&#x27;textarea&#x27;] } };
+&lt;/script&gt;
+&lt;script async src=&quot;https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js&quot;&gt;&lt;/script&gt;
+&lt;style&gt;
+:root{--blue:#1a4f8b;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box}
+body{margin:0;font-family:&quot;Segoe UI&quot;,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px}
+header{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 16px;gap:12px;flex-wrap:wrap}
+header h1{font-size:17px;margin:0;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-variant-numeric:tabular-nums;font-size:18px}
+.timer.low{color:var(--red)}
+.wrap{display:flex;gap:12px;padding:12px;align-items:flex-start}
+.main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.side{width:290px;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:8px}
+.tabs{display:flex;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{padding:9px 14px;cursor:pointer;font-size:14px;border-right:1px solid var(--line);background:#f6f8fb}
+.tab.on{background:var(--blue2);color:#fff;font-weight:600}
+.qhead{display:flex;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--line);font-size:14px;color:#46566a;flex-wrap:wrap;gap:6px}
+.qhead b{color:var(--ink)}
+.qbody{padding:18px 20px;min-height:260px}
+.stem{font-size:19px;line-height:1.9;margin-bottom:16px;overflow-x:auto}
+.opt{display:flex;gap:10px;align-items:center;border:1px solid var(--line);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer;font-size:18px;overflow-x:auto}
+.opt:hover{background:#f3f8ff}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue)}
+.numbox{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}
+.numin{font-size:22px;padding:8px 10px;width:210px;border:2px solid var(--blue2);border-radius:6px;text-align:right}
+.keys{display:grid;grid-template-columns:repeat(3,56px);gap:6px}
+.keys button{height:44px;font-size:18px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+.bar{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd}
+button.b{padding:9px 14px;border:1px solid var(--blue2);background:#fff;color:var(--blue);border-radius:5px;cursor:pointer;font-size:14px;font-weight:600}
+button.b.p{background:var(--blue2);color:#fff}
+button.b.g{background:var(--green);border-color:var(--green);color:#fff}
+button.b.r{background:var(--red);border-color:var(--red);color:#fff}
+button.b:disabled{opacity:.45;cursor:default}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:8px 0;max-height:46vh;overflow:auto;padding:2px}
+.pal button{height:38px;border:none;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)} .pal button.an{background:var(--green)} .pal button.mk{background:var(--purple)} .pal button.am{background:var(--purple)}
+.pal button.am::after{content:&quot;&quot;;position:absolute;right:3px;bottom:3px;width:9px;height:9px;border-radius:50%;background:#5ee07e;border:1px solid #fff}
+.pal button.cur{outline:3px solid var(--amber)}
+.legend{font-size:12.5px;display:grid;grid-template-columns:1fr 1fr;gap:5px 8px;margin-top:6px}
+.legend span i{display:inline-block;min-width:22px;height:22px;line-height:22px;text-align:center;border-radius:5px;color:#fff;font-style:normal;margin-right:5px;font-size:12px}
+.secsum{font-size:13px;color:#46566a;margin:4px 0 6px}
+.start{max-width:760px;margin:26px auto;background:#fff;border:1px solid var(--line);border-radius:8px;padding:24px 28px}
+.start h2{margin-top:0;color:var(--blue)}
+.start label.m{display:block;border:1px solid var(--line);border-radius:6px;padding:10px 12px;margin:8px 0;cursor:pointer}
+.start label.m:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+.start input[type=text]{padding:8px 10px;font-size:16px;border:1px solid var(--line);border-radius:5px;width:260px}
+.start ul{line-height:1.7}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:10}
+.modal .box{background:#fff;border-radius:8px;padding:20px 24px;max-width:480px;width:92%}
+table.sm{border-collapse:collapse;width:100%;margin:10px 0;font-size:14px}
+table.sm th,table.sm td{border:1px solid var(--line);padding:6px 8px;text-align:center}
+table.sm th{background:#f1f5fa}
+.res{max-width:1000px;margin:14px auto;padding:0 12px 40px}
+.cards{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.card{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.card .v{font-size:26px;font-weight:700;color:var(--blue)}
+.rq{background:#fff;border:1px solid var(--line);border-left:6px solid var(--grey);border-radius:6px;padding:12px 16px;margin:10px 0}
+.rq.ok{border-left-color:var(--green)} .rq.bad{border-left-color:var(--red)} .rq.skip{border-left-color:var(--amber)}
+.rq .meta{font-size:12.5px;color:#5a6a7e;margin-bottom:4px}
+.rq .ans{font-size:15px;margin:6px 0}
+.rq .exp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:15px;margin-top:6px;overflow-x:auto}
+.filters{display:flex;gap:8px;margin:12px 0;flex-wrap:wrap}
+.chip{padding:6px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:14px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+.tagpill{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:14px;padding:3px 10px;margin:3px;font-size:13.5px}
+@media (max-width:860px){.wrap{flex-direction:column}.side{width:100%;position:static}}
+@media print{header,.filters,.noprint{display:none!important}.rq{break-inside:avoid}}
+&lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id=&quot;app&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+const DATA = [{&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.70 Definition&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;N=a^x\\ \\Longleftrightarrow\\ \\log_aN=x,\\ \\text{valid when}&quot;, &quot;opts&quot;: [&quot;a&gt;0,\\ a\\ne1,\\ N&gt;0&quot;, &quot;a&gt;0,\\ N\\in\\mathbb R&quot;, &quot;a\\ne0,\\ N&gt;0&quot;, &quot;a&gt;1,\\ N&gt;0&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{base positive and}\\ne1,\\ \\text{number positive}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.71 Fundamental identity&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;a^{\\log_ab}=\\ ?\\quad(a&gt;0,\\ a\\ne1,\\ b&gt;0)&quot;, &quot;opts&quot;: [&quot;a&quot;, &quot;b&quot;, &quot;\\log_ab&quot;, &quot;ab&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{let }\\log_ab=x\\Rightarrow a^x=b&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.71 Product rule&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_am+\\log_an=&quot;, &quot;opts&quot;: [&quot;\\log_a(m+n)&quot;, &quot;\\log_a(mn)&quot;, &quot;\\log_a\\!\\left(\\tfrac mn\\right)&quot;, &quot;\\log_{a}m\\cdot\\log_an&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;a^xa^y=a^{x+y}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.71 Quotient rule&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_am-\\log_an=&quot;, &quot;opts&quot;: [&quot;\\log_a(m-n)&quot;, &quot;\\log_a(mn)&quot;, &quot;\\log_a\\!\\left(\\tfrac mn\\right)&quot;, &quot;\\tfrac{\\log_am}{\\log_an}&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\tfrac{a^x}{a^y}=a^{x-y}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.71 Power rule&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_am^n=&quot;, &quot;opts&quot;: [&quot;n\\log_am&quot;, &quot;(\\log_am)^n&quot;, &quot;m\\log_an&quot;, &quot;\\log_a(nm)&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;a^{nx}=m^n&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Base change theorem&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_ab=&quot;, &quot;opts&quot;: [&quot;\\dfrac{\\log_ca}{\\log_cb}&quot;, &quot;\\dfrac{\\log_cb}{\\log_ca}&quot;, &quot;\\log_cb\\cdot\\log_ca&quot;, &quot;\\log_cb-\\log_ca&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;b=a^x\\Rightarrow\\log_cb=x\\log_ca&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Reciprocal&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(\\log_ab)(\\log_ba)=&quot;, &quot;opts&quot;: [&quot;0&quot;, &quot;ab&quot;, &quot;1&quot;, &quot;\\log_ab&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\tfrac{\\log b}{\\log a}\\cdot\\tfrac{\\log a}{\\log b}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Power of base&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{a^m}b=\\ (m\\ne0)&quot;, &quot;opts&quot;: [&quot;m\\log_ab&quot;, &quot;\\tfrac1m\\log_ab&quot;, &quot;\\log_ab^{m}&quot;, &quot;(\\log_ab)^m&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\tfrac{\\log_ab}{\\log_aa^m}=\\tfrac{\\log_ab}{m}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Power of both&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{a^m}b^n=\\ (m\\ne0)&quot;, &quot;opts&quot;: [&quot;\\tfrac nm\\log_ab&quot;, &quot;\\tfrac mn\\log_ab&quot;, &quot;nm\\log_ab&quot;, &quot;\\tfrac1{nm}\\log_ab&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\tfrac{n\\log_ab}{m}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.73 Swap rule&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;a^{\\log_bc}=&quot;, &quot;opts&quot;: [&quot;b^{\\log_ac}&quot;, &quot;c^{\\log_ba}&quot;, &quot;c^{\\log_ab}&quot;, &quot;a^{\\log_cb}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{taking }\\log_b\\text{ of both sides gives }\\log_bc\\cdot\\log_ba&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.71 Antilog&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\operatorname{antilog}_a b=&quot;, &quot;opts&quot;: [&quot;b^a&quot;, &quot;a^b&quot;, &quot;\\log_ab&quot;, &quot;ab&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{antilog undoes log}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.84 Even power note&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_a(x^2)=\\ ?\\ \\ (\\text{valid for all }x\\ne0)&quot;, &quot;opts&quot;: [&quot;2\\log_ax&quot;, &quot;2\\log_a|x|&quot;, &quot;\\log_a2x&quot;, &quot;(\\log_ax)^2&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x^2=|x|^2;\\ \\text{\u201c}x&lt;0\\text{ allowed on the left, only }x&gt;0\\text{ on the right\u201d}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.87 Log inequality, a&gt;1&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;a&gt;1:\\ \\log_ax_1&gt;\\log_ax_2\\Rightarrow&quot;, &quot;opts&quot;: [&quot;0&lt;x_1&lt;x_2&quot;, &quot;x_1&gt;x_2&gt;0&quot;, &quot;x_1&gt;x_2&quot;, &quot;x_1&lt;x_2&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{increasing function, and both arguments must be positive}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.87 Log inequality, 0&lt;a&lt;1&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;0&lt;a&lt;1:\\ \\log_ax_1&gt;\\log_ax_2\\Rightarrow&quot;, &quot;opts&quot;: [&quot;x_1&gt;x_2&gt;0&quot;, &quot;x_1&gt;x_2&quot;, &quot;0&lt;x_1&lt;x_2&quot;, &quot;x_1&lt;x_2&lt;0&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\text{decreasing: inequality reverses}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.88 Exponential inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;0&lt;a&lt;1:\\ a^{x_1}&gt;a^{x_2}\\Rightarrow&quot;, &quot;opts&quot;: [&quot;x_1&gt;x_2&quot;, &quot;x_1&lt;x_2&quot;, &quot;x_1=x_2&quot;, &quot;x_1x_2&gt;0&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{decreasing function}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.86 Sign of log&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_ab&gt;0\\ \\text{when}&quot;, &quot;opts&quot;: [&quot;a,\\ b\\text{ on opposite sides of }1&quot;, &quot;a,\\ b\\text{ on the same side of }1&quot;, &quot;a&gt;1\\text{ only}&quot;, &quot;b&gt;a&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{same side of unity}\\Rightarrow&gt;0,\\ \\text{opposite side}\\Rightarrow&lt;0&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.90 Characteristic and mantissa&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_ab=-8.8952=\\ ?&quot;, &quot;opts&quot;: [&quot;\\overline{9}.1048&quot;, &quot;\\overline{8}.8952&quot;, &quot;\\overline{8}.1048&quot;, &quot;\\overline{9}.8952&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;-9+0.1048;\\ \\text{mantissa}\\in[0,1)&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.96 Derivative&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f&#x27;(a)=\\ ?&quot;, &quot;opts&quot;: [&quot;\\lim_{x\\to a}\\dfrac{f(x)+f(a)}{x-a}&quot;, &quot;\\lim_{x\\to a}\\dfrac{f(x)-f(a)}{x-a}&quot;, &quot;\\dfrac{f(x)-f(a)}{x+a}&quot;, &quot;\\lim_{x\\to a}\\dfrac{x-a}{f(x)-f(a)}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{slope of tangent at }x=a=\\text{instantaneous rate of change}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.97 IVT&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f\\text{ continuous},\\ f(x_1)=7,\\ f(x_2)=13.5.\\ \\text{Then}&quot;, &quot;opts&quot;: [&quot;f(c)=8\\text{ for some }c\\in(x_1,x_2)&quot;, &quot;f\\text{ is increasing}&quot;, &quot;f&#x27;(c)=0\\text{ for some }c&quot;, &quot;f(c)=0\\text{ for some }c&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{continuous }f\\text{ takes every value between 7 and 13.5}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.98 Monotonic&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f&#x27;(x)&gt;0\\Rightarrow f(x)\\text{ is}\\ \\ ;\\quad f&#x27;(x)&lt;0\\Rightarrow f(x)\\text{ is}&quot;, &quot;opts&quot;: [&quot;\\text{decreasing; increasing}&quot;, &quot;\\text{increasing; decreasing}&quot;, &quot;\\text{concave up; concave down}&quot;, &quot;\\text{constant; increasing}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\theta\\in[0,\\tfrac\\pi2)\\text{ for increasing; slope in }[\\tfrac\\pi2,\\pi]\\text{ for decreasing}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.99-100 Concavity&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f&#x27;&#x27;(x)&gt;0\\Rightarrow f(x)\\text{ is}&quot;, &quot;opts&quot;: [&quot;\\text{concave downward},\\ f&#x27;\\text{ decreasing}&quot;, &quot;\\text{concave upward},\\ f&#x27;\\text{ increasing}&quot;, &quot;\\text{increasing}&quot;, &quot;\\text{linear}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;f&#x27;\\text{ increases, tangent slope rises; chord lies above the graph}&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.107 Even function&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(x)=f(-x)\\ \\forall x\\in D_f\\Rightarrow\\ \\text{graph symmetric about}&quot;, &quot;opts&quot;: [&quot;\\text{the origin}&quot;, &quot;\\text{the }x\\text{-axis}&quot;, &quot;\\text{the }y\\text{-axis}&quot;, &quot;x=1&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;\\text{e.g. }y=x^2&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.107 Odd function&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(x)+f(-x)=0\\ \\forall x\\in D_f\\Rightarrow\\ \\text{graph symmetric about}&quot;, &quot;opts&quot;: [&quot;\\text{the origin}&quot;, &quot;\\text{the }y\\text{-axis}&quot;, &quot;\\text{the }x\\text{-axis}&quot;, &quot;y=x&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{e.g. }y=x^3&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.108 Symmetry about a point&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(\\alpha+x)+f(\\alpha-x)=2\\beta\\Rightarrow\\ \\text{symmetric about}&quot;, &quot;opts&quot;: [&quot;x=\\alpha&quot;, &quot;y=\\beta&quot;, &quot;(\\alpha,\\beta)&quot;, &quot;(\\beta,\\alpha)&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;f(\\alpha+x)=f(\\alpha-x)\\text{ gives symmetry about the line }x=\\alpha&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.108 Cannot be symmetric about&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{The graph of a function cannot be symmetric about}&quot;, &quot;opts&quot;: [&quot;\\text{the }y\\text{-axis}&quot;, &quot;\\text{the }x\\text{-axis}&quot;, &quot;\\text{the origin}&quot;, &quot;\\text{a vertical line}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{one }x\\text{ would give two values of }y&quot;}, {&quot;sec&quot;: &quot;A&quot;, &quot;tag&quot;: &quot;p.103 Shift of origin&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\text{New origin }(\\alpha,\\beta):\\ X,\\ Y=\\ ?&quot;, &quot;opts&quot;: [&quot;x+\\alpha,\\ y+\\beta&quot;, &quot;x-\\alpha,\\ y-\\beta&quot;, &quot;x-\\beta,\\ y-\\alpha&quot;, &quot;\\alpha-x,\\ \\beta-y&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x=\\alpha+X,\\ y=\\beta+Y&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.70 Value&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{(2-\\sqrt3)}(2+\\sqrt3)=&quot;, &quot;opts&quot;: [&quot;1&quot;, &quot;-1&quot;, &quot;2&quot;, &quot;0&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;(2-\\sqrt3)(2+\\sqrt3)=1\\Rightarrow2+\\sqrt3=(2-\\sqrt3)^{-1}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.70 Nested radical&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_5\\sqrt{5\\sqrt{5\\sqrt{5\\cdots}}}=&quot;, &quot;opts&quot;: [&quot;\\tfrac12&quot;, &quot;1&quot;, &quot;5&quot;, &quot;0&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x=\\sqrt{5x}\\Rightarrow x=5&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.71 Domain&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{(3x-4)}(x^2-2x-3)\\text{ is defined for}&quot;, &quot;opts&quot;: [&quot;(3,\\infty)&quot;, &quot;\\left(\\tfrac43,\\infty\\right)&quot;, &quot;(-\\infty,-1)\\cup(3,\\infty)&quot;, &quot;\\left(\\tfrac43,3\\right)&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;(x-3)(x+1)&gt;0,\\ x&gt;\\tfrac43,\\ x\\ne\\tfrac53\\Rightarrow x&gt;3&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.74 Evaluate&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{10}2+16\\log_{10}\\tfrac{16}{15}+12\\log_{10}\\tfrac{25}{24}+7\\log_{10}\\tfrac{81}{80}=&quot;, &quot;opts&quot;: [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;, &quot;\\log_{10}3&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\text{powers of 2, 3, 5 cancel, leaving }\\log_{10}10&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.78 Compare&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;a=\\log_35,\\ b=\\log_{17}25.\\ \\text{Then}&quot;, &quot;opts&quot;: [&quot;a&lt;b&quot;, &quot;a=b&quot;, &quot;a&gt;b&quot;, &quot;\\text{cannot say}&quot;], &quot;ans&quot;: 2, &quot;exp&quot;: &quot;3^a=5\\Rightarrow9^a=25=17^b,\\ \\text{and }9&lt;17\\Rightarrow a&gt;b&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.78 Irrational&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_27\\text{ is}&quot;, &quot;opts&quot;: [&quot;\\text{rational}&quot;, &quot;\\text{irrational}&quot;, &quot;\\text{an integer}&quot;, &quot;\\text{negative}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\log_27=\\tfrac pq\\Rightarrow2^p=7^q,\\ \\text{impossible}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.79-80 In terms of \u03b1, \u03b2&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_615=\\alpha,\\ \\log_{12}18=\\beta.\\ \\log_{25}24=&quot;, &quot;opts&quot;: [&quot;\\dfrac{5-\\beta}{2(\\alpha\\beta+\\alpha-2\\beta+1)}&quot;, &quot;\\dfrac{5+\\beta}{2(\\alpha\\beta+\\alpha-2\\beta+1)}&quot;, &quot;\\dfrac{5-\\beta}{\\alpha\\beta+\\alpha-2\\beta+1}&quot;, &quot;\\dfrac{2\\beta-1}{5-\\beta}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\log_32=\\tfrac{2-\\beta}{2\\beta-1},\\ \\log_35=\\tfrac{\\alpha\\beta+\\alpha-2\\beta+1}{2\\beta-1}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.81 Equation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;x^2+7^{\\log_7x}-2=0\\Rightarrow x=&quot;, &quot;opts&quot;: [&quot;1&quot;, &quot;-2&quot;, &quot;1\\text{ and }-2&quot;, &quot;2&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;x^2+x-2=0,\\ x&gt;0&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.81 Equation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{(x-1)}4=1+\\log_2(x-1)\\Rightarrow x=&quot;, &quot;opts&quot;: [&quot;3\\text{ only}&quot;, &quot;\\tfrac54\\text{ and }3&quot;, &quot;\\tfrac54\\text{ only}&quot;, &quot;2\\text{ and }3&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;a=\\log_2(x-1):\\ \\tfrac2a=1+a\\Rightarrow a=1,-2&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.82 Equation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;5^{1+\\log_4x}+5^{-\\log_4x-1}=\\tfrac{26}5\\Rightarrow x=&quot;, &quot;opts&quot;: [&quot;\\tfrac1{16}\\text{ and }1&quot;, &quot;16\\text{ and }1&quot;, &quot;\\tfrac1{16}\\text{ only}&quot;, &quot;4\\text{ and }\\tfrac14&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;a=5\\cdot5^{\\log_4x}:\\ 5a^2-26a+5=0&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.83 Equation&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;(x+1)^{\\log_{10}(x+1)}=100(x+1)\\Rightarrow x=&quot;, &quot;opts&quot;: [&quot;99\\text{ only}&quot;, &quot;99\\text{ and }-\\tfrac9{10}&quot;, &quot;-\\tfrac9{10}\\text{ only}&quot;, &quot;9\\text{ and }-\\tfrac9{10}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;t=\\log_{10}(x+1):\\ t^2-t-2=0&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.88 Inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{1/3}(5x-1)&gt;0\\Rightarrow x\\in&quot;, &quot;opts&quot;: [&quot;\\left(\\tfrac15,\\tfrac25\\right)&quot;, &quot;\\left(\\tfrac25,\\infty\\right)&quot;, &quot;\\left(\\tfrac15,\\infty\\right)&quot;, &quot;(0,\\tfrac25)&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;0&lt;5x-1&lt;1\\ (\\text{base}&lt;1)&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.88 Inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_7\\!\\left(\\tfrac{2x-6}{2x-1}\\right)&gt;0\\Rightarrow x\\in&quot;, &quot;opts&quot;: [&quot;\\left(-\\infty,\\tfrac12\\right)&quot;, &quot;(3,\\infty)&quot;, &quot;\\left(-\\infty,\\tfrac12\\right)\\cup(3,\\infty)&quot;, &quot;\\left(\\tfrac12,3\\right)&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\tfrac{-5}{2x-1}&gt;0\\Rightarrow x&lt;\\tfrac12&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.89 Inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{(3x+5)}(9x^2+8x+8)&gt;2\\Rightarrow x\\in&quot;, &quot;opts&quot;: [&quot;\\left(-\\tfrac43,-\\tfrac{17}{22}\\right)&quot;, &quot;\\left(-\\tfrac53,-\\tfrac43\\right)&quot;, &quot;\\left(-\\tfrac{17}{22},\\infty\\right)&quot;, &quot;\\varnothing&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;\\text{Case I }(3x+5&gt;1):\\ -\\tfrac43&lt;x&lt;-\\tfrac{17}{22};\\ \\text{Case II gives }\\varnothing&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.91 Inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_{1/3}(\\log_4(x^2-5))&gt;0\\Rightarrow x\\in&quot;, &quot;opts&quot;: [&quot;(\\sqrt6,3)&quot;, &quot;(-3,-\\sqrt6)\\cup(\\sqrt6,3)&quot;, &quot;(-3,3)&quot;, &quot;(\\sqrt5,3)&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;0&lt;\\log_4(x^2-5)&lt;1\\Rightarrow6&lt;x^2&lt;9&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.92 Inequality&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;\\log_x(\\log_9(3^x-9))&lt;1\\Rightarrow&quot;, &quot;opts&quot;: [&quot;x&gt;2&quot;, &quot;x&gt;\\log_310&quot;, &quot;0&lt;x&lt;1&quot;, &quot;x&gt;\\log_39&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x&gt;1,\\ 3^x&gt;10,\\ 3^x-9&lt;9^x\\text{ always}&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.103 Range&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(x)=x+\\tfrac1x\\ \\text{has range}&quot;, &quot;opts&quot;: [&quot;\\mathbb R-\\{0\\}&quot;, &quot;(-\\infty,-2]\\cup[2,\\infty)&quot;, &quot;[2,\\infty)&quot;, &quot;(-2,2)&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;f&#x27;=\\tfrac{(x-1)(x+1)}{x^2}:\\ f(1)=2,\\ f(-1)=-2&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.109 Shift of origin&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;y=\\dfrac{3x-5}{x+2}=3-\\dfrac{11}{x+2}.\\ \\text{Domain and range are}&quot;, &quot;opts&quot;: [&quot;\\mathbb R-\\{-2\\},\\ \\mathbb R-\\{3\\}&quot;, &quot;\\mathbb R-\\{2\\},\\ \\mathbb R-\\{3\\}&quot;, &quot;\\mathbb R-\\{-2\\},\\ \\mathbb R-\\{-5\\}&quot;, &quot;\\mathbb R,\\ \\mathbb R-\\{3\\}&quot;], &quot;ans&quot;: 0, &quot;exp&quot;: &quot;Y=-\\tfrac{11}X\\text{ with origin }(-2,3)&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.105-106 Power function&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(x)=x^n,\\ 0&lt;n&lt;1,\\ x&gt;0.\\ \\text{The graph is}&quot;, &quot;opts&quot;: [&quot;\\text{increasing and concave up}&quot;, &quot;\\text{increasing and concave down}&quot;, &quot;\\text{decreasing and concave up}&quot;, &quot;\\text{decreasing and concave down}&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;f&#x27;&gt;0,\\ f&#x27;&#x27;=n(n-1)x^{n-2}&lt;0&quot;}, {&quot;sec&quot;: &quot;B&quot;, &quot;tag&quot;: &quot;p.101 Sketch&quot;, &quot;kind&quot;: &quot;mcq&quot;, &quot;stem&quot;: &quot;f(x)=\\log_2x:\\ f&#x27;(x)\\text{ and }f&#x27;&#x27;(x)\\text{ are}&quot;, &quot;opts&quot;: [&quot;f&#x27;&gt;0,\\ f&#x27;&#x27;&gt;0&quot;, &quot;f&#x27;&gt;0,\\ f&#x27;&#x27;&lt;0&quot;, &quot;f&#x27;&lt;0,\\ f&#x27;&#x27;&gt;0&quot;, &quot;f&#x27;&lt;0,\\ f&#x27;&#x27;&lt;0&quot;], &quot;ans&quot;: 1, &quot;exp&quot;: &quot;f&#x27;=\\tfrac1{x\\ln2}&gt;0,\\ f&#x27;&#x27;=-\\tfrac1{x^2\\ln2}&lt;0&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.90 Characteristic&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Number of integers }x\\text{ for which }\\log_2x\\text{ has characteristic }3&quot;, &quot;ans&quot;: 8, &quot;exp&quot;: &quot;8\\le x&lt;16&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.90 Characteristic&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Integers }x\\text{ with characteristic of }\\log_3x=5\\text{ and of }\\log_5x=3&quot;, &quot;ans&quot;: 382, &quot;exp&quot;: &quot;[243,625)\\Rightarrow625-243&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.81 Equation&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;x^2+7^{\\log_7x}-2=0.\\ \\text{Value of }x&quot;, &quot;ans&quot;: 1, &quot;exp&quot;: &quot;x=1&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.81 Equation&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Sum of the roots of }\\log_{(x-1)}4=1+\\log_2(x-1)&quot;, &quot;ans&quot;: 4.25, &quot;exp&quot;: &quot;\\tfrac54+3=\\tfrac{17}4&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.82 Equation&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Product of the roots of }5^{1+\\log_4x}+5^{-\\log_4x-1}=\\tfrac{26}5&quot;, &quot;ans&quot;: 0.0625, &quot;exp&quot;: &quot;\\tfrac1{16}\\cdot1&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.83 Equation&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Sum of the roots of }(x+1)^{\\log_{10}(x+1)}=100(x+1)&quot;, &quot;ans&quot;: 98.1, &quot;exp&quot;: &quot;99+\\left(-\\tfrac9{10}\\right)&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.88 Inequality&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Length of the solution interval of }\\log_{1/3}(5x-1)&gt;0&quot;, &quot;ans&quot;: 0.2, &quot;exp&quot;: &quot;\\tfrac25-\\tfrac15&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.92 Inequality&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Least integer }x\\text{ satisfying }x&gt;\\log_310&quot;, &quot;ans&quot;: 3, &quot;exp&quot;: &quot;\\log_310\\approx2.09&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.94 Inequality&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\log_4(18-2^x)\\log_2\\!\\left(\\tfrac{18-2^x}8\\right)\\le-1.\\ \\text{Largest value of }x&quot;, &quot;ans&quot;: 4, &quot;exp&quot;: &quot;\\log_214\\le x\\le4&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.74 Evaluate&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\log_{10}2+16\\log_{10}\\tfrac{16}{15}+12\\log_{10}\\tfrac{25}{24}+7\\log_{10}\\tfrac{81}{80}&quot;, &quot;ans&quot;: 1, &quot;exp&quot;: &quot;\\log_{10}10=1&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.96 Derivative&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;f(x)=x^9.\\ \\text{Value of }f&#x27;(1)&quot;, &quot;ans&quot;: 9, &quot;exp&quot;: &quot;f&#x27;(a)=9a^8&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.103 Minimum&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;\\text{Minimum value of }x+\\tfrac1x\\text{ for }x&gt;0&quot;, &quot;ans&quot;: 2, &quot;exp&quot;: &quot;f(1)=2&quot;}, {&quot;sec&quot;: &quot;C&quot;, &quot;tag&quot;: &quot;p.109 Centre of symmetry&quot;, &quot;kind&quot;: &quot;num&quot;, &quot;stem&quot;: &quot;y=\\dfrac{3x-5}{x+2}\\text{ is symmetric about }(\\alpha,\\beta).\\ \\text{Find }\\alpha+\\beta&quot;, &quot;ans&quot;: 1, &quot;exp&quot;: &quot;(-2,3)\\Rightarrow-2+3&quot;}];
+const SEC = {A:{name:&#x27;Formula Recall&#x27;,budget:60,pos:4,neg:1}, B:{name:&#x27;Class Problems (MCQ)&#x27;,budget:150,pos:4,neg:1}, C:{name:&#x27;Class Problems (Numerical)&#x27;,budget:180,pos:4,neg:0}};
+const $ = s =&gt; document.querySelector(s);
+const M = s =&gt; &#x27;\\(&#x27; + s + &#x27;\\)&#x27;;
+function typeset(el,n){ n=n||0; if(window.MathJax &amp;&amp; MathJax.typesetPromise){ MathJax.typesetPromise(el?[el]:undefined).catch(()=&gt;{}); } else if(n&lt;40){ setTimeout(()=&gt;typeset(el,n+1),400); } else if(!window.__mjWarn){ window.__mjWarn=1; alert(&#x27;Formula rendering (MathJax) could not load. Please connect to the internet and reload this page.&#x27;); } }
+const fmt = s =&gt; { s=Math.max(0,Math.floor(s)); const h=Math.floor(s/3600),m=Math.floor(s%3600/60),x=s%60; return (h?h+&#x27;:&#x27;:&#x27;&#x27;)+String(m).padStart(2,&#x27;0&#x27;)+&#x27;:&#x27;+String(x).padStart(2,&#x27;0&#x27;); };
+
+let Qs=[], R=[], cur=0, secActive=&#x27;A&#x27;, total=0, left=0, tick=null, qStart=0, name=&#x27;&#x27;, mode=&#x27;full&#x27;;
+
+function startScreen(){
+  const cnt = k =&gt; DATA.filter(q=&gt;q.sec===k).length;
+  const mins = ks =&gt; Math.round(DATA.filter(q=&gt;ks.includes(q.sec)).reduce((s,q)=&gt;s+SEC[q.sec].budget,0)/60);
+  $(&#x27;#app&#x27;).innerHTML = `
+  &lt;header&gt;&lt;h1&gt;Logarithm and Graphs Recall Test &amp;middot; from the class notes&lt;/h1&gt;&lt;/header&gt;
+  &lt;div class=&quot;start&quot;&gt;
+    &lt;h2&gt;Logarithm &amp;amp; Graphs &amp;mdash; Formula Recall &amp;amp; Class Problems&lt;/h2&gt;
+    &lt;p&gt;&lt;b&gt;Name:&lt;/b&gt; &lt;input type=&quot;text&quot; id=&quot;nm&quot; placeholder=&quot;Candidate name&quot;&gt;&lt;/p&gt;
+    &lt;p&gt;&lt;b&gt;Choose test:&lt;/b&gt;&lt;/p&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;full&quot; checked&gt; &lt;b&gt;Full test&lt;/b&gt; &amp;mdash; ${DATA.length} questions &amp;middot; ${mins([&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;])} min&lt;/label&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;A&quot;&gt; &lt;b&gt;Part 1: Formula Recall only&lt;/b&gt; (the circled / boxed identities) &amp;mdash; ${cnt(&#x27;A&#x27;)} questions &amp;middot; ${mins([&#x27;A&#x27;])} min&lt;/label&gt;
+    &lt;label class=&quot;m&quot;&gt;&lt;input type=&quot;radio&quot; name=&quot;md&quot; value=&quot;BC&quot;&gt; &lt;b&gt;Part 2: Class Problems only&lt;/b&gt; &amp;mdash; ${cnt(&#x27;B&#x27;)} MCQ + ${cnt(&#x27;C&#x27;)} numerical &amp;middot; ${mins([&#x27;B&#x27;,&#x27;C&#x27;])} min&lt;/label&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Section A &amp;amp; B: single correct, &lt;b&gt;+4&lt;/b&gt; correct, &lt;b&gt;&amp;minus;1&lt;/b&gt; wrong, 0 if unanswered.&lt;/li&gt;
+      &lt;li&gt;Section C: type a number (tolerance &amp;plusmn;0.01), &lt;b&gt;+4&lt;/b&gt; correct, no negative marking.&lt;/li&gt;
+      &lt;li&gt;Timer auto-submits. You can mark questions for review and jump through the palette.&lt;/li&gt;
+      &lt;li&gt;After submitting you get a per-question review with the page reference in the notebook, and a &lt;b&gt;&quot;formulas to revise&quot;&lt;/b&gt; list built from your wrong / skipped answers.&lt;/li&gt;
+      &lt;li&gt;Needs internet once for MathJax (formula rendering).&lt;/li&gt;
+    &lt;/ul&gt;
+    &lt;button class=&quot;b p&quot; id=&quot;go&quot; style=&quot;font-size:16px;padding:11px 26px&quot;&gt;Start Test&lt;/button&gt;
+  &lt;/div&gt;`;
+  $(&#x27;#go&#x27;).onclick = () =&gt; {
+    name = $(&#x27;#nm&#x27;).value.trim(); mode = document.querySelector(&#x27;input[name=md]:checked&#x27;).value;
+    const keep = mode===&#x27;full&#x27;?[&#x27;A&#x27;,&#x27;B&#x27;,&#x27;C&#x27;]:mode===&#x27;A&#x27;?[&#x27;A&#x27;]:[&#x27;B&#x27;,&#x27;C&#x27;];
+    Qs = DATA.filter(q=&gt;keep.includes(q.sec));
+    R = Qs.map(()=&gt;({sel:null,num:&#x27;&#x27;,vis:false,mark:false,t:0}));
+    total = Qs.reduce((s,q)=&gt;s+SEC[q.sec].budget,0); left = total; cur = 0; secActive = Qs[0].sec;
+    renderExam(); go(0, true);
+    qStart = Date.now();
+    tick = setInterval(()=&gt;{ left--; paintTimer(); if(left&lt;=0) submit(true); },1000);
+    window.__active=true;
+  };
+}
+function paintTimer(){ const t=$(&#x27;#tm&#x27;); if(!t) return; t.textContent=fmt(left); t.classList.toggle(&#x27;low&#x27;,left&lt;300); }
+function answered(i){ const q=Qs[i],r=R[i]; return q.kind===&#x27;mcq&#x27; ? r.sel!==null : r.num.trim()!==&#x27;&#x27;; }
+function status(i){ const r=R[i]; if(!r.vis) return &#x27;&#x27;; const a=answered(i); if(r.mark) return a?&#x27;am&#x27;:&#x27;mk&#x27;; return a?&#x27;an&#x27;:&#x27;na&#x27;; }
+function renderExam(){
+  const secs = [...new Set(Qs.map(q=&gt;q.sec))];
+  $(&#x27;#app&#x27;).innerHTML = `
+  &lt;header&gt;&lt;h1&gt;Logarithm and Graphs Recall Test${name?&#x27; &amp;middot; &#x27;+name:&#x27;&#x27;}&lt;/h1&gt;&lt;div&gt;Time left: &lt;span class=&quot;timer&quot; id=&quot;tm&quot;&gt;${fmt(left)}&lt;/span&gt;&lt;/div&gt;&lt;/header&gt;
+  &lt;div class=&quot;wrap&quot;&gt;
+    &lt;div class=&quot;main&quot;&gt;
+      &lt;div class=&quot;tabs&quot; id=&quot;tabs&quot;&gt;${secs.map(s=&gt;`&lt;div class=&quot;tab&quot; data-s=&quot;${s}&quot;&gt;${s}. ${SEC[s].name}&lt;/div&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;
+      &lt;div class=&quot;qhead&quot; id=&quot;qh&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;qbody&quot; id=&quot;qb&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;bar&quot;&gt;
+        &lt;button class=&quot;b p&quot; id=&quot;sn&quot;&gt;Save &amp;amp; Next&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;mn&quot; style=&quot;color:var(--purple);border-color:var(--purple)&quot;&gt;Mark for Review &amp;amp; Next&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;cl&quot;&gt;Clear Response&lt;/button&gt;
+        &lt;span style=&quot;flex:1&quot;&gt;&lt;/span&gt;
+        &lt;button class=&quot;b&quot; id=&quot;pv&quot;&gt;&amp;laquo; Back&lt;/button&gt;
+        &lt;button class=&quot;b&quot; id=&quot;nx&quot;&gt;Next &amp;raquo;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;side&quot;&gt;
+      &lt;div class=&quot;secsum&quot; id=&quot;ss&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;pal&quot; id=&quot;pal&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;legend&quot;&gt;
+        &lt;span&gt;&lt;i style=&quot;background:var(--grey)&quot;&gt;&amp;nbsp;&lt;/i&gt;Not visited&lt;/span&gt;&lt;span&gt;&lt;i style=&quot;background:var(--red)&quot;&gt;&amp;nbsp;&lt;/i&gt;Not answered&lt;/span&gt;
+        &lt;span&gt;&lt;i style=&quot;background:var(--green)&quot;&gt;&amp;nbsp;&lt;/i&gt;Answered&lt;/span&gt;&lt;span&gt;&lt;i style=&quot;background:var(--purple)&quot;&gt;&amp;nbsp;&lt;/i&gt;Marked&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;p style=&quot;text-align:center;margin:14px 0 4px&quot;&gt;&lt;button class=&quot;b g&quot; id=&quot;sub&quot; style=&quot;width:100%;padding:11px&quot;&gt;Submit Test&lt;/button&gt;&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;`;
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach(t=&gt;t.onclick=()=&gt;{ const i=Qs.findIndex(q=&gt;q.sec===t.dataset.s); go(i); });
+  $(&#x27;#sn&#x27;).onclick=()=&gt;{ nextAfter(); };
+  $(&#x27;#mn&#x27;).onclick=()=&gt;{ R[cur].mark=true; nextAfter(true); };
+  $(&#x27;#cl&#x27;).onclick=()=&gt;{ R[cur].sel=null; R[cur].num=&#x27;&#x27;; paintQ(); paintPal(); };
+  $(&#x27;#pv&#x27;).onclick=()=&gt;go(Math.max(0,cur-1));
+  $(&#x27;#nx&#x27;).onclick=()=&gt;go(Math.min(Qs.length-1,cur+1));
+  $(&#x27;#sub&#x27;).onclick=confirmSubmit;
+}
+function nextAfter(){ if(cur&lt;Qs.length-1) go(cur+1); else { paintQ(); paintPal(); } }
+function go(i, first){
+  if(!first){ R[cur].t += (Date.now()-qStart)/1000; }
+  cur=i; qStart=Date.now(); R[cur].vis=true; secActive=Qs[cur].sec; paintQ(); paintPal();
+}
+function paintQ(){
+  const q=Qs[cur], r=R[cur], S=SEC[q.sec];
+  const idxInSec = Qs.filter(x=&gt;x.sec===q.sec).indexOf(q)+1, nSec = Qs.filter(x=&gt;x.sec===q.sec).length;
+  document.querySelectorAll(&#x27;.tab&#x27;).forEach(t=&gt;t.classList.toggle(&#x27;on&#x27;,t.dataset.s===q.sec));
+  $(&#x27;#qh&#x27;).innerHTML = `&lt;span&gt;&lt;b&gt;Question ${cur+1}&lt;/b&gt; of ${Qs.length} &amp;nbsp;|&amp;nbsp; ${q.sec}${idxInSec}/${nSec}&lt;/span&gt;&lt;span&gt;Marks: &lt;b style=&quot;color:var(--green)&quot;&gt;+${S.pos}&lt;/b&gt; / &lt;b style=&quot;color:var(--red)&quot;&gt;&amp;minus;${S.neg}&lt;/b&gt;&lt;/span&gt;`;
+  let h = `&lt;div class=&quot;stem&quot;&gt;${M(q.stem)}&lt;/div&gt;`;
+  if(q.kind===&#x27;mcq&#x27;){
+    h += q.opts.map((o,k)=&gt;`&lt;div class=&quot;opt ${r.sel===k?&#x27;sel&#x27;:&#x27;&#x27;}&quot; data-k=&quot;${k}&quot;&gt;&lt;span class=&quot;L&quot;&gt;${&#x27;ABCD&#x27;[k]}.&lt;/span&gt;&lt;span&gt;${M(o)}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+  } else {
+    h += `&lt;div class=&quot;numbox&quot;&gt;&lt;div&gt;&lt;input class=&quot;numin&quot; id=&quot;ni&quot; value=&quot;${r.num}&quot; inputmode=&quot;decimal&quot; placeholder=&quot;Enter answer&quot;&gt;&lt;div style=&quot;font-size:12px;color:#667;margin-top:4px&quot;&gt;Type the numerical value (e.g. 16 or 0.5)&lt;/div&gt;&lt;/div&gt;
+    &lt;div class=&quot;keys&quot;&gt;${[&#x27;7&#x27;,&#x27;8&#x27;,&#x27;9&#x27;,&#x27;4&#x27;,&#x27;5&#x27;,&#x27;6&#x27;,&#x27;1&#x27;,&#x27;2&#x27;,&#x27;3&#x27;,&#x27;0&#x27;,&#x27;.&#x27;,&#x27;-&#x27;].map(k=&gt;`&lt;button data-k=&quot;${k}&quot;&gt;${k}&lt;/button&gt;`).join(&#x27;&#x27;)}&lt;button data-k=&quot;bk&quot; style=&quot;grid-column:span 2&quot;&gt;&amp;larr; Backspace&lt;/button&gt;&lt;button data-k=&quot;cl&quot;&gt;Clear&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+  }
+  $(&#x27;#qb&#x27;).innerHTML = h;
+  if(q.kind===&#x27;mcq&#x27;) document.querySelectorAll(&#x27;.opt&#x27;).forEach(o=&gt;o.onclick=()=&gt;{ r.sel=(r.sel===+o.dataset.k)?null:+o.dataset.k; paintQ(); paintPal(); });
+  else {
+    const ni=$(&#x27;#ni&#x27;); ni.oninput=()=&gt;{ r.num=ni.value; paintPal(); };
+    document.querySelectorAll(&#x27;.keys button&#x27;).forEach(b=&gt;b.onclick=()=&gt;{ const k=b.dataset.k; if(k===&#x27;bk&#x27;) r.num=r.num.slice(0,-1); else if(k===&#x27;cl&#x27;) r.num=&#x27;&#x27;; else r.num+=k; ni.value=r.num; paintPal(); });
+  }
+  $(&#x27;#pv&#x27;).disabled = cur===0; $(&#x27;#nx&#x27;).disabled = cur===Qs.length-1;
+  typeset($(&#x27;#qb&#x27;));
+}
+function paintPal(){
+  const secs=[...new Set(Qs.map(q=&gt;q.sec))];
+  $(&#x27;#ss&#x27;).innerHTML = secs.map(s=&gt;{ const ids=Qs.map((q,i)=&gt;q.sec===s?i:-1).filter(i=&gt;i&gt;=0); return `&lt;b&gt;${s}&lt;/b&gt;: ${ids.filter(answered).length}/${ids.length} answered`; }).join(&#x27; &amp;middot; &#x27;);
+  const ids = Qs.map((q,i)=&gt;i).filter(i=&gt;Qs[i].sec===secActive);
+  let n=0, base = Qs.findIndex(q=&gt;q.sec===secActive);
+  $(&#x27;#pal&#x27;).innerHTML = ids.map((i,j)=&gt;`&lt;button class=&quot;${status(i)} ${i===cur?&#x27;cur&#x27;:&#x27;&#x27;}&quot; data-i=&quot;${i}&quot;&gt;${j+1}&lt;/button&gt;`).join(&#x27;&#x27;);
+  document.querySelectorAll(&#x27;#pal button&#x27;).forEach(b=&gt;b.onclick=()=&gt;go(+b.dataset.i));
+}
+function confirmSubmit(){
+  const secs=[...new Set(Qs.map(q=&gt;q.sec))];
+  const rows = secs.map(s=&gt;{ const ids=Qs.map((q,i)=&gt;q.sec===s?i:-1).filter(i=&gt;i&gt;=0); const a=ids.filter(answered).length, mk=ids.filter(i=&gt;R[i].mark).length; return `&lt;tr&gt;&lt;td&gt;${s}&lt;/td&gt;&lt;td&gt;${ids.length}&lt;/td&gt;&lt;td&gt;${a}&lt;/td&gt;&lt;td&gt;${ids.length-a}&lt;/td&gt;&lt;td&gt;${mk}&lt;/td&gt;&lt;/tr&gt;`; }).join(&#x27;&#x27;);
+  const d=document.createElement(&#x27;div&#x27;); d.className=&#x27;modal&#x27;; d.innerHTML=`&lt;div class=&quot;box&quot;&gt;&lt;h3 style=&quot;margin-top:0&quot;&gt;Submit test?&lt;/h3&gt;
+  &lt;table class=&quot;sm&quot;&gt;&lt;tr&gt;&lt;th&gt;Section&lt;/th&gt;&lt;th&gt;Questions&lt;/th&gt;&lt;th&gt;Answered&lt;/th&gt;&lt;th&gt;Not answered&lt;/th&gt;&lt;th&gt;Marked&lt;/th&gt;&lt;/tr&gt;${rows}&lt;/table&gt;
+  &lt;p style=&quot;font-size:14px&quot;&gt;Time left: &lt;b&gt;${fmt(left)}&lt;/b&gt;. You cannot change answers after submitting.&lt;/p&gt;
+  &lt;div style=&quot;display:flex;gap:10px;justify-content:flex-end&quot;&gt;&lt;button class=&quot;b&quot; id=&quot;no&quot;&gt;Go back&lt;/button&gt;&lt;button class=&quot;b g&quot; id=&quot;yes&quot;&gt;Yes, submit&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;`;
+  document.body.appendChild(d); $(&#x27;#no&#x27;).onclick=()=&gt;d.remove(); $(&#x27;#yes&#x27;).onclick=()=&gt;{ d.remove(); submit(false); };
+}
+function correct(i){ const q=Qs[i],r=R[i]; if(!answered(i)) return null; if(q.kind===&#x27;mcq&#x27;) return r.sel===q.ans; const v=parseFloat(r.num); return isFinite(v) &amp;&amp; Math.abs(v-q.ans) &lt;= 0.01; }
+function submit(auto){
+  window.__active=false;
+  clearInterval(tick); R[cur].t += (Date.now()-qStart)/1000;
+  const used = total-left;
+  const per = {}; let score=0, max=0, cor=0, wr=0, sk=0;
+  Qs.forEach((q,i)=&gt;{ const S=SEC[q.sec]; per[q.sec]=per[q.sec]||{n:0,c:0,w:0,s:0,sc:0,mx:0,t:0}; const p=per[q.sec]; p.n++; p.mx+=S.pos; max+=S.pos; p.t+=R[i].t;
+    const c=correct(i); if(c===null){p.s++;sk++;} else if(c){p.c++;cor++;p.sc+=S.pos;score+=S.pos;} else {p.w++;wr++;p.sc-=S.neg;score-=S.neg;} });
+  const attempted=cor+wr;
+  const weak = {}; Qs.forEach((q,i)=&gt;{ if(correct(i)!==true){ (weak[q.tag]=weak[q.tag]||[]).push(i+1); } });
+  let h = `&lt;header&gt;&lt;h1&gt;Result &amp;middot; Logarithm and Graphs Recall Test${name?&#x27; &amp;middot; &#x27;+name:&#x27;&#x27;}&lt;/h1&gt;&lt;div class=&quot;noprint&quot;&gt;&lt;button class=&quot;b&quot; onclick=&quot;window.print()&quot;&gt;Print / Save PDF&lt;/button&gt; &lt;button class=&quot;b&quot; onclick=&quot;location.reload()&quot;&gt;Take again&lt;/button&gt;&lt;/div&gt;&lt;/header&gt;&lt;div class=&quot;res&quot;&gt;`;
+  h += `&lt;div class=&quot;cards&quot;&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Score&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${score} / ${max}&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Accuracy&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${attempted?Math.round(100*cor/attempted):0}%&lt;/div&gt;&lt;div style=&quot;font-size:12px&quot;&gt;${cor} correct of ${attempted} attempted&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Correct / Wrong / Skipped&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;&lt;span style=&quot;color:var(--green)&quot;&gt;${cor}&lt;/span&gt; / &lt;span style=&quot;color:var(--red)&quot;&gt;${wr}&lt;/span&gt; / &lt;span style=&quot;color:var(--amber)&quot;&gt;${sk}&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div class=&quot;card&quot;&gt;&lt;div&gt;Time used&lt;/div&gt;&lt;div class=&quot;v&quot;&gt;${fmt(used)}&lt;/div&gt;${auto?&#x27;&lt;div style=&quot;font-size:12px&quot;&gt;auto-submitted&lt;/div&gt;&#x27;:&#x27;&#x27;}&lt;/div&gt;&lt;/div&gt;`;
+  h += `&lt;table class=&quot;sm&quot;&gt;&lt;tr&gt;&lt;th&gt;Section&lt;/th&gt;&lt;th&gt;Questions&lt;/th&gt;&lt;th&gt;Correct&lt;/th&gt;&lt;th&gt;Wrong&lt;/th&gt;&lt;th&gt;Skipped&lt;/th&gt;&lt;th&gt;Marks&lt;/th&gt;&lt;th&gt;Avg time / Q&lt;/th&gt;&lt;/tr&gt;${Object.keys(per).map(s=&gt;{const p=per[s];return `&lt;tr&gt;&lt;td style=&quot;text-align:left&quot;&gt;${s}. ${SEC[s].name}&lt;/td&gt;&lt;td&gt;${p.n}&lt;/td&gt;&lt;td&gt;${p.c}&lt;/td&gt;&lt;td&gt;${p.w}&lt;/td&gt;&lt;td&gt;${p.s}&lt;/td&gt;&lt;td&gt;${p.sc} / ${p.mx}&lt;/td&gt;&lt;td&gt;${Math.round(p.t/p.n)} s&lt;/td&gt;&lt;/tr&gt;`}).join(&#x27;&#x27;)}&lt;/table&gt;`;
+  const wk=Object.keys(weak);
+  h += `&lt;h3&gt;Formulas / topics to revise&lt;/h3&gt;` + (wk.length ? `&lt;div&gt;${wk.map(t=&gt;`&lt;span class=&quot;tagpill&quot;&gt;${t} &lt;small&gt;(Q ${weak[t].join(&#x27;, &#x27;)})&lt;/small&gt;&lt;/span&gt;`).join(&#x27;&#x27;)}&lt;/div&gt;` : `&lt;p&gt;Nothing &amp;mdash; every question was correct. Excellent recall!&lt;/p&gt;`);
+  h += `&lt;h3&gt;Question-wise review&lt;/h3&gt;&lt;div class=&quot;filters&quot;&gt;&lt;span class=&quot;chip on&quot; data-f=&quot;all&quot;&gt;All&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;bad&quot;&gt;Wrong&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;skip&quot;&gt;Skipped&lt;/span&gt;&lt;span class=&quot;chip&quot; data-f=&quot;ok&quot;&gt;Correct&lt;/span&gt;&lt;/div&gt;&lt;div id=&quot;rl&quot;&gt;&lt;/div&gt;&lt;/div&gt;`;
+  $(&#x27;#app&#x27;).innerHTML=h;
+  const paint = f =&gt; {
+    $(&#x27;#rl&#x27;).innerHTML = Qs.map((q,i)=&gt;{ const c=correct(i); const cls=c===null?&#x27;skip&#x27;:c?&#x27;ok&#x27;:&#x27;bad&#x27;; if(f!==&#x27;all&#x27;&amp;&amp;f!==cls) return &#x27;&#x27;;
+      const yours = c===null?&#x27;&lt;i&gt;not answered&lt;/i&gt;&#x27; : q.kind===&#x27;mcq&#x27; ? `${&#x27;ABCD&#x27;[R[i].sel]}. ${M(q.opts[R[i].sel])}` : R[i].num;
+      const right = q.kind===&#x27;mcq&#x27; ? `${&#x27;ABCD&#x27;[q.ans]}. ${M(q.opts[q.ans])}` : q.ans;
+      return `&lt;div class=&quot;rq ${cls}&quot;&gt;&lt;div class=&quot;meta&quot;&gt;Q${i+1} &amp;middot; Section ${q.sec} &amp;middot; ${q.tag} &amp;middot; time ${Math.round(R[i].t)} s &amp;middot; ${c===null?&#x27;Skipped&#x27;:c?&#x27;Correct&#x27;:&#x27;Wrong&#x27;}&lt;/div&gt;&lt;div class=&quot;stem&quot; style=&quot;font-size:17px;margin-bottom:6px&quot;&gt;${M(q.stem)}&lt;/div&gt;&lt;div class=&quot;ans&quot;&gt;&lt;b&gt;Your answer:&lt;/b&gt; ${yours}&lt;/div&gt;&lt;div class=&quot;ans&quot;&gt;&lt;b&gt;Correct answer:&lt;/b&gt; ${right}&lt;/div&gt;&lt;div class=&quot;exp&quot;&gt;${M(q.exp)}&lt;/div&gt;&lt;/div&gt;`; }).join(&#x27;&#x27;);
+    typeset($(&#x27;#rl&#x27;));
+  };
+  paint(&#x27;all&#x27;);
+  document.querySelectorAll(&#x27;.chip&#x27;).forEach(c=&gt;c.onclick=()=&gt;{ document.querySelectorAll(&#x27;.chip&#x27;).forEach(x=&gt;x.classList.remove(&#x27;on&#x27;)); c.classList.add(&#x27;on&#x27;); paint(c.dataset.f); });
+  window.scrollTo(0,0);
+}
+startScreen();
+&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+" hidden></iframe>
+<div id="lock" hidden><div><h3>Test in progress</h3><p>You cannot open the Rules Sheet while the Recall Test is running. Please <b>submit the test first</b>, then open the Rules Sheet.</p><button id="ok">Back to test</button></div></div>
+<script>
+function active(){try{return !!document.getElementById('f2').contentWindow.__active}catch(e){return false}}
+function show(n){
+  if(n===1&&active()){document.getElementById('lock').hidden=false;return}
+  for(const i of [1,2]){document.getElementById('f'+i).hidden=i!==n;document.getElementById('b'+i).className=i===n?'on':''}
+}
+b1.onclick=()=>show(1);b2.onclick=()=>show(2);
+ok.onclick=()=>{document.getElementById('lock').hidden=true};
+</script></body></html>
