@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P&C 10-Stage Complete Revision</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="showPanel('cbt')">🎯 Recall CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Permutation &amp; Combination — Complete 10-Stage Remember Sheet</h1>
+<div class="sub">All formulas, techniques and key results from Vikas Gupta Sir's module · Stages 1–10 · 85+ points</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+
+<section>
+<h2 class="sh">Stage 1 — Multiplication Principle (FCP) <span class="stg">S1</span><span class="pg">PT1 Q1,5,6,7,9–12</span></h2>
+<div class="it"><span class="n">1</span><span class="f"><b>AND → multiply | OR → add.</b> Tasks done together (simultaneously): multiply choices. Mutually exclusive cases: add counts.</span></div>
+<div class="it"><span class="n">2</span><span class="f">\( n_1\text{ ways for task 1, }n_2\text{ for task 2} \Rightarrow n_1\times n_2\times\cdots \) (FCP — Fundamental Counting Principle)</span></div>
+<div class="it"><span class="n">3</span><span class="f"><b>Power of k template:</b> \(n\) independent slots each with \(k\) choices \(\Rightarrow k^n\). Example: 7-day weather (clean/cloudy) \(= 2^7 = 128\).</span></div>
+<div class="it"><span class="n">4</span><span class="f"><b>Distribution Model 1:</b> \(n\) distinct objects into \(r\) distinct boxes, any number per box \(= r^n\). Each object independently picks a box.</span></div>
+<div class="it"><span class="n">5</span><span class="f"><b>Local adjacency</b> (no two consecutive same): first slot \(k\) choices, each next slot \((k-1)\) choices. Total \(= k\times(k-1)^{n-1}\). <span class="tag">NOT k×(k-1)×(k-2)×...</span></span></div>
+<div class="it"><span class="n">6</span><span class="f"><b>Leading-zero rule:</b> first digit cannot be 0. When 0 is in the digit set, subtract arrangements with 0 in front: Valid = \(n! - (n-1)!\) or \((k-1)\times(n-1)!\).</span></div>
+<div class="it"><span class="n">7</span><span class="f"><b>Fill restricted slots first.</b> Fix the constrained position(s), then count free choices for the rest.</span></div>
+<div class="it"><span class="n">8</span><span class="f">Number plates (2 different letters + 3 different digits): \({}^{26}P_2\times{}^{10}P_3 = 468000\). <span class="tag">No repeat = decreasing choices</span></span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 2 — Permutation vs Combination <span class="stg">S2</span><span class="pg">PT1 Q3,4,8; PT7 Q4; PT3 Q10</span></h2>
+<div class="it"><span class="n">9</span><span class="f"><b>Key question:</b> "If I rearrange the chosen items, do I get a new outcome?" YES → nPr. NO → nCr.</span></div>
+<div class="it"><span class="n">10</span><span class="f">\(\displaystyle {}^nP_r = \frac{n!}{(n-r)!}\) (ordered, no repeat) &emsp; \(\displaystyle {}^nC_r = \frac{n!}{r!\,(n-r)!}\) (unordered) &emsp; \({}^nP_r = {}^nC_r\times r!\)</span></div>
+<div class="it"><span class="n">11</span><span class="f"><b>Pascal's identity:</b> \({}^nC_r + {}^nC_{r+1} = {}^{n+1}C_{r+1}\). Key to simplifying sums of adjacent binomial coefficients.</span></div>
+<div class="it"><span class="n">12</span><span class="f"><b>Dictionary rank algorithm:</b> Sort letters. For each position, count letters SMALLER than actual in remaining pool × (remaining)!. Sum → add 1. <span class="tag">Rank of VARUN = 100</span></span></div>
+<div class="it"><span class="n">13</span><span class="f"><b>Repeated letters in rank:</b> Divide arrangements of remaining letters by their repetition factorials at each step. <span class="tag">Rank of QUEUE = 17</span></span></div>
+<div class="it"><span class="n">14</span><span class="f"><b>Block method for position:</b> Each leading digit defines a block of \((n-1)!\) permutations. Divide target rank by block size to find each digit. <span class="tag">124th perm of {1..6} = 213564</span></span></div>
+<div class="it"><span class="n">15</span><span class="f"><b>Increasing-digit numbers</b> biject with subsets: \(n\)-digit strictly increasing from \(\{1,\ldots,9\}\) = \({}^9C_n\). <b>Parity:</b> exactly half of all multi-digit numbers have even digit sum.</span></div>
+<div class="it"><span class="n">16</span><span class="f"><b>Five key identities:</b> (1) \({}^nC_r={}^nC_{n-r}\) (2) Pascal (3) \(r\cdot{}^nC_r=n\cdot{}^{n-1}C_{r-1}\) (4) \(\sum{}^nC_r=2^n\) (5) \(\sum({}^nC_r)^2={}^{2n}C_n\)</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 3 — Complementary Counting &amp; Inclusion-Exclusion <span class="stg">S3</span><span class="pg">PT1 Q14,21; PT2 Q1; PT3 Q15; PT10 Q2</span></h2>
+<div class="it"><span class="n">17</span><span class="f"><b>Core:</b> Required = Total − Forbidden. Trigger phrases: "at least one", "not all", "at least one of each", "does not contain X".</span></div>
+<div class="it"><span class="n">18</span><span class="f">\(\displaystyle |A\cup B| = |A|+|B|-|A\cap B|\) &emsp;&emsp; \(\displaystyle |A\cup B\cup C| = |A|+|B|+|C|-|A\cap B|-|A\cap C|-|B\cap C|+|A\cap B\cap C|\)</span></div>
+<div class="it"><span class="n">19</span><span class="f"><b>Venn derived:</b> Exactly two of three = \(S_2 - 3|A\cap B\cap C|\). Exactly one = \(S_1 - 2S_2 + 3|A\cap B\cap C|\). (\(S_1\)=sum of individual, \(S_2\)=sum of pairwise.)</span></div>
+<div class="it"><span class="n">20</span><span class="f"><b>Surjection</b> (n objects → k boxes, no box empty, all distinct): \(\displaystyle\sum_{j=0}^{k}(-1)^j\binom{k}{j}(k-j)^n\). For \(k=2\): \(2^n-2\). For \(k=3\): \(3^n-3\cdot2^n+3\).</span></div>
+<div class="it"><span class="n">21</span><span class="f"><b>Mutual exclusion:</b> Two specific people not both selected from \(n\), choose \(r\): \({}^nC_r - {}^{n-2}C_{r-2}\).</span></div>
+<div class="it"><span class="n">22</span><span class="f"><b>Equation solving:</b> \(k^n - k =\) given → solve for \(n\). Example: \(2^n-2=510 \Rightarrow n=9\). <span class="tag pur">S1+S3</span></span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 4 — Arrangements with Restrictions (Glue &amp; Gap) <span class="stg">S4</span><span class="pg">PT1 Q8,18,22–24; PT3 Q4; PT4 Q7; PT6 Q4,7; PT7 Q1</span></h2>
+<div class="it"><span class="n">23</span><span class="f"><b>Gluing Method</b> (objects must stay together): Treat group of \(k\) as 1 unit → \((n-k+1)\) units → \((n-k+1)!\times k!\) total.</span></div>
+<div class="it"><span class="n">24</span><span class="f"><b>Gap Method</b> (objects must NOT be adjacent): Arrange \(m\) unrestricted (\(m!\)), creating \((m+1)\) gaps. Place \(r\) restricted in gaps: \({}^{m+1}P_r\) (distinct) or \({}^{m+1}C_r\) (identical). Total \(= m!\times{}^{m+1}P_r\).</span></div>
+<div class="it"><span class="n">25</span><span class="f"><b>Identical vs distinct restricted:</b> Identical → C (only which gaps matter). Distinct → P (which gap AND which object). <span class="tag grn">Key distinction</span></span></div>
+<div class="it"><span class="n">26</span><span class="f"><b>Fixed relative order</b> of \(r\) among \(n\): \({}^nC_r\times 1\times(n-r)!\). Example: AUROBIND vowels alphabetical = \({}^8C_4\times 4! = 1680\).</span></div>
+<div class="it"><span class="n">27</span><span class="f">VALEDICTORY vowels together: \(8!\times 4! = 967680\). &emsp; KUTKUT no two alike together (Glue + I-E): answer = 30.</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 5 — Distribution Models (2×2 Matrix) <span class="stg">S5</span><span class="pg">PT1 Q10,12; PT3 Q7; PT5 Q6; PT6 Q1; PT7 Q2; PT10 Q5; Ex2 Q10</span></h2>
+<div class="it"><span class="n">28</span><span class="f"><b>Classify FIRST:</b> Objects distinct or identical? Boxes distinct or identical? The 2×2 answer determines the model and formula.</span></div>
+<div class="it"><span class="n">29</span><span class="f"><b>M1</b> D-D: \(r^n\). At most 1 per box: \({}^nP_r\). No box empty: surjection (S3). &emsp; <b>M2</b> D-I: 2 identical boxes no empty: \(2^{n-1}-1\).</span></div>
+<div class="it"><span class="n">30</span><span class="f"><b>M3 Stars &amp; Bars</b> (I-D): Any per box: \({}^{n+r-1}C_{r-1}\). At least 1 per box: \({}^{n-1}C_{r-1}\). At least \(k\) per box: substitute \(x_i=y_i+k\).</span></div>
+<div class="it"><span class="n">31</span><span class="f"><b>Stars &amp; Bars upper bound</b> \((x_i\le m)\): Inclusion-exclusion. Subtract: C(vars,1)×reduced. Add: C(vars,2)×further-reduced. Stop when remaining total goes negative.</span></div>
+<div class="it"><span class="n">32</span><span class="f"><b>Multinomial:</b> \(\displaystyle\frac{n!}{n_1!\,n_2!\cdots n_k!}\) distributes \(n\) distinct objects into groups of sizes \(n_1,\ldots,n_k\).</span></div>
+<div class="it"><span class="n">33</span><span class="f"><b>Odd product:</b> \(1\times3\times\cdots\times(2n-1) = (2n)!\,/\,(2^n\cdot n!)\). For product below 10000: answer \(= 10000!\,/\,(2^{5000}\cdot 5000!)\).</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 6 — Selection with Multiple Conditions <span class="stg">S6</span><span class="pg">PT2 Q4; PT3 Q11; PT4 Q10,11; PT5 Q11; PT6 Q12; PT8 Q10; PT9 Q9; Ex1 Q6,8</span></h2>
+<div class="it"><span class="n">34</span><span class="f"><b>Mandatory protocol:</b> (1) Read ALL constraints. (2) Identify pivot. (3) List all valid cases. (4) Compute each case. (5) Sum.</span></div>
+<div class="it"><span class="n">35</span><span class="f"><b>Select-then-arrange:</b> Choose (\({}^nC_r\)) then arrange (\(\times r!\)). Example: 4C + 2V word: \({}^7C_4\times{}^4C_2\times 6! = 151200\).</span></div>
+<div class="it"><span class="n">36</span><span class="f"><b>Group quota:</b> \(\displaystyle\sum_{j=k}^{\min(|G|,r)}{}^{|G|}C_j\times{}^{n-|G|}C_{r-j}\). List valid splits first, verify each is feasible.</span></div>
+<div class="it"><span class="n">37</span><span class="f"><b>Conditional chain</b> (if A then B, if A then NOT C): Split on A's status. Apply ALL consequences before counting each case.</span></div>
+<div class="it"><span class="n">38</span><span class="f"><b>No complete couple pair:</b> \({}^pC_r\times 2^r\). Exactly \(m\) complete couples: \({}^pC_m\times{}^{p-m}C_{r-2m}\times 2^{r-2m}\).</span></div>
+<div class="it"><span class="n">39</span><span class="f"><b>Identity:</b> \(n\times{}^{n-1}C_{r-1} = r\times{}^nC_r\) (double counting). Teacher with 25 kids, groups of 5: total \({}^{25}C_5\) visits; each kid: \({}^{24}C_4\) visits.</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 7 — Circular Arrangements <span class="stg">S7</span><span class="pg">PT8 Q2,3,6,7,8; PT9 Q3,10; Ex1 Q21; PT7 Q3</span></h2>
+<div class="it"><span class="n">40</span><span class="f"><b>Circular vs linear:</b> Seats NUMBERED or FIXED anchors → linear (\(n!\)). All positions equivalent → circular \((n-1)!\). Check this FIRST.</span></div>
+<div class="it"><span class="n">41</span><span class="f">Circle: \((n-1)!\) &emsp;|&emsp; Necklace (flip equivalent): \((n-1)!/2\) &emsp;|&emsp; Not adjacent: \((n-1)! - 2(n-2)! = (n-3)(n-2)!\)</span></div>
+<div class="it"><span class="n">42</span><span class="f"><b>Alternating</b> (\(n\) from each group): Fix 1 from group 1: \((n-1)!\). Place group 2 in \(n\) gaps: \(n!\). Total \(= (n-1)!\times n!\). Example: 4+4 = \(3!\times 4! = 144\).</span></div>
+<div class="it"><span class="n">43</span><span class="f"><b>Two round tables</b> (\(m\) at T1, \(n\) at T2): \({}^{m+n}C_m\times(m-1)!\times(n-1)!\). With necklace condition: \((m+n)!/(4mn)\).</span></div>
+<div class="it"><span class="n">44</span><span class="f"><b>Non-consecutive 3 from \(n\) on circle:</b> \(n(n-4)(n-5)/6\). Row: \({}^{n-2}C_3\). Glue in circle: \((n-k)!\times k!\).</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 8 — Rank, Divisibility &amp; Digit Constraints <span class="stg">S8</span><span class="pg">PT1 Q3,15,17; PT2 Q3,10,11; PT3 Q8,10; PT4 Q5,14; PT5 Q8; Ex1 Q2</span></h2>
+<div class="it"><span class="n">45</span><span class="f"><b>Rank algorithm:</b> Sort letters → for each position: count letters smaller in remaining pool × (remaining)! → sum → +1. Repeated letters: divide by repetition factorials of remaining pool at each step.</span></div>
+<div class="it"><span class="n">46</span><span class="f"><b>Omission method (div by 3/9):</b> Sum all digits → identify which digit(s) to OMIT so remaining sum satisfies divisibility. Split cases by whether 0 is omitted (no leading-zero issue) or not (leading-zero correction needed).</span></div>
+<div class="it"><span class="n">47</span><span class="f"><b>Residue classification:</b> Sort digits by residue mod 3. Valid omission pair has residue sum ≡ (total sum mod 3).</span></div>
+<div class="it"><span class="n">48</span><span class="f"><b>Exact digit count:</b> Digit \(d\) exactly \(k\) times in \(n\)-digit number from set of size \(s\): \({}^nC_k\times(s-1)^{n-k}\). Example: two 2s in 7-digit from {1,2,3}: \({}^7C_2\times 2^5 = 672\).</span></div>
+<div class="it"><span class="n">49</span><span class="f"><b>Palindrome length \(n\):</b> \(k^{\lceil n/2\rceil}\). &emsp; <b>Parity:</b> half of all numbers have even digit sum. &emsp; <b>Factor as \(K\times n!\):</b> express each case as multiple of same factorial, sum coefficients.</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 9 — Geometry + Counting <span class="stg">S9</span><span class="pg">PT3 Q9; PT4 Q2,8; PT5 Q7; PT6 Q5; PT8 Q5; PT10 Q1,3,9,11; Ex1 Q1,12; Ex2 Q28</span></h2>
+<div class="it"><span class="n">50</span><span class="f"><b>Universal:</b> geometric object ↔ subset of points. Count valid subsets, subtract degenerate cases (collinear, concurrent).</span></div>
+<div class="it"><span class="n">51</span><span class="f">Lines from \(n\) pts: \({}^nC_2\). Subtract \(({}^kC_2-1)\) per collinear group. &emsp; Triangles: \({}^nC_3\). Subtract \({}^kC_3\) per collinear group.</span></div>
+<div class="it"><span class="n">52</span><span class="f">Diagonals of \(n\)-gon: \(n(n-3)/2\). &emsp; No-side triangles in \(n\)-gon: \(n(n-4)(n-5)/6\). Set = 30 → \(n=9\) (nonagon).</span></div>
+<div class="it"><span class="n">53</span><span class="f">Rectangles in \(m\times n\) grid: \({}^{m+1}C_2\times{}^{n+1}C_2\). &emsp; Squares in \(n\times n\) grid: \(n(n+1)(2n+1)/6\). &emsp; Chessboard: \(s/r = 17/108\).</span></div>
+<div class="it"><span class="n">54</span><span class="f">Interior chord intersections on circle: \({}^nC_4\). &emsp; Max intersections \(n\) lines + \(m\) circles: \({}^nC_2 + 2nm + 2{}^mC_2\).</span></div>
+<div class="it"><span class="n">55</span><span class="f">Grid paths \((0,0)\to(a,b)\): \({}^{a+b}C_a\). Avoiding point \(P=(p,q)\): \({}^{a+b}C_a - {}^{p+q}C_p\times{}^{(a-p)+(b-q)}C_{a-p}\).</span></div>
+<div class="it"><span class="n">56</span><span class="f">Non-consecutive \(r\) from \(n\) in a line: \({}^{n-r+1}C_r\). &emsp; Concyclic correction: \({}^nC_3 - {}^kC_3 + 1\). &emsp; Fresh lines from \(n\)-line intersections: \(n(n-1)(n-2)(n-3)/8\).</span></div>
+</section>
+
+<section>
+<h2 class="sh">Stage 10 — JEE Hard: Multi-Concept <span class="stg">S10</span><span class="pg">PT5 Q2; PT8 Q9; PT9 Q1,4; Ex1 Q4,9; Ex2 Q1,7,14,25,26</span></h2>
+<div class="it"><span class="n">57</span><span class="f"><b>6-step protocol:</b> Read fully → identify structure → decompose → solve each sub-problem → combine (AND=multiply, OR=add) → verify with small case.</span></div>
+<div class="it"><span class="n">58</span><span class="f"><b>S1+S8:</b> Good words (A never→B, B never→C, C never→A): \(3\times 2^{n-1}\). Set =384 → \(n=8\). Sum of digit positions: \((\sum\text{digits})\times(n-1)!\times R(n)\) minus 0-leading correction.</span></div>
+<div class="it"><span class="n">59</span><span class="f"><b>S4+S3:</b> Exactly 1 adjacent pair of identical objects: Gap method → choose 1 gap for pair, rest in separate gaps. 7G+8B, exactly 1 GG pair: \(9\times{}^8C_5 = 504\).</span></div>
+<div class="it"><span class="n">60</span><span class="f"><b>S5+S3:</b> Stars &amp; Bars with upper bound uses I-E. 4 papers max \(m\) marks each, total \(2m\): answer \(=\tfrac{1}{3}(m+1)(2m^2+4m+3)\).</span></div>
+<div class="it"><span class="n">61</span><span class="f"><b>S7+S3:</b> Circular with fixed anchors → linear for remaining seats. 2n guests, M+W fixed opposite, P+Q not adjacent: \((2n-2)!(4n^2-6n+4)\).</span></div>
+<div class="it"><span class="n">62</span><span class="f"><b>S2+S8:</b> GP in powers of base ↔ AP in exponents. 3-term APs from \(\{1,\ldots,101\}\): \(\sum_{d=1}^{50}(101-2d)=2500\).</span></div>
+<div class="it"><span class="n">63</span><span class="f"><b>S5+S6:</b> 3 friends, 6 nights, each ≤ 3 times. Valid splits (3,3,0),(3,2,1),(2,2,2): multinomial × assignment = 60+360+90 = 510.</span></div>
+<div class="it"><span class="n">64</span><span class="f"><b>S2+S9:</b> Ascending 5-digit: \({}^9C_5=126\). Descending 5-digit: \({}^{10}C_5=252\). \(m-n={}^{10}C_5-{}^9C_5={}^9C_4\) (Pascal). <span class="tag pur">Beautiful use of Pascal</span></span></div>
+</section>
+
+<section>
+<h2 class="sh">Special Values, Identities &amp; Extra Results <span class="stg">S2–S10</span></h2>
+<div class="it"><span class="n">65</span><span class="f"><b>Derangements:</b> \(D_2=1,\,D_3=2,\,D_4=9,\,D_5=44,\,D_6=265\). &emsp; Exactly \(r\) correct of \(n\): \({}^nC_r\cdot D_{n-r}\).</span></div>
+<div class="it"><span class="n">66</span><span class="f"><b>Exponent of prime \(p\) in \(n!\):</b> \(\lfloor n/p\rfloor+\lfloor n/p^2\rfloor+\cdots\) &emsp; Trailing zeros of \(n!\): exponent of 5. Trailing zeros of 100! = 24.</span></div>
+<div class="it"><span class="n">67</span><span class="f"><b>Hockey stick:</b> \(\displaystyle\sum_{s=0}^{n}{}^{s+k}C_k = {}^{n+k+1}C_{k+1}\). Solutions to \(x_1+\cdots+x_r\le n\): introduce slack → \({}^{n+r}C_r\).</span></div>
+<div class="it"><span class="n">68</span><span class="f"><b>Divisors of \(N=p_1^{a_1}\cdots p_m^{a_m}\):</b> Count = \(\prod(a_i+1)\). Sum = \(\prod\tfrac{p_i^{a_i+1}-1}{p_i-1}\). Relatively prime pairs: \(2^{m-1}\).</span></div>
+<div class="it"><span class="n">69</span><span class="f"><b>Menage problem:</b> \(n\) couples alternating in circle, no husband-wife adjacent. \(M_3=1,M_4=2,M_5=13\). Answer \(=(n-1)!\times M_n\). For \(n=4\): 12 (or 24 with reflection).</span></div>
+</section>
+
+<div class="notes">
+<b>Stage Trigger Quick Reference</b>
+<ul>
+<li><b>S1:</b> outfit/sequence of choices, k^n, "each can go to any", independent slots</li>
+<li><b>S2:</b> "word", "rank", "arrange", "4th position", binomial identity summation</li>
+<li><b>S3:</b> "at least one", "not all", "none of", Venn diagram, surjection, equation for n</li>
+<li><b>S4:</b> "always together", "never adjacent", "in alphabetical order", "no two consecutive same"</li>
+<li><b>S5:</b> "distributed among", "placed into boxes", "at most/least per person", stars and bars</li>
+<li><b>S6:</b> "refuses if", "serves only if", "at least k from group", committee, case split</li>
+<li><b>S7:</b> "round table", "circular", "necklace", "no two of same nationality adjacent"</li>
+<li><b>S8:</b> "rank of word", "divisible by", "digit sum", "palindrome", "K × n!"</li>
+<li><b>S9:</b> "triangles with vertices at", "lines through", "shortest path", chessboard, diagonals</li>
+<li><b>S10:</b> 2+ distinct constraint types OR non-obvious identity hidden in structure</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB = [
+  // S1
+  {id:1,st:1,type:'mcq',src:'PT1 Q1',stem:'In how many ways can clean and cloudy days occur in a week (7 days), if each day is either clean or cloudy?',opts:['64','100','128','256'],ans:2,exp:'Each of 7 days has 2 independent choices. FCP: 2^7 = 128.'},
+  {id:2,st:1,type:'int',src:'PT1 Q5',stem:'A man has 3 jackets, 10 shirts, and 5 pairs of slacks. How many outfits (jacket + shirt + slacks) can he make?',ans:'150',exp:'3 × 10 × 5 = 150.'},
+  {id:3,st:1,type:'mcq',src:'PT1 Q6(i)',stem:'There are 6 roads between A and B, and 4 roads between B and C. In how many ways can one drive from A to C via B?',opts:['10','20','24','48'],ans:2,exp:'6 × 4 = 24.'},
+  {id:4,st:1,type:'int',src:'PT1 Q10',stem:'In how many ways can 5 letters be mailed into 3 different mailboxes (each letter to any mailbox)?',ans:'243',exp:'Each letter picks 1 of 3 boxes independently: 3^5 = 243.'},
+  {id:5,st:1,type:'mcq',src:'PT3 Q2',stem:'9-digit numbers using digits {1,2,3,4,5} with repetition allowed:',opts:['9^5','9!','5^9','9P5'],ans:2,exp:'Each of 9 positions has 5 choices: 5^9.'},
+  {id:6,st:1,type:'mcq',src:'PT1 Q22',stem:'How many 10-digit numbers can be made using only odd digits such that no two consecutive digits are the same?',opts:['5×4^8','5×4^9','4×5^9','5^10'],ans:1,exp:'First digit: 5 choices. Each next: 4 (not same as previous). Total: 5×4^9.'},
+  // S2
+  {id:7,st:2,type:'mcq',src:'PT1 Q3',stem:'If the letters of VARUN are arranged in dictionary order, the rank of VARUN is:',opts:['98','99','100','101'],ans:2,exp:'Sorted: A,N,R,U,V. Before V____: 4×4!=96; VA___: 0; VAR__: 2; VARU_: 1. Total before=99, rank=100.'},
+  {id:8,st:2,type:'mcq',src:'PT7 Q4',stem:'If all letters of QUEUE are arranged in dictionary order, the rank of QUEUE is:',opts:['15th','16th','17th','18th'],ans:2,exp:'Starting E: 4!/2!=12. Starting QE: 3!/2!=3. QUEEU before QUEUE: 1. Total before=16, rank=17.'},
+  {id:9,st:2,type:'int',src:'PT3 Q10(a)',stem:'The 720 permutations of {1,2,3,4,5,6} are arranged in ascending order. What number is at position 124?',ans:'213564',exp:'Block sizes: 5!=120, 4!=24, 3!=6, 2!=2, 1!=1. 124th → starts with 2 (pos 4 in that block) → digit-by-digit: 213564.'},
+  {id:10,st:2,type:'int',src:'PT3 Q10(b)',stem:'What is the position of 321546 in the ordered list of all permutations of {1,2,3,4,5,6}?',ans:'267',exp:'Count smaller: 2×120+1×24+0+1×2+0+0=266 before it. Position=267.'},
+  {id:11,st:2,type:'mcq',src:'PT5 Q8',stem:'The number of 5-digit numbers whose digit sum is even is:',opts:['50000','45000','60000','none'],ans:1,exp:'Exactly half of 90000 five-digit numbers have even digit sum. 90000/2=45000.'},
+  {id:12,st:2,type:'int',src:'PT1 Q17',stem:'Find the number of 5-letter palindromes using English alphabet (26 letters).',ans:'17576',exp:'Structure abcba: 3 free positions, each 26 choices. 26^3=17576.'},
+  // S3
+  {id:13,st:3,type:'mcq',src:'PT1 Q14',stem:'3-digit numbers between 100 and 999 with at least one digit equal to 7:',opts:['225','243','252','none'],ans:2,exp:'Total 900. No digit 7: 8×9×9=648. At least one 7: 900-648=252.'},
+  {id:14,st:3,type:'mcq',src:'PT2 Q1',stem:'How many of the 900 three-digit numbers have at least one even digit?',opts:['775','875','450','750'],ans:0,exp:'All digits odd: 5^3=125. At least one even: 900-125=775.'},
+  {id:15,st:3,type:'int',src:'PT3 Q15',stem:'How many 3-digit numbers contain at least one digit 3 AND at least one digit 2?',ans:'52',exp:'I-E: 900 - 648 - 648 + 448 = 52.'},
+  {id:16,st:3,type:'int',src:'PT1 Q21',stem:'A letter lock has 3 rings each with 10 letters. How many unsuccessful attempts to open it?',ans:'999',exp:'Total 10^3=1000. Subtract 1 correct: 999.'},
+  {id:17,st:3,type:'mcq',src:'PT4 Q5',stem:'n-digit numbers using digits 1 and 2 only, each used at least once = 510. Then n equals:',opts:['7','8','9','10'],ans:2,exp:'2^n - 2 = 510 → 2^n=512=2^9 → n=9.'},
+  {id:18,st:3,type:'int',src:'PT10 Q2',stem:'100 students read at least one of 3 magazines (80,50,30 readers; 5 read all 3). How many read exactly 2?',ans:'50',exp:'100=80+50+30-S2+5 → S2=65. Exactly 2=S2-3|all three|=65-15=50.'},
+  // S4
+  {id:19,st:4,type:'int',src:'PT1 Q18',stem:'7 different colours of a rainbow are arranged. If green is always in the middle, how many ways?',ans:'720',exp:'Fix green at position 4. Arrange remaining 6: 6!=720.'},
+  {id:20,st:4,type:'int',src:'PT1 Q23',stem:'5 men and 4 women are seated in a row with women occupying even places. How many arrangements?',ans:'2880',exp:'4 women in 4 even positions: 4!=24. 5 men in 5 odd positions: 5!=120. Total: 24×120=2880.'},
+  {id:21,st:4,type:'int',src:'PT3 Q4',stem:'Arrangements of VALEDICTORY with vowels never separated:',ans:'967680',exp:'Glue 4 vowels as 1 unit. 8 units: 8!. Internal vowel order: 4!. Total: 8!×4!=967680.'},
+  {id:22,st:4,type:'int',src:'PT6 Q4',stem:'Permutations of AUROBIND where vowels appear in alphabetical order:',ans:'1680',exp:'Vowels A,I,O,U. Choose 4 of 8 positions: C(8,4)=70. 1 internal order. Consonants: 4!=24. Total: 70×24=1680.'},
+  {id:23,st:4,type:'mcq',src:'PT7 Q1',stem:'10 distinct red balls and 9 identical green balls arranged in a row so no two green balls are together:',opts:['10!·11P9','10!·11C9','10!','10!·9!'],ans:1,exp:'Place 10 red (10! ways). 11 gaps. Green balls identical: choose 9 gaps from 11 = C(11,9)=55. Total: 10!×55.'},
+  {id:24,st:4,type:'int',src:'Ex1 Q17',stem:'Arrangements of KUTKUT so that no two alike letters are together:',ans:'30',exp:'Total 6!/(2!2!2!)=90. By I-E on three "alike-together" events, forbidden=60. Required=30.'},
+  // S5
+  {id:25,st:5,type:'int',src:'PT1 Q12(a)',stem:'4 passengers are accommodated in 3 railway carriages (any number per carriage). How many ways?',ans:'81',exp:'Each passenger picks any of 3 carriages: 3^4=81.'},
+  {id:26,st:5,type:'mcq',src:'PT3 Q7',stem:'5 different books distributed among 10 people, each person getting at most one book. Number of ways:',opts:['252','10^5','5^10','10C5·5!'],ans:3,exp:'10P5 = 10C5×5! = 252×120=30240.'},
+  {id:27,st:5,type:'mcq',src:'PT10 Q5',stem:'Choosing 6 chocolates from 8 different brands (each brand unlimited, same-brand chocolates identical):',opts:['13C6','13C8','8^6','none'],ans:0,exp:'Stars & Bars: C(6+8-1,8-1)=C(13,7)=C(13,6)=1716.'},
+  {id:28,st:5,type:'int',src:'PT2 Q10',stem:'5-digit numbers divisible by 3 formed from {0,1,2,3,4,5} without repetition. How many?',ans:'216',exp:'Sum=15. Omit digit divisible by 3: {0,3}. Omit 0: 5!=120. Omit 3: 4×4!=96. Total=216.'},
+  {id:29,st:5,type:'int',src:'PT2 Q11',stem:'9-digit numbers divisible by 9 using digits 0–9 each at most once = K×8!. Find K.',ans:'17',exp:'Omit 0: 9!=9×8!. Omit 9: 8×8!. Total=17×8!. K=17.'},
+  {id:30,st:5,type:'int',src:'PT6 Q1',stem:'8 different books distributed among 3 students, each getting at least 2. How many ways?',ans:'2940',exp:'Splits (2,2,4) and (2,3,3). (2,2,4): 3×C(8,2)×C(6,2)=1260. (2,3,3): 3×C(8,2)×C(6,3)=1680. Total=2940.'},
+  // S6
+  {id:31,st:6,type:'mcq',src:'PT2 Q4',stem:'From 7 consonants and 4 vowels, 6-letter words with 4 consonants and 2 vowels:',opts:['210','462','151200','332640'],ans:2,exp:'C(7,4)×C(4,2)×6!=35×6×720=151200.'},
+  {id:32,st:6,type:'mcq',src:'PT3 Q11',stem:'Answer 10 of 13 questions with at least 3 from the first 5. Number of ways:',opts:['276','267','80','1200'],ans:0,exp:'(3,7): C(5,3)×C(8,7)=80. (4,6): 5×28=140. (5,5): 1×56=56. Total=276.'},
+  {id:33,st:6,type:'mcq',src:'PT4 Q10',stem:'Committee of 5 from 9: A and B either together or not at all; C and D cannot both be in. Number of ways:',opts:['41','36','47','76'],ans:0,exp:'A,B in: C(7,3)-C(5,1)=30. A,B out: C(7,5)-C(5,3)=11. Total=41.'},
+  {id:34,st:6,type:'int',src:'PT5 Q11',stem:'Woman invites 5 of 11 friends; P and Q will not attend together. How many ways?',ans:'378',exp:'C(11,5)-C(9,3)=462-84=378.'},
+  {id:35,st:6,type:'int',src:'PT6 Q12',stem:'Cricket team of 11 from groups of 6 and 8; group of 6 contributes at least 4. How many ways?',ans:'344',exp:'(4,7):120. (5,6):168. (6,5):56. Total=344.'},
+  {id:36,st:6,type:'int',src:'PT8 Q10(a)',stem:'6 married couples; select 4 people so that no complete couple is chosen. How many ways?',ans:'240',exp:'Choose 4 of 6 couples (C(6,4)=15); take 1 from each couple (2^4=16). 15×16=240.'},
+  // S7
+  {id:37,st:7,type:'mcq',src:'PT8 Q2',stem:'10 boys at a round table; A and B must NOT be adjacent. Number of ways:',opts:['10×9!','9×8!','7×8!','none'],ans:2,exp:'Total 9!. A,B adjacent: 8!×2. Required: 9!-2×8!=7×8!.'},
+  {id:38,st:7,type:'int',src:'Ex1 Q21(b)',stem:'8 persons (4 men, 4 ladies) at a round table; no two men adjacent. How many arrangements?',ans:'144',exp:'Fix 1 man: 3! for men. 4 ladies in 4 gaps: 4!. Total: 6×24=144.'},
+  {id:39,st:7,type:'mcq',src:'PT8 Q6',stem:'A gentleman seats m+n friends at two round tables (m at T1, n at T2). No two arrangements give same neighbour set. Ways:',opts:['(m+n)!/4mn','(m+n)!/mn','2(m+n)!/mn','none'],ans:0,exp:'C(m+n,m)×(m-1)!×(n-1)! ÷ 4 (necklace condition) = (m+n)!/(4mn).'},
+  {id:40,st:7,type:'mcq',src:'PT8 Q8',stem:'Pn = non-consecutive 3 from n in a row. Qn = same in a circle. If Pn - Qn = 6, then n equals:',opts:['8','9','10','12'],ans:2,exp:'Pn=C(n-2,3). Qn=n(n-4)(n-5)/6. Setting Pn-Qn=6 gives n=10.'},
+  {id:41,st:7,type:'int',src:'Ex1 Q21(a)',stem:'8 persons at a round table; A and B must NOT be adjacent. How many arrangements?',ans:'3600',exp:'Total 7!=5040. A,B adjacent: 6!×2=1440. Required: 5040-1440=3600.'},
+  {id:42,st:7,type:'mcq',src:'PT8 Q3',stem:'India vs Pakistan play until a team wins 5 matches (no draws). Ways India can win the series:',opts:['126','252','225','none'],ans:0,exp:'Sum C(4+j,4) for j=0 to 4 = 1+5+15+35+70=126.'},
+  // S8
+  {id:43,st:8,type:'int',src:'PT1 Q15',stem:'How many 4-digit numbers are divisible by 2?',ans:'4500',exp:'Last digit even (5 choices). First digit 1-9 (9 choices). Middle two: 10 each. 9×10×10×5=4500.'},
+  {id:44,st:8,type:'mcq',src:'PT2 Q3',stem:'7-digit numbers from {1,2,3} with digit 2 appearing exactly twice:',opts:['672','640','512','none'],ans:0,exp:'Choose 2 of 7 positions for 2: C(7,2)=21. Fill rest with {1,3}: 2^5=32. Total=672.'},
+  {id:45,st:8,type:'int',src:'Ex1 Q2',stem:'5-digit numbers divisible by 3 from {0,1,2,3,4,7,8} each used at most once. How many?',ans:'744',exp:'Sum=25≡1(mod3). Omit pair summing to 1(mod3): 7 pairs. 4 pairs keep 0 (each gives 96), 3 pairs omit 0 (each gives 120). 4×96+3×120=744.'},
+  {id:46,st:8,type:'mcq',src:'PT4 Q14',stem:'3-digit numbers with exactly two consecutive identical digits:',opts:['153','162','180','161'],ans:1,exp:'AAB: 9×9=81. ABB: 9×9=81. Total=162.'},
+  {id:47,st:8,type:'int',src:'PT2 Q11',stem:'9-digit numbers divisible by 9 using each of {0,1,...,9} at most once = K×8!. Find K.',ans:'17',exp:'Omit 0 or 9. Omit 0: 9!=9×8!. Omit 9: 8×8!. K=9+8=17.'},
+  {id:48,st:8,type:'mcq',src:'PT5 Q8',stem:'Number of 5-digit numbers with even digit sum:',opts:['50000','45000','60000','none'],ans:1,exp:'Exactly half of 90000 five-digit numbers: 45000.'},
+  // S9
+  {id:49,st:9,type:'mcq',src:'PT3 Q9',stem:'On an 8×8 chessboard, r = total rectangles (incl. squares), s = total squares. Ratio s/r in lowest terms:',opts:['1/6','17/108','4/27','none'],ans:1,exp:'r=C(9,2)^2=1296. s=1^2+...+8^2=204. 204/1296=17/108.'},
+  {id:50,st:9,type:'mcq',src:'PT5 Q7',stem:'9 points on a circle all joined by chords; at most 2 chords meet at any interior point. Interior intersections:',opts:['126','351','756','none'],ans:0,exp:'Each 4-point subset gives 1 interior crossing: C(9,4)=126.'},
+  {id:51,st:9,type:'mcq',src:'PT6 Q5',stem:'Maximum intersections of 9 different lines and 9 different circles in a plane:',opts:['117','153','270','none'],ans:2,exp:'L-L: C(9,2)=36. L-C: 9×9×2=162. C-C: C(9,2)×2=72. Total=270.'},
+  {id:52,st:9,type:'mcq',src:'PT8 Q5',stem:'Convex n-gon: triangles with no side along the polygon = 30. The polygon is:',opts:['Heptagon','Octagon','Nonagon','Decagon'],ans:2,exp:'n(n-4)(n-5)/6=30 → n(n-4)(n-5)=180=9×5×4 → n=9 (Nonagon).'},
+  {id:53,st:9,type:'mcq',src:'PT4 Q2',stem:'A regular polygon has interior angles of 150°. Number of diagonals:',opts:['35','44','54','78'],ans:2,exp:'(n-2)×180/n=150 → n=12. Diagonals=12×9/2=54.'},
+  {id:54,st:9,type:'mcq',src:'PT10 Q3',stem:'Choose 3 books from 100 on a shelf so that no two are neighbours:',opts:['100C3-98','97C3','96C3','98C3'],ans:3,exp:'Non-consecutive r from n in a line: C(n-r+1,r)=C(98,3).'},
+  {id:55,st:9,type:'mcq',src:'PT10 Q9',stem:'City has m N-S streets and n E-W streets. Shortest paths from NW to SE corner:',opts:['√(m²+n²)','(m+n)!/m!n!','(m+n-2)!/(m-1)!(n-1)!','(m-1)(n-1)'],ans:2,exp:'(m-1) East + (n-1) South moves: C(m+n-2,m-1)=(m+n-2)!/(m-1)!(n-1)!.'},
+  {id:56,st:9,type:'int',src:'PT10 Q1',stem:'11 points, of which 5 lie on one circle; no other 4 are concyclic. Maximum circles through ≥3 of these points:',ans:'156',exp:'C(11,3)-C(5,3)+1=165-10+1=156.'},
+  // S10
+  {id:57,st:10,type:'mcq',src:'PT8 Q9',stem:'Good words from {A,B,C}: A never followed by B, B never by C, C never by A. n-letter good words = 384. Find n.',opts:['6','7','8','9'],ans:2,exp:'3×2^(n-1)=384 → 2^(n-1)=128=2^7 → n=8.'},
+  {id:58,st:10,type:'mcq',src:'PT9 Q1',stem:'The sum (r=0 to n-1) of nCr/(nCr+nCr+1) equals:',opts:['n(n-1)/2(n+1)','(n+1)/2','n(n+1)/2','n/2'],ans:3,exp:'Pascal: denominator=(n+1)C(r+1). Each term=(r+1)/(n+1). Sum=(1/(n+1))×n(n+1)/2=n/2.'},
+  {id:59,st:10,type:'int',src:'PT9 Q4',stem:'5 subjects allotted at least 1 period each among 6 school periods (all distinct). How many ways?',ans:'1800',exp:'Surjections 6→5: 5^6-5×4^6+10×3^6-10×2^6+5=15625-20480+7290-640+5=1800.'},
+  {id:60,st:10,type:'int',src:'Ex2 Q1',stem:'3 distinct numbers chosen from {3^1,3^2,...,3^101} forming a GP. How many ways?',ans:'2500',exp:'GP in powers of 3 ↔ AP in exponents. 3-term APs from {1,...,101}: Σ(d=1 to 50)(101-2d)=2500.'},
+  {id:61,st:10,type:'mcq',src:'PT3 Q12',stem:'m = count of 5-digit strictly decreasing numbers; n = count of 5-digit strictly increasing numbers. m-n =',opts:['10C4','9C5','10C3','9C3'],ans:1,exp:'Decreasing: C(10,5)=252. Increasing: C(9,5)=126. m-n=126=9C5.'},
+  {id:62,st:10,type:'int',src:'Ex2 Q14',stem:'A man invites 1 friend per evening for 6 nights from 3 friends; no friend more than 3 times. How many ways?',ans:'510',exp:'Splits (3,3,0): 3×20=60. (3,2,1): 6×60=360. (2,2,2): 1×90=90. Total=510.'},
+];
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e',9:'#4a0040',10:'#2d0000'};
+const stageNames = {1:'FCP',2:'P vs C',3:'Complement',4:'Glue & Gap',5:'Distribution',6:'Multi Cond.',7:'Circular',8:'Rank & Digits',9:'Geometry',10:'JEE Hard'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8,9,10]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>P&C 10-Stage Recall CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Select stages, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${[1,2,3,4,5,6,7,8,9,10].map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">Stage ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="45" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to 62 questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,62);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>Stage ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+function renderResult(){
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  let filterSt=0;
+
+  function qList(){
+    return qs.map((q,i)=>{
+      if(filterSt && q.st!==filterSt) return '';
+      const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+      const cls = sk?'skip':ok?'ok':'bad';
+      let ua='Not answered';
+      if(userAns[q.id]!==undefined) ua = q.type==='mcq' ? `${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}` : userAns[q.id];
+      const ca = q.type==='mcq' ? `${'ABCD'[q.ans]}: ${q.opts[q.ans]}` : q.ans;
+      return `<div class="rq ${cls}">
+        <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+        <div class="rstem">${q.stem}</div>
+        <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+          ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+        </div>
+        ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  $().innerHTML=`
+  <div class="res-wrap">
+    <h2 style="color:var(--blue);margin-bottom:10px">Test Result</h2>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">Stage-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">S${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="fchips">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">Stage ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qList()}</div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+    </div>
+  </div>`;
+
+  window._filterSt = 0;
+  window._qList = qList;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function filterRes(s, el){
+  window._filterSt = s;
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  // recompute with filter
+  const ql = document.getElementById('qlist');
+  if(!ql) return;
+  ql.innerHTML = qs.map((q,i)=>{
+    if(s && q.st!==s) return '';
+    const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+    const cls=sk?'skip':ok?'ok':'bad';
+    let ua='Not answered';
+    if(userAns[q.id]!==undefined) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+    const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+    return `<div class="rq ${cls}">
+      <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+      <div class="rstem">${q.stem}</div>
+      <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+        ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+      </div>
+      ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+    </div>`;
+  }).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
