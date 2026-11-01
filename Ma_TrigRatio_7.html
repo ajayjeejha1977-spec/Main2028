@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Compound Angles — 10-Stage Revision</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+.rtip{margin-top:6px;padding:7px 10px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:4px;font-size:12.5px;line-height:1.55}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="showPanel('cbt')">🎯 Recall CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Compound Angles — Complete 10-Stage Remember Sheet</h1>
+<div class="sub">Practice from Advance Problems in Mathematics, Class-XI (Chapter 1: PT-1, PT-2, Ex-1 to Ex-5) · Formulas organised by solving approach · 40 points</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+<section>
+<h2 class="sh">Stage 1 — Reduction, Quadrants &amp; Ranges <span class="stg">S1</span><span class="pg">PT1 Q2–5,10 · PT2 · Ex4 Q9</span></h2>
+<div class="it"><span class="n">1</span><span class="f"><b>Quadrant signs (ASTC):</b> reduce \(n\cdot90^\circ\pm\theta\): even \(n\) keep the function, odd \(n\) swap sin↔cos, tan↔cot; sign from the quadrant of the <i>original</i> angle.</span></div>
+<div class="it"><span class="n">2</span><span class="f">Periods: \(\sin,\cos\) \(2\pi\); \(\tan,\cot\) \(\pi\). \(\cos(-\theta)=\cos\theta\), \(\sin(-\theta)=-\sin\theta\). Strip multiples of 360° first (e.g. \(\tan(-1125^\circ)=\tan(-45^\circ)\)).</span></div>
+<div class="it"><span class="n">3</span><span class="f"><b>Ranges:</b> \(|\sin|,|\cos|\le1\); \(|\sec|,|\mathrm{cosec}|\ge1\); \(\tan,\cot\) any real. \(\cos\theta=\tfrac{1+t^2}{1-t^2}\) is impossible for \(t\ne0\).</span></div>
+<div class="it"><span class="n">4</span><span class="f"><b>Trig equations:</b> factor as a quadratic in \(\sin x\) (e.g. \(2s^2+3s+1=0\)), list all roots in the interval, then add. <b>Compare numbers</b> by converting each to a decimal (angle in radians: \(5\pi/4\approx3.93\)).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 2 — Identities &amp; Simplification <span class="stg">S2</span><span class="pg">PT1 Q1,6–9 · Ex3 Q2 · Ex4 Q13,14,18,43</span></h2>
+<div class="it"><span class="n">5</span><span class="f">\(\sin^2+\cos^2=1\), \(1+\tan^2=\sec^2\), \(1+\cot^2=\mathrm{cosec}^2\). <b>Convert everything to \(\sin\) and \(\cos\)</b> first; \((\sec\theta-\cos\theta)=\tfrac{\sin^2\theta}{\cos\theta}\).</span></div>
+<div class="it"><span class="n">6</span><span class="f">\(\sin^4+\cos^4=1-2s^2c^2\), &emsp; \(\sin^6+\cos^6=1-3s^2c^2\) (\(s^2c^2=p\)). Express higher powers through \(p\) or through one variable.</span></div>
+<div class="it"><span class="n">7</span><span class="f">\(T_n=\sin^n+\cos^n\): \(T_5-T_3=-s^2c^2T_1\), \(T_7-T_5=-s^2c^2T_3\). <b>Factor out the common block</b> before cancelling.</span></div>
+<div class="it"><span class="n">8</span><span class="f"><b>Given a relation</b> like \(\sin x+\sin^2x=1\) ⇒ \(\sin x=\cos^2x\) ⇒ \(\tan^2x=\sin x\): set \(t=\sin x\), reduce to a polynomial in \(t\), then use \(t^2+t=1\). Angles like \(6\pi-\alpha,\ 2\pi+\alpha\) vanish first.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 3 — Compound Angle Formulas <span class="stg">S3</span><span class="pg">PT2 Q7,8,12 · Ex2 Q1 · Ex3 Q5 · Ex4 Q3,10,12,19,35</span></h2>
+<div class="it"><span class="n">9</span><span class="f">\(\sin(A\pm B)=\sin A\cos B\pm\cos A\sin B\); \(\cos(A\pm B)=\cos A\cos B\mp\sin A\sin B\); \(\tan(A\pm B)=\dfrac{\tan A\pm\tan B}{1\mp\tan A\tan B}\).</span></div>
+<div class="it"><span class="n">10</span><span class="f"><b>Find the missing ratio first, with its sign</b> from the quadrant (e.g. \(\sin A=\tfrac35\), \(A\) in II ⇒ \(\cos A=-\tfrac45\)). Then substitute.</span></div>
+<div class="it"><span class="n">11</span><span class="f"><b>Two sums given:</b> square and add: \((\sin\alpha+\sin\beta)^2+(\cos\alpha+\cos\beta)^2=2+2\cos(\alpha-\beta)\); for \(3\sin P+4\cos Q=6,\ 4\sin Q+3\cos P=1\) get \(\sin(P+Q)=\tfrac12\) and reject the impossible case.</span></div>
+<div class="it"><span class="n">12</span><span class="f"><b>Build the target angle:</b> \(2\alpha=(\alpha+\beta)+(\alpha-\beta)\), then use \(\tan(A+B)\). Quadrant of \(\alpha+\beta\): compute the actual angle (e.g. \(225^\circ+126.9^\circ\) ⇒ IV).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 4 — Transformation: Sum ↔ Product <span class="stg">S4</span><span class="pg">PT2 Q2–6,10 · Ex1 Q5,10 · Ex2 Q8 · Ex3 Q1,5,9 · Ex4 Q36,39,46</span></h2>
+<div class="it"><span class="n">13</span><span class="f">\(\sin C+\sin D=2\sin\tfrac{C+D}2\cos\tfrac{C-D}2\); \(\cos C+\cos D=2\cos\tfrac{C+D}2\cos\tfrac{C-D}2\); \(2\sin A\cos B=\sin(A+B)+\sin(A-B)\).</span></div>
+<div class="it"><span class="n">14</span><span class="f"><b>Complementary pairs:</b> \(\sin34^\circ=\cos56^\circ\), \(\cos68^\circ=\sin22^\circ\), \(\tan20^\circ\cdot\cot70^\circ=1\). Spot them to collapse a product to \(\tfrac12\sin2x\).</span></div>
+<div class="it"><span class="n">15</span><span class="f">If \(A+B=45^\circ\): \(\tan A+\tan B+\tan A\tan B=1\). \(\tan9^\circ-\tan27^\circ-\tan63^\circ+\tan81^\circ=4\). \(\tan20^\circ+4\sin20^\circ=\sqrt3\).</span></div>
+<div class="it"><span class="n">16</span><span class="f"><b>Ratio form:</b> \(3\tan\tfrac{x+y}2=5\tan\tfrac{x-y}2\) ⇒ \(\dfrac{\sin x}{\sin y}=\dfrac{5+3}{5-3}\) (use \(\tfrac{\sin x+\sin y}{\sin x-\sin y}=\tfrac{\tan\frac{x+y}2}{\tan\frac{x-y}2}\)).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 5 — Multiple, Half Angles &amp; Power Reduction <span class="stg">S5</span><span class="pg">PT2 Q12 · Ex1 Q3,4 · Ex3 Q3,4 · Ex4 Q5,18,28</span></h2>
+<div class="it"><span class="n">17</span><span class="f">\(\sin2A=\tfrac{2t}{1+t^2}\), \(\cos2A=\tfrac{1-t^2}{1+t^2}\), \(\tan2A=\tfrac{2t}{1-t^2}\) with \(t=\tan A\). <b>Half-angle sign:</b> from the quadrant of \(x/2\), not of \(x\).</span></div>
+<div class="it"><span class="n">18</span><span class="f">\(\sin3A=3\sin A-4\sin^3A\), \(\cos3A=4\cos^3A-3\cos A\); \(\cos2A=2\cos^2A-1=1-2\sin^2A\); \(\cos^2A=\tfrac{1+\cos2A}2\).</span></div>
+<div class="it"><span class="n">19</span><span class="f">\(\sin x\cos^3x-\cos x\sin^3x=\tfrac12\sin2x\cos2x=\tfrac14\sin4x\). <b>Pull out \(\sin x\cos x\)</b> and fold into a multiple angle.</span></div>
+<div class="it"><span class="n">20</span><span class="f"><b>Linear equation \(a\sin x+b\cos x=c\):</b> divide by \(\sin x\) to get \((a+b\cot x)^2=c^2(1+\cot^2x)\) — a quadratic in \(\cot x\); sum of roots by Vieta. Squaring may add extraneous roots, so check.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 6 — Special Angles &amp; Surd Values <span class="stg">S6</span><span class="pg">Ex1 Q11,12,16 · Ex3 Q15 · Ex4 Q27,30,32</span></h2>
+<div class="it"><span class="n">21</span><span class="f">\(\sin18^\circ=\tfrac{\sqrt5-1}{4}\), &emsp; \(\cos36^\circ=\tfrac{\sqrt5+1}{4}\), &emsp; \(\tan15^\circ=2-\sqrt3\), &emsp; \(\mathrm{cosec}18^\circ=\sqrt5+1\) (root of \(x^2-2x-4=0\)).</span></div>
+<div class="it"><span class="n">22</span><span class="f">\(\cot7\tfrac12^\circ=\sqrt2+\sqrt3+2+\sqrt6\); \(\tan\tfrac\pi{24}=(\sqrt3-\sqrt2)(\sqrt2-1)\). Derive by repeated \(\cot\tfrac\theta2=\cot\theta+\mathrm{cosec}\,\theta\).</span></div>
+<div class="it"><span class="n">23</span><span class="f">\(\sin x\sin(60^\circ-x)\sin(60^\circ+x)=\tfrac14\sin3x\) ⇒ \(\sin25^\circ\sin35^\circ\sin85^\circ=\tfrac{\sqrt6+\sqrt2}{16}\).</span></div>
+<div class="it"><span class="n">24</span><span class="f"><b>Verify a surd answer numerically</b> (e.g. \(\cot7.5^\circ\approx7.596\)) before choosing among close options. Match \(\sqrt p+\sqrt q+\sqrt r+\sqrt s\) by writing \(2=\sqrt4\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 7 — Product Chains &amp; Roots of Unity <span class="stg">S7</span><span class="pg">Ex1 Q2,17 · Ex2 Q4,9 · Ex3 Q6 · Ex4 Q29,31,33,34,37,38</span></h2>
+<div class="it"><span class="n">25</span><span class="f">\(\cos\theta\cos2\theta\cos4\theta\cdots\cos2^{n-1}\theta=\dfrac{\sin2^n\theta}{2^n\sin\theta}\) (multiply and divide by \(\sin\theta\)).</span></div>
+<div class="it"><span class="n">26</span><span class="f">\(4\cos^2x-1=\dfrac{\sin3x}{\sin x}\) ⇒ \(\prod(4\cos^2 3^kx-1)\) telescopes. \(\sin\tfrac\pi{22}\sin\tfrac{3\pi}{22}\cdots\) odd-multiple products \(=2^{-m}\).</span></div>
+<div class="it"><span class="n">27</span><span class="f">\(\cos\tfrac{2\pi}7+\cos\tfrac{4\pi}7+\cos\tfrac{6\pi}7=-\tfrac12\); \(\sum_{k=1}^{n}\cos\tfrac{2k\pi}{2n+1}=-\tfrac12\). \((1+\tan1^\circ)(1+\tan44^\circ)=2\) ⇒ pair \(A+B=45^\circ\).</span></div>
+<div class="it"><span class="n">28</span><span class="f"><b>Pair first:</b> \(\sin(\pi-x)=\sin x\), \(\cos(\pi-x)=-\cos x\); \(\sin\tfrac\pi8\sin\tfrac{7\pi}8=\sin^2\tfrac\pi8\). <b>Check by decimals</b> — the answer key can have misprints.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 8 — Maxima, Minima &amp; Range <span class="stg">S8</span><span class="pg">Ex1 Q1 · Ex2 Q7,15 · Ex3 Q7,8,10,12 · Ex4 Q4,11 · Ex5 Q3,9</span></h2>
+<div class="it"><span class="n">29</span><span class="f">\(a\cos\theta+b\sin\theta\in[-\sqrt{a^2+b^2},\ \sqrt{a^2+b^2}]\). Reduce \(10\cos^2x-6\sin x\cos x+2\sin^2x=6+4\cos2x-3\sin2x\in[1,11]\).</span></div>
+<div class="it"><span class="n">30</span><span class="f"><b>Substitute \(t=\sin x\) (or \(\cos x\))</b> on \([-1,1]\); a quadratic in \(t\) is largest/smallest at the vertex or an endpoint (\(f=2c-c^2,\ c\in[-1,1]\Rightarrow[-3,1]\)).</span></div>
+<div class="it"><span class="n">31</span><span class="f"><b>AM–GM / Cauchy:</b> \(9\sec^2+16\mathrm{cosec}^2\ge(3+4)^2=49\); \(9u+\tfrac4u\ge12\); \(x^2+y^2\) with \(x=r\cos\theta,y=r\sin\theta\) turns constraints into \(r^2\cdot(\ldots)\).</span></div>
+<div class="it"><span class="n">32</span><span class="f">Reduce power forms via \(s^2c^2\in[0,\tfrac14]\). Check that the <b>equality condition is attainable</b> in the given domain.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 9 — Telescoping, A+B+C=π &amp; Regular Polygons <span class="stg">S9</span><span class="pg">Ex1 Q14,15,18,19 · Ex2 Q11,12 · Ex4 Q1,9,45 · Ex5 Q2,11,12,15,19</span></h2>
+<div class="it"><span class="n">33</span><span class="f">\(\dfrac{1}{\sin a\sin(a+d)}=\dfrac{\cot a-\cot(a+d)}{\sin d}\) — the telescoping key; sum collapses to two end terms (reduce \(\cot(x+2\pi)\) etc.).</span></div>
+<div class="it"><span class="n">34</span><span class="f">If \(A+B+C=\pi\): \(\tan A+\tan B+\tan C=\tan A\tan B\tan C\); \(\sum\cot\tfrac A2=\prod\cot\tfrac A2\); \(\sin4A+\sin4B+\sin4C=0\iff\) right triangle.</span></div>
+<div class="it"><span class="n">35</span><span class="f"><b>Regular \(n\)-gon:</b> chord \(A_1A_k=2R\sin\tfrac{(k-1)\pi}{n}\); \(\sum A_1A_k^2=2nR^2\); \(r=\tfrac{a}{2}\cot\tfrac\pi n,\ R=\tfrac a2\mathrm{cosec}\tfrac\pi n\Rightarrow r+R=\tfrac a2\cot\tfrac\pi{2n}\); \(\tfrac rR=\cos\tfrac\pi n\).</span></div>
+<div class="it"><span class="n">36</span><span class="f">\(\tfrac1{\sin(\pi/n)}=\tfrac1{\sin(2\pi/n)}+\tfrac1{\sin(3\pi/n)}\Rightarrow n=7\) (same equation as Ex1 Q19). Reduce the sum using symmetry \(\cot(\pi-x)=-\cot x\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 10 — JEE Hard: Equations, Heights &amp; Distances, Constraints <span class="stg">S10</span><span class="pg">Ex3 Q11,13,14 · Ex4 Q2,6,7,15–17,21,24–26,41,44 · Ex5 Q13,14,16,17</span></h2>
+<div class="it"><span class="n">37</span><span class="f"><b>Factor a mixed equation:</b> \(4\sin x\cos y+2\sin x+2\cos y+1=(2\sin x+1)(2\cos y+1)\). <b>Equality cases:</b> \(\cos x+\cos y-\cos(x+y)=\tfrac32\) holds only at \(x=y=\tfrac\pi3\).</span></div>
+<div class="it"><span class="n">38</span><span class="f"><b>Heights &amp; distances:</b> draw the right triangles, write \(h\) in terms of each ground distance, equate; for two angles at one point use \(\tan(\theta_1-\theta_2)\) (tower with midpoint: \(\tan\beta=\tfrac12\!\to\!\tfrac14\Rightarrow\tfrac29\)).</span></div>
+<div class="it"><span class="n">39</span><span class="f"><b>Eliminate \(\theta\)/parameter:</b> express \(x,y\) in \(\tan\theta\), clear denominators to get \(xy+\alpha x+\beta y+\gamma=0\). Roots \(\tan\alpha,\tan\beta\): \(\tan(\alpha+\beta)=\tfrac{\text{sum}}{1-\text{product}}\).</span></div>
+<div class="it"><span class="n">40</span><span class="f"><b>Exam traps:</b> floor/greatest-integer answers, domain limits on \(\alpha,\beta\), and multiple-correct options — test each option separately; verify \(\sec\theta+\tan\theta=12\Rightarrow\sec\theta=\tfrac{145}{24}\).</span></div>
+</section>
+
+<div class="notes"><b>Stage order:</b><ul>
+<li><b>S1–S2:</b> reduction, ranges and identity simplification (foundation)</li>
+<li><b>S3–S5:</b> compound, sum–product and multiple/half-angle tools</li>
+<li><b>S6–S7:</b> special values, product chains and roots of unity</li>
+<li><b>S8–S9:</b> maxima/minima, telescoping and regular polygons</li>
+<li><b>S10:</b> JEE Main/Advanced mixed problems</li></ul></div>
+</div></div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB = [
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q2(i)",
+"stem": "\\(\\cos210^\\circ=\\)",
+"opts": [
+"\\(-\\tfrac{\\sqrt3}2\\)",
+"\\(-\\tfrac12\\)",
+"\\(\\tfrac{\\sqrt3}2\\)",
+"\\(\\tfrac12\\)"
+],
+"ans": 0,
+"exp": "\\(\\cos(180^\\circ+30^\\circ)=-\\cos30^\\circ\\).",
+"tip": "<b>Technique:</b> Write as 180°+30°; cos is negative in III.<br><b>Often missed:</b> Using sin30° or forgetting the negative sign.",
+"id": 1
+},
+{
+"st": 1,
+"type": "int",
+"src": "PT1 Q4",
+"stem": "The sum of all \\(x\\in[0,2\\pi]\\) with \\(2\\sin^2x+3\\sin x+1=0\\) is \\(\\tfrac{k\\pi}{2}\\). Find \\(k\\).",
+"ans": "9",
+"exp": "\\(\\sin x=-\\tfrac12,-1\\): \\(x=\\tfrac{7\\pi}6,\\tfrac{11\\pi}6,\\tfrac{3\\pi}2\\), sum \\(=\\tfrac{9\\pi}{2}\\).",
+"tip": "<b>Technique:</b> Factor \\((2s+1)(s+1)=0\\), list every root in the interval.<br><b>Often missed:</b> Missing \\(3\\pi/2\\) or taking only one root of \\(\\sin x=-\tfrac12\\).",
+"id": 2
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q5",
+"stem": "Which relation is possible?",
+"opts": [
+"\\(\\sin\\theta=\\tfrac\\pi2\\)",
+"\\(\\tan\\theta=2016\\)",
+"\\(\\cos\\theta=\\tfrac{1+t^2}{1-t^2}\\ (t\\ne0,\\pm1)\\)",
+"\\(\\sec\\theta=\\tfrac34\\)"
+],
+"ans": 1,
+"exp": "\\(\\tfrac\\pi2&gt;1\\); \\(|\\sec|\\ge1\\); and \\(|\\tfrac{1+t^2}{1-t^2}|&gt;1\\). Only \\(\\tan\\) is unrestricted.",
+"tip": "<b>Technique:</b> Test each against the range of the function.<br><b>Often missed:</b> Option (C): check both cases \\(t^2&lt;1\\) and \\(t^2&gt;1\\).",
+"id": 3
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q10",
+"stem": "Largest in value:",
+"opts": [
+"\\(\\tan\\tfrac{5\\pi}4\\)",
+"\\(\\sin^2\\tfrac{5\\pi}4\\)",
+"\\(\\log_2\\tfrac{5\\pi}4\\)",
+"\\(\\ln\\tfrac{5\\pi}4\\)"
+],
+"ans": 2,
+"exp": "Values: \\(1,\\ \\tfrac12,\\ \\approx1.97,\\ \\approx1.37\\).",
+"tip": "<b>Technique:</b> Convert each to a decimal (5π/4 ≈ 3.93).<br><b>Often missed:</b> Treating ln and log₂ as equal.",
+"id": 4
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "PT1 Q1(b)",
+"stem": "\\(\\dfrac{(\\sin^2\\alpha\\sin^2\\beta+\\sin^2\\alpha\\cos^2\\beta+\\cos^2\\alpha)+(\\sin^2(2\\pi+\\alpha)+\\cos^2(6\\pi-\\alpha)+1)}{\\sin^2(\\tfrac\\pi3-4\\pi)+\\cos^2(8\\pi+\\tfrac\\pi3)+2}=\\)",
+"opts": [
+"\\(4/3\\)",
+"\\(5/3\\)",
+"\\(1/3\\)",
+"1"
+],
+"ans": 3,
+"exp": "Numerator \\(=1+2=3\\); denominator \\(=1+2=3\\).",
+"tip": "<b>Technique:</b> Group \\(\\sin^2+\\cos^2\\) pairs; strip multiples of \\(2\\pi\\).<br><b>Often missed:</b> Reading the +1 and +2 as inside the squares.",
+"id": 5
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "PT1 Q9",
+"stem": "\\((\\sec\\theta-\\cos\\theta)(\\mathrm{cosec}\\theta-\\sin\\theta)(\\cot\\theta+\\tan\\theta)=\\)",
+"opts": [
+"1",
+"−1",
+"2",
+"−2"
+],
+"ans": 0,
+"exp": "\\(\\tfrac{\\sin^2\\theta}{\\cos\\theta}\\cdot\\tfrac{\\cos^2\\theta}{\\sin\\theta}\\cdot\\tfrac1{\\sin\\theta\\cos\\theta}=1\\).",
+"tip": "<b>Technique:</b> Convert every factor to sin and cos.<br><b>Often missed:</b> Sign errors when \\(\\cot+\tan\\) is combined.",
+"id": 6
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex3 Q2",
+"stem": "\\(T_n=\\sin^n\\theta+\\cos^n\\theta\\). Then \\(\\dfrac{T_5-T_3}{T_7-T_5}=\\)",
+"opts": [
+"\\(T_1/T_3\\)",
+"\\(T_2/T_4\\)",
+"\\(T_5/T_7\\)",
+"\\(T_3/T_7\\)"
+],
+"ans": 0,
+"exp": "\\(T_5-T_3=-s^2c^2T_1\\), \\(T_7-T_5=-s^2c^2T_3\\).",
+"tip": "<b>Technique:</b> Factor \\(\\sin^3\\cos^2\\) type blocks.<br><b>Often missed:</b> Cancelling \\(s^2c^2\\) with the wrong sign.",
+"id": 7
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex4 Q43 (JEE Main 2025)",
+"stem": "If \\(\\sin x+\\sin^2x=1\\), \\(x\\in(0,\\tfrac\\pi2)\\): \\((\\cos^{12}x+\\tan^{12}x)+3(\\cos^{10}x+\\tan^{10}x+\\cos^8x+\\tan^8x)+(\\cos^6x+\\tan^6x)=\\)",
+"opts": [
+"3",
+"4",
+"2",
+"1"
+],
+"ans": 2,
+"exp": "\\(\\sin x=\\cos^2x=\\tan^2x=t\\): value \\(=2t^3(t+1)^3=2(t^2+t)^3=2\\).",
+"tip": "<b>Technique:</b> Show \\(\tan^2x=\\cos^2x=\\sin x=t\\), then factor.<br><b>Often missed:</b> Expanding \\(t\\) numerically instead of using \\(t^2+t=1\\).",
+"id": 8
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "PT2 Q7",
+"stem": "\\(\\sin A=\\tfrac35,\\cos B=-\\tfrac{12}{13}\\), \\(A,B\\in(\\tfrac\\pi2,\\pi)\\). \\(\\sin(A+B)=\\)",
+"opts": [
+"\\(56/65\\)",
+"\\(-56/65\\)",
+"\\(33/65\\)",
+"\\(-33/65\\)"
+],
+"ans": 1,
+"exp": "\\(\\cos A=-\\tfrac45,\\sin B=\\tfrac5{13}\\): \\(-\\tfrac{36}{65}-\\tfrac{20}{65}\\).",
+"tip": "<b>Technique:</b> Get both missing ratios with quadrant signs.<br><b>Often missed:</b> Taking \\(\\cos A=+\tfrac45\\).",
+"id": 9
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex4 Q10",
+"stem": "\\(\\cos(\\alpha+\\beta)=\\tfrac45,\\ \\sin(\\alpha-\\beta)=\\tfrac5{13}\\), \\(0\\le\\alpha,\\beta\\le\\tfrac\\pi4\\). \\(\\tan2\\alpha=\\)",
+"opts": [
+"\\(20/7\\)",
+"\\(25/16\\)",
+"\\(56/33\\)",
+"\\(19/12\\)"
+],
+"ans": 2,
+"exp": "\\(\\tan(\\alpha+\\beta)=\\tfrac34,\\tan(\\alpha-\\beta)=\\tfrac5{12}\\Rightarrow\\tfrac{14/12}{33/48}=\\tfrac{56}{33}\\).",
+"tip": "<b>Technique:</b> \\(2\u0007lpha=(\u0007lpha+\beta)+(\u0007lpha-\beta)\\); use tan addition.<br><b>Often missed:</b> Using \\(\\sin(\u0007lpha+\beta)\\) with the wrong sign.",
+"id": 10
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex4 Q35",
+"stem": "\\(\\cot\\alpha=1\\), \\(\\pi&lt;\\alpha&lt;\\tfrac{3\\pi}2\\); \\(\\sec\\beta=-\\tfrac53\\), \\(\\tfrac\\pi2&lt;\\beta&lt;\\pi\\). \\(\\tan(\\alpha+\\beta)\\) and the quadrant of \\(\\alpha+\\beta\\):",
+"opts": [
+"\\(-\\tfrac17\\), IV",
+"7, I",
+"\\(-7\\), IV",
+"\\(\\tfrac17\\), I"
+],
+"ans": 0,
+"exp": "\\(\\tan\\alpha=1,\\tan\\beta=-\\tfrac43\\Rightarrow-\\tfrac17\\); \\(\\alpha+\\beta\\approx351.9^\\circ\\) (IV).",
+"tip": "<b>Technique:</b> Compute the actual angle to fix the quadrant.<br><b>Often missed:</b> Deciding the quadrant only from the sign of tan.",
+"id": 11
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex4 Q3",
+"stem": "\\(\\pi&lt;\\alpha-\\beta&lt;3\\pi\\), \\(\\sin\\alpha+\\sin\\beta=-\\tfrac{21}{65}\\), \\(\\cos\\alpha+\\cos\\beta=-\\tfrac{27}{65}\\). \\(\\cos\\tfrac{\\alpha-\\beta}{2}=\\)",
+"opts": [
+"\\(-\\tfrac3{\\sqrt{130}}\\)",
+"\\(\\tfrac3{\\sqrt{130}}\\)",
+"\\(\\tfrac6{65}\\)",
+"\\(-\\tfrac6{65}\\)"
+],
+"ans": 0,
+"exp": "Squares add: \\(4\\cos^2\\tfrac\\delta2=\\tfrac{1170}{4225}\\); \\(\\tfrac\\delta2\\in(\\tfrac\\pi2,\\tfrac{3\\pi}2)\\Rightarrow\\cos&lt;0\\).",
+"tip": "<b>Technique:</b> Square and add to remove \\(\u0007lpha+\beta\\).<br><b>Often missed:</b> Choosing +3/√130 and ignoring the quadrant of \\(\\delta/2\\).",
+"id": 12
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q10",
+"stem": "\\(\\dfrac{\\cos68^\\circ}{\\sin56^\\circ\\sin34^\\circ\\tan22^\\circ}=\\)",
+"opts": [
+"1",
+"2",
+"3",
+"4"
+],
+"ans": 1,
+"exp": "\\(\\sin56\\cos56=\\tfrac12\\cos22\\), times \\(\\tan22=\\tfrac12\\sin22=\\tfrac12\\cos68\\).",
+"tip": "<b>Technique:</b> Use \\(\\sin34^\\circ=\\cos56^\\circ\\), then \\(2\\sin\\cos\\).<br><b>Often missed:</b> Not converting \\(\\cos68^\\circ\\) to \\(\\sin22^\\circ\\).",
+"id": 13
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex4 Q46",
+"stem": "\\(\\sin70^\\circ(\\cot10^\\circ\\cot70^\\circ-1)=\\)",
+"opts": [
+"0",
+"\\(2/3\\)",
+"1",
+"\\(3/2\\)"
+],
+"ans": 2,
+"exp": "\\(\\tfrac{\\cos80^\\circ}{\\sin10^\\circ}=1\\).",
+"tip": "<b>Technique:</b> Combine to \\(\\cos(10+70)\\) over \\(\\sin10\\sin70\\).<br><b>Often missed:</b> Leaving \\(\\cot\\) uncombined.",
+"id": 14
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q5",
+"stem": "\\(3\\tan\\tfrac{x+y}2=5\\tan\\tfrac{x-y}2\\). Then \\(\\dfrac{\\sin x}{\\sin y}=\\)",
+"opts": [
+"2",
+"3",
+"4",
+"5"
+],
+"ans": 2,
+"exp": "\\(\\tfrac{\\sin x+\\sin y}{\\sin x-\\sin y}=\\tfrac53\\Rightarrow\\tfrac{\\sin x}{\\sin y}=\\tfrac{5+3}{5-3}\\).",
+"tip": "<b>Technique:</b> Componendo–dividendo on the sum/difference ratio.<br><b>Often missed:</b> Getting 8/2 as 5/3.",
+"id": 15
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q9",
+"stem": "\\(\\tan20^\\circ+4\\sin20^\\circ=\\)",
+"opts": [
+"\\(3/2\\)",
+"\\(\\sqrt3\\)",
+"\\(2\\sqrt3\\)",
+"2"
+],
+"ans": 1,
+"exp": "\\(\\tfrac{\\sin20+2\\sin40}{\\cos20}=\\tfrac{\\sin20+\\sin40+\\sin40}{\\cos20}=\\sqrt3\\).",
+"tip": "<b>Technique:</b> Put over \\(\\cos20^\\circ\\); \\(2\\sin20\\cos20=\\sin40\\).<br><b>Often missed:</b> Replacing \\(\\sin40+\\sin20\\) with the wrong product formula.",
+"id": 16
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "PT2 Q12",
+"stem": "\\(\\tan x=\\tfrac34,\\ \\pi&lt;x&lt;\\tfrac{3\\pi}2\\). Then \\(\\tan\\tfrac x2=\\)",
+"opts": [
+"−3",
+"\\(1/3\\)",
+"\\(-1/2\\)",
+"\\(-1/3\\)"
+],
+"ans": 0,
+"exp": "\\(3t^2+8t-3=0\\Rightarrow t=\\tfrac13,-3\\); \\(\\tfrac x2\\in(\\tfrac\\pi2,\\tfrac{3\\pi}4)\\Rightarrow\\tan&lt;0\\).",
+"tip": "<b>Technique:</b> Solve the quadratic in \\(t\\); pick root by quadrant of \\(x/2\\).<br><b>Often missed:</b> Choosing \\(1/3\\) (wrong quadrant for \\(x/2\\)).",
+"id": 17
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q4",
+"stem": "Smallest positive \\(x\\): \\(\\sin x\\cos^3x-\\cos x\\sin^3x=\\tfrac14\\)",
+"opts": [
+"\\(\\pi/4\\)",
+"\\(\\pi/8\\)",
+"\\(\\pi/12\\)",
+"\\(\\pi/15\\)"
+],
+"ans": 1,
+"exp": "\\(\\tfrac14\\sin4x=\\tfrac14\\Rightarrow x=\\tfrac\\pi8\\).",
+"tip": "<b>Technique:</b> Factor \\(\\sin x\\cos x(\\cos^2-\\sin^2)\\) into \\(\tfrac14\\sin4x\\).<br><b>Often missed:</b> Stopping at \\(\\sin2x\\).",
+"id": 18
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex4 Q18",
+"stem": "\\(5(\\tan^2x-\\cos^2x)=2\\cos2x+9\\). \\(\\cos4x=\\)",
+"opts": [
+"\\(2/9\\)",
+"\\(-7/9\\)",
+"\\(-3/5\\)",
+"\\(1/3\\)"
+],
+"ans": 1,
+"exp": "\\(c=\\cos^2x\\): \\(9c^2+12c-5=0\\Rightarrow c=\\tfrac13\\); \\(\\cos2x=-\\tfrac13\\); \\(\\cos4x=-\\tfrac79\\).",
+"tip": "<b>Technique:</b> Set \\(c=\\cos^2x\\) and reduce to a quadratic.<br><b>Often missed:</b> Giving \\(\\cos2x\\) instead of \\(\\cos4x\\).",
+"id": 19
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q3",
+"stem": "Sum of all possible values of \\(\\cot x\\) for \\(9\\sin x+2\\cos x=6\\):",
+"opts": [
+"\\(-5/4\\)",
+"\\(-9/8\\)",
+"\\(4/5\\)",
+"\\(9/8\\)"
+],
+"ans": 3,
+"exp": "\\((9+2k)^2=36(1+k^2)\\Rightarrow32k^2-36k-45=0\\); sum \\(=\\tfrac{36}{32}\\).",
+"tip": "<b>Technique:</b> Divide by \\(\\sin x\\), write \\(\\mathrm{cosec}=\\sqrt{1+k^2}\\), square, use Vieta.<br><b>Often missed:</b> Using sum \\(=-b/a\\) with the wrong sign.",
+"id": 20
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex4 Q27",
+"stem": "\\(\\cot\\tfrac\\pi{24}=\\)",
+"opts": [
+"\\(\\sqrt2+\\sqrt3+2-\\sqrt6\\)",
+"\\(\\sqrt2-\\sqrt3-2+\\sqrt6\\)",
+"\\(3\\sqrt2-\\sqrt3-\\sqrt6\\)",
+"\\(\\sqrt2+\\sqrt3+2+\\sqrt6\\)"
+],
+"ans": 3,
+"exp": "\\(\\cot7.5^\\circ\\approx7.596\\); option D \\(\\approx7.595\\).",
+"tip": "<b>Technique:</b> Use \\(\\cot\tfrac\theta2=\\cot\theta+\\mathrm{cosec}\theta\\) twice, or test decimals.<br><b>Often missed:</b> Mixing signs of \\(\\sqrt6\\).",
+"id": 21
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex4 Q30",
+"stem": "\\(\\mathrm{cosec}18^\\circ\\) is a root of",
+"opts": [
+"\\(x^2-2x+4=0\\)",
+"\\(x^2+2x-4=0\\)",
+"\\(x^2-2x-4=0\\)",
+"\\(4x^2+2x-1=0\\)"
+],
+"ans": 2,
+"exp": "\\(\\mathrm{cosec}18^\\circ=\\sqrt5+1\\Rightarrow(x-1)^2=5\\).",
+"tip": "<b>Technique:</b> Use \\(\\sin18^\\circ=\tfrac{\\sqrt5-1}4\\).<br><b>Often missed:</b> Confusing with the equation for \\(\\sin18^\\circ\\) (option D).",
+"id": 22
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q15",
+"stem": "\\(\\cot7\\tfrac12^\\circ=\\sqrt p+\\sqrt q+\\sqrt r+\\sqrt s\\), \\(p&lt;q&lt;r&lt;s\\). \\((p+s)-(q+r)=\\)",
+"opts": [
+"−1",
+"0",
+"1",
+"2"
+],
+"ans": 2,
+"exp": "\\(\\sqrt2+\\sqrt3+\\sqrt4+\\sqrt6\\): \\((2+6)-(3+4)=1\\).",
+"tip": "<b>Technique:</b> Write the 2 as \\(\\sqrt4\\) and order the radicands.<br><b>Often missed:</b> Using 2 as a radicand \\(p=2\\) only.",
+"id": 23
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex1 Q12",
+"stem": "\\(\\sin25^\\circ\\sin35^\\circ\\sin85^\\circ=\\dfrac{\\sqrt a+\\sqrt b}{c}\\). Find \\(a+b+c\\).",
+"ans": "24",
+"exp": "\\(=\\tfrac14\\sin75^\\circ=\\tfrac{\\sqrt6+\\sqrt2}{16}\\Rightarrow6+2+16\\).",
+"tip": "<b>Technique:</b> Use \\(\\sin x\\sin(60-x)\\sin(60+x)=\tfrac14\\sin3x\\) with \\(x=25^\\circ\\).<br><b>Often missed:</b> Not recognising \\(35=60-25,\\ 85=60+25\\).",
+"id": 24
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q31",
+"stem": "\\(2\\sin\\tfrac\\pi{22}\\sin\\tfrac{3\\pi}{22}\\sin\\tfrac{5\\pi}{22}\\sin\\tfrac{7\\pi}{22}\\sin\\tfrac{9\\pi}{22}=\\)",
+"opts": [
+"\\(3/16\\)",
+"\\(1/16\\)",
+"\\(1/32\\)",
+"\\(9/32\\)"
+],
+"ans": 1,
+"exp": "Product of five sines at odd multiples \\(=\\tfrac1{32}\\); times 2.",
+"tip": "<b>Technique:</b> Convert to cosines of \\(\tfrac\\pi{11}\\)-multiples and use the doubling chain.<br><b>Often missed:</b> Dropping the factor 2.",
+"id": 25
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q37",
+"stem": "\\(36(4\\cos^29^\\circ-1)(4\\cos^227^\\circ-1)(4\\cos^281^\\circ-1)(4\\cos^2243^\\circ-1)=\\)",
+"opts": [
+"27",
+"18",
+"54",
+"36"
+],
+"ans": 3,
+"exp": "\\(\\tfrac{\\sin27}{\\sin9}\\cdot\\tfrac{\\sin81}{\\sin27}\\cdot\\tfrac{\\sin243}{\\sin81}\\cdot\\tfrac{\\sin729}{\\sin243}=\\tfrac{\\sin9}{\\sin9}=1\\).",
+"tip": "<b>Technique:</b> \\(4\\cos^2x-1=\\sin3x/\\sin x\\); telescope.<br><b>Often missed:</b> Forgetting \\(\\sin729^\\circ=\\sin9^\\circ\\).",
+"id": 26
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q38",
+"stem": "\\(96\\cos\\tfrac\\pi{33}\\cos\\tfrac{2\\pi}{33}\\cos\\tfrac{4\\pi}{33}\\cos\\tfrac{8\\pi}{33}\\cos\\tfrac{16\\pi}{33}=\\)",
+"opts": [
+"3",
+"1",
+"2",
+"4"
+],
+"ans": 0,
+"exp": "Product \\(=\\tfrac{\\sin(32\\pi/33)}{32\\sin(\\pi/33)}=\\tfrac1{32}\\); \\(96/32=3\\).",
+"tip": "<b>Technique:</b> Multiply and divide by \\(\\sin\tfrac\\pi{33}\\).<br><b>Often missed:</b> Using \\(\\sin(32\\pi/33)\ne\\sin(\\pi/33)\\).",
+"id": 27
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q33",
+"stem": "\\(\\cos\\tfrac{2\\pi}7+\\cos\\tfrac{4\\pi}7+\\cos\\tfrac{6\\pi}7=\\)",
+"opts": [
+"−1",
+"\\(-\\tfrac12\\)",
+"\\(-\\tfrac13\\)",
+"\\(-\\tfrac14\\)"
+],
+"ans": 1,
+"exp": "Multiply by \\(2\\sin\\tfrac\\pi7\\): telescopes to \\(\\sin\\tfrac{7\\pi}{7}-\\sin\\tfrac\\pi7\\) over \\(2\\sin\\tfrac\\pi7\\).",
+"tip": "<b>Technique:</b> Multiply by \\(2\\sin\tfrac\\pi7\\) and telescope.<br><b>Often missed:</b> Using \\(\\sin\tfrac{7\\pi}7\neq0\\).",
+"id": 28
+},
+{
+"st": 8,
+"type": "int",
+"src": "Ex1 Q1(a)",
+"stem": "\\(y=10\\cos^2x-6\\sin x\\cos x+2\\sin^2x\\). Find the greatest value of \\(y\\).",
+"ans": "11",
+"exp": "\\(y=6+4\\cos2x-3\\sin2x\\in[1,11]\\).",
+"tip": "<b>Technique:</b> Reduce to \\(R\\cos(2x+\\phi)+6\\).<br><b>Often missed:</b> Using \\(10+2\\) without halving the angles.",
+"id": 29
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex3 Q10",
+"stem": "Minimum of \\(9\\sec^2x+16\\mathrm{cosec}^2x\\):",
+"opts": [
+"25",
+"36",
+"42",
+"49"
+],
+"ans": 3,
+"exp": "\\(9+16+9\\tan^2x+16\\cot^2x\\ge25+24=49\\).",
+"tip": "<b>Technique:</b> Expand into \\(\tan^2\\) and \\(\\cot^2\\) terms, then AM–GM.<br><b>Often missed:</b> Taking \\(9+16=25\\) as the minimum.",
+"id": 30
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex3 Q12",
+"stem": "\\(p(x)=\\sin x(\\sin^3x+3)+\\cos x(\\cos^3x+4)+\\tfrac12\\sin^22x+5\\). Sum of its least and greatest values:",
+"opts": [
+"8",
+"12",
+"16",
+"20"
+],
+"ans": 1,
+"exp": "\\(\\sin^4+\\cos^4+\\tfrac12\\sin^22x=1\\) ⇒ \\(p=6+3\\sin x+4\\cos x\\in[1,11]\\).",
+"tip": "<b>Technique:</b> Notice \\(\\sin^4+\\cos^4+\tfrac12\\sin^22x=1\\).<br><b>Often missed:</b> Not collapsing the quartic terms first.",
+"id": 31
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex4 Q4",
+"stem": "\\(u=\\sqrt{a^2\\cos^2\\theta+b^2\\sin^2\\theta}+\\sqrt{a^2\\sin^2\\theta+b^2\\cos^2\\theta}\\). Max − min of \\(u^2\\):",
+"opts": [
+"\\(2(a^2+b^2)\\)",
+"\\(2\\sqrt{a^2+b^2}\\)",
+"\\((a+b)^2\\)",
+"\\((a-b)^2\\)"
+],
+"ans": 3,
+"exp": "Max \\(2(a^2+b^2)\\), min \\((a+b)^2\\); difference \\((a-b)^2\\).",
+"tip": "<b>Technique:</b> Expand \\(u^2\\); product under the root \\(=a^2b^2+s^2c^2(a^2-b^2)^2\\).<br><b>Often missed:</b> Forgetting \\(s^2c^2\\in[0,\tfrac14]\\).",
+"id": 32
+},
+{
+"st": 9,
+"type": "mcq",
+"src": "Ex5 Q12 (JEE Adv 2016)",
+"stem": "\\(\\sum_{k=1}^{13}\\dfrac1{\\sin(\\tfrac\\pi4+\\tfrac{(k-1)\\pi}6)\\sin(\\tfrac\\pi4+\\tfrac{k\\pi}6)}=\\)",
+"opts": [
+"\\(3-\\sqrt3\\)",
+"\\(2(3-\\sqrt3)\\)",
+"\\(2(\\sqrt3-1)\\)",
+"\\(2(2+\\sqrt3)\\)"
+],
+"ans": 2,
+"exp": "\\(2[\\cot\\tfrac\\pi4-\\cot(\\tfrac\\pi4+\\tfrac{13\\pi}6)]=2(1-(2-\\sqrt3))\\).",
+"tip": "<b>Technique:</b> Write \\(\tfrac1{\\sin a\\sin b}=\tfrac{\\cot a-\\cot b}{\\sin(b-a)}\\) with \\(b-a=\tfrac\\pi6\\).<br><b>Often missed:</b> Dropping the factor \\(1/\\sin\tfrac\\pi6=2\\), or reducing \\(\\cot\\) of \\(\tfrac{13\\pi}6+\tfrac\\pi4\\) wrongly.",
+"id": 33
+},
+{
+"st": 9,
+"type": "int",
+"src": "Ex5 Q11 (JEE 2011)",
+"stem": "\\(n>3\\) with \\(\\dfrac1{\\sin\\frac\\pi n}=\\dfrac1{\\sin\\frac{2\\pi}n}+\\dfrac1{\\sin\\frac{3\\pi}n}\\). Find \\(n\\).",
+"ans": "7",
+"exp": "Put \\(\\theta=\\tfrac\\pi n\\): \\(\\sin2\\theta\\sin3\\theta=\\sin\\theta\\sin3\\theta+\\sin\\theta\\sin2\\theta\\); \\(\\theta=\\tfrac\\pi7\\) works because \\(\\sin3\\theta=\\sin4\\theta\\).",
+"tip": "<b>Technique:</b> Substitute \\(\theta=\tfrac\\pi n\\), cross-multiply, use \\(\\sin3\theta=\\sin(\\pi-4\theta)\\).<br><b>Often missed:</b> Trying \\(n=4,5,6\\) without testing 7.",
+"id": 34
+},
+{
+"st": 9,
+"type": "int",
+"src": "Ex1 Q17",
+"stem": "\\((1+\\tan1^\\circ)(1+\\tan2^\\circ)\\cdots(1+\\tan45^\\circ)=2^n\\). Find \\(n\\).",
+"ans": "23",
+"exp": "\\(1+\\tan A\\) pairs with \\(1+\\tan(45^\\circ-A)\\) to give 2: 22 pairs plus \\(1+\\tan45^\\circ=2\\).",
+"tip": "<b>Technique:</b> Pair \\(A\\) and \\(45^\\circ-A\\).<br><b>Often missed:</b> Counting 22 instead of 23 (forgetting \\(\tan45^\\circ\\) term).",
+"id": 35
+},
+{
+"st": 9,
+"type": "int",
+"src": "Ex5 Q19 (JEE Adv 2025)",
+"stem": "\\(\\alpha=\\dfrac1{\\sin60^\\circ\\sin61^\\circ}+\\dfrac1{\\sin62^\\circ\\sin63^\\circ}+\\cdots+\\dfrac1{\\sin118^\\circ\\sin119^\\circ}\\). Find \\(\\big(\\tfrac{\\mathrm{cosec}1^\\circ}{\\alpha}\\big)^2\\).",
+"ans": "3",
+"exp": "Using \\(\\tfrac{\\cot a-\\cot(a+1^\\circ)}{\\sin1^\\circ}\\) and \\(\\cot(180^\\circ-x)=-\\cot x\\): \\(\\alpha=\\tfrac{\\mathrm{cosec}1^\\circ}{\\sqrt3}\\).",
+"tip": "<b>Technique:</b> Telescoping key with \\(\\sin1^\\circ\\); pair terms using \\(\\cot(180-x)=-\\cot x\\).<br><b>Often missed:</b> Treating it as a plain telescope — alternate terms are skipped.",
+"id": 36
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q41 (JEE Main 2025)",
+"stem": "Points \\((3\\tan(\\theta+\\tfrac\\pi3),\\,2\\tan(\\theta+\\tfrac\\pi6))\\), \\(\\theta\\in[-\\tfrac\\pi3,0]\\), lie on \\(xy+\\alpha x+\\beta y+\\gamma=0\\). \\(\\alpha^2+\\beta^2+\\gamma^2=\\)",
+"opts": [
+"75",
+"96",
+"80",
+"72"
+],
+"ans": 0,
+"exp": "\\(xy-2\\sqrt3x+3\\sqrt3y+6=0\\): \\(12+27+36=75\\).",
+"tip": "<b>Technique:</b> Set \\(u=\theta+\tfrac\\pi6\\), use \\(\tan(u+\tfrac\\pi6)\\), clear denominators.<br><b>Often missed:</b> Sign slip in \\(\beta=+3\\sqrt3\\) (squares hide it).",
+"id": 37
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q44 (JEE Main 2025)",
+"stem": "Range of \\(f(x)=6+16\\cos x\\cos(\\tfrac\\pi3-x)\\cos(\\tfrac\\pi3+x)\\sin3x\\cos6x\\) is \\([\\alpha,\\beta]\\). Distance of \\((\\alpha,\\beta)\\) from \\(3x+4y+12=0\\):",
+"opts": [
+"11",
+"10",
+"8",
+"9"
+],
+"ans": 0,
+"exp": "\\(f=6+\\sin12x\\Rightarrow(5,7)\\); \\(\\tfrac{15+28+12}5=11\\).",
+"tip": "<b>Technique:</b> \\(\\cos x\\cos(60-x)\\cos(60+x)=\tfrac14\\cos3x\\).<br><b>Often missed:</b> Using \\([-1,1]\\) range of \\(\\sin12x\\) with the 6 ignored.",
+"id": 38
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q26 (JEE Main 2021)",
+"stem": "\\(15\\sin^4\\alpha+10\\cos^4\\alpha=6\\). \\(27\\sec^6\\alpha+8\\mathrm{cosec}^6\\alpha=\\)",
+"opts": [
+"350",
+"500",
+"400",
+"250"
+],
+"ans": 3,
+"exp": "\\(\\tan^2\\alpha=\\tfrac23\\): \\(27(\\tfrac53)^3+8(\\tfrac52)^3=125+125\\).",
+"tip": "<b>Technique:</b> Divide by \\(\\cos^4\u0007lpha\\) to get a quadratic in \\(\tan^2\\).<br><b>Often missed:</b> Using \\(\\sec^2=\tfrac23\\) instead of \\(1+\tan^2\\).",
+"id": 39
+},
+{
+"st": 10,
+"type": "int",
+"src": "Ex5 Q16 (JEE Adv 2022)",
+"stem": "\\(-\\tfrac\\pi4&lt;\\beta&lt;0&lt;\\alpha&lt;\\tfrac\\pi4\\), \\(\\sin(\\alpha+\\beta)=\\tfrac13\\), \\(\\cos(\\alpha-\\beta)=\\tfrac23\\). Greatest integer \\(\\le\\big(\\tfrac{\\sin\\alpha}{\\cos\\beta}+\\tfrac{\\cos\\beta}{\\sin\\alpha}+\\tfrac{\\cos\\alpha}{\\sin\\beta}+\\tfrac{\\sin\\beta}{\\cos\\alpha}\\big)^2\\).",
+"ans": "1",
+"exp": "Group as \\(\\tfrac{\\sin^2\\alpha+\\cos^2\\beta}{\\sin\\alpha\\cos\\beta}+\\tfrac{\\cos^2\\alpha+\\sin^2\\beta}{\\sin\\beta\\cos\\alpha}\\); with \\(\\sin(\\alpha+\\beta)=\\tfrac13,\\cos(\\alpha-\\beta)=\\tfrac23\\) the square lies in \\([1,2)\\), so the integer part is 1.",
+"tip": "<b>Technique:</b> Combine each pair over a common denominator, use the given sums.<br><b>Often missed:</b> Giving the unsquared value or forgetting the floor.",
+"id": 40
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q21 (JEE Main 2020)",
+"stem": "Roots \\(\\alpha,\\beta\\) of \\((k+1)\\tan^2x-\\sqrt2\\lambda\\tan x=1-k\\) satisfy \\(\\tan^2(\\alpha+\\beta)=50\\). A value of \\(\\lambda\\) is",
+"opts": [
+"10",
+"\\(10\\sqrt2\\)",
+"\\(5\\sqrt2\\)",
+"5"
+],
+"ans": 0,
+"exp": "\\(\\tan(\\alpha+\\beta)=\\tfrac{\\sqrt2\\lambda/(k+1)}{2/(k+1)}=\\tfrac\\lambda{\\sqrt2}\\Rightarrow\\lambda^2=100\\).",
+"tip": "<b>Technique:</b> Use Vieta for the tan roots, then \\(\tan(\u0007lpha+\beta)\\).<br><b>Often missed:</b> Forgetting that \\(1-\\)product simplifies to \\(\tfrac2{k+1}\\).",
+"id": 41
+}
+];
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e',9:'#4a0040',10:'#2d0000'};
+const stageNames = {1:'Reduction & Ranges',2:'Identities',3:'Compound Angles',4:'Sum–Product',5:'Multiple & Half',6:'Special Angles',7:'Product Chains',8:'Max–Min',9:'Telescoping & Polygons',10:'JEE Hard'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8,9,10]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>Compound Angles — 10-Stage Recall CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Select stages, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${[1,2,3,4,5,6,7,8,9,10].map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">Stage ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="45" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to 41 questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,41);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>Stage ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+function renderResult(){
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  let filterSt=0;
+
+  function qList(){
+    return qs.map((q,i)=>{
+      if(filterSt && q.st!==filterSt) return '';
+      const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+      const cls = sk?'skip':ok?'ok':'bad';
+      let ua='Not answered';
+      if(userAns[q.id]!==undefined) ua = q.type==='mcq' ? `${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}` : userAns[q.id];
+      const ca = q.type==='mcq' ? `${'ABCD'[q.ans]}: ${q.opts[q.ans]}` : q.ans;
+      return `<div class="rq ${cls}">
+        <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+        <div class="rstem">${q.stem}</div>
+        <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+          ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+        </div>
+        ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  $().innerHTML=`
+  <div class="res-wrap">
+    <h2 style="color:var(--blue);margin-bottom:10px">Test Result</h2>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">Stage-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">S${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="fchips">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">Stage ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qList()}</div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+    </div>
+  </div>`;
+
+  window._filterSt = 0;
+  window._qList = qList;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function filterRes(s, el){
+  window._filterSt = s;
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  // recompute with filter
+  const ql = document.getElementById('qlist');
+  if(!ql) return;
+  ql.innerHTML = qs.map((q,i)=>{
+    if(s && q.st!==s) return '';
+    const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+    const cls=sk?'skip':ok?'ok':'bad';
+    let ua='Not answered';
+    if(userAns[q.id]!==undefined) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+    const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+    return `<div class="rq ${cls}">
+      <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+      <div class="rstem">${q.stem}</div>
+      <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+        ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+      </div>
+      ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+    </div>`;
+  }).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
