@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Properties of Triangles — 10-Stage Revision</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+.rtip{margin-top:6px;padding:7px 10px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:4px;font-size:12.5px;line-height:1.55}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="showPanel('cbt')">🎯 Recall CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Properties of Triangles — Complete 10-Stage Remember Sheet</h1>
+<div class="sub">Theory from ALLEN Digital "Solution of Triangle" (Parts 01–19) · Practice from Advance Problems in Mathematics, Class-XI (PT-1, PT-2, Ex-1 to Ex-5) · Stages 1–10 · 40 points</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+<section>
+<h2 class="sh">Stage 1 — Direct Formula &amp; Ratio Parametrisation <span class="stg">S1</span><span class="pg">PT1 Q2,4,7–12,15,17,18 · ALLEN Pt 02,03,13</span></h2>
+<div class="it"><span class="n">1</span><span class="f">Solvable if 3 elements known (at least 1 side). <b>SSS, SAS → cosine rule; ASA, AAS → sine rule.</b> Always use \(A+B+C=180^\circ\) first.</span></div>
+<div class="it"><span class="n">2</span><span class="f">\(\dfrac{a}{\sin A}=\dfrac{b}{\sin B}=\dfrac{c}{\sin C}=2R\) &emsp; \(\cos B=\dfrac{a^2+c^2-b^2}{2ac}\)</span></div>
+<div class="it"><span class="n">3</span><span class="f"><b>Ratio of angles → ratio of sides</b> (sides ∝ sines). <b>Ratio of sides</b> \(a:b:c=p:q:r\): put \(a=pk,\,b=qk,\,c=rk\); \(k\) cancels in angles. Largest angle is opposite the largest side.</span></div>
+<div class="it"><span class="n">4</span><span class="f"><b>Short trick:</b> sides as polynomials in \(x\) → substitute a convenient \(x\) (Illus 10: \(x=2\) gives 7, 5, 3, \(\cos\theta=-\tfrac12\)).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 2 — Sine Rule — Substitution &amp; Ambiguous Case <span class="stg">S2</span><span class="pg">PT1 Q1,3,5,16 · Ex4 Q19 · Ex5 Q3,8,19 · ALLEN Pt 02, 13(d)</span></h2>
+<div class="it"><span class="n">5</span><span class="f"><b>Sides ↔ sines:</b> put \(a=k\sin A\) (or \(2R\sin A\)) in any identity mixing sides and angles; it collapses via \(\sin(B+C)\sin(B-C)=\sin^2B-\sin^2C\). &emsp; \(a+b&gt;c\iff\sin A+\sin B&gt;\sin C\)</span></div>
+<div class="it"><span class="n">6</span><span class="f"><b>SSA test</b> (angle \(B\), adjacent side \(c\), opposite side \(b\)): \(b&lt;c\sin B\) none; \(b=c\sin B\) one; \(c\sin B&lt;b&lt;c\) two; \(b\ge c\) one. <span class=\"tag\">\(\sin\)&gt;1 ⇒ impossible</span></span></div>
+<div class="it"><span class="n">7</span><span class="f"><b>Quadratic route:</b> \(a^2-2c\cos B\cdot a+(c^2-b^2)=0\). Count <b>positive</b> roots: product \(&lt;0\) ⇒ exactly one triangle.</span></div>
+<div class="it"><span class="n">8</span><span class="f">\(\dfrac{\sin A}{\sin C}=\dfrac{\sin(A-B)}{\sin(B-C)}\Rightarrow a^2,b^2,c^2\) in A.P. &emsp; Altitude \(p=c\sin B=b\sin C\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 3 — Cosine Rule &amp; Projection Formula <span class="stg">S3</span><span class="pg">PT1 Q2,4,8,12 · PT2 Q5 · Ex2 Q14,19 · Ex3 Q10,15 · Ex4 Q1,4,5,18,23 · ALLEN Pt 03,04</span></h2>
+<div class="it"><span class="n">9</span><span class="f">\(b^2=a^2+c^2-2ac\cos B\). <b>Type test</b> on the largest side: \(a^2=b^2+c^2\) right; \(&gt;\) obtuse; \(&lt;\) acute.</span></div>
+<div class="it"><span class="n">10</span><span class="f"><b>Projection:</b> \(a=b\cos C+c\cos B\) (and cyclic). Recognise \(a\cos B+b\cos A=c\) instantly.</span></div>
+<div class="it"><span class="n">11</span><span class="f">\(c\cos^2\tfrac A2+a\cos^2\tfrac C2=\tfrac{3b}{2}\Rightarrow a+c=2b\) (expand \(\cos^2\tfrac A2=\tfrac{1+\cos A}{2}\), then projection). &emsp; \((a-b)^2\cos^2\tfrac C2+(a+b)^2\sin^2\tfrac C2=c^2\)</span></div>
+<div class="it"><span class="n">12</span><span class="f">\(\cot A+\cot C\) over \(\cot B\): use \(\cot A=\dfrac{b^2+c^2-a^2}{4\Delta}\). <span class=\"tag grn\">cos → sides, then simplify</span></span></div>
+</section>
+<section>
+<h2 class="sh">Stage 4 — Napier's Analogy (Tangent Rule) <span class="stg">S4</span><span class="pg">PT2 Q6,10,11 · Ex2 Q2 · Ex3 Q5 · Ex4 Q14 · Ex5 Q1,11(a) · ALLEN Pt 05, 13(c)</span></h2>
+<div class="it"><span class="n">13</span><span class="f">\(\tan\dfrac{A-B}{2}=\dfrac{a-b}{a+b}\cot\dfrac C2\) (and cyclic). <b>Trigger:</b> two sides + included angle with awkward numbers.</span></div>
+<div class="it"><span class="n">14</span><span class="f"><b>Procedure:</b> \(A+B=180^\circ-C\) known → Napier gives \(A-B\) → solve the two linear equations → third side by sine/cosine rule.</span></div>
+<div class="it"><span class="n">15</span><span class="f"><b>Given \(\cos(A-B)\):</b> \(\cos(A-B)=\dfrac{1-t^2}{1+t^2}\) with \(t=\tan\tfrac{A-B}{2}\) → find \(\cot\tfrac C2\) (Illus 17: \(a=6,b=3,\cos(A-B)=\tfrac45\Rightarrow C=90^\circ,\Delta=9\)).</span></div>
+<div class="it"><span class="n">16</span><span class="f">Napier needs the <b>included</b> angle; \(\tfrac{A-B}{2}\) carries the half — don't drop it.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 5 — Area &amp; Half-Angle Formulas (s-notation) <span class="stg">S5</span><span class="pg">PT2 Q1,2,3,8,12–15 · Ex2 Q15,17 · Ex3 Q3,11,12 · ALLEN Pt 06,07</span></h2>
+<div class="it"><span class="n">17</span><span class="f">\(\Delta=\tfrac12ab\sin C=\sqrt{s(s-a)(s-b)(s-c)}=\dfrac{abc}{4R}=rs\). &emsp; Altitudes \(p_1:p_2:p_3=\tfrac1a:\tfrac1b:\tfrac1c\) ⇒ altitudes in A.P. ⇒ sides in H.P.</span></div>
+<div class="it"><span class="n">18</span><span class="f">\(\sin\tfrac A2=\sqrt{\tfrac{(s-b)(s-c)}{bc}}\), &emsp; \(\cos\tfrac A2=\sqrt{\tfrac{s(s-a)}{bc}}\), &emsp; \(\tan\tfrac A2=\sqrt{\tfrac{(s-b)(s-c)}{s(s-a)}}=\dfrac{\Delta}{s(s-a)}\)</span></div>
+<div class="it"><span class="n">19</span><span class="f">Use \(\tan\tfrac A2=\dfrac{\Delta}{s(s-a)}\) whenever \(\Delta\) appears. &emsp; \((b+c-a)\tan\tfrac A2=\dfrac{2\Delta}{s}\) &emsp; \((s-a)(s-b)=s(s-c)\Rightarrow\tan\tfrac C2=1\Rightarrow C=90^\circ\)</span></div>
+<div class="it"><span class="n">20</span><span class="f">\(16\Delta^2=(a+b+c)(b+c-a)(c+a-b)(a+b-c)=4b^2c^2\sin^2A\). &emsp; \(\Delta=a^2-(b-c)^2\Rightarrow\cot\tfrac A2=4\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 6 — Circumradius R &amp; Inradius r <span class="stg">S6</span><span class="pg">PT1 Q19,20 · PT2 Q16–20 · Ex1 Q2,5,11 · Ex2 Q8,9,11 · Ex3 Q1,6,13,14 · Ex4 Q6,12,17,20,21 · ALLEN Pt 09</span></h2>
+<div class="it"><span class="n">21</span><span class="f">\(R=\dfrac{abc}{4\Delta}\) &emsp; \(r=\dfrac{\Delta}{s}=(s-a)\tan\tfrac A2=4R\sin\tfrac A2\sin\tfrac B2\sin\tfrac C2\) &emsp; \(\dfrac Rr=\dfrac{abc}{4(s-a)(s-b)(s-c)}\)</span></div>
+<div class="it"><span class="n">22</span><span class="f"><b>Right triangle:</b> \(R=\tfrac{c}{2}\), \(r=\tfrac{a+b-c}{2}\), \(a^2+b^2+c^2=8R^2\). <b>Equilateral:</b> \(R=2r\), \(a^2+b^2+c^2=9R^2\).</span></div>
+<div class="it"><span class="n">23</span><span class="f">\(a\cot A+b\cot B+c\cot C=2(R+r)\) &emsp; \(\cos A+\cos B+\cos C=1+\tfrac rR\) &emsp; \(\sum\cos^2\tfrac A2=2+\tfrac{r}{2R}\) &emsp; \(s=4R\prod\cos\tfrac A2\)</span></div>
+<div class="it"><span class="n">24</span><span class="f"><b>Convert to R</b> whenever sides meet trig ratios: \(a=2R\sin A\). Distances: \(O\) to side \(=R\cos A\); \(I\) to vertex \(=r\,\mathrm{cosec}\tfrac A2\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 7 — Exradii r₁, r₂, r₃ <span class="stg">S7</span><span class="pg">Ex1 Q1,3,4,6–10,12–14 · Ex3 Q8,9 · Ex4 Q2 · Ex5 Q4,6,17,22 · ALLEN Pt 09</span></h2>
+<div class="it"><span class="n">25</span><span class="f">\(r_1=\dfrac{\Delta}{s-a}=s\tan\tfrac A2=4R\sin\tfrac A2\cos\tfrac B2\cos\tfrac C2\) (cyclic). <b>First move: write every \(r_i\) as \(\Delta/(s-\cdot)\).</b></span></div>
+<div class="it"><span class="n">26</span><span class="f">\(r_1+r_2+r_3-r=4R\) &emsp; \(rr_1r_2r_3=\Delta^2\) &emsp; \(r_1r_2+r_2r_3+r_3r_1=s^2\) &emsp; \(\dfrac1r=\dfrac1{r_1}+\dfrac1{r_2}+\dfrac1{r_3}\)</span></div>
+<div class="it"><span class="n">27</span><span class="f"><b>Ratio given</b> (\(r_1=2r_2=3r_3\)): \(\tfrac{1}{s-a}=\tfrac{2}{s-b}=\tfrac{3}{s-c}=k\) → add to get \(s\) → sides. &emsp; \(r_1&gt;r_2&gt;r_3\iff a&gt;b&gt;c\).</span></div>
+<div class="it"><span class="n">28</span><span class="f">\(r_1,r_2,r_3\) in H.P. \(\iff s-a,s-b,s-c\) in A.P. \(\iff a,b,c\) in A.P. &emsp; Equilateral: \(r:R:r_1=1:2:3\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 8 — A.P. / G.P. / H.P. Conditions <span class="stg">S8</span><span class="pg">PT2 Q4,7 · Ex2 Q5,7,12 · Ex4 Q4,7,10,11 · Ex5 Q2,13,24 · ALLEN Illus 2,5,15,18,38,45,57</span></h2>
+<div class="it"><span class="n">29</span><span class="f"><b>Write the condition first:</b> \(a,b,c\) A.P. \(\Rightarrow 2b=a+c\); H.P. ⇒ take reciprocals. \(a,b,c\) A.P. \(\iff\sin A,\sin B,\sin C\) A.P.</span></div>
+<div class="it"><span class="n">30</span><span class="f"><b>Angles in A.P.</b> ⇒ \(B=60^\circ\) and \(b^2=a^2+c^2-ac\). &emsp; \(a^2,b^2,c^2\) A.P. \(\iff\cot A,\cot B,\cot C\) A.P.</span></div>
+<div class="it"><span class="n">31</span><span class="f">Sides A.P. with greatest angle \(=2\times\) smallest ⇒ \(4:5:6\). &emsp; Altitudes H.P. \(\iff\) sides A.P.</span></div>
+<div class="it"><span class="n">32</span><span class="f">Different target progression: convert to a common form (sines / cotangents / \(s-a\)), then use \(\sin(A+B)\sin(A-B)\) factoring.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 9 — Cevians, Cyclic Quadrilaterals &amp; Regular Polygons <span class="stg">S9</span><span class="pg">PT2 Q9 · Ex2 Q3,4,6,8,10,13,20 · Ex3 Q4 · Ex4 Q3,8 · Ex5 Q11(b),12(b),20 · ALLEN Pt 08,10,11,12</span></h2>
+<div class="it"><span class="n">33</span><span class="f"><b>m–n theorem:</b> \(BD:DC=m:n\), \(\angle ADC=\theta\), \(\angle BAD=\alpha\), \(\angle DAC=\beta\): \((m+n)\cot\theta=m\cot\alpha-n\cot\beta=n\cot B-m\cot C\).</span></div>
+<div class="it"><span class="n">34</span><span class="f"><b>Lengths:</b> median \(AM=\tfrac12\sqrt{2b^2+2c^2-a^2}\); bisector \(AD=\dfrac{2bc}{b+c}\cos\tfrac A2\); \(4(m_a^2+m_b^2+m_c^2)=3(a^2+b^2+c^2)\).</span></div>
+<div class="it"><span class="n">35</span><span class="f"><b>Cyclic quadrilateral:</b> opposite angles sum to \(180^\circ\) (cosines negate) — apply cosine rule in both triangles on the shared diagonal; \(\text{Area}=\sqrt{(s-a)(s-b)(s-c)(s-d)}\); Ptolemy.</span></div>
+<div class="it"><span class="n">36</span><span class="f"><b>Regular \(n\)-gon:</b> inscribed \(a=2R\sin\tfrac\pi n\), area \(=\tfrac n2R^2\sin\tfrac{2\pi}n\); circumscribed \(a=2r\tan\tfrac\pi n\), area \(=nr^2\tan\tfrac\pi n\). Area ratio of triangles on one base \(=\) ratio of bases.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 10 — JEE Hard — Inequalities, Euler Line, Coordinates <span class="stg">S10</span><span class="pg">Ex4 Q9,16,22,24,25 · Ex5 Q7,22 · ALLEN Illus 20,52,53,59,63,64, Pt 12,18–19</span></h2>
+<div class="it"><span class="n">37</span><span class="f"><b>AM–GM on \(s-a,s-b,s-c\):</b> \(\Delta\le\dfrac{s^2}{3\sqrt3}\); \(\dfrac{r_1r_2r_3}{r^3}\ge27\) (equality: equilateral). \(r\le\dfrac R2\).</span></div>
+<div class="it"><span class="n">38</span><span class="f"><b>Orthocentre \(H\):</b> \(AH=2R|\cos A|\); distance from \(H\) to \(BC=2R\cos B\cos C\). <b>Euler line:</b> \(O,G,H\) collinear, \(OG:GH=1:2\), so \(O=\tfrac{3G-H}{2}\).</span></div>
+<div class="it"><span class="n">39</span><span class="f">\(H,O\) equidistant from \(BC\) on the same side \(\Rightarrow\tan B\tan C=3\). <b>Orthic triangle:</b> sides \(a\cos A,\ b\cos B,\ c\cos C\); angles \(\pi-2A,\pi-2B,\pi-2C\).</span></div>
+<div class="it"><span class="n">40</span><span class="f"><b>Coordinates:</b> find the centres / side lengths first (equidistance, shoelace), then use the \(R,r,\Delta\) formulas. <b>Existence:</b> check triangle inequality on all three pairs.</span></div>
+</section>
+
+<div class="notes"><b>Stage order:</b><ul>
+<li><b>S1–S3:</b> core rules (ratios, sine rule, cosine rule) — everything later uses them</li>
+<li><b>S4–S5:</b> Napier and the s-machinery (area, half-angles)</li>
+<li><b>S6–S7:</b> R, r and exradii — the spine of Exercise-1 (convert to Δ/(s−a))</li>
+<li><b>S8–S9:</b> progressions, cevians, cyclic quadrilaterals, polygons</li>
+<li><b>S10:</b> inequalities, Euler line, coordinates, combined JEE Advanced problems</li></ul></div>
+</div>
+</div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB = [
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q2",
+"stem": "In \\(\\triangle ABC\\), if \\(c^2+a^2-b^2=ac\\), then \\(\\angle B=\\)",
+"opts": [
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)",
+"\\(90^\\circ\\)"
+],
+"ans": 2,
+"exp": "\\(\\cos B=\\dfrac{a^2+c^2-b^2}{2ac}=\\tfrac12\\Rightarrow B=60^\\circ\\).",
+"id": 1,
+"tip": "<b>Technique:</b> Rewrite as a²+c²−b²=ac, divide by 2ac → cosB.<br><b>Often missed:</b> Dividing by ac only, giving cosB=1."
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q7",
+"stem": "In \\(\\triangle ABC\\), \\(a=3,b=4,c=5\\). Then \\(\\sin 2B=\\)",
+"opts": [
+"\\(12/25\\)",
+"\\(24/25\\)",
+"\\(4/5\\)",
+"\\(3/5\\)"
+],
+"ans": 1,
+"exp": "Right angle at \\(C\\): \\(\\sin B=\\tfrac45,\\cos B=\\tfrac35\\Rightarrow\\sin2B=\\tfrac{24}{25}\\).",
+"id": 2,
+"tip": "<b>Technique:</b> 3-4-5 ⇒ right angle at C, so B is acute: sinB=4/5, cosB=3/5.<br><b>Often missed:</b> Swapping a and b (sinB=3/5); forgetting sin2B=2sinB cosB."
+},
+{
+"st": 1,
+"type": "int",
+"src": "PT1 Q11",
+"stem": "\\(a=9,\\ b=8,\\ c=x\\) and \\(3\\cos C=2\\). Find \\(x\\).",
+"ans": "7",
+"exp": "\\(x^2=81+64-2\\cdot72\\cdot\\tfrac23=49\\Rightarrow x=7\\).",
+"id": 3,
+"tip": "<b>Technique:</b> Cosine rule with the included angle C: c²=a²+b²−2ab cosC.<br><b>Often missed:</b> Forgetting the square root, or reading 3cosC=2 as cosC=2."
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q9",
+"stem": "Sides of a triangle are \\(7,\\ 4\\sqrt3,\\ \\sqrt{13}\\) cm. The smallest angle is",
+"opts": [
+"\\(15^\\circ\\)",
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)"
+],
+"ans": 1,
+"exp": "Smallest side \\(\\sqrt{13}\\): \\(\\cos=\\dfrac{49+48-13}{2\\cdot7\\cdot4\\sqrt3}=\\dfrac{\\sqrt3}{2}\\Rightarrow30^\\circ\\).",
+"id": 4,
+"tip": "<b>Technique:</b> Smallest angle is opposite the smallest side; compare 7, 6.93, 3.6.<br><b>Often missed:</b> Treating 4√3 as smallest because of the surd; finding the largest angle instead."
+},
+{
+"st": 1,
+"type": "int",
+"src": "PT1 Q10",
+"stem": "In \\(\\triangle ABC\\), \\(\\angle C=90^\\circ,\\ \\angle A=30^\\circ,\\ c=20\\). Find \\(a\\).",
+"ans": "10",
+"exp": "\\(a=c\\sin A=20\\cdot\\tfrac12=10\\).",
+"id": 5,
+"tip": "<b>Technique:</b> a is opposite A: a=c sinA.<br><b>Often missed:</b> Using c cosA, which gives b (10√3), not a."
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Illus 10 / Ex5 Q14",
+"stem": "Sides are \\(x^2+x+1,\\ 2x+1,\\ x^2-1\\) \\((x>1)\\). The greatest angle is",
+"opts": [
+"\\(90^\\circ\\)",
+"\\(120^\\circ\\)",
+"\\(135^\\circ\\)",
+"\\(150^\\circ\\)"
+],
+"ans": 1,
+"exp": "Put \\(x=2\\): sides 7, 5, 3; \\(\\cos\\theta=\\dfrac{25+9-49}{30}=-\\tfrac12\\Rightarrow120^\\circ\\).",
+"id": 6,
+"tip": "<b>Technique:</b> Try x=2 ⇒ sides 7, 5, 3; use the cosine rule on the largest side.<br><b>Often missed:</b> Applying it to a middle side; sign slip making cos=+½."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "PT1 Q1",
+"stem": "\\(a=5,\\ b=7,\\ \\sin A=\\tfrac34\\). How many such triangles are possible?",
+"opts": [
+"0",
+"1",
+"2",
+"Infinite"
+],
+"ans": 0,
+"exp": "\\(\\sin B=\\dfrac{7\\cdot3/4}{5}=\\tfrac{21}{20}&gt;1\\): impossible.",
+"id": 7,
+"tip": "<b>Technique:</b> Sine rule: sinB=b·sinA/a; if >1, stop.<br><b>Often missed:</b> Inverting the ratio (a·sinA/b) and wrongly finding a valid triangle."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex5 Q3 / Illus 60",
+"stem": "Two sides are \\(\\sqrt6\\) and 4; the angle opposite the smaller side is \\(30^\\circ\\). Number of triangles:",
+"opts": [
+"1",
+"2",
+"0",
+"Data insufficient"
+],
+"ans": 1,
+"exp": "\\(a^2-4\\sqrt3a+10=0\\Rightarrow a=2\\sqrt3\\pm\\sqrt2\\), both positive: 2 triangles.",
+"id": 8,
+"tip": "<b>Technique:</b> Write the cosine-rule quadratic in a; check the discriminant and that both roots are positive.<br><b>Often missed:</b> Stopping at the quadratic without testing positivity of both roots."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Illus 48",
+"stem": "\\(a=\\sqrt3+1,\\ b=3,\\ \\angle B=60^\\circ\\). Number of such triangles:",
+"opts": [
+"0",
+"1",
+"2",
+"Infinite"
+],
+"ans": 1,
+"exp": "\\(c^2-(1+\\sqrt3)c+2\\sqrt3-5=0\\): product of roots \\(&lt;0\\Rightarrow\\) exactly one positive root.",
+"id": 9,
+"tip": "<b>Technique:</b> Quadratic in c: product of roots <0 ⇒ exactly one positive root.<br><b>Often missed:</b> Assuming every SSA case gives 2 triangles."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Illus 2 / Ex4 Q19",
+"stem": "If \\(\\dfrac{\\sin A}{\\sin C}=\\dfrac{\\sin(A-B)}{\\sin(B-C)}\\), then",
+"opts": [
+"\\(a,b,c\\) in A.P.",
+"\\(a^2,b^2,c^2\\) in A.P.",
+"\\(a,b,c\\) in G.P.",
+"\\(a,b,c\\) in H.P."
+],
+"ans": 1,
+"exp": "\\(\\sin(B+C)\\sin(B-C)=\\sin(A+B)\\sin(A-B)\\Rightarrow b^2-c^2=a^2-b^2\\).",
+"id": 10,
+"tip": "<b>Technique:</b> Use sin(B+C)=sinA etc., then sin²x−sin²y=sin(x+y)sin(x−y).<br><b>Often missed:</b> Concluding a,b,c in A.P.; the identity gives the squares."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "PT1 Q15",
+"stem": "\\(a=2,\\ B=60^\\circ,\\ C=75^\\circ\\). Then \\(b=\\)",
+"opts": [
+"\\(\\sqrt6\\)",
+"\\(\\sqrt3\\)",
+"\\(2\\sqrt2\\)",
+"\\(2\\sqrt3\\)"
+],
+"ans": 0,
+"exp": "\\(A=45^\\circ\\): \\(b=\\dfrac{2\\sin60^\\circ}{\\sin45^\\circ}=\\sqrt6\\).",
+"id": 11,
+"tip": "<b>Technique:</b> Third angle first (A=45°), then sine rule b=a·sinB/sinA.<br><b>Often missed:</b> Using sinC in the denominator instead of sinA."
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex5 Q8",
+"stem": "Which data does <b>NOT</b> uniquely determine an acute-angled \\(\\triangle ABC\\)?",
+"opts": [
+"\\(a,\\sin A,\\sin B\\)",
+"\\(a,b,c\\)",
+"\\(a,\\sin B,R\\)",
+"\\(a,\\sin A,R\\)"
+],
+"ans": 3,
+"exp": "\\(a=2R\\sin A\\) makes \\(a,\\sin A,R\\) redundant — it fixes only one angle.",
+"id": 12,
+"tip": "<b>Technique:</b> a=2R sinA ⇒ (a, sinA, R) carries only one piece of information.<br><b>Often missed:</b> Thinking (a, sinB, R) is ambiguous; B acute fixes it."
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex4 Q1",
+"stem": "Sides are \\(3x+4y,\\ 4x+3y,\\ 5x+5y\\) \\((x,y&gt;0)\\). The triangle is",
+"opts": [
+"right angled",
+"obtuse angled",
+"equilateral",
+"none of these"
+],
+"ans": 1,
+"exp": "\\((3x+4y)^2+(4x+3y)^2=25x^2+25y^2+48xy&lt;(5x+5y)^2\\Rightarrow\\) obtuse.",
+"id": 13,
+"tip": "<b>Technique:</b> Largest side is 5x+5y; compare its square with the sum of the other two squares.<br><b>Often missed:</b> Missing the cross terms: 48xy vs 50xy."
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Illus 15 / Ex4 Q4",
+"stem": "If \\(c\\cos^2\\tfrac A2+a\\cos^2\\tfrac C2=\\tfrac{3b}{2}\\), then \\(a,b,c\\) are in",
+"opts": [
+"A.P.",
+"G.P.",
+"H.P.",
+"\\(a+b=c\\)"
+],
+"ans": 0,
+"exp": "\\(a+c+(c\\cos A+a\\cos C)=3b\\Rightarrow a+c+b=3b\\Rightarrow a+c=2b\\).",
+"id": 14,
+"tip": "<b>Technique:</b> Expand cos²(A/2)=(1+cosA)/2, then the projection formula c cosA+a cosC=b.<br><b>Often missed:</b> Not spotting the projection pair; dropping the factor ½."
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q15",
+"stem": "If \\(\\cos^2A+\\cos^2B-\\cos^2C=1\\), the triangle is necessarily",
+"opts": [
+"right-angled",
+"obtuse-angled",
+"isosceles",
+"equilateral"
+],
+"ans": 0,
+"exp": "Using \\(\\sum\\cos^2=1-2\\prod\\cos\\): \\(\\cos C(\\cos C+\\cos A\\cos B)=0\\Rightarrow\\cos C=0\\).",
+"id": 15,
+"tip": "<b>Technique:</b> Use Σcos²=1−2Πcos, then factor cosC(cosC+cosA cosB)=0.<br><b>Often missed:</b> Not rejecting cosC=−cosA cosB (it forces sinA sinB=0)."
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "PT1 Q8",
+"stem": "Sides are in ratio \\(2:\\sqrt6:(\\sqrt3+1)\\). The largest angle is",
+"opts": [
+"\\(60^\\circ\\)",
+"\\(75^\\circ\\)",
+"\\(90^\\circ\\)",
+"\\(105^\\circ\\)"
+],
+"ans": 1,
+"exp": "\\(\\cos=\\dfrac{6-2\\sqrt3}{4\\sqrt6}=\\dfrac{\\sqrt6-\\sqrt2}{4}=\\cos75^\\circ\\).",
+"id": 16,
+"tip": "<b>Technique:</b> Largest side is √3+1; simplify the surd to cos75°.<br><b>Often missed:</b> Taking √6 as the largest side (2.449<2.732)."
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex5 Q23 (JEE Adv 2021)",
+"stem": "\\(AB=\\sqrt{23},\\ BC=3,\\ CA=4\\). Find \\(\\dfrac{\\cot A+\\cot C}{\\cot B}\\).",
+"ans": "2",
+"exp": "\\(\\dfrac{2b^2}{a^2+c^2-b^2}=\\dfrac{32}{9+23-16}=2\\).",
+"id": 17,
+"tip": "<b>Technique:</b> cotA=(b²+c²−a²)/4Δ, so Δ cancels in the ratio; b is CA (opposite B).<br><b>Often missed:</b> Using AB as b."
+},
+{
+"st": 4,
+"type": "int",
+"src": "Ex5 Q1 / Illus 17",
+"stem": "\\(a=6,\\ b=3,\\ \\cos(A-B)=\\tfrac45\\). Find the area.",
+"ans": "9",
+"exp": "\\(\\tan\\tfrac{A-B}{2}=\\tfrac13\\cot\\tfrac C2\\); \\(\\cos(A-B)=\\tfrac45\\Rightarrow\\cot\\tfrac C2=1\\Rightarrow C=90^\\circ\\); \\(\\Delta=\\tfrac12\\cdot6\\cdot3=9\\).",
+"id": 18,
+"tip": "<b>Technique:</b> Napier gives tan((A−B)/2)=⅓cot(C/2); plug into cos(A−B)=(1−t²)/(1+t²).<br><b>Often missed:</b> Not seeing that cot(C/2)=1 means C=90°; arithmetic slip in t²."
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q6",
+"stem": "\\(b=\\sqrt3,\\ c=1,\\ B-C=90^\\circ\\). Then \\(\\angle A=\\)",
+"opts": [
+"\\(15^\\circ\\)",
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)"
+],
+"ans": 1,
+"exp": "\\(1=\\tfrac{\\sqrt3-1}{\\sqrt3+1}\\cot\\tfrac A2\\Rightarrow\\cot\\tfrac A2=2+\\sqrt3\\Rightarrow A=30^\\circ\\).",
+"id": 19,
+"tip": "<b>Technique:</b> Napier with (b−c)/(b+c) and cot(A/2); cot(A/2)=2+√3 ⇒ A/2=15°.<br><b>Often missed:</b> Mixing tan and cot of A/2."
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex4 Q14",
+"stem": "\\(\\angle A+\\angle B=120^\\circ,\\ a=\\sqrt3+1,\\ b=\\sqrt3-1\\). Then \\(\\angle A:\\angle B=\\)",
+"opts": [
+"7 : 1",
+"9 : 7",
+"3 : 1",
+"5 : 3"
+],
+"ans": 0,
+"exp": "\\(C=60^\\circ\\); \\(\\tan\\tfrac{A-B}2=\\tfrac{1}{\\sqrt3}\\cdot\\sqrt3=1\\Rightarrow A-B=90^\\circ\\); \\(A=105^\\circ,B=15^\\circ\\).",
+"id": 20,
+"tip": "<b>Technique:</b> C=60° ⇒ Napier gives (A−B)/2=45°; solve with A+B=120°.<br><b>Often missed:</b> Reading (A−B)/2=45° as A−B=45°."
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q5",
+"stem": "\\(a=5,\\ b=4,\\ \\cos(A-B)=\\tfrac{31}{32}\\). Then \\(c=\\)",
+"opts": [
+"3",
+"6",
+"8",
+"9"
+],
+"ans": 1,
+"exp": "\\(t^2=\\tfrac1{63}\\Rightarrow\\cot\\tfrac C2=\\tfrac{3}{\\sqrt7}\\Rightarrow\\cos C=\\tfrac18\\); \\(c^2=25+16-\\tfrac{40}{8}=36\\).",
+"id": 21,
+"tip": "<b>Technique:</b> Napier ⇒ t²=1/63 ⇒ cosC=1/8 ⇒ cosine rule.<br><b>Often missed:</b> Treating cos(A−B) as cosC."
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q11",
+"stem": "\\(A=30^\\circ,\\ b=2,\\ c=\\sqrt3+1\\). Then \\(\\dfrac{C-B}{2}=\\)",
+"opts": [
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)",
+"\\(90^\\circ\\)"
+],
+"ans": 0,
+"exp": "\\(\\tan\\tfrac{C-B}{2}=\\tfrac{c-b}{c+b}\\cot15^\\circ=\\tfrac{2-\\sqrt3}{\\sqrt3}(2+\\sqrt3)=\\tfrac1{\\sqrt3}\\).",
+"id": 22,
+"tip": "<b>Technique:</b> Napier with (c−b)/(c+b) and cot15°=2+√3; rationalise.<br><b>Often missed:</b> Using cot30° (half of A=30° is 15°)."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "PT2 Q1",
+"stem": "\\((s-a)(s-b)=s(s-c)\\). Then angle \\(C=\\)",
+"opts": [
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)",
+"\\(90^\\circ\\)"
+],
+"ans": 3,
+"exp": "\\(\\tan\\tfrac C2=\\sqrt{\\tfrac{(s-a)(s-b)}{s(s-c)}}=1\\Rightarrow C=90^\\circ\\).",
+"id": 23,
+"tip": "<b>Technique:</b> tan(C/2)=√[(s−a)(s−b)/s(s−c)]=1.<br><b>Often missed:</b> tan(C/2)=1 gives C=90°, not 45°."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "PT2 Q3",
+"stem": "\\(a=16,\\ b=24,\\ c=20\\). Then \\(\\cos\\tfrac B2=\\)",
+"opts": [
+"\\(3/4\\)",
+"\\(1/2\\)",
+"\\(4/5\\)",
+"\\(5/8\\)"
+],
+"ans": 0,
+"exp": "\\(s=30\\): \\(\\cos^2\\tfrac B2=\\dfrac{s(s-b)}{ac}=\\dfrac{180}{320}=\\tfrac9{16}\\).",
+"id": 24,
+"tip": "<b>Technique:</b> cos²(B/2)=s(s−b)/(ac) with s=30.<br><b>Often missed:</b> Using (s−a)(s−c)/ac, which is sin²(B/2)."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "PT2 Q15",
+"stem": "\\(a=3,\\ b=5,\\ c=4\\). Then \\(\\sin\\tfrac B2+\\cos\\tfrac B2=\\)",
+"opts": [
+"1",
+"\\(\\sqrt2\\)",
+"\\(\\sqrt3\\)",
+"2"
+],
+"ans": 1,
+"exp": "\\(b^2=a^2+c^2\\Rightarrow B=90^\\circ\\Rightarrow \\sin45^\\circ+\\cos45^\\circ=\\sqrt2\\).",
+"id": 25,
+"tip": "<b>Technique:</b> 3-4-5: the right angle is opposite 5, i.e. at B.<br><b>Often missed:</b> Taking C=90°."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q3",
+"stem": "Area \\(=10\\sqrt3\\) sq cm, \\(\\angle C=60^\\circ\\), perimeter 20 cm. Side \\(c=\\)",
+"opts": [
+"3",
+"5",
+"6",
+"7"
+],
+"ans": 3,
+"exp": "\\(ab=40\\); \\(c^2=(a+b)^2-3ab=(20-c)^2-120\\Rightarrow c=7\\).",
+"id": 26,
+"tip": "<b>Technique:</b> Δ=½ab sinC ⇒ ab=40; c²=(a+b)²−3ab.<br><b>Often missed:</b> Using −2ab instead of −3ab (2ab cosC=ab)."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q12",
+"stem": "If \\(\\Delta=a^2-(b-c)^2\\), then \\(\\tan A=\\)",
+"opts": [
+"\\(1/4\\)",
+"\\(8/15\\)",
+"\\(4/15\\)",
+"\\(3/4\\)"
+],
+"ans": 1,
+"exp": "\\(\\tfrac12\\sin A=2(1-\\cos A)\\Rightarrow\\tan\\tfrac A2=\\tfrac14\\Rightarrow\\tan A=\\tfrac{8}{15}\\).",
+"id": 27,
+"tip": "<b>Technique:</b> a²−(b−c)²=2bc(1−cosA) and Δ=½bc sinA ⇒ cot(A/2)=4.<br><b>Often missed:</b> Double-angle slip in tanA=2t/(1−t²)."
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q11",
+"stem": "\\(\\dfrac{(a+b+c)(b+c-a)(c+a-b)(a+b-c)}{4b^2c^2}=\\)",
+"opts": [
+"\\(\\cos2A\\)",
+"\\(\\sin2A\\)",
+"\\(\\cos A\\cos B\\cos C\\)",
+"none of these"
+],
+"ans": 3,
+"exp": "Numerator \\(=16\\Delta^2=4b^2c^2\\sin^2A\\), so the value is \\(\\sin^2A\\) — not in the options.",
+"id": 28,
+"tip": "<b>Technique:</b> Numerator = 16Δ² = 4b²c²sin²A.<br><b>Often missed:</b> Choosing sin2A; the value is sin²A, so 'none of these'."
+},
+{
+"st": 6,
+"type": "int",
+"src": "PT2 Q16(i)",
+"stem": "Find the inradius of the triangle with sides 13, 14, 15.",
+"ans": "4",
+"exp": "\\(s=21,\\ \\Delta=\\sqrt{21\\cdot8\\cdot7\\cdot6}=84,\\ r=\\tfrac{84}{21}=4\\).",
+"id": 29,
+"tip": "<b>Technique:</b> Heron: s=21, Δ=84; r=Δ/s.<br><b>Often missed:</b> Using r=Δ/(s−a)."
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Illus 34 / PT2 Q18",
+"stem": "\\(a:b:c=4:5:6\\). Then \\(R:r=\\)",
+"opts": [
+"\\(16/7\\)",
+"\\(16/9\\)",
+"\\(7/16\\)",
+"\\(11/7\\)"
+],
+"ans": 0,
+"exp": "\\(\\dfrac Rr=\\dfrac{abc}{4(s-a)(s-b)(s-c)}=\\dfrac{120}{4\\cdot13.125}=\\dfrac{16}{7}\\).",
+"id": 30,
+"tip": "<b>Technique:</b> Sides 4k,5k,6k; R/r=abc/[4(s−a)(s−b)(s−c)].<br><b>Often missed:</b> Using s=15k instead of 7.5k."
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex4 Q6",
+"stem": "In \\(\\triangle ABC\\), \\(\\angle C=\\tfrac\\pi2\\). Then \\(2(r+R)=\\)",
+"opts": [
+"\\(b+c\\)",
+"\\(a+b\\)",
+"\\(a+b+c\\)",
+"\\(c+a\\)"
+],
+"ans": 1,
+"exp": "\\(r=\\tfrac{a+b-c}{2},\\ R=\\tfrac c2\\Rightarrow 2(r+R)=a+b\\).",
+"id": 31,
+"tip": "<b>Technique:</b> Right-angled: r=(a+b−c)/2, R=c/2.<br><b>Often missed:</b> Using R=c."
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex4 Q20 (JEE Main 2021)",
+"stem": "\\(AC=12,\\ AB=5\\), area 30 cm². Find \\(2R+r\\).",
+"ans": "15",
+"exp": "\\(\\tfrac12\\cdot12\\cdot5=30\\Rightarrow A=90^\\circ,\\ BC=13\\); \\(R=6.5,\\ r=\\tfrac{30}{15}=2\\Rightarrow13+2=15\\).",
+"id": 32,
+"tip": "<b>Technique:</b> ½·12·5=30 ⇒ right angle at A, BC=13.<br><b>Often missed:</b> Using Heron on a missing third side."
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex4 Q21",
+"stem": "\\(\\dfrac{a+b}{7}=\\dfrac{b+c}{8}=\\dfrac{c+a}{9}\\). Then \\(\\dfrac Rr=\\)",
+"opts": [
+"\\(5/2\\)",
+"2",
+"\\(3/2\\)",
+"1"
+],
+"ans": 0,
+"exp": "Sides \\(4k,3k,5k\\): right triangle, \\(R=\\tfrac{5k}{2},\\ r=k\\).",
+"id": 33,
+"tip": "<b>Technique:</b> Add the three equations ⇒ a+b+c=12k ⇒ sides 4k,3k,5k (right triangle).<br><b>Often missed:</b> Taking 7, 8, 9 as the sides."
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Illus 55",
+"stem": "\\(B-C=\\tfrac{2\\pi}{3}\\) and \\(R=8r\\). Then \\(\\sin A=\\)",
+"opts": [
+"\\(\\sqrt{15}/8\\)",
+"\\(1/4\\)",
+"\\(\\sqrt{15}/16\\)",
+"\\(\\sqrt{15}/4\\)"
+],
+"ans": 0,
+"exp": "\\(\\tfrac rR=4\\sin\\tfrac A2\\cdot\\tfrac12\\big(\\cos\\tfrac{B-C}{2}-\\cos\\tfrac{B+C}{2}\\big)\\Rightarrow\\sin\\tfrac A2=\\tfrac14\\Rightarrow\\sin A=\\tfrac{\\sqrt{15}}8\\).",
+"id": 34,
+"tip": "<b>Technique:</b> r/R=4Πsin(A/2) with cos((B−C)/2)=½ ⇒ sin(A/2)=¼.<br><b>Often missed:</b> Answering sin(A/2) instead of sinA."
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex5 Q12(a)",
+"stem": "An isosceles triangle has one angle \\(120^\\circ\\) and inradius \\(\\sqrt3\\). Its area is",
+"opts": [
+"\\(7+12\\sqrt3\\)",
+"\\(12-7\\sqrt3\\)",
+"\\(12+7\\sqrt3\\)",
+"\\(4\\pi\\)"
+],
+"ans": 2,
+"exp": "Equal sides \\(l\\): \\(r=\\dfrac{\\sqrt3l}{2(2+\\sqrt3)}\\Rightarrow l=4+2\\sqrt3\\); \\(\\Delta=\\tfrac{\\sqrt3}{4}l^2=12+7\\sqrt3\\).",
+"id": 35,
+"tip": "<b>Technique:</b> Equal sides l; Δ=(√3/4)l², r=Δ/s ⇒ l=4+2√3.<br><b>Often missed:</b> Putting the 120° angle at a base vertex."
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Illus 47",
+"stem": "\\(r_1=2r_2=3r_3\\). Then \\(a:b=\\)",
+"opts": [
+"\\(5/4\\)",
+"\\(4/5\\)",
+"\\(7/4\\)",
+"\\(4/7\\)"
+],
+"ans": 0,
+"exp": "\\(\\tfrac1{s-a}=\\tfrac2{s-b}=\\tfrac3{s-c}=k\\Rightarrow s=\\tfrac6k,\\ a=\\tfrac5k,\\ b=\\tfrac4k\\).",
+"id": 36,
+"tip": "<b>Technique:</b> Set 1/(s−a)=k, 2/(s−b)=k, 3/(s−c)=k; add to get s.<br><b>Often missed:</b> Writing r₁=2r₂ as s−a=2(s−b); it is inverted."
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Illus 51",
+"stem": "\\(\\Delta=6,\\ r_1=2,\\ r_2=3,\\ r_3=6\\). The circumradius \\(R=\\)",
+"opts": [
+"2.5",
+"3.5",
+"1.5",
+"none"
+],
+"ans": 0,
+"exp": "\\(s-a=3,s-b=2,s-c=1\\Rightarrow s=6\\), sides 3, 4, 5; \\(R=\\tfrac{60}{24}=2.5\\).",
+"id": 37,
+"tip": "<b>Technique:</b> s−a=Δ/r₁ etc. ⇒ 3,4,5 ⇒ R=c/2.<br><b>Often missed:</b> Using R=abc/Δ (missing the 4)."
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex3 Q9",
+"stem": "\\(r_1+r_2+r_3-r=\\)",
+"opts": [
+"\\(2a\\sin A\\)",
+"\\(2a\\,\\mathrm{cosec}A\\)",
+"\\(2a\\sin\\tfrac A2\\)",
+"\\(2a\\,\\mathrm{cosec}\\tfrac A2\\)"
+],
+"ans": 1,
+"exp": "It equals \\(4R=\\tfrac{2a}{\\sin A}\\).",
+"id": 38,
+"tip": "<b>Technique:</b> r₁+r₂+r₃−r=4R=2a/sinA.<br><b>Often missed:</b> Choosing 2a sinA."
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex3 Q8",
+"stem": "If \\(\\dfrac r{r_1}=\\dfrac12\\), then \\(\\tan\\tfrac A2\\big(\\tan\\tfrac B2+\\tan\\tfrac C2\\big)=\\)",
+"opts": [
+"2",
+"\\(1/2\\)",
+"1",
+"none of these"
+],
+"ans": 1,
+"exp": "\\(\\tfrac r{r_1}=\\tfrac{s-a}{s}=\\tfrac12\\Rightarrow\\tan\\tfrac B2\\tan\\tfrac C2=\\tfrac{s-a}{s}=\\tfrac12\\); expression \\(=1-\\tfrac12\\).",
+"id": 39,
+"tip": "<b>Technique:</b> r/r₁=(s−a)/s=tan(B/2)tan(C/2); then ΣΠtan(x/2)=1.<br><b>Often missed:</b> Not remembering Σtan(A/2)tan(B/2)=1."
+},
+{
+"st": 7,
+"type": "int",
+"src": "Ex5 Q4",
+"stem": "\\(r_1,r_2,r_3\\) are in H.P., area 24 cm², perimeter 24 cm. Find the longest side.",
+"ans": "10",
+"exp": "Sides in A.P., \\(b=8\\); \\(576=12\\cdot4(16-d^2)\\Rightarrow d=2\\): sides 6, 8, 10.",
+"id": 40,
+"tip": "<b>Technique:</b> Sides in A.P. ⇒ b=8 (perimeter 24); Heron ⇒ d=2.<br><b>Often missed:</b> Using 24 as s."
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q2",
+"stem": "In a triangle with \\(r_1&gt;r_2&gt;r_3\\), then",
+"opts": [
+"\\(a&gt;b&gt;c\\)",
+"\\(a&lt;b&lt;c\\)",
+"\\(a&gt;b\\) and \\(b&lt;c\\)",
+"\\(a&lt;b\\) and \\(b&gt;c\\)"
+],
+"ans": 0,
+"exp": "\\(r_1=\\tfrac\\Delta{s-a}\\) is larger when \\(s-a\\) is smaller, i.e. \\(a\\) is larger.",
+"id": 41,
+"tip": "<b>Technique:</b> r₁=Δ/(s−a): larger r₁ ⇔ smaller s−a ⇔ larger a.<br><b>Often missed:</b> Reading it as a<b<c."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex4 Q10",
+"stem": "Sides in A.P. and the greatest angle is double the smallest. Ratio of sides:",
+"opts": [
+"5:9:13",
+"4:5:6",
+"3:4:5",
+"5:6:7"
+],
+"ans": 1,
+"exp": "For 4, 5, 6: \\(\\cos A=\\tfrac34\\Rightarrow\\cos2A=\\tfrac18=\\cos C\\).",
+"id": 42,
+"tip": "<b>Technique:</b> Parametrise 4:5:6 and check C=2A with cos2A=2cos²A−1.<br><b>Often missed:</b> Choosing 3:4:5 without checking."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex4 Q7",
+"stem": "Altitudes from \\(A,B,C\\) are in H.P. Then \\(\\sin A,\\sin B,\\sin C\\) are in",
+"opts": [
+"G.P.",
+"A.P.",
+"A.P.–G.P.",
+"H.P."
+],
+"ans": 1,
+"exp": "Altitudes \\(\\propto\\tfrac1a\\); H.P. altitudes ⇒ \\(a,b,c\\) A.P. ⇒ sines A.P.",
+"id": 43,
+"tip": "<b>Technique:</b> Altitude p∝1/a, so H.P. altitudes ⇒ A.P. sides ⇒ A.P. sines.<br><b>Often missed:</b> Swapping A.P. and H.P."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex4 Q11",
+"stem": "Angles \\(A,B,C\\) in A.P., \\(a:b=1:\\sqrt3\\), \\(c=4\\) cm. Area (sq cm):",
+"opts": [
+"\\(2/\\sqrt3\\)",
+"\\(2\\sqrt3\\)",
+"\\(4/\\sqrt3\\)",
+"\\(4\\sqrt3\\)"
+],
+"ans": 1,
+"exp": "\\(B=60^\\circ,\\ \\sin A=\\tfrac12\\Rightarrow C=90^\\circ\\); \\(a=2,\\ b=2\\sqrt3\\); area \\(=2\\sqrt3\\).",
+"id": 44,
+"tip": "<b>Technique:</b> B=60°, sinA=½ ⇒ C=90°; c is the hypotenuse.<br><b>Often missed:</b> Using the wrong legs for the area."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex5 Q13",
+"stem": "Angles in A.P.: \\(\\dfrac ac\\sin2C+\\dfrac ca\\sin2A=\\)",
+"opts": [
+"\\(1/2\\)",
+"\\(\\sqrt3/2\\)",
+"1",
+"\\(\\sqrt3\\)"
+],
+"ans": 3,
+"exp": "\\(2\\sin A\\cos C+2\\sin C\\cos A=2\\sin B=2\\sin60^\\circ=\\sqrt3\\).",
+"id": 45,
+"tip": "<b>Technique:</b> (a/c)sin2C=2sinA cosC by the sine rule; combine to 2sinB.<br><b>Often missed:</b> Forgetting B=60° from the A.P."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "PT2 Q7",
+"stem": "Angles in A.P. and \\(b:c=\\sqrt3:\\sqrt2\\). Then \\(\\angle A=\\)",
+"opts": [
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)",
+"\\(75^\\circ\\)",
+"\\(90^\\circ\\)"
+],
+"ans": 2,
+"exp": "\\(B=60^\\circ,\\ \\sin C=\\tfrac{\\sqrt2}{\\sqrt3}\\cdot\\tfrac{\\sqrt3}2=\\tfrac{1}{\\sqrt2}\\Rightarrow C=45^\\circ,\\ A=75^\\circ\\).",
+"id": 46,
+"tip": "<b>Technique:</b> B=60° ⇒ sinC=c·sinB/b ⇒ C=45°.<br><b>Often missed:</b> Accepting C=135°; then A+B+C>180°."
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Illus 5",
+"stem": "If \\(a^2,b^2,c^2\\) are in A.P., then \\(\\cot A,\\cot B,\\cot C\\) are in",
+"opts": [
+"A.P.",
+"G.P.",
+"H.P.",
+"none"
+],
+"ans": 0,
+"exp": "\\(\\sin(A+B)\\sin(A-B)=\\sin(B+C)\\sin(B-C)\\Rightarrow\\cot B-\\cot A=\\cot C-\\cot B\\).",
+"id": 47,
+"tip": "<b>Technique:</b> Square the sides ⇒ sin²A,sin²B,sin²C A.P.; factor and divide by sinA sinB sinC.<br><b>Often missed:</b> Dividing by the wrong product."
+},
+{
+"st": 9,
+"type": "mcq",
+"src": "Illus 58",
+"stem": "\\(\\angle ABC=45^\\circ\\), \\(D\\) on \\(BC\\) with \\(2BD=CD\\), \\(\\angle DAB=15^\\circ\\). Then \\(\\angle ACB=\\)",
+"opts": [
+"\\(60^\\circ\\)",
+"\\(75^\\circ\\)",
+"\\(90^\\circ\\)",
+"\\(45^\\circ\\)"
+],
+"ans": 1,
+"exp": "\\(\\angle ADC=45^\\circ+15^\\circ=60^\\circ\\), \\(\\angle DAC=120^\\circ-C\\). m–n: \\(3\\cot60^\\circ=\\cot15^\\circ-2\\cot(120^\\circ-C)\\Rightarrow\\cot(120^\\circ-C)=1\\Rightarrow C=75^\\circ\\).",
+"id": 48,
+"tip": "<b>Technique:</b> m–n theorem with m:n=1:2, θ=60°, α=15°.<br><b>Often missed:</b> Mixing the order of α and β."
+},
+{
+"st": 9,
+"type": "int",
+"src": "Illus 40",
+"stem": "\\(CH\\) and \\(CM\\) are the altitude and median to \\(AB\\); \\(a=10,\\ b=26,\\ c=32\\). Find \\(HM\\).",
+"ans": "9",
+"exp": "\\(CH=\\sqrt{51},\\ CM^2=\\tfrac{2\\cdot676+2\\cdot100-1024}{4}=132\\Rightarrow HM=\\sqrt{132-51}=9\\).",
+"id": 49,
+"tip": "<b>Technique:</b> CH=2Δ/c; CM from the median formula; HM²=CM²−CH².<br><b>Often missed:</b> Using CM=(a+b)/2."
+},
+{
+"st": 9,
+"type": "mcq",
+"src": "Illus 39",
+"stem": "\\(CD\\) bisects \\(\\angle C\\), \\(\\cos\\tfrac C2=\\tfrac13\\), \\(CD=6\\). Then \\(\\tfrac1a+\\tfrac1b=\\)",
+"opts": [
+"\\(1/9\\)",
+"\\(1/3\\)",
+"9",
+"\\(1/6\\)"
+],
+"ans": 0,
+"exp": "\\(CD=\\tfrac{2ab}{a+b}\\cos\\tfrac C2\\Rightarrow\\tfrac{ab}{a+b}=9\\).",
+"id": 50,
+"tip": "<b>Technique:</b> CD=(2ab/(a+b))cos(C/2).<br><b>Often missed:</b> Dropping the factor 2."
+},
+{
+"st": 9,
+"type": "int",
+"src": "Illus 54",
+"stem": "A cyclic quadrilateral \\(ABCD\\) of area \\(\\tfrac{3\\sqrt3}{4}\\) lies in a unit circle; \\(AB=1,\\ BD=\\sqrt3\\). Find its perimeter.",
+"ans": "5",
+"exp": "\\(\\sin A=\\tfrac{\\sqrt3}{2}\\), cosine rule gives \\(AD=2\\); \\(xy=1,\\ x+y=2\\Rightarrow BC=CD=1\\); perimeter \\(=1+1+1+2=5\\).",
+"id": 51,
+"tip": "<b>Technique:</b> Triangle ABD ⇒ A=60° or 120°; use cosine rule and area.<br><b>Often missed:</b> Missing the second case (same perimeter here)."
+},
+{
+"st": 9,
+"type": "mcq",
+"src": "Illus 50",
+"stem": "A circle is inscribed in a regular octagon of area \\(\\Delta\\); the octagon formed by the points of contact has area \\(\\Delta_2\\). Then \\(\\Delta/\\Delta_2=\\)",
+"opts": [
+"\\(\\cos^2\\tfrac\\pi8\\)",
+"\\(\\sec\\tfrac\\pi8\\)",
+"\\(\\sec^2\\tfrac\\pi8\\)",
+"\\(\\cot^2\\tfrac\\pi8\\)"
+],
+"ans": 2,
+"exp": "Areas scale as \\(R^2:r^2\\) and \\(\\cos\\tfrac\\pi8=\\tfrac rR\\).",
+"id": 52,
+"tip": "<b>Technique:</b> Contact octagon has radius r; area ratio=(R/r)².<br><b>Often missed:</b> Choosing sec (not squared)."
+},
+{
+"st": 9,
+"type": "mcq",
+"src": "Illus 56",
+"stem": "\\(C=60^\\circ,\\ A=75^\\circ\\); \\(D\\) on \\(AC\\) with area \\(\\triangle BAD=\\sqrt3\\,\\)area\\(\\,\\triangle BCD\\). Then \\(\\angle ABD=\\)",
+"opts": [
+"\\(15^\\circ\\)",
+"\\(30^\\circ\\)",
+"\\(45^\\circ\\)",
+"\\(60^\\circ\\)"
+],
+"ans": 1,
+"exp": "\\(AD:DC=\\sqrt3:1\\); m–n gives \\(\\cot\\theta=-\\tfrac{\\sqrt3-1}{\\sqrt3+1}\\Rightarrow\\theta=105^\\circ\\Rightarrow\\angle ABD=30^\\circ\\).",
+"id": 53,
+"tip": "<b>Technique:</b> Equal heights ⇒ AD:DC=√3:1; apply m–n.<br><b>Often missed:</b> Reading θ=105° as ∠ABD."
+},
+{
+"st": 10,
+"type": "int",
+"src": "Illus 53",
+"stem": "Minimum value of \\(\\dfrac{r_1r_2r_3}{r^3}\\) over all triangles.",
+"ans": "27",
+"exp": "G.M. ≥ H.M. on \\(\\tfrac{r_i}{r}\\); equality for the equilateral triangle: \\(3\\cdot3\\cdot3=27\\).",
+"id": 54,
+"tip": "<b>Technique:</b> AM–HM on r₁/r, r₂/r, r₃/r; equality only for equilateral.<br><b>Often missed:</b> Using AM–GM in the wrong direction."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Illus 59",
+"stem": "Orthocentre and circumcentre are at equal distance from \\(BC\\), on the same side. Then \\(\\tan B\\tan C=\\)",
+"opts": [
+"\\(1/2\\)",
+"\\(1/3\\)",
+"2",
+"3"
+],
+"ans": 3,
+"exp": "\\(2R\\cos B\\cos C=R\\cos A=-R\\cos(B+C)\\Rightarrow1-\\tan B\\tan C=2\\).",
+"id": 55,
+"tip": "<b>Technique:</b> 2R cosB cosC=R cosA, with cosA=−cos(B+C).<br><b>Often missed:</b> Sign of cosA=−cos(B+C)."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q9 (JEE Main 2018)",
+"stem": "Orthocentre \\(A(-3,5)\\), centroid \\(B(3,3)\\), circumcentre \\(C\\). Radius of the circle with diameter \\(AC\\):",
+"opts": [
+"\\(3\\sqrt5/2\\)",
+"\\(\\sqrt{10}\\)",
+"\\(2\\sqrt{10}\\)",
+"\\(3\\sqrt{5/2}\\)"
+],
+"ans": 3,
+"exp": "\\(O=\\tfrac{3G-H}{2}=(6,2)\\); \\(AC=\\sqrt{81+9}=3\\sqrt{10}\\); radius \\(=\\tfrac{3\\sqrt{10}}{2}=3\\sqrt{5/2}\\).",
+"id": 56,
+"tip": "<b>Technique:</b> O=(3G−H)/2; radius=AC/2.<br><b>Often missed:</b> Taking O=G+(G−H)/… ; wrong ratio."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q17 (JEE Main 2021)",
+"stem": "\\(AB=5,\\ \\angle B=\\cos^{-1}\\tfrac35,\\ R=5\\). The area is",
+"opts": [
+"\\(8+2\\sqrt2\\)",
+"\\(10+6\\sqrt2\\)",
+"\\(4+2\\sqrt3\\)",
+"\\(6+8\\sqrt3\\)"
+],
+"ans": 3,
+"exp": "\\(\\sin C=\\tfrac{c}{2R}=\\tfrac12,\\ \\sin A=\\tfrac{4\\sqrt3+3}{10}\\); \\(a=2R\\sin A\\); area \\(=\\tfrac12ac\\sin B=6+8\\sqrt3\\).",
+"id": 57,
+"tip": "<b>Technique:</b> sinC=c/(2R) ⇒ C=30°; area=½ac sinB.<br><b>Often missed:</b> Taking AB as the side opposite B."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q15 (JEE Main 2019)",
+"stem": "\\(5,\\ 5r,\\ 5r^2\\) are the sides of a triangle. Then \\(r\\) cannot be",
+"opts": [
+"\\(3/4\\)",
+"\\(7/4\\)",
+"\\(3/2\\)",
+"\\(5/4\\)"
+],
+"ans": 1,
+"exp": "Triangle inequality: \\(\\tfrac{\\sqrt5-1}{2}&lt;r&lt;\\tfrac{\\sqrt5+1}{2}\\approx1.618\\); \\(r=\\tfrac74\\) fails.",
+"id": 58,
+"tip": "<b>Technique:</b> Triangle inequality twice: 5+5r>5r² and 5r+5r²>5.<br><b>Often missed:</b> Checking only one inequality."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Ex4 Q16 (JEE Main 2021)",
+"stem": "Centroid of equilateral \\(ABC\\) is at the origin; one side lies on \\(x+y=3\\). Then \\(R+r=\\)",
+"opts": [
+"\\(9/\\sqrt2\\)",
+"\\(7\\sqrt2\\)",
+"\\(2\\sqrt2\\)",
+"\\(3\\sqrt2\\)"
+],
+"ans": 0,
+"exp": "\\(r=\\tfrac3{\\sqrt2}\\) (distance from origin), \\(R=2r\\Rightarrow R+r=\\tfrac9{\\sqrt2}\\).",
+"id": 59,
+"tip": "<b>Technique:</b> Distance from centroid to the line gives r; R=2r.<br><b>Often missed:</b> Using r=3/2."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Illus 63",
+"stem": "In an isosceles \\(\\triangle ABC\\) the orthocentre lies on the incircle. Then \\(\\cos A=\\)",
+"opts": [
+"\\(1/9\\)",
+"\\(1/3\\)",
+"\\(1/2\\)",
+"\\(2/3\\)"
+],
+"ans": 0,
+"exp": "Base angles \\(\\tfrac{180^\\circ-A}{2}\\); \\(OK=2R\\cos B\\cos C=2r\\) with \\(r=4R\\prod\\sin\\tfrac{\\cdot}{2}\\) gives \\(\\sin\\tfrac A2=\\tfrac23\\Rightarrow\\cos A=1-2\\cdot\\tfrac49=\\tfrac19\\).",
+"id": 60,
+"tip": "<b>Technique:</b> Set the orthocentre distance 2R cosB cosC=2r and use r=4RΠsin(A/2).<br><b>Often missed:</b> Mis-assigning the isosceles base angles."
+},
+{
+"st": 10,
+"type": "mcq",
+"src": "Illus 64",
+"stem": "Circumcentre \\(O\\), centroid \\(G\\), orthocentre \\(P\\) are collinear. The ratio \\(OG:GP=\\)",
+"opts": [
+"1:2",
+"2:1",
+"1:3",
+"1:1"
+],
+"ans": 0,
+"exp": "Triangles \\(APG\\), \\(OMG\\) are similar with ratio \\(\\tfrac{2R\\cos A}{R\\cos A}=2\\).",
+"id": 61,
+"tip": "<b>Technique:</b> Triangles APG, OMG are similar with ratio 2 ⇒ OG:GP=1:2.<br><b>Often missed:</b> Writing 2:1 (reversed)."
+},
+{
+"st": 10,
+"type": "int",
+"src": "Ex5 Q15 (JEE Adv 2010)",
+"stem": "\\(a=6,\\ b=10\\), area \\(15\\sqrt3\\), \\(\\angle ACB\\) obtuse. Find \\(r^2\\).",
+"ans": "3",
+"exp": "\\(\\sin C=\\tfrac{\\sqrt3}{2}\\Rightarrow C=120^\\circ,\\ c=14,\\ s=15,\\ r=\\tfrac{15\\sqrt3}{15}=\\sqrt3\\Rightarrow r^2=3\\).",
+"id": 62,
+"tip": "<b>Technique:</b> sinC=2Δ/(ab)=√3/2; C obtuse ⇒ 120°; c=14; r=Δ/s.<br><b>Often missed:</b> Taking C=60° despite 'obtuse'."
+}
+];
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e',9:'#4a0040',10:'#2d0000'};
+const stageNames = {1:'Direct & Ratios',2:'Sine Rule',3:'Cosine Rule',4:'Napier',5:'Area & Half-Angle',6:'R & r',7:'Exradii',8:'Progressions',9:'Cevians & Cyclic',10:'JEE Hard'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8,9,10]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>Properties of Triangles — 10-Stage Recall CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Select stages, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${[1,2,3,4,5,6,7,8,9,10].map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">Stage ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="45" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to 62 questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,62);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>Stage ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+function renderResult(){
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  let filterSt=0;
+
+  function qList(){
+    return qs.map((q,i)=>{
+      if(filterSt && q.st!==filterSt) return '';
+      const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+      const cls = sk?'skip':ok?'ok':'bad';
+      let ua='Not answered';
+      if(userAns[q.id]!==undefined) ua = q.type==='mcq' ? `${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}` : userAns[q.id];
+      const ca = q.type==='mcq' ? `${'ABCD'[q.ans]}: ${q.opts[q.ans]}` : q.ans;
+      return `<div class="rq ${cls}">
+        <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+        <div class="rstem">${q.stem}</div>
+        <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+          ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+        </div>
+        ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  $().innerHTML=`
+  <div class="res-wrap">
+    <h2 style="color:var(--blue);margin-bottom:10px">Test Result</h2>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">Stage-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">S${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="fchips">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">Stage ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qList()}</div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+    </div>
+  </div>`;
+
+  window._filterSt = 0;
+  window._qList = qList;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function filterRes(s, el){
+  window._filterSt = s;
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  // recompute with filter
+  const ql = document.getElementById('qlist');
+  if(!ql) return;
+  ql.innerHTML = qs.map((q,i)=>{
+    if(s && q.st!==s) return '';
+    const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+    const cls=sk?'skip':ok?'ok':'bad';
+    let ua='Not answered';
+    if(userAns[q.id]!==undefined) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+    const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+    return `<div class="rq ${cls}">
+      <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+      <div class="rstem">${q.stem}</div>
+      <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+        ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+      </div>
+      ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+    </div>`;
+  }).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
