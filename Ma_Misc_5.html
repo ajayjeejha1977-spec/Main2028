@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Logarithm — 8-Motif Revision</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+.rtip{margin-top:6px;padding:7px 10px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:4px;font-size:12.5px;line-height:1.55}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="showPanel('cbt')">🎯 Recall CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Logarithm — 8-Motif Remember Sheet</h1>
+<div class="sub">Theory from ALLEN Digital "Logarithm" (Parts 01–10) · Practice from Advance Problems in Mathematics, Class-XI (PT-1, PT-2, Ex-1 to Ex-4) · Stages 1–8 (motifs A, B, C, G, D, E, F, H in teaching order)</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+<section>
+<h2 class="sh">Stage 1 — A: Change of Base &amp; Chaining <span class="stg">S1</span><span class="pg">PT1 Q1,8,9,10 · PT2 Q1 · Ex1 Q9,16,2a · Ex3 Q4,6,7,9 · ALLEN Pt 04, 08</span></h2>
+<div class="it"><span class="n">1</span><span class="f">\(\log_b m=\dfrac{\log_a m}{\log_a b}\), &emsp; \(\log_b a=\dfrac1{\log_a b}\). Chains collapse: \(\log_a b\cdot\log_b c\cdot\log_c d=\log_a d\).</span></div>
+<div class="it"><span class="n">2</span><span class="f">\(\log_{a^k}m=\tfrac1k\log_a m\) &emsp; \(a^{\log_b c}=c^{\log_b a}\) &emsp; Antilog: \(\log_a n=m\iff n=a^m\).</span></div>
+<div class="it"><span class="n">3</span><span class="f">Given \(3^a=4,\,4^b=5,\dots,8^f=9\): write \(a=\log_34,\ b=\log_45,\dots\) ⇒ \(abcdef=\log_39=2\).</span></div>
+<div class="it"><span class="n">4</span><span class="f">To express \(\log_{140}63\) in given letters: prime-factorise (2,3,5,7), move everything to <b>one</b> base, then substitute.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 2 — B: Core Identities &amp; Proofs <span class="stg">S2</span><span class="pg">PT1 Q3,6 · PT2 Q8 · Ex1 Q2,17–19 · Ex2 Q11–13 · ALLEN Pt 02–04</span></h2>
+<div class="it"><span class="n">5</span><span class="f">For \(m,n&gt;0\): \(\log_a mn=\log_a m+\log_a n\), &emsp; \(\log_a\tfrac mn=\log_a m-\log_a n\), &emsp; \(\log_a m^x=x\log_a m\). Also \(a^{\log_aN}=N\), \(\log_a1=0\), \(\log_aa=1\).</span></div>
+<div class="it"><span class="n">6</span><span class="f"><b>Telescoping:</b> factorise into primes first (81/80, 25/24, 16/15) and watch the factors cancel.</span></div>
+<div class="it"><span class="n">7</span><span class="f"><b>Cyclic trap:</b> \(x^3+y^3+z^3=3xyz\) with \(x,y,z\) distinct ⇒ \(x+y+z=0\). With \(x=\log a\) etc. ⇒ \(abc=1\) <span class=\"tag\">Ex2 Q13</span></span></div>
+<div class="it"><span class="n">8</span><span class="f"><b>Master identity:</b> \(p=\log_abc,\ q=\log_bca,\ r=\log_cab\Rightarrow pqr=p+q+r+2\) <span class=\"tag pur\">returns in Ex3 Q11</span></span></div>
+<div class="it"><span class="n">9</span><span class="f"><b>Irrationality proof:</b> assume \(\log_23=p/q\Rightarrow2^p=3^q\) — even = odd, contradiction.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 3 — C: Characteristic, Mantissa &amp; Digits <span class="stg">S3</span><span class="pg">PT2 Q6,7 · Ex1 Q23–25 · Ex3 Q1,5 · ALLEN Pt 04(vi,vii)</span></h2>
+<div class="it"><span class="n">10</span><span class="f">\(\log_{10}N=n+f\): characteristic \(n\) (integer), mantissa \(f\in[0,1)\). Digits of \(N\) = \(n+1\). Use \(\log2=0.3010,\ \log3=0.4771,\ \log5=1-\log2\).</span></div>
+<div class="it"><span class="n">11</span><span class="f">Digits in \(a^b\): \(\lfloor b\log a\rfloor+1\). &emsp; <b>Zeros after the decimal point:</b> if characteristic is \(-k\) there are \(k-1\) zeros. <span class=\"tag\">−14.894 = \(\bar{15}.106\) ⇒ 14 zeros</span></span></div>
+<div class="it"><span class="n">12</span><span class="f">Integers with characteristic \(n\) in base \(b\): \(b^n\le N&lt;b^{n+1}\), count \(=b^{n+1}-b^n\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 4 — G: Domain &amp; Inequalities <span class="stg">S4</span><span class="pg">PT1 Q7 · PT2 Q2,9,10 · ALLEN Pt 06–07 (graphs, Illus 1–6)</span></h2>
+<div class="it"><span class="n">13</span><span class="f"><b>Existence first:</b> \(\log_aN\) needs \(N&gt;0,\ a&gt;0,\ a\ne1\). Write the domain before touching the inequality.</span></div>
+<div class="it"><span class="n">14</span><span class="f">\(a&gt;1\): increasing, \(\log_ax&lt;\log_ay\iff x&lt;y\). &emsp; \(0&lt;a&lt;1\): decreasing, the inequality <b>flips</b>. &emsp; \(\log_ax&gt;p\Rightarrow x&gt;a^p\) (a&gt;1) but \(0&lt;x&lt;a^p\) (a&lt;1).</span></div>
+<div class="it"><span class="n">15</span><span class="f">Number and base on the <b>same side of 1</b> ⇒ log positive; opposite sides ⇒ negative.</span></div>
+<div class="it"><span class="n">16</span><span class="f">Quadratic in \(u=\log x\) (ALLEN Illus 3): solve for \(u\), exponentiate, then <b>intersect with the domain</b>.</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 5 — D: Equations with Domain Vigilance <span class="stg">S5</span><span class="pg">PT1 Q5 · Ex1 Q3,13,20 · Ex2 Q1–8 · Ex3 Q3,4 · Ex4 Q4 · ALLEN Pt 05</span></h2>
+<div class="it"><span class="n">17</span><span class="f"><b>4-step method:</b> (1) domain, (2) one log per side or substitute \(t=\log x\), (3) solve, (4) reject roots outside the domain.</span></div>
+<div class="it"><span class="n">18</span><span class="f">\(\log_fg=k\Rightarrow g=f^k\) with \(f&gt;0,f\ne1,g&gt;0\). Variable base: \(\log_{x+1}(x^2+x-6)^2=4\) gives \(-7,-\tfrac52,1\); only \(x=1\) keeps the base valid.</span></div>
+<div class="it"><span class="n">19</span><span class="f">Squared argument: \(\log_{10}(x-6)^2=2\) ⇒ \(x=16\) <b>and</b> \(-4\); both valid. Test, never reject by habit.</span></div>
+<div class="it"><span class="n">20</span><span class="f">Different bases: \(\log_4(x-1)=\log_2(x-3)\Rightarrow x-1=(x-3)^2\), keep \(x&gt;3\) ⇒ \(x=5\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 6 — E: Nested Logs <span class="stg">S6</span><span class="pg">PT1 Q4 · Ex1 Q5 · Ex2 Q6,14 · Ex3 Q2 · Ex4 Q2,3,6 · ALLEN Pt 02, 05</span></h2>
+<div class="it"><span class="n">21</span><span class="f"><b>Peel outside-in:</b> \(\log_a(\log_bx)=c\Rightarrow\log_bx=a^c\Rightarrow x=b^{a^c}\). Every layer's argument must stay positive.</span></div>
+<div class="it"><span class="n">22</span><span class="f">\(\log_a(\cdot)=0\Rightarrow(\cdot)=1\). Four layers: \(1+\log_pN=1\Rightarrow N=1\). &emsp; Base \(&lt;1\): \(\log_{1/2}(\cdot)=1\Rightarrow(\cdot)=\tfrac12\).</span></div>
+<div class="it"><span class="n">23</span><span class="f">Heavy case: let \(t=\log_2x&gt;0\), combine \(2\log_2t-\log_2(\tfrac32+t)=1\) ⇒ \(t^2-2t-3=0\) ⇒ \(t=3\), \(x=8\).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 7 — F: Systems of Log Equations <span class="stg">S7</span><span class="pg">Ex1 Q21,22 · Ex2 Q9,10 · Ex3 Q11,12 · Ex4 Q1,5,10</span></h2>
+<div class="it"><span class="n">24</span><span class="f">Rename \(u=\log x,\ v=\log y,\ w=\log z\): the system is ordinary algebra; convert back at the end.</span></div>
+<div class="it"><span class="n">25</span><span class="f">Symmetric sums: \(u^2+v^2+w^2=S^2-2P\) where \(S=u+v+w,\ P=uv+vw+wu\) <span class=\"tag\">Ex3 Q11: \(81^2-936=5625\)</span></span></div>
+<div class="it"><span class="n">26</span><span class="f">\(\log_yx+\log_xy=t+\tfrac1t\) with \(t=\log_yx\). &emsp; Mixed bases ⇒ convert to base 2 first (Ex2 Q9: \(\tfrac u3+v=5,\ \tfrac v3+u=7\)).</span></div>
+</section>
+<section>
+<h2 class="sh">Stage 8 — H: Exponent–Log Hybrids <span class="stg">S8</span><span class="pg">PT1 Q2 · PT2 Q3 · Ex1 Q2b,11,15 · Ex2 Q1,2,5 · Ex3 Q10 · Ex4 Q5,9 · ALLEN Pt 04, 09</span></h2>
+<div class="it"><span class="n">27</span><span class="f"><b>Take log of both sides:</b> \(x^{\log x}=\dfrac{10^4}{x^3}\Rightarrow(\log x)^2+3\log x-4=0\). Product of roots \(=10^{\text{sum of }\log\text{-roots}}=10^{-3}\).</span></div>
+<div class="it"><span class="n">28</span><span class="f">\((a^{\log_bc})^{\log_bc}\): use \(a^{\log_aN}=N\). &emsp; \(k^{\log_25}=16\Rightarrow k^{(\log_25)^2}=16^{\log_25}=5^4=625\).</span></div>
+<div class="it"><span class="n">29</span><span class="f">\(81^{1/\log_53}=81^{\log_35}=3^{4\log_35}=5^4\). &emsp; \(49^{1-\log_72}=\tfrac{49}4,\ 5^{-\log_54}=\tfrac14\). Convert every power to a common prime base.</span></div>
+</section>
+<div class="notes"><b>Teaching order:</b><ul><li><b>S1–S2 (A, B):</b> the toolkit — nothing works without them</li><li><b>S3–S4 (C, G):</b> reading information off a log — digits, domain, graphs</li><li><b>S5–S6 (D, E):</b> solving, with the domain check built in</li><li><b>S7–S8 (F, H):</b> systems and exponent hybrids — the JEE Advanced layer</li></ul></div>
+</div>
+</div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB = [
+{
+"st": 1,
+"type": "mcq",
+"src": "PT1 Q8",
+"stem": "If \\(\\log27=1.431\\), then \\(\\log9=\\)",
+"opts": [
+"0.954",
+"0.477",
+"1.431",
+"0.716"
+],
+"ans": 0,
+"exp": "\\(\\log9=\\tfrac23\\log27=\\tfrac23(1.431)=0.954\\).",
+"tip": "<b>Technique:</b> Write 27 and 9 as powers of 3.<br><b>Often missed:</b> Using \\(\\tfrac12\\) instead of \\(\\tfrac23\\).",
+"id": 1
+},
+{
+"st": 1,
+"type": "int",
+"src": "PT2 Q1",
+"stem": "If \\(\\log_5a\\cdot\\log_ax=2\\), then \\(x=\\)",
+"ans": "25",
+"exp": "Chain: \\(\\log_5a\\cdot\\log_ax=\\log_5x=2\\Rightarrow x=25\\).",
+"tip": "<b>Technique:</b> Cancel the middle base in the chain.<br><b>Often missed:</b> Answering 10 (adding instead of chaining).",
+"id": 2
+},
+{
+"st": 1,
+"type": "int",
+"src": "PT1 Q10",
+"stem": "\\(3^a=4,\\ 4^b=5,\\ 5^c=6,\\ 6^d=7,\\ 7^e=8,\\ 8^f=9\\). Find \\(abcdef\\).",
+"ans": "2",
+"exp": "\\(abcdef=\\log_34\\cdot\\log_45\\cdots\\log_89=\\log_39=2\\).",
+"tip": "<b>Technique:</b> Convert each to a log and telescope.<br><b>Often missed:</b> Multiplying the right sides (4·5·6·7·8·9).",
+"id": 3
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q4",
+"stem": "If \\(\\log_{105}7=a,\\ \\log_75=b\\), then \\(\\log_{35}105=\\)",
+"opts": [
+"\\(ab\\)",
+"\\((b+1)a\\)",
+"\\(\\dfrac1{ab}\\)",
+"\\(\\dfrac1{a(b+1)}\\)"
+],
+"ans": 3,
+"exp": "\\(ab=\\log_{105}5\\), so \\(a(b+1)=\\log_{105}35\\); reciprocal gives \\(\\log_{35}105\\).",
+"tip": "<b>Technique:</b> Build \\(\\log_{105}35\\) from a and ab, then flip.<br><b>Often missed:</b> Forgetting to flip, giving \\(a(b+1)\\).",
+"id": 4
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q7 / ALLEN Pt 8",
+"stem": "\\(60^a=3,\\ 60^b=5\\). Then \\(12^{\\frac{1-a-b}{2(1-b)}}=\\)",
+"opts": [
+"\\(\\tfrac12\\)",
+"2",
+"15",
+"\\(\\tfrac1{15}\\)"
+],
+"ans": 1,
+"exp": "\\(\\dfrac{1-a-b}{2(1-b)}=\\dfrac{\\log_{60}4}{2\\log_{60}12}=\\log_{12}2\\), so the value is 2.",
+"tip": "<b>Technique:</b> \\(a=\\log_{60}3,\\ b=\\log_{60}5\\); write 1 as \\(\\log_{60}60\\).<br><b>Often missed:</b> Not recognising \\(60/(3\\cdot5)=4\\) and \\(60/5=12\\).",
+"id": 5
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex1 Q9",
+"stem": "\\(\\dfrac{2}{\\log_4(2000)^6}+\\dfrac{3}{\\log_5(2000)^6}=\\)",
+"opts": [
+"\\(\\tfrac16\\)",
+"\\(\\tfrac13\\)",
+"\\(\\tfrac12\\)",
+"6"
+],
+"ans": 0,
+"exp": "\\(=\\tfrac13\\log_{2000}4+\\tfrac12\\log_{2000}5=\\tfrac16(4\\log_{2000}2+3\\log_{2000}5)=\\tfrac16\\log_{2000}2000=\\tfrac16\\).",
+"tip": "<b>Technique:</b> Flip to base 2000; note \\(2000=2^4\\cdot5^3\\).<br><b>Often missed:</b> Dropping the exponent 6.",
+"id": 6
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "PT1 Q6",
+"stem": "\\(3\\log\\tfrac{81}{80}+5\\log\\tfrac{25}{24}+7\\log\\tfrac{16}{15}=\\)",
+"opts": [
+"\\(\\log2\\)",
+"\\(\\log3\\)",
+"\\(\\log5\\)",
+"0"
+],
+"ans": 0,
+"exp": "Prime-factorise: powers of 3 and 5 cancel, leaving \\(2^{12+...}\\to\\log2\\).",
+"tip": "<b>Technique:</b> Factorise each fraction into primes.<br><b>Often missed:</b> Cancelling only partly.",
+"id": 7
+},
+{
+"st": 2,
+"type": "int",
+"src": "PT1 Q3",
+"stem": "\\(\\ln\\!\\big(\\tfrac{a+b}3\\big)=\\tfrac{\\ln a+\\ln b}2\\). Find \\(\\tfrac ab+\\tfrac ba\\).",
+"ans": "7",
+"exp": "\\((\\tfrac{a+b}{3})^2=ab\\Rightarrow a^2+b^2=7ab\\Rightarrow\\tfrac ab+\\tfrac ba=7\\).",
+"tip": "<b>Technique:</b> Double and exponentiate to remove logs.<br><b>Often missed:</b> Writing \\(a^2+b^2=9ab\\) (forgetting the \\(2ab\\)).",
+"id": 8
+},
+{
+"st": 2,
+"type": "int",
+"src": "ALLEN Pt 02 Illus 1",
+"stem": "If \\(\\log_4m=1.5\\), find \\(m\\).",
+"ans": "8",
+"exp": "\\(m=4^{3/2}=8\\).",
+"tip": "<b>Technique:</b> Definition: \\(\\log_aN=x\\iff a^x=N\\).<br><b>Often missed:</b> Computing \\(4\\times1.5=6\\).",
+"id": 9
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex1 Q2a",
+"stem": "\\(x=\\log_34,\\ y=\\log_53\\). Then \\(\\log_310=\\)",
+"opts": [
+"\\(\\dfrac{xy+2}{2y}\\)",
+"\\(\\dfrac{xy+2}{y}\\)",
+"\\(\\dfrac{xy-2}{2y}\\)",
+"\\(\\dfrac{2xy+1}{y}\\)"
+],
+"ans": 0,
+"exp": "\\(\\log_32=\\tfrac x2,\\ \\log_35=\\tfrac1y\\Rightarrow\\log_310=\\tfrac x2+\\tfrac1y=\\tfrac{xy+2}{2y}\\).",
+"tip": "<b>Technique:</b> Split 10 = 2·5 and express each in x, y.<br><b>Often missed:</b> \\(\\log_32=x\\) (forgetting \\(4=2^2\\)).",
+"id": 10
+},
+{
+"st": 2,
+"type": "int",
+"src": "Ex2 Q12",
+"stem": "\\(p=\\log_abc,\\ q=\\log_bca,\\ r=\\log_cab\\). Find \\(pqr-(p+q+r)\\).",
+"ans": "2",
+"exp": "Test \\(a=b=c\\): \\(p=q=r=2\\Rightarrow8-6=2\\). The identity is \\(pqr=p+q+r+2\\).",
+"tip": "<b>Technique:</b> Write \\(p+1=\\tfrac{\\log abc}{\\log a}\\) and multiply.<br><b>Often missed:</b> Believing it equals 0 or 1.",
+"id": 11
+},
+{
+"st": 2,
+"type": "int",
+"src": "Ex2 Q13 / ALLEN Pt 04",
+"stem": "\\(a,b,c\\) distinct, \\(\\ne1\\) with \\(\\log_ba\\log_ca+\\log_ab\\log_cb+\\log_ac\\log_bc=3\\). Find \\(abc\\).",
+"ans": "1",
+"exp": "Put \\(x=\\log a\\) etc.: \\(\\tfrac{x^2}{yz}+\\tfrac{y^2}{xz}+\\tfrac{z^2}{xy}=3\\Rightarrow x^3+y^3+z^3=3xyz\\Rightarrow x+y+z=0\\Rightarrow abc=1\\).",
+"tip": "<b>Technique:</b> Common denominator \\(xyz\\), then the cubic identity.<br><b>Often missed:</b> Using \\(x=y=z\\), which contradicts distinctness.",
+"id": 12
+},
+{
+"st": 3,
+"type": "int",
+"src": "PT2 Q6",
+"stem": "Number of digits in \\(2^{64}\\) (\\(\\log_{10}2=0.30103\\)).",
+"ans": "20",
+"exp": "\\(64(0.30103)=19.27\\Rightarrow\\) characteristic 19 ⇒ 20 digits.",
+"tip": "<b>Technique:</b> Digits = characteristic + 1.<br><b>Often missed:</b> Answering 19.",
+"id": 13
+},
+{
+"st": 3,
+"type": "int",
+"src": "PT2 Q7",
+"stem": "Zeros immediately after the decimal point in \\((0.2)^{25}\\) (\\(\\log2=0.30103\\)).",
+"ans": "17",
+"exp": "\\(25\\log0.2=25(-0.69897)=-17.47=\\bar{18}.53\\) ⇒ 17 zeros.",
+"tip": "<b>Technique:</b> Characteristic \\(-k\\) ⇒ \\(k-1\\) zeros.<br><b>Often missed:</b> Reporting 18 zeros.",
+"id": 14
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q1",
+"stem": "Positive integers with characteristic 2 when the base is 5:",
+"opts": [
+"25",
+"32",
+"100",
+"101"
+],
+"ans": 2,
+"exp": "\\(25\\le N&lt;125\\Rightarrow100\\) integers.",
+"tip": "<b>Technique:</b> \\(b^n\\le N&lt;b^{n+1}\\).<br><b>Often missed:</b> Taking 125 as included (101).",
+"id": 15
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q5",
+"stem": "Zeros after the decimal before the first significant digit in \\((0.18)^{20}\\):",
+"opts": [
+"15",
+"14",
+"13",
+"12"
+],
+"ans": 1,
+"exp": "\\(20\\log0.18=20(-0.7447)=-14.89=\\bar{15}.11\\) ⇒ 14 zeros.",
+"tip": "<b>Technique:</b> Find \\(\\log0.18=\\log18-2\\) first.<br><b>Often missed:</b> Answering 15 (the characteristic).",
+"id": 16
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex1 Q24b",
+"stem": "Digits in \\(6^{15}\\) (\\(\\log2=0.3010,\\ \\log3=0.4771\\)).",
+"ans": "12",
+"exp": "\\(15(0.7781)=11.67\\Rightarrow12\\) digits.",
+"tip": "<b>Technique:</b> \\(\\log6=\\log2+\\log3\\).<br><b>Often missed:</b> Giving 11.",
+"id": 17
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex1 Q24c",
+"stem": "Zeros after the decimal point in \\(3^{-100}\\).",
+"ans": "47",
+"exp": "\\(-100(0.4771)=-47.71=\\bar{48}.29\\) ⇒ 47 zeros.",
+"tip": "<b>Technique:</b> Negative log ⇒ round characteristic down.<br><b>Often missed:</b> Answering 48 or 47.71.",
+"id": 18
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q2",
+"stem": "\\(f(x)=\\sqrt{\\log_{10}x^2}\\) is real for",
+"opts": [
+"\\((-\\infty,-1]\\cup[1,\\infty)\\)",
+"\\([1,\\infty)\\)",
+"\\((-\\infty,\\infty)\\)",
+"\\((-1,1)\\)"
+],
+"ans": 0,
+"exp": "\\(\\log x^2\\ge0\\Rightarrow x^2\\ge1\\) (and \\(x\\ne0\\) automatically).",
+"tip": "<b>Technique:</b> Argument of the root \\(\\ge0\\) and \\(x^2&gt;0\\).<br><b>Often missed:</b> Dropping the negative side because of \\(\\log x\\) thinking.",
+"id": 19
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT1 Q7",
+"stem": "For \\(d&gt;1\\), the correct order is",
+"opts": [
+"\\(\\log_2d&lt;\\log_3d&lt;\\log_ed&lt;\\log_8d\\)",
+"\\(\\log_8d&lt;\\log_3d&lt;\\log_ed&lt;\\log_2d\\)",
+"\\(\\log_8d&lt;\\log_ed&lt;\\log_2d&lt;\\log_3d\\)",
+"\\(\\log_3d&lt;\\log_ed&lt;\\log_2d&lt;\\log_8d\\)"
+],
+"ans": 1,
+"exp": "\\(\\log_bd=\\dfrac{\\ln d}{\\ln b}\\): larger base ⇒ smaller log. \\(8&gt;3&gt;e&gt;2\\).",
+"tip": "<b>Technique:</b> Compare denominators \\(\\ln b\\).<br><b>Often missed:</b> Ordering by base instead of reversing.",
+"id": 20
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q10",
+"stem": "\\(\\tfrac12\\le\\log_{0.1}x\\le2\\Rightarrow x\\in\\)",
+"opts": [
+"\\([\\tfrac1{100},\\tfrac1{\\sqrt{10}}]\\)",
+"\\([\\tfrac1{\\sqrt{10}},\\tfrac1{100}]\\)",
+"\\([\\tfrac1{\\sqrt{10}},10]\\)",
+"\\([\\tfrac1{10},100]\\)"
+],
+"ans": 0,
+"exp": "Base \\(&lt;1\\) flips: \\(0.1^2\\le x\\le0.1^{1/2}\\Rightarrow[\\tfrac1{100},\\tfrac1{\\sqrt{10}}]\\).",
+"tip": "<b>Technique:</b> Base \\(0.1&lt;1\\) ⇒ reverse the inequality.<br><b>Often missed:</b> Not flipping.",
+"id": 21
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "PT2 Q9",
+"stem": "\\(\\log_2|4-5x|&gt;2\\Rightarrow x\\in\\)",
+"opts": [
+"\\((-\\infty,0)\\cup(\\tfrac85,\\infty)\\)",
+"\\((0,\\tfrac85)\\)",
+"\\((-\\infty,\\tfrac85)\\)",
+"\\((0,\\infty)\\)"
+],
+"ans": 0,
+"exp": "\\(|4-5x|&gt;4\\Rightarrow4-5x&gt;4\\) or \\(4-5x&lt;-4\\Rightarrow x&lt;0\\) or \\(x&gt;\\tfrac85\\).",
+"tip": "<b>Technique:</b> Remove the log, then split the modulus.<br><b>Often missed:</b> Using \\(|4-5x|&lt;4\\).",
+"id": 22
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "ALLEN Pt 06 Illus 2",
+"stem": "\\(\\log_3(2x+1)&lt;\\log_35\\Rightarrow x\\in\\)",
+"opts": [
+"\\((-\\tfrac12,2)\\)",
+"\\((-\\infty,2)\\)",
+"\\((2,\\infty)\\)",
+"\\((0,2)\\)"
+],
+"ans": 0,
+"exp": "Domain \\(x&gt;-\\tfrac12\\); base \\(3&gt;1\\): \\(2x+1&lt;5\\Rightarrow x&lt;2\\).",
+"tip": "<b>Technique:</b> Domain first, then compare arguments.<br><b>Often missed:</b> Giving \\((-\\infty,2)\\) without the domain.",
+"id": 23
+},
+{
+"st": 5,
+"type": "int",
+"src": "PT1 Q5",
+"stem": "Solve \\(\\ln(x-3)+\\ln(x-2)=\\ln(2x+24)\\).",
+"ans": "9",
+"exp": "\\(x^2-7x-18=0\\Rightarrow x=9,-2\\); domain \\(x&gt;3\\) ⇒ \\(x=9\\).",
+"tip": "<b>Technique:</b> Combine, then reject \\(-2\\).<br><b>Often missed:</b> Giving both roots.",
+"id": 24
+},
+{
+"st": 5,
+"type": "int",
+"src": "Ex2 Q3 / ALLEN Pt 05",
+"stem": "Solve \\(\\log_{x+1}(x^2+x-6)^2=4\\).",
+"ans": "1",
+"exp": "Roots \\(-7,-\\tfrac52,1\\); the first two make the base \\(x+1\\) negative ⇒ \\(x=1\\).",
+"tip": "<b>Technique:</b> \\((x^2+x-6)^2=(x+1)^4\\), factorise.<br><b>Often missed:</b> Keeping \\(-7\\) or \\(-\\tfrac52\\).",
+"id": 25
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex1 Q3a",
+"stem": "\\(\\log_{10}(x^2-12x+36)=2\\Rightarrow\\)",
+"opts": [
+"\\(x=16\\) only",
+"\\(x=-4\\) only",
+"\\(x=16\\) or \\(x=-4\\)",
+"\\(x=6\\)"
+],
+"ans": 2,
+"exp": "\\((x-6)^2=100\\Rightarrow x=16,-4\\); the argument is a positive square for both.",
+"tip": "<b>Technique:</b> Spot \\(x^2-12x+36=(x-6)^2\\).<br><b>Often missed:</b> Rejecting \\(-4\\) because it is negative.",
+"id": 26
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex4 Q4 (JEE 2001)",
+"stem": "Number of solutions of \\(\\log_4(x-1)=\\log_2(x-3)\\):",
+"opts": [
+"3",
+"1",
+"2",
+"0"
+],
+"ans": 1,
+"exp": "\\(x-1=(x-3)^2\\Rightarrow x=2,5\\); domain \\(x&gt;3\\) ⇒ only \\(x=5\\).",
+"tip": "<b>Technique:</b> Convert \\(\\log_2\\) to base 4: \\(\\log_2(x-3)=\\log_4(x-3)^2\\).<br><b>Often missed:</b> Counting both roots.",
+"id": 27
+},
+{
+"st": 5,
+"type": "int",
+"src": "ALLEN Pt 05 Illus 4",
+"stem": "\\((\\log_5x)^2+\\log_5x+1=\\dfrac7{\\log_5x-1}\\). Find \\(x\\).",
+"ans": "25",
+"exp": "\\(t=\\log_5x\\): \\(t^3-8=0\\Rightarrow t=2\\Rightarrow x=25\\).",
+"tip": "<b>Technique:</b> Multiply out: \\((t-1)(t^2+t+1)=t^3-1\\).<br><b>Often missed:</b> Forgetting the quadratic factor has no real root.",
+"id": 28
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "PT1 Q4",
+"stem": "\\(\\log_{11}\\log_7(\\sqrt{x+5}+\\sqrt x)=0\\Rightarrow x=\\)",
+"opts": [
+"\\(\\tfrac{484}{49}\\)",
+"\\(\\tfrac{49}{484}\\)",
+"4",
+"\\(\\tfrac{22}7\\)"
+],
+"ans": 0,
+"exp": "\\(\\log_7(\\cdot)=1\\Rightarrow\\sqrt{x+5}+\\sqrt x=7\\Rightarrow\\sqrt x=\\tfrac{22}7\\Rightarrow x=\\tfrac{484}{49}\\).",
+"tip": "<b>Technique:</b> Peel the outer log, then isolate a radical and square.<br><b>Often missed:</b> Stopping at \\(\\sqrt x=\\tfrac{22}7\\).",
+"id": 29
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex1 Q5a",
+"stem": "Solve \\(\\log_4\\log_3\\log_2x=0\\).",
+"ans": "8",
+"exp": "\\(\\log_3\\log_2x=1\\Rightarrow\\log_2x=3\\Rightarrow x=8\\).",
+"tip": "<b>Technique:</b> \\(\\log_a(\\cdot)=0\\Rightarrow(\\cdot)=1\\).<br><b>Often missed:</b> Answering 3 or 9.",
+"id": 30
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex1 Q5b",
+"stem": "Solve \\(\\ln\\log_5[\\sqrt{2x-2}+3]=0\\).",
+"ans": "3",
+"exp": "\\(\\log_5[\\cdot]=1\\Rightarrow\\sqrt{2x-2}+3=5\\Rightarrow x=3\\).",
+"tip": "<b>Technique:</b> Outer \\(\\ln=0\\) ⇒ inner \\(=1\\).<br><b>Often missed:</b> Treating \\(\\ln\\) as base 10.",
+"id": 31
+},
+{
+"st": 6,
+"type": "int",
+"src": "ALLEN Pt 05 Illus 1",
+"stem": "\\(\\log_{1/2}(\\log_2\\sqrt2\\,x)=1\\). Find \\(x\\).",
+"ans": "1",
+"exp": "\\(\\log_2\\sqrt2x=\\tfrac12\\Rightarrow\\sqrt2x=\\sqrt2\\Rightarrow x=1\\).",
+"tip": "<b>Technique:</b> Base \\(\\tfrac12\\): \\((\\tfrac12)^1=\\tfrac12\\).<br><b>Often missed:</b> Using \\(2^1\\).",
+"id": 32
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "ALLEN Pt 02 Illus 2",
+"stem": "\\(\\log_a[1+\\log_b\\{1+\\log_c(1+\\log_pN)\\}]=0\\Rightarrow N=\\)",
+"opts": [
+"4",
+"3",
+"2",
+"1"
+],
+"ans": 3,
+"exp": "Each layer forces the inside to 1 ⇒ \\(\\log_pN=0\\Rightarrow N=1\\).",
+"tip": "<b>Technique:</b> Peel four layers outside-in.<br><b>Often missed:</b> Inventing a dependence on \\(a,b,c,p\\).",
+"id": 33
+},
+{
+"st": 7,
+"type": "int",
+"src": "Ex1 Q21",
+"stem": "\\(x,y&gt;0,\\ \\log_yx+\\log_xy=\\tfrac{10}3,\\ xy=144\\), and \\(\\tfrac{x+y}2=\\sqrt N\\). Find \\(N\\).",
+"ans": "507",
+"exp": "\\(t+\\tfrac1t=\\tfrac{10}3\\Rightarrow t=3\\Rightarrow x=y^3,\\ y^4=144\\Rightarrow y=2\\sqrt3,\\ x=24\\sqrt3\\); \\(\\tfrac{x+y}2=13\\sqrt3=\\sqrt{507}\\).",
+"tip": "<b>Technique:</b> Set \\(t=\\log_yx\\).<br><b>Often missed:</b> Missing the \\(t=\\tfrac13\\) mirror case (same N).",
+"id": 34
+},
+{
+"st": 7,
+"type": "int",
+"src": "Ex2 Q9",
+"stem": "\\(\\log_8x+\\log_4y^2=5,\\ \\log_8y+\\log_4x^2=7\\). Find \\(xy\\).",
+"ans": "512",
+"exp": "\\(u=\\log_2x,v=\\log_2y\\): \\(\\tfrac u3+v=5,\\ \\tfrac v3+u=7\\Rightarrow u=6,v=3\\Rightarrow xy=2^9\\).",
+"tip": "<b>Technique:</b> Convert everything to base 2.<br><b>Often missed:</b> Giving \\(u+v=9\\) instead of \\(2^9\\).",
+"id": 35
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex3 Q11",
+"stem": "\\(xyz=10^{81}\\), \\((\\log x)(\\log yz)+(\\log y)(\\log z)=468\\). Then \\((\\log x)^2+(\\log y)^2+(\\log z)^2=\\)",
+"opts": [
+"1225",
+"1728",
+"2506",
+"5625"
+],
+"ans": 3,
+"exp": "\\(S=81,\\ P=468\\Rightarrow S^2-2P=6561-936=5625\\).",
+"tip": "<b>Technique:</b> Recognise \\(u(v+w)+vw=P\\).<br><b>Often missed:</b> Using \\(S^2-P\\).",
+"id": 36
+},
+{
+"st": 7,
+"type": "mcq",
+"src": "Ex4 Q5 (JEE 2011)",
+"stem": "\\((2x)^{\\ln2}=(3y)^{\\ln3},\\ 3^{\\ln x}=2^{\\ln y}\\). Then \\(x_0=\\)",
+"opts": [
+"\\(\\tfrac16\\)",
+"\\(\\tfrac13\\)",
+"\\(\\tfrac12\\)",
+"6"
+],
+"ans": 2,
+"exp": "Take ln: \\(p\\ln3=q\\ln2\\); substituting gives \\(p=-\\ln2\\Rightarrow x=\\tfrac12\\).",
+"tip": "<b>Technique:</b> Let \\(p=\\ln x,q=\\ln y\\).<br><b>Often missed:</b> Solving for y instead of x.",
+"id": 37
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "ALLEN Pt 09 Illus 1",
+"stem": "Product of the roots of \\(x^{\\log_{10}x}=\\dfrac{10^4}{x^3}\\):",
+"opts": [
+"\\(\\tfrac1{10}\\)",
+"\\(\\tfrac1{100}\\)",
+"\\(\\tfrac1{1000}\\)",
+"\\(\\tfrac1{10000}\\)"
+],
+"ans": 2,
+"exp": "Take \\(\\log_{10}\\): \\(u^2+3u-4=0\\), \\(u_1+u_2=-3\\Rightarrow x_1x_2=10^{-3}\\).",
+"tip": "<b>Technique:</b> Sum of log-roots gives log of product.<br><b>Often missed:</b> Taking the product of u-roots (\\(-4\\)).",
+"id": 38
+},
+{
+"st": 8,
+"type": "mcq",
+"src": "Ex1 Q15",
+"stem": "\\(49^{1-\\log_72}+5^{-\\log_54}=\\)",
+"opts": [
+"\\(\\tfrac{25}2\\)",
+"\\(\\tfrac{49}4\\)",
+"12",
+"\\(\\tfrac{13}2\\)"
+],
+"ans": 0,
+"exp": "\\(\\tfrac{49}{4}+\\tfrac14=\\tfrac{25}2\\).",
+"tip": "<b>Technique:</b> \\(a^{\\log_aN}=N\\) after splitting \\(49^{1-\\log_72}=49/49^{\\log_72}\\).<br><b>Often missed:</b> Forgetting \\(49^{\\log_72}=4\\), not 2.",
+"id": 39
+},
+{
+"st": 8,
+"type": "int",
+"src": "Ex1 Q2b",
+"stem": "\\(k^{\\log_25}=16\\). Find \\(k^{(\\log_25)^2}\\).",
+"ans": "625",
+"exp": "\\(=(k^{\\log_25})^{\\log_25}=16^{\\log_25}=2^{4\\log_25}=5^4=625\\).",
+"tip": "<b>Technique:</b> Raise both sides to \\(\\log_25\\).<br><b>Often missed:</b> Solving for k first (unnecessary).",
+"id": 40
+},
+{
+"st": 8,
+"type": "int",
+"src": "ALLEN Pt 04 Illus 2",
+"stem": "Evaluate \\(81^{1/\\log_53}+27^{\\log_936}+3^{4/\\log_79}\\).",
+"ans": "890",
+"exp": "\\(625+216+49=890\\).",
+"tip": "<b>Technique:</b> Rewrite each as a power of 3: \\(3^{4\\log_35},3^{3\\log_36},3^{2\\log_37}\\).<br><b>Often missed:</b> Mis-handling \\(\\log_936=\\log_36\\).",
+"id": 41
+}
+];
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e'};
+const stageNames = {1:'A · Change of Base',2:'B · Core Identities',3:'C · Digits & Characteristic',4:'G · Domain & Inequalities',5:'D · Equations + Domain',6:'E · Nested Logs',7:'F · Systems',8:'H · Exponent Hybrids'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>Logarithm — 8-Motif Recall CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Select stages, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${[1,2,3,4,5,6,7,8].map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">Stage ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="40" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to 41 questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,41);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>Stage ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+function renderResult(){
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  let filterSt=0;
+
+  function qList(){
+    return qs.map((q,i)=>{
+      if(filterSt && q.st!==filterSt) return '';
+      const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+      const cls = sk?'skip':ok?'ok':'bad';
+      let ua='Not answered';
+      if(userAns[q.id]!==undefined) ua = q.type==='mcq' ? `${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}` : userAns[q.id];
+      const ca = q.type==='mcq' ? `${'ABCD'[q.ans]}: ${q.opts[q.ans]}` : q.ans;
+      return `<div class="rq ${cls}">
+        <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+        <div class="rstem">${q.stem}</div>
+        <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+          ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+        </div>
+        ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+      </div>`;
+    }).join('');
+  }
+
+  $().innerHTML=`
+  <div class="res-wrap">
+    <h2 style="color:var(--blue);margin-bottom:10px">Test Result</h2>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">Stage-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">S${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="fchips">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">Stage ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qList()}</div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+    </div>
+  </div>`;
+
+  window._filterSt = 0;
+  window._qList = qList;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function filterRes(s, el){
+  window._filterSt = s;
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  // recompute with filter
+  const ql = document.getElementById('qlist');
+  if(!ql) return;
+  ql.innerHTML = qs.map((q,i)=>{
+    if(s && q.st!==s) return '';
+    const ok=isCorrect(q), sk=userAns[q.id]===undefined;
+    const cls=sk?'skip':ok?'ok':'bad';
+    let ua='Not answered';
+    if(userAns[q.id]!==undefined) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+    const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+    return `<div class="rq ${cls}">
+      <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">Stage ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+      <div class="rstem">${q.stem}</div>
+      <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+        ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+      </div>
+      ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+      ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+    </div>`;
+  }).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
