@@ -1,637 +1,259 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Quadratic Equations CBT Mock Test 1 - JEE Advanced</title>
-<script>
-window.MathJax = {
-  tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
-  svg: { fontCache: 'global' }
-};
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Quadratic Equations – Recall CBT</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
 <style>
-  :root{
-    --nv:#9e9e9e; --na:#e53935; --ans:#43a047; --mark:#8e24aa; --ansmark:#8e24aa;
-    --blue:#0b3d91; --lightblue:#e8f0fe; --border:#ccc;
-  }
-  *{box-sizing:border-box;}
-  body{font-family:Arial, Helvetica, sans-serif; margin:0; background:#f0f2f5; color:#222;}
-  /* ---------- LOGIN ---------- */
-  #login-screen{display:flex; align-items:center; justify-content:center; height:100vh; background:linear-gradient(135deg,#0b3d91,#1a5fb4);}
-  .login-box{background:#fff; padding:40px 50px; border-radius:10px; width:420px; box-shadow:0 10px 30px rgba(0,0,0,.3);}
-  .login-box h1{font-size:20px; margin:0 0 4px; color:var(--blue);}
-  .login-box p{font-size:13px; color:#666; margin:0 0 20px;}
-  .login-box label{display:block; font-size:13px; font-weight:bold; margin:14px 0 5px;}
-  .login-box input{width:100%; padding:10px; border:1px solid var(--border); border-radius:5px; font-size:14px;}
-  .login-box button{margin-top:22px; width:100%; padding:12px; background:var(--blue); color:#fff; border:none; border-radius:5px; font-size:15px; cursor:pointer; font-weight:bold;}
-  .login-box button:hover{background:#092c68;}
-  .instr{background:#f7f9fc; border:1px solid #dde3ee; border-radius:6px; padding:10px 12px; font-size:12px; color:#555; margin-top:16px; line-height:1.5;}
-  /* ---------- TEST SCREEN ---------- */
-  #test-screen{display:none; height:100vh; flex-direction:column;}
-  #topbar{background:var(--blue); color:#fff; padding:10px 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap;}
-  #topbar .title{font-size:15px; font-weight:bold;}
-  #topbar .sub{font-size:11px; opacity:.85;}
-  #timerBox{background:#fff; color:var(--blue); font-weight:bold; padding:6px 14px; border-radius:5px; font-size:16px; letter-spacing:1px;}
-  #timerBox.low{color:#c62828; animation:blink 1s infinite;}
-  @keyframes blink{50%{opacity:.4;}}
-  #submitBtn{background:#e53935; color:#fff; border:none; padding:9px 18px; border-radius:5px; cursor:pointer; font-weight:bold; font-size:13px;}
-  #submitBtn:hover{background:#b71c1c;}
-  #sectionTabs{display:flex; background:#dde5f0; border-bottom:1px solid #c3cee0;}
-  .section-tab{padding:10px 22px; cursor:pointer; font-size:13px; font-weight:bold; color:#33507a; border-right:1px solid #c3cee0;}
-  .section-tab.active{background:#fff; color:var(--blue); border-bottom:3px solid var(--blue);}
-  #main{flex:1; display:flex; overflow:hidden;}
-  #qArea{flex:1; padding:20px 28px; overflow-y:auto; background:#fff;}
-  #qMeta{display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;}
-  #qNumTag{font-weight:bold; color:var(--blue); font-size:15px;}
-  #qMarks{font-size:12px; color:#555; background:#eef2fa; padding:4px 10px; border-radius:12px;}
-  #qText{font-size:16px; line-height:1.9; margin:14px 0 22px;}
-  .opt{display:flex; align-items:flex-start; gap:10px; padding:11px 14px; border:1px solid #ddd; border-radius:6px; margin-bottom:10px; cursor:pointer;}
-  .opt:hover{background:#f5f8ff;}
-  .opt.selected{background:var(--lightblue); border-color:var(--blue);}
-  .opt input{margin-top:4px;}
-  #numericInputWrap{margin-top:6px;}
-  #numericInputWrap input{padding:10px; font-size:15px; width:220px; border:1px solid var(--border); border-radius:5px;}
-  #actionBar{display:flex; gap:10px; padding:14px 28px; border-top:1px solid #e0e0e0; background:#fafbfd; flex-wrap:wrap;}
-  #actionBar button{padding:10px 16px; font-size:13px; border-radius:5px; border:1px solid #bbb; background:#fff; cursor:pointer; font-weight:bold;}
-  .btn-mark{color:var(--mark); border-color:var(--mark);}
-  .btn-clear{color:#555;}
-  .btn-save{background:var(--blue)!important; color:#fff!important; border-color:var(--blue)!important;}
-  .btn-nav{margin-left:auto; color:var(--blue); border-color:var(--blue);}
-  #palette{width:260px; background:#f4f6fa; border-left:1px solid #dde3ee; padding:14px; overflow-y:auto;}
-  #palette h3{font-size:12px; margin:0 0 10px; color:#333;}
-  .legend{display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:10.5px; margin-bottom:14px;}
-  .legend-item{display:flex; align-items:center; gap:5px;}
-  .legend-swatch{width:14px; height:14px; border-radius:3px; flex-shrink:0;}
-  .pal-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:7px;}
-  .pal-btn{width:38px; height:34px; border-radius:5px; border:none; color:#fff; font-size:12px; font-weight:bold; cursor:pointer; position:relative;}
-  .pal-btn.nv{background:var(--nv); color:#333;}
-  .pal-btn.na{background:var(--na);}
-  .pal-btn.ans{background:var(--ans);}
-  .pal-btn.mark{background:var(--mark);}
-  .pal-btn.ansmark{background:var(--ansmark);}
-  .pal-btn.ansmark::after{content:''; position:absolute; bottom:3px; right:3px; width:6px; height:6px; border-radius:50%; background:var(--ans);}
-  .pal-btn.current{outline:3px solid #ffb300; outline-offset:1px;}
-  .ref-tag{font-size:10px; color:#999; margin-top:16px; font-style:italic;}
-  /* ---------- RESULTS ---------- */
-  #result-screen{display:none; max-width:920px; margin:0 auto; padding:30px 20px 60px;}
-  .card{background:#fff; border-radius:8px; box-shadow:0 1px 6px rgba(0,0,0,.1); padding:22px 26px; margin-bottom:20px;}
-  .score-hero{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
-  .score-hero .big{font-size:42px; font-weight:bold; color:var(--blue);}
-  .score-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px;}
-  .stat{background:#f7f9fc; border-radius:6px; padding:12px; text-align:center;}
-  .stat .n{font-size:20px; font-weight:bold;}
-  .stat .l{font-size:11px; color:#666; margin-top:3px;}
-  .sec-breakdown{margin-top:18px;}
-  .sec-row{display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #eee; font-size:13px;}
-  #reviewList .rq{border:1px solid #e2e2e2; border-radius:6px; padding:16px 18px; margin-bottom:14px;}
-  .rq-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
-  .status-pill{font-size:11px; padding:3px 10px; border-radius:10px; color:#fff; font-weight:bold;}
-  .time-pill{font-size:11px; padding:3px 10px; border-radius:10px; background:#eef2fa; color:#33507a; font-weight:bold;}
-  .pill-correct{background:var(--ans);}
-  .pill-wrong{background:var(--na);}
-  .pill-unattempt{background:#999;}
-  .rq .opt2{padding:7px 10px; border-radius:5px; margin:4px 0; font-size:13.5px; border:1px solid #eee;}
-  .opt2.correctAns{background:#e8f6ea; border-color:var(--ans); font-weight:bold;}
-  .opt2.wrongPick{background:#fdecea; border-color:var(--na); font-weight:bold;}
-  #topActions{display:flex; gap:10px; justify-content:flex-end; margin-bottom:14px;}
-  #topActions button{padding:10px 18px; border-radius:5px; border:1px solid var(--blue); background:var(--blue); color:#fff; cursor:pointer; font-weight:bold; font-size:13px;}
-  #topActions button.secondary{background:#fff; color:var(--blue);}
-  @media print{
-    #topActions{display:none;}
-    body{background:#fff;}
-    .card{box-shadow:none; border:1px solid #ccc;}
-  }
-  #confirmOverlay{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); align-items:center; justify-content:center; z-index:50;}
-  #confirmOverlay .box{background:#fff; padding:26px 30px; border-radius:8px; width:380px;}
-  #confirmOverlay h3{margin-top:0;}
-  #confirmOverlay .row{display:flex; gap:10px; margin-top:18px;}
-  #confirmOverlay button{flex:1; padding:10px; border-radius:5px; border:none; cursor:pointer; font-weight:bold;}
-  #confirmOverlay .yes{background:#e53935; color:#fff;}
-  #confirmOverlay .no{background:#eee;}
-</style>
-</head>
-<body>
-
-<!-- ============ LOGIN ============ -->
-<div id="login-screen">
-  <div class="login-box">
-    <h1>Quadratic Equations CBT Mock Test — 1</h1>
-    <p>JEE Advanced Pattern · Relations Between Roots, Nature/Location of Roots, Common Roots &amp; Range</p>
-    <label>Candidate Name</label>
-    <input type="text" id="candName" placeholder="Enter your name" />
-    <label>Test Duration (minutes)</label>
-    <input type="number" id="candDuration" value="45" min="5" max="180" />
-    <button onclick="startTest()">Start Test</button>
-    <div class="instr">
-      <b>Instructions:</b> Section A — 12 Single Correct MCQs (+4 / −1). Section B — 6 Numerical Value questions (+4 / 0, no negative marking). Use <b>Save &amp; Next</b> to record a response, <b>Mark for Review &amp; Next</b> to flag a question, and <b>Clear Response</b> to remove your answer. The test auto-submits when time expires.
-    </div>
-  </div>
+:root{--bg:#eef2f7;--cd:#fff;--ink:#1d2733;--ln:#cfd8e3;--b1:#1a2e4a;--b2:#2a6fb5;--sel:#e7f1fd;--g:#2e9e4f;--r:#d9453d;--p:#7a4bb8;--a:#e0a100;--mu:#5a6a7e;--ex:#f4f8fd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161e;--cd:#19222d;--ink:#e4e9f0;--ln:#34414f;--b1:#0c141e;--b2:#4a90e2;--sel:#1e3550;--mu:#9aa8b8;--ex:#1d2a38}}
+:root[data-theme="dark"]{--bg:#10161e;--cd:#19222d;--ink:#e4e9f0;--ln:#34414f;--b1:#0c141e;--b2:#4a90e2;--sel:#1e3550;--mu:#9aa8b8;--ex:#1d2a38}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",Roboto,Arial,sans-serif}
+.box{max-width:760px;margin:18px auto;background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:18px 22px}
+.box h2{margin-top:0;color:var(--b2)}.mu{color:var(--mu);font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.lb{border:1px solid var(--ln);border-radius:6px;padding:7px 10px;font-size:14px;cursor:pointer}
+.lb:has(input:checked){border-color:var(--b2);background:var(--sel)}
+.tw{display:flex;gap:12px;padding:12px;align-items:flex-start}
+.mn{flex:1;min-width:0;background:var(--cd);border:1px solid var(--ln);border-radius:6px}
+.sd{width:250px;background:var(--cd);border:1px solid var(--ln);border-radius:6px;padding:10px;position:sticky;top:8px}
+.tb{background:var(--b1);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px;border-radius:6px 6px 0 0;font-size:14px}
+.clk{background:#fff;color:#1a2e4a;font-weight:700;padding:3px 10px;border-radius:4px;font-size:17px}.clk.lo{color:var(--r)}
+.qh{padding:7px 14px;border-bottom:1px solid var(--ln);font-size:13px;color:var(--mu)}
+.qb{padding:14px 16px;min-height:200px}.st{font-size:17px;line-height:1.9;margin-bottom:12px;overflow-x:auto}
+.op{display:flex;gap:10px;align-items:center;border:1.5px solid var(--ln);border-radius:6px;padding:8px 12px;margin:6px 0;cursor:pointer;overflow-x:auto}
+.op:hover{border-color:var(--b2)}.op.sl{border-color:var(--b2);background:var(--sel)}.op b{color:var(--b2);min-width:20px}
+.ni{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--b2);border-radius:6px;background:var(--cd);color:var(--ink)}
+.bar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--ln);flex-wrap:wrap}
+.bt{padding:8px 14px;border:1.5px solid var(--b2);background:var(--cd);color:var(--ink);border-radius:5px;cursor:pointer;font-weight:600;font-size:14px}
+.bt.p{background:var(--b2);color:#fff}.bt.g{background:var(--g);border-color:var(--g);color:#fff}
+.pl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pl button{height:32px;border:0;border-radius:4px;color:#fff;font-weight:600;font-size:12px;cursor:pointer}
+.na{background:var(--r)}.an{background:var(--g)}.mk{background:var(--p)}.cur{outline:3px solid var(--a)}
+.cs{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.cs div{flex:1;min-width:110px;background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:10px}
+.cs b{font-size:26px;display:block;color:var(--b2)}
+.tp{display:inline-block;padding:3px 9px;border-radius:4px;background:var(--b2);color:#fff;font-size:13px;margin:2px}
+.rq{background:var(--cd);border:1px solid var(--ln);border-left:5px solid var(--a);border-radius:6px;padding:10px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--g)}.rq.bad{border-left-color:var(--r)}
+.ex{background:var(--ex);border-radius:5px;padding:7px 10px;margin-top:6px;font-size:14px;overflow-x:auto}
+[hidden]{display:none!important}
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--b1);position:sticky;top:0;z-index:9;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:#1a2e4a}
+nav .on{background:#fff;box-shadow:inset 0 -3px 0 var(--b2)}
+#rs{max-width:1000px;margin:0 auto;padding:16px 20px 50px;background:var(--cd)}
+#rs h1{font-size:22px;margin:0 0 4px;color:var(--b2)}
+#rs h2{font-size:15px;margin:18px 0 4px;padding:6px 10px;border-left:5px solid var(--b2);background:var(--sel)}
+#rs ol{margin:0;padding-left:28px}#rs li{padding:6px 0;border-bottom:1px dotted var(--ln);line-height:1.9;overflow-x:auto}
+@media(max-width:700px){.tw{flex-direction:column}.sd{width:100%;position:static}.grid{grid-template-columns:1fr}}
+.tip{background:#fff8e1;border-left:3px solid var(--a);border-radius:5px;padding:7px 10px;margin-top:6px;font-size:13.5px;line-height:1.55;color:#33280a}
+@media print{:root:root:root{--bg:#fff;--cd:#fff;--ink:#000;--ln:#bbb;--sel:#fff;--mu:#444;--ex:#f4f8fd}body{background:#fff}nav,.np{display:none!important}.box{max-width:none!important;margin:0!important;border:0!important;padding:0!important}.rq{break-inside:avoid;page-break-inside:avoid}.cs div,.tp,.tip,.ex,.rq{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm}}
+</style></head><body>
+<nav><button id="tr" class="on" onclick="showTab('rs')">📖 Remember Sheet</button><button id="tc" onclick="showTab('c1')">🎯 Recall CBT 1</button><button id="tc2" onclick="showTab('c2')">🎯 Recall CBT 2</button></nav>
+<div id="rs">
+<h1>Quadratic Equations – Remember Sheet</h1>
+<p class="mu">Formulas, conditions and tricks from the module, grouped to match the CBT topics. Notation: \(D=b^2-4ac\), \(S=\alpha+\beta\), \(P=\alpha\beta\).</p>
+<section><h2>1 · Roots: Sum &amp; Product</h2><ol>
+<li>\(\alpha+\beta=-\dfrac ba,\ \ \alpha\beta=\dfrac ca\); roots \(\dfrac{-b\pm\sqrt D}{2a}\); \(|\alpha-\beta|=\dfrac{\sqrt D}{|a|}\).</li>
+<li>Equation from roots: \(x^2-Sx+P=0\).</li>
+<li>\(a+b+c=0\Rightarrow\) root \(1\) (other \(c/a\)). \(a-b+c=0\Rightarrow\) root \(-1\). \(a=c\Rightarrow\) roots are reciprocals. \(b=0\Rightarrow\) roots are equal and opposite.</li>
+<li>Example: \((b-c)x^2+(c-a)x+(a-b)=0\) has roots \(1,\ \frac{a-b}{b-c}\).</li>
+<li>Mis-copied coefficient: the correct coefficient gives the true sum (or product); the other one is taken from the faulty roots (PT1 Q4: roots \(8,3\)).</li></ol></section>
+<section><h2>2 · Symmetric Functions &amp; Recurrence</h2><ol>
+<li>\(\alpha^2+\beta^2=\dfrac{b^2-2ac}{a^2}\); \(\alpha^3+\beta^3=\dfrac{3abc-b^3}{a^3}\); \(\alpha^4+\beta^4=\dfrac{(b^2-2ac)^2-2a^2c^2}{a^4}\); \((\alpha-\beta)^2=\dfrac{D}{a^2}\).</li>
+<li>Each root satisfies the equation, so \(\alpha^{n+2}=p\alpha^{n+1}-q\alpha^n\) for \(x^2-px+q=0\). Hence \(S_n=pS_{n-1}-qS_{n-2}\), and the same for \(a_n=\alpha^n-\beta^n\) (use this to simplify ratios like \(\frac{a_{10}-2a_8}{2a_9}\)).</li>
+<li>A function is symmetric if it is unchanged when \(\alpha\leftrightarrow\beta\): \(\alpha^2\beta+\alpha\beta^2\) and \(\cos(\alpha-\beta)\) are; \(\alpha^2-\beta\) and \(\ln\frac\alpha\beta\) are not.</li>
+<li>Cubic: \(\sum\alpha=-\frac ba,\ \sum\alpha\beta=\frac ca,\ \alpha\beta\gamma=-\frac da\). Newton sums with \(e_1,e_2,e_3\): \(p_2=e_1p_1-2e_2\), \(p_3=e_1p_2-e_2p_1+3e_3\), \(p_4=e_1p_3-e_2p_2+e_3p_1\).</li>
+<li>Roots transformed (e.g. squares): substitute \(y=x^2\) and eliminate \(x\). For \(x^3+8=0\) the squares satisfy \(y^3-64=0\).</li>
+<li>Large powers of complex roots: use polar form (\(1\pm i=\sqrt2e^{\pm i\pi/4}\)) or \(\omega^3=1,\ 1+\omega+\omega^2=0\).</li></ol></section>
+<section><h2>3 · Nature of Roots</h2><ol>
+<li>\(D>0\): real, distinct. \(D=0\): equal (\(-\frac b{2a}\)). \(D<0\): non-real conjugates (real coefficients).</li>
+<li>Rational coefficients: \(D\) a perfect square \(\Rightarrow\) rational roots; \(D>0\) non-square \(\Rightarrow\) surd pair \(p\pm\sqrt q\). Real coefficients and root \(2+i\sqrt3\Rightarrow\) \(x^2-4x+7=0\).</li>
+<li>\(ax^2+bx+c>0\ \forall x\iff a>0,\ D<0\). \(\ge0\ \forall x\iff a>0,\ D\le0\). \(<0\ \forall x\iff a<0,\ D<0\). If \(a\) holds a parameter, test \(a=0\) separately.</li>
+<li>Both roots positive: \(D\ge0,S>0,P>0\). Both negative: \(D\ge0,S<0,P>0\). Opposite signs: \(P<0\).</li>
+<li>Roots in ratio \(m:n\): \(mn\,b^2=(m+n)^2ac\). One root double the other: \(2b^2=9ac\). One root the square of the other: \(b^3+a^2c+ac^2=3abc\). One root the \(n\)th power of the other: \((ac^n)^{\frac1{n+1}}+(a^nc)^{\frac1{n+1}}+b=0\).</li></ol></section>
+<section><h2>4 · Common Roots</h2><ol>
+<li>One common root: \((c_1a_2-c_2a_1)^2=(a_1b_2-a_2b_1)(b_1c_2-b_2c_1)\). Both common: \(\frac{a_1}{a_2}=\frac{b_1}{b_2}=\frac{c_1}{c_2}\).</li>
+<li>In practice: subtract the equations to get the common root, then substitute (\(x^2-11x+a,\ x^2-14x+2a\Rightarrow x=\frac a3\Rightarrow a=0,24\)).</li>
+<li>Real-coefficient quadratics sharing one non-real root share both (so coefficients are proportional).</li>
+<li>If the other roots are constrained, write them via sum or product of each equation (common root \(r\) in \(x^2-6x+a\) gives other root \(6-r\); in \(x^2-cx+6\) gives \(\frac6r\)).</li></ol></section>
+<section><h2>5 · Location of Roots</h2><p class="mu">For \(f(x)=ax^2+bx+c\) with \(a>0\); vertex \(h=-\frac b{2a}\).</p><ol>
+<li>Both roots \(>k\): \(D\ge0,\ h>k,\ f(k)>0\). Both \(<k\): \(D\ge0,\ h<k,\ f(k)>0\).</li>
+<li>\(k\) lies between the roots: \(af(k)<0\) (no \(D\) condition needed).</li>
+<li>Both roots in \((k_1,k_2)\): \(D\ge0,\ k_1<h<k_2,\ af(k_1)>0,\ af(k_2)>0\).</li>
+<li>Exactly one root in \((k_1,k_2)\): \(f(k_1)f(k_2)<0\) (check end-point cases separately). One root in each of two intervals: apply sign of \(f\) at the three points (e.g. \(f(1)>0,f(2)<0,f(3)>0\)).</li>
+<li>At least one positive root: \(P<0\), or \(P\ge0,\ S>0,\ D\ge0\). Roots on either side of the origin: \(ac<0\).</li></ol></section>
+<section><h2>6 · Quadratic &amp; Rational Inequalities</h2><ol>
+<li>\((x-\alpha)(x-\beta)<0\) (\(\alpha<\beta\)): between the roots; \(>0\): outside.</li>
+<li>Wavy curve: factorise, mark zeros, start with \(+\) on the right for a positive leading coefficient. Even-power factors do not change sign. Denominator zeros are always excluded; numerator zeros are included for \(\ge\). Example: \(\frac{(x-1)^4(x-3)^3}{(x-5)^2}\ge0\Rightarrow\{1\}\cup[3,5)\cup(5,\infty)\).</li>
+<li>When cancelling a factor, keep its zero excluded. A factor that is always positive (\(D<0\), \(a>0\)) can be dropped.</li>
+<li>Logs and exponentials: domain first (base \(>0,\ne1\), argument \(>0\)). Base \(>1\) keeps the inequality; base in \((0,1)\) reverses it. For \(\log_x\) split into \(x>1\) and \(0<x<1\).</li></ol></section>
+<section><h2>7 · Range &amp; Extrema</h2><ol>
+<li>Minimum (a>0) \(=-\frac D{4a}\) at \(x=-\frac b{2a}\). On \([m,n]\): compare the vertex (if inside) with both end-points.</li>
+<li>Range of \(y=\frac{a_1x^2+b_1x+c_1}{a_2x^2+b_2x+c_2}\): cross-multiply to a quadratic in \(x\) and impose \(D_x\ge0\). Treat a vanishing \(x^2\) coefficient separately, and drop values lost to a cancelled common factor.</li>
+<li>Real \(x,y\) with a relation: view it as a quadratic in one variable, \(D\ge0\) gives the range of the other (e.g. \(x^2+y^2=6x-8y\Rightarrow x\in[-2,8],\ y\in[-9,1]\)).</li>
+<li>\(x+y+z=s,\ x^2+y^2+z^2=q\): use \((s-x)^2\le2(q-x^2)\). For \(s=4,q=6\): \(x\in[\frac23,2]\).</li>
+<li>Sum of squares of roots \(=S^2-2P\) as a function of the parameter, then minimise. Writing \(\frac{N}{D}=1+\frac{\cdot}{D}\) reduces ratios to the extreme of the denominator.</li>
+<li>\(x+\frac1x\ge2\) for \(x>0\), \(\le-2\) for \(x<0\); so \(|x+\frac1x|\ge2\).</li></ol></section>
+<section><h2>8 · Modulus</h2><ol>
+<li>\(|x|<a\iff-a<x<a\); \(|x|>a\iff x<-a\) or \(x>a\). \(|f|<|g|\iff(f-g)(f+g)<0\).</li>
+<li>\(|u+v|=|u|+|v|\iff uv\ge0\); \(|u-v|=|u|+|v|\iff uv\le0\). Use this when two moduli add to the sum of their insides (\(|x^2-1|+|2-x^2|=1\Rightarrow1\le x^2\le2\)).</li>
+<li>\(|f|=f\iff f\ge0\); \(|f|=-f\iff f\le0\).</li>
+<li>Otherwise break at the critical points, solve each interval, and keep only answers inside that interval.</li>
+<li>With \(x^2=|x|^2\): put \(t=|x|\ (t\ge0)\). Example \(x^2-|x|-12=0\Rightarrow t=4\Rightarrow x=\pm4\).</li>
+<li>Sum of non-negative terms \(=0\Rightarrow\) each is \(0\) (\(|x^2-1|+\sqrt{x^2-3x+2}=0\Rightarrow x=1\)).</li></ol></section>
+<section><h2>9 · Irrational, Exponential &amp; Log</h2><ol>
+<li>\(\sqrt f<g\iff f\ge0,\ g>0,\ f<g^2\). \(\sqrt f>g\iff(g<0,f\ge0)\) or \((g\ge0,f>g^2)\). \(\sqrt f=g\iff g\ge0,\ f=g^2\).</li>
+<li>Squaring can add roots: always verify in the original equation.</li>
+<li>When the same expression sits inside and outside a root, set \(y=\sqrt{\ \cdot\ }\) (\(x^2+18x+30=2\sqrt{x^2+18x+45}\Rightarrow y=5\)).</li>
+<li>Exponentials: put \(t=a^x\) with \(t>0\) and reject non-positive \(t\). Symmetric \(e^{4x}\ldots e^{x}\) equations: divide by \(e^{2x}\) and put \(t=e^x+e^{-x}\ge2\).</li>
+<li>\(x^2+\frac1{x^2}=t^2-2\) with \(t=x+\frac1x\), and \(|t|\ge2\) is needed for real \(x\).</li></ol></section>
+<section><h2>10 · JEE Hard Habits</h2><ol>
+<li>Repeated root \(\alpha\) of \(ax^2+bx+c\): \(D=0\) and \(\alpha=-\frac b{2a}\). Use that \(\alpha\) also satisfies the second equation.</li>
+<li>Polynomial relations: compare degrees and coefficients; an integer-coefficient polynomial has \((m-n)\mid p(m)-p(n)\).</li>
+<li>"Sum of integers k for which there are no real roots": find \(D<0\) as an interval, list the integers, then check no extraneous root (e.g. \(x=1,2\) in a rational equation).</li>
+<li>Parameters in rational equations: clear denominators first, impose \(D\), then verify the excluded points.</li>
+<li>Two-condition problems (e.g. \(p+q=3,\ p^4+q^4=369\)): reduce to one unknown (\(pq\)), then use reality (\(D\ge0\)) to pick the right value.</li>
+<li>Before finishing: re-check the domain, the end-points (open or closed) and the edge case \(a=0\).</li></ol></section>
 </div>
-
-<!-- ============ TEST SCREEN ============ -->
-<div id="test-screen">
-  <div id="topbar">
-    <div>
-      <div class="title" id="candNameDisplay">Candidate</div>
-      <div class="sub">Quadratic Equations CBT Mock Test 1</div>
-    </div>
-    <div id="timerBox">45:00</div>
-    <button id="submitBtn" onclick="askSubmit()">Submit Test</button>
-  </div>
-  <div id="sectionTabs">
-    <div class="section-tab active" id="tabA" onclick="switchSection('A')">Section A — MCQ (1–12)</div>
-    <div class="section-tab" id="tabB" onclick="switchSection('B')">Section B — Numerical (13–18)</div>
-  </div>
-  <div id="main">
-    <div id="qArea">
-      <div id="qMeta">
-        <div id="qNumTag">Question 1</div>
-        <div id="qMarks">+4 / −1</div>
-      </div>
-      <div id="qText"></div>
-      <div id="optionsWrap"></div>
-      <div class="ref-tag" id="refTag"></div>
-    </div>
-    <div id="palette">
-      <h3>QUESTION PALETTE</h3>
-      <div class="legend">
-        <div class="legend-item"><div class="legend-swatch" style="background:var(--nv)"></div>Not Visited</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:var(--na)"></div>Not Answered</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:var(--ans)"></div>Answered</div>
-        <div class="legend-item"><div class="legend-swatch" style="background:var(--mark)"></div>Marked</div>
-      </div>
-      <div class="pal-grid" id="palGrid"></div>
-    </div>
-  </div>
-  <div id="actionBar">
-    <button class="btn-mark" onclick="markForReview()">Mark for Review &amp; Next</button>
-    <button class="btn-clear" onclick="clearResponse()">Clear Response</button>
-    <button class="btn-save" onclick="saveAndNext()">Save &amp; Next</button>
-    <button class="btn-nav" onclick="prevQ()">◀ Previous</button>
-  </div>
-</div>
-
-<!-- ============ CONFIRM SUBMIT ============ -->
-<div id="confirmOverlay">
-  <div class="box">
-    <h3>Submit Test?</h3>
-    <p id="confirmText" style="font-size:13px; color:#555;"></p>
-    <div class="row">
-      <button class="no" onclick="closeConfirm()">Cancel</button>
-      <button class="yes" onclick="finalSubmit()">Submit</button>
-    </div>
-  </div>
-</div>
-
-<!-- ============ RESULTS ============ -->
-<div id="result-screen">
-  <div id="topActions">
-    <button class="secondary" onclick="window.print()">⬇ Download as PDF</button>
-  </div>
-  <div class="card score-hero">
-    <div>
-      <div style="font-size:13px; color:#666;">Total Score</div>
-      <div class="big" id="totalScore">0 / 72</div>
-    </div>
-    <div style="text-align:right;">
-      <div style="font-size:13px; color:#666;">Candidate</div>
-      <div style="font-size:16px; font-weight:bold;" id="resultName">—</div>
-      <div style="font-size:12px; color:#888;" id="resultTime">—</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="score-grid">
-      <div class="stat"><div class="n" id="statCorrect">0</div><div class="l">Correct</div></div>
-      <div class="stat"><div class="n" id="statWrong">0</div><div class="l">Incorrect</div></div>
-      <div class="stat"><div class="n" id="statUnattempt">0</div><div class="l">Unattempted</div></div>
-      <div class="stat"><div class="n" id="statAccuracy">0%</div><div class="l">Accuracy (attempted)</div></div>
-    </div>
-    <div class="sec-breakdown">
-      <div class="sec-row"><b>Section A (MCQ, +4/−1)</b><span id="secAScore">—</span></div>
-      <div class="sec-row"><b>Section B (Numerical, +4/0)</b><span id="secBScore">—</span></div>
-      <div class="sec-row"><b>Total Time Used</b><span id="totalTimeUsed">—</span></div>
-      <div class="sec-row"><b>Average Time / Question</b><span id="avgTimeUsed">—</span></div>
-    </div>
-  </div>
-  <div class="card">
-    <h3 style="margin-top:0;">Full Answer Review</h3>
-    <div id="reviewList"></div>
-  </div>
-</div>
-
+<div id="app" hidden></div>
 <script>
-/* =========================================================
-   QUESTION DATA — sourced & verified against each PDF's own
-   printed answer key. Every item cites its source PDF (ref).
-   ========================================================= */
-const QUESTIONS = [
-// ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
-{
-  id:1, section:'A', type:'mcq',
-  text:"Let \\(\\alpha\\) and \\(\\beta\\) be the roots of the equation \\( 5x^2+6x-2=0 \\). If \\( S_n=\\alpha^n+\\beta^n \\), \\(n=1,2,3,\\dots\\), then:",
-  options:["\\(5S_6+6S_5=2S_4\\)","\\(6S_6+5S_5+2S_4=0\\)","\\(6S_6+5S_5=2S_4\\)","\\(5S_6+6S_5+2S_4=0\\)"],
-  correct:0,
-  ref:"(A) Relation between the roots and coefficients_43_E20-3"
-},
-{
-  id:2, section:'A', type:'mcq',
-  text:"Let \\(\\alpha\\) and \\(\\beta\\) be the roots of \\( x^2-6x-2=0 \\). If \\( a_n=\\alpha^n-\\beta^n \\) for \\(n\\ge1\\), then the value of \\( \\dfrac{a_{10}-2a_8}{3a_9} \\) is:",
-  options:["2","1","4","3"],
-  correct:0,
-  ref:"(A) Relation between the roots and coefficients_43_E21-2"
-},
-{
-  id:3, section:'A', type:'mcq',
-  text:"If the sum of the squares of the reciprocals of the roots \\(\\alpha\\) and \\(\\beta\\) of the equation \\( 3x^2+\\lambda x-1=0 \\) is 15, then \\( 6(\\alpha^3+\\beta^3)^2 \\) is equal to:",
-  options:["18","24","36","96"],
-  correct:1,
-  ref:"(A) Relation between the roots and coefficients_43_E22-1"
-},
-{
-  id:4, section:'A', type:'mcq',
-  text:"Let \\(\\alpha,\\beta\\) be the roots of the equation \\( x^2-\\sqrt2x+\\sqrt6=0 \\) and \\( \\dfrac{1}{\\alpha^2}+1,\\dfrac{1}{\\beta^2}+1 \\) be the roots of the equation \\( x^2+ax+b=0 \\). Then the roots of the equation \\( x^2-(a+b-2)x+(a+b+2)=0 \\) are:",
-  options:["non-real complex numbers","real and both negative","real and both positive","real and exactly one of them is positive"],
-  correct:1,
-  ref:"(A) Relation between the roots and coefficients_43_N22-7"
-},
-{
-  id:5, section:'A', type:'mcq',
-  text:"Let \\(\\lambda\\ne0\\) be a real number. Let \\(\\alpha,\\beta\\) be the roots of the equation \\( 14x^2-31x+3\\lambda=0 \\) and \\(\\alpha,\\gamma\\) be the roots of the equation \\( 35x^2-53x+4\\lambda=0 \\). Then \\( \\dfrac{3\\alpha}{\\beta} \\) and \\( \\dfrac{4\\alpha}{\\gamma} \\) are the roots of the equation:",
-  options:["\\(7x^2+245x-250=0\\)","\\(7x^2-245x+250=0\\)","\\(49x^2-245x+250=0\\)","\\(49x^2+245x+250=0\\)"],
-  correct:2,
-  ref:"(B) Relation between roots and coefficients_6_N23-3"
-},
-{
-  id:6, section:'A', type:'mcq',
-  text:"The integer 'k' for which the inequality \\( x^2-2(3k-1)x+8k^2-7>0 \\) is valid for every \\(x\\) in \\(\\mathbb{R}\\), is:",
-  options:["3","2","0","4"],
-  correct:0,
-  ref:"(C) Nature of Roots_6_E21-9"
-},
-{
-  id:7, section:'A', type:'mcq',
-  text:"Let \\( f:\\mathbb{R}-\\{2,6\\}\\to\\mathbb{R} \\) be a real valued function defined as \\( f(x)=\\dfrac{x^2+2x+1}{x^2-8x+12} \\). Then the range of \\(f\\) is:",
-  options:["\\(\\left(-\\infty,-\\dfrac{21}{4}\\right]\\cup[0,\\infty)\\)","\\(\\left(-\\infty,-\\dfrac{21}{4}\\right]\\cup(0,\\infty)\\)","\\(\\left(-\\infty,-\\dfrac{21}{4}\\right]\\cup\\left[\\dfrac{21}{4},\\infty\\right)\\)","\\(\\left(-\\infty,-\\dfrac{21}{4}\\right]\\cup[1,\\infty)\\)"],
-  correct:0,
-  ref:"(D) Range of quadratic expression_and_sign_of_3_E23-7"
-},
-{
-  id:8, section:'A', type:'mcq',
-  text:"The set of all real values of \\(\\lambda\\) for which the quadratic equation \\( (\\lambda^2+1)x^2-4\\lambda x+2=0 \\) always has exactly one root in the interval \\((0,1)\\) is:",
-  options:["\\((-3,-1)\\)","\\((2,4]\\)","\\((0,2)\\)","\\((1,3)\\)"],
-  correct:3,
-  ref:"(E) Location of Roots_5_N20-10"
-},
-{
-  id:9, section:'A', type:'mcq',
-  text:"Let \\(\\lambda\\ne0\\) be in \\(\\mathbb{R}\\). If \\(\\alpha\\) and \\(\\beta\\) are the roots of the equation \\( x^2-x+2\\lambda=0 \\), and \\(\\alpha\\) and \\(\\gamma\\) are the roots of the equation \\( 3x^2-10x+27\\lambda=0 \\), then \\( \\dfrac{\\beta\\gamma}{\\lambda} \\) is equal to:",
-  options:["18","9","27","36"],
-  correct:0,
-  ref:"(F) Common Roots_5_N21-12"
-},
-{
-  id:10, section:'A', type:'mcq',
-  text:"Let \\(a,b\\in\\mathbb{R}\\) be such that the equation \\( ax^2-2bx+15=0 \\) has a repeated root \\(\\alpha\\). If \\(\\alpha\\) and \\(\\beta\\) are the roots of the equation \\( x^2-2bx+21=0 \\), then \\( \\alpha^2+\\beta^2 \\) is equal to:",
-  options:["37","58","68","92"],
-  correct:1,
-  ref:"(F) Common Roots_5_T22-11"
-},
-{
-  id:11, section:'A', type:'mcq',
-  text:"Consider the two sets: \\( A=\\{m\\in\\mathbb{R}: \\) both the roots of \\( x^2-(m+1)x+m+4=0 \\) are real\\(\\}\\) and \\( B=[-3,5) \\). Which of the following is not true?",
-  options:["\\(A\\cap B=\\{-3\\}\\)","\\(B-A=(-3,5)\\)","\\(A\\cup B=\\mathbb{R}\\)","\\(A-B=(-\\infty,-3)\\cup(5,\\infty)\\)"],
-  correct:3,
-  ref:"(G) Qr_eq_Miscellaneous15_E20-12"
-},
-{
-  id:12, section:'A', type:'mcq',
-  text:"The set of all values of \\(k>-1\\), for which the equation \\( (3x^2+4x+3)^2-(k+1)(3x^2+4x+3)(3x^2+4x+2)+k(3x^2+4x+2)^2=0 \\) has real roots, is:",
-  options:["\\(\\left(1,\\dfrac52\\right]\\)","[2,3]","\\(\\left[-\\dfrac12,1\\right]\\)","\\(\\left[\\dfrac12,\\dfrac32\\right]-\\{1\\}\\)"],
-  correct:0,
-  ref:"(G) Qr_eq_Miscellaneous15_T21-13"
-},
+const R=String.raw;
+const T=['','Roots: Sum & Product','Symmetric Functions & Recurrence','Nature of Roots','Common Roots & Ratios','Location of Roots','Quadratic Inequalities','Range & Extrema','Modulus','Irrational / Exp / Log','JEE Hard Mix'];
+// fields: topic||m(cq)/i(nt)||source||stem||options (;;)||answer||explanation
+const Q1=R`1||i||PT1 Q5||Sum of the roots of \((a+1)x^2+(2a+3)x+(3a+4)=0\) is \(-1\). Find the product of the roots.||||2||\(-\frac{2a+3}{a+1}=-1\Rightarrow a=-2\). Product \(=\frac{3a+4}{a+1}=\frac{-2}{-1}=2\).
+1||m||Ex3 Q1||If \(\alpha\ne\beta\), \(\alpha^2=5\alpha-3\), \(\beta^2=5\beta-3\), the equation with roots \(\alpha/\beta,\ \beta/\alpha\) is:||\(3x^2-19x+3=0\);;\(3x^2+19x-3=0\);;\(3x^2-19x-3=0\);;\(x^2-5x+3=0\)||0||\(\alpha,\beta\) are roots of \(x^2-5x+3=0\). \(\frac{\alpha}{\beta}+\frac{\beta}{\alpha}=\frac{25-6}{3}=\frac{19}{3}\), product \(=1\).
+1||m||Ex3 Q3||If \(p,q\) are the roots of \(x^2+px+q=0\), then:||\(p=1,q=-2\);;\(p=0,q=1\);;\(p=-2,q=0\);;\(p=-2,q=1\)||0||\(p+q=-p\Rightarrow q=-2p\); \(pq=q\Rightarrow q(p-1)=0\). So \(p=1,q=-2\) (the case \(p=q=0\) is not listed).
+1||m||Ex3 Q7||If \((1-p)\) is a root of \(x^2+px+(1-p)=0\), its roots are:||\(-1,2\);;\(-1,1\);;\(0,-1\);;\(0,1\)||2||Substituting gives \(2(1-p)=0\Rightarrow p=1\). Equation \(x^2+x=0\): roots \(0,-1\).
+2||i||Ex3 Q61||If \(a+b+c=1,\ ab+bc+ca=2,\ abc=3\), find \(a^4+b^4+c^4\).||||13||Newton sums: \(p_2=1-4=-3\), \(p_3=p_2-2p_1+9=4\), \(p_4=p_3-2p_2+3p_1=4+6+3=13\).
+2||i||Ex3 Q65||\(\alpha+\beta=1,\ \alpha\beta=-1\), \(P_n=\alpha^n+\beta^n\), \(P_{n-1}=11\), \(P_{n+1}=29\). Find \(P_n^2\).||||324||\(P_k\): 1, 3, 4, 7, 11, 18, 29 (Lucas numbers). So \(P_n=18\), \(P_n^2=324\).
+2||m||Ex3 Q20||\(\alpha,\beta\) roots of \(x^2-6x-2=0\), \(a_n=\alpha^n-\beta^n\). Then \(\frac{a_{10}-2a_8}{2a_9}=\)||\(-3\);;\(6\);;\(-6\);;\(3\)||3||\(\alpha^{10}=6\alpha^9+2\alpha^8\) (same for \(\beta\)), so \(a_{10}-2a_8=6a_9\). Ratio \(=3\).
+2||m||Ex3 Q41||\(\alpha,\beta\) roots of \(x^2-x-1=0\), \(p_k=\alpha^k+\beta^k\). Which statement is NOT true?||\(p_3=p_5-p_4\);;\(p_5=11\);;\(p_1+p_2+p_3+p_4+p_5=26\);;\(p_5=p_2\cdot p_3\)||3||\(p_k=1,3,4,7,11\). \(p_2p_3=12\ne 11\).
+2||i||Ex3 Q66||Find the sum of the \(162^{th}\) powers of the roots of \(x^3-2x^2+2x-1=0\).||||3||\((x-1)(x^2-x+1)=0\): roots \(1,e^{\pm i\pi/3}\). Sum \(=1+2\cos 54\pi=3\).
+3||m||Ex3 Q27||Number of positive integers \(\alpha\) for which the roots of \(6x^2-11x+\alpha=0\) are rational:||5;;3;;2;;4||1||\(D=121-24\alpha\) must be a perfect square: \(\alpha=3,4,5\) give \(49,25,1\). So 3 values.
+3||m||Ex3 Q16||If the roots of \(bx^2+cx+a=0\) are imaginary, then for all real \(x\), \(3b^2x^2+6bcx+2c^2\) is:||less than \(4ab\);;greater than \(-4ab\);;less than \(-4ab\);;greater than \(4ab\)||1||Expression \(=3(bx+c)^2-c^2\ge -c^2\). Imaginary roots: \(c^2<4ab\), so \(-c^2>-4ab\).
+3||m||Ex3 Q18||\(x^2+2x+3=0\) and \(ax^2+bx+c=0\) (\(a,b,c\in R\)) have a common root. Then \(a:b:c\) is:||\(3:1:2\);;\(1:2:3\);;\(3:2:1\);;\(1:3:2\)||1||Complex roots of real quadratics come in pairs, so a common root means both are common: proportional coefficients \(1:2:3\).
+4||m||Ex3 Q2||The difference between the corresponding roots of \(x^2+ax+b=0\) and \(x^2+bx+a=0\) is the same, \(a\ne b\). Then:||\(a+b+4=0\);;\(a+b-4=0\);;\(a-b-4=0\);;\(a-b+4=0\)||0||Equal differences give equal \((\text{difference})^2\): \(a^2-4b=b^2-4a\Rightarrow (a-b)(a+b+4)=0\).
+4||m||Ex3 Q15||\(x^2-6x+a=0\) and \(x^2-cx+6=0\) have one common root; the other roots are integers in ratio \(4:3\). The common root is:||1;;4;;3;;2||3||Common root \(r\): other roots \(6-r\) and \(6/r\). \(\frac{6-r}{6/r}=\frac43\Rightarrow r^2-6r+8=0\). \(r=2\) gives integers 4, 3; \(r=4\) gives 2 and 1.5. So \(r=2\).
+4||m||Ex3 Q24||If one real root of \(81x^2+kx+256=0\) is the cube of the other root, a value of \(k\) is:||\(-81\);;\(100\);;\(-300\);;\(144\)||2||Roots \(r,r^3\): \(r^4=\frac{256}{81}\Rightarrow r=\pm\frac43\). \(r=\frac43\): sum \(=\frac{100}{27}\), \(k=-81\cdot\frac{100}{27}=-300\).
+5||m||PT8 Q1||Find \(a\) if \(x^2-2(a-1)x+(2a+1)=0\) has positive roots.||\(a\ge4\);;\(a\le0\);;\(a>1\);;\(0<a<4\)||0||\(D\ge0\Rightarrow a\le0\) or \(a\ge4\); sum \(>0\Rightarrow a>1\); product \(>0\Rightarrow a>-\frac12\). Hence \(a\ge4\).
+5||m||PT8 Q4||Both roots of \(ax^2+ax+1=0\) are less than 1. Exhaustive range of \(a\):||\((-\infty,-\tfrac12)\cup[4,\infty)\);;\((-\tfrac12,4)\);;\((4,\infty)\);;\((-\infty,-\tfrac12)\)||0||\(D\ge0\Rightarrow a\le0\) or \(a\ge4\). Need \(a\,f(1)=a(2a+1)>0\Rightarrow a<-\frac12\) or \(a>0\). Vertex \(-\frac12<1\) holds always.
+5||m||Ex3 Q92||Number of integers \(k\) for which one root of \(2x^2-8x+k=0\) lies in \((1,2)\) and the other in \((2,3)\):||1;;3;;0;;2||0||\(f(2)=k-8<0\), \(f(1)=f(3)=k-6>0\Rightarrow 6<k<8\). Only \(k=7\).
+6||m||PT2 Q4||Least integral \(k\) for which \((k-2)x^2+8x+k+4>0\) for all \(x\in R\):||5;;2;;3;;None of these||0||Need \(k>2\) and \(64<4(k-2)(k+4)\Rightarrow (k+6)(k-4)>0\Rightarrow k>4\). Least integer 5.
+6||i||PT2 Q10||For what integral \(k\) is \(x^2-2(4k-1)x+15k^2-2k-7>0\) for every real \(x\)?||||3||\(D/4=(4k-1)^2-(15k^2-2k-7)=k^2-6k+8<0\Rightarrow 2<k<4\). So \(k=3\).
+6||m||PT4 Q3||Solve \(\dfrac{(2x+1)(x-1)}{x^3-3x^2+2x}\ge 0\).||\([-\tfrac12,0)\cup(2,\infty)\);;\([-\tfrac12,\infty)\);;\((-\infty,-\tfrac12]\cup(2,\infty)\);;\((0,2)\)||0||Denominator \(=x(x-1)(x-2)\). Cancel \((x-1)\) (with \(x\ne1\)): \(\frac{2x+1}{x(x-2)}\ge0\Rightarrow x\in[-\frac12,0)\cup(2,\infty)\).
+6||m||PT9 Q10||Solve \(\log_x\!\left(2x-\tfrac34\right)<2\).||\((\tfrac12,1)\cup(\tfrac32,\infty)\);;\((\tfrac12,\tfrac32)\);;\((\tfrac38,1)\cup(\tfrac32,\infty)\);;\((1,\infty)\)||0||For \(x>1\): \(2x-\frac34<x^2\Rightarrow x>\frac32\). For \(\frac38<x<1\): \(2x-\frac34>x^2\Rightarrow \frac12<x<1\).
+7||m||Ex3 Q13||For real \(x\), the maximum value of \(\dfrac{3x^2+9x+17}{3x^2+9x+7}\) is:||\(\tfrac14\);;41;;1;;\(\tfrac{17}{7}\)||1||Expression \(=1+\frac{10}{3x^2+9x+7}\). Min of denominator \(=7-\frac{27}{4}=\frac14\). Max \(=1+40=41\).
+7||m||PT4 Q7||Range of \(f(x)=2x^2-3x+2\) on \([0,2]\):||\([\tfrac78,4]\);;\([2,4]\);;\([\tfrac78,2]\);;\([0,4]\)||0||Vertex \(x=\frac34\): \(f=\frac78\) (min). \(f(0)=2\), \(f(2)=4\) (max).
+7||i||Ex2 Q1||\(p\) is "good" if \(\dfrac{2x^2+2x+3}{x^2+x+1}\le p\) for every real \(x\). Find the smallest integral good number.||||4||Expression \(=2+\frac{1}{x^2+x+1}\le 2+\frac43=\frac{10}{3}\). Smallest integer \(\ge\frac{10}{3}\) is 4.
+7||m||Ex3 Q22||\(\lambda\) is the ratio of roots of \(3m^2x^2+m(m-4)x+2=0\). The least value of \(m\) for which \(\lambda+\frac1\lambda=1\) is:||\(2-\sqrt3\);;\(-2+\sqrt2\);;\(4-2\sqrt3\);;\(4-3\sqrt2\)||3||\((\alpha+\beta)^2=3\alpha\beta\Rightarrow\frac{(m-4)^2}{9}=2\Rightarrow m=4\pm3\sqrt2\). Least: \(4-3\sqrt2\).
+8||m||PT5 Q3||Solve \(|x^2+x|<2\).||\((-2,1)\);;\((-2,2)\);;\((-1,2)\);;\((-2,-1)\)||0||\(-2<x^2+x<2\). \(x^2+x-2<0\Rightarrow(x+2)(x-1)<0\); \(x^2+x+2>0\) always.
+8||m||PT5 Q6||Solve \(|x^2-1|+|2-x^2|=1\).||\([-\sqrt2,-1]\cup[1,\sqrt2]\);;\([1,\sqrt2]\);;\((-\sqrt2,\sqrt2)\);;\(\{\pm1,\pm\sqrt2\}\)||0||The two inner expressions sum to 1, so \(|u|+|v|=|u+v|\iff uv\ge0\): \((x^2-1)(2-x^2)\ge0\Rightarrow1\le x^2\le2\).
+8||i||PT5 Q10||Solve \(|x^2-1|+\sqrt{x^2-3x+2}=0\). Find \(x\).||||1||Both terms are non-negative so both are 0: \(x=\pm1\) and \(x\in\{1,2\}\). Only \(x=1\).
+9||m||Ex3 Q71||The sum of all real roots of \((e^{2x}-4)(6e^{2x}-5e^x+1)=0\) is:||\(\log_e3\);;\(-\log_e3\);;\(\log_e6\);;\(-\log_e6\)||1||\(e^x=2\Rightarrow\ln2\). \(6t^2-5t+1=0\Rightarrow t=\frac12,\frac13\Rightarrow-\ln2,-\ln3\). Sum \(=-\ln3\).
+9||m||Ex3 Q90||Number of real solutions of \(3\left(x^2+\frac1{x^2}\right)-2\left(x+\frac1x\right)+5=0\):||0;;3;;2;;4||0||\(t=x+\frac1x\): \(3t^2-2t-1=0\Rightarrow t=1,-\frac13\). Real \(x\) needs \(|t|\ge2\). No solution.
+9||i||Ex1 Q22||\(\lambda\) is the smallest integral \(a\) for which \(1+\log_5(x^2+1)\le\log_5(ax^2+4x+a)\) for all real \(x\). Find \(8\lambda\).||||56||Need \((a-5)x^2+4x+(a-5)\ge0\ \forall x\): \(a>5\) and \(16\le4(a-5)^2\Rightarrow a\ge7\). \(\lambda=7\), \(8\lambda=56\).
+9||i||Ex1 Q20||Find the product of the real roots of \(x^2+18x+30=2\sqrt{x^2+18x+45}\).||||20||\(y=\sqrt{x^2+18x+45}\): \(y^2-15=2y\Rightarrow y=5\). Then \(x^2+18x+20=0\); product \(=20\) (D>0).
+10||m||Ex3 Q74||\(ax^2-2bx+15=0\) has a repeated root \(\alpha\). \(\alpha,\beta\) are roots of \(x^2-2bx+21=0\). Then \(\alpha^2+\beta^2=\)||37;;58;;68;;92||1||\(b^2=15a\), \(\alpha=b/a=15/b\). \(\alpha^2-2b\alpha+21=0\Rightarrow \frac{225}{b^2}-9=0\Rightarrow\alpha^2=9\). \(\alpha\beta=21\Rightarrow\beta^2=49\). Sum 58.
+10||m||Ex3 Q73||Sum of squares of reciprocals of the roots of \(3x^2+\lambda x-1=0\) is 15. Then \(6(\alpha^3+\beta^3)^2=\)||18;;24;;26;;96||1||\(\frac{1}{\alpha^2}+\frac1{\beta^2}=\lambda^2+6=15\Rightarrow\lambda^2=9\). \(\alpha^3+\beta^3=-\frac{\lambda^3}{27}-\frac\lambda3=\mp2\). \(6\cdot4=24\).
+10||i||Ex3 Q79||\(p,q\) are real, \(p+q=3\), \(p^4+q^4=369\). Find \(\left(\frac1p+\frac1q\right)^{-2}\).||||4||With \(t=pq\): \((9-2t)^2-2t^2=369\Rightarrow t^2-18t-144=0\Rightarrow t=24\) or \(-6\). Real \(p,q\) needs \(9-4t\ge0\), so \(t=-6\). Value \(=\frac{t^2}{9}=4\).
+10||i||Ex3 Q59||Sum of all integers \(k\ (k\ne0)\) for which \(\frac{2}{x-1}-\frac{1}{x-2}=\frac2k\) has no real roots:||||66||Gives \(2x^2-(6+k)x+4+3k=0\). \(D=k^2-12k+4<0\Rightarrow k\in(6-4\sqrt2,6+4\sqrt2)\approx(0.34,11.66)\). Integers 1..11 sum to 66.
+10||i||Ex3 Q45||Least positive \(a\) for which \(2x^2+(a-10)x+\frac{33}{2}=2a\) has real roots:||||8||\((a-10)^2-8\left(\frac{33}{2}-2a\right)\ge0\Rightarrow a^2-4a-32\ge0\Rightarrow(a-8)(a+4)\ge0\). Least positive \(a=8\).`
+.trim().split('\n').map(mp);
+function mp(l,i){const f=l.split('||'),m=f[1]=='m';return{id:i,t:+f[0],m:m,src:f[2],s:f[3],o:m?f[4].split(';;'):null,a:m?+f[5]:f[5],e:f[6]}}
+const Q2=R`1||m||PT1 Q9||For what \(a\) is the difference of the roots of \((a-2)x^2-(a-4)x-2=0\) equal to 3?||\(a=\tfrac32\) or \(3\);;\(a=3\) only;;\(a=\tfrac32\) only;;\(a=-\tfrac12\) or \(1\)||0||Put \(d=a-2\): \(\frac{(d-2)^2}{d^2}+\frac8d=9\Rightarrow2d^2-d-1=0\Rightarrow d=1,-\frac12\). So \(a=3\) or \(\frac32\).
+1||m||Ex3 Q5||The value of \(a\) for which one root of \((a^2-5a+3)x^2+(3a-1)x+2=0\) is twice the other:||\(-\tfrac13\);;\(\tfrac23\);;\(-\tfrac23\);;\(\tfrac13\)||1||Roots \(r,2r\): \(2b^2=9ac\Rightarrow2(3a-1)^2=18(a^2-5a+3)\Rightarrow a=\frac23\).
+1||m||Ex3 Q9||In triangle \(PQR\), \(\angle R=\frac\pi2\). If \(\tan\frac P2,\tan\frac Q2\) are roots of \(ax^2+bx+c=0\), then:||\(a=b+c\);;\(c=a+b\);;\(b=c\);;\(b=a+c\)||1||\(\frac P2+\frac Q2=\frac\pi4\Rightarrow\frac{S}{1-P}=1\Rightarrow\frac{-b/a}{1-c/a}=1\Rightarrow c=a+b\).
+1||i||Ex2 Q2||\(a,b,c,d\) are distinct reals; \(a,b\) are roots of \(x^2-2cx-5d=0\) and \(c,d\) are roots of \(x^2-2ax-5b=0\). Find \(a+b+c+d\).||||30||\(a+b=2c,\ c+d=2a\). Subtracting \(a^2-2ac-5d=0\) and \(c^2-2ac-5b=0\) gives \((a-c)(a+c)=15(a-c)\Rightarrow a+c=15\). Also \(b+d=a+c\). Total \(30\).
+2||i||Ex3 Q100||\(a,b\) are roots of \(x^2-7x-1=0\). Find \(\dfrac{a^{21}+b^{21}+a^{17}+b^{17}}{a^{19}+b^{19}}\).||||51||With \(ab=-1\): \(a^{n+2}+b^{n+2}+a^{n-2}+b^{n-2}=(a^2+b^2)(a^n+b^n)\). Ratio \(=a^2+b^2=49+2=51\).
+2||i||Ex3 Q82||\(\alpha>\beta\) roots of \(x^2-x-4=0\), \(P_n=\alpha^n-\beta^n\). Find \(\dfrac{P_{15}P_{16}-P_{14}P_{16}-P_{15}^2+P_{14}P_{15}}{P_{13}P_{14}}\).||||16||Numerator \(=(P_{16}-P_{15})(P_{15}-P_{14})\). From \(P_{n+1}=P_n+4P_{n-1}\): \(=4P_{14}\cdot4P_{13}\). Ratio \(16\).
+2||m||Ex3 Q96||\(\alpha,\beta\) are roots of \(x^2-\sqrt2x+2=0\). Then \(\alpha^{14}+\beta^{14}=\)||\(-64\);;\(-128\);;\(-128\sqrt2\);;\(-64\sqrt2\)||1||\(\alpha=\sqrt2e^{i\pi/3}\). Sum \(=2(\sqrt2)^{14}\cos\frac{14\pi}3=2\cdot128\cdot(-\frac12)=-128\).
+2||i||Ex3 Q114||\(\alpha,\beta\) roots of \(x^2-x+2=0\). Find \(\alpha^6+\alpha^4+\beta^4-5\alpha^2\).||||13||\(\alpha^2=\alpha-2\Rightarrow\alpha^4=-3\alpha+2,\ \alpha^6=5\alpha+2\) (same for \(\beta^4\)). Sum \(=-3(\alpha+\beta)+16=13\).
+2||i||Ex3 Q116||\(\alpha^2+\alpha+1=0\) and \((1+\alpha)^7=A+B\alpha+C\alpha^2\) with \(A,B,C\ge0\). Find \(5(3A-2B-C)\).||||5||\(1+\alpha=-\alpha^2\), so \((1+\alpha)^7=-\alpha^{14}=-\alpha^2=1+\alpha\). \(A-C=B-C=1\Rightarrow 3A-2B-C=1\). Answer 5.
+2||m||Ex3 Q37||\(\alpha,\beta\) are roots of \(375x^2-25x-2=0\). Then \(\lim\sum_{r=1}^n\alpha^r+\lim\sum_{r=1}^n\beta^r=\)||\(\tfrac{21}{346}\);;\(\tfrac1{12}\);;\(\tfrac{29}{358}\);;\(\tfrac7{116}\)||1||Both \(|\text{roots}|<1\): sum \(=\frac{\alpha}{1-\alpha}+\frac{\beta}{1-\beta}=\frac{S-2P}{1-S+P}\) with \(S=\frac1{15},P=-\frac2{375}\): \(\frac{29/375}{348/375}=\frac1{12}\).
+3||m||PT2 Q6||The inequality \((a-1)x^2-(a+1)x+a+1>0\) holds for all real \(x\) when:||\(a>\tfrac53\);;\(a>1\);;\(a<-1\);;\(1<a<\tfrac53\)||0||Need \(a>1\) and \(D=(a+1)(5-3a)<0\Rightarrow a>\frac53\) (or \(a<-1\), rejected).
+3||m||PT2 Q7||\((a+4)x^2-2ax+2a-6<0\) for all \(x\in R\) when:||\(a<-6\);;\(a>4\);;\(-6<a<-4\);;\(a<-4\)||0||Need \(a+4<0\) and \(D<0\Rightarrow(a+6)(a-4)>0\Rightarrow a<-6\) (or \(a>4\), rejected).
+3||m||Ex1 Q18||\(-3<\dfrac{x^2+ax-2}{x^2+x+1}<2\) is valid for all real \(x\) when:||\((-2,1)\);;\((-7,6)\);;\((-2,6)\);;\((-7,1)\)||0||Denominator \(>0\). Right: \(x^2+(2-a)x+4>0\Rightarrow-2<a<6\). Left: \(4x^2+(a+3)x+1>0\Rightarrow-7<a<1\). Intersection \((-2,1)\).
+4||m||Ex3 Q40||\(\alpha,\beta,\gamma\) are consecutive terms of a non-constant G.P. and \(\alpha x^2+2\beta x+\gamma=0\), \(x^2+x-1=0\) have a common root. Then \(\alpha(\beta+\gamma)=\)||\(\alpha\beta\);;\(\beta\gamma\);;\(0\);;\(\alpha\gamma\)||1||\(\beta^2=\alpha\gamma\Rightarrow D=0\), root \(-\frac\beta\alpha=-r\). Then \(r^2-r-1=0\). \(\alpha(\beta+\gamma)=\alpha^2(r+r^2)=\alpha^2(2r+1)=\alpha^2r^3=\beta\gamma\).
+4||i||Ex2 Q7||\(f(x)=x^3+px^2+qx+72\) is divisible by both \(x^2+ax+b\) and \(x^2+bx+a\) (\(a\ne b\)). Find the sum of squares of the roots of \(f\).||||146||Common root: subtract to get \(x=1\). Roots are \(1,a,b\) with \(a+b=-1\), \(ab=-72\Rightarrow\{8,-9\}\). Sum of squares \(1+64+81=146\).
+4||i||Ex2 Q5||Two roots of \(x^4-18x^3+kx^2+200x-1984=0\) have product \(-32\). Find \(k\).||||86||Factor \((x^2-s_1x-32)(x^2-s_2x+62)\), \(s_1+s_2=18\), \(x\)-coeff \(-62s_1+32s_2=200\Rightarrow s_1=4,s_2=14\). \(k=62-32+s_1s_2=86\).
+5||m||Ex3 Q10||Both roots of \(x^2-2kx+k^2+k-5=0\) are less than 5. Then \(k\) lies in:||\((5,6]\);;\((6,\infty)\);;\((-\infty,4)\);;\([4,5]\)||2||\(D\ge0\Rightarrow k\le5\); vertex \(k<5\); \(f(5)=(k-4)(k-5)>0\Rightarrow k<4\) (or \(k>5\)). Hence \(k<4\).
+5||m||Ex3 Q12||Both roots of \(x^2-2mx+m^2-1=0\) are greater than \(-2\) and less than \(4\). Then:||\(-2<m<0\);;\(m>3\);;\(-1<m<3\);;\(1<m<4\)||2||Roots are \(m\pm1\): \(m-1>-2\) and \(m+1<4\Rightarrow-1<m<3\).
+5||m||Ex3 Q25||\((c-5)x^2-2cx+(c-4)=0\), \(c\ne5\). \(S\) is the set of integers \(c\) for which one root lies in \((0,2)\) and the other in \((2,3)\). Number of elements of \(S\):||11;;10;;12;;18||0||\(f(0)=c-4,\ f(2)=c-24,\ f(3)=4c-49\). Need \(f(0)f(2)<0\) and \(f(2)f(3)<0\Rightarrow12.25<c<24\). Integers \(13..23\): 11.
+5||m||Ex2 Q9||Both roots of \(x^2-ax+2=0\) lie in \((0,3)\). Then \(a\) satisfies:||\(2\sqrt2\le a<\tfrac{11}3\);;\(a\ge2\sqrt2\);;\(0<a<3\);;\(-\tfrac{11}{3}<a\le-2\sqrt2\)||0||\(D\ge0\Rightarrow a\ge2\sqrt2\); vertex \(0<\frac a2<3\); \(f(3)=11-3a>0\Rightarrow a<\frac{11}3\).
+5||m||Ex2 Q8||The quadratic \(x^2+2(K-1)x+K+5=0\) has at least one positive root when:||\(K\le-1\);;\(K\ge4\);;\(-1\le K<1\);;\(K<-5\)||0||\(P<0\Rightarrow K<-5\); or \(P\ge0,S>0,D\ge0\Rightarrow-5\le K\le-1\). Union: \(K\le-1\).
+6||m||PT4 Q2||Solve \(\dfrac{(x-1)^4(x-3)^3}{(x-5)^2}\ge0\).||\(\{1\}\cup[3,5)\cup(5,\infty)\);;\([3,\infty)\);;\(\{1\}\cup[3,\infty)\);;\((-\infty,1]\cup[3,5)\cup(5,\infty)\)||0||Even powers do not change sign. Positive for \(x>3\) (\(x\ne5\)); zero at \(1\) and \(3\); negative for \(x<3\), \(x\ne1\).
+6||m||PT9 Q7||Solve \(\log_2(x^2-1)<1\).||\((-\sqrt3,-1)\cup(1,\sqrt3)\);;\((-\sqrt3,\sqrt3)\);;\((1,\sqrt3)\);;\((-\infty,-1)\cup(1,\infty)\)||0||Need \(x^2-1>0\) and \(x^2-1<2\): \(1<x^2<3\).
+6||m||PT9 Q9||Solve \(\log_{1/3}\left(\log_4(x^2-5)\right)>0\).||\((-3,-\sqrt6)\cup(\sqrt6,3)\);;\((-3,3)\);;\((\sqrt6,3)\);;\((-\infty,-3)\cup(3,\infty)\)||0||Base \(<1\): \(0<\log_4(x^2-5)<1\Rightarrow1<x^2-5<4\Rightarrow6<x^2<9\).
+7||m||PT4 Q8||Difference between the least and greatest values of \(y=-2x^2+3x-2\) on \([0,2]\):||\(\tfrac{25}8\);;\(\tfrac78\);;\(4\);;\(\tfrac98\)||0||Vertex \(x=\frac34\): max \(=-\frac78\). \(y(0)=-2,\ y(2)=-4\) (min). Difference \(-\frac78+4=\frac{25}8\).
+7||i||PT4 Q5||Find \(a\) for which the sum of squares of the roots of \(x^2-(a-2)x-a-1=0\) is least.||||1||Sum of squares \(=(a-2)^2+2(a+1)=a^2-2a+6\), least at \(a=1\).
+7||m||Ex3 Q26||The value of \(\lambda\) for which the sum of squares of the roots of \(x^2+(3-\lambda)x+2=\lambda\) is least:||2;;\(\tfrac49\);;1;;\(\tfrac{15}8\)||0||Equation \(x^2+(3-\lambda)x+(2-\lambda)=0\): sum of squares \(=(3-\lambda)^2-2(2-\lambda)=\lambda^2-4\lambda+5\), least at \(\lambda=2\).
+7||i||Ex2 Q13||\(x,y\in R,\ x^2+y^2>0\). \(M,m\) are the max and min of \(E=\frac{x^2+y^2}{x^2+xy+4y^2}\) and \(A=\frac{M+m}2\). Find \(2007A\).||||1338||With \(t=\frac xy\): \((E-1)t^2+Et+4E-1=0\), \(D\ge0\Rightarrow15E^2-20E+4\le0\). \(M+m=\frac43\), \(A=\frac23\), \(2007A=1338\).
+7||i||Ex1 Q19||Find the minimum value of \(\dfrac{(x+\frac1x)^6-(x^6+\frac1{x^6})-2}{(x+\frac1x)^3+x^3+\frac1{x^3}}\) for \(x>0\).||||6||With \(t=x+\frac1x\), \(u=x^3+\frac1{x^3}\): numerator \(=t^6-u^2=(t^3-u)(t^3+u)\). Expression \(=t^3-u=3t\ge6\).
+8||m||Ex3 Q93||The sum of all roots of \(|x^2-8x+15|-2x+7=0\) is:||\(11+\sqrt3\);;\(9+\sqrt3\);;\(9-\sqrt3\);;\(11-\sqrt3\)||1||Need \(x\ge\frac72\). For \(x\ge5\): \(x^2-10x+22=0\Rightarrow5+\sqrt3\). For \(3<x<5\): \(x^2-6x+8=0\Rightarrow4\). Sum \(9+\sqrt3\).
+8||m||Ex3 Q97||The number of real roots of \(x|x|-5|x+2|+6=0\) is:||4;;3;;6;;5||1||\(x\ge0\): \(x^2-5x-4=0\) gives 1 root. \(-2\le x<0\): \(x^2+5x+4=0\) gives \(-1\). \(x<-2\): \(x^2-5x-16=0\) gives \(\frac{5-\sqrt{89}}2\). Total 3.
+8||i||Ex3 Q63||Find the number of real roots of \((x+1)^2+|x-5|=\frac{27}4\).||||2||\(x\ge5\): no valid root. \(x<5\): \(x^2+x-\frac34=0\Rightarrow x=\frac12,-\frac32\). Two roots.
+8||m||Ex3 Q30||The sum of the solutions of \(|\sqrt x-2|+\sqrt x(\sqrt x-4)+2=0\ (x>0)\) is:||12;;9;;4;;10||3||\(s=\sqrt x\): \(s\ge2\Rightarrow s^2-3s=0\Rightarrow s=3\) (\(x=9\)). \(s<2\Rightarrow s^2-5s+4=0\Rightarrow s=1\) (\(x=1\)). Sum 10.
+8||m||Ex3 Q21||\(S=\{x\ge0:2|\sqrt x-3|+\sqrt x(\sqrt x-6)+6=0\}\). Then \(S\):||contains exactly four elements;;is empty;;contains exactly one element;;contains exactly two elements||3||\(s=\sqrt x\): \(s\ge3\Rightarrow s^2-4s=0\Rightarrow s=4\) (\(x=16\)). \(s<3\Rightarrow s^2-8s+12=0\Rightarrow s=2\) (\(x=4\)). Two elements.
+9||m||Ex3 Q86||The equation \(e^{4x}+8e^{3x}+13e^{2x}-8e^x+1=0\) has:||two solutions, both negative;;two solutions, only one negative;;no solution;;four solutions, two negative||0||Divide by \(e^{2x}\), \(u=e^x-e^{-x}\): \(u^2+8u+15=0\Rightarrow u=-3,-5\). \(u\) is one-to-one and \(u<0\Rightarrow x<0\). Two negative solutions.
+9||i||Ex3 Q76||Find the number of real solutions of \(e^{4x}+4e^{3x}-58e^{2x}+4e^x+1=0\).||||2||Divide by \(e^{2x}\), \(t=e^x+e^{-x}\ge2\): \(t^2+4t-60=0\Rightarrow t=6\) (reject \(-10\)). \(e^x+e^{-x}=6\) has 2 roots.
+9||m||Ex3 Q36||The number of real roots of \(5+|2^x-1|=2^x(2^x-2)\) is:||3;;4;;2;;1||3||\(t=2^x>0\). \(t\ge1\): \(t^2-3t-4=0\Rightarrow t=4\). \(t<1\): \(t^2-t-6=0\), no valid \(t\). One root.
+9||m||Ex3 Q87||The number of real roots of \(\sqrt{x^2-4x+3}+\sqrt{x^2-9}=\sqrt{4x^2-14x+6}\) is:||0;;3;;2;;1||3||Domain \(x\le-3\) or \(x\ge3\). Dividing by \(\sqrt{|x-3|}\) and squaring gives \(x=\frac76\), outside the domain. Only \(x=3\) works.
+10||i||Ex2 Q14||\(P(x)=x^2+bx+c\) (\(b,c\) integers) is a factor of both \(x^4+6x^2+25\) and \(3x^4+4x^2+28x+5\). Find \(P(1)\).||||4||\(x^4+6x^2+25=(x^2-2x+5)(x^2+2x+5)\). Only \(x^2-2x+5\) divides the second. \(P(1)=4\).
+10||m||Ex3 Q99||\(\alpha,\beta,\gamma\) are roots of \(x^3+bx+c=0\) with \(\beta\gamma=1=-\alpha\). Then \(b^3+2c^3-3\alpha^3-6\beta^3-8\gamma^3=\)||21;;19;;\(\tfrac{155}2\);;\(\tfrac{169}8\)||1||\(\alpha=-1,\ \beta\gamma=1\Rightarrow c=1,\ \beta+\gamma=1,\ b=0\). \(\beta,\gamma\) satisfy \(t^2-t+1=0\Rightarrow t^3=-1\). Value \(=0+2+3+6+8=19\).
+10||m||Ex3 Q113||\(\alpha,\beta\) roots of \(px^2+qx-r=0\), with \(p,q,r\) consecutive terms of a non-constant G.P. and \(\frac1\alpha+\frac1\beta=\frac34\). Then \((\alpha-\beta)^2=\)||\(\tfrac{80}9\);;\(\tfrac{20}3\);;9;;8||0||With ratio \(m\): \(x^2+mx-m^2=0\). \(\frac{S}{P}=\frac1m=\frac34\Rightarrow m=\frac43\). \((\alpha-\beta)^2=5m^2=\frac{80}9\).
+10||i||Ex2 Q15||The cubic \(x^3-2kx^2-4kx+k^2=0\) has one root \(<1\), one in \((1,4)\), one \(>4\). \(k\) lies in \((a+\sqrt b,\ b(a+\sqrt b))\), \(a,b\in N\). Find \((a+b)^3+(ab+2)^2\).||||2007||Need \(f(1)=k^2-6k+1>0\) and \(f(4)=k^2-48k+64<0\): \(k\in(3+2\sqrt2,\ 24+16\sqrt2)=(3+\sqrt8,\ 8(3+\sqrt8))\). \(a=3,b=8\): \(11^3+26^2=2007\).`.trim().split('\n').map(mp);
+const TIP1=[["Use S=−b/a to find a first, then P=c/a.", "Using P before fixing a, or forgetting a+1≠0."], ["Spot α,β as roots of x²−5x+3=0; α/β+β/α=(S²−2P)/P.", "Writing α²+β² as S²+2P; forgetting the new product is 1."], ["Use S=−p, P=q to get two equations in p,q.", "Dividing by q and losing the case q=0; check the list."], ["Substitute x=1−p to find p, then solve the quadratic.", "Stopping at p and not listing the roots."], ["Newton's sums: p_n=e₁p_{n−1}−e₂p_{n−2}+e₃p_{n−3}.", "Sign slips on the e₂ and e₃ terms."], ["P_{n+1}=P_n+P_{n−1} gives Lucas numbers; find where 11 and 29 sit.", "Answering P_n instead of P_n²."], ["Multiply x²=6x+2 by α⁸ to relate α¹⁰,α⁹,α⁸.", "Dropping the factor 2 on a₈."], ["Build p_k from p_{k+1}=p_k+p_{k−1}; test each statement.", "Believing p₅=p₂p₃ without computing (12≠11)."], ["Factor (x−1)(x²−x+1); roots are 1 and primitive 6th roots; reduce 162 mod 6.", "Forgetting the real root 1 contributes 1."], ["D=121−24α must be a perfect square; α is a positive integer.", "Missing that D≥0 limits α≤5."], ["Complete the square: 3(bx+c)²−c²; imaginary roots ⇒ c²<4ab.", "Reversing the inequality when using −c²."], ["Complex roots of real quadratics come in conjugate pairs ⇒ both roots common ⇒ proportional coefficients.", "Using only one common root."], ["Equal differences ⇒ equal D ⇒ (a−b)(a+b+4)=0.", "Not discarding a=b (given a≠b)."], ["Let common root r; other roots 6−r and 6/r; use ratio 4:3.", "Not checking that the other roots are integers."], ["Roots r and r³ ⇒ r⁴=256/81; use S=r+r³.", "Choosing the wrong sign of r (k=±)."], ["Three conditions: D≥0, S>0, P>0, then intersect.", "Dropping D≥0 or intersecting the intervals wrongly."], ["Both roots <1: D≥0, a·f(1)>0, vertex<1.", "Ignoring the case a<0."], ["Upward parabola: f(2)<0 and f(1),f(3)>0.", "Counting k=6 or 8 (boundaries)."], ["Positive for all x ⇒ k−2>0 and D<0.", "Using D≤0 or missing k>2."], ["D/4<0 gives an interval; list integers inside.", "Forgetting the inequality is strict."], ["Factor the denominator, keep x≠1, use a wavy curve.", "Including x=1 or missing the exclusions at 0 and 2."], ["Split into base>1 and 0<base<1 with domain 2x−¾>0.", "Not checking the domain and base≠1."], ["Write 1+10/(denominator); maximise by minimising the denominator.", "Minimising the numerator instead."], ["Compare vertex value with both endpoint values.", "Ignoring endpoints, or using a vertex outside the interval."], ["Write 2+1/(x²+x+1); the denominator's minimum is ¾.", "Giving 10/3 instead of the smallest integer ≥10/3."], ["λ+1/λ=1 ⇒ (α+β)²=3αβ.", "Choosing the larger value of m."], ["−2<x²+x<2: solve two quadratic inequalities.", "Missing that x²+x+2>0 always."], ["With u+v=1, |u|+|v|=|u+v| iff uv≥0.", "Case-work that misses a piece of the interval."], ["A sum of non-negative terms is 0 only if each term is 0.", "Not checking both conditions together."], ["Solve each factor; t=eˣ>0.", "Treating e^{2x}=4 as giving two real roots."], ["Put t=x+1/x with |t|≥2 for real x.", "Accepting t=1 and t=−⅓ as valid."], ["Combine the logs; need (a−5)x²+4x+(a−5)≥0 for all x.", "Forgetting a>5 or the D≤0 equality case."], ["Let y=√(x²+18x+45); relate y² to the radicand.", "Accepting y=−3; check D>0 for the product."], ["Repeated root ⇒ D=0 ⇒ b²=15a, α=b/a.", "Not using αβ=21 to find β²."], ["1/α²+1/β²=(S²−2P)/P², with P=−⅓.", "Sign of P and of α³+β³."], ["Set t=pq; p⁴+q⁴=(9−2t)²−2t².", "Keeping t=24, which gives non-real p,q."], ["Clear denominators to a quadratic in x; no real roots ⇒ D<0.", "Missing the integer list 1..11 (strict inequality)."], ["Move 2a to the left, impose D≥0, solve the quadratic in a.", "Picking a=−4 (not positive)."]],TIP2=[["(α−β)²=S²−4P=9 with d=a−2.", "Rejecting one of the two values of a."], ["Roots r and 2r ⇒ 2b²=9ac.", "Using b²=2ac."], ["P/2+Q/2=π/4 ⇒ tan sum 1 ⇒ S/(1−P)=1.", "Forgetting S=−b/a carries a minus sign."], ["a+b=2c, c+d=2a; subtract the two root equations.", "Dividing by a−c without using distinctness."], ["ab=−1 ⇒ aⁿ⁺²+aⁿ⁻²…=(a²+b²)(aⁿ+bⁿ).", "Using ab=1."], ["Factor the numerator as (P₁₆−P₁₅)(P₁₅−P₁₄); use Pₙ₊₁=Pₙ+4Pₙ₋₁.", "Wrong factorisation of the numerator."], ["Polar form α=√2 e^{iπ/3}; use De Moivre.", "Reducing cos(14π/3) incorrectly."], ["Reduce powers with α²=α−2 for both roots.", "Using the wrong power for β⁴."], ["1+α=−α² and α³=1.", "Mixing up the combination 3A−2B−C."], ["Sum two infinite G.P.s using S and P.", "Not checking |root|<1."], ["Leading coefficient >0 and D<0.", "Not rejecting a<−1."], ["Leading coefficient <0 and D<0.", "Sign error in (a+6)(a−4)>0."], ["Denominator >0; split into two quadratic inequalities and intersect.", "Intersecting the intervals wrongly."], ["G.P. ⇒ β²=αγ ⇒ D=0 ⇒ root −β/α.", "Not using the common root with x²+x−1."], ["Subtract the two quadratics to find the common root 1.", "Taking the roots as a,b only."], ["Factor the quartic into two quadratics with product −32 and 62.", "Getting the second constant wrong."], ["Both <5: D≥0, vertex<5, f(5)>0.", "Missing the f(5)>0 branch k<4."], ["Roots are m±1 directly.", "Using the general conditions instead."], ["Sign conditions f(0)f(2)<0 and f(2)f(3)<0; count integers.", "Including c=5 or endpoints."], ["D≥0, vertex in (0,3), f(0)>0, f(3)>0.", "Dropping the vertex condition."], ["Cases P<0, or P≥0 with S>0 and D≥0; take the union.", "Missing the P<0 branch."], ["Wavy curve with multiplicities; even powers keep the sign.", "Excluding x=1 or including x=5."], ["Domain x²−1>0 and x²−1<2.", "Forgetting the domain lower bound."], ["Base <1 flips the inequality; check the nested domain.", "Not flipping the inequality."], ["Vertex gives the maximum; endpoints give the minimum.", "Reporting the range instead of the difference."], ["Sum of squares =S²−2P as a quadratic in a.", "Sign of P=−a−1."], ["Rewrite in standard form first (move λ to the left).", "Forgetting to move λ."], ["Put t=x/y; D≥0 gives a quadratic in E.", "M+m is the sum of roots of that quadratic."], ["t=x+1/x, u=t³−3t; factor t⁶−u².", "Not noting the minimum is at x=1 (t=2)."], ["First require x≥7/2, then split at 3 and 5.", "Taking both roots of x²−10x+22."], ["Cases x≥0, −2≤x<0, x<−2; check each root in its interval.", "Counting roots outside their interval."], ["Split at x=5 and check the domain.", "Counting an extraneous root."], ["Put s=√x; cases s≥2 and s<2.", "Summing s instead of x."], ["Put s=√x; cases s≥3 and s<3.", "Counting s values instead of x values."], ["Divide by e^{2x}; put u=eˣ−e⁻ˣ.", "Expanding u² without the +2."], ["t=eˣ+e⁻ˣ≥2; reject t<2.", "Forgetting each valid t gives two x values."], ["t=2ˣ>0 with cases t≥1 and t<1.", "Accepting negative t."], ["Find the domain first, then test the isolated point.", "Squaring blindly and missing x=3."], ["Factor x⁴+6x²+25=(x²+5)²−(2x)².", "Not testing which factor divides the second polynomial."], ["Vieta with βγ=1; roots of t²−t+1 satisfy t³=−1.", "Forgetting α=−1 is a root."], ["G.P. ratio m ⇒ x²+mx−m²=0; use 1/α+1/β=S/P.", "Sign error in S/P."], ["Leading coeff >0: need f(1)>0 and f(4)<0.", "Writing the interval endpoints wrongly."]];
+Q1.forEach((q,i)=>q.tip=TIP1[i]);Q2.forEach((q,i)=>q.tip=TIP2[i]);
+let Q=Q1;
 
-// ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
-{
-  id:13, section:'B', type:'numeric',
-  text:"For a natural number \\(n\\), let \\( \\alpha_n=19^n-12^n \\). Then the value of \\( \\dfrac{31\\alpha_9-\\alpha_{10}}{57\\alpha_8} \\) is ______.",
-  answer:4,
-  ref:"(A) Relation between the roots and coefficients_43_N22-2"
-},
-{
-  id:14, section:'B', type:'numeric',
-  text:"Let \\(a\\in\\mathbb{R}\\) and let \\(\\alpha,\\beta\\) be the roots of the equation \\( x^2+60^{1/4}x+a=0 \\). If \\( \\alpha^4+\\beta^4=-30 \\), then the product of all possible values of \\(a\\) is ______.",
-  answer:45,
-  ref:"(A) Relation between the roots and coefficients_43_N23-1"
-},
-{
-  id:15, section:'B', type:'numeric',
-  text:"The sum of the cubes of all the roots of the equation \\( x^4-3x^3-2x^2+3x+1=0 \\) is ______.",
-  answer:36,
-  ref:"(B) Relation between roots and coefficients_6_T22-10"
-},
-{
-  id:16, section:'B', type:'numeric',
-  text:"The least positive value of 'a' for which the equation \\( 2x^2+(a-10)x+\\dfrac{33}{2}=2a \\) has real roots is ______.",
-  answer:8,
-  ref:"(C) Nature of Roots_6_E20-8"
-},
-{
-  id:17, section:'B', type:'numeric',
-  text:"If the set of all \\(a\\in\\mathbb{R}-\\{1\\}\\), for which the roots of the equation \\( (1-a)x^2+2(a-3)x+9=0 \\) are positive, is \\( (-\\infty,-\\alpha]\\cup[\\beta,\\gamma) \\), then \\( 2\\alpha+\\beta+\\gamma \\) is equal to ______.",
-  answer:7,
-  ref:"(E) Location of Roots_5_N25-11"
-},
-{
-  id:18, section:'B', type:'numeric',
-  text:"The number of solutions of the equation \\( \\log_{(x+1)}(2x^2+7x+5)+\\log_{(2x+5)}(x+1)^2-4=0 \\), \\(x>0\\), is ______.",
-  answer:1,
-  ref:"(G) Qr_eq_Miscellaneous15_N21-16"
-}
-];
-
-/* ============ STATE ============ */
-let responses = {};      // id -> {selected: idx or numeric value, status, timeSpent}
-let currentIndex = 0;    // index into QUESTIONS
-let currentSection = 'A';
-let timerInterval = null;
-let secondsLeft = 45*60;
-let candidateName = '';
-let testStartTS = null;
-
-/* ---- per-question time tracking ---- */
-let activeQId = null;        // id of the question currently being timed
-let questionEnterTS = null;  // timestamp (ms) the active question was entered
-
-QUESTIONS.forEach(q=>{ responses[q.id] = {selected:null, status:'not-visited', timeSpent:0}; });
-
-function switchActiveQuestion(newId){
-  const now = Date.now();
-  if(activeQId !== null && questionEnterTS !== null){
-    const elapsed = (now - questionEnterTS) / 1000;
-    responses[activeQId].timeSpent = (responses[activeQId].timeSpent || 0) + elapsed;
-  }
-  activeQId = newId;
-  questionEnterTS = now;
-}
-
-function formatTime(totalSeconds){
-  totalSeconds = Math.max(0, Math.round(totalSeconds || 0));
-  const h = Math.floor(totalSeconds/3600);
-  const m = Math.floor((totalSeconds%3600)/60);
-  const s = totalSeconds%60;
-  if(h>0) return `${h}h ${m}m ${s}s`;
-  if(m>0) return `${m}m ${s}s`;
-  return `${s}s`;
-}
-
-function sectionQs(sec){ return QUESTIONS.filter(q=>q.section===sec); }
-
-/* ============ LOGIN / START ============ */
-function startTest(){
-  const name = document.getElementById('candName').value.trim();
-  const dur = parseInt(document.getElementById('candDuration').value,10) || 45;
-  candidateName = name || 'Candidate';
-  secondsLeft = dur*60;
-  testStartTS = new Date();
-  document.getElementById('login-screen').style.display='none';
-  document.getElementById('test-screen').style.display='flex';
-  document.getElementById('candNameDisplay').textContent = candidateName;
-  buildPalette();
-  goToQuestion(0);
-  startTimer();
-}
-
-/* ============ TIMER ============ */
-function startTimer(){
-  updateTimerDisplay();
-  timerInterval = setInterval(()=>{
-    secondsLeft--;
-    if(secondsLeft<=0){
-      clearInterval(timerInterval);
-      secondsLeft=0;
-      updateTimerDisplay();
-      finalSubmit();
-      return;
-    }
-    updateTimerDisplay();
-  },1000);
-}
-function updateTimerDisplay(){
-  const m = Math.floor(secondsLeft/60);
-  const s = secondsLeft%60;
-  const box = document.getElementById('timerBox');
-  box.textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  box.classList.toggle('low', secondsLeft<=300);
-}
-
-/* ============ NAVIGATION ============ */
-function switchSection(sec){
-  currentSection = sec;
-  document.getElementById('tabA').classList.toggle('active', sec==='A');
-  document.getElementById('tabB').classList.toggle('active', sec==='B');
-  const qs = sectionQs(sec);
-  const firstIdx = QUESTIONS.findIndex(q=>q.id===qs[0].id);
-  goToQuestion(firstIdx);
-}
-
-function goToQuestion(idx){
-  currentIndex = idx;
-  const q = QUESTIONS[idx];
-  if(activeQId !== q.id){ switchActiveQuestion(q.id); }
-  currentSection = q.section;
-  document.getElementById('tabA').classList.toggle('active', currentSection==='A');
-  document.getElementById('tabB').classList.toggle('active', currentSection==='B');
-  if(responses[q.id].status==='not-visited') responses[q.id].status='not-answered';
-
-  document.getElementById('qNumTag').textContent = 'Question '+q.id+' of 18';
-  document.getElementById('qMarks').textContent = q.type==='mcq' ? '+4 / \u22121' : '+4 / 0';
-  document.getElementById('qText').innerHTML = q.text;
-  document.getElementById('refTag').textContent = 'ref: '+q.ref;
-
-  const wrap = document.getElementById('optionsWrap');
-  wrap.innerHTML='';
-  if(q.type==='mcq'){
-    q.options.forEach((opt,i)=>{
-      const div = document.createElement('div');
-      div.className='opt'+(responses[q.id].selected===i?' selected':'');
-      div.onclick=()=>selectMcq(q.id,i);
-      div.innerHTML = `<input type="radio" name="opt" ${responses[q.id].selected===i?'checked':''}/><span>(${i+1}) ${opt}</span>`;
-      wrap.appendChild(div);
-    });
-  } else {
-    const div = document.createElement('div');
-    div.id='numericInputWrap';
-    div.innerHTML = `<input type="number" step="any" id="numInput" placeholder="Enter numeric value" value="${responses[q.id].selected!==null?responses[q.id].selected:''}"/>`;
-    wrap.appendChild(div);
-    document.getElementById('numInput').addEventListener('input',(e)=>{
-      responses[q.id].selected = e.target.value===''? null : parseFloat(e.target.value);
-    });
-  }
-  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([wrap, document.getElementById('qText')]); }
-  refreshPalette();
-}
-
-function selectMcq(qid, i){
-  responses[qid].selected = i;
-  goToQuestion(currentIndex); // re-render to show selection
-}
-
-function saveAndNext(){
-  const q = QUESTIONS[currentIndex];
-  if(responses[q.id].selected!==null && responses[q.id].selected!==''){
-    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'answered-marked' : 'answered';
-  } else {
-    responses[q.id].status = (responses[q.id].status==='marked'||responses[q.id].status==='answered-marked') ? 'marked' : 'not-answered';
-  }
-  advance();
-}
-
-function clearResponse(){
-  const q = QUESTIONS[currentIndex];
-  responses[q.id].selected = null;
-  responses[q.id].status = (responses[q.id].status==='answered-marked')?'marked':'not-answered';
-  goToQuestion(currentIndex);
-}
-
-function markForReview(){
-  const q = QUESTIONS[currentIndex];
-  responses[q.id].status = (responses[q.id].selected!==null) ? 'answered-marked' : 'marked';
-  advance();
-}
-
-function advance(){
-  if(currentIndex < QUESTIONS.length-1){
-    goToQuestion(currentIndex+1);
-  } else {
-    refreshPalette();
-  }
-}
-function prevQ(){
-  if(currentIndex>0) goToQuestion(currentIndex-1);
-}
-
-/* ============ PALETTE ============ */
-function buildPalette(){
-  const grid = document.getElementById('palGrid');
-  grid.innerHTML='';
-  QUESTIONS.forEach((q,idx)=>{
-    const btn = document.createElement('button');
-    btn.className='pal-btn nv';
-    btn.id='pal-'+q.id;
-    btn.textContent=q.id;
-    btn.onclick=()=>goToQuestion(idx);
-    grid.appendChild(btn);
-  });
-}
-function refreshPalette(){
-  QUESTIONS.forEach((q)=>{
-    const btn = document.getElementById('pal-'+q.id);
-    if(!btn) return;
-    btn.className='pal-btn '+statusClass(responses[q.id].status);
-    if(QUESTIONS[currentIndex].id===q.id) btn.classList.add('current');
-  });
-}
-function statusClass(status){
-  switch(status){
-    case 'not-visited': return 'nv';
-    case 'not-answered': return 'na';
-    case 'answered': return 'ans';
-    case 'marked': return 'mark';
-    case 'answered-marked': return 'ansmark';
-    default: return 'nv';
-  }
-}
-
-/* ============ SUBMIT ============ */
-function askSubmit(){
-  const answered = QUESTIONS.filter(q=>responses[q.id].selected!==null).length;
-  document.getElementById('confirmText').textContent =
-    `You have answered ${answered} of 18 questions. Once submitted, you cannot change your responses.`;
-  document.getElementById('confirmOverlay').style.display='flex';
-}
-function closeConfirm(){ document.getElementById('confirmOverlay').style.display='none'; }
-
-function finalSubmit(){
-  closeConfirm();
-  if(timerInterval) clearInterval(timerInterval);
-  switchActiveQuestion(null); // flush the last question's elapsed time
-  document.getElementById('test-screen').style.display='none';
-  computeAndShowResults();
-  document.getElementById('result-screen').style.display='block';
-  window.scrollTo(0,0);
-}
-
-/* ============ SCORING & REVIEW ============ */
-function computeAndShowResults(){
-  let correct=0, wrong=0, unattempt=0;
-  let scoreA=0, scoreB=0;
-  const reviewList = document.getElementById('reviewList');
-  reviewList.innerHTML='';
-
-  QUESTIONS.forEach(q=>{
-    const r = responses[q.id];
-    let isCorrect=false, attempted = (r.selected!==null && r.selected!=='');
-    if(q.type==='mcq'){
-      isCorrect = attempted && r.selected===q.correct;
-      if(attempted){
-        if(isCorrect){ correct++; scoreA+=4; } else { wrong++; scoreA-=1; }
-      } else unattempt++;
-    } else {
-      isCorrect = attempted && Math.abs(parseFloat(r.selected)-q.answer)<1e-9;
-      if(attempted){
-        if(isCorrect){ correct++; scoreB+=4; } else { wrong++; }
-      } else unattempt++;
-    }
-
-    const rq = document.createElement('div');
-    rq.className='rq';
-    let pillClass = !attempted?'pill-unattempt':(isCorrect?'pill-correct':'pill-wrong');
-    let pillText = !attempted?'Unattempted':(isCorrect?'Correct':'Incorrect');
-
-    let bodyHtml = `<div class="rq-head"><b>Q${q.id}. [Section ${q.section}]</b><div style="display:flex;gap:8px;align-items:center;"><span class="time-pill">⏱ ${formatTime(r.timeSpent)}</span><span class="status-pill ${pillClass}">${pillText}</span></div></div>`;
-    bodyHtml += `<div style="margin-bottom:8px;">${q.text}</div>`;
-
-    if(q.type==='mcq'){
-      q.options.forEach((opt,i)=>{
-        let cls='opt2';
-        if(i===q.correct) cls+=' correctAns';
-        else if(i===r.selected && !isCorrect) cls+=' wrongPick';
-        bodyHtml += `<div class="${cls}">(${i+1}) ${opt}${i===q.correct?' &nbsp;✓ Correct Answer':''}${(i===r.selected && i!==q.correct)?' &nbsp;✗ Your Answer':''}</div>`;
-      });
-    } else {
-      bodyHtml += `<div class="opt2 correctAns">Correct Answer: ${q.answer}</div>`;
-      if(attempted){
-        bodyHtml += `<div class="opt2 ${isCorrect?'':'wrongPick'}">Your Answer: ${r.selected}</div>`;
-      } else {
-        bodyHtml += `<div class="opt2">Your Answer: — (not attempted)</div>`;
-      }
-    }
-    bodyHtml += `<div class="ref-tag">ref: ${q.ref}</div>`;
-    rq.innerHTML = bodyHtml;
-    reviewList.appendChild(rq);
-  });
-
-  const total = scoreA+scoreB;
-  document.getElementById('totalScore').textContent = total+' / 72';
-  document.getElementById('resultName').textContent = candidateName;
-  document.getElementById('resultTime').textContent = 'Submitted: '+new Date().toLocaleString();
-  document.getElementById('statCorrect').textContent = correct;
-  document.getElementById('statWrong').textContent = wrong;
-  document.getElementById('statUnattempt').textContent = unattempt;
-  const attemptedCount = correct+wrong;
-  document.getElementById('statAccuracy').textContent = attemptedCount>0 ? Math.round((correct/attemptedCount)*100)+'%' : '0%';
-  document.getElementById('secAScore').textContent = scoreA+' / 48  (12 Q × +4/−1)';
-  document.getElementById('secBScore').textContent = scoreB+' / 24  (6 Q × +4/0)';
-
-  const totalTimeSeconds = QUESTIONS.reduce((sum,q)=> sum + (responses[q.id].timeSpent||0), 0);
-  const avgTimeSeconds = totalTimeSeconds / QUESTIONS.length;
-  document.getElementById('totalTimeUsed').textContent = formatTime(totalTimeSeconds);
-  document.getElementById('avgTimeUsed').textContent = formatTime(avgTimeSeconds) + ' / question';
-
-  if(window.MathJax && window.MathJax.typesetPromise){ MathJax.typesetPromise([reviewList]); }
-}
-</script>
-</body>
-</html>
+let qs=[],cur=0,ua={},mk={},done=false,tid,end,sel=new Set([1,2,3,4,5,6,7,8,9,10]);
+const A=document.getElementById('app'),$=id=>document.getElementById(id);
+const ty=()=>{if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise()};
+const has=id=>ua[id]!==undefined&&ua[id]!=='';
+const ok=q=>has(q.id)&&(q.m?ua[q.id]===q.a:Number(ua[q.id])===Number(q.a));
+function home(){
+  A.innerHTML=`<div class="box"><h2>Quadratic Equations – Recall CBT ${Q===Q1?1:2}</h2>
+  <p class="mu">Choose topics and a time limit. ${Q.length} questions (single-choice + integer type), shuffled every attempt. Explanations appear after submission.</p>
+  <div class="grid">${T.slice(1).map((n,i)=>`<label class="lb"><input type="checkbox" ${sel.has(i+1)?'checked':''} onchange="tg(${i+1},this.checked)"> <b>T${i+1}</b> ${n}</label>`).join('')}</div>
+  <p>Time: <input id="tl" type="number" value="40" min="5" max="120" style="width:64px"> minutes</p>
+  <button class="bt p" onclick="go()">Start Test</button></div>`}
+function tg(i,c){c?sel.add(i):sel.delete(i)}
+function go(){
+  const p=Q.filter(q=>sel.has(q.t));if(!p.length)return alert('Select at least one topic.');
+  qs=p.map(q=>[Math.random(),q]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+  ua={};mk={};cur=0;done=false;end=Date.now()+(+$('tl').value||40)*6e4;
+  clearInterval(tid);tid=setInterval(tick,500);draw()}
+function tick(){const r=Math.max(0,end-Date.now()),c=$('clk');
+  if(c){c.textContent=Math.floor(r/6e4)+':'+String(Math.floor(r%6e4/1e3)).padStart(2,'0');c.className='clk'+(r<12e4?' lo':'')}
+  if(!r&&!done)fin()}
+function draw(){
+  if(done)return res();const q=qs[cur];
+  A.innerHTML=`<div class="tw"><div class="mn">
+  <div class="tb"><b>T${q.t}: ${T[q.t]} · ${q.src}</b><span id="clk" class="clk">--</span></div>
+  <div class="qh">Q${cur+1} of ${qs.length} · ${q.m?'Single choice':'Integer type'}</div>
+  <div class="qb"><div class="st">${q.s}</div>
+  ${q.m?q.o.map((o,i)=>`<div class="op${ua[q.id]===i?' sl':''}" onclick="pick(${i})"><b>${'ABCD'[i]}</b><span>${o}</span></div>`).join(''):`<input class="ni" inputmode="numeric" value="${has(q.id)?ua[q.id]:''}" placeholder="Integer answer" oninput="sv(this.value)">`}</div>
+  <div class="bar"><button class="bt" onclick="gt(${cur-1})">← Prev</button><button class="bt" onclick="mrk()">${mk[q.id]?'★ Marked':'☆ Mark'}</button><button class="bt" onclick="gt(${cur+1})">Next →</button><button class="bt g" style="margin-left:auto" onclick="if(confirm('Submit test?'))fin()">Submit</button></div></div>
+  <div class="sd"><b>Question palette</b><div class="pl" id="pl"></div><div class="mu" id="cnt"></div>
+  <div class="mu" style="margin-top:6px">Green answered · Red not answered · Purple marked</div></div></div>`;
+  pal();tick();ty()}
+function pal(){
+  $('pl').innerHTML=qs.map((q,i)=>`<button class="${mk[q.id]?'mk':has(q.id)?'an':'na'}${i==cur?' cur':''}" onclick="gt(${i})">${i+1}</button>`).join('');
+  const n=qs.filter(q=>has(q.id)).length;$('cnt').innerHTML=`Answered <b>${n}</b> / ${qs.length} · Marked <b>${Object.keys(mk).length}</b>`}
+function pick(i){ua[qs[cur].id]=i;draw()}
+function sv(v){ua[qs[cur].id]=v.trim();pal()}
+function gt(i){if(i>=0&&i<qs.length){cur=i;draw()}}
+function mrk(){const id=qs[cur].id;mk[id]?delete mk[id]:mk[id]=1;draw()}
+function fin(){clearInterval(tid);done=true;res()}
+function res(){
+  let c=0,w=0,s=0;const by={};
+  qs.forEach(q=>{by[q.t]=by[q.t]||[0,0];by[q.t][1]++;if(!has(q.id))s++;else if(ok(q)){c++;by[q.t][0]++}else w++});
+  A.innerHTML=`<div class="box" style="max-width:900px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2 style="margin:0">Test Result</h2><button class="bt np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
+  <div class="cs"><div><b>${c}/${qs.length}</b>Score</div><div><b>${Math.round(c/qs.length*100)}%</b>Percentage</div><div><b style="color:var(--g)">${c}</b>Correct</div><div><b style="color:var(--r)">${w}</b>Wrong</div><div><b style="color:var(--a)">${s}</b>Skipped</div></div>
+  <p><b>Topic-wise:</b><br>${Object.keys(by).map(t=>`<span class="tp">T${t}: ${by[t][0]}/${by[t][1]}</span>`).join('')}</p>
+  ${qs.map((q,i)=>{const k=has(q.id)?(ok(q)?'ok':'bad'):'',u=has(q.id)?(q.m?'ABCD'[ua[q.id]]+': '+q.o[ua[q.id]]:ua[q.id]):'Not answered',a=q.m?'ABCD'[q.a]+': '+q.o[q.a]:q.a;
+  return `<div class="rq ${k}"><div class="mu">Q${i+1} · T${q.t}: ${T[q.t]} · ${q.src}</div><div>${q.s}</div><div style="margin-top:4px">Your answer: <b>${u}</b> &nbsp; Correct: <b>${a}</b> ${k=='ok'?'✓':k=='bad'?'✗':'— skipped'}</div><div class="ex">${q.e}</div>${q.tip?`<div class="tip"><b>Technique:</b> ${q.tip[0]}<br><b>Often missed:</b> ${q.tip[1]}</div>`:''}</div>`}).join('')}
+  <button class="bt p np" onclick="home()">New Test</button> <button class="bt np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>`;ty()}
+function showTab(t){const r=t=='rs';$('rs').hidden=!r;A.hidden=r;$('tr').className=r?'on':'';$('tc').className=t=='c1'?'on':'';$('tc2').className=t=='c2'?'on':'';if(!r){const b=t=='c2'?Q2:Q1;if(b!==Q){Q=b;clearInterval(tid);done=false;qs=[];home()}}ty()}
+home();
+</script></body></html>
