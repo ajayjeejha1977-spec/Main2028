@@ -44,11 +44,13 @@ nav .on{background:#fff;box-shadow:inset 0 -3px 0 var(--b2)}
 #rs h1{font-size:22px;margin:0 0 4px;color:var(--b2)}
 #rs h2{font-size:15px;margin:18px 0 4px;padding:6px 10px;border-left:5px solid var(--b2);background:var(--sel)}
 #rs ol{margin:0;padding-left:28px}#rs li{padding:6px 0;border-bottom:1px dotted var(--ln);line-height:1.9;overflow-x:auto}
+.sl{background:var(--ex);border-left:3px solid var(--a);border-radius:4px;padding:6px 10px;margin-top:6px;font-size:14px}.sl ul{margin:4px 0 0;padding-left:20px}
+.sel{font-size:13px;font-weight:600;color:var(--r);margin-top:4px}
+.tr{margin-top:6px;font-size:13px}.tr label{display:inline-block;margin:2px 10px 2px 0;cursor:pointer}
+@media print{:root,:root[data-theme="dark"]{--bg:#fff;--cd:#fff;--ink:#000;--ln:#999;--ex:#f0f0f0;--sel:#eee}nav,.tr,.bt{display:none!important}.rq{break-inside:avoid}body{background:#fff;color:#000}}
 @media(max-width:700px){.tw{flex-direction:column}.sd{width:100%;position:static}.grid{grid-template-columns:1fr}}
-.tip{background:#fff8e1;border-left:3px solid var(--a);border-radius:5px;padding:7px 10px;margin-top:6px;font-size:13.5px;line-height:1.55;color:#33280a}
-@media print{:root:root:root{--bg:#fff;--cd:#fff;--ink:#000;--ln:#bbb;--sel:#fff;--mu:#444;--ex:#f4f8fd}body{background:#fff}nav,.np{display:none!important}.box{max-width:none!important;margin:0!important;border:0!important;padding:0!important}.rq{break-inside:avoid;page-break-inside:avoid}.cs div,.tp,.tip,.ex,.rq{-webkit-print-color-adjust:exact;print-color-adjust:exact}@page{margin:12mm}}
 </style></head><body>
-<nav><button id="tr" class="on" onclick="showTab('rs')">📖 Remember Sheet</button><button id="tc" onclick="showTab('c1')">🎯 Recall CBT 1</button><button id="tc2" onclick="showTab('c2')">🎯 Recall CBT 2</button></nav>
+<nav><button id="tr" class="on" onclick="showTab('rs')">📖 Remember Sheet</button><button id="tc" onclick="showTab('c1')">🎯 Recall CBT 1</button><button id="tc2" onclick="showTab('c2')">🎯 Recall CBT 2</button><button id="tc3" onclick="showTab('c3')">🎯 Recall CBT 3</button></nav>
 <div id="rs">
 <h1>Quadratic Equations – Remember Sheet</h1>
 <p class="mu">Formulas, conditions and tricks from the module, grouped to match the CBT topics. Notation: \(D=b^2-4ac\), \(S=\alpha+\beta\), \(P=\alpha\beta\).</p>
@@ -202,8 +204,34 @@ const Q2=R`1||m||PT1 Q9||For what \(a\) is the difference of the roots of \((a-2
 10||m||Ex3 Q99||\(\alpha,\beta,\gamma\) are roots of \(x^3+bx+c=0\) with \(\beta\gamma=1=-\alpha\). Then \(b^3+2c^3-3\alpha^3-6\beta^3-8\gamma^3=\)||21;;19;;\(\tfrac{155}2\);;\(\tfrac{169}8\)||1||\(\alpha=-1,\ \beta\gamma=1\Rightarrow c=1,\ \beta+\gamma=1,\ b=0\). \(\beta,\gamma\) satisfy \(t^2-t+1=0\Rightarrow t^3=-1\). Value \(=0+2+3+6+8=19\).
 10||m||Ex3 Q113||\(\alpha,\beta\) roots of \(px^2+qx-r=0\), with \(p,q,r\) consecutive terms of a non-constant G.P. and \(\frac1\alpha+\frac1\beta=\frac34\). Then \((\alpha-\beta)^2=\)||\(\tfrac{80}9\);;\(\tfrac{20}3\);;9;;8||0||With ratio \(m\): \(x^2+mx-m^2=0\). \(\frac{S}{P}=\frac1m=\frac34\Rightarrow m=\frac43\). \((\alpha-\beta)^2=5m^2=\frac{80}9\).
 10||i||Ex2 Q15||The cubic \(x^3-2kx^2-4kx+k^2=0\) has one root \(<1\), one in \((1,4)\), one \(>4\). \(k\) lies in \((a+\sqrt b,\ b(a+\sqrt b))\), \(a,b\in N\). Find \((a+b)^3+(ab+2)^2\).||||2007||Need \(f(1)=k^2-6k+1>0\) and \(f(4)=k^2-48k+64<0\): \(k\in(3+2\sqrt2,\ 24+16\sqrt2)=(3+\sqrt8,\ 8(3+\sqrt8))\). \(a=3,b=8\): \(11^3+26^2=2007\).`.trim().split('\n').map(mp);
-const TIP1=[["Use S=−b/a to find a first, then P=c/a.", "Using P before fixing a, or forgetting a+1≠0."], ["Spot α,β as roots of x²−5x+3=0; α/β+β/α=(S²−2P)/P.", "Writing α²+β² as S²+2P; forgetting the new product is 1."], ["Use S=−p, P=q to get two equations in p,q.", "Dividing by q and losing the case q=0; check the list."], ["Substitute x=1−p to find p, then solve the quadratic.", "Stopping at p and not listing the roots."], ["Newton's sums: p_n=e₁p_{n−1}−e₂p_{n−2}+e₃p_{n−3}.", "Sign slips on the e₂ and e₃ terms."], ["P_{n+1}=P_n+P_{n−1} gives Lucas numbers; find where 11 and 29 sit.", "Answering P_n instead of P_n²."], ["Multiply x²=6x+2 by α⁸ to relate α¹⁰,α⁹,α⁸.", "Dropping the factor 2 on a₈."], ["Build p_k from p_{k+1}=p_k+p_{k−1}; test each statement.", "Believing p₅=p₂p₃ without computing (12≠11)."], ["Factor (x−1)(x²−x+1); roots are 1 and primitive 6th roots; reduce 162 mod 6.", "Forgetting the real root 1 contributes 1."], ["D=121−24α must be a perfect square; α is a positive integer.", "Missing that D≥0 limits α≤5."], ["Complete the square: 3(bx+c)²−c²; imaginary roots ⇒ c²<4ab.", "Reversing the inequality when using −c²."], ["Complex roots of real quadratics come in conjugate pairs ⇒ both roots common ⇒ proportional coefficients.", "Using only one common root."], ["Equal differences ⇒ equal D ⇒ (a−b)(a+b+4)=0.", "Not discarding a=b (given a≠b)."], ["Let common root r; other roots 6−r and 6/r; use ratio 4:3.", "Not checking that the other roots are integers."], ["Roots r and r³ ⇒ r⁴=256/81; use S=r+r³.", "Choosing the wrong sign of r (k=±)."], ["Three conditions: D≥0, S>0, P>0, then intersect.", "Dropping D≥0 or intersecting the intervals wrongly."], ["Both roots <1: D≥0, a·f(1)>0, vertex<1.", "Ignoring the case a<0."], ["Upward parabola: f(2)<0 and f(1),f(3)>0.", "Counting k=6 or 8 (boundaries)."], ["Positive for all x ⇒ k−2>0 and D<0.", "Using D≤0 or missing k>2."], ["D/4<0 gives an interval; list integers inside.", "Forgetting the inequality is strict."], ["Factor the denominator, keep x≠1, use a wavy curve.", "Including x=1 or missing the exclusions at 0 and 2."], ["Split into base>1 and 0<base<1 with domain 2x−¾>0.", "Not checking the domain and base≠1."], ["Write 1+10/(denominator); maximise by minimising the denominator.", "Minimising the numerator instead."], ["Compare vertex value with both endpoint values.", "Ignoring endpoints, or using a vertex outside the interval."], ["Write 2+1/(x²+x+1); the denominator's minimum is ¾.", "Giving 10/3 instead of the smallest integer ≥10/3."], ["λ+1/λ=1 ⇒ (α+β)²=3αβ.", "Choosing the larger value of m."], ["−2<x²+x<2: solve two quadratic inequalities.", "Missing that x²+x+2>0 always."], ["With u+v=1, |u|+|v|=|u+v| iff uv≥0.", "Case-work that misses a piece of the interval."], ["A sum of non-negative terms is 0 only if each term is 0.", "Not checking both conditions together."], ["Solve each factor; t=eˣ>0.", "Treating e^{2x}=4 as giving two real roots."], ["Put t=x+1/x with |t|≥2 for real x.", "Accepting t=1 and t=−⅓ as valid."], ["Combine the logs; need (a−5)x²+4x+(a−5)≥0 for all x.", "Forgetting a>5 or the D≤0 equality case."], ["Let y=√(x²+18x+45); relate y² to the radicand.", "Accepting y=−3; check D>0 for the product."], ["Repeated root ⇒ D=0 ⇒ b²=15a, α=b/a.", "Not using αβ=21 to find β²."], ["1/α²+1/β²=(S²−2P)/P², with P=−⅓.", "Sign of P and of α³+β³."], ["Set t=pq; p⁴+q⁴=(9−2t)²−2t².", "Keeping t=24, which gives non-real p,q."], ["Clear denominators to a quadratic in x; no real roots ⇒ D<0.", "Missing the integer list 1..11 (strict inequality)."], ["Move 2a to the left, impose D≥0, solve the quadratic in a.", "Picking a=−4 (not positive)."]],TIP2=[["(α−β)²=S²−4P=9 with d=a−2.", "Rejecting one of the two values of a."], ["Roots r and 2r ⇒ 2b²=9ac.", "Using b²=2ac."], ["P/2+Q/2=π/4 ⇒ tan sum 1 ⇒ S/(1−P)=1.", "Forgetting S=−b/a carries a minus sign."], ["a+b=2c, c+d=2a; subtract the two root equations.", "Dividing by a−c without using distinctness."], ["ab=−1 ⇒ aⁿ⁺²+aⁿ⁻²…=(a²+b²)(aⁿ+bⁿ).", "Using ab=1."], ["Factor the numerator as (P₁₆−P₁₅)(P₁₅−P₁₄); use Pₙ₊₁=Pₙ+4Pₙ₋₁.", "Wrong factorisation of the numerator."], ["Polar form α=√2 e^{iπ/3}; use De Moivre.", "Reducing cos(14π/3) incorrectly."], ["Reduce powers with α²=α−2 for both roots.", "Using the wrong power for β⁴."], ["1+α=−α² and α³=1.", "Mixing up the combination 3A−2B−C."], ["Sum two infinite G.P.s using S and P.", "Not checking |root|<1."], ["Leading coefficient >0 and D<0.", "Not rejecting a<−1."], ["Leading coefficient <0 and D<0.", "Sign error in (a+6)(a−4)>0."], ["Denominator >0; split into two quadratic inequalities and intersect.", "Intersecting the intervals wrongly."], ["G.P. ⇒ β²=αγ ⇒ D=0 ⇒ root −β/α.", "Not using the common root with x²+x−1."], ["Subtract the two quadratics to find the common root 1.", "Taking the roots as a,b only."], ["Factor the quartic into two quadratics with product −32 and 62.", "Getting the second constant wrong."], ["Both <5: D≥0, vertex<5, f(5)>0.", "Missing the f(5)>0 branch k<4."], ["Roots are m±1 directly.", "Using the general conditions instead."], ["Sign conditions f(0)f(2)<0 and f(2)f(3)<0; count integers.", "Including c=5 or endpoints."], ["D≥0, vertex in (0,3), f(0)>0, f(3)>0.", "Dropping the vertex condition."], ["Cases P<0, or P≥0 with S>0 and D≥0; take the union.", "Missing the P<0 branch."], ["Wavy curve with multiplicities; even powers keep the sign.", "Excluding x=1 or including x=5."], ["Domain x²−1>0 and x²−1<2.", "Forgetting the domain lower bound."], ["Base <1 flips the inequality; check the nested domain.", "Not flipping the inequality."], ["Vertex gives the maximum; endpoints give the minimum.", "Reporting the range instead of the difference."], ["Sum of squares =S²−2P as a quadratic in a.", "Sign of P=−a−1."], ["Rewrite in standard form first (move λ to the left).", "Forgetting to move λ."], ["Put t=x/y; D≥0 gives a quadratic in E.", "M+m is the sum of roots of that quadratic."], ["t=x+1/x, u=t³−3t; factor t⁶−u².", "Not noting the minimum is at x=1 (t=2)."], ["First require x≥7/2, then split at 3 and 5.", "Taking both roots of x²−10x+22."], ["Cases x≥0, −2≤x<0, x<−2; check each root in its interval.", "Counting roots outside their interval."], ["Split at x=5 and check the domain.", "Counting an extraneous root."], ["Put s=√x; cases s≥2 and s<2.", "Summing s instead of x."], ["Put s=√x; cases s≥3 and s<3.", "Counting s values instead of x values."], ["Divide by e^{2x}; put u=eˣ−e⁻ˣ.", "Expanding u² without the +2."], ["t=eˣ+e⁻ˣ≥2; reject t<2.", "Forgetting each valid t gives two x values."], ["t=2ˣ>0 with cases t≥1 and t<1.", "Accepting negative t."], ["Find the domain first, then test the isolated point.", "Squaring blindly and missing x=3."], ["Factor x⁴+6x²+25=(x²+5)²−(2x)².", "Not testing which factor divides the second polynomial."], ["Vieta with βγ=1; roots of t²−t+1 satisfy t³=−1.", "Forgetting α=−1 is a root."], ["G.P. ratio m ⇒ x²+mx−m²=0; use 1/α+1/β=S/P.", "Sign error in S/P."], ["Leading coeff >0: need f(1)>0 and f(4)<0.", "Writing the interval endpoints wrongly."]];
-Q1.forEach((q,i)=>q.tip=TIP1[i]);Q2.forEach((q,i)=>q.tip=TIP2[i]);
+const Q3=R`1||i||PT3 Q7||The roots of \(x^2-bx+c=0\) are two consecutive integers. Find \(b^2-4c\).||||1||\((\alpha-\beta)^2=b^2-4c\) and consecutive integers differ by 1, so the value is 1.
+1||m||PT1 Q6||Roots of \((b-c)x^2+(c-a)x+(a-b)=0\):||\(1,\ \frac{a-b}{b-c}\);;\(-1,\ \frac{a-b}{b-c}\);;\(1,\ \frac{b-c}{a-b}\);;\(1,\ \frac{c-a}{a-b}\)||0||Coefficients sum to 0, so \(x=1\) is a root; the product of roots is \(\frac{a-b}{b-c}\), so that is the other root.
+1||m||PT1 Q7||\(\alpha,\beta\) roots of \(2x^2+2(a+b)x+a^2+b^2=0\). The equation with roots \((\alpha+\beta)^2\) and \((\alpha-\beta)^2\) is:||\(x^2-4abx-(a^2-b^2)^2=0\);;\(x^2+4abx-(a^2-b^2)^2=0\);;\(x^2-4abx+(a^2-b^2)^2=0\);;\(x^2-2abx-(a^2-b^2)^2=0\)||0||\((\alpha+\beta)^2=(a+b)^2\); \((\alpha-\beta)^2=(a+b)^2-2(a^2+b^2)=-(a-b)^2\). Sum \(=4ab\), product \(=-(a^2-b^2)^2\).
+1||m||Ex3 Q6||A positive real number \(x\) added to its inverse gives the minimum sum at \(x=\)||\(-2\);;\(2\);;\(1\);;\(-1\)||2||\(x+\frac1x\ge2\) for \(x>0\), with equality at \(x=1\).
+2||m||Ex3 Q95||\(\alpha,\beta\) roots of \(x^2+\sqrt6x+3=0\). Then \(\dfrac{\alpha^{23}+\beta^{23}+\alpha^{14}+\beta^{14}}{\alpha^{15}+\beta^{15}+\alpha^{10}+\beta^{10}}=\)||729;;9;;81;;72||2||\(|\alpha|=\sqrt3\), argument \(\frac{3\pi}4\), so \(\alpha^4=\beta^4=-9\) and \(\alpha^2+\beta^2=0\). \(\alpha^{23}\to(-9)^5\alpha^3\), \(\alpha^{15}\to(-9)^3\alpha^3\); the \(\alpha^2\)-terms cancel. Ratio \(=81\).
+2||i||Ex3 Q60||\(\alpha>\beta\) roots of \(x^2+5\sqrt2x+10=0\), \(P_n=\alpha^n-\beta^n\). Find \(\dfrac{P_{17}P_{20}+5\sqrt2P_{17}P_{19}}{P_{18}P_{19}+5\sqrt2P_{18}^2}\).||||1||\(P_{n+1}=(\alpha+\beta)P_n-\alpha\beta P_{n-1}\) with \(\alpha+\beta=-5\sqrt2\): \(P_{20}+5\sqrt2P_{19}=-10P_{18}\), \(P_{19}+5\sqrt2P_{18}=-10P_{17}\). Ratio \(=1\).
+2||i||Ex3 Q80||Find the sum of the cubes of all roots of \(x^4-3x^3-2x^2+3x+1=0\).||||36||\(e_1=3,e_2=-2,e_3=-3\). \(p_1=3,\ p_2=e_1p_1-2e_2=13,\ p_3=e_1p_2-e_2p_1+3e_3=39+6-9=36\).
+3||m||PT3 Q3||\(kx^2+(k+1)x+2\) is a perfect square of a linear polynomial for \(k=\)||\(3\pm2\sqrt2\);;\(3\pm\sqrt2\);;\(\pm2\sqrt2\);;\(1\pm2\sqrt2\)||0||\(D=(k+1)^2-8k=k^2-6k+1=0\Rightarrow k=3\pm2\sqrt2\).
+3||m||Ex3 Q4||\(a,b,c\) are distinct positive reals with \(a^2+b^2+c^2=1\). Then \(ab+bc+ca\) is:||less than 1;;equal to 1;;greater than 1;;any real number||0||\(a^2+b^2+c^2-ab-bc-ca=\frac12\sum(a-b)^2>0\) for distinct numbers, so \(ab+bc+ca<1\).
+4||m||PT6 Q1||\(2x^2+kx-5=0\) and \(x^2-3x-4=0\) have a common root for:||\(k=-3,\ -\tfrac{27}4\);;\(k=3,\ \tfrac{27}4\);;\(k=-3\) only;;\(k=-\tfrac{27}4\) only||0||\(x^2-3x-4=0\Rightarrow x=4,-1\). \(x=4\): \(27+4k=0\Rightarrow k=-\frac{27}4\). \(x=-1\): \(-3-k=0\Rightarrow k=-3\).
+4||m||PT6 Q2||\(x^2-11x+a=0\) and \(x^2-14x+2a=0\) have a common root for \(a=\)||\(0,\ 24\);;\(0,\ 12\);;\(12,\ 24\);;\(24\) only||0||Subtracting: \(x=\frac a3\). Substituting: \(\frac{a^2}9-\frac{11a}3+a=0\Rightarrow a(a-24)=0\).
+4||m||PT6 Q3||\(a,b,c\in R\); \(ax^2+bx+c=0\) and \(x^2+2x+9=0\) have a common root. Then \(a:b:c=\)||\(1:2:9\);;\(9:2:1\);;\(1:9:2\);;\(2:1:9\)||0||\(x^2+2x+9\) has non-real roots, so a real quadratic sharing one root shares both: proportional coefficients \(1:2:9\).
+5||m||PT8 Q2||\((a-5)x^2+2(a-10)x+a+10=0\) has roots of opposite sign for \(a\in\)||\((-10,5)\);;\((-5,10)\);;\((5,\infty)\);;\((-\infty,-10)\)||0||Product \(\frac{a+10}{a-5}<0\Rightarrow-10<a<5\).
+5||m||PT8 Q5||Both roots of \(x^2+ax+2=0\) lie in \((0,3)\). Then \(a\in\)||\((-\tfrac{11}3,-2\sqrt2]\);;\([2\sqrt2,\tfrac{11}3)\);;\((-3,-2\sqrt2]\);;\((-\tfrac{11}3,0)\)||0||\(D\ge0\Rightarrow a^2\ge8\); vertex \(0<-\frac a2<3\Rightarrow-6<a<0\); \(f(3)=11+3a>0\Rightarrow a>-\frac{11}3\).
+5||m||PT8 Q6||\(\alpha,\beta\) roots of \(x^2-3x+a=0\) with \(\alpha<1<\beta\). Then:||\(a<2\);;\(a>2\);;\(a<0\);;\(a>\tfrac94\)||0||1 lies between the roots: \(f(1)=1-3+a<0\Rightarrow a<2\).
+6||m||PT4 Q4||Solve \(\dfrac{(x^2-3x+2)(x^2+2x+2)}{(x-3)(x-1-2x^2)}\ge0\).||\((-\infty,1]\cup[2,3)\);;\([1,2]\cup(3,\infty)\);;\((-\infty,1)\cup(2,3)\);;\([2,3)\)||0||\(x^2+2x+2>0\) and \(2x^2-x+1>0\) always. Expression \(\ge0\iff\frac{(x-1)(x-2)}{x-3}\le0\Rightarrow x\le1\) or \(2\le x<3\).
+6||m||PT4 Q10||Solve \((x^2-3x+2)(x^3-3x^2)(4-x^2)\ge0\).||\((-\infty,-2]\cup\{0\}\cup[1,3]\);;\([-2,1]\cup[3,\infty)\);;\((-\infty,-2]\cup[1,3]\);;\([-2,0]\cup[1,3]\)||0||Product \(=-x^2(x-2)^2(x-1)(x-3)(x+2)\ge0\iff x\in\{0,2\}\) or \((x-1)(x-3)(x+2)\le0\), i.e. \(x\le-2\) or \(1\le x\le3\).
+6||m||PT9 Q3||Solve \(\sqrt{x^2+4x-5}>x-3\).||\((-\infty,-5]\cup[1,\infty)\);;\([1,\infty)\);;\((-\infty,-5]\cup(3,\infty)\);;\((-5,1)\)||0||Domain \(x\le-5\) or \(x\ge1\). For \(x<3\) the right side is negative, so every domain point works. For \(x\ge3\): squaring gives \(10x>14\), true.
+7||m||PT7 Q1||\(\dfrac{x^2+x+2}{3x+1}=k\) has both roots real for:||\(k\le-\tfrac79\) or \(k\ge1\);;\(-\tfrac79\le k\le1\);;\(k\ge1\);;\(k\le-\tfrac79\)||0||\(x^2+(1-3k)x+2-k=0\): \(D=9k^2-2k-7=(9k+7)(k-1)\ge0\).
+7||m||Ex3 Q34||\(m\) makes the sum of roots of \((m^2+1)x^2-3x+(m^2+1)^2=0\) greatest. Then \(|\alpha^3-\beta^3|=\)||\(8\sqrt3\);;\(10\sqrt5\);;\(8\sqrt5\);;\(4\sqrt3\)||2||Sum \(=\frac3{m^2+1}\) is greatest at \(m=0\): \(x^2-3x+1=0\). \(|\alpha-\beta|=\sqrt5\), \(\alpha^2+\alpha\beta+\beta^2=9-1=8\). Product \(8\sqrt5\).
+8||m||PT5 Q1||Solve \(2|x-2|-3|x+4|=1\).||\(x=-15,\ -\tfrac95\);;\(x=-17,\ -\tfrac95\);;\(x=-15\) only;;\(x=-\tfrac95\) only||0||\(x\ge2\): \(x=-17\) rejected. \(-4\le x<2\): \(4-2x-3x-12=1\Rightarrow x=-\frac95\). \(x<-4\): \(4-2x+3x+12=1\Rightarrow x=-15\).
+8||m||PT5 Q7||Solve \(|2x+3|=|3x+2|+|x-1|\).||\([-\tfrac23,1]\);;\((-\tfrac23,1)\);;\([-1,\tfrac23]\);;\(\{-\tfrac23,1\}\)||0||\(2x+3=(3x+2)-(x-1)\), and \(|u-v|=|u|+|v|\iff uv\le0\): \((3x+2)(x-1)\le0\).
+8||i||PT5 Q2||Solve \(\big|x-|4-x|\big|-2x=4\). Find \(x\).||||0||\(x\le4\): \(|2x-4|=2x+4\); \(x\ge2\) fails, \(x<2\) gives \(x=0\). \(x>4\) gives \(x=0\), rejected.
+9||i||PT9 Q1||Solve \(\sqrt{3x+4}+\sqrt{x-4}=2\sqrt x\). Find \(x\).||||4||Squaring gives \(2\sqrt{(3x+4)(x-4)}=0\), so \(x=4\) (\(x=-\frac43\) is outside the domain).
+9||i||PT9 Q2||Solve \(\sqrt[3]{2x-1}+\sqrt[3]{x-1}=1\). Find \(x\).||||1||Cubing: \(\sqrt[3]{(2x-1)(x-1)}=1-x\Rightarrow(x-1)x^2=0\). \(x=0\) gives \(-2\ne1\) (extraneous); \(x=1\) works.
+9||i||Ex3 Q62||Find the number of real roots of \(e^{4x}-e^{3x}-4e^{2x}-e^x+1=0\).||||2||Divide by \(e^{2x}\), \(t=e^x+e^{-x}\ge2\): \(t^2-t-6=0\Rightarrow t=3\). \(e^x+e^{-x}=3\) has 2 roots.
+10||i||Ex3 Q58||\(\alpha,\beta\) roots of \(x^2-x+2\lambda=0\); \(\alpha,\gamma\) roots of \(3x^2-10x+27\lambda=0\), \(\lambda\ne0\). Find \(\beta\gamma/\lambda\).||||18||\(\beta=1-\alpha,\ \gamma=\frac{10}3-\alpha\). \(\alpha\beta:\alpha\gamma=2:9\) gives \(\alpha=\frac13\), \(\beta=\frac23\), \(\gamma=3\), \(\lambda=\frac19\). \(\frac{\beta\gamma}\lambda=18\).
+10||m||Ex3 Q85||The orthocentre of the triangle with vertices \((1,2),(2,3),(3,1)\) is \((\alpha,\beta)\). The equation with roots \(\alpha+4\beta\) and \(4\alpha+\beta\) is:||\(x^2-18x+80=0\);;\(x^2-20x+99=0\);;\(x^2-19x+90=0\);;\(x^2-22x+120=0\)||1||Altitudes \(y=2+\frac{x-1}2\) and \(y=2x-1\) meet at \((\frac53,\frac73)\). Roots \(11\) and \(9\): \(x^2-20x+99=0\).`.trim().split('\n').map(mp);
 let Q=Q1;
 
 let qs=[],cur=0,ua={},mk={},done=false,tid,end,sel=new Set([1,2,3,4,5,6,7,8,9,10]);
@@ -212,7 +240,7 @@ const ty=()=>{if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise()
 const has=id=>ua[id]!==undefined&&ua[id]!=='';
 const ok=q=>has(q.id)&&(q.m?ua[q.id]===q.a:Number(ua[q.id])===Number(q.a));
 function home(){
-  A.innerHTML=`<div class="box"><h2>Quadratic Equations – Recall CBT ${Q===Q1?1:2}</h2>
+  A.innerHTML=`<div class="box"><h2>Quadratic Equations – Recall CBT ${Q===Q1?1:Q===Q2?2:3}</h2>
   <p class="mu">Choose topics and a time limit. ${Q.length} questions (single-choice + integer type), shuffled every attempt. Explanations appear after submission.</p>
   <div class="grid">${T.slice(1).map((n,i)=>`<label class="lb"><input type="checkbox" ${sel.has(i+1)?'checked':''} onchange="tg(${i+1},this.checked)"> <b>T${i+1}</b> ${n}</label>`).join('')}</div>
   <p>Time: <input id="tl" type="number" value="40" min="5" max="120" style="width:64px"> minutes</p>
@@ -221,7 +249,7 @@ function tg(i,c){c?sel.add(i):sel.delete(i)}
 function go(){
   const p=Q.filter(q=>sel.has(q.t));if(!p.length)return alert('Select at least one topic.');
   qs=p.map(q=>[Math.random(),q]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
-  ua={};mk={};cur=0;done=false;end=Date.now()+(+$('tl').value||40)*6e4;
+  ua={};mk={};tgs={};gs={};sps={};cur=0;done=false;end=Date.now()+(+$('tl').value||40)*6e4;
   clearInterval(tid);tid=setInterval(tick,500);draw()}
 function tick(){const r=Math.max(0,end-Date.now()),c=$('clk');
   if(c){c.textContent=Math.floor(r/6e4)+':'+String(Math.floor(r%6e4/1e3)).padStart(2,'0');c.className='clk'+(r<12e4?' lo':'')}
@@ -248,12 +276,130 @@ function fin(){clearInterval(tid);done=true;res()}
 function res(){
   let c=0,w=0,s=0;const by={};
   qs.forEach(q=>{by[q.t]=by[q.t]||[0,0];by[q.t][1]++;if(!has(q.id))s++;else if(ok(q)){c++;by[q.t][0]++}else w++});
-  A.innerHTML=`<div class="box" style="max-width:900px"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><h2 style="margin:0">Test Result</h2><button class="bt np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
+  A.innerHTML=`<div class="box" style="max-width:900px"><h2>Test Result</h2>
   <div class="cs"><div><b>${c}/${qs.length}</b>Score</div><div><b>${Math.round(c/qs.length*100)}%</b>Percentage</div><div><b style="color:var(--g)">${c}</b>Correct</div><div><b style="color:var(--r)">${w}</b>Wrong</div><div><b style="color:var(--a)">${s}</b>Skipped</div></div>
+  <p id="sm"></p><button class="bt p" onclick="window.print()">Print / Save as PDF</button>
   <p><b>Topic-wise:</b><br>${Object.keys(by).map(t=>`<span class="tp">T${t}: ${by[t][0]}/${by[t][1]}</span>`).join('')}</p>
   ${qs.map((q,i)=>{const k=has(q.id)?(ok(q)?'ok':'bad'):'',u=has(q.id)?(q.m?'ABCD'[ua[q.id]]+': '+q.o[ua[q.id]]:ua[q.id]):'Not answered',a=q.m?'ABCD'[q.a]+': '+q.o[q.a]:q.a;
-  return `<div class="rq ${k}"><div class="mu">Q${i+1} · T${q.t}: ${T[q.t]} · ${q.src}</div><div>${q.s}</div><div style="margin-top:4px">Your answer: <b>${u}</b> &nbsp; Correct: <b>${a}</b> ${k=='ok'?'✓':k=='bad'?'✗':'— skipped'}</div><div class="ex">${q.e}</div>${q.tip?`<div class="tip"><b>Technique:</b> ${q.tip[0]}<br><b>Often missed:</b> ${q.tip[1]}</div>`:''}</div>`}).join('')}
-  <button class="bt p np" onclick="home()">New Test</button> <button class="bt np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>`;ty()}
-function showTab(t){const r=t=='rs';$('rs').hidden=!r;A.hidden=r;$('tr').className=r?'on':'';$('tc').className=t=='c1'?'on':'';$('tc2').className=t=='c2'?'on':'';if(!r){const b=t=='c2'?Q2:Q1;if(b!==Q){Q=b;clearInterval(tid);done=false;qs=[];home()}}ty()}
+  return `<div class="rq ${k}"><div class="mu">Q${i+1} · T${q.t}: ${T[q.t]} · ${q.src}</div><div>${q.s}</div><div style="margin-top:4px">Your answer: <b>${u}</b> &nbsp; Correct: <b>${a}</b> ${k=='ok'?'✓':k=='bad'?'✗':'— skipped'}</div><div class="ex">${q.e}</div>${SL[q.src]?`<div class="sl"><b>Likely slips (tick any you made):</b><ul>${SL[q.src].map((x,j)=>`<li><label><input type="checkbox" onchange="sp(${q.id},${j},this.checked)"> ${x}</label></li>`).join('')}</ul></div>`:''}<div class="sel" id="s${q.id}"></div><div class="tr"><b>What went wrong?</b> ${ER.map((n,i)=>`<label><input type="checkbox" onchange="tag(${q.id},${i},this.checked)"> ${n}</label>`).join('')}<label><input type="checkbox" onchange="gu(${q.id},this.checked)"> I guessed this one</label></div></div>`}).join('')}
+  <button class="bt p" onclick="home()">New Test</button></div>`;ty()}
+function showTab(t){const r=t=='rs';$('rs').hidden=!r;A.hidden=r;$('tr').className=r?'on':'';$('tc').className=t=='c1'?'on':'';$('tc2').className=t=='c2'?'on':'';$('tc3').className=t=='c3'?'on':'';if(!r){const b=t=='c3'?Q3:t=='c2'?Q2:Q1;if(b!==Q){Q=b;clearInterval(tid);done=false;qs=[];home()}}ty()}
+const ER=['Concept or formula not recalled','Missed a case','Sign or domain error','Forgot extraneous-root check','Calculation slip','Misread the question','Ran out of time'];
+let tgs={},gs={};
+function tag(id,i,c){tgs[id]=tgs[id]||new Set();c?tgs[id].add(i):tgs[id].delete(i);lab(id)}
+function gu(id,c){gs[id]=c;lab(id)}
+let sps={};
+function sp(id,j,c){sps[id]=sps[id]||new Set();c?sps[id].add(j):sps[id].delete(j);lab(id)}
+function lab(id){const q=qs.find(x=>x.id==id),s=[...(tgs[id]||[])].sort().map(i=>ER[i]);if(gs[id])s.push('Guessed');const l=[...(sps[id]||[])].sort().map(j=>'Slip made: '+SL[q.src][j]);const e=$('s'+id);if(e)e.innerHTML=(s.length?'Marked: '+s.join(' · '):'')+l.map(x=>'<div>'+x+'</div>').join('');sm()}
+function sm(){const c={};let g=0;Object.keys(tgs).forEach(id=>tgs[id].forEach(i=>c[i]=(c[i]||0)+1));Object.values(gs).forEach(v=>{if(v)g++});const p=Object.keys(c).map(i=>`<span class="tp">${ER[i]}: ${c[i]}</span>`);let n=0;Object.values(sps).forEach(v=>n+=v.size);if(g)p.push(`<span class="tp">Guessed: ${g}</span>`);if(n)p.push(`<span class="tp">Likely slips marked: ${n}</span>`);const e=$('sm');if(e)e.innerHTML=p.length?'<b>Mistake summary:</b><br>'+p.join(''):''}
+// likely slips (my judgement of typical errors, not student data); key = question source
+const SL=Object.fromEntries(R`PT1 Q5||Sign slip while solving −(2a+3)/(a+1) = −1¦Writing the product as −(3a+4)/(a+1)¦Finding a and stopping without computing the product
+Ex3 Q1||Forgetting that (α/β)(β/α) = 1, so the constant term is not 1¦Using 25 − 3 instead of 25 − 6 for α²+β² (one αβ instead of 2αβ)¦Writing the sum of the new roots with the wrong sign
+Ex3 Q3||Using p + q = +p instead of p + q = −p¦Solving only q = −2p and not q(p − 1) = 0¦Not checking the pair against both relations
+Ex3 Q7||Not substituting 1−p into the equation and guessing p¦Cancelling (1 − p) without noting p = 1 is allowed¦Right p = 1 but wrong signs when solving x² + x = 0
+Ex3 Q61||Using p₂ = e₁² − e₂ (missing the 2)¦Dropping the 3e₃ term in p₃¦Arithmetic slip in p₄ = e₁p₃ − e₂p₂ + e₃p₁
+Ex3 Q65||Treating Pₙ as the average of 11 and 29¦Not spotting the pattern 1, 3, 4, 7, 11, 18, 29¦Squaring the wrong term
+Ex3 Q20||Missing the 2a₈ in a₁₀ = 6a₉ + 2a₈¦Using sum of roots −6 instead of +6¦Dividing by a₉ instead of 2a₉
+Ex3 Q41||Miscomputing p₃ or p₄ so a true statement looks false¦Taking p₅ = p₂p₃ because it “looks like” the recurrence¦Not recalling p₁ = 1, p₂ = 3
+Ex3 Q66||Not factorising x³ − 2x² + 2x − 1 = (x − 1)(x² − x + 1)¦Forgetting that 1 is one of the roots, contributing 1¦Using e^{±iπ/6} instead of e^{±iπ/3}
+Ex3 Q27||Counting every α from 1 to 5 because D ≥ 0 (option A)¦Not testing that 121 − 24α is a perfect square¦Arithmetic slip in 121 − 24α for one value
+Ex3 Q16||Forgetting c² < 4ab, so the sign of ab is unknown¦Writing 3(bx+c)² − c² but dropping the −c²¦Comparing with 4ab instead of −4ab
+Ex3 Q18||Reading the proportion backwards (3:2:1)¦Using only the sum of roots, not the product¦Forgetting that non-real roots of real quadratics come in pairs
+Ex3 Q2||Equating the differences directly instead of their squares¦Sign slip giving a + b − 4 in place of a + b + 4¦Not discarding a − b = 0 (given a ≠ b)
+Ex3 Q15||Ignoring integrality, so r = 4 (other root 1.5) is not rejected¦Taking the other root as 6 − r for both equations¦Mixing up which equation has other root 6/r
+Ex3 Q24||Using r + r² instead of r + r³ for the sum¦Keeping only r = 4/3 and forgetting the sign option¦Taking the fourth root of 256/81 incorrectly
+PT8 Q1||Forgetting D ≥ 0 and keeping only a > 1¦Using D > 0 so a = 4 is lost¦Missing the product condition a > −1/2
+PT8 Q4||Forgetting the vertex condition or a·f(1) > 0¦Using f(1) > 0 without multiplying by a¦Including a = 0 (not a quadratic)
+Ex3 Q92||Using only f(2) < 0 and forgetting f(1) > 0, f(3) > 0¦Allowing 6 ≤ k ≤ 8 (closed ends)¦Sign slip in f(2) = k − 8
+PT2 Q4||Forgetting k − 2 > 0 (leading coefficient)¦Taking k = 4 (D = 0) when the inequality is strict¦Expanding (k − 2)(k + 4) incorrectly
+PT2 Q10||Using D ≤ 0 instead of D < 0 (gives 2, 3, 4)¦Using D > 0, the wrong direction¦Expanding (4k − 1)² as 16k² − 1
+PT4 Q3||Cancelling (x − 1) and then including x = 1¦Forgetting x ≠ 0, 2 from the denominator¦Starting the sign pattern with − on the far right
+PT9 Q10||Not splitting x > 1 and 0 < x < 1¦Forgetting the domain 2x − 3/4 > 0¦Not reversing the inequality when 0 < x < 1
+Ex3 Q13||Minimising the numerator instead of the denominator¦Computing 7 − 27/4 incorrectly¦Choosing 17/7 by evaluating at x = 0
+PT4 Q7||Giving only the end-point values [2, 4] and forgetting the vertex¦Vertex miscalculated as x = 3/2 (using −b/a)¦Arithmetic slip in f(3/4)
+Ex2 Q1||Giving 10/3 itself as the answer (not an integer)¦Minimum of x² + x + 1 taken at x = 0 instead of −1/2¦Choosing the lower integer 3
+Ex3 Q22||Turning λ + 1/λ = 1 into λ² = 1¦Forgetting both signs ±3√2 and so not choosing the least¦Slip in (α+β)² = 3αβ after substituting S and P
+PT5 Q3||Solving only x² + x < 2 and forgetting x² + x > −2 (always true)¦Answering (−2, 2)¦Sign slip when factorising x² + x − 2
+PT5 Q6||Treating it as two separate moduli and missing the uv ≥ 0 shortcut¦Giving only the positive interval [1, √2]¦Treating the end-points as excluded
+PT5 Q10||Taking x = −1 from |x² − 1| = 0 without checking the root term¦Not noticing both terms are non-negative so each must be 0¦Solving only one of the two conditions
+Ex3 Q71||Treating e^{2x} = 4 as e^x = 4¦Dropping one of t = 1/2, 1/3 (both valid since t > 0)¦Sign slip in ln2 − ln2 − ln3
+Ex3 Q90||Using x² + 1/x² = t² + 2 instead of t² − 2¦Not applying |t| ≥ 2 to reject t = 1 and t = −1/3¦Counting the t-roots as x-roots
+Ex1 Q22||Applying D ≤ 0 without first requiring a > 5¦Reading (a − 5)² ≥ 4 as only a ≥ 3¦Forgetting to multiply by 8 after finding λ
+Ex1 Q20||Not setting y = √(x² + 18x + 45)¦Keeping y = −3 from y² − 2y − 15 = 0¦Using the product without checking D > 0
+Ex3 Q74||Forgetting b² = 15a for the repeated root¦Not using that α also satisfies the second equation¦Taking β² = 21 instead of (21/α)²
+Ex3 Q73||Dropping the 2αβ in α² + β²¦Not squaring α³ + β³ before multiplying by 6¦Sign slip in α³ + β³ = s³ − 3ps
+Ex3 Q79||Accepting both pq = 24 and pq = −6 (reality of p, q forgotten)¦Algebra slip in (9 − 2t)² − 2t²¦Inverting the final expression (using (p+q)²/(pq)²)
+Ex3 Q59||Getting 2x² − (6+k)x + 4 + 3k = 0 wrong when clearing denominators¦Including k = 0 or 12 (bounds are about 0.34 and 11.66)¦Not checking that x = 1, 2 never become roots
+Ex3 Q45||Using D > 0 instead of D ≥ 0 (so a = 8 is excluded)¦Moving 2a to the wrong side (sign of constant term)¦Picking a = −4 (not positive)`.trim().split('\n').map(l=>{const f=l.split('||');return[f[0],f[1].split('¦')]}));
+Object.assign(SL,Object.fromEntries(R`PT1 Q9||Not writing (α−β)² = S² − 4P before equating to 9¦Sign slip in S = (a−4)/(a−2) after putting d = a−2¦Giving only one of the two roots of 2d² − d − 1 = 0
+Ex3 Q5||Using b² = 4ac (equal roots) instead of 2b² = 9ac¦Writing the sum of roots as 2r instead of 3r¦Algebra slip expanding 2(3a−1)² = 18(a²−5a+3)
+Ex3 Q9||Using P/2 + Q/2 = π/2 instead of π/4¦Not using R = π/2 to get P + Q = π/2¦Sign slip in −b/a = 1 − c/a
+Ex2 Q2||Writing a + b = c instead of 2c¦Not dividing by (a − c) after using a ≠ c¦Forgetting b + d = a + c to reach the total 30
+Ex3 Q100||Computing S₂₁, S₁₇, S₁₉ one by one and slipping in arithmetic¦Missing that ab = −1 so the (ab)² terms reduce¦Giving a² − b² or a + b as the ratio
+Ex3 Q82||Expanding the numerator instead of grouping (P₁₆ − P₁₅)(P₁₅ − P₁₄)¦Using P₍ₙ₊₁₎ = P₍ₙ₎ − 4P₍ₙ₋₁₎ (wrong sign of αβ)¦Dropping one factor of 4
+Ex3 Q96||Taking |α| = 2 instead of √2¦Wrong angle (π/6 or π/4 instead of π/3)¦Forgetting the factor 2 (α and β both contribute)
+Ex3 Q114||Using α² = α + 2 instead of α − 2¦Using the α-expression for β⁴ without redoing it for β¦Forgetting α + β = 1 in the last step
+Ex3 Q116||Assuming the representation is unique and missing that A − C = B − C = 1¦Writing 1 + α = α² instead of −α²¦Slip in α¹⁴ = α² (uses α³ = 1)
+Ex3 Q37||Using Σαʳ = 1/(1−α) (starting from r = 0 instead of r = 1)¦Not checking |roots| < 1 for convergence¦Slip in S − 2P with P = −2/375
+PT2 Q6||Using only D < 0 and forgetting a > 1¦Sign slip when factorising D = (a+1)(5−3a)¦Accepting a < −1 (it fails a > 1)
+PT2 Q7||Using a + 4 > 0 (wrong sign for always negative)¦Using D > 0 instead of D < 0¦Accepting a > 4 (it fails a + 4 < 0)
+Ex1 Q18||Cross-multiplying without noting the denominator is always positive¦Handling only one side of the double inequality¦Taking the union instead of the intersection of the two ranges
+Ex3 Q40||Not using β² = αγ to get a repeated root¦Taking the common root as β/α instead of −β/α¦Sign slip when substituting into x² + x − 1
+Ex2 Q7||Not seeing that the two quadratics must share a root, so subtracting is the key step¦Using only the roots of one quadratic and forgetting the common root 1¦Using ab = 72 instead of −72
+Ex2 Q5||Assuming the other pair also has product −32¦Sign slip in the x-coefficient −62s₁ + 32s₂¦Forgetting the s₁s₂ term when finding k
+Ex3 Q10||Using only D ≥ 0 and the vertex, not f(5) > 0¦Reading f(5) > 0 as (k−4)(k−5) < 0¦Choosing (5, 6] from the k > 5 branch
+Ex3 Q12||Writing the roots as m ± 2 instead of m ± 1¦Reversing an inequality (m + 1 > 4)¦Using the condition for "less than 4" only
+Ex3 Q25||Using only f(0)f(2) < 0 and forgetting f(2)f(3) < 0¦Counting integers from 12 to 24 (end-points)¦Slip in f(3) = 4c − 49, turning 12.25 into 12
+Ex2 Q9||Missing the vertex condition 0 < a/2 < 3¦Using f(3) < 0 instead of f(3) > 0¦Stopping at a ≥ 2√2 with no upper bound
+Ex2 Q8||Using only S > 0 and forgetting the case P < 0¦Dropping D ≥ 0 in the second case¦Combining the K ≥ 4 branch of D ≥ 0 with S > 0 (it fails K < 1)
+PT4 Q2||Treating even powers like odd ones and flipping sign at x = 1 or 5¦Excluding x = 1 (a numerator zero)¦Including x = 5 (a denominator zero)
+PT9 Q7||Forgetting the domain x² − 1 > 0¦Answering (−√3, √3)¦Dropping the negative interval
+PT9 Q9||Not reversing the inequality for base 1/3¦Forgetting the inner domain x² − 5 > 0¦Writing 6 < x² < 9 as 6 < x < 9 (square roots missing)
+PT4 Q8||Taking the vertex value as the minimum (it is the maximum here)¦Subtracting in the wrong order¦Arithmetic slip in y(3/4)
+PT4 Q5||Using S² + 2P instead of S² − 2P¦Taking the vertex at a = 2 instead of 1¦Sign slip on the product −a − 1
+Ex3 Q26||Not moving λ to the left side (using 2 as the constant term)¦Using S² + 2P¦Taking the vertex at λ = 3 instead of 2
+Ex2 Q13||Not dividing by y² to get t = x/y¦Forgetting M and m are the two roots of 15E² − 20E + 4 = 0, so M + m = 20/15¦Slip in 2007 × 2/3
+Ex1 Q19||Not noticing the numerator is t⁶ − u²¦Cancelling before factoring the difference of squares¦Forgetting x > 0, so t ≥ 2 (min 6 at x = 1)
+Ex3 Q93||Not requiring x ≥ 7/2 (the right side 2x − 7 must be ≥ 0)¦Keeping 5 − √3 (fails x ≥ 5 or x ≤ 3)¦Missing x = 4 from 3 < x < 5, or keeping x = 2
+Ex3 Q97||Missing the case x < −2 (or −2 ≤ x < 0)¦Keeping both roots of x² − 5x − 16 = 0 (the positive one fails x < −2)¦Not checking each root lies in its own interval
+Ex3 Q63||Forgetting to split at x = 5¦Accepting roots from the x ≥ 5 case that are not ≥ 5¦Sign slip in |x − 5| = 5 − x for x < 5
+Ex3 Q30||Not substituting s = √x¦Keeping s = 0 or s = 4 outside their case¦Adding the s values instead of the x values
+Ex3 Q21||Forgetting to split at √x = 3¦Keeping s = 0 or s = 6 outside their cases¦Counting s values instead of x values (x = s²)
+Ex3 Q86||Using t = e^x + e^−x here instead of u = e^x − e^−x¦Using e^2x + e^−2x = u² − 2 instead of u² + 2¦Forgetting each u gives exactly one x
+Ex3 Q76||Using e^2x + e^−2x = t² + 2 instead of t² − 2¦Keeping t = −10 (impossible since t ≥ 2)¦Counting one x for t = 6 instead of two
+Ex3 Q36||Solving t² − t − 6 = 0 and keeping t = 3 (fails t < 1)¦Keeping a root t ≤ 0 (2ˣ > 0)¦Forgetting to split at t = 1
+Ex3 Q87||Squaring without finding the domain x ≤ −3 or x ≥ 3¦Keeping x = 7/6 (outside the domain)¦Missing x = 3 (both sides are 0)
+Ex2 Q14||Factorising x⁴ + 6x² + 25 incorrectly¦Not testing which factor divides the second polynomial¦Using the other factor x² + 2x + 5 (gives 8)
+Ex3 Q99||Taking c = −1 (sign slip in αβγ = −c)¦Forgetting b = αβ + αγ + βγ = 0¦Using β³ = 1 instead of −1 for roots of t² − t + 1
+Ex3 Q113||Writing the quadratic as x² + mx + m² (sign of −r)¦Inverting 1/m = 3/4 to get m = 3/4¦Using S² − 2P instead of S² − 4P for (α − β)²
+Ex2 Q15||Using f(1) < 0 instead of f(1) > 0 for a cubic with positive leading coefficient¦Solving k² − 48k + 64 < 0 incorrectly¦Matching the interval to (a+√b, b(a+√b)) wrongly (a = 3, b = 8)`.trim().split('\n').map(l=>{const f=l.split('||');return[f[0],f[1].split('¦')]})));
+Object.assign(SL,Object.fromEntries(R`PT3 Q7||Computing b and c separately and guessing the roots¦Taking the gap between consecutive integers as 2¦Forgetting that (α−β)² = b² − 4c directly
+PT1 Q6||Missing that the coefficients sum to 0¦Writing the other root as (b−c)/(a−b)¦Taking −1 as a root
+PT1 Q7||Using (α−β)² = S² + 4P¦Writing (α+β)² as a² + b²¦Sign slip in the product −(a²−b²)²
+Ex3 Q6||Testing x + 1/x at x = 2 instead of x = 1¦Choosing x = −1 (that is a maximum for x < 0)¦Confusing the minimum value 2 with the point x = 1
+Ex3 Q95||Not spotting α⁴ = β⁴ = −9¦Forgetting α² + β² = 0 so the α²-terms vanish¦Answering 9 (one power of α⁴ instead of two)
+Ex3 Q60||Computing P₁₇ to P₂₀ directly¦Using Pₙ₊₁ = (α+β)Pₙ + αβPₙ₋₁ (wrong sign)¦Taking α + β as +5√2
+Ex3 Q80||Using p₂ = e₁² − e₂ (missing the 2)¦Wrong sign of e₃ from the x-coefficient¦Dropping the 3e₃ term in p₃
+PT3 Q3||Using D > 0 instead of D = 0¦Sign slip in (k+1)² − 8k¦Giving only one of 3 ± 2√2
+Ex3 Q4||Forgetting the numbers are distinct, so ≤ becomes <¦Using (a+b+c)² = 1 instead of a² + b² + c² = 1¦Answering “equal to 1” from the equal case
+PT6 Q1||Using only x = 4 or only x = −1¦Solving x² − 3x − 4 = 0 wrongly¦Substitution slip in 2·16 + 4k − 5
+PT6 Q2||Cancelling a and losing a = 0¦Substituting x = a/3 into the wrong equation¦Slip in a²/9 − 11a/3 + a
+PT6 Q3||Using the one-common-root formula where proportionality is needed¦Copying 1:2:3 from a similar problem¦Forgetting that the roots are non-real
+PT8 Q2||Using D < 0 instead of the product condition¦Requiring the sum to be 0 (that is for equal and opposite roots)¦Missing that a = 5 makes it linear
+PT8 Q5||Forgetting the vertex condition¦Using a > 0 (positive roots need a < 0)¦Using f(3) < 0
+PT8 Q6||Using D > 0 and nothing else¦Writing f(1) > 0 instead of f(1) < 0¦Sign slip in 1 − 3 + a
+PT4 Q4||Cancelling the always-positive factors but flipping the sign of the denominator wrongly¦Including x = 3¦Excluding the zeros x = 1, 2
+PT4 Q10||Dropping x = 0 (a double zero)¦Not reversing the inequality after taking out the minus sign¦Wrong sign pattern for (x−1)(x−3)(x+2)
+PT9 Q3||Forgetting the domain x ≤ −5 or x ≥ 1¦Squaring when the right side is negative¦Giving only the case x ≥ 3
+PT7 Q1||Using D > 0 or reversing the inequality¦Slip in (1−3k)² − 4(2−k)¦Giving −7/9 ≤ k ≤ 1
+Ex3 Q34||Not maximising the sum 3/(m²+1) first¦Using α³ − β³ = (α−β)³¦Writing α² + αβ + β² as S² + P
+PT5 Q1||Not splitting into three intervals¦Keeping x = −17 (outside x ≥ 2)¦Sign slip with |x+4| for x < −4
+PT5 Q7||Squaring both sides blindly¦Missing 2x + 3 = (3x+2) − (x−1)¦Using uv ≥ 0 instead of uv ≤ 0
+PT5 Q2||Not splitting the inner modulus at x = 4¦Accepting x = 0 from the x > 4 case¦Missing the sub-case x < 2
+PT9 Q1||Not checking the domain x ≥ 4¦Keeping x = −4/3¦Forgetting the cross term when squaring
+PT9 Q2||Keeping x = 0 (introduced by cubing)¦Cubing without using (a+b)³ = a³ + b³ + 3ab(a+b)¦Not checking the answer in the original equation
+Ex3 Q62||Using t² + 2 instead of t² − 2 for e^2x + e^−2x¦Counting t = 3 as one root instead of two¦Keeping a negative t
+Ex3 Q58||Not finding α from the ratio of the two products¦Using γ = 10/3 + α¦Forgetting to divide by λ at the end
+Ex3 Q85||Using the centroid instead of the orthocentre¦Taking the altitude slope equal to the side slope¦Arithmetic slip in 5/3 + 4(7/3)`.trim().split('\n').map(l=>{const f=l.split('||');return[f[0],f[1].split('¦')]})));
 home();
 </script></body></html>
