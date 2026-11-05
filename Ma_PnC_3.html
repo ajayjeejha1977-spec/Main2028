@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>P&amp;C Weak-Area CBT</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{--bg:#eef2f7;--cd:#fff;--ink:#1d2733;--ln:#cfd8e3;--b1:#1a2e4a;--b2:#2a6fb5;--sel:#e7f1fd;--g:#2e9e4f;--r:#d9453d;--p:#7a4bb8;--a:#e0a100;--mu:#5a6a7e;--ex:#f4f8fd;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10161e;--cd:#19222d;--ink:#e4e9f0;--ln:#34414f;--b1:#0c141e;--b2:#4a90e2;--sel:#1e3550;--mu:#9aa8b8;--ex:#1d2a38}}
+:root[data-theme="dark"]{--bg:#10161e;--cd:#19222d;--ink:#e4e9f0;--ln:#34414f;--b1:#0c141e;--b2:#4a90e2;--sel:#1e3550;--mu:#9aa8b8;--ex:#1d2a38}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Segoe UI",Roboto,Arial,sans-serif}
+.box{max-width:760px;margin:18px auto;background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:18px 22px}
+.box h2{margin-top:0;color:var(--b2)}.mu{color:var(--mu);font-size:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.lb{border:1px solid var(--ln);border-radius:6px;padding:7px 10px;font-size:14px;cursor:pointer}
+.lb:has(input:checked){border-color:var(--b2);background:var(--sel)}
+.tw{display:flex;gap:12px;padding:12px;align-items:flex-start}
+.mn{flex:1;min-width:0;background:var(--cd);border:1px solid var(--ln);border-radius:6px}
+.sd{width:250px;background:var(--cd);border:1px solid var(--ln);border-radius:6px;padding:10px;position:sticky;top:8px}
+.tb{background:var(--b1);color:#fff;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 14px;border-radius:6px 6px 0 0;font-size:14px}
+.clk{background:#fff;color:#1a2e4a;font-weight:700;padding:3px 10px;border-radius:4px;font-size:17px}.clk.lo{color:var(--r)}
+.qh{padding:7px 14px;border-bottom:1px solid var(--ln);font-size:13px;color:var(--mu)}
+.qb{padding:14px 16px;min-height:200px}.st{font-size:17px;line-height:1.9;margin-bottom:12px;overflow-x:auto}
+.op{display:flex;gap:10px;align-items:center;border:1.5px solid var(--ln);border-radius:6px;padding:8px 12px;margin:6px 0;cursor:pointer;overflow-x:auto}
+.op:hover{border-color:var(--b2)}.op.sl{border-color:var(--b2);background:var(--sel)}.op b{color:var(--b2);min-width:20px}
+.ni{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--b2);border-radius:6px;background:var(--cd);color:var(--ink)}
+.bar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--ln);flex-wrap:wrap}
+.bt{padding:8px 14px;border:1.5px solid var(--b2);background:var(--cd);color:var(--ink);border-radius:5px;cursor:pointer;font-weight:600;font-size:14px}
+.bt.p{background:var(--b2);color:#fff}.bt.g{background:var(--g);border-color:var(--g);color:#fff}
+.pl{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pl button{height:32px;border:0;border-radius:4px;color:#fff;font-weight:600;font-size:12px;cursor:pointer}
+.na{background:var(--r)}.an{background:var(--g)}.mk{background:var(--p)}.cur{outline:3px solid var(--a)}
+.cs{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0}.cs div{flex:1;min-width:110px;background:var(--cd);border:1px solid var(--ln);border-radius:8px;padding:10px}
+.cs b{font-size:26px;display:block;color:var(--b2)}
+.tp{display:inline-block;padding:3px 9px;border-radius:4px;background:var(--b2);color:#fff;font-size:13px;margin:2px}
+.rq{background:var(--cd);border:1px solid var(--ln);border-left:5px solid var(--a);border-radius:6px;padding:10px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--g)}.rq.bad{border-left-color:var(--r)}
+.ex{background:var(--ex);border-radius:5px;padding:7px 10px;margin-top:6px;font-size:14px;overflow-x:auto}
+[hidden]{display:none!important}
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--b1);position:sticky;top:0;z-index:9;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 16px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:#1a2e4a}
+nav .on{background:#fff;box-shadow:inset 0 -3px 0 var(--b2)}
+#rs{max-width:1000px;margin:0 auto;padding:16px 20px 50px;background:var(--cd)}
+#rs h1{font-size:22px;margin:0 0 4px;color:var(--b2)}
+#rs h2{font-size:15px;margin:18px 0 4px;padding:6px 10px;border-left:5px solid var(--b2);background:var(--sel)}
+#rs ol{margin:0;padding-left:28px}#rs li{padding:6px 0;border-bottom:1px dotted var(--ln);line-height:1.9;overflow-x:auto}
+.sl{background:var(--ex);border-left:3px solid var(--a);border-radius:4px;padding:6px 10px;margin-top:6px;font-size:14px}.sl ul{margin:4px 0 0;padding-left:20px}
+.sel{font-size:13px;font-weight:600;color:var(--r);margin-top:4px}
+.tr{margin-top:6px;font-size:13px}.tr label{display:inline-block;margin:2px 10px 2px 0;cursor:pointer}
+@media print{:root,:root[data-theme="dark"]{--bg:#fff;--cd:#fff;--ink:#000;--ln:#999;--ex:#f0f0f0;--sel:#eee}nav,.tr,.bt{display:none!important}.rq{break-inside:avoid}body{background:#fff;color:#000}}
+@media(max-width:700px){.tw{flex-direction:column}.sd{width:100%;position:static}.grid{grid-template-columns:1fr}}
+</style></head><body>
+<nav><button id="tr" class="on" onclick="showTab('rs')">📖 Remember Sheet</button><button id="tc" onclick="showTab('cbt')">🎯 Weak-Area CBT</button></nav>
+<div id="rs">
+<h1>Permutations &amp; Combinations – Remember Sheet</h1>
+<p class="mu">For each weak area: how to think, the methods and tricks, and the mistakes students usually make with the way to avoid each. <button class="bt" onclick="window.print()">Print / Save as PDF</button></p>
+<section><h2>Before any problem: the 6-question routine</h2><ol>
+<li>Are the objects <b>distinct or identical</b>? Are the groups/positions <b>labelled or identical</b>?</li>
+<li>Does <b>order</b> matter? (arrangement, rank, position \(\Rightarrow\) yes; committee, team, subset \(\Rightarrow\) no)</li>
+<li>Does the source have <b>repeats</b> (letters, digits, balls)? Is repetition allowed in the answer?</li>
+<li>Underline the words: <i>at least, at most, exactly, between, greater than, not together</i>. Is the end-point included?</li>
+<li>Fill the <b>most restricted place first</b> (first digit \(\ne0\), last digit for divisibility, fixed persons).</li>
+<li>Choose <b>direct or complement</b>, then test the method on a small case (2 or 3 objects) before trusting it.</li></ol></section>
+<section><h2>1 · Repeated letters &amp; digits</h2>
+<p><b>How to think.</b> Two stages: first decide <i>which letters you use</i> (a pattern of repeats), then <i>arrange them</i>: \(\dfrac{k!}{\prod r_i!}\). Never arrange before you know the pattern.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>List the letters with their counts first (BARRACK: A×2, R×2, B, C, K).</li>
+<li>\(k\)-letter words: split into patterns. For 4 letters: all distinct; one pair + 2 distinct \(=\#\text{pair letters}\cdot\binom{d}{2}\cdot\frac{4!}{2!}\); two pairs \(=\binom{p}{2}\cdot\frac{4!}{2!2!}\); a triple + 1 if a letter occurs 3 times.</li>
+<li>Vowel/consonant conditions: do vowels and consonants separately by pattern, then multiply and arrange (DEVASTATION: 1440 + 120 + 72 + 6 = 1638).</li>
+<li>"At most 2 different digits" (4-digit): one digit \(9\); two non-zero digits \(\binom92(2^4-2)\); digits \(\{0,a\}\): \(9\,(2^3-1)\). Total 576.</li>
+<li>Dictionary rank: sort the letters; for each position count the <i>kinds</i> of smaller letters left, multiply by the arrangements of the rest (divide by repeats), add all, then <b>add 1</b>.</li>
+<li>For many colours with limits (balls), use the generating function \(\prod\sum_{k\le c_i}x^k/k!\) and read \(n!\,[x^n]\).</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Treating repeated letters as different (using \(n!\) or \(^{n}P_r\)). <i>Fix:</i> write counts first; ask "are these two letters really interchangeable?"</li>
+<li>Missing a pattern (usually the two-pairs case). <i>Fix:</i> list patterns on paper and tick each one.</li>
+<li>Dividing by \(2!\) in a case with no pair. <i>Fix:</i> divide only by the repeats that actually occur in that pattern.</li>
+<li>In rank: counting a repeated smaller letter twice, or forgetting the final \(+1\). <i>Fix:</i> count each kind once; "words before + 1".</li></ol></section>
+<section><h2>2 · Divisibility &amp; "greater than N"</h2>
+<p><b>How to think.</b> A divisibility rule turns the question into a condition on digits. Write the conditions as a list (digit set, first digit, last digit, sum rule) and make sure every item is used.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>\(\div2\): last digit even. \(\div5\): last digit 0 or 5. \(\div4\): last <i>two</i> digits. \(\div3\) or \(9\): digit sum. \(\div11\): (sum of odd places) \(-\) (sum of even places) is a multiple of 11.</li>
+<li>Omission method (\(\div3\)): if you use \(k\) of \(n\) digits, find which digits to <b>omit</b> so the remaining sum is a multiple of 3 (0,1,2,3,4 sum 10: omit 1 or 4).</li>
+<li>\(\div11\) with six distinct digits and sum 24: the difference must be even and a multiple of 11, so it is \(0\): both place-groups sum to 12. Split the digits into two triples, arrange each, then subtract numbers with a leading 0.</li>
+<li>"Greater than \(N\)": break by prefix. Bigger first digit; same first digit and bigger second; ... down to the tail. (\(>4321\) with digits 0–5: \(216+72+18+4=310\).)</li>
+<li>Interval \([a,b]\): count from \(a\) up to the next round number, whole blocks, then the last partial block.</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Allowing a leading 0. <i>Fix:</i> choose the first digit first, always.</li>
+<li>Using the last digit for \(\div4\), or digit sum for \(\div11\). <i>Fix:</i> write the rule beside the question before starting.</li>
+<li>Ignoring one end of an interval. <i>Fix:</i> test the smallest and largest allowed number in your count.</li>
+<li>Counting \(N\) itself when the question says strictly greater. <i>Fix:</i> circle "strictly" or "at least".</li></ol></section>
+<section><h2>3 · Inclusion–exclusion &amp; sets</h2>
+<p><b>How to think.</b> Translate the words into sets: "at least one" is a union, "none" is the complement. Draw a Venn diagram before you calculate.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>\(n(A\cup B\cup C)=\sum n(A)-\sum n(A\cap B)+n(A\cap B\cap C)\); none \(=\text{total}-n(A\cup B\cup C)\).</li>
+<li>Multiples: \(n(A\cap B)=\lfloor N/\mathrm{lcm}\rfloor\), not a product. (140 students, 2, 3, 5: \(70+46+28-23-14-9+4=102\), none \(=38\).)</li>
+<li>Sums work the same way: add the arithmetic series for each set, subtract overlaps (HCF(91,n)>1: \(2107+1196-182=3121\)).</li>
+<li>"No two alike together": total \(-\) glue each alike pair, with inclusion–exclusion on the pairs (KUTKUT: \(90-60=30\)).</li>
+<li>Derangements: \(D_4=9,\ D_5=44\). If card 1 is forced into envelope 2: \(D_4+D_5=53\).</li>
+<li>Disjoint subsets of an \(n\)-set: ordered pairs \(3^n\); unordered \(=\frac{3^n+1}2\).</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Dropping the triple overlap or its sign. <i>Fix:</i> write the formula skeleton (+, \(-\), +) first, then fill each term.</li>
+<li>Multiplying instead of using the lcm; counting the multiple of both numbers twice. <i>Fix:</i> list the overlap sets explicitly.</li>
+<li>Stopping at \(n(A\cup B\cup C)\) when the question asks for "none". <i>Fix:</i> underline what is asked.</li>
+<li>Counting ordered pairs when the question is unordered. <i>Fix:</i> test with a tiny set.</li></ol></section>
+<section><h2>4 · Gaps, non-consecutive &amp; recursion</h2>
+<p><b>How to think.</b> Either "place the chosen items in the gaps between the others" or "what happens in the last step?" The second gives a recurrence.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>Choose \(r\) of \(n\) in a line with no two consecutive: \(\binom{n-r+1}{r}\). (4 visit-days in 15 days: \(\binom{12}{4}=495\).)</li>
+<li>Gap method for people/letters: arrange the free ones, make \(m+1\) gaps, then choose gaps (distinct items \(\Rightarrow\) P, identical items \(\Rightarrow\) C).</li>
+<li>Recurrence by the last step: stairs of 1 or 2 steps \(a_n=a_{n-1}+a_{n-2}\) (\(a_1=1,a_2=2\); 10 steps: 89). Strings with no "22": \(a_1=2,a_2=3\), same rule.</li>
+<li>"Both digits used": count all sequences and remove the single-digit ones (143 for ten digits).</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Wrong starting values. <i>Fix:</i> list the first 3 terms by hand and check the rule.</li>
+<li>Forgetting the end gaps (the "+1" in \(n-r+1\)). <i>Fix:</i> draw the line of ○ and mark every gap, including both ends.</li>
+<li>Using combinations when the order of steps matters. <i>Fix:</i> ask "does 1,2 differ from 2,1?"</li>
+<li>Forgetting to remove the excluded sequence (all 5s). <i>Fix:</i> re-read the condition at the end.</li></ol></section>
+<section><h2>5 · Grouping &amp; distribution</h2>
+<p><b>How to think.</b> Decide first: are the groups <b>labelled</b> (different names, sizes, companies) or identical? Are the objects distinct? Do not pick a formula until both are known.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>Labelled groups of sizes \(a,b,c\): \(\frac{n!}{a!\,b!\,c!}\). Equal-sized <i>unlabelled</i> groups: also divide by (number of equal groups)!.</li>
+<li>When only limits are given (6 persons, 4 rooms, each 1–2), list the <b>size patterns</b> first: only (2,2,1,1). Then choose which rooms get 2, then distribute: \(\binom42\cdot\frac{6!}{2!2!}=1080\).</li>
+<li>Preferences: place the restricted people first, then the free ones (Bombay clerks: \(\binom52\cdot6\cdot90=5400\)).</li>
+<li>Forbidden placements: total \(-\) A \(-\) B \(+\) (A and B) (\(1260-280-420+105=665\)).</li>
+<li>Choosing from boxes with limits: a generating function per box, multiply, read the coefficient (21816).</li>
+<li>Two sources with equal totals: sum over the number taken from the first source; symmetric structure often gives a sum of squares (485).</li>
+<li>Identical + distinct mixture: choose \(k\) distinct, the identical ones fill the rest, sum over \(k\) (\(2^{20}\)).</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Not dividing by \((2!)^m\) for equal-sized groups, or dividing when groups are labelled. <i>Fix:</i> write "labelled" or "unlabelled" beside the question.</li>
+<li>Missing a size pattern. <i>Fix:</i> list all patterns that satisfy the limits and add them.</li>
+<li>Ordered versus unordered confusion. <i>Fix:</i> test with 4 objects.</li>
+<li>Handling restricted people last. <i>Fix:</i> always place them first.</li></ol></section>
+<section><h2>6 · Words into algebra / number theory</h2>
+<p><b>How to think.</b> Turn the sentence into an equation or a divisor count <i>before</i> counting anything. Then check the answer in the original sentence.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>Polygon: triangles \(T_n=\binom n3\); \(T_{n+1}-T_n=\binom n2\).</li>
+<li>Triangular numbers: \(\frac{n(n+1)}2\). Form the equation in \(n\), solve, reject negative or non-integer roots (side 19, balls 190).</li>
+<li>LCM pairs: for each prime with LCM exponent \(e\), the exponent pairs with maximum \(e\) number \(2e+1\); multiply over primes (\(5\cdot9\cdot5=225\)).</li>
+<li>Divisors of \(\prod p_i^{e_i}\): \(\prod(e_i+1)\); splitting into two factors: half of that (check the perfect-square case).</li>
+<li>Axis triangles with vertices \((a,0),(0,b)\) and area 50: \(|ab|=100\), count divisors and multiply by 4 sign choices (36).</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Using \(e+1\) instead of \(2e+1\) for LCM pairs. <i>Fix:</i> test with one prime and \(e=1\): the pairs are (0,1),(1,0),(1,1) = 3.</li>
+<li>Forgetting sign choices or accepting a negative root. <i>Fix:</i> re-read what kind of number \(n\) must be.</li>
+<li>Misreading the given equation. <i>Fix:</i> substitute your final value back into it.</li></ol></section>
+<section><h2>7 · Circular arrangements &amp; colourings</h2>
+<p><b>How to think.</b> Rotations make arrangements equal, so <b>fix one person</b> and arrange the rest. Then apply any condition.</p>
+<p><b>Methods &amp; tricks</b></p><ol>
+<li>\(n\) people at a round table: \((n-1)!\). Two persons adjacent: glue them, \((n-2)!\cdot2\). Not adjacent: \((n-1)!-2(n-2)!\) (8 persons: \(5040-1440=3600\)).</li>
+<li>Men and women alternating (\(n\) each): fix one man, \((n-1)!\,n!\).</li>
+<li>Colouring a cycle of \(n\) with \(k\) colours, neighbours different: \((k-1)^n+(-1)^n(k-1)\). For \(n=5,k=3\): \(32-2=30\). Test: \(n=3,k=3\) gives 6.</li></ol>
+<p><b>Common mistakes \(\to\) how to avoid</b></p><ol>
+<li>Using \(n!\) for a round table. <i>Fix:</i> fix one person first.</li>
+<li>Using the straight-line count \(k(k-1)^{n-1}\) for a circle. <i>Fix:</i> the last person is also next to the first; use the cycle formula.</li>
+<li>Forgetting the factor 2 for the glued pair. <i>Fix:</i> ask "can the two swap places?"</li></ol></section>
+<section><h2>Habits that remove most slips</h2><ol>
+<li>Write the plan in one line before calculating ("patterns of repeats, then arrange").</li>
+<li>Check the final number against the total count — a part cannot exceed the whole.</li>
+<li>After solving, try a 2–3 object version and count by listing.</li>
+<li>When your answer is not among the options, re-check the three usual causes: a missed case, a leading zero, a repeat not divided.</li>
+<li>After a test, tick the real cause for each wrong question; the Mistake summary will show which habit to fix first.</li></ol></section>
+</div>
+<div id="app" hidden></div>
+<script>
+const R=String.raw;
+const T=['','Repeated letters & digits','Divisibility & greater-than-N','Inclusion–exclusion & sets','Gaps & recursion','Grouping & distribution','Words into algebra / number theory','Circular & colourings'];
+// fields: topic||m(cq)/i(nt)||source||stem||options (;;)||answer||explanation
+const Q1=R`1||m||Ex3 Q8||The number of four-letter words that can be formed using the letters of the word BARRACK is:||120;;144;;264;;270||3||Letters: A×2, R×2, B, C, K. Split by pattern. All distinct: \(5\cdot4\cdot3\cdot2=120\). One pair + 2 distinct: \(2\cdot\binom42\cdot\frac{4!}{2!}=144\). Two pairs (AARR): \(\frac{4!}{2!2!}=6\). Total \(270\).
+1||i||Ex3 Q27||The number of 4-letter words (with or without meaning) that can be formed from the eleven letters of EXAMINATION is:||||2454||Letters A, I, N twice each; E, X, M, T, O once (8 kinds). All distinct: \(8\cdot7\cdot6\cdot5=1680\). One pair + 2 distinct: \(3\binom72\frac{4!}{2!}=756\). Two pairs: \(\binom32\frac{4!}{2!2!}=18\). Total \(2454\).
+1||m||Ex3 Q4||All five-letter words formed from the letters of SMALL are arranged as in a dictionary. The position of SMALL is:||46th;;59th;;52nd;;58th||3||Sorted letters A, L, L, M, S. Before S: A first \(\frac{4!}{2!}=12\), L first \(4!=24\), M first \(12\), total 48. Then SA---: 3 and SL---: 6. That is 57 words before SMALL, so its position is 58.
+1||i||Ex1 Q16||How many arrangements, each of 2 vowels and 2 consonants, can be made from the letters of DEVASTATION?||||1638||Vowels E, A, A, I, O; consonants D, V, S, T, T, N. By repeat pattern: (distinct, distinct) \(6\cdot10\cdot24=1440\); (AA, distinct) \(10\cdot12=120\); (distinct, TT) \(6\cdot12=72\); (AA, TT) \(6\). Total \(1638\).
+1||i||Ex1 Q19||There are 5 white, 4 yellow, 3 green, 2 blue and 1 red ball, identical except for colour. Find the number of distinct arrangements in a line in 5 places.||||2111||Use exponential generating functions: \(5!\,[x^5]\left(\sum_{k\le5}\tfrac{x^k}{k!}\right)\left(\sum_{k\le4}\tfrac{x^k}{k!}\right)\left(\sum_{k\le3}\tfrac{x^k}{k!}\right)\left(1+x+\tfrac{x^2}{2}\right)(1+x)=2111\). Equivalent to adding \(\frac{5!}{\prod k_i!}\) over every allowed colour-count pattern.
+1||i||Ex1 Q20||How many 4-digit numbers contain not more than 2 different digits?||||576||One digit: 9. Two non-zero digits: \(\binom92\) pairs, \(2^4-2=14\) numbers each: 504. Digits \(\{0,a\}\): 9 choices of \(a\), first digit \(a\), other places from \(\{0,a\}\) but not all \(a\): \(2^3-1=7\), so 63. Total \(9+504+63=576\).
+2||m||Ex3 Q9||The number of numbers between 2000 and 5000 formed with the digits 0, 1, 2, 3, 4 (no repetition) that are multiples of 3 is:||36;;48;;24;;30||3||Digit sum 10: omit a digit \(\equiv1\pmod3\), i.e. 1 or 4. Omit 1 (digits 0,2,3,4): first digit 2, 3 or 4: \(3\cdot3!=18\). Omit 4 (digits 0,1,2,3): first digit 2 or 3: \(2\cdot3!=12\). Total 30.
+2||m||Ex3 Q21||The number of 6-digit numbers formed using 0, 1, 2, 5, 7, 9 (no digit repeated) and divisible by 11 is:||60;;36;;72;;48||0||Digit sum 24, so the sums of the odd-place and even-place digits must be equal: 12 each. The triples are \(\{0,5,7\}\) and \(\{1,2,9\}\). Placements: \(2\cdot3!\cdot3!=72\); subtract those starting with 0: \(2!\cdot3!=12\). Total 60.
+2||m||Ex3 Q18||The number of four-digit numbers strictly greater than 4321 that can be formed using the digits 0, 1, 2, 3, 4, 5 (repetition allowed) is:||310;;306;;360;;288||0||Start 5: \(6^3=216\). Start 44 or 45: \(2\cdot36=72\). Start 433, 434, 435: \(3\cdot6=18\). Start 4322 to 4325: 4. Total 310.
+2||i||Ex4 Q25||The number of 4-digit integers in the closed interval [2022, 4482] formed using the digits 0, 2, 3, 4, 6, 7 is:||||569||2022 to 2999: \(29\) (2022-2027 type: \(5\) with third digit 2, then \(4\cdot6=24\) with third digit 3,4,6,7) plus \(5\cdot36=180\) with second digit 2,3,4,6,7: \(209\). 3xxx: \(6^3=216\). 4000 to 4482: second digit 0, 2, 3 or 4, \(4\cdot36=144\). Total 569.
+2||i||Ex4 Q29||Let \(S\) be the set of seven-digit numbers formed using the digits 0, 1, 2 (leading digit non-zero). Find the number of elements of \(S\) in which at least one of the digits 0 and 1 appears exactly twice.||||762||\(|A|\) (0 exactly twice): \(\binom62\cdot2^5=480\). \(|B|\) (1 exactly twice): leading 1: \(6\cdot2^5=192\); leading 2: \(\binom62\cdot2^4=240\); \(432\). \(|A\cap B|\): leading 2: \(\frac{6!}{2!2!2!}=90\); leading 1: \(\frac{6!}{2!1!3!}=60\); \(150\). \(480+432-150=762\).
+3||m||Ex3 Q12||In a class of 140 students numbered 1 to 140, even-numbered students opted Mathematics, those divisible by 3 opted Physics, and those divisible by 5 opted Chemistry. The number who opted for none is:||1;;38;;102;;42||1||\(|M\cup P\cup C|=70+46+28-23-14-9+4=102\). None: \(140-102=38\).
+3||m||Ex3 Q17||The sum of all natural numbers \(n\) with \(100<n<200\) and HCF\((91,n)>1\) is:||3121;;3221;;3203;;3303||0||\(91=7\cdot13\). Multiples of 7: \(105,\dots,196\) (14 terms) sum 2107. Multiples of 13: \(104,\dots,195\) (8 terms) sum 1196. Multiples of 91: 182. \(2107+1196-182=3121\).
+3||i||Ex1 Q17||Find the number of ways in which the letters of KUTKUT can be arranged so that no two alike letters are together.||||30||Total \(\frac{6!}{2!2!2!}=90\). One pair glued: \(\frac{5!}{2!2!}=30\) (three ways); two pairs glued: \(\frac{4!}{2!}=12\); all three: \(3!=6\). Bad \(=90-... \): bad \(=3(30)-3(12)+6=60\). Good \(=90-60=30\).
+3||m||Ex4 Q15||Six cards and six envelopes are numbered 1 to 6; each envelope gets one card, no card goes into the envelope bearing its own number, and card 1 always goes into envelope 2. The number of ways is:||264;;265;;53;;67||2||Card 1 is fixed in envelope 2. If card 2 goes into envelope 1, the other four cards are deranged: \(D_4=9\). Otherwise card 2 behaves like a forbidden card in a derangement of 5: \(D_5=44\). Total 53.
+3||m||Ex4 Q11||The total number of unordered pairs of disjoint subsets of \(S=\{1,2,3,4\}\) is:||25;;34;;42;;41||3||Each element goes to A, B or neither: \(3^4=81\) ordered pairs. Only \((\varnothing,\varnothing)\) equals its own mirror, so unordered pairs \(=\frac{81+1}{2}=41\).
+4||i||Ex1 Q24||How many ten-digit numbers use only the digits 2 and 5, use both digits, and have no two consecutive 2's?||||143||Sequences of length \(n\) on \(\{2,5\}\) with no 22: \(a_n=a_{n-1}+a_{n-2}\), \(a_1=2,a_2=3\), so \(a_{10}=144\). Remove the all-5 sequence: 143.
+4||i||Ex1 Q22||A flight of 10 steps. A person goes up one or two steps at a time. Find the number of ways to go up.||||89||\(a_n=a_{n-1}+a_{n-2}\), \(a_1=1,a_2=2\): 1, 2, 3, 5, 8, 13, 21, 34, 55, 89.
+4||i||Ex4 Q23||An engineer visits a factory on exactly four days during the first 15 days of a month, with no two visits on consecutive days. Find the number of ways.||||495||Place the 4 chosen days into the gaps around the 11 other days: 12 gaps, choose 4. \(\binom{12}{4}=495\).
+5||i||Ex1 Q14||A firm sends 10 clerks to 5 different companies, two to each. Two companies are in Bombay, three outside. Two clerks prefer Bombay and three prefer to work outside. In how many ways can the assignment be made with the preferences satisfied?||||5400||Bombay has 4 places (the 2 Bombay-lovers plus 2 of the 5 indifferent clerks: \(\binom52=10\)). Split those 4 into the 2 companies: \(\frac{4!}{2!2!}=6\). The other 6 go to the 3 outside companies: \(\frac{6!}{(2!)^3}=90\). \(10\cdot6\cdot90=5400\).
+5||i||Ex4 Q24||Six persons are accommodated in four rooms so that each room has at least one and at most two persons. Find the number of ways.||||1080||Only the pattern (2,2,1,1) is possible. Choose the two double rooms: \(\binom42=6\). Distribute the persons: \(\frac{6!}{2!2!1!1!}=180\). Total 1080.
+5||m||Ex4 Q26||There are 4 boxes, each holding 3 distinct red and 2 distinct blue balls. The number of ways to choose 10 balls so that every box contributes at least one red and one blue ball is:||21816;;85536;;12096;;156816||0||Per box: \(\sum\binom3r\binom2b x^{r+b}=6x^2+9x^3+5x^4+x^5\). Need \(x^{10}\) in its 4th power, i.e. \(x^2\) in \((6+9x+5x^2+x^3)^4\): \(4\cdot5\cdot6^3+6\cdot9^2\cdot6^2=4320+17496=21816\).
+5||i||Ex4 Q28||Nine students \(s_1,\dots,s_9\) form teams X, Y, Z of sizes 2, 3, 4. \(s_1\) cannot be in X and \(s_2\) cannot be in Y. Find the number of ways.||||665||Total \(\frac{9!}{2!3!4!}=1260\). \(s_1\in X\): \(8\cdot35=280\). \(s_2\in Y\): \(\binom82\cdot\binom62=28\cdot15=420\). Both: \(7\cdot15=105\). \(1260-280-420+105=665\).
+5||m||Ex3 Q5||X has 7 friends (4 ladies, 3 men); his wife Y has 7 friends (3 ladies, 4 men); no common friends. In how many ways can they invite 3 ladies and 3 men with 3 friends of each of X and Y?||469;;484;;485;;468||2||If X's three guests have \(i\) ladies, Y's have \(3-i\) ladies and \(i\) men. Ways \(=\sum_{i=0}^{3}\left[\binom4i\binom3{3-i}\right]^2=1+144+324+16=485\).
+5||m||Ex3 Q23||The number of ways of choosing 10 objects out of 31 objects, of which 10 are identical and the remaining 21 are distinct, is:||\(2^{20}\);;\(2^{20}-1\);;\(2^{20}+1\);;\(2^{21}\)||0||Choose \(k\) distinct objects (\(k=0\) to \(10\)); the identical ones fill the remaining \(10-k\) places. \(\sum_{k=0}^{10}\binom{21}{k}=2^{20}\) by the symmetry of \(\binom{21}{k}\).
+6||m||Ex4 Q7||\(r,s,t\) are primes and \(p,q\) are positive integers with LCM\((p,q)=r^2t^4s^2\). The number of ordered pairs \((p,q)\) is:||252;;254;;225;;224||2||For a prime with LCM exponent \(e\), the exponent pairs with maximum \(e\) number \(2e+1\). Multiply: \(5\cdot9\cdot5=225\).
+6||m||Ex3 Q20||Identical balls form an equilateral triangle (rows of 1, 2, 3, ... balls). If 99 more balls are added, all can form a square whose side has 2 balls fewer than the triangle's side. The number of balls in the triangle is:||262;;225;;190;;157||2||Side \(n\): \(\frac{n(n+1)}2+99=(n-2)^2\Rightarrow n^2-9n-190=0\Rightarrow n=19\). Balls \(=\frac{19\cdot20}2=190\).
+6||m||Ex3 Q15||\(S\) is the set of triangles in the xy-plane with one vertex at the origin and the other two on the coordinate axes at integer coordinates, each of area 50. The number of elements of \(S\) is:||32;;9;;18;;36||3||Vertices \((a,0),(0,b)\): \(\frac12|ab|=50\Rightarrow|ab|=100\). There are 9 positive divisors of 100 and 4 sign choices: \(9\cdot4=36\).
+6||m||Ex3 Q1||\(T_n\) is the number of triangles formed by joining the vertices of a regular \(n\)-sided polygon. If \(T_{n+1}-T_n=10\), then \(n\) is:||8;;7;;5;;10||2||\(T_n=\binom n3\), so \(T_{n+1}-T_n=\binom n2=10\Rightarrow n=5\).
+7||i||Ex1 Q21(a)||In how many ways can 8 persons sit at a round table if two of them, A and B, must not sit in adjacent seats?||||3600||Total \(7!=5040\). A and B adjacent: \(6!\cdot2=1440\). \(5040-1440=3600\).
+7||i||Ex4 Q22||Five persons A, B, C, D, E sit in a circle. Each gets a hat of one of three colours (red, blue, green) so that persons in adjacent seats get different colours. Find the number of ways.||||30||Colourings of a 5-cycle with \(k\) colours: \((k-1)^5+(-1)^5(k-1)\). For \(k=3\): \(32-2=30\).`.trim().split('\n').map(mp);
+function mp(l,i){const f=l.split('||'),m=f[1]=='m';return{id:i,t:+f[0],m:m,src:f[2],s:f[3],o:m?f[4].split(';;'):null,a:m?+f[5]:f[5],e:f[6]}}
+let Q=Q1;
+
+let qs=[],cur=0,ua={},mk={},done=false,tid,end,sel=new Set([1,2,3,4,5,6,7]);
+const A=document.getElementById('app'),$=id=>document.getElementById(id);
+const ty=()=>{if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise()};
+const has=id=>ua[id]!==undefined&&ua[id]!=='';
+const ok=q=>has(q.id)&&(q.m?ua[q.id]===q.a:Number(ua[q.id])===Number(q.a));
+function home(){
+  A.innerHTML=`<div class="box"><h2>Permutations &amp; Combinations – Weak-Area CBT</h2>
+  <p class="mu">Choose topics and a time limit. ${Q.length} questions (single-choice + integer type), shuffled every attempt. Explanations appear after submission.</p>
+  <div class="grid">${T.slice(1).map((n,i)=>`<label class="lb"><input type="checkbox" ${sel.has(i+1)?'checked':''} onchange="tg(${i+1},this.checked)"> <b>T${i+1}</b> ${n}</label>`).join('')}</div>
+  <p>Time: <input id="tl" type="number" value="40" min="5" max="120" style="width:64px"> minutes</p>
+  <button class="bt p" onclick="go()">Start Test</button></div>`}
+function tg(i,c){c?sel.add(i):sel.delete(i)}
+function go(){
+  const p=Q.filter(q=>sel.has(q.t));if(!p.length)return alert('Select at least one topic.');
+  qs=p.map(q=>[Math.random(),q]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+  ua={};mk={};tgs={};gs={};sps={};cur=0;done=false;end=Date.now()+(+$('tl').value||40)*6e4;
+  clearInterval(tid);tid=setInterval(tick,500);draw()}
+function tick(){const r=Math.max(0,end-Date.now()),c=$('clk');
+  if(c){c.textContent=Math.floor(r/6e4)+':'+String(Math.floor(r%6e4/1e3)).padStart(2,'0');c.className='clk'+(r<12e4?' lo':'')}
+  if(!r&&!done)fin()}
+function draw(){
+  if(done)return res();const q=qs[cur];
+  A.innerHTML=`<div class="tw"><div class="mn">
+  <div class="tb"><b>T${q.t}: ${T[q.t]} · ${q.src}</b><span id="clk" class="clk">--</span></div>
+  <div class="qh">Q${cur+1} of ${qs.length} · ${q.m?'Single choice':'Integer type'}</div>
+  <div class="qb"><div class="st">${q.s}</div>
+  ${q.m?q.o.map((o,i)=>`<div class="op${ua[q.id]===i?' sl':''}" onclick="pick(${i})"><b>${'ABCD'[i]}</b><span>${o}</span></div>`).join(''):`<input class="ni" inputmode="numeric" value="${has(q.id)?ua[q.id]:''}" placeholder="Integer answer" oninput="sv(this.value)">`}</div>
+  <div class="bar"><button class="bt" onclick="gt(${cur-1})">← Prev</button><button class="bt" onclick="mrk()">${mk[q.id]?'★ Marked':'☆ Mark'}</button><button class="bt" onclick="gt(${cur+1})">Next →</button><button class="bt g" style="margin-left:auto" onclick="if(confirm('Submit test?'))fin()">Submit</button></div></div>
+  <div class="sd"><b>Question palette</b><div class="pl" id="pl"></div><div class="mu" id="cnt"></div>
+  <div class="mu" style="margin-top:6px">Green answered · Red not answered · Purple marked</div></div></div>`;
+  pal();tick();ty()}
+function pal(){
+  $('pl').innerHTML=qs.map((q,i)=>`<button class="${mk[q.id]?'mk':has(q.id)?'an':'na'}${i==cur?' cur':''}" onclick="gt(${i})">${i+1}</button>`).join('');
+  const n=qs.filter(q=>has(q.id)).length;$('cnt').innerHTML=`Answered <b>${n}</b> / ${qs.length} · Marked <b>${Object.keys(mk).length}</b>`}
+function pick(i){ua[qs[cur].id]=i;draw()}
+function sv(v){ua[qs[cur].id]=v.trim();pal()}
+function gt(i){if(i>=0&&i<qs.length){cur=i;draw()}}
+function mrk(){const id=qs[cur].id;mk[id]?delete mk[id]:mk[id]=1;draw()}
+function fin(){clearInterval(tid);done=true;res()}
+function res(){
+  let c=0,w=0,s=0;const by={};
+  qs.forEach(q=>{by[q.t]=by[q.t]||[0,0];by[q.t][1]++;if(!has(q.id))s++;else if(ok(q)){c++;by[q.t][0]++}else w++});
+  A.innerHTML=`<div class="box" style="max-width:900px"><h2>Test Result</h2>
+  <div class="cs"><div><b>${c}/${qs.length}</b>Score</div><div><b>${Math.round(c/qs.length*100)}%</b>Percentage</div><div><b style="color:var(--g)">${c}</b>Correct</div><div><b style="color:var(--r)">${w}</b>Wrong</div><div><b style="color:var(--a)">${s}</b>Skipped</div></div>
+  <p id="sm"></p><button class="bt p" onclick="window.print()">Print / Save as PDF</button>
+  <p><b>Topic-wise:</b><br>${Object.keys(by).map(t=>`<span class="tp">T${t}: ${by[t][0]}/${by[t][1]}</span>`).join('')}</p>
+  ${qs.map((q,i)=>{const k=has(q.id)?(ok(q)?'ok':'bad'):'',u=has(q.id)?(q.m?'ABCD'[ua[q.id]]+': '+q.o[ua[q.id]]:ua[q.id]):'Not answered',a=q.m?'ABCD'[q.a]+': '+q.o[q.a]:q.a;
+  return `<div class="rq ${k}"><div class="mu">Q${i+1} · T${q.t}: ${T[q.t]} · ${q.src}</div><div>${q.s}</div><div style="margin-top:4px">Your answer: <b>${u}</b> &nbsp; Correct: <b>${a}</b> ${k=='ok'?'✓':k=='bad'?'✗':'— skipped'}</div><div class="ex">${q.e}</div>${SL[q.src]?`<div class="sl"><b>Likely slips (tick any you made):</b><ul>${SL[q.src].map((x,j)=>`<li><label><input type="checkbox" onchange="sp(${q.id},${j},this.checked)"> ${x}</label></li>`).join('')}</ul></div>`:''}<div class="sel" id="s${q.id}"></div><div class="tr"><b>What went wrong?</b> ${ER.map((n,i)=>`<label><input type="checkbox" onchange="tag(${q.id},${i},this.checked)"> ${n}</label>`).join('')}<label><input type="checkbox" onchange="gu(${q.id},this.checked)"> I guessed this one</label></div></div>`}).join('')}
+  <button class="bt p" onclick="home()">New Test</button></div>`;ty()}
+const ER=['Concept or formula not recalled','Missed a case','Sign or domain error','Forgot extraneous-root check','Calculation slip','Misread the question','Ran out of time'];
+let tgs={},gs={};
+function tag(id,i,c){tgs[id]=tgs[id]||new Set();c?tgs[id].add(i):tgs[id].delete(i);lab(id)}
+function gu(id,c){gs[id]=c;lab(id)}
+let sps={};
+function sp(id,j,c){sps[id]=sps[id]||new Set();c?sps[id].add(j):sps[id].delete(j);lab(id)}
+function lab(id){const q=qs.find(x=>x.id==id),s=[...(tgs[id]||[])].sort().map(i=>ER[i]);if(gs[id])s.push('Guessed');const l=[...(sps[id]||[])].sort().map(j=>'Slip made: '+SL[q.src][j]);const e=$('s'+id);if(e)e.innerHTML=(s.length?'Marked: '+s.join(' · '):'')+l.map(x=>'<div>'+x+'</div>').join('');sm()}
+function sm(){const c={};let g=0;Object.keys(tgs).forEach(id=>tgs[id].forEach(i=>c[i]=(c[i]||0)+1));Object.values(gs).forEach(v=>{if(v)g++});const p=Object.keys(c).map(i=>`<span class="tp">${ER[i]}: ${c[i]}</span>`);let n=0;Object.values(sps).forEach(v=>n+=v.size);if(g)p.push(`<span class="tp">Guessed: ${g}</span>`);if(n)p.push(`<span class="tp">Likely slips marked: ${n}</span>`);const e=$('sm');if(e)e.innerHTML=p.length?'<b>Mistake summary:</b><br>'+p.join(''):''}
+const SL=Object.fromEntries(R`Ex3 Q8||Counting only the all-distinct case (120)¦Forgetting the two-pairs case (AARR) or not dividing by 2! in the one-pair case
+Ex3 Q27||Treating all 11 letters as distinct (11P4)¦Missing the one-pair case (756) or the two-pairs case (18)
+Ex3 Q4||Not dividing by 2! for the repeated L when counting words starting with A or M¦Stopping at 57 words before SMALL and forgetting to add 1
+Ex1 Q16||Treating the two A's or the two T's as different letters¦Not splitting vowels and consonants by their repeat pattern
+Ex1 Q19||Using 5! for every selection without dividing by repeats¦Allowing 2 red or 3 blue balls (only 1 red and 2 blue exist)
+Ex1 Q20||Forgetting that the first digit cannot be 0¦For the digits {0, a}, not forcing the first digit to be a
+Ex3 Q9||Not using the digit sum 10 to find which digit to omit¦Letting the first digit be 0 or 1 (it must be 2, 3 or 4)
+Ex3 Q21||Not using "odd-place sum = even-place sum" for divisibility by 11¦Forgetting to subtract numbers that start with 0
+Ex3 Q18||Counting only the 4xxx numbers and missing the 5xxx numbers¦Not treating 4322 to 4325 and 433x to 435x as separate pieces
+Ex4 Q25||Ignoring the lower bound 2022 and counting every 2xxx number¦Forgetting the upper bound 4482 when the first digit is 4
+Ex4 Q29||Forgetting that the leading digit cannot be 0¦Adding the two cases without subtracting the overlap
+Ex3 Q12||Leaving out the triple overlap (multiples of 30)¦Stopping at 102 without subtracting from 140
+Ex3 Q17||Counting the multiples of 91 twice¦Starting the multiples of 13 at 117 instead of 104
+Ex1 Q17||Subtracting only the three single "pair together" cases¦Forgetting to add back the triple overlap (6)
+Ex4 Q15||Using D6 or D5 alone¦Forgetting that card 1 is fixed, so only five cards remain
+Ex4 Q11||Giving the ordered count 81 and forgetting to halve¦Forgetting that the empty subset is allowed
+Ex1 Q24||Counting all 2^10 sequences and removing the "22" cases wrongly¦Forgetting to remove the all-5 sequence
+Ex1 Q22||Starting the recurrence wrongly (taking a1 = 2)¦Using combinations as if the order of steps did not matter
+Ex4 Q23||Using C(15,4) and trying to subtract afterwards¦Using C(11,4) (counting gaps around 10 days instead of 11)
+Ex1 Q14||Not placing the preferring clerks first¦Forgetting to divide by (2!)^2 or (2!)^3 for equal-sized pairs
+Ex4 Q24||Missing that only the pattern (2,2,1,1) is possible¦Forgetting to choose which two rooms hold two persons
+Ex4 Q26||Choosing only a total of 10 balls without tracking red and blue per box¦Missing a case when expanding the coefficient of x^2
+Ex4 Q28||Not using inclusion-exclusion for the two forbidden events¦Counting |s2 in Y| as 21×15 instead of 28×15
+Ex3 Q5||Choosing the 3 ladies and 3 men freely from all 14 friends¦Squaring only part of the product
+Ex3 Q23||Using 2^21 or forgetting that the identical objects fill the remaining places¦Adding or subtracting 1 for the empty choice
+Ex4 Q7||Using e + 1 instead of 2e + 1 pairs for each prime¦Adding the counts instead of multiplying
+Ex3 Q20||Writing the triangle count as n(n+1) without the half¦Giving n = 19 instead of the ball count 190
+Ex3 Q15||Counting only positive coordinates¦Forgetting the 4 sign choices
+Ex3 Q1||Using C(n+1,3) = C(n,3) + 1¦Misreading the given difference
+Ex1 Q21(a)||Using 8! instead of 7! for a round table¦Forgetting to multiply the glued pair by 2
+Ex4 Q22||Using the linear-chain count 3·2^4 for a circle¦Forgetting the condition between the last and the first person`.trim().split('\n').map(l=>{const f=l.split('||');return[f[0],f[1].split('\u00a6')]}));
+function showTab(t){const r=t=='rs';$('rs').hidden=!r;A.hidden=r;$('tr').className=r?'on':'';$('tc').className=r?'':'on';ty()}
+home();
+</script></body></html>
