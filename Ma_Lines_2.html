@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Straight Lines — Targeted Drill</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+.rtip{margin-top:6px;padding:7px 10px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:4px;font-size:12.5px;line-height:1.55}
+.mfx{margin-top:8px;padding:8px 10px;border:1px dashed #94a3b8;border-radius:6px;font-size:13px;background:#fafcff;line-height:1.5}
+.mfx .mh{font-weight:700;color:#334155;margin-bottom:3px}
+.mfx label{display:inline-flex;align-items:flex-start;gap:5px;margin:3px 14px 3px 0;cursor:pointer}
+.mfx.slips label{display:flex;margin:4px 0}
+.mfx .gl{margin-left:6px;padding-left:10px;border-left:2px solid #cbd5e1;font-weight:600}
+.msnote{font-weight:400;font-style:italic;color:#64748b;font-size:12px}
+.mline{color:#b91c1c;font-size:13px;font-weight:600;margin-top:6px}
+.mline:empty{display:none}
+.msum{margin:12px 0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:6px;background:#fff7f7;font-size:13.5px}
+.mchip{display:inline-block;margin:3px 6px 3px 0;padding:2px 8px;border:1px solid #e5b4b4;border-radius:12px;background:#fff}
+@media print{
+ *{color:#000!important;background:#fff!important;box-shadow:none!important;text-shadow:none!important}
+ nav,button,.btn,.np,.fchips{display:none!important}
+ .res-wrap{max-width:none!important;padding:0!important}
+ .rq{break-inside:avoid;page-break-inside:avoid;border:1px solid #000!important;border-left:5px solid #000!important}
+ .mline,.msum{border-left:3px solid #000;padding-left:8px;font-weight:700}
+ .msum{border:1px solid #000}
+ .mchip{border:1px solid #000!important}
+ @page{margin:12mm}
+}
+.bx{margin:10px 0;padding:9px 12px;border-radius:6px;font-size:14px;line-height:1.55}.bx .bh{font-weight:700;margin-bottom:4px}.bx ol,.bx ul{margin:4px 0 2px 20px;padding:0}.bx li{margin:3px 0}.bx.think{background:#eef6ff;border-left:4px solid #3b82f6}.bx.meth{background:#f1f8f1;border-left:4px solid #22a06b}.bx.tips{background:#fff8e1;border-left:4px solid #f59e0b}.bx.mist{background:#fdeeee;border-left:4px solid #dc2626}@media print{.bx{break-inside:avoid;background:#fff!important;border:1px solid #000!important;color:#000!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="openCbt(1)">🎯 Targeted Drill CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Straight Lines — Targeted Drill: Remember Sheet</h1>
+<div class="sub">Built from the Ex-1 to Ex-4 attempt: the approaches behind the questions circled as unsolved · 24 key points + methods, tips and common mistakes for every group</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+<section>
+<h2 class="sh">Group 1 — Triangle Centres from Given Data <span class="stg">G1</span><span class="pg">Ex1 Q2, Q3, Q14 · Ex2 Q1, Q8, Q11 · Ex3 Q7, Q41, Q96</span></h2>
+<div class="it"><span class="n">1</span><span class="f"><b>Orthocentre:</b> two altitudes. With two vertices and \(H\) known, write \(AH\perp BC\) and \(BH\perp AC\) as dot products (Ex1 Q3: \(C=(33,26)\)).</span></div>
+<div class="it"><span class="n">2</span><span class="f"><b>Circumcentre:</b> on the perpendicular bisectors; use the side whose endpoints are known (Ex3 Q41: bisector of \(PQ\) is \(y=x\), giving \((-2,-2)\)).</span></div>
+<div class="it"><span class="n">3</span><span class="f"><b>Euler line:</b> \(G=\tfrac{2O+H}3\); \(O,G,H\) are collinear with \(OG:GH=1:2\) (Ex3 Q96: \(G=(0,0)\)).</span></div>
+<div class="it"><span class="n">4</span><span class="f"><b>Incentre of a right triangle</b> with legs \(p,q\): \((r,r)\), \(r=\tfrac{p+q-\text{hyp}}2\) (Ex3 Q1: \(2-\sqrt2\)). Midpoints \(M_1,M_2,M_3\) give vertices \(A=M_1+M_3-M_2\).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>List what is given: vertices, a centre, side lines.</li><li>Pick the property that uses it: altitude ⊥ side, point on a perpendicular bisector, or \(G\) dividing the median 2:1.</li><li>Turn each property into <i>one linear equation</i>; solve.</li><li>Check with a second property (equal distance, or another altitude).</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Missing vertex from \(H\): two perpendicularity equations (use dot products if a side is vertical).</li><li>Circumcentre: intersect two perpendicular bisectors, or solve \(|OA|=|OB|=|OC|\).</li><li>Area-with-parameter (Ex3 Q7): \(\tfrac12|\det|=28\) first, keep only the allowed (integer) value, then the altitudes.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Right triangle: circumcentre = midpoint of the hypotenuse; orthocentre = the right-angle vertex.</li><li>If two of \(O,G,H\) are given, the third follows from the Euler line.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Using \(m_1=m_2\) instead of \(m_1m_2=-1\) → write the perpendicularity condition explicitly.</li><li>Using the wrong midpoint → name the side before taking its midpoint.</li><li>Using \((O+H)/2\) for \(G\) → remember \(G=(2O+H)/3\).</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 2 — Bisectors, Reflections &amp; Shortest Path <span class="stg">G2</span><span class="pg">Ex1 Q19 · Ex2 Q8, Q9, Q14 · Ex3 Q45, Q51, Q94</span></h2>
+<div class="it"><span class="n">5</span><span class="f"><b>Image of \((x_1,y_1)\) in \(ax+by+c=0\):</b> \(\tfrac{x'-x_1}a=\tfrac{y'-y_1}b=\tfrac{-2(ax_1+by_1+c)}{a^2+b^2}\).</span></div>
+<div class="it"><span class="n">6</span><span class="f"><b>Shortest path via a mirror:</b> reflect one point, join to the other (Ex3 Q51: \(R=(-1,0)\), answer 1250). A light ray: reflect the source.</span></div>
+<div class="it"><span class="n">7</span><span class="f"><b>Angle bisectors:</b> \(\tfrac{a_1x+b_1y+c_1}{\sqrt{a_1^2+b_1^2}}=\pm\tfrac{a_2x+b_2y+c_2}{\sqrt{a_2^2+b_2^2}}\); pick the sign using a given point (Ex3 Q45). Perpendicular bisectors of \(AB\), \(AC\) make \(B\), \(C\) images of \(A\) (Ex2 Q8).</span></div>
+<div class="it"><span class="n">8</span><span class="f"><b>Distance measured parallel to a line:</b> move along \((\cos\theta,\sin\theta)\) of that line and substitute (Ex3 Q94: \(4+6\sqrt3\)).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Is it a <i>reflection</i> (mirror, light ray, shortest path), a <i>bisector</i> (equal distances) or a <i>measured-along-a-direction</i> distance?</li><li>Reflection: reflect one point and join. Bisector: use the ± distance equation.</li><li>For an angle at a vertex, decide interior vs exterior by the side of a given point.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Median plus bisector (Ex3 Q45): the median fixes \(C\); then take the angle between \(CA\) and the bisector — it is \(\tfrac\theta2\).</li><li>Perpendicular bisectors (Ex2 Q8): \(B\) and \(C\) are the images of \(A\) in the two bisectors; the line \(BC\) joins them.</li><li>Parallel distance: parametrise \((x_0+t\cos\theta,y_0+t\sin\theta)\), substitute, take \(|t|\).</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Check a reflection by the midpoint lying on the mirror.</li><li>A reflected ray is the line through the image and the end point.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Reflecting both points → reflect only one.</li><li>Using the angle with the bisector as the whole angle → it is half.</li><li>Measuring perpendicular distance when \"parallel to\" is asked.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 3 — Parallelograms, Rhombus &amp; Rectangles <span class="stg">G3</span><span class="pg">Ex1 Q10, Q15 · Ex2 Q7 · Ex3 Q15, Q99</span></h2>
+<div class="it"><span class="n">9</span><span class="f"><b>Diagonals bisect each other:</b> \(A+C=B+D\) (Ex3 Q99: \(C=(-3,-11),D=(-6,-12)\), \(|\text{sum}|=32\)).</span></div>
+<div class="it"><span class="n">10</span><span class="f"><b>Two side lines + diagonal point \(O\):</b> the sides meet at \(V\); opposite vertex \(=2O-V\); another vertex \(P\) on one line has \(2O-P\) on the other (Ex3 Q15: \((3,6)\)).</span></div>
+<div class="it"><span class="n">11</span><span class="f"><b>Rectangle:</b> diagonals equal and bisect; other vertices lie on the line at the half-diagonal distance from the midpoint (Ex1 Q15: \(c=-4\), \((4,4),(2,0)\)).</span></div>
+<div class="it"><span class="n">12</span><span class="f"><b>Rhombus:</b> diagonals are perpendicular and bisect the angles between the side lines.</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Name the shape's property: diagonals bisect (parallelogram), equal (rectangle), perpendicular (rhombus).</li><li>Write it as a vector equation \(A+C=B+D\).</li><li>Use the given lines to say which vertices lie on them.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Parallelogram from two side lines and the diagonal point: vertex \(V\) at the meeting of the sides, opposite \(2O-V\), then the pair \(P,\,2O-P\) on the two lines.</li><li>Rectangle: midpoint on the line; move along it by the half-diagonal.</li><li>Vertices with unknown pairs: substitute \(C\) and \(D\) in their lines and solve the linear system.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Sum of all four coordinates is twice the diagonal midpoint's coordinates' sum — a quick check.</li><li>Test the candidate vertex: both it and its opposite must lie on the right side lines.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Pairing the vertices wrongly in \(A+C=B+D\).</li><li>Choosing a vertex that fits one line but whose opposite fits neither.</li><li>Using the wrong half-diagonal length.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 4 — Area, Regions &amp; Ratios <span class="stg">G4</span><span class="pg">Ex1 Q23 · Ex3 Q32, Q48, Q49, Q97</span></h2>
+<div class="it"><span class="n">13</span><span class="f"><b>Area = ½|det|.</b> \"Area \(=k\)\" gives two parallel lines at distance \(2k/\text{base}\) (Ex3 Q48: least distance \(8/\sqrt5\)).</span></div>
+<div class="it"><span class="n">14</span><span class="f"><b>Equal areas</b> \(APB=BPC=CPA\) ⇒ \(P\) is the centroid (Ex3 Q32: \(PQ=5\)).</span></div>
+<div class="it"><span class="n">15</span><span class="f"><b>Region containing a point:</b> evaluate each line at that point to fix the sign, then apply it to the moving point (Ex3 Q97: \((-3,0)\cup(\tfrac13,1)\)).</span></div>
+<div class="it"><span class="n">16</span><span class="f"><b>\(|\text{expr}|=c\)</b> gives two cases; add or combine both (Ex3 Q49: sum \(=\tfrac{-2b^2}{b+1}\)).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Is it an <i>area</i>, an <i>equal area</i> or a <i>region</i> question?</li><li>Area given: two parallel lines. Equal areas: centroid. Region: signs at a test point.</li><li>Solve, then test the endpoints/intervals.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Area \(=\tfrac12|x_1(y_2-y_3)+x_2(y_3-y_1)+x_3(y_1-y_2)|\); with a parameter, keep ±.</li><li>Distance between the parallel lines of area \(k\): \(\tfrac{2k}{\text{base}}\).</li><li>Inequalities for a moving point \((a^2,a+1)\): substitute into each line and solve both quadratic inequalities.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Sketch the two lines and shade the region.</li><li>Take the nearer line when asked for the least distance.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Dropping the ½ in the area formula.</li><li>Keeping only one sign of ±.</li><li>Forgetting to intersect two inequality ranges.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 5 — Locus &amp; Parameter Conditions <span class="stg">G5</span><span class="pg">Ex1 Q9 · Ex2 Q15, Q17, Q18, Q20 · Ex3 Q31, Q36, Q57, Q100</span></h2>
+<div class="it"><span class="n">17</span><span class="f"><b>Locus:</b> let the point be \((h,k)\), write the relation, eliminate the parameter, then replace \((h,k)\) by \((x,y)\).</span></div>
+<div class="it"><span class="n">18</span><span class="f"><b>Hidden fixed point:</b> \(\tfrac1a+\tfrac1b=\tfrac12\) means \(\tfrac xa+\tfrac yb=1\) passes through \((2,2)\) (Ex3 Q36).</span></div>
+<div class="it"><span class="n">19</span><span class="f"><b>\"Do not form a triangle\":</b> two lines parallel <i>or</i> all three concurrent; list every case (Ex3 Q100: \(\alpha=\pm4,\tfrac45\); \(p=32.64\)).</span></div>
+<div class="it"><span class="n">20</span><span class="f"><b>Sum of squared distances constant</b> ⇒ a circle; use its axis chords (Ex3 Q57: \(\tfrac12\cdot3\cdot\sqrt{17}\)).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>What is moving, and what is fixed? Name the parameter.</li><li>Write the condition as an equation, solve for the parameter, substitute.</li><li>For \"no triangle\" list all failure cases: parallel pairs, concurrency.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Locus of a point (h,k): eliminate the parameter, then replace (h,k).</li><li>Hidden fixed point in a family of lines: rewrite the condition in intercept form.</li><li>Circle from \(PA^2+PB^2=k\): expand, read off intercepts on the axes.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Test a locus with a special position of the moving line.</li><li>Count the parameter values: parallel (2 of them), concurrent (1).</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Treating \"no triangle\" as parallel only.</li><li>Forgetting a second root from \(|\cdot|=c\).</li><li>Using the wrong formula for the area of the quadrilateral (use ½ d₁ d₂ for perpendicular diagonals).</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 6 — Hidden Forms &amp; Composite Problems <span class="stg">G6</span><span class="pg">Ex3 Q26, Q83, Q86, Q98</span></h2>
+<div class="it"><span class="n">21</span><span class="f"><b>A trig expression that \"is a line\":</b> simplify with product-to-sum first; it may be a constant (Ex3 Q26: \(y=-\sin^21\)).</span></div>
+<div class="it"><span class="n">22</span><span class="f"><b>Isosceles with \(120^\circ\):</b> sides \(c,c,c\sqrt3\); place the vertices by rotating about the apex (Ex3 Q98: answer 36).</span></div>
+<div class="it"><span class="n">23</span><span class="f"><b>3-D quadrilateral area:</b> \(\tfrac12|\overrightarrow{AC}\times\overrightarrow{BD}|\) (Ex3 Q83: \(8\sqrt{38}\)).</span></div>
+<div class="it"><span class="n">24</span><span class="f"><b>Centroid with parameters:</b> write each vertex as the meeting point of two side lines, average, then solve (Ex3 Q86: \(a=3,p=11\), \(BC^2=122\)).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Is a piece of the problem secretly simple? (a constant, a 120° triangle, a 3-D vector area.)</li><li>Simplify first, then place the figure in coordinates.</li><li>Solve for parameters, reject degenerate cases.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Product-to-sum: \(\sin x\sin(x+2)=\tfrac12[\cos2-\cos(2x+2)]\) turns a \"curve\" into a line.</li><li>Rotate a vector by \(120^\circ\) about the apex to get the third vertex.</li><li>Centroid conditions give two equations per parameter; solve all together.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>For \((BC)^2\) after finding vertices, just use the distance formula.</li><li>Reject any solution that collapses two vertices.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Using \(BC^2=2c^2\) (right-angle) instead of \(3c^2\) for a \(120^\circ\) apex.</li><li>Forgetting the ½ in the vector-area formula.</li><li>Keeping a degenerate root (like \(a=0\)).</li></ul></div>
+</section>
+
+<div class="notes"><b>How to use:</b><ul>
+<li>Read one group, then attempt its questions in the Targeted Drill CBT without looking back.</li>
+<li>After the result, tick what went wrong and which slips you made; print the result as a PDF.</li>
+<li>Repeat the same CBT after 7–10 days to confirm the approach is retained.</li></ul></div>
+</div></div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+const NAMES3={1:'Exact-value evaluation',2:'Special-angle products & sums',3:'Condition → value',4:'Range, extremum & comparison',5:'Heights, distances & geometry',6:'Statements & telescoping'};
+const COLORS3={1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a'};
+function openCbt(n){
+  if(!window._sn){window._sn=Object.assign({},stageNames);window._sc=Object.assign({},stageColors);}
+  QB = n===1?QB1:n===2?QB2:QB3; cbtSet=n; GW = 'Group';
+  const nm=n===3?NAMES3:window._sn, co=n===3?COLORS3:window._sc;
+  Object.keys(stageNames).forEach(k=>delete stageNames[k]); Object.assign(stageNames,nm);
+  Object.keys(stageColors).forEach(k=>delete stageColors[k]); Object.assign(stageColors,co);
+  selStages=new Set(Object.keys(stageNames).map(Number));
+  clearInterval(timerID); submitted=false; userAns={}; marks={};
+  showPanel('cbt'); cbtInited = true;
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));
+  document.getElementById('nb'+(n+1)).classList.add('on');
+  renderStart();
+}
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB1 = [
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q7 (JEE Main 2017)",
+"stem": "\\(k\\) is an integer and the triangle with vertices \\((k,-3k),(5,k),(-k,2)\\) has area 28. Its orthocentre is",
+"opts": [
+"\\((1,-\\tfrac34)\\)",
+"\\((2,\\tfrac12)\\)",
+"\\((2,-\\tfrac12)\\)",
+"\\((1,\\tfrac34)\\)"
+],
+"ans": 1,
+"exp": "\\(\\tfrac12|\\det|=28\\) gives \\(k=2\\): vertices \\((2,-6),(5,2),(-2,2)\\). \\(BC\\) is \\(y=2\\), so the altitude from \\(A\\) is \\(x=2\\); the altitude from \\(B\\) has slope \\(\\tfrac12\\): \\(y-2=\\tfrac{x-5}2\\Rightarrow(2,\\tfrac12)\\).",
+"tip": "<b>Technique:</b> Find \\(k\\) from the area first, then intersect two altitudes.<br><b>Often missed:</b> Dropping the ½ in the area formula.",
+"id": 1
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q41 (JEE Main 2021)",
+"stem": "In \\(\\triangle PQR\\), \\(P(-2,4)\\), \\(Q(4,-2)\\) and the perpendicular bisector of \\(PR\\) is \\(2x-y+2=0\\). The circumcentre is",
+"opts": [
+"\\((-1,0)\\)",
+"\\((-2,-2)\\)",
+"\\((0,2)\\)",
+"\\((1,4)\\)"
+],
+"ans": 1,
+"exp": "The circumcentre also lies on the perpendicular bisector of \\(PQ\\): midpoint \\((1,1)\\), slope \\(+1\\), i.e. \\(y=x\\). With \\(2x-y+2=0\\): \\((-2,-2)\\).",
+"tip": "<b>Technique:</b> Use the side whose two endpoints are known: bisector of PQ.<br><b>Often missed:</b> Taking slope −1 (parallel to PQ) for the bisector, which gives (0,2), option C.",
+"id": 2
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q96 (JEE Main 2024)",
+"stem": "\\(A(a,b),B(3,4),C(-6,-8)\\) are the centroid, circumcentre and orthocentre of a triangle. The distance of \\(P(2a+3,7b+5)\\) from \\(2x+3y-4=0\\), measured parallel to \\(x-2y-1=0\\), is",
+"opts": [
+"\\(\\tfrac{\\sqrt5}{17}\\)",
+"\\(\\tfrac{17\\sqrt5}7\\)",
+"\\(\\tfrac{15\\sqrt5}7\\)",
+"\\(\\tfrac{17\\sqrt5}6\\)"
+],
+"ans": 1,
+"exp": "\\(G=\\tfrac{2O+H}3=(0,0)\\Rightarrow a=b=0,\\ P=(3,5)\\). Along direction \\((2,1)\\): \\((3+2t,5+t)\\) on the line gives \\(t=-\\tfrac{17}7\\); distance \\(=|t|\\sqrt5\\).",
+"tip": "<b>Technique:</b> Euler line gives \\(G=(2O+H)/3\\); then move along the direction vector.<br><b>Often missed:</b> Using \\((O+H)/2\\) for the centroid.",
+"id": 3
+},
+{
+"st": 1,
+"type": "int",
+"src": "Ex1 Q3",
+"stem": "Two vertices of a triangle are \\((4,-3)\\) and \\((-2,5)\\); the orthocentre is \\((1,2)\\). If the third vertex is \\((p,q)\\), find \\(p+q\\).",
+"ans": "59",
+"exp": "\\(BH\\perp AC\\Rightarrow x-y=7\\); \\(AH\\perp BC\\Rightarrow-3x+5y=31\\). So \\(C=(33,26)\\).",
+"tip": "<b>Technique:</b> Write each altitude as a dot-product equation.<br><b>Often missed:</b> Mixing which side each altitude is perpendicular to.",
+"id": 4
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex3 Q45 (JEE Main 2021)",
+"stem": "\\(A(-3,1)\\), \\(\\angle ACB=\\theta\\) (\\(0&lt;\\theta&lt;\\tfrac\\pi2\\)), the median through \\(B\\) is \\(2x+y-3=0\\), the bisector of \\(C\\) is \\(7x-4y-1=0\\). Then \\(\\tan\\theta=\\)",
+"opts": [
+"\\(\\tfrac43\\)",
+"\\(\\tfrac12\\)",
+"2",
+"\\(\\tfrac34\\)"
+],
+"ans": 0,
+"exp": "The midpoint of \\(AC\\) lies on \\(2x+y-3=0\\) and \\(C\\) on the bisector: \\(C=(3,5)\\). \\(\\cos\\tfrac\\theta2=\\tfrac{2}{\\sqrt5}\\) between \\(CA\\) and the bisector, so \\(\\tan\\tfrac\\theta2=\\tfrac12\\), \\(\\tan\\theta=\\tfrac43\\).",
+"tip": "<b>Technique:</b> Use the median to fix C, then the angle between CA and the bisector is half of θ.<br><b>Often missed:</b> Taking the angle between CA and the bisector as θ itself (gives 1/2, option B).",
+"id": 5
+},
+{
+"st": 2,
+"type": "int",
+"src": "Ex3 Q51 (JEE Main 2021)",
+"stem": "A man walks from \\(P(-3,4)\\) to the x-axis at \\(R\\) and then to \\(Q(0,2)\\) in the least time. Find \\(50(PR^2+RQ^2)\\).",
+"ans": "1250",
+"exp": "Reflect \\(Q\\) to \\((0,-2)\\); \\(PQ'\\) meets the x-axis at \\(R=(-1,0)\\). \\(PR^2=20,RQ^2=5\\).",
+"tip": "<b>Technique:</b> Reflect one point in the mirror; the shortest path is a straight line to the image.<br><b>Often missed:</b> Reflecting both points, or taking R as a foot of perpendicular.",
+"id": 6
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex3 Q94 (JEE Main 2024)",
+"stem": "The distance of \\((2,3)\\) from \\(2x-3y+28=0\\), measured parallel to \\(\\sqrt3x-y+1=0\\), is",
+"opts": [
+"\\(6\\sqrt3\\)",
+"\\(4\\sqrt2\\)",
+"\\(3+4\\sqrt2\\)",
+"\\(4+6\\sqrt3\\)"
+],
+"ans": 3,
+"exp": "Direction \\((\\tfrac12,\\tfrac{\\sqrt3}2)\\): \\((2+\\tfrac t2,3+\\tfrac{\\sqrt3t}2)\\) on the line gives \\(23+t(1-\\tfrac{3\\sqrt3}2)=0\\), \\(t=4+6\\sqrt3\\).",
+"tip": "<b>Technique:</b> Parametrise the point along the given direction and substitute.<br><b>Often missed:</b> Using direction \\((\\sqrt3,1)\\) instead of \\((1,\\sqrt3)\\).",
+"id": 7
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q15 (JEE Main 2019)",
+"stem": "Two sides of a parallelogram lie on \\(x+y=3\\) and \\(x-y+3=0\\); the diagonals meet at \\((2,4)\\). A vertex is",
+"opts": [
+"\\((3,6)\\)",
+"\\((3,5)\\)",
+"\\((2,1)\\)",
+"\\((2,6)\\)"
+],
+"ans": 0,
+"exp": "The sides meet at \\((0,3)\\); its opposite vertex is \\((4,5)\\). A vertex \\((t,3-t)\\) has opposite \\((4-t,5+t)\\) on \\(x-y+3=0\\Rightarrow t=1\\); the vertices are \\((1,2)\\) and \\((3,6)\\).",
+"tip": "<b>Technique:</b> Use that the opposite vertex is \\(2O-V\\) and must lie on the other side line.<br><b>Often missed:</b> Choosing (2,1): it is on x+y=3 but its opposite vertex (2,7) is not on the other side.",
+"id": 8
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex1 Q15",
+"stem": "\\((1,3)\\) and \\((5,1)\\) are opposite vertices of a rectangle whose other two vertices lie on \\(y=2x+c\\). Find the sum of the coordinates of the other vertex with the larger \\(x\\).",
+"ans": "8",
+"exp": "The midpoint \\((3,2)\\) lies on the line, so \\(c=-4\\). Half-diagonal \\(\\sqrt5\\): vertices \\((3\\pm1,2\\pm2)\\) along the line, i.e. \\((4,4)\\) and \\((2,0)\\).",
+"tip": "<b>Technique:</b> The midpoint of the diagonal lies on the line; the other vertices are at the same distance from it.<br><b>Often missed:</b> Taking the half-diagonal as \\(\\sqrt{10}\\).",
+"id": 9
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex3 Q99 (JEE Main 2024)",
+"stem": "\\(A(-2,-1),B(1,0),C(\\alpha,\\beta),D(\\gamma,\\delta)\\) form a parallelogram \\(ABCD\\); \\(C\\) is on \\(2x-y=5\\), \\(D\\) on \\(3x-2y=6\\). Find \\(|\\alpha+\\beta+\\gamma+\\delta|\\).",
+"ans": "32",
+"exp": "\\(A+C=B+D\\Rightarrow\\gamma=\\alpha-3,\\delta=\\beta-1\\). Then \\(\\alpha=-3,\\beta=-11,\\gamma=-6,\\delta=-12\\); sum \\(=-32\\).",
+"tip": "<b>Technique:</b> Diagonals bisect each other: \\(A+C=B+D\\).<br><b>Often missed:</b> Pairing the vertices wrongly (A+B=C+D).",
+"id": 10
+},
+{
+"st": 4,
+"type": "int",
+"src": "Ex3 Q32 (JEE Main 2020)",
+"stem": "\\(A(1,0),B(6,2),C(\\tfrac32,6)\\). \\(P\\) inside the triangle makes \\(APC,APB,BPC\\) equal in area. Find \\(PQ\\) for \\(Q(-\\tfrac76,-\\tfrac13)\\).",
+"ans": "5",
+"exp": "\\(P\\) is the centroid \\((\\tfrac{17}6,\\tfrac83)\\); \\(PQ=\\sqrt{4^2+3^2}=5\\).",
+"tip": "<b>Technique:</b> Equal areas ⇒ centroid.<br><b>Often missed:</b> Using the incentre or circumcentre.",
+"id": 11
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q48 (JEE Main 2021)",
+"stem": "The set \\(A\\) of points \\((\\alpha,\\beta)\\) makes the area of the triangle with \\((5,6),(3,2)\\) equal to 12. The least distance from the origin to a point of \\(A\\) is",
+"opts": [
+"\\(\\tfrac8{\\sqrt5}\\)",
+"\\(\\tfrac{12}{\\sqrt5}\\)",
+"\\(\\tfrac{16}{\\sqrt5}\\)",
+"\\(\\tfrac4{\\sqrt5}\\)"
+],
+"ans": 0,
+"exp": "Line through the two points: \\(2x-y-4=0\\), length \\(2\\sqrt5\\). Area 12 ⇒ distance \\(\\tfrac{12}{\\sqrt5}\\), so \\(2x-y=16\\) or \\(-8\\). Distances from \\(O\\): \\(\\tfrac{16}{\\sqrt5},\\tfrac8{\\sqrt5}\\).",
+"tip": "<b>Technique:</b> Area fixed means two parallel lines; take the nearer one.<br><b>Often missed:</b> Choosing 16/√5, the farther line.",
+"id": 12
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q49 (JEE Main 2021)",
+"stem": "\\(A(a,0),B(b,2b+1),C(0,b)\\), \\(b\\ne0,|b|\\ne1\\), have area 1. The sum of all possible \\(a\\) is",
+"opts": [
+"\\(\\tfrac{-2b}{b+1}\\)",
+"\\(\\tfrac{2b}{b+1}\\)",
+"\\(\\tfrac{2b^2}{b+1}\\)",
+"\\(\\tfrac{-2b^2}{b+1}\\)"
+],
+"ans": 3,
+"exp": "\\(\\tfrac12|a(b+1)+b^2|=1\\Rightarrow a=\\tfrac{-b^2\\pm2}{b+1}\\); the sum is \\(\\tfrac{-2b^2}{b+1}\\).",
+"tip": "<b>Technique:</b> Area = 1 gives two equations (±); add the roots.<br><b>Often missed:</b> Keeping only one sign of ±2.",
+"id": 13
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q97 (JEE Main 2024)",
+"stem": "The region between \\(3x-y+1=0\\) and \\(x+2y-5=0\\) containing the origin contains \\((a^2,a+1)\\) for \\(a\\in\\)",
+"opts": [
+"\\((-3,0)\\cup(\\tfrac23,1)\\)",
+"\\((-3,0)\\cup(\\tfrac13,1)\\)",
+"\\((-3,-1)\\cup(\\tfrac13,1)\\)",
+"\\((-3,-1)\\cup(-\\tfrac13,1)\\)"
+],
+"ans": 1,
+"exp": "At the origin \\(3x-y+1&gt;0\\) and \\(x+2y-5&lt;0\\). So \\(3a^2-a&gt;0\\) and \\(a^2+2a-3&lt;0\\): \\((-3,0)\\cup(\\tfrac13,1)\\).",
+"tip": "<b>Technique:</b> Take the sign of each line at the origin, apply it to the point.<br><b>Often missed:</b> Solving 3a² − a > 0 as 0 < a < 1/3.",
+"id": 14
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q31 (JEE Main 2020)",
+"stem": "\\(A(1,-1),B(0,2)\\); \\(P\\) lies on \\(3x+y-4\\lambda=0\\) and the area of \\(\\triangle PAB\\) is 5. A value of \\(\\lambda\\) is",
+"opts": [
+"3",
+"4",
+"−3",
+"1"
+],
+"ans": 0,
+"exp": "\\(AB:3x+y-2=0\\), \\(|AB|=\\sqrt{10}\\); distance of \\(P\\) \\(=\\tfrac{|4\\lambda-2|}{\\sqrt{10}}\\). Area \\(\\tfrac12|4\\lambda-2|=5\\Rightarrow\\lambda=3\\) or \\(-2\\); only 3 is listed.",
+"tip": "<b>Technique:</b> Line P lies on is parallel to AB; use the distance between parallels.<br><b>Often missed:</b> Forgetting the second root \\(\\lambda=-2\\) and testing options carelessly.",
+"id": 15
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q36 (JEE Main 2021)",
+"stem": "The mean of the reciprocals of the intercepts of a line is \\(\\tfrac14\\). Which of the points \\(A(1,1),B(2,2),C(4,4)\\) lie on it?",
+"opts": [
+"A only",
+"C only",
+"B only",
+"all three"
+],
+"ans": 2,
+"exp": "\\(\\tfrac1a+\\tfrac1b=\\tfrac12\\) means the line \\(\\tfrac xa+\\tfrac yb=1\\) passes through \\((2,2)\\).",
+"tip": "<b>Technique:</b> Put \\(x=y=2\\) into the intercept form.<br><b>Often missed:</b> Using 1/a + 1/b = 1/4 instead of 1/2.",
+"id": 16
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q57 (JEE Main 2022)",
+"stem": "\\(P\\) moves so that the sum of squares of its distances from \\((1,2)\\) and \\((-2,1)\\) is 14. The locus meets the x-axis at \\(A,B\\) and the y-axis at \\(C,D\\). Area of \\(ACBD\\):",
+"opts": [
+"\\(\\tfrac92\\)",
+"\\(\\tfrac{3\\sqrt{17}}2\\)",
+"\\(\\tfrac{3\\sqrt{17}}4\\)",
+"9"
+],
+"ans": 1,
+"exp": "Locus \\(x^2+y^2+x-3y-2=0\\). \\(AB=3\\) (at \\(x=1,-2\\)); \\(CD=\\sqrt{17}\\). The diagonals are perpendicular: area \\(=\\tfrac12\\cdot3\\cdot\\sqrt{17}\\).",
+"tip": "<b>Technique:</b> Find both chords on the axes; perpendicular diagonals give ½ d₁ d₂.<br><b>Often missed:</b> Using base × height instead of ½ d₁ d₂.",
+"id": 17
+},
+{
+"st": 5,
+"type": "int",
+"src": "Ex3 Q100 (JEE Main 2024)",
+"stem": "The lines \\(2x-y+3=0\\), \\(6x+3y+1=0\\) and \\(\\alpha x+2y-2=0\\) do not form a triangle for values of \\(\\alpha\\) whose squares sum to \\(p\\). Find \\(\\lfloor p\\rfloor\\).",
+"ans": "32",
+"exp": "Parallel to the first: \\(\\alpha=-4\\); to the second: \\(\\alpha=4\\); concurrent at \\((-\\tfrac56,\\tfrac43)\\): \\(\\alpha=\\tfrac45\\). \\(p=32+\\tfrac{16}{25}=32.64\\).",
+"tip": "<b>Technique:</b> No triangle ⇒ a parallel pair or three concurrent lines; list all cases.<br><b>Often missed:</b> Missing the concurrency case \\(\\alpha=4/5\\).",
+"id": 18
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q26 (JEE Main 2019)",
+"stem": "\\(y=\\sin x\\sin(x+2)-\\sin^2(x+1)\\) represents a straight line lying in",
+"opts": [
+"second and third quadrants only",
+"first, second and fourth quadrants",
+"third and fourth quadrants only",
+"first, third and fourth quadrants"
+],
+"ans": 2,
+"exp": "\\(\\sin x\\sin(x+2)=\\tfrac12[\\cos2-\\cos(2x+2)]\\), \\(\\sin^2(x+1)=\\tfrac12[1-\\cos(2x+2)]\\); \\(y=\\tfrac12(\\cos2-1)=-\\sin^21\\), a horizontal line below the x-axis.",
+"tip": "<b>Technique:</b> Simplify the trig expression first; it is a constant.<br><b>Often missed:</b> Treating it as a line through the origin or with a positive intercept.",
+"id": 19
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex3 Q98 (JEE Main 2024)",
+"stem": "\\(A(-1,0)\\), \\(\\angle A=\\tfrac{2\\pi}3\\), \\(AB=AC\\), \\(B\\) on the positive x-axis, \\(BC=4\\sqrt3\\). \\(BC\\) meets \\(y=x+3\\) at \\((\\alpha,\\beta)\\). Find \\(\\tfrac{\\beta^4}{\\alpha^2}\\).",
+"ans": "36",
+"exp": "\\(BC^2=3c^2=48\\Rightarrow c=4\\): \\(B=(3,0),C=(-3,2\\sqrt3)\\). The intersection is \\(\\alpha=3\\sqrt3-6,\\beta=3\\sqrt3-3\\); \\(\\tfrac{\\beta^4}{\\alpha^2}=36\\).",
+"tip": "<b>Technique:</b> 120° isosceles: sides \\(c,c,c\\sqrt3\\); place B and C by rotation.<br><b>Often missed:</b> Using BC² = 2c² (the right-angle value).",
+"id": 20
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q83 (JEE Main 2023)",
+"stem": "The area of the quadrilateral \\(ABCD\\) with \\(A(2,1,1),B(1,2,5),C(-2,-3,5),D(1,-6,-7)\\) is",
+"opts": [
+"\\(8\\sqrt{38}\\)",
+"48",
+"54",
+"\\(9\\sqrt{38}\\)"
+],
+"ans": 0,
+"exp": "\\(\\overrightarrow{AC}=(-4,-4,4)\\), \\(\\overrightarrow{BD}=(0,-8,-12)\\); \\(\\overrightarrow{AC}\\times\\overrightarrow{BD}=(80,-48,32)\\), magnitude \\(16\\sqrt{38}\\); area \\(=\\tfrac12\\) of it.",
+"tip": "<b>Technique:</b> 3-D: area \\(=\\tfrac12|\\overrightarrow{AC}\\times\\overrightarrow{BD}|\\).<br><b>Often missed:</b> Forgetting the ½.",
+"id": 21
+},
+{
+"st": 6,
+"type": "int",
+"src": "Ex3 Q86 (JEE Main 2023)",
+"stem": "Sides \\(AB:2x+y=0\\), \\(BC:x+py=21a\\) \\((a\\ne0)\\), \\(CA:x-y=3\\); centroid \\(P(2,a)\\). Find \\((BC)^2\\).",
+"ans": "122",
+"exp": "\\(A=(1,-2)\\). Centroid conditions give \\(B=(-3,6)\\), \\(C=(8,5)\\), \\(a=3\\), \\(p=11\\). \\(BC^2=121+1=122\\).",
+"tip": "<b>Technique:</b> Write B and C with one unknown each, then average the three vertices.<br><b>Often missed:</b> Taking the root \\(a=0\\), which gives a degenerate triangle.",
+"id": 22
+}
+];
+const QB2=[],QB3=[];
+let QB = QB1; let cbtSet = 1; let GW = "Group";
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e',9:'#4a0040',10:'#2d0000'};
+const stageNames = {1:'Triangle centres',2:'Bisectors & reflections',3:'Parallelograms & rectangles',4:'Area & regions',5:'Locus & parameters',6:'Hidden forms'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8,9,10]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>Straight Lines — Targeted Drill CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Groups are the weak approaches found in the Ex-1 to Ex-4 attempt. Select ${GW.toLowerCase()}s, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${Object.keys(stageNames).map(Number).map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">${GW} ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="45" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to ${QB.length} questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,QB.length);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>${GW} ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">${GW} ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+const TAGS=['Concept or formula not recalled','Missed a case','Sign or domain error','Forgot extraneous-root check','Calculation slip','Misread the question','Ran out of time'];
+const SLIPS_RAW=String.raw`Ex3 Q7 (JEE Main 2017)||Dropping the ½ in the area formula¦Taking the altitude from B perpendicular to BC instead of AC¦Finding only one altitude and guessing the point
+Ex3 Q41 (JEE Main 2021)||Using slope −1 (parallel to PQ) for its bisector, which gives (0,2) (option C)¦Using the given bisector alone, which cannot fix a point¦Taking the midpoint (1,1) of PQ as the circumcentre
+Ex3 Q96 (JEE Main 2024)||Using (O+H)/2 instead of (2O+H)/3 for the centroid¦Measuring the perpendicular distance instead of the distance along (2,1)¦Taking a, b from the circumcentre instead of the centroid
+Ex1 Q3||Using slope equations with a vertical altitude¦Mixing which side each altitude is perpendicular to¦Arithmetic slip when solving the two linear equations
+Ex3 Q45 (JEE Main 2021)||Taking the angle between CA and the bisector as θ itself, which gives 1/2 (option B)¦Using the median through B as the median through C¦Placing B on the bisector instead of C
+Ex3 Q51 (JEE Main 2021)||Reflecting both P and Q¦Taking R as the foot of the perpendicular from P¦Forgetting the factor 50 after PR² + RQ² = 25
+Ex3 Q94 (JEE Main 2024)||Using the direction (√3, 1) instead of (1, √3)¦Giving the perpendicular distance |4 − 9 + 28|/√13¦Mixing up the signs when substituting the parametrised point
+Ex3 Q15 (JEE Main 2019)||Choosing (2,1) (option C): it is on x+y=3, but its opposite vertex (2,7) is not on the other side line¦Not using that the opposite vertex is 2O − V¦Taking the diagonals' intersection as the common vertex
+Ex1 Q15||Taking the midpoint of the two given vertices as (3,1)¦Taking the half-diagonal as √10 instead of √5¦Not substituting the midpoint into y = 2x + c
+Ex3 Q99 (JEE Main 2024)||Pairing the vertices as A + B = C + D¦Forgetting to take the modulus of −32¦Sign slip in 3γ − 2δ = 6 after substituting
+Ex3 Q32 (JEE Main 2020)||Taking P as the circumcentre or incentre instead of the centroid¦Arithmetic slip in 17/6 + 7/6 and 8/3 + 1/3¦Forgetting the square root in √(16 + 9)
+Ex3 Q48 (JEE Main 2021)||Choosing 16/√5 (option C), the farther of the two lines¦Using 12/√5 as the distance from the origin¦Missing that A is a pair of parallel lines
+Ex3 Q49 (JEE Main 2021)||Keeping only one sign of ±2¦Writing the area determinant without the ½¦Sign slip in the sum of the two roots
+Ex3 Q97 (JEE Main 2024)||Solving 3a² − a > 0 as 0 < a < 1/3¦Testing only one line's sign at the origin¦Forgetting to intersect with −3 < a < 1
+Ex3 Q31 (JEE Main 2020)||Forgetting the second root λ = −2¦Using 3x + y = 4 as the line AB¦Cancelling the √10 incorrectly in the area
+Ex3 Q36 (JEE Main 2021)||Using 1/a + 1/b = 1/4 instead of 1/2¦Treating the mean of reciprocals as the reciprocal of the mean¦Concluding all three stones lie on the path
+Ex3 Q57 (JEE Main 2022)||Using base × height instead of ½ d₁ d₂¦Not noticing the two axis chords are perpendicular¦Dropping the √17 from y² − 3y − 2 = 0
+Ex3 Q100 (JEE Main 2024)||Missing the concurrency case α = 4/5¦Treating "no triangle" as parallel lines only¦Checking parallelism with only one of the two lines
+Ex3 Q26 (JEE Main 2019)||Expanding sin x sin(x + 2) without product-to-sum¦Treating y as depending on x and choosing quadrants I and II¦Forgetting that −sin²1 is negative
+Ex3 Q98 (JEE Main 2024)||Using BC² = 2c² (the right-angle value) instead of 3c²¦Placing C at 60° instead of 120° from AB¦Mis-simplifying β⁴/α² with powers of (√3 − 1)
+Ex3 Q83 (JEE Main 2023)||Applying the 2-D area formula to 3-D points¦Forgetting the ½ in ½|AC × BD|¦Arithmetic slip in the cross product
+Ex3 Q86 (JEE Main 2023)||Not taking P as the average of the three vertices¦Choosing a = 0, which makes the triangle degenerate¦Substituting p into the wrong side`;
+const SLIPS={};SLIPS_RAW.trim().split('\n').forEach(l=>{const k=l.indexOf('||');SLIPS[l.slice(0,k).trim()]=l.slice(k+2).split('¦').map(x=>x.trim());});
+let mst={};
+function mkeyOf(q){return cbtSet+'|'+q.src;}
+function mstOf(q){const k=mkeyOf(q);return mst[k]||(mst[k]={t:new Set(),g:false,s:new Set()});}
+function mlineHTML(q){const m=mst[mkeyOf(q)];if(!m)return '';
+  const sl=SLIPS[q.src]||[];let h='';
+  const tg=[...m.t].sort().map(j=>TAGS[j]);if(m.g)tg.push('Guessed');
+  if(tg.length)h+='<div>Marked: '+tg.join(', ')+'</div>';
+  const ss=[...m.s].sort().map(j=>sl[j]).filter(Boolean);
+  if(ss.length)h+='<div>Slip made: '+ss.join('; ')+'</div>';
+  return h;}
+function sumHTML(){const tc=TAGS.map(()=>0);let g=0,sl=0;
+  Object.values(mst).forEach(m=>{m.t.forEach(j=>tc[j]++);if(m.g)g++;sl+=m.s.size;});
+  return '<b>Mistake summary</b> <span class="msnote">(from the boxes you tick; the slips listed are my judgement of typical errors, not student data)</span><div>'
+   +TAGS.map((t,j)=>`<span class="mchip">${t}: <b>${tc[j]}</b></span>`).join('')
+   +`<span class="mchip">Guessed: <b>${g}</b></span><span class="mchip">Slips marked: <b>${sl}</b></span></div>`;}
+function mkSet(i,type,j,on){const q=qs[i],m=mstOf(q);
+  if(type==='g')m.g=on;else{const S=type==='t'?m.t:m.s;on?S.add(j):S.delete(j);}
+  const el=document.getElementById('ml-'+i);if(el)el.innerHTML=mlineHTML(q);
+  const sm=document.getElementById('msum');if(sm)sm.innerHTML=sumHTML();}
+function rqHTML(q,i){
+  const ok=isCorrect(q), sk=userAns[q.id]===undefined, cls=sk?'skip':ok?'ok':'bad';
+  let ua='Not answered';
+  if(!sk) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+  const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+  const m=mst[mkeyOf(q)]||{t:new Set(),g:false,s:new Set()}, sl=SLIPS[q.src]||[];
+  return `<div class="rq ${cls}">
+    <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">${GW} ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+    <div class="rstem">${q.stem}</div>
+    <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+      ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+    </div>
+    <div class="mfx np"><div class="mh">What went wrong?</div>
+      ${TAGS.map((t,j)=>`<label><input type="checkbox" ${m.t.has(j)?'checked':''} onchange="mkSet(${i},'t',${j},this.checked)"> ${t}</label>`).join('')}
+      <label class="gl"><input type="checkbox" ${m.g?'checked':''} onchange="mkSet(${i},'g',0,this.checked)"> I guessed this one</label>
+    </div>
+    ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+    ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+    ${sl.length?`<div class="mfx np slips"><div class="mh">Likely slips (tick any you made) <span class="msnote">— my judgement of typical errors, not student data</span></div>
+      ${sl.map((t,j)=>`<label><input type="checkbox" ${m.s.has(j)?'checked':''} onchange="mkSet(${i},'s',${j},this.checked)"> ${t}</label>`).join('')}
+    </div>`:''}
+    <div class="mline" id="ml-${i}">${mlineHTML(q)}</div>
+  </div>`;}
+function renderResult(){
+  mst={};
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  $().innerHTML=`
+  <div class="res-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <h2 style="color:var(--blue);margin:0">Test Result</h2>
+      <button class="btn np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">${GW}-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">${GW[0]}${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="msum" id="msum">${sumHTML()}</div>
+    <div class="fchips np">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">${GW} ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qs.map((q,i)=>rqHTML(q,i)).join('')}</div>
+    <div class="np" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+      <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>`;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+function filterRes(s, el){
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  const ql=document.getElementById('qlist'); if(!ql) return;
+  ql.innerHTML=qs.map((q,i)=>(s&&q.st!==s)?'':rqHTML(q,i)).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
