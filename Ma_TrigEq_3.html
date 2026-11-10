@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trigonometric Equations — Targeted Drill</title>
+<script>window.MathJax={tex:{inlineMath:[['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea']}};</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{box-sizing:border-box;--blue:#1a2e4a;--blue2:#2a6fb5;--ink:#1d2733;--line:#cfd8e3;--bg:#eef2f7;--green:#2e9e4f;--red:#d9453d;--purple:#7a4bb8;--grey:#b9c3cf;--amber:#e0a100}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;min-height:100vh}
+/* NAV */
+nav{display:flex;gap:6px;padding:8px 12px;background:var(--blue);position:sticky;top:0;z-index:100;flex-wrap:wrap}
+nav button{border:0;border-radius:5px;padding:8px 18px;font-size:14px;font-weight:600;cursor:pointer;background:#d6e4f5;color:var(--blue);transition:.15s}
+nav button.on{background:#fff;box-shadow:inset 0 -3px 0 var(--blue2)}
+/* PANELS */
+.panel{display:none}.panel.on{display:block}
+
+/* ── REMEMBER SHEET ── */
+#rs{max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh}
+#rs h1{font-size:22px;color:var(--blue);margin-bottom:2px}
+.sub{color:#5a6a7e;font-size:13px;margin-bottom:10px}
+.print-btn{padding:6px 14px;font-size:13px;cursor:pointer;border:1px solid #aaa;border-radius:4px;background:#f5f5f5;margin-bottom:10px}
+section{margin:14px 0}
+h2.sh{font-size:15px;padding:6px 10px;border-left:5px solid var(--blue2);background:#e7f1fd;color:var(--blue);display:flex;justify-content:space-between;align-items:center;margin-bottom:0}
+h2.sh .pg{font-weight:400;font-size:12px;color:#5a6a7e}
+h2.sh .stg{font-size:11px;background:var(--blue);color:#fff;border-radius:10px;padding:2px 8px;margin-left:6px}
+.it{display:flex;gap:8px;align-items:flex-start;padding:7px 5px;border-bottom:1px dotted #d3dbe6;font-size:15px}
+.n{min-width:28px;color:#8a97a8;font-size:11.5px;text-align:right;padding-top:3px;flex-shrink:0}
+.f{flex:1;min-width:0;line-height:1.9;overflow-x:auto}
+.tag{display:inline-block;background:#fff3d6;border:1px solid #efd48a;border-radius:12px;padding:1px 8px;font-size:12px;margin-left:4px;vertical-align:middle}
+.tag.grn{background:#e6f7eb;border-color:#7ecf95}
+.tag.pur{background:#f0eafc;border-color:#c9aaee}
+.notes{background:#fff8e6;border:1px solid #efd48a;border-radius:6px;padding:10px 14px;margin-top:20px;font-size:13.5px}
+.notes li{margin:4px 0}
+
+/* ── CBT ── */
+#cbt{max-width:1060px;margin:0 auto;padding:12px;min-height:100vh}
+/* start screen */
+.start-box{background:#fff;border:1px solid var(--line);border-radius:8px;padding:20px 24px;max-width:760px;margin:20px auto}
+.start-box h2{color:var(--blue);margin-bottom:12px}
+.sg-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:10px 0}
+.sg-label{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;cursor:pointer;font-size:14px}
+.sg-label:has(input:checked){border-color:var(--blue2);background:#e7f1fd}
+/* test layout */
+.test-wrap{display:flex;gap:12px;align-items:flex-start}
+.test-main{flex:1;min-width:0;background:#fff;border:1px solid var(--line);border-radius:6px}
+.test-side{width:270px;flex-shrink:0;background:#fff;border:1px solid var(--line);border-radius:6px;padding:10px;position:sticky;top:60px;max-height:calc(100vh - 80px);overflow-y:auto}
+/* timer bar */
+.timer-bar{background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:8px 14px;border-radius:6px 6px 0 0}
+.timer-bar h3{font-size:15px;font-weight:600}
+.timer{background:#fff;color:var(--blue);font-weight:700;padding:4px 12px;border-radius:4px;font-size:18px;font-variant-numeric:tabular-nums}
+.timer.low{color:var(--red)}
+/* tabs */
+.qtabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto;flex-wrap:nowrap}
+.qtab{padding:8px 13px;cursor:pointer;font-size:13px;border-right:1px solid var(--line);white-space:nowrap;flex-shrink:0;background:#f6f8fb}
+.qtab.on{background:var(--blue2);color:#fff;font-weight:600}
+/* question area */
+.qmeta{display:flex;justify-content:space-between;padding:8px 14px;border-bottom:1px solid var(--line);font-size:13px;color:#46566a;flex-wrap:wrap;gap:4px}
+.qbody{padding:16px 18px;min-height:220px}
+.qstem{font-size:17px;line-height:1.9;margin-bottom:14px;overflow-x:auto}
+/* options */
+.opt{display:flex;gap:10px;align-items:center;border:1.5px solid var(--line);border-radius:6px;padding:9px 12px;margin:7px 0;cursor:pointer;font-size:16px;transition:.1s}
+.opt:hover{background:#f3f8ff;border-color:#9ab}
+.opt.sel{border-color:var(--blue2);background:#e7f1fd}
+.opt.ok{border-color:var(--green)!important;background:#eaf7ed!important}
+.opt.ng{border-color:var(--red)!important;background:#fdeaea!important}
+.opt .L{font-weight:700;min-width:22px;color:var(--blue);flex-shrink:0}
+/* num input */
+.numin{font-size:20px;padding:8px 10px;width:220px;border:2px solid var(--blue2);border-radius:6px;text-align:right;display:block;margin-bottom:10px}
+.keys{display:grid;grid-template-columns:repeat(3,54px);gap:5px}
+.keys button{height:44px;font-size:17px;border:1px solid var(--line);background:#f6f8fb;border-radius:5px;cursor:pointer}
+.keys button:hover{background:#e7f1fd}
+/* bottom bar */
+.qbar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line);flex-wrap:wrap;background:#fafbfd;border-radius:0 0 6px 6px}
+.btn{padding:8px 15px;border-radius:5px;cursor:pointer;font-size:14px;font-weight:600;border:1.5px solid var(--blue2);background:#fff;color:var(--blue)}
+.btn:hover{background:#e7f1fd}
+.btn.p{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.btn.g{background:var(--green);border-color:var(--green);color:#fff}
+.btn.r{background:var(--red);border-color:var(--red);color:#fff}
+.btn:disabled{opacity:.4;cursor:default}
+/* palette */
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin:8px 0}
+.pal button{height:34px;border:none;border-radius:4px;font-size:12px;font-weight:600;cursor:pointer;color:#fff;background:var(--grey);position:relative}
+.pal button.na{background:var(--red)}
+.pal button.an{background:var(--green)}
+.pal button.mk{background:var(--purple)}
+.pal button.cur{outline:3px solid var(--amber);outline-offset:1px}
+.leg{font-size:12px;display:grid;grid-template-columns:1fr 1fr;gap:3px 6px;margin-top:6px}
+.leg span{display:flex;align-items:center;gap:4px}
+.dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+/* results */
+.res-wrap{max-width:980px;margin:0 auto;padding:12px 12px 60px}
+.scorecards{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.scard{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.scard .v{font-size:28px;font-weight:700;color:var(--blue)}
+.scard .l{font-size:13px;color:#5a6a7e;margin-top:2px}
+.swperf{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.sw{padding:5px 11px;border-radius:4px;color:#fff;font-size:13px;font-weight:600}
+.rq{background:#fff;border:1px solid var(--line);border-left:5px solid var(--grey);border-radius:6px;padding:12px 14px;margin:8px 0}
+.rq.ok{border-left-color:var(--green)}
+.rq.bad{border-left-color:var(--red)}
+.rq.skip{border-left-color:var(--amber)}
+.rmeta{font-size:12px;color:#5a6a7e;margin-bottom:5px}
+.rstem{font-size:15px;margin:4px 0;overflow-x:auto;line-height:1.7}
+.rans{font-size:14px;margin-top:4px}
+.rexp{background:#f4f8fd;border-radius:5px;padding:8px 10px;font-size:14px;margin-top:6px;overflow-x:auto;line-height:1.7}
+.fchips{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}
+.chip{padding:5px 12px;border:1px solid var(--blue2);border-radius:20px;cursor:pointer;font-size:13px;color:var(--blue);background:#fff}
+.chip.on{background:var(--blue2);color:#fff}
+@media(max-width:700px){.test-wrap{flex-direction:column}.test-side{width:100%;position:static;max-height:none}.sg-grid{grid-template-columns:1fr}}
+@media print{nav,.print-btn{display:none}#rs{padding:0}body{background:#fff}}
+.rtip{margin-top:6px;padding:7px 10px;background:#fff8e1;border-left:3px solid #f59e0b;border-radius:4px;font-size:12.5px;line-height:1.55}
+.mfx{margin-top:8px;padding:8px 10px;border:1px dashed #94a3b8;border-radius:6px;font-size:13px;background:#fafcff;line-height:1.5}
+.mfx .mh{font-weight:700;color:#334155;margin-bottom:3px}
+.mfx label{display:inline-flex;align-items:flex-start;gap:5px;margin:3px 14px 3px 0;cursor:pointer}
+.mfx.slips label{display:flex;margin:4px 0}
+.mfx .gl{margin-left:6px;padding-left:10px;border-left:2px solid #cbd5e1;font-weight:600}
+.msnote{font-weight:400;font-style:italic;color:#64748b;font-size:12px}
+.mline{color:#b91c1c;font-size:13px;font-weight:600;margin-top:6px}
+.mline:empty{display:none}
+.msum{margin:12px 0;padding:10px 12px;border:1px solid #cbd5e1;border-radius:6px;background:#fff7f7;font-size:13.5px}
+.mchip{display:inline-block;margin:3px 6px 3px 0;padding:2px 8px;border:1px solid #e5b4b4;border-radius:12px;background:#fff}
+@media print{
+ *{color:#000!important;background:#fff!important;box-shadow:none!important;text-shadow:none!important}
+ nav,button,.btn,.np,.fchips{display:none!important}
+ .res-wrap{max-width:none!important;padding:0!important}
+ .rq{break-inside:avoid;page-break-inside:avoid;border:1px solid #000!important;border-left:5px solid #000!important}
+ .mline,.msum{border-left:3px solid #000;padding-left:8px;font-weight:700}
+ .msum{border:1px solid #000}
+ .mchip{border:1px solid #000!important}
+ @page{margin:12mm}
+}
+.bx{margin:10px 0;padding:9px 12px;border-radius:6px;font-size:14px;line-height:1.55}.bx .bh{font-weight:700;margin-bottom:4px}.bx ol,.bx ul{margin:4px 0 2px 20px;padding:0}.bx li{margin:3px 0}.bx.think{background:#eef6ff;border-left:4px solid #3b82f6}.bx.meth{background:#f1f8f1;border-left:4px solid #22a06b}.bx.tips{background:#fff8e1;border-left:4px solid #f59e0b}.bx.mist{background:#fdeeee;border-left:4px solid #dc2626}@media print{.bx{break-inside:avoid;background:#fff!important;border:1px solid #000!important;color:#000!important}}
+</style>
+</head>
+<body>
+
+<nav>
+  <button id="nb1" class="on" onclick="showPanel('rs')">📖 Remember Sheet</button>
+  <button id="nb2" onclick="openCbt(1)">🎯 Targeted Drill CBT</button>
+</nav>
+
+<!-- ══════════════════ REMEMBER SHEET ══════════════════ -->
+<div id="rs" class="panel on">
+<div style="max-width:1040px;margin:0 auto;padding:16px 20px 60px;background:#fff;min-height:100vh">
+<h1>Trigonometric Equations — Targeted Drill: Remember Sheet</h1>
+<div class="sub">Built from the Ex-1 to Ex-4 attempt: the approaches behind the questions circled as unsolved · 24 key points + methods, tips and common mistakes for every group</div>
+<button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
+<section>
+<h2 class="sh">Group 1 — Counting Solutions in an Interval <span class="stg">G1</span><span class="pg">Ex2 Q5, Q8, Q10 · Ex3 Q12, Q14, Q15, Q24, Q26, Q27, Q29, Q47, Q50 · Ex4 Q4–Q6, Q10</span></h2>
+<div class="it"><span class="n">1</span><span class="f"><b>Reduce first</b> to a basic equation (\(\sin2x=\pm\tfrac12\), \(\cos2x=1\), \(\sin^2x=\tfrac14\)), then count: solutions per period × number of periods.</span></div>
+<div class="it"><span class="n">2</span><span class="f"><b>Periods:</b> \(\sin x,\cos x:2\pi\); \(\tan x:\pi\); \(\sin^2x,|\sin x|,\sin2x:\pi\); \(\sin kx:\tfrac{2\pi}k\). Always say how many periods fit in the interval.</span></div>
+<div class="it"><span class="n">3</span><span class="f"><b>Mixed equations</b> (\(x+2\tan x=\tfrac\pi2\)): rewrite as \(\tan x=\tfrac{\pi/2-x}2\) and sketch both curves on every branch (Ex3 Q14: 3 roots).</span></div>
+<div class="it"><span class="n">4</span><span class="f"><b>Exclude</b> the points where tan, a denominator or a log is undefined, and count the end points of the interval separately.</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>What is the interval's length in periods? Write it down.</li><li>Reduce the equation to basic equations; count solutions of each per period.</li><li>Add up, then remove the excluded points and double-count nothing.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>For \(f(x)=g(x)\) with different types (\(x\) and \(\tan x\)), plot both on each branch.</li><li>Substitution (\(t=16^{\sin^2x}\), \(c=\cos2x\)) turns it into a quadratic; count each root separately.</li><li>Use symmetry: if \(\theta\) works so do \(\pi-\theta,\ \pi+\theta,\ 2\pi-\theta\) (check).</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Number of solutions of \(\sin kx=c\) (|c|&lt;1) in \([0,2\pi]\) is \(2k\).</li><li>A quick sketch beats algebra for \(x+2\tan x=\tfrac\pi2\).</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Counting only [0, 2π] when the interval is longer → count periods explicitly.</li><li>Forgetting the modulus (±) → check both signs.</li><li>Counting a solution at a point where tan is undefined → test the domain.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 2 — Sum of Solutions &amp; Systems <span class="stg">G2</span><span class="pg">Ex3 Q16, Q31, Q32, Q34, Q36, Q39 · Ex4 Q11</span></h2>
+<div class="it"><span class="n">5</span><span class="f"><b>Factorise with sum-to-product</b> to list every root (Ex3 Q16: \(4\sin\tfrac{5x}2\cos x\cos\tfrac x2=0\), sum \(9\pi\)).</span></div>
+<div class="it"><span class="n">6</span><span class="f"><b>Systems:</b> solve each equation for the same variable and keep the common values (Ex3 Q31: \(\sin\theta=-\tfrac12\), sum \(3\pi\)).</span></div>
+<div class="it"><span class="n">7</span><span class="f"><b>Nested sets</b> (Ex3 Q32): find the set \(S\) first, then evaluate the second quantity for each element.</span></div>
+<div class="it"><span class="n">8</span><span class="f"><b>Sums over a function of the roots</b> (Ex3 Q36): list each root, evaluate the term (\(\tan^2\tfrac x3\)) and add; use symmetry \(\pm x\).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Is it one equation (factorise) or a system (common value)?</li><li>List all roots; then check that each lies in the interval.</li><li>Only then add or substitute into the required expression.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Sum-to-product: \(\sin x+\sin4x=2\sin\tfrac{5x}2\cos\tfrac{3x}2\), \(\sin2x+\sin3x=2\sin\tfrac{5x}2\cos\tfrac x2\).</li><li>System: solve for \(\sin\theta\) (or \(\cos\theta\)) in both equations and intersect the solution sets.</li><li>Nested sets: find \(S\), then for each \(\theta\in S\) evaluate the second expression.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Write the roots in a table before adding.</li><li>If a sum looks symmetric about π, roots pair to give π.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Missing a factor's roots (x = π from cos(x/2) = 0) → solve each factor separately.</li><li>Keeping a value that satisfies only one equation of the system.</li><li>Summing for one θ and not over all of S.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 3 — Hidden Quadratic &amp; Substitution <span class="stg">G3</span><span class="pg">Ex1 Q7 · Ex3 Q18, Q22, Q23, Q25, Q26, Q27, Q38</span></h2>
+<div class="it"><span class="n">9</span><span class="f"><b>One function:</b> \(\sin^2x=1-\cos^2x\), \(\cos^2\theta=\tfrac{1+\cos2\theta}2\), \(\mathrm{cosec}^2x=\tfrac1{\sin^2x}\); then substitute \(y\).</span></div>
+<div class="it"><span class="n">10</span><span class="f"><b>Solve the quadratic in \(y\)</b> and reject values outside the range of the function (\(|y|&gt;1\), \(y&lt;0\) for a square).</span></div>
+<div class="it"><span class="n">11</span><span class="f"><b>Count per period, then over the interval</b> (Ex3 Q26: \(\cos2\theta=0,-\tfrac13\) each give 16 solutions in \([-4\pi,4\pi]\)).</span></div>
+<div class="it"><span class="n">12</span><span class="f"><b>Special values:</b> \(\sin18^\circ=\tfrac{\sqrt5-1}4\), \(\cos36^\circ=\tfrac{\sqrt5+1}4\), \(\mathrm{cosec}\,18^\circ=\sqrt5+1\).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Reduce to one trig function.</li><li>Solve the quadratic in \(y\); discard values outside the range.</li><li>Count solutions per period for each admissible value.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Identities: \(\cos2\theta=2\cos^2\theta-1\), \(\sin^2x=1-\cos^2x\).</li><li>Clear denominators only after noting the excluded points.</li><li>Unit-circle counting: each value of \(\cos2\theta\) in (−1,1) gives 2 solutions of \(2\theta\) per \(2\pi\).</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Check each root numerically.</li><li>Remember special angle values (18°, 36°).</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Keeping y &gt; 1 or y &lt; 0 for a square.</li><li>Counting only the solutions with sin x &gt; 0.</li><li>Mixing up the period of θ and 2θ.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 4 — Exponential, Log &amp; Modulus Hybrids <span class="stg">G4</span><span class="pg">Ex1 Q3, Q5, Q6 · Ex2 Q5, Q10, Q11 · Ex3 Q10, Q19, Q20, Q23, Q36, Q43</span></h2>
+<div class="it"><span class="n">13</span><span class="f"><b>\(a^{f}+a^{g}\) with \(f+g\) constant:</b> \(u+\tfrac ku=c\) (Ex2 Q5: \(t+\tfrac{16}t=10\); Ex3 Q23: \(u+\tfrac{64}u=16\)).</span></div>
+<div class="it"><span class="n">14</span><span class="f"><b>Range of the new variable:</b> \(u=e^{\sin x}\in[\tfrac1e,e]\) — test every root (Ex3 Q43: \(1+\sqrt3&gt;e\), no solution).</span></div>
+<div class="it"><span class="n">15</span><span class="f"><b>Modulus:</b> split on the sign of the expression inside (Ex3 Q19: \(\cot x&lt;0\) gives \(x=\tfrac{2\pi}3\) only).</span></div>
+<div class="it"><span class="n">16</span><span class="f"><b>Logs:</b> combine them, then check the domain; for a minimum of \(\tfrac4s+\tfrac1{1-s}\) use the derivative: \(s=\tfrac23\), value 9.</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Which part is exponential, log or modulus? Remove it first (substitute, split cases).</li><li>Find the range of the new variable.</li><li>Solve, test every root against the range, count.</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>\(u+\tfrac ku=c\Rightarrow u^2-cu+k=0\).</li><li>Modulus: case on the sign inside; keep only roots consistent with the case.</li><li>Optimisation: derivative or AM–GM, then check attainability.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Compare a root with \(e\approx2.718\) numerically.</li><li>A decimal check of the final root avoids sign mistakes.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Accepting a root outside the range of the substituted variable.</li><li>Accepting a case root that breaks the case condition (cot x &gt; 0).</li><li>Guessing the minimum at the symmetric point.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 5 — Parameter &amp; Range of Values <span class="stg">G5</span><span class="pg">Ex1 Q9, Q12 · Ex2 Q14 · Ex3 Q11, Q22, Q35, Q45</span></h2>
+<div class="it"><span class="n">17</span><span class="f"><b>\"Has a solution\" ⇔ parameter in the range:</b> solve for the parameter in terms of \(s=\sin x\) and use \(s\in[-1,1]\) (Ex3 Q11: \(\alpha=4+2s\), \([2,6]\)).</span></div>
+<div class="it"><span class="n">18</span><span class="f"><b>\(a\sin x+b\cos x=c\)</b> is solvable iff \(|c|\le\sqrt{a^2+b^2}\) (Ex3 Q22: \(k+1\in[-5,5]\), 11 integers).</span></div>
+<div class="it"><span class="n">19</span><span class="f"><b>Quadratic in \(y=\sin^2x\in[0,1]\):</b> check the vertex and both end points (Ex3 Q35: \([-\tfrac32,-1]\)).</span></div>
+<div class="it"><span class="n">20</span><span class="f"><b>Count integers</b> by writing the exact interval first, then check whether the end values are allowed.</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Solve for the parameter as a function of \(s=\sin x\) (or \(y=\sin^2x\)).</li><li>Take \(s\in[-1,1]\) (or \(y\in[0,1]\)) and find the range.</li><li>Convert the range to the answer form (interval, number of integers).</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Equation linear in \(\sin x\): \(\alpha\) as a linear function of \(s\).</li><li>Amplitude bound for \(a\sin x+b\cos x\).</li><li>Quadratic: vertex and end values on the allowed interval.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Check an end value of the parameter by substituting back.</li><li>Integers in \([-6,4]\): 11, not 10.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Sign slips when isolating the parameter.</li><li>Using the wrong interval for s or y.</li><li>Excluding end points that are allowed.</li></ul></div>
+</section>
+<section>
+<h2 class="sh">Group 6 — Bounds, No-Solution &amp; Special Forms <span class="stg">G6</span><span class="pg">Ex2 Q11 · Ex3 Q37, Q41, Q44 · Ex4 Q7, Q9</span></h2>
+<div class="it"><span class="n">21</span><span class="f"><b>Prove no solution by bounding:</b> the cubic \(4c^3+4c^2+4c-13\le-1\) on \([-1,1]\) (Ex3 Q41); \(\max(\sin x+2\sin2x-\sin3x)\approx2.73&lt;3\) (Ex4 Q9).</span></div>
+<div class="it"><span class="n">22</span><span class="f"><b>Compare two sets</b> by solving both: \(\tan\theta=1+\sqrt2\) for each, so \(P=Q\) (Ex4 Q7).</span></div>
+<div class="it"><span class="n">23</span><span class="f"><b>Locus through intercepts:</b> midpoint \((\tfrac7{2\cos\theta},\tfrac7{2\sin\theta})\) (Ex3 Q37).</span></div>
+<div class="it"><span class="n">24</span><span class="f"><b>Linear trig equation</b> \(4\cos\theta+5\sin\theta=1\): divide by \(\cos\theta\), square, and select the root by the sign of \(\sec\theta\) (Ex3 Q44).</span></div>
+<div class="bx think"><div class="bh">🧠 How to think — step by step</div><ol><li>Can I bound each side so equality is impossible?</li><li>Can two sets be compared by solving each one?</li><li>Is there a hidden geometric meaning (intercepts, midpoints)?</li></ol></div>
+<div class="bx meth"><div class="bh">🛠 Methods &amp; techniques</div><ul><li>Bound a polynomial in \(\cos x\) by evaluating at \(\pm1\) and checking monotonic behaviour.</li><li>Divide by \(\cos\theta\) to get \(\tan\theta\) and compare sets.</li><li>Square a linear trig equation, then reject the extraneous root.</li></ul></div>
+<div class="bx tips"><div class="bh">💡 Tips &amp; tricks</div><ul><li>Rationalise \(1/(\sqrt2-1)=\sqrt2+1\) before comparing.</li><li>After squaring, always substitute back.</li></ul></div>
+<div class="bx mist"><div class="bh">⚠ Common mistakes — and how to avoid them</div><ul><li>Not rationalising, so equal values look different.</li><li>Taking intercepts as 7cosθ, 7sinθ instead of 7/cosθ, 7/sinθ.</li><li>Keeping both roots after squaring.</li></ul></div>
+</section>
+
+<div class="notes"><b>How to use:</b><ul>
+<li>Read one group, then attempt its questions in the Targeted Drill CBT without looking back.</li>
+<li>After the result, tick what went wrong and which slips you made; print the result as a PDF.</li>
+<li>Repeat the same CBT after 7–10 days to confirm the approach is retained.</li></ul></div>
+</div></div>
+
+<!-- ══════════════════ CBT ══════════════════ -->
+<div id="cbt" class="panel">
+<div id="cbt-inner" style="max-width:1060px;margin:0 auto;padding:12px;min-height:100vh"></div>
+</div>
+
+<script>
+// ── Panel switching ──────────────────────────────────────────────────────────
+const NAMES3={1:'Exact-value evaluation',2:'Special-angle products & sums',3:'Condition → value',4:'Range, extremum & comparison',5:'Heights, distances & geometry',6:'Statements & telescoping'};
+const COLORS3={1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a'};
+function openCbt(n){
+  if(!window._sn){window._sn=Object.assign({},stageNames);window._sc=Object.assign({},stageColors);}
+  QB = n===1?QB1:n===2?QB2:QB3; cbtSet=n; GW = 'Group';
+  const nm=n===3?NAMES3:window._sn, co=n===3?COLORS3:window._sc;
+  Object.keys(stageNames).forEach(k=>delete stageNames[k]); Object.assign(stageNames,nm);
+  Object.keys(stageColors).forEach(k=>delete stageColors[k]); Object.assign(stageColors,co);
+  selStages=new Set(Object.keys(stageNames).map(Number));
+  clearInterval(timerID); submitted=false; userAns={}; marks={};
+  showPanel('cbt'); cbtInited = true;
+  document.querySelectorAll('nav button').forEach(b=>b.classList.remove('on'));
+  document.getElementById('nb'+(n+1)).classList.add('on');
+  renderStart();
+}
+function showPanel(id) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('on'));
+  if (id === 'rs') document.getElementById('nb1').classList.add('on');
+  else document.getElementById('nb2').classList.add('on');
+  if (id === 'cbt' && !cbtInited) { cbtInited = true; cbtStart(); }
+  if (window.MathJax) MathJax.typesetPromise();
+}
+
+// ── CBT Engine ───────────────────────────────────────────────────────────────
+let cbtInited = false;
+
+const QB1 = [
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex2 Q5",
+"stem": "The number of solutions of \\(16^{\\cos^2x}+16^{\\sin^2x}=10\\) in \\([0,3\\pi]\\) is",
+"opts": [
+"4",
+"8",
+"12",
+"16"
+],
+"ans": 2,
+"exp": "\\(t=16^{\\sin^2x}\\Rightarrow t+\\tfrac{16}t=10\\Rightarrow t=2,8\\Rightarrow\\sin^2x=\\tfrac14,\\tfrac34\\): 4 solutions in each \\([0,\\pi]\\), so 12 in \\([0,3\\pi]\\).",
+"tip": "<b>Technique:</b> Substitute \\(t=16^{\\sin^2x}\\) (the two powers multiply to 16); count per period, then multiply.<br><b>Often missed:</b> Counting [0, 2π] only (8, option B) and forgetting the extra π.",
+"id": 1
+},
+{
+"st": 1,
+"type": "int",
+"src": "Ex3 Q12 (JEE Main 2020)",
+"stem": "The number of distinct solutions of \\(\\log_{1/2}|\\sin x|=2-\\log_{1/2}|\\cos x|\\) in \\([0,2\\pi]\\) is",
+"ans": "8",
+"exp": "\\(\\log_{1/2}|\\sin x\\cos x|=2\\Rightarrow|\\sin x\\cos x|=\\tfrac14\\Rightarrow|\\sin2x|=\\tfrac12\\): 4 solutions for \\(+\\tfrac12\\) and 4 for \\(-\\tfrac12\\) in \\([0,2\\pi]\\).",
+"tip": "<b>Technique:</b> Combine the logs: \\(|\\sin x\\cos x|=(\\tfrac12)^2\\), so \\(|\\sin2x|=\\tfrac12\\).<br><b>Often missed:</b> Dropping the modulus, which finds only 4 solutions.",
+"id": 2
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q24 (JEE Main 2022)",
+"stem": "The number of solutions of \\(\\cos(x+\\tfrac\\pi3)\\cos(\\tfrac\\pi3-x)=\\tfrac14\\cos^22x\\), \\(x\\in[-3\\pi,3\\pi]\\), is",
+"opts": [
+"8",
+"5",
+"6",
+"7"
+],
+"ans": 3,
+"exp": "LHS \\(=\\tfrac12[\\cos\\tfrac{2\\pi}3+\\cos2x]=\\tfrac12\\cos2x-\\tfrac14\\). So \\((\\cos2x-1)^2=0\\Rightarrow x=n\\pi\\), \\(n=-3,\\dots,3\\): 7 values.",
+"tip": "<b>Technique:</b> Product-to-sum on the left: \\(\\cos A\\cos B=\\tfrac12[\\cos(A+B)+\\cos(A-B)]\\).<br><b>Often missed:</b> Counting n = −3,…,3 as 6 (forgetting n = 0).",
+"id": 3
+},
+{
+"st": 1,
+"type": "mcq",
+"src": "Ex3 Q14 (JEE Main 2021)",
+"stem": "The number of solutions of \\(x+2\\tan x=\\tfrac\\pi2\\) in \\([0,2\\pi]\\) is",
+"opts": [
+"3",
+"4",
+"2",
+"5"
+],
+"ans": 0,
+"exp": "Write \\(\\tan x=\\tfrac{\\pi/2-x}{2}\\), a line of slope \\(-\\tfrac12\\). It meets \\(y=\\tan x\\) once in each of \\([0,\\tfrac\\pi2),(\\tfrac\\pi2,\\tfrac{3\\pi}2),(\\tfrac{3\\pi}2,2\\pi]\\): at about 0.49, 2.65, 5.21.",
+"tip": "<b>Technique:</b> Rewrite as \\(\\tan x=\\tfrac{\\pi/2-x}2\\) and sketch both curves on every branch of tan.<br><b>Often missed:</b> Missing the root in the last branch \\((3\\pi/2,2\\pi]\\).",
+"id": 4
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex3 Q16 (JEE Main 2021)",
+"stem": "The sum of all \\(x\\in[0,2\\pi]\\) with \\(\\sin x+\\sin2x+\\sin3x+\\sin4x=0\\) is",
+"opts": [
+"\\(12\\pi\\)",
+"\\(11\\pi\\)",
+"\\(8\\pi\\)",
+"\\(9\\pi\\)"
+],
+"ans": 3,
+"exp": "\\(\\sin x+\\sin4x+\\sin2x+\\sin3x=4\\sin\\tfrac{5x}2\\cos x\\cos\\tfrac x2=0\\): \\(x=\\tfrac{2k\\pi}5\\) (sum \\(6\\pi\\) with 0 and \\(2\\pi\\)), \\(x=\\tfrac\\pi2,\\tfrac{3\\pi}2\\) (\\(2\\pi\\)), \\(x=\\pi\\). Total \\(9\\pi\\).",
+"tip": "<b>Technique:</b> Pair the terms with sum-to-product: \\(4\\sin\\tfrac{5x}2\\cos x\\cos\\tfrac x2=0\\).<br><b>Often missed:</b> Omitting x = π (from cos(x/2) = 0) or x = 2π.",
+"id": 5
+},
+{
+"st": 2,
+"type": "int",
+"src": "Ex3 Q31 (JEE Main 2022)",
+"stem": "The sum of the solutions in \\([0,2\\pi]\\) of the system \\(2\\sin^2\\theta-\\cos2\\theta=0\\) and \\(2\\cos^2\\theta+3\\sin\\theta=0\\) is \\(k\\pi\\). Find \\(k\\).",
+"ans": "3",
+"exp": "First: \\(4\\sin^2\\theta=1\\Rightarrow\\sin\\theta=\\pm\\tfrac12\\). Second: \\(2\\sin^2\\theta-3\\sin\\theta-2=0\\Rightarrow\\sin\\theta=-\\tfrac12\\). So \\(\\theta=\\tfrac{7\\pi}6,\\tfrac{11\\pi}6\\), sum \\(3\\pi\\).",
+"tip": "<b>Technique:</b> Solve each equation for \\(\\sin\\theta\\) and keep only the common value.<br><b>Often missed:</b> Keeping sin θ = 1/2, which fails the second equation.",
+"id": 6
+},
+{
+"st": 2,
+"type": "int",
+"src": "Ex3 Q32 (JEE Main 2022)",
+"stem": "\\(S=\\{\\theta\\in(0,2\\pi):7\\cos^2\\theta-3\\sin^2\\theta-2\\cos^22\\theta=2\\}\\). Find the sum of the roots of all the equations \\(x^2-2(\\tan^2\\theta+\\cot^2\\theta)x+6\\sin^2\\theta=0\\), \\(\\theta\\in S\\).",
+"ans": "16",
+"exp": "With \\(c=\\cos^2\\theta\\): \\(8c^2-18c+7=0\\Rightarrow c=\\tfrac12\\) (reject \\(\\tfrac74\\)), so \\(\\theta=\\tfrac\\pi4,\\tfrac{3\\pi}4,\\tfrac{5\\pi}4,\\tfrac{7\\pi}4\\). Each equation is \\(x^2-4x+3=0\\) with root sum 4; \\(4\\times4=16\\).",
+"tip": "<b>Technique:</b> Find \\(\\cos^2\\theta\\) first; then \\(\\tan^2\\theta+\\cot^2\\theta=2\\) and \\(\\sin^2\\theta=\\tfrac12\\) for every \\(\\theta\\in S\\).<br><b>Often missed:</b> Giving the sum for one θ (4) and not multiplying by the 4 values of θ.",
+"id": 7
+},
+{
+"st": 2,
+"type": "mcq",
+"src": "Ex3 Q36 (JEE Main 2023)",
+"stem": "\\(S=\\{x\\in(-\\tfrac\\pi2,\\tfrac\\pi2):9^{1-\\tan^2x}+9^{\\tan^2x}=10\\}\\), \\(\\beta=\\sum_{x\\in S}\\tan^2\\tfrac x3\\). Then \\(\\tfrac16(\\beta-14)^2=\\)",
+"opts": [
+"8",
+"16",
+"32",
+"64"
+],
+"ans": 2,
+"exp": "\\(u=9^{\\tan^2x}\\Rightarrow u+\\tfrac9u=10\\Rightarrow u=1,9\\Rightarrow\\tan^2x=0,1\\): \\(x=0,\\pm\\tfrac\\pi4\\). \\(\\beta=2\\tan^2\\tfrac\\pi{12}=2(2-\\sqrt3)^2=14-8\\sqrt3\\); \\(\\tfrac16\\cdot192=32\\).",
+"tip": "<b>Technique:</b> Put \\(u=9^{\\tan^2x}\\) so that \\(u+9/u=10\\); then add \\(\\tan^2(x/3)\\) over the solutions.<br><b>Often missed:</b> Writing tan²(π/12) as 2 − √3 (it is (2 − √3)²).",
+"id": 8
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex3 Q26 (JEE Main 2022)",
+"stem": "The number of elements of \\(S=\\{\\theta\\in[-4\\pi,4\\pi]:3\\cos^22\\theta+6\\cos2\\theta-10\\cos^2\\theta+5=0\\}\\) is",
+"ans": "32",
+"exp": "With \\(\\cos^2\\theta=\\tfrac{1+\\cos2\\theta}2\\): \\(3c^2+c=0\\), \\(c=\\cos2\\theta=0\\) or \\(-\\tfrac13\\). Each gives 2 solutions per \\(\\pi\\) of \\(\\theta\\), i.e. 16 in \\([-4\\pi,4\\pi]\\). Total 32.",
+"tip": "<b>Technique:</b> Make everything a function of \\(\\cos2\\theta\\), then count with the period \\(\\pi\\) of \\(\\theta\\).<br><b>Often missed:</b> Counting only one of the two roots c = 0, c = −1/3.",
+"id": 9
+},
+{
+"st": 3,
+"type": "int",
+"src": "Ex3 Q27 (JEE Main 2022)",
+"stem": "The number of values of \\(x\\in(\\tfrac\\pi4,\\tfrac{7\\pi}4)\\) with \\(14\\,\\mathrm{cosec}^2x-2\\sin^2x=21-4\\cos^2x\\) is",
+"ans": "4",
+"exp": "\\(y=\\sin^2x\\): \\(6y^2+17y-14=0\\Rightarrow y=\\tfrac23\\) (reject \\(-\\tfrac72\\)). \\(\\sin x=\\pm\\sqrt{2/3}\\) gives four angles (about 54.7°, 125.3°, 234.7°, 305.3°) in \\((45^\\circ,315^\\circ)\\).",
+"tip": "<b>Technique:</b> Put \\(y=\\sin^2x\\), clear the denominator, reject roots outside \\([0,1]\\).<br><b>Often missed:</b> Counting only the two solutions with sin x &gt; 0.",
+"id": 10
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q25 (JEE Main 2022)",
+"stem": "\\(S=\\{\\theta\\in[-\\pi,\\pi]\\setminus\\{\\pm\\tfrac\\pi2\\}:\\sin\\theta\\tan\\theta+\\tan\\theta=\\sin2\\theta\\}\\), \\(T=\\sum_{\\theta\\in S}\\cos2\\theta\\). Then \\(T+n(S)=\\)",
+"opts": [
+"\\(7+\\sqrt3\\)",
+"9",
+"\\(8+\\sqrt3\\)",
+"10"
+],
+"ans": 1,
+"exp": "\\(\\tan\\theta(1+\\sin\\theta)=2\\sin\\theta\\cos\\theta\\Rightarrow\\sin\\theta=0\\) or \\(2\\sin^2\\theta+\\sin\\theta-1=0\\). \\(\\sin\\theta=\\tfrac12\\) gives \\(\\tfrac\\pi6,\\tfrac{5\\pi}6\\); \\(\\sin\\theta=-1\\) (\\(-\\tfrac\\pi2\\)) is excluded. \\(S=\\{-\\pi,0,\\pi,\\tfrac\\pi6,\\tfrac{5\\pi}6\\}\\): \\(n=5\\), \\(T=1+1+1+\\tfrac12+\\tfrac12=4\\).",
+"tip": "<b>Technique:</b> Factor \\(\\tan\\theta\\,(1+\\sin\\theta)=2\\sin\\theta\\cos\\theta\\); remove the points where tan is undefined.<br><b>Often missed:</b> Including θ = −π/2, which is not allowed.",
+"id": 11
+},
+{
+"st": 3,
+"type": "mcq",
+"src": "Ex3 Q18 (JEE Main 2021)",
+"stem": "\\(\\mathrm{cosec}\\,18^\\circ\\) is a root of",
+"opts": [
+"\\(x^2-2x+4=0\\)",
+"\\(x^2+2x-4=0\\)",
+"\\(x^2-2x-4=0\\)",
+"\\(4x^2+2x-1=0\\)"
+],
+"ans": 2,
+"exp": "\\(\\sin18^\\circ=\\tfrac{\\sqrt5-1}4\\Rightarrow\\mathrm{cosec}\\,18^\\circ=\\sqrt5+1\\Rightarrow(x-1)^2=5\\).",
+"tip": "<b>Technique:</b> Use \\(\\sin18^\\circ=\\tfrac{\\sqrt5-1}4\\) and rationalise.<br><b>Often missed:</b> Choosing 4x² + 2x − 1 = 0, the equation that sin 18° satisfies.",
+"id": 12
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q43 (JEE Main 2024)",
+"stem": "The number of solutions of \\(e^{\\sin x}-2e^{-\\sin x}=2\\) is",
+"opts": [
+"0",
+"more than 2",
+"2",
+"1"
+],
+"ans": 0,
+"exp": "\\(u=e^{\\sin x}\\): \\(u^2-2u-2=0\\Rightarrow u=1+\\sqrt3\\approx2.73\\). But \\(u\\le e\\approx2.718\\), so no real \\(x\\).",
+"tip": "<b>Technique:</b> Put \\(u=e^{\\sin x}\\in[\\tfrac1e,e]\\) and test the root against this interval.<br><b>Often missed:</b> Not checking that 1 + √3 is just above e (sin x would be about 1.005).",
+"id": 13
+},
+{
+"st": 4,
+"type": "mcq",
+"src": "Ex3 Q23 (JEE Main 2022)",
+"stem": "\\(S=\\{\\theta\\in[0,2\\pi]:8^{2\\sin^2\\theta}+8^{2\\cos^2\\theta}=16\\}\\). Then \\(n(S)+\\sum_{\\theta\\in S}\\sec(\\tfrac\\pi4+2\\theta)\\mathrm{cosec}(\\tfrac\\pi4+2\\theta)=\\)",
+"opts": [
+"0",
+"−2",
+"−4",
+"12"
+],
+"ans": 2,
+"exp": "\\(u=8^{2\\sin^2\\theta}\\): \\(u+\\tfrac{64}u=16\\Rightarrow u=8\\Rightarrow\\sin^2\\theta=\\tfrac12\\): \\(\\theta=\\tfrac\\pi4,\\tfrac{3\\pi}4,\\tfrac{5\\pi}4,\\tfrac{7\\pi}4\\), \\(n=4\\). \\(\\sec\\varphi\\,\\mathrm{cosec}\\,\\varphi=\\tfrac2{\\sin2\\varphi}=\\tfrac2{\\cos4\\theta}=-2\\) each: sum \\(-8\\). Total \\(-4\\).",
+"tip": "<b>Technique:</b> \\(8^{2\\cos^2\\theta}=64/8^{2\\sin^2\\theta}\\), so it is a quadratic in \\(u\\); use \\(\\sec\\varphi\\,\\mathrm{cosec}\\,\\varphi=\\tfrac2{\\sin2\\varphi}\\).<br><b>Often missed:</b> Taking sec φ cosec φ = sin 2φ/2 instead of 2/sin 2φ.",
+"id": 14
+},
+{
+"st": 4,
+"type": "int",
+"src": "Ex3 Q19 (JEE Main 2021)",
+"stem": "The number of solutions of \\(|\\cot x|=\\cot x+\\dfrac1{\\sin x}\\) in \\([0,2\\pi]\\) is",
+"ans": "1",
+"exp": "If \\(\\cot x\\ge0\\): \\(0=\\tfrac1{\\sin x}\\), impossible. If \\(\\cot x&lt;0\\): \\(-2\\cot x=\\mathrm{cosec}\\,x\\Rightarrow\\cos x=-\\tfrac12\\), and \\(\\cot x&lt;0\\) leaves only \\(x=\\tfrac{2\\pi}3\\).",
+"tip": "<b>Technique:</b> Split on the sign of \\(\\cot x\\) to remove the modulus.<br><b>Often missed:</b> Accepting x = 4π/3, where cot x &gt; 0.",
+"id": 15
+},
+{
+"st": 4,
+"type": "int",
+"src": "Ex3 Q20 (JEE Main 2021)",
+"stem": "The minimum value of \\(\\alpha\\) for which \\(\\dfrac4{\\sin x}+\\dfrac1{1-\\sin x}=\\alpha\\) has a solution in \\((0,\\tfrac\\pi2)\\) is",
+"ans": "9",
+"exp": "\\(s=\\sin x\\in(0,1)\\): the derivative \\(-\\tfrac4{s^2}+\\tfrac1{(1-s)^2}=0\\Rightarrow s=\\tfrac23\\); \\(\\alpha=6+3=9\\).",
+"tip": "<b>Technique:</b> Treat it as a function of \\(s=\\sin x\\in(0,1)\\) and minimise (or use Cauchy–Schwarz).<br><b>Often missed:</b> Using s = 1/2 by symmetry, which gives 10.",
+"id": 16
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q35 (JEE Main 2023)",
+"stem": "The set of values of \\(\\lambda\\) for which \\(\\cos^22x-2\\sin^4x-2\\cos^2x=\\lambda\\) has a real solution is",
+"opts": [
+"\\([-\\tfrac32,-1]\\)",
+"\\([-1,-\\tfrac12]\\)",
+"\\([-2,-\\tfrac32]\\)",
+"\\([-2,-1]\\)"
+],
+"ans": 0,
+"exp": "With \\(y=\\sin^2x\\in[0,1]\\): \\(\\lambda=2y^2-2y-1\\). The vertex \\(y=\\tfrac12\\) gives \\(-\\tfrac32\\); the ends \\(y=0,1\\) give \\(-1\\). Range \\([-\\tfrac32,-1]\\).",
+"tip": "<b>Technique:</b> Reduce to one variable \\(y=\\sin^2x\\in[0,1]\\), then find the range of the quadratic.<br><b>Often missed:</b> Forgetting the end values (−1) and quoting only the vertex.",
+"id": 17
+},
+{
+"st": 5,
+"type": "mcq",
+"src": "Ex3 Q11 (JEE Main 2019)",
+"stem": "The set \\(S\\) of all \\(\\alpha\\) for which \\(\\cos2x+\\alpha\\sin x=2\\alpha-7\\) has a solution is",
+"opts": [
+"\\([2,6]\\)",
+"\\([3,7]\\)",
+"\\([1,4]\\)",
+"\\(\\mathbb R\\)"
+],
+"ans": 0,
+"exp": "With \\(s=\\sin x\\): \\(2s^2-\\alpha s+2\\alpha-8=0\\Rightarrow\\alpha(2-s)=2(2-s)(2+s)\\Rightarrow\\alpha=4+2s\\), \\(s\\in[-1,1]\\): \\([2,6]\\).",
+"tip": "<b>Technique:</b> Solve for the parameter in terms of \\(s=\\sin x\\) and use \\(s\\in[-1,1]\\).<br><b>Often missed:</b> Sign slip giving α = 2s − 4 and the range [−6, −2].",
+"id": 18
+},
+{
+"st": 5,
+"type": "int",
+"src": "Ex3 Q45 (JEE Main 2024)",
+"stem": "Let the set of all \\(a\\) for which \\(\\cos2x+a\\sin x=2a-7\\) has a solution be \\([p,q]\\), and \\(r=\\tan9^\\circ-\\tan27^\\circ-\\dfrac1{\\cot63^\\circ}+\\tan81^\\circ\\). Find \\(pqr\\).",
+"ans": "48",
+"exp": "\\([p,q]=[2,6]\\) (as above). \\(\\tfrac1{\\cot63^\\circ}=\\tan63^\\circ\\), so \\(r=\\tan9+\\tan81-\\tan27-\\tan63=4\\). \\(pqr=2\\cdot6\\cdot4=48\\).",
+"tip": "<b>Technique:</b> Reuse \\(\\alpha=4+2s\\) for \\([p,q]\\); \\(\\tan9^\\circ+\\tan81^\\circ-\\tan27^\\circ-\\tan63^\\circ=4\\).<br><b>Often missed:</b> Reading 1/cot 63° as cot 63° (then r is not 4).",
+"id": 19
+},
+{
+"st": 5,
+"type": "int",
+"src": "Ex3 Q22 (JEE Main 2021)",
+"stem": "The number of integer values of \\(k\\) for which \\(3\\sin x+4\\cos x=k+1\\) has a solution is",
+"ans": "11",
+"exp": "\\(-5\\le k+1\\le5\\Rightarrow-6\\le k\\le4\\): 11 integers.",
+"tip": "<b>Technique:</b> Use \\(|a\\sin x+b\\cos x|\\le\\sqrt{a^2+b^2}=5\\).<br><b>Often missed:</b> Excluding the end values \\(k+1=\\pm5\\) (gives 9).",
+"id": 20
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q41 (JEE Main 2024)",
+"stem": "The number of solutions of \\(4\\sin^2x-4\\cos^3x+9-4\\cos x=0\\), \\(x\\in[-2\\pi,2\\pi]\\), is",
+"opts": [
+"2",
+"1",
+"0",
+"3"
+],
+"ans": 2,
+"exp": "With \\(c=\\cos x\\): \\(4c^3+4c^2+4c-13=0\\). For \\(c\\in[-1,1]\\) the left side is at most \\(4+4+4-13=-1&lt;0\\), so there is no solution.",
+"tip": "<b>Technique:</b> Replace \\(\\sin^2x\\) by \\(1-\\cos^2x\\) and bound the cubic on \\([-1,1]\\).<br><b>Often missed:</b> Counting roots of the cubic outside [−1, 1].",
+"id": 21
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex4 Q7 (JEE 2011)",
+"stem": "\\(P=\\{\\theta:\\sin\\theta-\\cos\\theta=\\sqrt2\\cos\\theta\\}\\), \\(Q=\\{\\theta:\\sin\\theta+\\cos\\theta=\\sqrt2\\sin\\theta\\}\\). Then",
+"opts": [
+"\\(P\\subset Q\\) and \\(Q-P\\ne Q\\)",
+"\\(Q\\not\\subset P\\)",
+"\\(P\\not\\subset Q\\)",
+"\\(P=Q\\)"
+],
+"ans": 3,
+"exp": "\\(P:\\tan\\theta=1+\\sqrt2\\); \\(Q:\\cot\\theta=\\sqrt2-1\\Rightarrow\\tan\\theta=\\tfrac1{\\sqrt2-1}=\\sqrt2+1\\). The sets are equal.",
+"tip": "<b>Technique:</b> Divide each equation by \\(\\cos\\theta\\) (or \\(\\sin\\theta\\)) and compare \\(\\tan\\theta\\).<br><b>Often missed:</b> Not rationalising \\(1/(\\sqrt2-1)\\), so the two tangents look different.",
+"id": 22
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q37 (JEE Main 2023)",
+"stem": "The point \\((\\alpha,\\tfrac{7\\sqrt3}3)\\) lies on the curve traced by the midpoints of the segments of \\(x\\cos\\theta+y\\sin\\theta=7\\), \\(\\theta\\in(0,\\tfrac\\pi2)\\), between the axes. Then \\(\\alpha=\\)",
+"opts": [
+"\\(7\\sqrt3\\)",
+"−7",
+"7",
+"\\(-7\\sqrt3\\)"
+],
+"ans": 2,
+"exp": "Intercepts \\(\\tfrac7{\\cos\\theta},\\tfrac7{\\sin\\theta}\\); midpoint \\((\\tfrac7{2\\cos\\theta},\\tfrac7{2\\sin\\theta})\\). \\(\\tfrac7{2\\sin\\theta}=\\tfrac{7\\sqrt3}3\\Rightarrow\\sin\\theta=\\tfrac{\\sqrt3}2,\\ \\cos\\theta=\\tfrac12\\), so \\(\\alpha=7\\).",
+"tip": "<b>Technique:</b> Intercepts are \\(7/\\cos\\theta\\) and \\(7/\\sin\\theta\\); take their midpoint.<br><b>Often missed:</b> Taking the intercepts as 7cos θ and 7 sin θ.",
+"id": 23
+},
+{
+"st": 6,
+"type": "mcq",
+"src": "Ex3 Q44 (JEE Main 2024)",
+"stem": "If \\(\\alpha\\in(-\\tfrac\\pi2,\\tfrac\\pi2)\\) solves \\(4\\cos\\theta+5\\sin\\theta=1\\), then \\(\\tan\\alpha=\\)",
+"opts": [
+"\\(\\tfrac{\\sqrt{10}-10}{12}\\)",
+"\\(\\tfrac{10-\\sqrt{10}}6\\)",
+"\\(\\tfrac{\\sqrt{10}-10}6\\)",
+"\\(\\tfrac{10-\\sqrt{10}}{12}\\)"
+],
+"ans": 0,
+"exp": "\\(4+5T=\\sec\\alpha\\Rightarrow24T^2+40T+15=0\\Rightarrow T=\\tfrac{-10\\pm\\sqrt{10}}{12}\\). Need \\(4+5T&gt;0\\): \\(T=\\tfrac{\\sqrt{10}-10}{12}\\).",
+"tip": "<b>Technique:</b> Divide by \\(\\cos\\alpha\\), square, and keep the root with \\(\\sec\\alpha&gt;0\\).<br><b>Often missed:</b> Keeping both roots of the squared equation.",
+"id": 24
+}
+];
+const QB2=[],QB3=[];
+let QB = QB1; let cbtSet = 1; let GW = "Group";
+
+const stageColors = {1:'#1a4f8b',2:'#2e7d5a',3:'#7a2828',4:'#8a5a00',5:'#4b1f82',6:'#1a7a4a',7:'#5a3a1a',8:'#004a6e',9:'#4a0040',10:'#2d0000'};
+const stageNames = {1:'Counting solutions',2:'Sum of solutions & systems',3:'Hidden quadratic',4:'Exp, log & modulus',5:'Parameter & range',6:'Bounds & special forms'};
+
+let qs=[], cur=0, userAns={}, marks={}, submitted=false, timerID=null, endTime=0, selStages=new Set([1,2,3,4,5,6,7,8,9,10]);
+
+function $(){return document.getElementById('cbt-inner')}
+
+function cbtStart() { renderStart(); }
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function renderStart(){
+  $().innerHTML=`
+  <div class="start-box">
+    <h2>Trigonometric Equations — Targeted Drill CBT</h2>
+    <p style="color:#5a6a7e;margin-bottom:12px">Groups are the weak approaches found in the Ex-1 to Ex-4 attempt. Select ${GW.toLowerCase()}s, set time limit, then start. Questions are randomised each attempt.</p>
+    <div class="sg-grid" id="sg-grid">
+      ${Object.keys(stageNames).map(Number).map(s=>`
+        <label class="sg-label">
+          <input type="checkbox" value="${s}" ${selStages.has(s)?'checked':''} onchange="toggleS(${s},this.checked)">
+          <span style="color:${stageColors[s]};font-weight:600">${GW} ${s}</span>
+          <span style="font-size:13px;color:#46566a">${stageNames[s]}</span>
+        </label>`).join('')}
+    </div>
+    <div style="margin:14px 0;font-size:14px">
+      <b>Time limit:</b>
+      <input id="tlim" type="number" value="45" min="5" max="120" style="width:70px;padding:5px 8px;border:1px solid #ccc;border-radius:4px;margin-left:8px"> minutes
+    </div>
+    <p style="font-size:13px;color:#5a6a7e;margin-bottom:14px">Up to ${QB.length} questions · MCQ and integer-type · Detailed explanations after submission</p>
+    <button class="btn p" style="font-size:16px;padding:10px 28px" onclick="startTest()">Start Test</button>
+  </div>`;
+}
+
+function toggleS(s, on){ on ? selStages.add(s) : selStages.delete(s); }
+
+function startTest(){
+  const tl = parseInt(document.getElementById('tlim').value)||45;
+  const pool = QB.filter(q=>selStages.has(q.st));
+  if(!pool.length){ alert('Please select at least one stage.'); return; }
+  qs = shuffle([...pool]).slice(0,QB.length);
+  userAns={}; marks={}; cur=0; submitted=false;
+  clearInterval(timerID);
+  endTime = Date.now() + tl*60000;
+  timerID = setInterval(()=>{
+    const rem = Math.max(0, endTime - Date.now());
+    const m=Math.floor(rem/60000), s=Math.floor((rem%60000)/1000);
+    const el=document.getElementById('clock');
+    if(el){ el.textContent=`${m}:${String(s).padStart(2,'0')}`; el.className='timer'+(rem<120000?' low':''); }
+    if(rem===0){ clearInterval(timerID); doSubmit(); }
+  }, 500);
+  renderTest();
+}
+
+function renderTest(){
+  if(submitted){ renderResult(); return; }
+  const q = qs[cur];
+  const answered = Object.keys(userAns).length;
+  const markedN = Object.keys(marks).length;
+  $().innerHTML=`
+  <div class="test-wrap">
+    <div class="test-main">
+      <div class="timer-bar">
+        <h3>${GW} ${q.st}: ${stageNames[q.st]} &nbsp;|&nbsp; ${q.src}</h3>
+        <span id="clock" class="timer">--:--</span>
+      </div>
+      <div class="qtabs" id="qtabs">
+        ${qs.map((qq,i)=>`<div class="qtab${i===cur?' on':''}" onclick="gotoQ(${i})">Q${i+1}</div>`).join('')}
+      </div>
+      <div class="qmeta">
+        <span><b>Q${cur+1}</b> / ${qs.length} &nbsp;·&nbsp; <span style="color:${stageColors[q.st]};font-weight:600">${GW} ${q.st}</span></span>
+        <span>${q.type==='mcq'?'Single Choice (MCQ)':'Integer Type'}</span>
+      </div>
+      <div class="qbody">
+        <div class="qstem">${q.stem}</div>
+        ${q.type==='mcq' ? renderMCQ(q) : renderInt(q)}
+      </div>
+      <div class="qbar">
+        <button class="btn" onclick="gotoQ(${cur-1})" ${cur===0?'disabled':''}>← Prev</button>
+        <button class="btn" style="${marks[q.id]?'background:#f0eafc;border-color:#c9aaee':''}" onclick="toggleMark()">
+          ${marks[q.id]?'★ Marked':'☆ Mark'}
+        </button>
+        <button class="btn" onclick="gotoQ(${cur+1})" ${cur===qs.length-1?'disabled':''}>Next →</button>
+        <button class="btn g" style="margin-left:auto" onclick="confirmSubmit()">Submit Test</button>
+      </div>
+    </div>
+    <div class="test-side">
+      <div style="font-weight:600;font-size:13px;margin-bottom:6px">Question Palette</div>
+      <div class="pal" id="palette">
+        ${qs.map((qq,i)=>{
+          let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+          if(marks[qq.id]) cls='mk';
+          if(i===cur) cls+=' cur';
+          return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+        }).join('')}
+      </div>
+      <div class="leg">
+        <span><span class="dot" style="background:var(--green)"></span>Answered</span>
+        <span><span class="dot" style="background:var(--red)"></span>Not answered</span>
+        <span><span class="dot" style="background:var(--purple)"></span>Marked</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Current</span>
+      </div>
+      <div style="margin-top:10px;font-size:13px;color:#46566a;line-height:1.8">
+        Answered: <b>${answered}</b> / ${qs.length}<br>
+        Marked: <b>${markedN}</b><br>
+        Remaining: <b>${qs.length - answered}</b>
+      </div>
+    </div>
+  </div>`;
+  // scroll current tab into view
+  const tabEl = document.querySelectorAll('.qtab')[cur];
+  if(tabEl) tabEl.scrollIntoView({block:'nearest',inline:'nearest'});
+  if(window.MathJax) MathJax.typesetPromise();
+}
+
+function renderMCQ(q){
+  return q.opts.map((o,i)=>`
+    <div class="opt${userAns[q.id]===i?' sel':''}" onclick="selectOpt(${i})">
+      <span class="L">${'ABCD'[i]}</span>
+      <span>${o}</span>
+    </div>`).join('');
+}
+
+function renderInt(q){
+  const v = userAns[q.id]!==undefined ? userAns[q.id] : '';
+  return `
+  <div>
+    <input id="int-inp" class="numin" type="text" inputmode="numeric" value="${v}" placeholder="Enter integer answer" oninput="setInt(this.value)">
+    <div class="keys">
+      ${[7,8,9,4,5,6,1,2,3].map(n=>`<button type="button" onclick="numKey('${n}')">${n}</button>`).join('')}
+      <button type="button" onclick="numKey('0')">0</button>
+      <button type="button" onclick="numKey('.')">.</button>
+      <button type="button" onclick="numKey('back')">⌫</button>
+      <button type="button" onclick="numKey('-')" style="grid-column:span 3">+/−</button>
+    </div>
+    <div style="font-size:13px;color:#5a6a7e;margin-top:8px">Type using keyboard or keypad above.</div>
+  </div>`;
+}
+
+function numKey(k){
+  const el = document.getElementById('int-inp');
+  if(!el) return;
+  let v = String(el.value);
+  if(k==='back') v = v.slice(0,-1);
+  else if(k==='-') v = v.startsWith('-') ? v.slice(1) : '-'+v;
+  else v += k;
+  el.value = v;
+  setInt(v);
+}
+
+function setInt(v){ userAns[qs[cur].id] = v; updatePalette(); }
+
+function selectOpt(i){ userAns[qs[cur].id] = i; renderTest(); }
+
+function toggleMark(){
+  const id = qs[cur].id;
+  if(marks[id]) delete marks[id]; else marks[id]=1;
+  renderTest();
+}
+
+function gotoQ(i){
+  if(i<0||i>=qs.length) return;
+  cur=i; renderTest();
+}
+
+function updatePalette(){
+  const pal = document.getElementById('palette');
+  if(!pal) return;
+  pal.innerHTML = qs.map((qq,i)=>{
+    let cls = userAns[qq.id]!==undefined ? 'an' : 'na';
+    if(marks[qq.id]) cls='mk';
+    if(i===cur) cls+=' cur';
+    return `<button class="${cls}" onclick="gotoQ(${i})">Q${i+1}</button>`;
+  }).join('');
+  const cnt = document.querySelector('.test-side div:last-child');
+  if(cnt) cnt.innerHTML=`Answered: <b>${Object.keys(userAns).length}</b> / ${qs.length}<br>Marked: <b>${Object.keys(marks).length}</b><br>Remaining: <b>${qs.length - Object.keys(userAns).length}</b>`;
+}
+
+function confirmSubmit(){
+  if(confirm('Submit the test now? You cannot change answers after submission.')) doSubmit();
+}
+
+function doSubmit(){
+  clearInterval(timerID);
+  submitted = true;
+  renderResult();
+}
+
+function isCorrect(q){
+  const ua = userAns[q.id];
+  if(ua===undefined) return false;
+  if(q.type==='mcq') return ua === q.ans;
+  return String(ua).trim() === String(q.ans).trim() || parseFloat(ua)===parseFloat(q.ans);
+}
+
+const TAGS=['Concept or formula not recalled','Missed a case','Sign or domain error','Forgot extraneous-root check','Calculation slip','Misread the question','Ran out of time'];
+const SLIPS_RAW=String.raw`Ex2 Q5||Counting [0, 2π] only (8, option B) and forgetting the extra π¦Using only one of the two values t = 2, 8¦Taking sin²x = 1/4 as giving only one solution per π
+Ex3 Q12 (JEE Main 2020)||Dropping the modulus, so only 4 solutions are found¦Ignoring the base 1/2 when combining the logs¦Counting |sin 2x| = 1/2 over [0, 2π] instead of 2x over [0, 4π]
+Ex3 Q24 (JEE Main 2022)||Counting n = −3 to 3 as 6 solutions¦Taking cos 2x = 1 as x = 2nπ¦Treating the perfect square as two different equations
+Ex3 Q14 (JEE Main 2021)||Missing the root in the last branch (3π/2, 2π]¦Counting a root at the pole x = π/2¦Sketching the line with positive slope
+Ex3 Q16 (JEE Main 2021)||Omitting x = π from cos(x/2) = 0¦Dropping x = 2π from the sum¦Writing the roots of sin(5x/2) = 0 as x = kπ/5
+Ex3 Q31 (JEE Main 2022)||Keeping sin θ = 1/2, which fails the second equation¦Using π/6 and 5π/6 instead of 7π/6 and 11π/6¦Not checking that both equations share the same value of sin θ
+Ex3 Q32 (JEE Main 2022)||Keeping cos²θ = 7/4 (greater than 1)¦Giving the sum for one θ only (4)¦Taking sin²θ as 1/4 instead of 1/2
+Ex3 Q36 (JEE Main 2023)||Counting only x = π/4 and not x = −π/4¦Writing tan²(π/12) as 2 − √3 instead of (2 − √3)²¦Sign slip when computing β − 14
+Ex3 Q26 (JEE Main 2022)||Missing one of the two roots c = 0 and c = −1/3¦Counting over [0, 2π] only¦Using the period 2π for θ in cos 2θ = c
+Ex3 Q27 (JEE Main 2022)||Keeping y = −7/2 (sin²x cannot be negative)¦Counting only the two solutions with sin x > 0¦Sign slip when clearing the denominator in 14/y
+Ex3 Q25 (JEE Main 2022)||Including θ = −π/2, which is not allowed¦Missing θ = −π, 0, π from sin θ = 0¦Evaluating cos 2θ at π/6 as √3/2 instead of 1/2
+Ex3 Q18 (JEE Main 2021)||Choosing 4x² + 2x − 1 = 0 (option D), the equation that sin 18° satisfies¦Taking cosec 18° = √5 − 1¦Sign slip in (x − 1)² = 5
+Ex3 Q43 (JEE Main 2024)||Accepting u = 1 + √3 without checking u ≤ e¦Using the negative root u = 1 − √3¦Solving sin x = 1.005 as if it were possible
+Ex3 Q23 (JEE Main 2022)||Counting only two values of θ for n(S)¦Taking sec φ cosec φ = sin 2φ/2¦Sign slip: forgetting cos 4θ = −1 at every θ
+Ex3 Q19 (JEE Main 2021)||Not splitting on the sign of cot x¦Accepting x = 4π/3, where cot x > 0¦Forgetting that sin x must be non-zero
+Ex3 Q20 (JEE Main 2021)||Taking s = 1/2, which gives 10¦Sign slip in the derivative of 1/(1 − s)¦Giving the critical point 2/3 instead of the value 9
+Ex3 Q35 (JEE Main 2023)||Forgetting the end values y = 0 and y = 1 (value −1)¦Using y ∈ [−1, 1] for y = sin²x¦Writing cos²x as 1 + sin²x
+Ex3 Q11 (JEE Main 2019)||Sign slip giving α = 2s − 4 and the range [−6, −2]¦Using s ∈ [0, 1] only¦Choosing R because the equation is quadratic in sin x
+Ex3 Q45 (JEE Main 2024)||Reading 1/cot 63° as cot 63°¦Taking [p, q] = [3, 7]¦Computing p + q + r instead of pqr
+Ex3 Q22 (JEE Main 2021)||Excluding the end values k + 1 = ±5 (gives 9)¦Using the bound √(3 + 4) instead of √(9 + 16)¦Counting k from −5 to 5 without the shift by 1
+Ex3 Q41 (JEE Main 2024)||Writing sin²x as 1 − cos x¦Counting roots of the cubic outside [−1, 1]¦Counting solutions of the cubic instead of solutions in x
+Ex4 Q7 (JEE 2011)||Not rationalising 1/(√2 − 1)¦Choosing P ⊂ Q (option A) because both have a similar general solution¦Dividing by sin θ without checking sin θ ≠ 0
+Ex3 Q37 (JEE Main 2023)||Taking the intercepts as 7 cos θ and 7 sin θ¦Solving sin θ = √3/2 but taking cos θ = √3/2¦Forgetting the factor ½ for the midpoint, giving 14
+Ex3 Q44 (JEE Main 2024)||Keeping the root (−10 − √10)/12, which makes 4 + 5 tan α negative¦Sign slip in 24T² + 40T + 15 = 0¦Using t = tan(α/2) and answering a different quantity`;
+const SLIPS={};SLIPS_RAW.trim().split('\n').forEach(l=>{const k=l.indexOf('||');SLIPS[l.slice(0,k).trim()]=l.slice(k+2).split('¦').map(x=>x.trim());});
+let mst={};
+function mkeyOf(q){return cbtSet+'|'+q.src;}
+function mstOf(q){const k=mkeyOf(q);return mst[k]||(mst[k]={t:new Set(),g:false,s:new Set()});}
+function mlineHTML(q){const m=mst[mkeyOf(q)];if(!m)return '';
+  const sl=SLIPS[q.src]||[];let h='';
+  const tg=[...m.t].sort().map(j=>TAGS[j]);if(m.g)tg.push('Guessed');
+  if(tg.length)h+='<div>Marked: '+tg.join(', ')+'</div>';
+  const ss=[...m.s].sort().map(j=>sl[j]).filter(Boolean);
+  if(ss.length)h+='<div>Slip made: '+ss.join('; ')+'</div>';
+  return h;}
+function sumHTML(){const tc=TAGS.map(()=>0);let g=0,sl=0;
+  Object.values(mst).forEach(m=>{m.t.forEach(j=>tc[j]++);if(m.g)g++;sl+=m.s.size;});
+  return '<b>Mistake summary</b> <span class="msnote">(from the boxes you tick; the slips listed are my judgement of typical errors, not student data)</span><div>'
+   +TAGS.map((t,j)=>`<span class="mchip">${t}: <b>${tc[j]}</b></span>`).join('')
+   +`<span class="mchip">Guessed: <b>${g}</b></span><span class="mchip">Slips marked: <b>${sl}</b></span></div>`;}
+function mkSet(i,type,j,on){const q=qs[i],m=mstOf(q);
+  if(type==='g')m.g=on;else{const S=type==='t'?m.t:m.s;on?S.add(j):S.delete(j);}
+  const el=document.getElementById('ml-'+i);if(el)el.innerHTML=mlineHTML(q);
+  const sm=document.getElementById('msum');if(sm)sm.innerHTML=sumHTML();}
+function rqHTML(q,i){
+  const ok=isCorrect(q), sk=userAns[q.id]===undefined, cls=sk?'skip':ok?'ok':'bad';
+  let ua='Not answered';
+  if(!sk) ua=q.type==='mcq'?`${'ABCD'[userAns[q.id]]}: ${q.opts[userAns[q.id]]||'?'}`:userAns[q.id];
+  const ca=q.type==='mcq'?`${'ABCD'[q.ans]}: ${q.opts[q.ans]}`:q.ans;
+  const m=mst[mkeyOf(q)]||{t:new Set(),g:false,s:new Set()}, sl=SLIPS[q.src]||[];
+  return `<div class="rq ${cls}">
+    <div class="rmeta">Q${i+1} · <span style="color:${stageColors[q.st]};font-weight:600">${GW} ${q.st}: ${stageNames[q.st]}</span> · ${q.src} · ${q.type==='mcq'?'MCQ':'Integer'}</div>
+    <div class="rstem">${q.stem}</div>
+    <div class="rans">Your answer: <b>${ua}</b> &emsp; Correct: <b>${ca}</b> &emsp;
+      ${ok?'<span style="color:var(--green)">✓ Correct</span>':sk?'<span style="color:var(--amber)">— Skipped</span>':'<span style="color:var(--red)">✗ Wrong</span>'}
+    </div>
+    <div class="mfx np"><div class="mh">What went wrong?</div>
+      ${TAGS.map((t,j)=>`<label><input type="checkbox" ${m.t.has(j)?'checked':''} onchange="mkSet(${i},'t',${j},this.checked)"> ${t}</label>`).join('')}
+      <label class="gl"><input type="checkbox" ${m.g?'checked':''} onchange="mkSet(${i},'g',0,this.checked)"> I guessed this one</label>
+    </div>
+    ${q.exp?`<div class="rexp">${q.exp}</div>`:''}
+    ${q.tip?`<div class="rtip">${q.tip}</div>`:''}
+    ${sl.length?`<div class="mfx np slips"><div class="mh">Likely slips (tick any you made) <span class="msnote">— my judgement of typical errors, not student data</span></div>
+      ${sl.map((t,j)=>`<label><input type="checkbox" ${m.s.has(j)?'checked':''} onchange="mkSet(${i},'s',${j},this.checked)"> ${t}</label>`).join('')}
+    </div>`:''}
+    <div class="mline" id="ml-${i}">${mlineHTML(q)}</div>
+  </div>`;}
+function renderResult(){
+  mst={};
+  let correct=0, wrong=0, skipped=0;
+  const byStage={};
+  qs.forEach(q=>{
+    if(!byStage[q.st]) byStage[q.st]={c:0,t:0};
+    byStage[q.st].t++;
+    if(userAns[q.id]===undefined) skipped++;
+    else if(isCorrect(q)){ correct++; byStage[q.st].c++; }
+    else wrong++;
+  });
+  const tot=qs.length, pct=Math.round(correct/tot*100);
+  $().innerHTML=`
+  <div class="res-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px">
+      <h2 style="color:var(--blue);margin:0">Test Result</h2>
+      <button class="btn np" onclick="window.print()">🖨️ Print / Save as PDF</button></div>
+    <div class="scorecards">
+      <div class="scard"><div class="v">${correct}/${tot}</div><div class="l">Score</div></div>
+      <div class="scard"><div class="v">${pct}%</div><div class="l">Percentage</div></div>
+      <div class="scard"><div class="v" style="color:var(--green)">${correct}</div><div class="l">Correct</div></div>
+      <div class="scard"><div class="v" style="color:var(--red)">${wrong}</div><div class="l">Wrong</div></div>
+      <div class="scard"><div class="v" style="color:var(--amber)">${skipped}</div><div class="l">Skipped</div></div>
+    </div>
+    <div style="margin:10px 0">
+      <b style="font-size:14px">${GW}-wise score:</b>
+      <div class="swperf">
+        ${Object.entries(byStage).map(([s,d])=>`
+          <span class="sw" style="background:${stageColors[+s]}">${GW[0]}${s}: ${d.c}/${d.t}</span>`).join('')}
+      </div>
+    </div>
+    <div class="msum" id="msum">${sumHTML()}</div>
+    <div class="fchips np">
+      Filter: 
+      <span class="chip on" onclick="filterRes(0,this)">All</span>
+      ${[...new Set(qs.map(q=>q.st))].sort((a,b)=>a-b).map(s=>
+        `<span class="chip" onclick="filterRes(${s},this)">${GW} ${s}</span>`).join('')}
+    </div>
+    <div id="qlist">${qs.map((q,i)=>rqHTML(q,i)).join('')}</div>
+    <div class="np" style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn p" onclick="submitted=false;userAns={};marks={};renderStart()">New Test</button>
+      <button class="btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+    </div>
+  </div>`;
+  if(window.MathJax) MathJax.typesetPromise();
+}
+function filterRes(s, el){
+  document.querySelectorAll('.fchips .chip').forEach(c=>c.classList.remove('on'));
+  el.classList.add('on');
+  const ql=document.getElementById('qlist'); if(!ql) return;
+  ql.innerHTML=qs.map((q,i)=>(s&&q.st!==s)?'':rqHTML(q,i)).join('');
+  if(window.MathJax) MathJax.typesetPromise();
+}
+</script>
+</body>
+</html>
