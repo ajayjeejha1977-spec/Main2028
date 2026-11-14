@@ -1,919 +1,1689 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Atomic Structure &amp; Nuclear Chemistry — CBT Mock Test 1</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atomic Structure · JEE Advanced Revision</title>
 <style>
-  :root{
-    --navy:#0b2545;
-    --navy-2:#13315c;
-    --blue:#1a73c4;
-    --green:#3fa34d;
-    --red:#e0413a;
-    --purple:#7b3fa3;
-    --gray:#8a94a3;
-    --lightbg:#eef1f5;
-    --panelbg:#ffffff;
-    --border:#d7dce3;
-    --text:#1c2530;
-    --muted:#5a6572;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;font-family:"Segoe UI",Arial,Helvetica,sans-serif;background:var(--lightbg);color:var(--text);}
-  button{font-family:inherit;cursor:pointer;}
-  input[type=text],input[type=number]{font-family:inherit;}
-
-  /* ---------- LOGIN SCREEN ---------- */
-  #loginScreen{
-    min-height:100vh;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-2) 55%,#1a4a7a 100%);
-  }
-  .login-card{
-    background:#fff;width:420px;max-width:92vw;border-radius:10px;padding:36px 34px 30px;
-    box-shadow:0 20px 60px rgba(0,0,0,0.35);
-  }
-  .login-card h1{font-size:19px;margin:0 0 2px;color:var(--navy);letter-spacing:.3px;}
-  .login-card .sub{font-size:12.5px;color:var(--muted);margin-bottom:22px;}
-  .login-card label{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin:16px 0 6px;}
-  .login-card input[type=text]{
-    width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:6px;font-size:14px;
-  }
-  .duration-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
-  .duration-grid button{
-    padding:9px 4px;border:1.5px solid var(--border);background:#fff;border-radius:6px;font-size:13px;color:var(--navy-2);
-  }
-  .duration-grid button.active{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600;}
-  .custom-row{display:flex;gap:8px;margin-top:8px;}
-  .custom-row input{flex:1;padding:9px 10px;border:1px solid var(--border);border-radius:6px;font-size:13px;}
-  #startBtn{
-    margin-top:26px;width:100%;padding:12px;background:var(--green);color:#fff;border:none;border-radius:6px;
-    font-size:15px;font-weight:700;letter-spacing:.3px;
-  }
-  #startBtn:disabled{background:#a9b3bf;}
-  .login-note{margin-top:14px;font-size:11.5px;color:var(--muted);line-height:1.5;}
-
-  /* ---------- TEST SCREEN ---------- */
-  #testScreen{display:none;height:100vh;flex-direction:column;}
-  .topbar{
-    background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;
-    padding:8px 16px;flex-shrink:0;
-  }
-  .topbar .brand{font-size:14px;font-weight:700;letter-spacing:.3px;}
-  .topbar .brand small{display:block;font-weight:400;font-size:10.5px;color:#b9c6da;}
-  .topbar .mid{display:flex;align-items:center;gap:18px;font-size:12.5px;}
-  .candidate{opacity:.9;}
-  .timer{
-    background:#0000003a;border:1px solid #ffffff33;padding:6px 14px;border-radius:6px;font-weight:700;font-size:15px;
-    letter-spacing:.5px;font-variant-numeric:tabular-nums;
-  }
-  .timer.low{background:#7a1f1f;border-color:#c0392b;}
-  .submitTopBtn{background:var(--red);color:#fff;border:none;padding:8px 16px;border-radius:5px;font-size:12.5px;font-weight:700;}
-
-  .sectiontabs{display:flex;gap:6px;background:#fff;border-bottom:1px solid var(--border);padding:8px 16px;flex-shrink:0;}
-  .sectiontabs button{
-    border:1px solid var(--border);background:#f5f7fa;padding:8px 18px;border-radius:5px 5px 0 0;font-size:13px;font-weight:600;color:var(--navy-2);
-  }
-  .sectiontabs button.active{background:var(--blue);color:#fff;border-color:var(--blue);}
-
-  .main{flex:1;display:flex;overflow:hidden;}
-  .qpanel{flex:1;background:var(--panelbg);padding:22px 28px;overflow-y:auto;display:flex;flex-direction:column;}
-  .qmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-  .qmeta .qnoTag{font-size:13.5px;font-weight:700;color:var(--navy);}
-  .qmeta .marks{font-size:11.5px;color:var(--muted);}
-  .qmeta .marks b.pos{color:var(--green);}
-  .qmeta .marks b.neg{color:var(--red);}
-  .refTag{display:inline-block;font-size:10.5px;background:#eef2f8;color:var(--blue);border:1px solid #cfe0f2;
-    border-radius:4px;padding:2px 8px;margin-bottom:12px;font-weight:600;letter-spacing:.2px;}
-  .qtext{font-size:15.5px;line-height:1.6;margin-bottom:20px;color:var(--text);}
-  .options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px;}
-  .option{
-    display:flex;align-items:flex-start;gap:10px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;
-    cursor:pointer;font-size:14px;transition:.12s;
-  }
-  .option:hover{border-color:var(--blue);background:#f7fafd;}
-  .option.selected{border-color:var(--blue);background:#eaf3fc;}
-  .option input{margin-top:2px;}
-  .optlabel{font-weight:700;color:var(--navy-2);margin-right:4px;}
-  .numeric-input-row{margin-bottom:24px;}
-  .numeric-input-row input{
-    width:220px;padding:11px 14px;border:1.5px solid var(--border);border-radius:7px;font-size:15px;
-  }
-  .numeric-input-row .hint{font-size:11px;color:var(--muted);margin-top:6px;}
-
-  .actionbar{display:flex;gap:10px;margin-top:auto;padding-top:16px;border-top:1px solid var(--border);flex-wrap:wrap;}
-  .actionbar button{padding:10px 16px;border-radius:5px;font-size:12.5px;font-weight:700;border:1.5px solid transparent;}
-  .btn-mark{background:#fff;border-color:var(--purple);color:var(--purple);}
-  .btn-clear{background:#fff;border-color:var(--gray);color:var(--gray);}
-  .btn-prev{background:#fff;border-color:var(--navy-2);color:var(--navy-2);}
-  .btn-save{background:var(--green);color:#fff;margin-left:auto;}
-  .btn-submit{background:var(--red);color:#fff;}
-
-  .sidepanel{width:270px;background:#f7f9fb;border-left:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-  .candbox{padding:14px 16px;border-bottom:1px solid var(--border);text-align:center;}
-  .candbox .avatar{width:52px;height:52px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;
-    justify-content:center;font-size:20px;font-weight:700;margin:0 auto 6px;}
-  .candbox .cname{font-size:13px;font-weight:700;color:var(--navy);}
-  .legend{padding:10px 14px;border-bottom:1px solid var(--border);}
-  .legend-row{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);margin-bottom:6px;}
-  .swatch{width:15px;height:15px;border-radius:3px;flex-shrink:0;display:inline-block;}
-  .sw-notvisited{background:#fff;border:1.5px solid var(--gray);}
-  .sw-notanswered{background:var(--red);}
-  .sw-answered{background:var(--green);}
-  .sw-marked{background:var(--purple);}
-  .sw-markedans{background:var(--purple);position:relative;}
-  .paletteWrap{flex:1;overflow-y:auto;padding:12px 14px;}
-  .paletteSection{font-size:11.5px;font-weight:700;color:var(--navy-2);margin:10px 0 8px;text-transform:uppercase;letter-spacing:.4px;}
-  .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;}
-  .pnum{
-    width:100%;aspect-ratio:1;border-radius:5px;border:none;color:#fff;font-size:12.5px;font-weight:700;
-    display:flex;align-items:center;justify-content:center;position:relative;background:var(--gray);
-  }
-  .pnum.notanswered{background:var(--red);}
-  .pnum.answered{background:var(--green);}
-  .pnum.marked{background:var(--purple);}
-  .pnum.markedans{background:var(--purple);}
-  .pnum.markedans::after{
-    content:"";position:absolute;bottom:3px;right:3px;width:6px;height:6px;border-radius:50%;background:var(--green);
-    border:1px solid #fff;
-  }
-  .pnum.current{outline:2.5px solid var(--navy);outline-offset:2px;}
-  .submitBottom{padding:14px;border-top:1px solid var(--border);}
-  .submitBottom button{width:100%;background:var(--red);color:#fff;border:none;padding:12px;border-radius:6px;font-weight:700;font-size:13px;}
-
-  /* ---------- RESULTS SCREEN ---------- */
-  #resultScreen{display:none;background:var(--lightbg);min-height:100vh;padding:26px 20px 60px;}
-  .res-wrap{max-width:920px;margin:0 auto;}
-  .res-header{background:var(--navy);color:#fff;border-radius:10px;padding:26px 30px;margin-bottom:20px;}
-  .res-header h2{margin:0 0 4px;font-size:20px;}
-  .res-header .sub{font-size:12.5px;color:#c3cfe0;}
-  .scoreCards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
-  .scard{background:#fff;border-radius:10px;padding:16px;text-align:center;border:1px solid var(--border);}
-  .scard .val{font-size:24px;font-weight:800;color:var(--navy);}
-  .scard .lab{font-size:11px;color:var(--muted);margin-top:4px;text-transform:uppercase;letter-spacing:.3px;}
-  .secBreak{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;margin-bottom:22px;}
-  .secBreak h3{margin:0 0 12px;font-size:14.5px;color:var(--navy);}
-  table.secTable{width:100%;border-collapse:collapse;font-size:12.5px;}
-  table.secTable th,table.secTable td{padding:8px 10px;text-align:center;border-bottom:1px solid var(--border);}
-  table.secTable th{color:var(--muted);font-weight:600;background:#f7f9fb;}
-  .pdfBtn{background:var(--blue);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;margin-right:10px;}
-  .retryBtn{background:#fff;color:var(--navy);border:1.5px solid var(--navy);padding:10px 20px;border-radius:6px;font-weight:700;font-size:12.5px;}
-  .reviewList{display:flex;flex-direction:column;gap:14px;}
-  .revCard{background:#fff;border-radius:10px;border:1px solid var(--border);padding:18px 20px;}
-  .revCard.correct{border-left:5px solid var(--green);}
-  .revCard.incorrect{border-left:5px solid var(--red);}
-  .revCard.unanswered{border-left:5px solid var(--gray);}
-  .revTop{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:8px;}
-  .revTag{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;color:#fff;}
-  .revTag.correct{background:var(--green);}
-  .revTag.incorrect{background:var(--red);}
-  .revTag.unanswered{background:var(--gray);}
-  .revQtext{font-size:14px;line-height:1.55;margin-bottom:10px;}
-  .revAns{font-size:12.5px;margin-bottom:4px;}
-  .revAns b{color:var(--navy-2);}
-  .revWhy{background:#f5f8fb;border-radius:7px;padding:10px 12px;font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.55;}
-  .revWhy b{color:var(--navy-2);}
-
-  @media print{
-    #loginScreen,#testScreen{display:none !important;}
-    #resultScreen{display:block !important;background:#fff;padding:0;}
-    .pdfBtn,.retryBtn{display:none !important;}
-    .revCard{break-inside:avoid;}
-  }
-  @media (max-width:820px){
-    .main{flex-direction:column;overflow:auto;}
-    .sidepanel{width:100%;order:2;}
-    .scoreCards{grid-template-columns:repeat(2,1fr);}
-  }
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2233;--muted:#5b6479;--brand:#3b5bdb;--brand2:#e8edff;--ok:#2b8a3e;--okbg:#e6f6ea;--bad:#c92a2a;--badbg:#fdeaea;--warn:#a85200;--warnbg:#fff4e0;--line:#dde2ee;--hook:#6741d9;--hookbg:#f1ecff}
+@media (prefers-color-scheme:dark){:root{--bg:#12151f;--card:#1b2030;--ink:#e8ebf5;--muted:#9aa4bd;--brand:#8da2ff;--brand2:#242c4a;--ok:#69db7c;--okbg:#1c3324;--bad:#ff8787;--badbg:#3a1f22;--warn:#ffc078;--warnbg:#3a2c16;--line:#2c3350;--hook:#b197fc;--hookbg:#2a2445}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 60px}
+header{padding:22px 0 8px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 12px;font-size:.95rem}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.pill{background:var(--brand2);color:var(--brand);border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:600}
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding:8px 0;border-bottom:1px solid var(--line);margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.tab{white-space:nowrap;flex:0 0 auto}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 14px;font:inherit;font-size:.92rem;cursor:pointer}
+.tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.badge{background:var(--bad);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;margin-left:4px}
+section.topic{display:none}
+section.topic.active{display:block}
+h2{font-size:1.35rem;margin:6px 0 10px}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.big{background:var(--brand2);border-radius:14px;padding:14px 16px;margin:10px 0}
+.hook{background:var(--hookbg);border-left:5px solid var(--hook);border-radius:10px;padding:10px 14px;margin:10px 0}
+.hook b.t,.trap b.t{display:block;margin-bottom:4px}
+.hook b.t{color:var(--hook)}
+.trap{background:var(--warnbg);border-left:5px solid #f08c00;border-radius:10px;padding:10px 14px;margin:10px 0}
+.trap b.t{color:var(--warn)}
+.trap ul,.hook ul{margin:4px 0 0;padding-left:20px}
+.trap li,.hook li{margin:5px 0}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.fname{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.fml{font-size:1.1rem;font-weight:650;margin:3px 0;font-family:"Cambria Math",Cambria,Georgia,serif}
+.fnote{font-size:.88rem;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:var(--brand2)}
+.tw{overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.play{background:var(--card);border:2px dashed var(--brand);border-radius:14px;padding:14px 16px;margin:12px 0}
+.play h4,.deck h4,.quiz h4{margin:0 0 8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:6px 0}
+label.f{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:2px}
+input[type=number],select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:92px}
+.out{margin-top:8px}
+.res{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-top:6px}
+.good{color:var(--ok);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer}
+.btn.ok{background:var(--okbg);color:var(--ok);border-color:var(--ok)}
+.btn.warn{background:var(--warnbg);color:var(--warn);border-color:#f08c00}
+.btn.sm{padding:3px 10px;font-size:.85rem}
+.btn:hover{filter:brightness(.96)}
+.deck,.quiz{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0}
+.dk-head,.qz-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px;font-size:.9rem}
+.sp{flex:1}
+.flash{border:2px solid var(--brand);border-radius:14px;min-height:150px;padding:14px 16px;cursor:pointer;position:relative;background:var(--bg)}
+.flash.back{background:var(--okbg);border-color:var(--ok)}
+.flash-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.flash-body{font-size:1.02rem}
+.flash-hint{position:absolute;right:12px;bottom:8px;font-size:.75rem;color:var(--muted)}
+.chip{display:inline-block;font-size:.72rem;border-radius:999px;padding:1px 8px;margin-left:6px}
+.chip.known{background:var(--okbg);color:var(--ok)}.chip.revise{background:var(--warnbg);color:var(--warn)}
+.dk-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.qq{border-top:1px solid var(--line);padding:10px 0}
+.qq:first-of-type{border-top:0}
+.opts{display:grid;gap:6px;margin-top:6px}
+.opt{text-align:left;font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.exp{margin-top:6px;font-size:.92rem;background:var(--brand2);border-radius:8px;padding:6px 10px}
+.hidden{display:none}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+.done{margin:14px 0}
+.empty{color:var(--muted);padding:10px}
+.lvl{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}
+.sv{font-size:11px;fill:var(--ink)}
+.sub-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sub{border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:var(--bg)}
+.sub .sl{font-size:.75rem;color:var(--muted)}
+.bx{display:flex;gap:2px}
+.bx span{display:inline-block;min-width:30px;text-align:center;border:1px solid var(--ink);padding:0 3px;font-size:.95rem;line-height:1.5}
+sup,sub{line-height:0}
+.foot{color:var(--muted);font-size:.82rem;margin-top:26px}
+body.rev .explain,body.rev details.worked{display:none}
+@media print{.tabs,.controls,.play,.deck,.quiz,.done,#t-weak{display:none!important}section.topic{display:block!important;page-break-before:always}body{background:#fff;color:#000}}
 </style>
 </head>
 <body>
-
-<!-- ================= LOGIN SCREEN ================= -->
-<div id="loginScreen">
-  <div class="login-card">
-    <h1>Atomic Structure &amp; Nuclear Chemistry</h1>
-    <div class="sub">CBT Mock Test 1 · 30 Questions · Section A + Section B</div>
-
-    <label for="nameInput">Candidate Name</label>
-    <input type="text" id="nameInput" placeholder="Enter your full name">
-
-    <label>Test Duration</label>
-    <div class="duration-grid" id="durationGrid">
-      <button type="button" data-min="20">20 min</button>
-      <button type="button" data-min="30">30 min</button>
-      <button type="button" data-min="45">45 min</button>
-      <button type="button" data-min="60">60 min</button>
-    </div>
-    <div class="custom-row">
-      <input type="number" id="customMin" placeholder="Custom minutes (optional)" min="1">
-    </div>
-
-    <button id="startBtn" disabled>Start Test</button>
-    <div class="login-note">Section A: 15 Single Correct MCQs (+4 / −1). Section B: 15 Numerical Value questions (+4 / 0). Timer starts as soon as the test begins and auto-submits at zero.</div>
+<div class="wrap">
+<header>
+  <h1>Atomic Structure · Revision Notebook</h1>
+  <p class="sub">JEE Advanced · complete revision notebook: 8 topics from sub-atomic particles to nuclear chemistry</p>
+  <div class="controls">
+    <button class="btn sm" id="revBtn" aria-pressed="false">Revision mode: OFF</button>
+    <span class="pill" id="progPill">Topics revised: 0 / 8</span>
+    <span class="sub" style="margin:0">Revision mode hides the explanations and shows only formulas, hooks and traps.</span>
   </div>
+</header>
+
+<nav class="tabs" id="tabs">
+  <button class="tab" data-t="t-part">1 · Particles &amp; models</button>
+  <button class="tab" data-t="t-light">2 · Light &amp; photoelectric</button>
+  <button class="tab" data-t="t-bohr">3 · Bohr model</button>
+  <button class="tab" data-t="t-spec">4 · H spectrum</button>
+  <button class="tab" data-t="t-dbl">5 · de Broglie &amp; Heisenberg</button>
+  <button class="tab" data-t="t-qn">6 · Quantum numbers</button>
+  <button class="tab" data-t="t-orb">7 · Orbitals &amp; nodes</button>
+  <button class="tab" data-t="t-nuc">8 · Nuclear chemistry</button>
+  <button class="tab" data-t="t-weak">My weak cards <span class="badge" id="weakBadge" style="display:none">0</span></button>
+</nav>
+
+<!-- ============ TOPIC 1: BOHR ============ -->
+<section class="topic" id="t-bohr">
+<h2>3 · Bohr Model</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Rutherford's electron should spiral into the nucleus, but atoms are stable. Bohr fixed this with three rules:
+<ol>
+<li>The electron moves only in special <b>stationary orbits</b> and radiates nothing while in one.</li>
+<li>Allowed orbits have angular momentum <b>mvr = nh/2π</b> (n = 1, 2, 3…).</li>
+<li>It changes orbit only by absorbing or emitting <b>one photon</b> with energy equal to the gap: ΔE = hν = hc/λ.</li>
+</ol>
+It works <b>only for one-electron species</b> (H, He⁺, Li²⁺, Be³⁺ …).
 </div>
 
-<!-- ================= TEST SCREEN ================= -->
-<div id="testScreen">
-  <div class="topbar">
-    <div class="brand">Atomic Structure &amp; Nuclear Chemistry <small>CBT Mock Test 1</small></div>
-    <div class="mid">
-      <div class="candidate" id="candNameTop"></div>
-      <div class="timer" id="timerDisplay">00:00:00</div>
-    </div>
-    <button class="submitTopBtn" id="submitTopBtn">Submit Test</button>
-  </div>
+<details class="explain"><summary>Where do the formulas come from? (30-second derivation)</summary>
+<p>Balance the pull of the nucleus with the centripetal force: <b>mv²/r = KZe²/r²</b> … (1)<br>
+Bohr's rule: <b>mvr = nh/2π</b> … (2)<br>
+Solve (1) and (2) together: r = n²h²/(4π²mKZe²) ∝ n²/Z and v = 2πKZe²/(nh) ∝ Z/n.<br>
+Energy: K.E. = ½mv² = KZe²/2r, P.E. = −KZe²/r, so T.E. = −KZe²/2r. Putting in r gives E = −13.6 Z²/n² eV.</p>
+</details>
 
-  <div class="sectiontabs" id="sectionTabs"></div>
-
-  <div class="main">
-    <div class="qpanel" id="qpanel"></div>
-
-    <div class="sidepanel">
-      <div class="candbox">
-        <div class="avatar" id="avatarInit">?</div>
-        <div class="cname" id="candNameSide"></div>
-      </div>
-      <div class="legend">
-        <div class="legend-row"><span class="swatch sw-notvisited"></span> Not Visited</div>
-        <div class="legend-row"><span class="swatch sw-notanswered"></span> Not Answered</div>
-        <div class="legend-row"><span class="swatch sw-answered"></span> Answered</div>
-        <div class="legend-row"><span class="swatch sw-marked"></span> Marked for Review</div>
-        <div class="legend-row"><span class="swatch sw-markedans"></span> Answered &amp; Marked</div>
-      </div>
-      <div class="paletteWrap" id="paletteWrap"></div>
-      <div class="submitBottom"><button id="submitBottomBtn">Submit Test</button></div>
-    </div>
-  </div>
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Radius</div><div class="fml">rₙ = 0.529 × n²/Z  Å</div><div class="fnote">r ∝ n², r ∝ 1/Z</div></div>
+ <div class="fcard"><div class="fname">Speed</div><div class="fml">vₙ = 2.18×10⁶ × Z/n  m/s</div><div class="fnote">v ∝ Z/n</div></div>
+ <div class="fcard"><div class="fname">Total energy</div><div class="fml">Eₙ = −13.6 Z²/n²  eV</div><div class="fnote">= −2.18×10⁻¹⁸ Z²/n² J per atom</div></div>
+ <div class="fcard"><div class="fname">Energy relations</div><div class="fml">T.E. = −K.E. = ½ P.E.</div><div class="fnote">K.E. is positive, P.E. is negative</div></div>
+ <div class="fcard"><div class="fname">Time period · Frequency</div><div class="fml">T = 2πr/v ∝ n³/Z²</div><div class="fnote">f = 1/T ∝ Z²/n³</div></div>
+ <div class="fcard"><div class="fname">Quantisation</div><div class="fml">mvr = nh/2π</div><div class="fnote">same as 2πr = nλ (de Broglie)</div></div>
+ <div class="fcard"><div class="fname">Photon from a jump</div><div class="fml">ΔE = 13.6 Z² (1/n₁² − 1/n₂²) eV</div><div class="fnote">λ(Å) = 12400 / ΔE(eV)</div></div>
+ <div class="fcard"><div class="fname">Ionisation energy from level n</div><div class="fml">I.E. = 13.6 Z²/n² eV</div><div class="fnote">ground state: H 13.6 · He⁺ 54.4 · Li²⁺ 122.4</div></div>
 </div>
 
-<!-- ================= RESULTS SCREEN ================= -->
-<div id="resultScreen">
-  <div class="res-wrap">
-    <div class="res-header">
-      <h2 id="resName">Result Summary</h2>
-      <div class="sub" id="resSub"></div>
-    </div>
+<h3>Trends at a glance</h3>
+<div class="tw"><table>
+<tr><th>Quantity</th><th>Depends on n</th><th>Depends on Z</th><th>Check value (H, n = 1)</th></tr>
+<tr><td>Radius r</td><td>∝ n²</td><td>∝ 1/Z</td><td>0.529 Å</td></tr>
+<tr><td>Speed v</td><td>∝ 1/n</td><td>∝ Z</td><td>2.18×10⁶ m/s</td></tr>
+<tr><td>|T.E.|, K.E.</td><td>∝ 1/n²</td><td>∝ Z²</td><td>13.6 eV</td></tr>
+<tr><td>Time period T</td><td>∝ n³</td><td>∝ 1/Z²</td><td>≈ 1.5×10⁻¹⁶ s</td></tr>
+<tr><td>Frequency f</td><td>∝ 1/n³</td><td>∝ Z²</td><td>≈ 6.6×10¹⁵ s⁻¹</td></tr>
+<tr><td>Angular momentum</td><td>∝ n</td><td>independent</td><td>h/2π</td></tr>
+</table></div>
 
-    <div class="scoreCards" id="scoreCards"></div>
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Power chart.</b> Powers of n for (r, v, E, T, f) are <b>2, −1, −2, 3, −3</b>. Powers of Z are <b>−1, 1, 2, −2, 2</b>. Learn these ten numbers and every ratio question becomes arithmetic.</li>
+<li><b>Big Z pulls the electron in</b>: smaller orbit, faster electron, more tightly bound (energy more negative), shorter period.</li>
+<li><b>Two species look alike when…</b> equal r needs equal <b>n²/Z</b>; equal v and equal E need equal <b>Z/n</b>. Example: H (n=1), He⁺ (n=2), Li²⁺ (n=3) all have the same v and the same E, but different radii.</li>
+<li><b>Energy ladder:</b> H −13.6, He⁺ −54.4 (×4), Li²⁺ −122.4 (×9), Be³⁺ −217.6 (×16) eV in the ground state.</li>
+</ul></div>
 
-    <div class="secBreak">
-      <h3>Section-wise Breakdown</h3>
-      <table class="secTable">
-        <thead><tr><th>Section</th><th>Attempted</th><th>Correct</th><th>Wrong</th><th>Unanswered</th><th>Marks</th></tr></thead>
-        <tbody id="secTableBody"></tbody>
-      </table>
-    </div>
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>One electron only.</b> Be²⁺, Li⁺, He have two electrons, so Bohr's formulas do <b>not</b> apply. Be³⁺ does.</li>
+<li><b>"nth excited state" means n + 1.</b> 1st excited = n = 2, 2nd excited = n = 3.</li>
+<li><b>Energy goes up with n</b> (becomes less negative). So n ↑ : T.E. ↑, P.E. ↑, K.E. ↓, speed ↓.</li>
+<li><b>K.E. is positive</b> and equals |T.E.|; P.E. is twice the (negative) T.E.</li>
+<li><b>I.E. in eV and I.P. in volt</b> are the same number (13.6 eV ↔ 13.6 V). Excitation energy of n = 2 is 10.2 eV and of n = 3 is 12.09 eV.</li>
+<li><b>Bohr's angular momentum ≠ orbital angular momentum.</b> The 4th Bohr orbit has 4h/2π, but a 4s orbital has L = 0, and 3p has √2 h/2π.</li>
+<li><b>Heavier particle in place of the electron</b> (muon, 207 mₑ): r ∝ 1/m shrinks, energy ∝ m so I.E. increases.</li>
+<li><b>Failures of Bohr's model:</b> multi-electron spectra, doublets (fine structure), Zeeman and Stark splitting, Heisenberg uncertainty, de Broglie waves, chemical bonding.</li>
+</ul></div>
 
-    <div style="margin-bottom:20px;">
-      <button class="pdfBtn" onclick="window.print()">⬇ Download as PDF</button>
-      <button class="retryBtn" onclick="location.reload()">Restart / New Attempt</button>
-    </div>
+<details class="worked"><summary>Worked example: ratio of radii of He⁺ (n = 2) and Be³⁺ (n = 3)</summary>
+<p>r ∝ n²/Z. He⁺: 4/2 = 2. Be³⁺: 9/4. Ratio = 2 ÷ 9/4 = <b>8/9</b>.</p></details>
+<details class="worked"><summary>Worked example: ratio of time periods, He⁺ (n = 2) to Li²⁺ (n = 4)</summary>
+<p>T ∝ n³/Z². He⁺: 8/4 = 2. Li²⁺: 64/9. Ratio = 2 × 9/64 = <b>9/32</b>.</p></details>
 
-    <h3 style="color:var(--navy);margin-bottom:12px;">Full Answer Review</h3>
-    <div class="reviewList" id="reviewList"></div>
-  </div>
+<div class="play"><h4>Playground: compare two Bohr orbits</h4>
+<p class="fnote">Type any two one-electron species and orbits. The last column gives the ratio A ÷ B in lowest terms.</p>
+<div class="row">
+ <label class="f">Z of A<input type="number" id="ba-z" min="1" max="10" value="2"></label>
+ <label class="f">n of A<input type="number" id="ba-n" min="1" max="10" value="2"></label>
+ <label class="f">Z of B<input type="number" id="bb-z" min="1" max="10" value="4"></label>
+ <label class="f">n of B<input type="number" id="bb-n" min="1" max="10" value="3"></label>
+</div>
+<div class="out tw" id="bohrOut"></div>
 </div>
 
-<script>
-/* =========================================================
-   QUESTION BANK
-   ========================================================= */
-const questions = [
-  // ---------------- SECTION A : SINGLE CORRECT MCQ (+4/-1) ----------------
-  {
-    id:"A1", section:"A", type:"mcq", ref:"Ex.1 Part-II A-4",
-    text:"Rutherford's alpha particle scattering experiment eventually led to the conclusion that",
-    options:["Mass and energy are related","Electrons occupy space around the nucleus","Neutrons are buried deep in the nucleus","The point of impact with matter can be precisely determined"],
-    correct:1,
-    why:"The large-angle deflection of a few α-particles showed that a small, dense, positively charged nucleus exists; the fact that most particles pass through undeflected shows that the rest of the atom's volume is occupied by electrons in space around this nucleus."
-  },
-  {
-    id:"A2", section:"A", type:"mcq", ref:"Ex.1 Part-II B-2",
-    text:"Photon of which light has maximum energy?",
-    options:["Red","Blue","Violet","Green"],
-    correct:2,
-    why:"Photon energy E = hc/λ, so energy increases as wavelength decreases. Among the given colours violet has the shortest wavelength, hence the maximum photon energy."
-  },
-  {
-    id:"A3", section:"A", type:"mcq", ref:"Ex.1 Part-II C-1",
-    text:"Correct order of radius of the 1st orbit of H, He⁺, Li²⁺, Be³⁺ is:",
-    options:["H > He⁺ > Li²⁺ > Be³⁺","Be³⁺ > Li²⁺ > He⁺ > H","He⁺ > Be³⁺ > Li²⁺ > H","He⁺ > H > Li²⁺ > Be³⁺"],
-    correct:0,
-    why:"Bohr radius rₙ = 0.529 × n²/Z Å. For the same orbit (n = 1) radius is inversely proportional to Z. Since Z(H)=1 &lt; Z(He⁺)=2 &lt; Z(Li²⁺)=3 &lt; Z(Be³⁺)=4, the radius order is H &gt; He⁺ &gt; Li²⁺ &gt; Be³⁺."
-  },
-  {
-    id:"A4", section:"A", type:"mcq", ref:"Ex.1 Part-II D-4",
-    text:"Total number of lines in the Lyman series of the H spectrum will be (where n = number of orbits considered):",
-    options:["n","n − 1","n − 2","n(n + 1)"],
-    correct:1,
-    why:"Lyman series lines are transitions from n = 2, 3, ... up to n down to n = 1, giving (n − 1) possible lines."
-  },
-  {
-    id:"A5", section:"A", type:"mcq", ref:"Ex.1 Part-II E-6",
-    text:"The wavelength of a charged particle ________ the square root of the potential difference through which it is accelerated:",
-    options:["is inversely proportional to","is directly proportional to","is independent of","is unrelated with"],
-    correct:0,
-    why:"de Broglie wavelength λ = h/√(2mqV), so λ ∝ 1/√V — inversely proportional to the square root of the accelerating potential."
-  },
-  {
-    id:"A6", section:"A", type:"mcq", ref:"Ex.1 Part-II F-7",
-    text:"According to the Schrödinger model, the nature of the electron in an atom is:",
-    options:["Particle only","Wave only","Particle and wave nature simultaneously","Sometimes waves and sometimes particle"],
-    correct:2,
-    why:"The Schrödinger wave equation treats the electron as having simultaneous wave–particle (dual) character, consistent with de Broglie's hypothesis."
-  },
-  {
-    id:"A7", section:"A", type:"mcq", ref:"Ex.1 Part-II G-1",
-    text:"The orbital with zero orbital angular momentum is:",
-    options:["s","p","d","f"],
-    correct:0,
-    why:"Orbital angular momentum L = (h/2π)√(l(l+1)). For s-orbitals l = 0, so L = 0."
-  },
-  {
-    id:"A8", section:"A", type:"mcq", ref:"Ex.1 Part-II H-4",
-    text:"²⁷₁₃Al is a stable isotope. ²⁹₁₃Al is expected to disintegrate by:",
-    options:["α-emission","β-emission","Positron emission","Proton emission"],
-    correct:1,
-    why:"²⁹Al has a higher neutron-to-proton ratio than the stable ²⁷Al, so it decays by β⁻-emission, converting a neutron into a proton to move toward the belt of stability."
-  },
-  {
-    id:"A9", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-4",
-    text:"Which of the following statements is true in the context of the photoelectric effect?",
-    options:["The kinetic energy of the ejected electron is independent of the intensity of a radiation","The number of photoelectrons ejected depends upon the intensity of the incident radiation","The kinetic energy of the emitted electrons depends on the frequency of the incident radiation","All of these"],
-    correct:3,
-    why:"All three statements hold: KE(max) depends only on frequency (not intensity), while the number of photoelectrons ejected depends on intensity."
-  },
-  {
-    id:"A10", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-6",
-    text:"In Bohr's model of the hydrogen atom, the ratio between the period of revolution of an electron in the orbit n = 1 to the period of revolution in the orbit n = 2 is:",
-    options:["1 : 2","2 : 1","1 : 4","1 : 8"],
-    correct:3,
-    why:"Time period T ∝ n³, so T₁ : T₂ = 1³ : 2³ = 1 : 8."
-  },
-  {
-    id:"A11", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-22",
-    text:"Which orbital is non-directional?",
-    options:["s","p","d","All"],
-    correct:0,
-    why:"The s-orbital is spherically symmetric about the nucleus, so its probability distribution has no preferred direction, unlike p and d orbitals."
-  },
-  {
-    id:"A12", section:"A", type:"mcq", ref:"Ex.2 Part-I Q-28",
-    text:"After np orbitals are filled, the next orbital filled will be:",
-    options:["(n + 1)s","(n + 2)p","(n + 1)d","(n + 2)s"],
-    correct:0,
-    why:"Following the Aufbau (n + l) rule, after np is filled the next lowest (n + l) orbital is (n + 1)s."
-  },
-  {
-    id:"A13", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#1 Q-1",
-    text:"A beam of white light is dispersed into its wavelength components by a quartz prism and falls on a thin sheet of potassium metal. What is the correct decreasing order of maximum kinetic energy of the electrons emitted by the different light components?",
-    options:["Blue > green > orange > yellow","Violet > blue > orange > red","Yellow > green > blue > violet","Orange > yellow > blue > violet"],
-    correct:1,
-    why:"KE(max) = hν − hν₀, so higher-frequency (shorter wavelength) light gives higher KE(max). In decreasing order of frequency: violet &gt; blue &gt; orange &gt; red."
-  },
-  {
-    id:"A14", section:"A", type:"mcq", ref:"Ex.2 Part-IV Comprehension#2 Q-5",
-    text:"Consider the following statements: (1) Spectral lines of He⁺ ion belonging to the Balmer series are not in the visible range. (2) In the Balmer series of the H-atom, maximum lines are in the ultraviolet region. (3) The 2nd line of the Lyman series of He⁺ ion has energy 48.4 eV. The statements 1, 2, 3 respectively are (T = True, F = False):",
-    options:["T F F","F T T","T F T","T T T"],
-    correct:3,
-    why:"All three are true: He⁺'s Balmer-analogous lines shift out of the visible range because of the Z² factor; most H-Balmer series lines converge into the near-UV beyond the first couple of visible lines; and the 2nd Lyman line of He⁺ (n = 3 → 1, Z = 2) has energy 13.6 × 4 × (1 − 1/9) = 48.4 eV."
-  },
-  {
-    id:"A15", section:"A", type:"mcq", ref:"Ex.1 Part-II H-1",
-    text:"¹¹₆C on decay produces:",
-    options:["Positron","β-particle","α-particle","None of these"],
-    correct:0,
-    why:"¹¹C is a proton-rich (neutron-deficient) nuclide, so it decays by positron (β⁺) emission, converting a proton into a neutron."
-  },
+<div class="deck" data-deck="bohr"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="bohr"></div>
+<label class="chk done"><input type="checkbox" data-done="bohr"> I have revised this topic</label>
+</section>
 
-  // ---------------- SECTION B : NUMERICAL VALUE (+4/0) ----------------
-  {
-    id:"B1", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-1",
-    text:"The ratio of specific charge (e/m) of a proton to that of an α-particle is:",
-    answer:2,
-    why:"Proton: charge e, mass 1u → e/m = e/1. α-particle: charge 2e, mass 4u → e/m = 2e/4 = e/2. Ratio (proton : α) = (e/1) ÷ (e/2) = 2."
-  },
-  {
-    id:"B2", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-2",
-    text:"Compare the energies of two radiations, one with wavelength 300 nm and the other 600 nm. Enter the ratio E(300 nm) / E(600 nm).",
-    answer:2,
-    why:"E ∝ 1/λ, so E₁/E₂ = λ₂/λ₁ = 600/300 = 2."
-  },
-  {
-    id:"B3", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-3",
-    text:"The latent heat of fusion of ice is 330 J/g. Calculate the number of photons of radiation of frequency 5 × 10¹³ s⁻¹ needed to melt 1 mole (18 g) of ice. Take h = 6.6 × 10⁻³⁴ J·s. If the answer is X × 10²², enter the value of X.",
-    answer:18,
-    why:"Total energy needed = 330 × 18 = 5940 J. Energy per photon = hν = 6.6×10⁻³⁴ × 5×10¹³ = 3.3×10⁻²⁰ J. Number of photons = 5940 / 3.3×10⁻²⁰ ≈ 1.8×10²³ = 18×10²², so X = 18."
-  },
-  {
-    id:"B4", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-4",
-    text:"The work function for a metal is 40 eV. To emit photoelectrons of zero velocity from the surface of the metal, the wavelength of incident light should be x nm. Find x.",
-    answer:31,
-    why:"Using λ = hc/W with hc = 1240 eV·nm: λ = 1240/40 = 31 nm."
-  },
-  {
-    id:"B5", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-5",
-    text:"Electrons in a sample of H-atoms make transitions from state n = x to some lower excited state. The emission spectrum contains only lines belonging to a particular series (Brackett, ending at n = 4). If one of the maximum-energy photons has energy 0.6375 eV [= (3/4) × 0.85 eV], find the value of x.",
-    answer:8,
-    why:"Since the sample only shows the series ending at n = 4, the maximum-energy photon corresponds to the x → 4 transition. Setting 13.6×(1/16 − 1/x²) = 0.6375 eV gives 1/x² = 1/64, so x = 8."
-  },
-  {
-    id:"B6", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-6",
-    text:"If the first ionisation potential of a hypothetical hydrogen-like atom is 16 V, then the first excitation potential will be:",
-    answer:12,
-    why:"Ionisation energy E₁ = 16 eV. First excited state energy magnitude = E₁/4 = 4 eV. First excitation energy = 16 − 4 = 12 eV, so the excitation potential is 12 V."
-  },
-  {
-    id:"B7", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-7",
-    text:"In a hydrogen atom, an orbit has a diameter of about 16.92 Å. What is the maximum number of electrons that can be accommodated in that shell?",
-    answer:32,
-    why:"Radius = 8.46 Å. Using rₙ = 0.529 n² Å (Z = 1): n² = 8.46/0.529 ≈ 16, so n = 4. Maximum electrons in the nth shell = 2n² = 2×16 = 32."
-  },
-  {
-    id:"B8", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-8",
-    text:"Electrons in H-atoms jump from some higher level down to the 3rd energy level. If six spectral lines are possible for this transition, find the initial position (n) of the electron.",
-    answer:6,
-    why:"Number of lines from level n down to level 3 = (n−3)(n−3+1)/2 = 6. Solving (n−3)(n−2) = 12 gives n − 3 = 3, so n = 6."
-  },
-  {
-    id:"B9", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-9",
-    text:"A photon having energy equal to the binding energy of the 4th state of the He⁺ atom is used to eject an electron from a metal surface of work function 1.4 eV. If the ejected electron is further accelerated through a potential difference of 4 V, the minimum de Broglie wavelength (in Å) associated with the electron is:",
-    answer:5,
-    why:"Binding energy of the n = 4 state of He⁺ = 13.6 × 4/16 = 3.4 eV. KE of photoelectron = 3.4 − 1.4 = 2.0 eV. After acceleration through 4 V, total KE = 2.0 + 4.0 = 6.0 eV. λ = 12.3/√(KE in eV) Å = 12.3/√6 ≈ 5 Å."
-  },
-  {
-    id:"B10", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-10",
-    text:"An electron in a Li²⁺ ion makes a transition from a higher state n₂ to the lower state n₁ = 6. The emitted photon is used to ionise an electron in an H-atom from its 2nd excited state (n = 3). The ejected electron has a de-Broglie wavelength λ = 12.016 Å. Find the value of n₂.",
-    answer:12,
-    why:"Using the book's identity (12.016)² = 150/(13.6/11) Å² = 150/KE(eV), the photoelectron's kinetic energy works out to 13.6/11 eV. Adding the H-atom's n = 3 binding energy (13.6/9 eV) gives the incoming photon's energy, which equals the Li²⁺ (Z = 3) transition energy from n₂ to 6; solving 13.6×9×(1/36 − 1/n₂²) for this energy gives n₂ = 12."
-  },
-  {
-    id:"B11", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-11",
-    text:"The radial distribution curve of the 2s sublevel consists of x nodes. Find the value of x.",
-    answer:1,
-    why:"Radial nodes = n − l − 1. For 2s: n = 2, l = 0, so radial nodes = 2 − 0 − 1 = 1."
-  },
-  {
-    id:"B12", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-12",
-    text:"The wave function of the 2s orbital of a hydrogen-like atom is ψ₂ₛ ∝ (2 − Zr)e^(−Zr/2), with r in Å. What is the radius (in Å) of the nodal surface for the He⁺ ion?",
-    answer:1,
-    why:"The node occurs where (2 − Zr) = 0, i.e. r = 2/Z. For He⁺, Z = 2, so r = 2/2 = 1 Å."
-  },
-  {
-    id:"B13", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-13",
-    text:"How many of these orbitals — dxy, dx²−y², dyz, dxz, dz², Px, Py, Pz, s — have their maximum orbital angular probability distribution at an angle of 45° to the axial direction? Enter the count.",
-    answer:3,
-    why:"Among the listed orbitals, dxy, dyz and dxz have their maximum probability along directions at 45° to the coordinate axes (in their respective planes), giving a count of 3, as confirmed by the answer key."
-  },
-  {
-    id:"B14", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-14",
-    text:"Total number of electrons having (n + l) = 3 in the Cr (Z = 24) atom in its ground state is:",
-    answer:8,
-    why:"Cr ground state: 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ 4s¹. Orbitals with n+l = 3 are 2p (n=2,l=1) and 3s (n=3,l=0). Electrons = 6 (2p) + 2 (3s) = 8."
-  },
-  {
-    id:"B15", section:"B", type:"numeric", ref:"Ex.2 Part-II Q-15",
-    text:"An ion Mnᵃ⁺ has a spin magnetic moment equal to 4.9 B.M. Find the value of a. (Atomic number of Mn = 25)",
-    answer:3,
-    why:"μ = √(n(n+2)) B.M. = 4.9 → n(n+2) ≈ 24 → n = 4 unpaired electrons. Mn: [Ar]3d⁵4s². A d⁴ configuration with 4 unpaired electrons corresponds to Mn³⁺, so a = 3."
+<!-- ============ TOPIC 2: SPECTRUM ============ -->
+<section class="topic" id="t-spec">
+<h2>4 · Hydrogen Spectrum</h2>
+
+<div class="big explain">
+<b>The big idea.</b> A hydrogen atom can only emit light when its electron drops from a higher level n₂ to a lower level n₁. The photon's energy is the gap between the levels, so only certain wavelengths appear: a <b>line spectrum</b>. The lower level n₁ decides the <b>series</b>. The same wavelengths appear as dark lines in an absorption spectrum.
+</div>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Rydberg formula</div><div class="fml">1/λ = R Z² (1/n₁² − 1/n₂²)</div><div class="fnote">n₂ &gt; n₁ · R = 1.097×10⁷ m⁻¹ (≈ 1.1×10⁷)</div></div>
+ <div class="fcard"><div class="fname">Energy of the photon</div><div class="fml">ΔE = 13.6 Z² (1/n₁² − 1/n₂²) eV</div><div class="fnote">R·hc = 13.6 eV</div></div>
+ <div class="fcard"><div class="fname">Wavelength shortcut</div><div class="fml">λ (Å) = 12400 / ΔE (eV)</div><div class="fnote">hc = 12400 eV·Å</div></div>
+ <div class="fcard"><div class="fname">Series limit (marginal line)</div><div class="fml">λ = n₁² / R</div><div class="fnote">electron falls from n = ∞</div></div>
+ <div class="fcard"><div class="fname">One isolated atom, n → ground</div><div class="fml">max lines = n − 1</div><div class="fnote">one electron takes one path</div></div>
+ <div class="fcard"><div class="fname">Large sample, n₂ → n₁</div><div class="fml">lines = Δn(Δn + 1)/2</div><div class="fnote">Δn = n₂ − n₁ · from n to ground: n(n−1)/2</div></div>
+</div>
+
+<h3>The six series</h3>
+<div class="tw"><table>
+<tr><th>Series</th><th>n₁ (lower)</th><th>n₂</th><th>Region</th><th>Limit λ = n₁²/R</th></tr>
+<tr><td>Lyman</td><td>1</td><td>2, 3, 4 …</td><td>Ultraviolet</td><td>≈ 912 Å</td></tr>
+<tr><td>Balmer</td><td>2</td><td>3, 4, 5 …</td><td>Visible (first 4 lines) + UV</td><td>≈ 3647 Å</td></tr>
+<tr><td>Paschen</td><td>3</td><td>4, 5, 6 …</td><td>Infrared</td><td>≈ 8206 Å</td></tr>
+<tr><td>Brackett</td><td>4</td><td>5, 6, 7 …</td><td>Infrared</td><td>≈ 14588 Å</td></tr>
+<tr><td>Pfund</td><td>5</td><td>6, 7, 8 …</td><td>Infrared</td><td>≈ 22794 Å</td></tr>
+<tr><td>Humphrey</td><td>6</td><td>7, 8, 9 …</td><td>Infrared</td><td>≈ 32823 Å</td></tr>
+</table></div>
+
+<h3>Useful numbers</h3>
+<div class="tw"><table>
+<tr><th>Series</th><th>Energy range of lines</th><th>1st line (n₁+1 → n₁)</th><th>Wave number of 1st line</th></tr>
+<tr><td>Lyman</td><td>10.2 – 13.6 eV</td><td>≈ 1216 Å</td><td>3R/4</td></tr>
+<tr><td>Balmer</td><td>1.89 – 3.4 eV</td><td>≈ 6563 Å (red)</td><td>5R/36</td></tr>
+<tr><td>Paschen</td><td>0.66 – 1.51 eV</td><td>≈ 18756 Å</td><td>7R/144</td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Order of series:</b> <b>L</b>azy <b>B</b>rown <b>P</b>andas <b>B</b>reak <b>P</b>ots <b>H</b>appily gives Lyman, Balmer, Paschen, Brackett, Pfund, Humphrey for n₁ = 1 to 6.</li>
+<li><b>Regions:</b> Lyman = UV, Balmer = visible, all the rest = IR. Higher n₁ means lower energy and longer wavelength.</li>
+<li><b>First line = longest λ</b> (smallest gap). <b>Last line (series limit) = shortest λ</b> (biggest gap).</li>
+<li><b>He⁺ copies H:</b> He⁺ transition (2n₁ → 2n₂) has the same λ as H (n₁ → n₂), because Z² = 4 cancels. Likewise Li²⁺ (3n₁ → 3n₂).</li>
+<li><b>Wave number of Lyman lines:</b> 3R/4, 8R/9, 15R/16 … always R(1 − 1/n²).</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>Only four Balmer lines are visible</b> (3→2, 4→2, 5→2, 6→2, from about 6563 Å down to 4102 Å). The rest of the Balmer series is UV. The printed notes give the first Balmer line as 6536 Å; the correct value is <b>6563 Å</b>.</li>
+<li><b>Single atom vs sample.</b> "A single isolated atom at n = 4" gives at most <b>3</b> lines. "A sample of atoms" gives <b>6</b>.</li>
+<li><b>"nth excited state" is n + 1.</b> From the 5th excited state (n = 6) to the ground state: 15 lines.</li>
+<li><b>The series is decided by the lower level</b> (the level the electron lands on).</li>
+<li><b>H-like ions:</b> do not forget Z². For He⁺ the Lyman series limit is 1/(4R), four times shorter in wavelength than H.</li>
+<li><b>Counting IR lines</b> means counting all transitions that land on n ≥ 3 (Paschen, Brackett, Pfund …).</li>
+<li><b>Bohr's formulas fail for atoms with more than one electron</b>, so this spectrum formula is only for H-like species.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: photon from n = 5 to n = 2 in H</summary>
+<p>ΔE = 2.18×10⁻¹⁸ (1/4 − 1/25) = 4.58×10⁻¹⁹ J. Frequency = ΔE/h = 6.91×10¹⁴ Hz. λ = c/ν = <b>434 nm</b>, so it is visible (Balmer series, violet-blue).</p></details>
+<details class="worked"><summary>Worked example: lines from the 7th excited state to the 2nd state</summary>
+<p>7th excited state is n = 8. Δn = 8 − 2 = 6, so lines = 6 × 7 / 2 = <b>21</b>.</p></details>
+
+<div class="play"><h4>Playground: transition calculator and level diagram</h4>
+<div class="row">
+ <label class="f">Z<input type="number" id="sp-z" min="1" max="10" value="1"></label>
+ <label class="f">from n<input type="number" id="sp-a" min="1" max="8" value="3"></label>
+ <label class="f">to n<input type="number" id="sp-b" min="1" max="8" value="2"></label>
+</div>
+<svg id="lvlsvg" class="lvl" viewBox="0 0 380 290" role="img" aria-label="Energy level diagram"></svg>
+<p class="fnote" style="text-align:center;margin:0">Levels are evenly spaced for readability and are not to scale.</p>
+<div class="out" id="specOut"></div>
+</div>
+
+<div class="deck" data-deck="spec"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="spec"></div>
+<label class="chk done"><input type="checkbox" data-done="spec"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC 3: QUANTUM NUMBERS ============ -->
+<section class="topic" id="t-qn">
+<h2>6 · Quantum Numbers &amp; Electronic Configuration</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Every electron in an atom has an "address" of four numbers. Three come from the Schrödinger equation and describe the <b>orbital</b> (size, shape, orientation). The fourth is the electron's <b>spin</b>. Three rules (Aufbau, Pauli, Hund) decide which addresses get filled.
+</div>
+
+<h3>The four quantum numbers</h3>
+<div class="tw"><table>
+<tr><th>Name</th><th>Symbol</th><th>Controls</th><th>Allowed values</th><th>How many</th></tr>
+<tr><td>Principal</td><td>n</td><td>size and energy (shell)</td><td>1, 2, 3 …</td><td>–</td></tr>
+<tr><td>Azimuthal</td><td>ℓ</td><td>shape (subshell)</td><td>0 to n − 1</td><td>n values</td></tr>
+<tr><td>Magnetic</td><td>m</td><td>orientation</td><td>−ℓ … 0 … +ℓ</td><td>2ℓ + 1</td></tr>
+<tr><td>Spin</td><td>s</td><td>spin direction</td><td>+½ or −½</td><td>2</td></tr>
+</table></div>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Subshell size</div><div class="fml">orbitals = 2ℓ + 1</div><div class="fnote">electrons = 2(2ℓ + 1): s 2 · p 6 · d 10 · f 14</div></div>
+ <div class="fcard"><div class="fname">Shell size</div><div class="fml">n² orbitals · 2n² electrons</div><div class="fnote">no known atom has more than 32 in a shell</div></div>
+ <div class="fcard"><div class="fname">Nodes</div><div class="fml">radial = n − ℓ − 1 · angular = ℓ</div><div class="fnote">total = n − 1</div></div>
+ <div class="fcard"><div class="fname">Orbital angular momentum</div><div class="fml">L = √(ℓ(ℓ+1)) · h/2π</div><div class="fnote">s = 0 · p = √2 · d = √6 · f = √12</div></div>
+ <div class="fcard"><div class="fname">Spin-only magnetic moment</div><div class="fml">μ = √(n(n+2))  BM</div><div class="fnote">n = number of unpaired electrons</div></div>
+ <div class="fcard"><div class="fname">Total spin of an atom</div><div class="fml">± n/2</div><div class="fnote">n = number of unpaired electrons</div></div>
+</div>
+
+<h3>Rules for filling</h3>
+<div class="tw"><table>
+<tr><th>Rule</th><th>Statement</th></tr>
+<tr><td>Aufbau</td><td>Fill the lowest-energy subshell first. Lower <b>(n + ℓ)</b> = lower energy. If (n + ℓ) is equal, the lower <b>n</b> is lower in energy.</td></tr>
+<tr><td>Pauli</td><td>No two electrons have the same four quantum numbers, so an orbital holds at most 2 electrons, with opposite spins.</td></tr>
+<tr><td>Hund</td><td>In a subshell, put one electron in each orbital (parallel spins) before pairing any.</td></tr>
+</table></div>
+<p class="fnote">Filling order: 1s · 2s 2p · 3s 3p · 4s 3d 4p · 5s 4d 5p · 6s 4f 5d 6p · 7s 5f 6d 7p</p>
+
+<h3>Spin-only magnetic moment</h3>
+<div class="tw"><table>
+<tr><th>Unpaired electrons</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th></tr>
+<tr><td>μ (BM)</td><td>1.73</td><td>2.83</td><td>3.87</td><td>4.90</td><td>5.92</td></tr>
+</table></div>
+<div class="tw" style="margin-top:8px"><table>
+<tr><th>Ion</th><th>Cr³⁺</th><th>Mn²⁺</th><th>Fe²⁺</th><th>Fe³⁺</th><th>Co³⁺</th><th>Ni²⁺</th><th>Cu²⁺</th><th>Cu⁺ · Zn²⁺</th></tr>
+<tr><td>Configuration</td><td>3d³</td><td>3d⁵</td><td>3d⁶</td><td>3d⁵</td><td>3d⁶</td><td>3d⁸</td><td>3d⁹</td><td>3d¹⁰</td></tr>
+<tr><td>Unpaired</td><td>3</td><td>5</td><td>4</td><td>5</td><td>4</td><td>2</td><td>1</td><td>0</td></tr>
+</table></div>
+
+<h3>Orbital shapes</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">s</div><div class="fnote">Spherical, non-directional, 1 orbital. Only s orbitals have electron density at the nucleus.</div></div>
+ <div class="fcard"><div class="fname">p</div><div class="fnote">Dumb-bell: two lobes along an axis, 1 nodal plane (pₓ, p_y, p_z).</div></div>
+ <div class="fcard"><div class="fname">d (four of them)</div><div class="fnote">d<sub>xy</sub>, d<sub>yz</sub>, d<sub>xz</sub>: four lobes <b>between</b> the axes (45°). d<sub>x²−y²</sub>: four lobes <b>along</b> the x and y axes.</div></div>
+ <div class="fcard"><div class="fname">d<sub>z²</sub></div><div class="fnote">Two lobes along z plus a <b>ring (donut)</b> in the xy-plane.</div></div>
+</div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Orbital counts:</b> s, p, d, f have 1, 3, 5, 7 orbitals (odd numbers), holding 2, 6, 10, 14 electrons.</li>
+<li><b>Node counting:</b> radial = n − ℓ − 1. So ns has n − 1 radial nodes, np has n − 2, nd has n − 3. Total nodes are always n − 1.</li>
+<li><b>Half-filled and fully filled are happy:</b> p³, p⁶, d⁵, d¹⁰, f⁷, f¹⁴ are extra stable (less shielding, more exchange energy, less repulsion).</li>
+<li><b>Fill by energy, remove by distance:</b> 4s fills before 3d, but when an atom becomes an ion, the 4s electrons leave first.</li>
+<li><b>Spin counting:</b> every unpaired electron is worth ½. Five unpaired electrons give total spin ±5/2 and μ = 5.92 BM.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>Cr = [Ar] 3d⁵ 4s¹ and Cu = [Ar] 3d¹⁰ 4s¹</b>, not 3d⁴ 4s² and 3d⁹ 4s². Within Z ≤ 36 these are the only two exceptions.</li>
+<li><b>Ions of d-block elements lose 4s first.</b> Fe³⁺ = [Ar] 3d⁵ (not 4s² 3d³). Cu⁺ = 3d¹⁰ (diamagnetic). Cr³⁺ = 3d³.</li>
+<li><b>Allowed values:</b> ℓ stops at n − 1 (no 2d, 1p, 3f). m stops at ±ℓ. The set (n=4, ℓ=3, m=4) is impossible; so is (n=1, ℓ=0, m=1).</li>
+<li><b>Tie-break in (n + ℓ):</b> 3d (5) comes before 4p (5) because its n is lower.</li>
+<li><b>μ uses unpaired electrons</b>, not the total electron count. A completely filled configuration has μ = 0.</li>
+<li><b>The five d-orbitals are not alike:</b> d<sub>z²</sub> has two <i>conical</i> nodes (not nodal planes) and a donut, while the other four have two nodal planes each.</li>
+<li><b>Shell capacity:</b> n = 2 holds 8, not 2² = 4. Remember 2n².</li>
+<li><b>Valence electron of Rb (Z = 37)</b> is 5s¹ (n=5, ℓ=0, m=0, s=+½), not 6s.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: quantum numbers of the 5th and 6th electrons of carbon</summary>
+<p>C = 1s² 2s² 2p². Both are in 2p, so n = 2, ℓ = 1. By Hund's rule they go in different p orbitals with parallel spins: 5th electron m = −1 (or +1), 6th electron m = 0 (spins both +½ or both −½).</p></details>
+<details class="worked"><summary>Worked example: spin magnetic moment of Cr (Z = 24)</summary>
+<p>Cr = 3d⁵ 4s¹, so 6 unpaired electrons. μ = √(6 × 8) = √48 ≈ <b>6.93 BM</b>. Total spin = ±3.</p></details>
+
+<div class="play"><h4>Playground 1: quantum number checker</h4>
+<div class="row">
+ <label class="f">n<input type="number" id="q-n" value="4" step="1"></label>
+ <label class="f">ℓ<input type="number" id="q-l" value="3" step="1"></label>
+ <label class="f">m<input type="number" id="q-m" value="4" step="1"></label>
+ <label class="f">s<select id="q-s"><option value="+½">+½</option><option value="−½">−½</option></select></label>
+</div>
+<div class="out" id="qnOut"></div>
+</div>
+
+<div class="play"><h4>Playground 2: electronic configuration builder</h4>
+<p class="fnote">Atomic number 1 to 56. Charge: use + for cations and − for anions. Hund's rule is applied to draw the boxes.</p>
+<div class="row">
+ <label class="f">Atomic number Z<input type="number" id="c-z" min="1" max="56" value="26"></label>
+ <label class="f">Charge<input type="number" id="c-q" min="-3" max="7" value="3"></label>
+</div>
+<div class="out" id="cfgOut"></div>
+</div>
+
+<div class="deck" data-deck="qn"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="qn"></div>
+<label class="chk done"><input type="checkbox" data-done="qn"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC 4: DE BROGLIE & HEISENBERG ============ -->
+<section class="topic" id="t-dbl">
+<h2>5 · de Broglie Waves &amp; Heisenberg's Uncertainty Principle</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Light behaves as a wave <i>and</i> as a particle. de Broglie asked: if so, why can't matter, such as an electron, also behave like a wave? Every moving particle has a wavelength <b>λ = h/mv</b>. Davisson and Germer proved it by seeing electrons <b>diffract</b>. Heisenberg then showed a limit: you can never know both the exact position and the exact momentum of a tiny particle at the same time. That is why Bohr's neat circular orbits had to be replaced by <b>probability regions</b> (orbitals).
+</div>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">de Broglie wavelength</div><div class="fml">λ = h/mv = h/p</div><div class="fnote">h = 6.626×10⁻³⁴ J·s · applies to every moving particle</div></div>
+ <div class="fcard"><div class="fname">In terms of kinetic energy</div><div class="fml">λ = h/√(2m·K.E.)</div><div class="fnote">from p = √(2m·K.E.)</div></div>
+ <div class="fcard"><div class="fname">Charge q accelerated through V</div><div class="fml">λ = h/√(2m·qV)</div><div class="fnote">K.E. = qV</div></div>
+ <div class="fcard"><div class="fname">Electron through V volts</div><div class="fml">λ = 12.3/√V  Å</div><div class="fnote">(= √(150/V) Å) · electrons only</div></div>
+ <div class="fcard"><div class="fname">Link to Bohr</div><div class="fml">2πr = nλ</div><div class="fnote">gives mvr = nh/2π: the nth orbit holds exactly n waves</div></div>
+ <div class="fcard"><div class="fname">Photon</div><div class="fml">λ = hc/E · p = h/λ</div><div class="fnote">photon has zero rest mass but still has momentum</div></div>
+ <div class="fcard"><div class="fname">Uncertainty: position and momentum</div><div class="fml">Δx · Δp ≥ h/4π</div><div class="fnote">or Δx · (mΔv) ≥ h/4π</div></div>
+ <div class="fcard"><div class="fname">Uncertainty: energy and time</div><div class="fml">ΔE · Δt ≥ h/4π</div><div class="fnote">Δx → 0 means Δp → ∞, and the reverse</div></div>
+</div>
+
+<h3>How λ changes (comparison table)</h3>
+<div class="tw"><table>
+<tr><th>Condition</th><th>Result</th></tr>
+<tr><td>Same velocity</td><td>λ ∝ 1/m: lighter particle, longer wavelength</td></tr>
+<tr><td>Same momentum</td><td>Same λ, whatever the particle</td></tr>
+<tr><td>Same kinetic energy</td><td>λ ∝ 1/√m</td></tr>
+<tr><td>Same accelerating voltage V</td><td>λ ∝ 1/√(m·q)</td></tr>
+<tr><td>K.E. made 4 times</td><td>λ halves</td></tr>
+<tr><td>Speed doubled</td><td>λ halves</td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>λ = h/p.</b> Every comparison question is about momentum. Write p first, then compare.</li>
+<li><b>Light particles are the wavy ones.</b> Ball: λ ≈ 10⁻³⁴ m (undetectable). Electron: about 1 Å, similar to atom size, so electron diffraction works.</li>
+<li><b>Uncertainty is a trade-off.</b> Squeeze one (Δx small) and the other (Δp) blows up. Think of an electron located by a very short-wavelength photon: that photon hits it hard and kicks it.</li>
+<li><b>Three "h/4π"s:</b> Δx·Δp, Δx·mΔv and ΔE·Δt all share the same right-hand side.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>12.3/√V Å is for electrons only.</b> For a proton or α, go back to λ = h/√(2mqV).</li>
+<li><b>Heavy objects have no practical uncertainty.</b> A 40 g golf ball with Δv = 0.9 m/s has Δx ≈ 1.5×10⁻³³ m: no meaningful limit. The principle matters only for electron-sized particles.</li>
+<li><b>It is "≥" (minimum).</b> The calculated Δx or Δv is the <i>smallest possible</i> uncertainty.</li>
+<li><b>Same K.E. is not same speed.</b> An electron and a proton with equal K.E. have λ ratio √(mₚ/mₑ) ≈ 43, not 1836.</li>
+<li><b>Velocity-dependent mass.</b> At speeds near c, use m = m₀/√(1 − v²/c²). A photon is never at rest and has m₀ = 0.</li>
+<li><b>Neutrons carry no charge</b> and cannot be accelerated by a voltage, so λ = h/√(2qmV) does not apply to them.</li>
+<li><b>Uncertainty principle vs Bohr's orbits:</b> a definite orbit means exact position and exact momentum together, which is forbidden. So the idea of orbits fails.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: λ of a 0.1 kg ball moving at 10 m/s</summary>
+<p>λ = h/mv = 6.626×10⁻³⁴ / (0.1 × 10) = <b>6.626×10⁻³⁴ m</b>. This is far too small to detect, so we never see ball waves.</p></details>
+<details class="worked"><summary>Worked example: golf ball (40 g, 45 m/s, measured to 2%)</summary>
+<p>Δv = 2% of 45 = 0.9 m/s. Δx = h/(4π m Δv) = 6.626×10⁻³⁴ / (4π × 0.04 × 0.9) = <b>1.46×10⁻³³ m</b>, about 10¹⁸ times smaller than a nucleus.</p></details>
+
+<div class="play"><h4>Playground 1: de Broglie wavelength</h4>
+<div class="row">
+ <label class="f">Particle<select id="db-p" style="width:130px">
+  <option value="e">Electron</option><option value="p">Proton</option><option value="n">Neutron</option><option value="a">α particle</option><option value="g">Golf ball (40 g)</option><option value="c">Custom mass</option></select></label>
+ <label class="f">Given<select id="db-m" style="width:150px"><option value="v">Speed (m/s)</option><option value="ke">K.E. (eV)</option><option value="V">Voltage V (volt)</option></select></label>
+ <label class="f">Value<input type="number" id="db-v" value="100" step="any" style="width:110px"></label>
+ <label class="f" id="db-cw" style="display:none">Mass (kg)<input type="number" id="db-c" value="1e-30" step="any" style="width:110px"></label>
+</div>
+<div class="out" id="dbOut"></div>
+</div>
+<div class="play"><h4>Playground 2: minimum uncertainty in speed</h4>
+<div class="row">
+ <label class="f">Particle<select id="un-p" style="width:130px"><option value="e">Electron</option><option value="p">Proton</option><option value="g">Golf ball (40 g)</option></select></label>
+ <label class="f">Δx (metres)<input type="number" id="un-x" value="1e-10" step="any" style="width:110px"></label>
+</div>
+<div class="out" id="unOut"></div>
+</div>
+
+<div class="deck" data-deck="dbl"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="dbl"></div>
+<label class="chk done"><input type="checkbox" data-done="dbl"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC 5: ORBITALS ============ -->
+<section class="topic" id="t-orb">
+<h2>7 · Quantum Mechanical Model: Orbitals &amp; Nodes</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Schrödinger treated the electron as a wave and wrote an equation whose solutions are wave functions <b>ψ</b>. ψ itself means nothing physical, but <b>ψ² is the probability density</b> of finding the electron at a point. An <b>orbital</b> is the region of space where that probability is highest (about 90–95%). The solution automatically produces the quantum numbers n, ℓ and m.
+</div>
+
+<h3>Orbit versus orbital</h3>
+<div class="tw"><table>
+<tr><th></th><th>Orbit (Bohr)</th><th>Orbital (quantum mechanics)</th></tr>
+<tr><td>Meaning</td><td>Fixed circular path</td><td>3-D region of highest probability</td></tr>
+<tr><td>Motion</td><td>Planar</td><td>Three-dimensional</td></tr>
+<tr><td>Capacity</td><td>2n² electrons</td><td>2 electrons at most</td></tr>
+<tr><td>Shape</td><td>Circular</td><td>s spherical, p dumb-bell, d double dumb-bell, f leaf-like</td></tr>
+<tr><td>Direction</td><td>Non-directional, cannot explain molecular shape</td><td>Directional (except s), explains molecular shape</td></tr>
+<tr><td>Heisenberg</td><td>Against it</td><td>In agreement with it</td></tr>
+</table></div>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Radial nodes</div><div class="fml">n − ℓ − 1</div><div class="fnote">spherical shells where ψ = 0</div></div>
+ <div class="fcard"><div class="fname">Angular nodes</div><div class="fml">ℓ</div><div class="fnote">nodal planes or cones through the nucleus</div></div>
+ <div class="fcard"><div class="fname">Total nodes</div><div class="fml">n − 1</div><div class="fnote">radial + angular</div></div>
+ <div class="fcard"><div class="fname">Peaks in the 4πr²R² graph</div><div class="fml">n − ℓ</div><div class="fnote">one more than the number of radial nodes</div></div>
+ <div class="fcard"><div class="fname">Radial wave function R(r)</div><div class="fml">depends on n and ℓ</div><div class="fnote">decides the <b>size</b> of the orbital</div></div>
+ <div class="fcard"><div class="fname">Angular part Y(θ, φ)</div><div class="fml">depends on ℓ and m</div><div class="fnote">decides the <b>shape</b> and orientation</div></div>
+</div>
+
+<h3>Node table</h3>
+<div class="tw"><table>
+<tr><th>Orbital</th><th>1s</th><th>2s</th><th>2p</th><th>3s</th><th>3p</th><th>3d</th><th>4s</th><th>4p</th><th>4d</th><th>4f</th></tr>
+<tr><td>Radial</td><td>0</td><td>1</td><td>0</td><td>2</td><td>1</td><td>0</td><td>3</td><td>2</td><td>1</td><td>0</td></tr>
+<tr><td>Angular</td><td>0</td><td>0</td><td>1</td><td>0</td><td>1</td><td>2</td><td>0</td><td>1</td><td>2</td><td>3</td></tr>
+<tr><td>Total</td><td>0</td><td>1</td><td>1</td><td>2</td><td>2</td><td>2</td><td>3</td><td>3</td><td>3</td><td>3</td></tr>
+</table></div>
+
+<h3>The three radial graphs</h3>
+<div class="tw"><table>
+<tr><th>Graph</th><th>What it tells you</th></tr>
+<tr><td>R(r) vs r</td><td>Wave function itself; goes to 0 as r → ∞; changes sign at each radial node (2s has one)</td></tr>
+<tr><td>R² vs r</td><td>Probability density at a point. <b>Only s orbitals have maximum density at the nucleus</b>; all others are zero there</td></tr>
+<tr><td>4πr²R² vs r</td><td>Probability of finding the electron in a thin shell at distance r. Zero at the nucleus for every orbital. 1s peaks at the Bohr radius, 0.529 Å</td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Nodes recipe:</b> total = n − 1; angular = ℓ; radial is what is left. For s orbitals all nodes are radial, so ns has n − 1 of them and np has n − 2.</li>
+<li><b>More nodes = more energy</b> within a shell (that is why s &lt; p &lt; d &lt; f in a many-electron atom).</li>
+<li><b>Shape ladder:</b> s sphere, p dumb-bell (2 lobes), d double dumb-bell (4 lobes), f leaf-like (8 lobes).</li>
+<li><b>ψ² can't be negative.</b> That is why the square is used as the probability, while ψ can be + or −.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>Radial nodes and radial peaks are not the same number.</b> 2s has 1 radial node but 2 peaks in 4πr²R².</li>
+<li><b>Density at the nucleus vs radial probability.</b> The ψ² (density) of 1s is maximum at the nucleus, but 4πr²R² (probability in a shell) is zero there because the shell volume is zero.</li>
+<li><b>In hydrogen, energy depends on n only</b> (2s and 2p have the same energy). In many-electron atoms it depends on (n + ℓ), because s electrons penetrate closer to the nucleus.</li>
+<li><b>dz² is the odd one out among the d orbitals:</b> its nodes are conical surfaces, not planes, and it has a donut ring in the xy-plane.</li>
+<li><b>Orbital ≠ orbit.</b> An orbital holds at most 2 electrons, an orbit up to 2n².</li>
+<li><b>ψ has no physical meaning</b>, only ψ² does. A positive or negative sign on a lobe is not a charge.</li>
+<li><b>ℓ must be less than n.</b> 1p, 2d and 3f do not exist.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: nodes in a 3p orbital</summary>
+<p>Radial = n − ℓ − 1 = 3 − 1 − 1 = <b>1</b>. Angular = ℓ = <b>1</b>. Total = n − 1 = <b>2</b> (one radial, one angular).</p></details>
+<details class="worked"><summary>Worked example: which orbital has 2 radial nodes and 1 angular node?</summary>
+<p>ℓ = 1 (p). Radial = n − 2 = 2, so n = 4. It is a <b>4p</b> orbital.</p></details>
+
+<div class="play"><h4>Playground 1: node explorer</h4>
+<div class="row">
+ <label class="f">n<input type="number" id="nd-n" min="1" max="7" value="3"></label>
+ <label class="f">ℓ<select id="nd-l" style="width:130px"><option value="0">0 (s)</option><option value="1" selected>1 (p)</option><option value="2">2 (d)</option><option value="3">3 (f)</option></select></label>
+</div>
+<div class="out" id="ndOut"></div>
+</div>
+<div class="play"><h4>Playground 2: which subshell has lower energy? (many-electron atom)</h4>
+<div class="row">
+ <label class="f">n of A<input type="number" id="en-n1" min="1" max="7" value="4"></label>
+ <label class="f">ℓ of A<select id="en-l1" style="width:110px"><option value="0" selected>s</option><option value="1">p</option><option value="2">d</option><option value="3">f</option></select></label>
+ <label class="f">n of B<input type="number" id="en-n2" min="1" max="7" value="3"></label>
+ <label class="f">ℓ of B<select id="en-l2" style="width:110px"><option value="0">s</option><option value="1">p</option><option value="2" selected>d</option><option value="3">f</option></select></label>
+</div>
+<div class="out" id="enOut"></div>
+</div>
+<div class="play"><h4>Playground 3: orbital shapes</h4>
+<div class="row">
+ <label class="f">Orbital<select id="sh-s" style="width:200px">
+  <option value="s">s (spherical)</option><option value="2s">2s (with a node)</option><option value="p">p (dumb-bell)</option>
+  <option value="dxy">d: dxy (lobes between the axes)</option><option value="dx2">d: dx²−y² (lobes on the axes)</option><option value="dz2">d: dz² (lobes + donut)</option></select></label>
+</div>
+<svg id="shsvg" class="lvl" viewBox="0 0 240 200" role="img" aria-label="Orbital shape sketch"></svg>
+<div class="out" id="shOut"></div>
+</div>
+
+<div class="deck" data-deck="orb"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="orb"></div>
+<label class="chk done"><input type="checkbox" data-done="orb"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC 6: NUCLEAR ============ -->
+<section class="topic" id="t-nuc">
+<h2>8 · Nuclear Chemistry</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Some nuclei are unstable and fall apart on their own, sending out α, β or γ rays. This is <b>radioactivity</b>, a property of the <b>nucleus</b> only. Heat, pressure, physical state or chemical combination make no difference. Which way a nucleus decays depends on its <b>neutron-to-proton (n/p) ratio</b> and its size.
+</div>
+
+<h3>The three radiations</h3>
+<div class="tw"><table>
+<tr><th></th><th>α</th><th>β⁻</th><th>γ</th></tr>
+<tr><td>What it is</td><td>₂He⁴ nucleus (He²⁺)</td><td>₋₁e⁰, a fast electron from the nucleus</td><td>High-frequency EM wave</td></tr>
+<tr><td>Charge</td><td>+2</td><td>−1</td><td>0</td></tr>
+<tr><td>Speed</td><td>lowest</td><td>medium</td><td>highest (speed of light)</td></tr>
+<tr><td>Penetrating power</td><td>lowest</td><td>medium</td><td>highest</td></tr>
+<tr><td>Ionising power</td><td>highest</td><td>medium</td><td>lowest</td></tr>
+</table></div>
+
+<h3>Which decay, and what happens</h3>
+<div class="tw"><table>
+<tr><th>Emission</th><th>When</th><th>Nuclear change</th><th>Z</th><th>A</th><th>n/p</th></tr>
+<tr><td>α</td><td>Z &gt; 83 (heavy)</td><td>ᴬ_ZX → ᴬ⁻⁴_(Z−2)X′ + ₂He⁴</td><td>−2</td><td>−4</td><td>rises</td></tr>
+<tr><td>β⁻</td><td>n/p too high</td><td>n → p + ₋₁e⁰</td><td>+1</td><td>0</td><td>falls</td></tr>
+<tr><td>γ</td><td>nucleus in excited state</td><td>energy released only</td><td>0</td><td>0</td><td>no change</td></tr>
+<tr><td>β⁺ (positron)</td><td>n/p too low</td><td>p → n + ₊₁e⁰</td><td>−1</td><td>0</td><td>rises</td></tr>
+<tr><td>Electron capture (K-capture)</td><td>n/p too low</td><td>p + ₋₁e⁰(K shell) → n</td><td>−1</td><td>0</td><td>rises</td></tr>
+</table></div>
+<p class="fnote">Examples: ₉₂U²³⁸ → ₉₀Th²³⁴ + α · ₆C¹⁴ → ₇N¹⁴ + β⁻ · ₁₁Na²² → ₁₀Ne²² + β⁺ · ₈₀Hg¹⁹⁷ + ₋₁e⁰ → ₇₉Au¹⁹⁷ (electron capture)</p>
+
+<h3>Stability of nuclei</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Belt of stability</div><div class="fnote">Up to Z = 20, stable nuclei have n/p ≈ 1. For Z &gt; 20 the n/p ratio rises with Z (extra neutrons reduce proton–proton repulsion). Zr-90: 1.25 · Yb-168: 1.40 · Hg-200: 1.5</div></div>
+ <div class="fcard"><div class="fname">Largest stable n/p</div><div class="fml">₈₃Bi²⁰⁹ : 1.52</div><div class="fnote">the heaviest stable nucleus; every nucleus beyond it is radioactive</div></div>
+ <div class="fcard"><div class="fname">Even–odd rule (stable nuclei)</div><div class="fnote">even n, even p: <b>155</b> (maximum) · even n, odd p: 55 · odd n, even p: 50 · odd n, odd p: <b>5</b> (minimum)</div></div>
+ <div class="fcard"><div class="fname">Magic numbers</div><div class="fml">2, 8, 20, 28, 50 …</div><div class="fnote">nuclei with a magic number of protons or neutrons are extra stable, e.g. ₂He⁴ and ₈O¹⁶</div></div>
+</div>
+
+<h3>Group displacement law (Soddy and Fajans)</h3>
+<div class="tw"><table>
+<tr><th>Emission</th><th>New element sits…</th><th>Relationship formed</th></tr>
+<tr><td>1 α</td><td><b>two</b> places to the left (Z − 2)</td><td>isodiaphers (same n − p)</td></tr>
+<tr><td>1 β⁻</td><td><b>one</b> place to the right (Z + 1)</td><td>isobars (same A)</td></tr>
+<tr><td>1 α and 2 β⁻</td><td>same position</td><td>isotopes (same Z)</td></tr>
+</table></div>
+
+<h3>Families of nuclides and species</h3>
+<div class="tw"><table>
+<tr><th>Name</th><th>Same…</th><th>Example</th></tr>
+<tr><td>Isotopes</td><td>protons (Z)</td><td>₆C¹² and ₆C¹⁴</td></tr>
+<tr><td>Isobars</td><td>mass number (A)</td><td>₆C¹⁴ and ₇N¹⁴</td></tr>
+<tr><td>Isotones</td><td>neutrons (A − Z)</td><td>₂He⁴ and ₁H³</td></tr>
+<tr><td>Isodiaphers</td><td>n − p</td><td>₉F¹⁹ and ₁₉K³⁹ (n − p = 1 for both)</td></tr>
+<tr><td>Isosters</td><td>number of atoms and number of electrons</td><td>N₂ and CO · N₂O and CO₂</td></tr>
+</table></div>
+
+<h3>Artificial transmutation, fission and fusion</h3>
+<div class="tw"><table>
+<tr><th>Type (striking, emitted)</th><th>Reaction</th></tr>
+<tr><td>(α, p)</td><td>₇N¹⁴ + ₂He⁴ → ₈O¹⁷ + ₁H¹</td></tr>
+<tr><td>(n, γ)</td><td>₁₁Na²³ + ₀n¹ → ₁₁Na²⁴ + γ</td></tr>
+<tr><td>(D, p)</td><td>₁₃Al²⁷ + ₁H² → ₁₃Al²⁸ + ₁H¹</td></tr>
+<tr><td>(p, α)</td><td>₃Li⁷ + ₁H¹ → ₂He⁴ + ₂He⁴</td></tr>
+<tr><td>Fission</td><td>₉₂U²³⁵ + ₀n¹ → ₉₂U²³⁶* → smaller nuclei + neutrons. Heavy nucleus splits. <b>Atom bomb</b></td></tr>
+<tr><td>Fusion</td><td>₁H² + ₁H³ → ₂He⁴ + ₀n¹. Light nuclei join; needs <b>very high temperature</b>. <b>Hydrogen bomb</b></td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Count α first, then fix with β.</b> α count = (A − A′)/4. Then β⁻ count = 2 × (α count) − (Z − Z′).</li>
+<li><b>High n/p → β⁻</b> (neutron turns into proton). <b>Low n/p → β⁺ or EC</b> (proton turns into neutron). <b>Heavy → α.</b></li>
+<li><b>Compare with the stable isotope.</b> If your isotope is heavier than the stable one of the same element, it has too many neutrons, so β⁻. If lighter, β⁺ or EC. (Na-24 is heavy, Na-22 light, Na-23 stable.)</li>
+<li><b>Both β⁺ and EC give the same product</b>, with Z lowered by 1 and A unchanged.</li>
+<li><b>Arrow directions:</b> α goes left 2, β⁻ goes right 1. One α plus one β⁻ gives net one place left.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>β⁻ is not an orbital electron.</b> It is created inside the nucleus when n → p + e⁻.</li>
+<li><b>γ emission changes neither Z nor A.</b> It only releases extra nuclear energy (e.g. ₄₃Tc⁹⁹ metastable → ₄₃Tc⁹⁹).</li>
+<li><b>Radioactivity is independent of chemical state.</b> ¹⁴C is radioactive in C, CO₂ or any compound.</li>
+<li><b>Fission splits a heavy nucleus; fusion joins light ones.</b> Both release energy because some mass turns into energy.</li>
+<li><b>Odd–odd nuclei are rare</b> (only 5 stable ones, such as ₁H², ₃Li⁶, ₅B¹⁰, ₇N¹⁴), not the common type.</li>
+<li><b>Be careful with β⁺ questions.</b> When a question says "a charged particle is emitted" in a textbook problem, check whether positrons are allowed; the PDF's problem assumes only α and β⁻.</li>
+<li><b>Two typos in the PDF.</b> It gives n − p = 10 for ₉F¹⁹ and ₁₉K³⁹, but it is 1. It also prints "₁₁N²³" where it means ₁₁Na²³.</li>
+<li><b>Fission is defined</b> in the PDF as splitting into "large nuclei"; it means medium-sized, smaller ones.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: how does ₁₁Na²⁴ decay? (Na-23 is the stable isotope)</summary>
+<p>n/p = 13/11, which is above 1 and above Na-23's 12/11. Too many neutrons, so <b>β⁻ emission</b>: ₁₁Na²⁴ → ₁₂Mg²⁴ + ₋₁e⁰.</p></details>
+<details class="worked"><summary>Worked example: α and β particles in ₉₂U²³⁸ → ₈₂Pb²⁰⁶</summary>
+<p>α count = (238 − 206)/4 = <b>8</b>. β⁻ count = 2 × 8 − (92 − 82) = 16 − 10 = <b>6</b>.</p></details>
+<details class="worked"><summary>Worked example: decay of ₇N¹³</summary>
+<p>Stable nitrogen is N-14, so N-13 has fewer neutrons. n/p = 6/7, which is low. It is a <b>positron emitter</b>: ₇N¹³ → ₆C¹³ + ₊₁e⁰.</p></details>
+
+<div class="play"><h4>Playground 1: decay predictor</h4>
+<p class="fnote">Enter the nucleus and the mass number of the <b>stable</b> isotope of that element (for Na, 23).</p>
+<div class="row">
+ <label class="f">Z<input type="number" id="dc-z" min="1" max="118" value="11"></label>
+ <label class="f">A<input type="number" id="dc-a" min="1" max="300" value="24"></label>
+ <label class="f">A of stable isotope<input type="number" id="dc-s" min="1" max="300" value="23" style="width:130px"></label>
+</div>
+<div class="out" id="dcOut"></div>
+</div>
+<div class="play"><h4>Playground 2: count α and β⁻ between two nuclei</h4>
+<div class="row">
+ <label class="f">Parent A<input type="number" id="ab-a1" value="238"></label>
+ <label class="f">Parent Z<input type="number" id="ab-z1" value="92"></label>
+ <label class="f">Daughter A<input type="number" id="ab-a2" value="206"></label>
+ <label class="f">Daughter Z<input type="number" id="ab-z2" value="82"></label>
+</div>
+<div class="out" id="abOut"></div>
+</div>
+
+<div class="deck" data-deck="nuc"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="nuc"></div>
+<label class="chk done"><input type="checkbox" data-done="nuc"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC: PARTICLES & MODELS ============ -->
+<section class="topic" id="t-part">
+<h2>1 · Sub-atomic Particles &amp; Early Atomic Models</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Dalton said the atom is indivisible. Discharge-tube experiments disproved that: atoms are built from <b>electrons, protons and neutrons</b>. Thomson pictured a "plum pudding". Rutherford's gold-foil experiment replaced it with a tiny, dense, positive <b>nucleus</b> surrounded by mostly empty space. Rutherford's model then failed (the electron should spiral into the nucleus), which led to Bohr.
+</div>
+
+<h3>The three particles</h3>
+<div class="tw"><table>
+<tr><th>Particle</th><th>Charge</th><th>Mass</th><th>Discovered by</th></tr>
+<tr><td>Electron (₋₁e⁰)</td><td>−1.602×10⁻¹⁹ C</td><td>9.109×10⁻³¹ kg = 0.00054 u</td><td>J.J. Thomson (cathode rays)</td></tr>
+<tr><td>Proton (₁H¹)</td><td>+1.602×10⁻¹⁹ C</td><td>1.673×10⁻²⁷ kg = 1.00727 u</td><td>Goldstein (anode rays), named by Rutherford</td></tr>
+<tr><td>Neutron (₀n¹)</td><td>0</td><td>1.675×10⁻²⁷ kg = 1.00867 u</td><td>Chadwick, 1932</td></tr>
+</table></div>
+<p class="fnote">1 amu (u) = 1.66×10⁻²⁷ kg. The neutron is slightly heavier than the proton.</p>
+
+<h3>Discharge-tube experiments</h3>
+<div class="tw"><table>
+<tr><th></th><th>Cathode rays</th><th>Anode (canal) rays</th></tr>
+<tr><td>Set-up</td><td>Gas at very low pressure, about 10,000 V across the electrodes</td><td>Same tube but with a <b>perforated cathode</b> (Goldstein, 1886)</td></tr>
+<tr><td>Travel</td><td>Cathode → anode, in straight lines</td><td>Pass through the holes in the cathode</td></tr>
+<tr><td>Charge</td><td><b>Negative</b> (electrons)</td><td><b>Positive</b> (deflect toward the negative plate)</td></tr>
+<tr><td>e/m</td><td><b>1.76×10¹¹ C/kg, the same for every gas</b></td><td><b>Depends on the gas</b>; largest for hydrogen</td></tr>
+<tr><td>Other properties</td><td>Cast shadows, turn a paddle wheel, glow on ZnS, penetrate thin Al foil, darken photographic plates, invisible</td><td>Cast shadows and turn a paddle wheel (so they are material particles)</td></tr>
+<tr><td>Meaning</td><td>Electrons are in every atom</td><td>Lightest positive particle, from H, is the <b>proton</b></td></tr>
+</table></div>
+<p class="fnote">Neutron: ₄Be⁹ + ₂He⁴ → ₆C¹² + ₀n¹ (Chadwick bombarded beryllium with α particles).</p>
+
+<h3>Models of the atom</h3>
+<div class="tw"><table>
+<tr><th>Model</th><th>Idea</th><th>Problem</th></tr>
+<tr><td>Thomson</td><td>Uniform sphere of positive charge with electrons embedded; mass spread evenly</td><td>Could not explain the gold-foil result</td></tr>
+<tr><td>Rutherford</td><td>Small, dense, positive nucleus holding almost all the mass; electrons orbit in empty space; no. of electrons = no. of protons</td><td>Accelerating electron should radiate and spiral in; cannot explain the H line spectrum; says nothing on electron arrangement or energies</td></tr>
+</table></div>
+
+<h3>Rutherford's α-scattering results</h3>
+<div class="tw"><table>
+<tr><th>Observation</th><th>Conclusion</th></tr>
+<tr><td>Most α particles passed straight through</td><td>Atom is mostly empty space</td></tr>
+<tr><td>A few were deflected through small angles</td><td>Positive charge is concentrated</td></tr>
+<tr><td>About 1 in 20,000 bounced back, nearly 180°</td><td>The nucleus is tiny, dense and positively charged</td></tr>
+</table></div>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Charge is quantised</div><div class="fml">Q = n e</div><div class="fnote">e = 1.602×10⁻¹⁹ C</div></div>
+ <div class="fcard"><div class="fname">Coulomb force · potential energy</div><div class="fml">F = Kq₁q₂/r² · U = Kq₁q₂/r</div><div class="fnote">K = 1/4πε₀ = 9×10⁹ N·m²/C²</div></div>
+ <div class="fcard"><div class="fname">Closest approach of an α particle</div><div class="fml">R = 4KZe²/(mv²) = 2KZe²/K.E.</div><div class="fnote">all K.E. becomes potential energy K(Ze)(2e)/R</div></div>
+ <div class="fcard"><div class="fname">Nuclear radius</div><div class="fml">R = R₀ A^(1/3)</div><div class="fnote">R₀ ≈ 1.1–1.44×10⁻¹³ cm (1.1–1.44 fm)</div></div>
+ <div class="fcard"><div class="fname">Sizes</div><div class="fnote">Nucleus ≈ 10⁻¹² to 10⁻¹³ cm · Atom ≈ 10⁻⁸ cm · the atom is about <b>10⁵ times</b> wider than its nucleus</div></div>
+ <div class="fcard"><div class="fname">Counting particles</div><div class="fml">A = p + n · Z = p = e (atom)</div><div class="fnote">Ions: electrons = Z − charge</div></div>
+</div>
+
+<h3>Same-something families</h3>
+<div class="tw"><table>
+<tr><th>Name</th><th>Same</th><th>Example</th></tr>
+<tr><td>Isotopes</td><td>Z (protons)</td><td>Protium ₁H¹, deuterium ₁H², tritium ₁H³</td></tr>
+<tr><td>Isobars</td><td>A (mass number)</td><td>₁₈Ar⁴⁰, ₁₉K⁴⁰, ₂₀Ca⁴⁰</td></tr>
+<tr><td>Isotones</td><td>Neutrons</td><td>₆C¹⁴, ₇N¹⁵, ₈O¹⁶ (8 neutrons each)</td></tr>
+<tr><td>Isoelectronic</td><td>Electrons</td><td>O²⁻, F⁻, Ne, Na⁺, Mg²⁺, Al³⁺ (10 each)</td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Who found what:</b> electron → Thomson (cathode), proton → Goldstein (anode), neutron → <b>C</b>hadwick (the <b>C</b>harge-less one).</li>
+<li><b>Cathode vs anode e/m:</b> cathode rays are always electrons, so e/m never changes. Anode rays are whatever positive ion the gas gives, so e/m changes with the gas.</li>
+<li><b>isoTOPE, isoBAR, isoTONE:</b> topes share the top number Z (protons), bars share the bulk (mass A), tones share the neutrons (the "n" in tone).</li>
+<li><b>Nuclear density is the same for all nuclei</b> because volume ∝ R³ ∝ A, and mass ∝ A.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>Hydrogen (protium) has no neutron.</b> Every other atom does.</li>
+<li><b>Ions change only the electrons.</b> The nucleus is untouched: Ca²⁺ has 20 protons and 18 electrons; Br⁻ has 35 protons and 36 electrons.</li>
+<li><b>Mass number is always a whole number; atomic mass usually is not.</b></li>
+<li><b>Proton and electron charges are equal and opposite.</b> The proton is not "more charged".</li>
+<li><b>Closest approach depends on the α energy, not just speed:</b> R ∝ 1/K.E. Double the energy and R halves; a higher-Z nucleus gives a larger R.</li>
+<li><b>Isotopes share chemical properties</b> but differ in mass-dependent physical properties.</li>
+<li><b>Isobars are different elements</b> (different Z), so they have different chemical properties.</li>
+<li><b>Anode rays do not come out of the anode metal.</b> They form by ionising gas and stream through the cathode's holes.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: protons, neutrons and electrons in the bromide ion (36 electrons, 45 neutrons)</summary>
+<p>Br⁻ has gained 1 electron, so the Br atom has 36 − 1 = 35 electrons = 35 protons. Z = 35, A = 35 + 45 = <b>80</b>.</p></details>
+<details class="worked"><summary>Worked example: nuclear radius ratio for A = 64 and A = 8</summary>
+<p>R ∝ A^(1/3). R₆₄ : R₈ = 4 : 2 = <b>2 : 1</b>.</p></details>
+
+<div class="play"><h4>Playground 1: count the particles</h4>
+<div class="row">
+ <label class="f">Z<input type="number" id="pt-z" min="1" max="118" value="20"></label>
+ <label class="f">A<input type="number" id="pt-a" min="1" max="300" value="40"></label>
+ <label class="f">Charge<input type="number" id="pt-q" min="-4" max="8" value="2"></label>
+ <label class="f">R₀ (fm)<input type="number" id="pt-r" step="0.01" value="1.2" style="width:80px"></label>
+</div>
+<div class="out" id="ptOut"></div>
+</div>
+<div class="play"><h4>Playground 2: closest approach of an α particle</h4>
+<div class="row">
+ <label class="f">α energy (MeV)<input type="number" id="ca-e" step="any" value="5" style="width:100px"></label>
+ <label class="f">Target Z<input type="number" id="ca-z" min="1" max="118" value="79"></label>
+</div>
+<div class="out" id="caOut"></div>
+</div>
+<div class="play"><h4>Playground 3: how are two species related?</h4>
+<div class="row">
+ <label class="f">Z of A<input type="number" id="rl-z1" value="6"></label>
+ <label class="f">A of A<input type="number" id="rl-a1" value="14"></label>
+ <label class="f">Charge of A<input type="number" id="rl-q1" value="0"></label>
+ <label class="f">Z of B<input type="number" id="rl-z2" value="7"></label>
+ <label class="f">A of B<input type="number" id="rl-a2" value="15"></label>
+ <label class="f">Charge of B<input type="number" id="rl-q2" value="0"></label>
+</div>
+<div class="out" id="rlOut"></div>
+</div>
+
+<div class="deck" data-deck="part"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="part"></div>
+<label class="chk done"><input type="checkbox" data-done="part"> I have revised this topic</label>
+</section>
+
+<!-- ============ TOPIC: LIGHT & PHOTOELECTRIC ============ -->
+<section class="topic" id="t-light">
+<h2>2 · Light &amp; the Photoelectric Effect</h2>
+
+<div class="big explain">
+<b>The big idea.</b> Interference and diffraction show light is a <b>wave</b>. But black-body radiation, the photoelectric effect and the hydrogen line spectrum could not be explained by waves. Planck and Einstein fixed this: light comes in packets of energy called <b>photons</b>, each with <b>E = hν</b>. In the photoelectric effect, <b>one photon knocks out one electron</b>. Light itself behaves as <b>both</b> wave and particle.
+</div>
+
+<h3>Wave basics</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Speed relation</div><div class="fml">c = ν λ</div><div class="fnote">c = 3×10⁸ m/s in vacuum for <b>all</b> EM waves, any λ</div></div>
+ <div class="fcard"><div class="fname">Wave number</div><div class="fml">ν̄ = 1/λ</div><div class="fnote">number of waves per unit length (cm⁻¹ or m⁻¹)</div></div>
+ <div class="fcard"><div class="fname">Units</div><div class="fnote">1 Å = 10⁻¹⁰ m · 1 nm = 10⁻⁹ m · 1 pm = 10⁻¹² m · 1 Hz = 1 s⁻¹</div></div>
+ <div class="fcard"><div class="fname">EM wave</div><div class="fnote">oscillating E and B fields, perpendicular to each other; needs no medium</div></div>
+</div>
+
+<h3>Electromagnetic spectrum</h3>
+<div class="tw"><table>
+<tr><th>Region</th><th>Approx. wavelength</th></tr>
+<tr><td>Cosmic rays / γ-rays</td><td>shortest, below about 0.01 nm</td></tr>
+<tr><td>X-rays</td><td>0.01 to 10 nm</td></tr>
+<tr><td>Ultraviolet</td><td>10 to 400 nm</td></tr>
+<tr><td>Visible</td><td>400 nm (violet) to 750 nm (red)</td></tr>
+<tr><td>Infrared</td><td>750 nm to about 1 mm</td></tr>
+<tr><td>Microwave</td><td>about 1 mm to 1 m</td></tr>
+<tr><td>Radio waves</td><td>longest</td></tr>
+</table></div>
+<p class="fnote">Increasing wavelength: cosmic &lt; γ &lt; X-ray &lt; UV &lt; visible &lt; IR &lt; microwave &lt; radio. Energy and frequency run the opposite way.</p>
+
+<h3>Formulas to know cold</h3>
+<div class="fgrid">
+ <div class="fcard"><div class="fname">Photon energy</div><div class="fml">E = hν = hc/λ</div><div class="fnote">h = 6.626×10⁻³⁴ J·s</div></div>
+ <div class="fcard"><div class="fname">Handy constant</div><div class="fml">E(eV) = 12400 / λ(Å)</div><div class="fnote">hc = 12400 eV·Å = 1240 eV·nm</div></div>
+ <div class="fcard"><div class="fname">Planck's quanta</div><div class="fml">E_total = n hν</div><div class="fnote">energy is only released or absorbed in whole multiples</div></div>
+ <div class="fcard"><div class="fname">Electron-volt</div><div class="fml">1 eV = 1.6×10⁻¹⁹ J</div><div class="fnote">energy gained by a charge q through V volts: qV</div></div>
+ <div class="fcard"><div class="fname">Photoelectric equation (Einstein)</div><div class="fml">hν = hν₀ + ½mv²</div><div class="fnote">hν = W₀ + K.E.</div></div>
+ <div class="fcard"><div class="fname">Work function</div><div class="fml">W₀ = hν₀ = hc/λ₀</div><div class="fnote">minimum energy to eject an electron from the metal</div></div>
+ <div class="fcard"><div class="fname">Stopping potential (JEE extension)</div><div class="fml">eV₀ = K.E.max = hν − W₀</div><div class="fnote">voltage that just stops the fastest electrons</div></div>
+ <div class="fcard"><div class="fname">One photon, one molecule (Einstein law)</div><div class="fml">N_A·hc/λ = energy per mole</div><div class="fnote">gives the longest λ that can trigger a reaction</div></div>
+</div>
+
+<h3>What the photoelectric experiment shows</h3>
+<div class="tw"><table>
+<tr><th>Observation</th><th>Wave theory expected</th><th>Photon (particle) explanation</th></tr>
+<tr><td>Emission is instant, no time lag</td><td>Time to build up energy</td><td>One photon gives its energy to one electron at once</td></tr>
+<tr><td>Number of electrons ∝ intensity</td><td>(agrees)</td><td>More photons means more electrons ejected</td></tr>
+<tr><td>Threshold frequency ν₀ exists</td><td>Any frequency should work if bright enough</td><td>Each photon must have at least W₀</td></tr>
+<tr><td>K.E. rises with ν, not with intensity</td><td>Brighter light should give faster electrons</td><td>K.E. = hν − W₀; intensity changes only the photon count</td></tr>
+</table></div>
+
+<div class="hook"><b class="t">Memory hooks</b>
+<ul>
+<li><b>Frequency decides energy; intensity decides number.</b> This one line answers most photoelectric questions.</li>
+<li><b>Ticket analogy.</b> W₀ is the ticket price. A photon pays once and any change is the electron's K.E. Many cheap photons cannot add up to a ticket.</li>
+<li><b>K.E. vs ν graph:</b> a straight line with <b>slope h</b> and x-intercept ν₀. All metals give parallel lines; only the intercept changes.</li>
+<li><b>Spectrum order (increasing energy):</b> <b>R</b>abbits <b>M</b>ate <b>I</b>n <b>V</b>ery <b>U</b>nusual e<b>X</b>pensive <b>G</b>ardens = Radio, Microwave, Infrared, Visible, Ultraviolet, X-ray, Gamma.</li>
+<li><b>Quick conversions:</b> λ in nm and E in eV: E = 1240/λ. Green light (500 nm) is about 2.5 eV.</li>
+</ul></div>
+
+<div class="trap"><b class="t">Traps and exceptions</b>
+<ul>
+<li><b>Below threshold frequency there is no emission, however intense the light.</b> Even a billion photons of too-low energy do nothing.</li>
+<li><b>Doubling the intensity doubles the electron count but leaves K.E. unchanged.</b></li>
+<li><b>Doubling the frequency does not double the K.E.</b> K.E. = hν − W₀, so it more than doubles. The photon energy is what doubles.</li>
+<li><b>Threshold wavelength λ₀ is the <i>longest</i> wavelength that works.</b> Emission needs λ ≤ λ₀.</li>
+<li><b>The K.E. in the equation is the maximum.</b> Electrons that lose energy inside the metal come out slower.</li>
+<li><b>Units.</b> With h in J·s, use λ in metres and get joules. For eV answers, use 12400 eV·Å (λ in Å).</li>
+<li><b>Visible light spans only 400–750 nm</b> (about 1.65–3.1 eV). UV photons are more energetic than visible ones.</li>
+<li><b>All EM waves travel at c in vacuum</b>, whatever their wavelength.</li>
+<li><b>Photons have zero rest mass but carry momentum p = h/λ.</b></li>
+<li><b>Planck's theory also explains other failures of classical physics</b>: black-body radiation (Rayleigh–Jeans predicted infinite intensity), heat capacity of solids at low temperature, and the line spectrum of hydrogen.</li>
+</ul></div>
+
+<details class="worked"><summary>Worked example: K.E. when ν₀ = 6×10¹⁴ s⁻¹ and ν = 1.1×10¹⁵ s⁻¹</summary>
+<p>K.E. = h(ν − ν₀) = 6.626×10⁻³⁴ × 5×10¹⁴ = <b>3.313×10⁻¹⁹ J</b> (about 2.07 eV).</p></details>
+<details class="worked"><summary>Worked example: longest wavelength to decompose AgCl (248 kJ/mol)</summary>
+<p>One photon breaks one AgCl unit: N_A·hc/λ = 248×10³ J. λ = (6.626×10⁻³⁴ × 3×10⁸ × 6.023×10²³)/(248×10³) = <b>4.83×10⁻⁷ m = 483 nm</b>, which is visible light.</p></details>
+<details class="worked"><summary>Worked example: 620 nm light on a metal with W₀ = 1.5 eV</summary>
+<p>E = 1240/620 = 2.0 eV. K.E.max = 2.0 − 1.5 = <b>0.5 eV</b>. Stopping potential = <b>0.5 V</b>.</p></details>
+
+<div class="play"><h4>Playground 1: photon converter</h4>
+<div class="row">
+ <label class="f">Given<select id="ph-m" style="width:150px"><option value="lam">Wavelength (nm)</option><option value="nu">Frequency (Hz)</option><option value="eV">Energy (eV)</option></select></label>
+ <label class="f">Value<input type="number" id="ph-v" step="any" value="500" style="width:120px"></label>
+</div>
+<div class="out" id="phOut"></div>
+</div>
+<div class="play"><h4>Playground 2: photoelectric experiment</h4>
+<div class="row">
+ <label class="f">Metal<select id="pe-m" style="width:190px">
+  <option value="2.14">Caesium (about 2.14 eV)</option><option value="2.30">Potassium (about 2.30 eV)</option><option value="2.75">Sodium (about 2.75 eV)</option><option value="4.33">Zinc (about 4.33 eV)</option><option value="4.65">Copper (about 4.65 eV)</option><option value="5.65">Platinum (about 5.65 eV)</option><option value="c">Custom W₀</option></select></label>
+ <label class="f" id="pe-cw" style="display:none">W₀ (eV)<input type="number" id="pe-c" step="any" value="2" style="width:90px"></label>
+ <label class="f">Light λ (nm)<input type="number" id="pe-l" step="any" value="400" style="width:100px"></label>
+ <label class="f">Intensity (×)<input type="number" id="pe-i" step="any" value="1" min="0" style="width:80px"></label>
+</div>
+<svg id="pegraph" class="lvl" viewBox="0 0 320 190" role="img" aria-label="Kinetic energy against frequency graph"></svg>
+<p class="fnote" style="text-align:center;margin:0">Graph of K.E. against frequency for this metal. The dot is your light. Work-function values are approximate; use the value in your question.</p>
+<div class="out" id="peOut"></div>
+</div>
+<div class="play"><h4>Playground 3: photons per second from a lamp</h4>
+<div class="row">
+ <label class="f">Power (W)<input type="number" id="pr-p" step="any" value="1" style="width:100px"></label>
+ <label class="f">λ (nm)<input type="number" id="pr-l" step="any" value="500" style="width:100px"></label>
+</div>
+<div class="out" id="prOut"></div>
+</div>
+
+<div class="deck" data-deck="light"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="light"></div>
+<label class="chk done"><input type="checkbox" data-done="light"> I have revised this topic</label>
+</section>
+
+<!-- ============ WEAK CARDS ============ -->
+<section class="topic" id="t-weak">
+<h2>My weak cards</h2>
+<p class="sub">Every card you mark "Revise again" is collected here from all topics.</p>
+<div class="deck" id="weakDeck"></div>
+<button class="btn sm" id="resetCards">Reset all card progress</button>
+</section>
+
+<p class="foot">Built from the Vyas Edification "Atomic Structure &amp; Nuclear Chemistry" notes. Your progress is saved in this browser only.</p>
+</div>
+
+<!-- ===== PURE LOGIC (no DOM) ===== -->
+<script id="logic">
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){var t=a%b;a=b;b=t}return a||1}
+function frac(n,d){var g=gcd(n,d);n/=g;d/=g;return d===1?String(n):n+'/'+d}
+function bohrVals(Z,n){
+  var r=0.529*n*n/Z, v=2.18e6*Z/n, E=-13.6*Z*Z/(n*n);
+  var T=2*Math.PI*(r*1e-10)/v;
+  return {r:r,v:v,E:E,KE:-E,PE:2*E,T:T,f:1/T,L:n};
+}
+function bohrRatios(Za,na,Zb,nb){
+  return {
+    r:frac(na*na*Zb,nb*nb*Za),
+    v:frac(Za*nb,Zb*na),
+    E:frac(Za*Za*nb*nb,Zb*Zb*na*na),
+    T:frac(na*na*na*Zb*Zb,nb*nb*nb*Za*Za),
+    f:frac(nb*nb*nb*Za*Za,na*na*na*Zb*Zb),
+    L:frac(na,nb)
+  };
+}
+var SERIES=['Lyman','Balmer','Paschen','Brackett','Pfund','Humphrey'];
+function specCalc(Z,from,to){
+  var hi=Math.max(from,to), lo=Math.min(from,to), d=hi-lo;
+  var dE=13.6*Z*Z*(1/(lo*lo)-1/(hi*hi));
+  var lamA=12400/dE;
+  var nm=lamA/10, region;
+  if(nm<10)region='X-ray'; else if(nm<400)region='Ultraviolet'; else if(nm<=750)region='Visible'; else region='Infrared';
+  return {emission:from>to,hi:hi,lo:lo,dE:dE,lamA:lamA,region:region,
+    wn:frac(Z*Z*(hi*hi-lo*lo),lo*lo*hi*hi),
+    series:lo<=6?SERIES[lo-1]:('n₁='+lo),
+    single:d, sample:d*(d+1)/2, first:d===1};
+}
+var ORDER=[[1,0],[2,0],[2,1],[3,0],[3,1],[4,0],[3,2],[4,1],[5,0],[4,2],[5,1],[6,0],[4,3],[5,2],[6,1],[7,0]];
+var LET='spdfgh';
+function lab(n,l){return n+LET[l]}
+var EXC={24:{'4s':1,'3d':5},29:{'4s':1,'3d':10},41:{'5s':1,'4d':4},42:{'5s':1,'4d':5},44:{'5s':1,'4d':7},45:{'5s':1,'4d':8},46:{'5s':0,'4d':10},47:{'5s':1,'4d':10}};
+function fillAufbau(e){var c={},r=e;for(var i=0;i<ORDER.length;i++){var n=ORDER[i][0],l=ORDER[i][1];var cap=2*(2*l+1);var t=Math.min(cap,r);c[lab(n,l)]=t;r-=t}return c}
+function buildConfig(Z,q){
+  var e=Z-q; if(e<1)return {error:'No electrons left; reduce the positive charge.'};
+  var c,exc=false;
+  if(q>=0){
+    c=fillAufbau(Z);
+    if(EXC[Z]){for(var k in EXC[Z])c[k]=EXC[Z][k];exc=true}
+    for(var j=0;j<q;j++){
+      var best=null;
+      for(var i=0;i<ORDER.length;i++){var n=ORDER[i][0],l=ORDER[i][1];
+        if(c[lab(n,l)]>0&&(!best||n>best[0]||(n===best[0]&&l>best[1])))best=[n,l]}
+      c[lab(best[0],best[1])]--;
+    }
+  } else { c=fillAufbau(e); }
+  var subs=[];
+  for(var i2=0;i2<ORDER.length;i2++){var n2=ORDER[i2][0],l2=ORDER[i2][1];var cnt=c[lab(n2,l2)]||0;
+    if(cnt>0)subs.push({n:n2,l:l2,label:lab(n2,l2),count:cnt})}
+  subs.sort(function(a,b){return a.n-b.n||a.l-b.l});
+  var unp=0,byL=[0,0,0,0];
+  subs.forEach(function(s){
+    var o=2*s.l+1,boxes=[];for(var i=0;i<o;i++)boxes.push(0);
+    for(var i=0;i<s.count;i++)boxes[i%o]++;
+    s.boxes=boxes;
+    unp+=boxes.filter(function(b){return b===1}).length;
+    byL[s.l]+=s.count;
+  });
+  return {subs:subs,unp:unp,mu:Math.sqrt(unp*(unp+2)),spin:unp/2,byL:byL,total:e,exc:exc&&q<=0};
+}
+function checkQN(n,l,m,s){
+  var errs=[];
+  if(!Number.isInteger(n)||n<1)errs.push('n must be a whole number ≥ 1.');
+  if(!Number.isInteger(l)||l<0)errs.push('ℓ must be a whole number ≥ 0.');
+  else if(Number.isInteger(n)&&n>=1&&l>n-1)errs.push('ℓ can be at most n − 1 = '+(n-1)+'.');
+  if(!Number.isInteger(m))errs.push('m must be a whole number.');
+  else if(Number.isInteger(l)&&l>=0&&Math.abs(m)>l)errs.push('m must lie between −ℓ and +ℓ, i.e. between '+(-l)+' and '+l+'.');
+  return errs;
+}
+/* ---- Part 2 logic ---- */
+var HPL=6.626e-34, QE=1.602e-19;
+var PART={e:{m:9.109e-31,q:1,n:'electron'},p:{m:1.673e-27,q:1,n:'proton'},n:{m:1.675e-27,q:0,n:'neutron'},a:{m:6.645e-27,q:2,n:'α particle'},g:{m:0.04,q:0,n:'golf ball'}};
+function deBroglie(m,mode,val,q){
+  var p,K;
+  if(!(m>0)||!(val>0))return {error:'Enter positive values.'};
+  if(mode==='v'){p=m*val;K=p*p/(2*m)}
+  else if(mode==='ke'){K=val*QE;p=Math.sqrt(2*m*K)}
+  else{ if(!(q>0))return {error:'This particle has no charge, so a voltage cannot accelerate it.'};
+    K=q*QE*val;p=Math.sqrt(2*m*K)}
+  return {lam:HPL/p,p:p,K:K,v:p/m,Kev:K/QE};
+}
+function minDv(m,dx){ if(!(m>0)||!(dx>0))return {error:'Enter positive values.'}; var dp=HPL/(4*Math.PI*dx); return {dp:dp,dv:dp/m}; }
+function nodeInfo(n,l){
+  if(!Number.isInteger(n)||!Number.isInteger(l)||n<1||l<0)return {error:'n and ℓ must be whole numbers (n ≥ 1, ℓ ≥ 0).'};
+  if(l>n-1)return {error:'ℓ can be at most n − 1 = '+(n-1)+', so '+n+'-'+'spdfgh'[l]+' does not exist.'};
+  return {radial:n-l-1,angular:l,total:n-1,peaks:n-l,orbitals:2*l+1,electrons:2*(2*l+1),L:l===0?'0':'√'+(l*(l+1))+' · h/2π',name:n+'spdfgh'[l]};
+}
+function energyCompare(n1,l1,n2,l2){
+  var s1=n1+l1,s2=n2+l2,a=n1+'spdfgh'[l1],b=n2+'spdfgh'[l2];
+  if(n1===n2&&l1===l2)return {s1:s1,s2:s2,text:'Same subshell.'};
+  if(s1!==s2)return {s1:s1,s2:s2,text:(s1<s2?a:b)+' has the lower energy: lower (n + ℓ).'};
+  if(n1!==n2)return {s1:s1,s2:s2,text:(n1<n2?a:b)+' has the lower energy: (n + ℓ) is tied, so the lower n wins.'};
+  return {s1:s1,s2:s2,text:'Same n and ℓ.'};
+}
+var EL=['','H','He','Li','Be','B','C','N','O','F','Ne','Na','Mg','Al','Si','P','S','Cl','Ar','K','Ca','Sc','Ti','V','Cr','Mn','Fe','Co','Ni','Cu','Zn','Ga','Ge','As','Se','Br','Kr','Rb','Sr','Y','Zr','Nb','Mo','Tc','Ru','Rh','Pd','Ag','Cd','In','Sn','Sb','Te','I','Xe','Cs','Ba','La','Ce','Pr','Nd','Pm','Sm','Eu','Gd','Tb','Dy','Ho','Er','Tm','Yb','Lu','Hf','Ta','W','Re','Os','Ir','Pt','Au','Hg','Tl','Pb','Bi','Po','At','Rn','Fr','Ra','Ac','Th','Pa','U','Np','Pu','Am','Cm','Bk','Cf','Es','Fm','Md','No','Lr','Rf','Db','Sg','Bh','Hs','Mt','Ds','Rg','Cn','Nh','Fl','Mc','Lv','Ts','Og'];
+function nuc(A,Z){return (EL[Z]||'?')+'-'+A}
+function predictDecay(A,Z,As){
+  if(!Number.isInteger(A)||!Number.isInteger(Z)||!Number.isInteger(As)||Z<1||Z>118||A<Z)return {error:'Check Z and A (A must be at least Z).'};
+  var N=A-Z,r=N/Z;
+  var out={n:N,ratio:r,sym:nuc(A,Z)};
+  if(Z>83){out.mode='alpha';out.d={A:A-4,Z:Z-2};out.why='Z is above 83, so the nucleus is too heavy: α emission.';return out}
+  if(A>As){out.mode='beta-';out.d={A:A,Z:Z+1};out.why='Heavier than the stable isotope (A = '+As+'), so n/p is too high: a neutron turns into a proton (β⁻).';return out}
+  if(A<As){out.mode='beta+';out.d={A:A,Z:Z-1};out.why='Lighter than the stable isotope (A = '+As+'), so n/p is too low: β⁺ emission or electron capture. Both give the same daughter.';return out}
+  out.mode='stable';out.why='This is the stable isotope, so no decay is expected.';return out;
+}
+function countAB(A1,Z1,A2,Z2){
+  if(![A1,Z1,A2,Z2].every(Number.isInteger))return {error:'Use whole numbers.'};
+  var dA=A1-A2;
+  if(dA<0)return {error:'A cannot increase by radioactive decay.'};
+  if(dA%4!==0)return {error:'A must drop by a multiple of 4 (each α removes 4). With only α and β⁻ this change is impossible.'};
+  var m=dA/4,n=2*m-(Z1-Z2);
+  if(n<0)return {error:'Would need '+(-n)+' β⁺ emission(s) (a negative β⁻ count). Only α and β⁻ are assumed here.'};
+  return {alpha:m,beta:n};
+}
+/* ---- Part 3 logic ---- */
+var CL=2.998e8, ME=9.109e-31, KC=8.988e9;
+function sym(Z,A,q){var s=(EL[Z]||'?');var ch=q===0?'':(Math.abs(q)>1?Math.abs(q):'')+(q>0?'⁺':'⁻');return s+'-'+A+(q?' ('+(q>0?'+':'−')+Math.abs(q)+')':'')}
+function species(Z,A,q){
+  if(![Z,A,q].every(Number.isInteger)||Z<1||Z>118||A<1)return {error:'Enter whole numbers (Z 1–118, A ≥ 1).'};
+  var n=A-Z,e=Z-q;
+  if(n<0)return {error:'A cannot be smaller than Z (neutrons would be negative).'};
+  if(e<0)return {error:'This charge removes more electrons than the atom has.'};
+  return {p:Z,n:n,e:e,sym:sym(Z,A,q)};
+}
+function nuclearRadius(A,R0){ if(!(A>0)||!(R0>0))return {error:'Enter positive values.'}; return {R:R0*Math.cbrt(A)}; }
+function closestApproach(EMeV,Z){
+  if(!(EMeV>0)||!Number.isInteger(Z)||Z<1)return {error:'Enter a positive energy and a whole-number Z.'};
+  var R=2*KC*Z*QE*QE/(EMeV*1e6*QE);
+  return {Rm:R,Rfm:R*1e15};
+}
+function relations(a,b){
+  var A=species(a.Z,a.A,a.q),B=species(b.Z,b.A,b.q);
+  if(A.error||B.error)return {error:A.error||B.error};
+  var out=[];
+  if(a.Z===b.Z&&a.A===b.A)out.push('same nuclide (same Z and A)');
+  else{
+    if(a.Z===b.Z)out.push('isotopes (same Z = '+a.Z+', different A)');
+    if(a.A===b.A)out.push('isobars (same A = '+a.A+', different Z)');
+    if(A.n===B.n)out.push('isotones (same neutrons = '+A.n+')');
+    if(A.n-A.p===B.n-B.p)out.push('isodiaphers (same n − p = '+(A.n-A.p)+')');
   }
+  if(A.e===B.e)out.push('isoelectronic (same electrons = '+A.e+')');
+  return {list:out,A:A,B:B};
+}
+function photonFrom(mode,v){
+  if(!(v>0))return {error:'Enter a positive value.'};
+  var lam,E;
+  if(mode==='lam')lam=v*1e-9; else if(mode==='nu')lam=CL/v; else lam=HPL*CL/(v*QE);
+  E=HPL*CL/lam;
+  return {lam:lam,nu:CL/lam,EJ:E,EeV:E/QE,wn:1/(lam*100)};
+}
+function emRegion(lam){
+  var nm=lam*1e9;
+  if(nm<0.01)return 'Gamma ray'; if(nm<10)return 'X-ray'; if(nm<400)return 'Ultraviolet';
+  if(nm<=750){var c=nm<450?'violet / blue':nm<495?'blue':nm<570?'green':nm<590?'yellow':nm<620?'orange':'red';return 'Visible ('+c+')'}
+  if(nm<1e6)return 'Infrared'; if(nm<1e9)return 'Microwave'; return 'Radio wave';
+}
+function photoelectric(W0,lamNm,inten){
+  if(!(W0>0)||!(lamNm>0)||!(inten>=0))return {error:'Enter positive values.'};
+  var E=HPL*CL/(lamNm*1e-9)/QE;
+  var lam0=HPL*CL/(W0*QE)*1e9, nu0=W0*QE/HPL;
+  var out={E:E,W0:W0,lam0:lam0,nu0:nu0,nu:CL/(lamNm*1e-9)};
+  if(E<=W0){out.emits=false;return out}
+  out.emits=true;out.KE=E-W0;out.v=Math.sqrt(2*out.KE*QE/ME);out.V0=out.KE;out.rel=inten;
+  return out;
+}
+function photonRate(P,lamNm){ if(!(P>0)||!(lamNm>0))return {error:'Enter positive values.'}; return {rate:P*lamNm*1e-9/(HPL*CL)}; }
+</script>
+
+<!-- ===== UI ===== -->
+<script id="ui">
+(function(){
+'use strict';
+var mem={};
+var store={
+  get:function(k,d){try{var v=localStorage.getItem('as1_'+k);if(v===null)return (k in mem)?mem[k]:d;return JSON.parse(v)}catch(e){return (k in mem)?mem[k]:d}},
+  set:function(k,v){mem[k]=v;try{localStorage.setItem('as1_'+k,JSON.stringify(v))}catch(e){}}
+};
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function fmt(x){var a=Math.abs(x);if(a>=1e4||(a<1e-2&&a>0))return x.toExponential(3);return String(+x.toPrecision(4))}
+
+/* ---------- DATA ---------- */
+var DECK={
+bohr:[
+[`Radius of the nth Bohr orbit?`,`<b>rₙ = 0.529 × n²/Z Å</b><br>r ∝ n² and r ∝ 1/Z. Bigger n gives a bigger orbit; bigger Z gives a smaller one.`],
+[`Speed of the electron in the nth orbit?`,`<b>vₙ = 2.18×10⁶ × Z/n m/s</b><br>v ∝ Z/n. For H, n = 1 this is about c/137.`],
+[`Energy of the nth orbit?`,`<b>Eₙ = −13.6 Z²/n² eV</b> (= −2.18×10⁻¹⁸ Z²/n² J per atom).<br>n up: E goes up (less negative). Z up: E goes down.`],
+[`How are T.E., K.E. and P.E. related?`,`<b>T.E. = −K.E. = ½ P.E.</b><br>K.E. is positive and equals |T.E.|. P.E. is negative and twice the T.E.`],
+[`How do time period and frequency of revolution scale?`,`<b>T ∝ n³/Z²</b> and <b>f ∝ Z²/n³</b>. (T = 2πr/v)`],
+[`State Bohr's quantisation condition. How does it link to de Broglie?`,`<b>mvr = nh/2π</b>. With λ = h/mv it becomes <b>2πr = nλ</b>: the nth orbit holds exactly n de Broglie wavelengths.`],
+[`Which species can Bohr's model be applied to?`,`Only <b>one-electron</b> species: H, He⁺, Li²⁺, Be³⁺ …<br>Trap: He, Li⁺, Be²⁺ have two electrons, so the model does not apply.`],
+[`Which state is the "2nd excited state"?`,`<b>n = 3.</b> The nth excited state is n + 1 (1st excited = 2, 2nd = 3, 3rd = 4).`],
+[`Ground-state energies of H, He⁺, Li²⁺, Be³⁺?`,`−13.6, −54.4, −122.4, −217.6 eV (that is −13.6 × Z²). Their magnitudes are also the ionisation energies.`],
+[`Excitation energy of H for n = 2 and for n = 3?`,`10.2 eV and 12.09 eV. Excitation potentials: 10.2 V and 12.09 V.`],
+[`Which Be³⁺ orbit has the same radius as the ground orbit of H?`,`<b>n = 2.</b> r ∝ n²/Z, so Be³⁺ (n=2) gives 4/4 = 1. Equal speed or energy needs equal <b>Z/n</b> instead.`],
+[`Angular momentum of the 4th Bohr orbit versus an electron in a 4s orbital?`,`4th Bohr orbit: <b>4h/2π</b>. 4s orbital: <b>0</b> (ℓ = 0). Bohr's nh/2π is not the same as √(ℓ(ℓ+1)) h/2π.`],
+[`Main failures of Bohr's model?`,`Multi-electron spectra, fine-structure doublets, Zeeman and Stark splitting, no explanation of Heisenberg uncertainty or de Broglie waves, no explanation of chemical bonding.`],
+[`If a muon (about 207 mₑ) replaces the electron in H, what happens?`,`Radius ∝ 1/m, so the orbit shrinks. Energy ∝ m, so the ionisation energy increases. (Strictly the reduced mass is used.)`]
+],
+spec:[
+[`Rydberg formula for H-like species?`,`<b>1/λ = R Z² (1/n₁² − 1/n₂²)</b> with n₂ &gt; n₁ and R = 1.097×10⁷ m⁻¹ (≈ 1.1×10⁷).`],
+[`Quick way from ΔE to wavelength?`,`<b>λ(Å) = 12400 / ΔE(eV)</b>, with ΔE = 13.6 Z² (1/n₁² − 1/n₂²) eV.`],
+[`n₁ and region of the six H series?`,`Lyman 1 (UV), Balmer 2 (visible), Paschen 3, Brackett 4, Pfund 5, Humphrey 6 (all IR).<br>Mnemonic: <b>L</b>azy <b>B</b>rown <b>P</b>andas <b>B</b>reak <b>P</b>ots <b>H</b>appily.`],
+[`Which line is longest in wavelength, which is shortest?`,`Longest = <b>first line</b> (n₁+1 → n₁, smallest ΔE). Shortest = <b>series limit</b> (∞ → n₁, largest ΔE).`],
+[`Series limit wavelength?`,`<b>λ = n₁²/R</b> for H (n₁²/(R Z²) for H-like). Lyman ≈ 912 Å, Balmer ≈ 3647 Å.`],
+[`Max lines when ONE isolated atom falls from level n to ground?`,`<b>n − 1</b>. One electron follows one path, e.g. 4→3→2→1 gives 3 lines.`],
+[`Max lines from a large SAMPLE with electrons falling from n₂ to n₁?`,`<b>Δn(Δn + 1)/2</b>, where Δn = n₂ − n₁. From n to ground: n(n − 1)/2.`],
+[`Energy range of the Lyman and Balmer series?`,`Lyman: 10.2 to 13.6 eV. Balmer: 1.89 to 3.4 eV.`],
+[`How many Balmer lines are visible?`,`Only the first <b>four</b>: 3→2, 4→2, 5→2, 6→2 (about 6563, 4861, 4340, 4102 Å).`],
+[`Wave numbers of the 1st and 2nd Lyman lines, and the 1st Balmer line?`,`Lyman 1st (2→1): 3R/4. Lyman 2nd (3→1): 8R/9. Balmer 1st (3→2): 5R/36.`],
+[`Which He⁺ transition has the same λ as H 2 → 1?`,`He⁺ <b>4 → 2</b>. Rule: He⁺ (2n₁ → 2n₂) matches H (n₁ → n₂) because Z² = 4 cancels. Li²⁺ works with 3n.`],
+[`What does the absorption spectrum of H look like?`,`Dark lines on a continuous background, at exactly the same wavelengths as the emission lines.`],
+[`Electrons fall from the 5th excited state to ground in a sample. Lines by region?`,`n = 6 → 15 lines in total: Lyman 5 (UV), Balmer 4 (visible), IR 6 (Paschen 3 + Brackett 2 + Pfund 1).`]
+],
+qn:[
+[`The four quantum numbers and what each controls?`,`<b>n</b> size and energy (1, 2, 3 …) · <b>ℓ</b> shape (0 to n−1) · <b>m</b> orientation (−ℓ to +ℓ) · <b>s</b> spin (±½).`],
+[`ℓ values and subshell letters?`,`0 = s, 1 = p, 2 = d, 3 = f. A shell n has n subshells.`],
+[`Orbitals and electrons in a subshell, and in a shell?`,`Subshell: 2ℓ + 1 orbitals, 2(2ℓ + 1) electrons (s 2, p 6, d 10, f 14). Shell: n² orbitals, 2n² electrons.`],
+[`Node formulas?`,`Radial = n − ℓ − 1 · Angular = ℓ · Total = n − 1.<br>Example 3p: 1 radial + 1 angular = 2.`],
+[`Orbital angular momentum of s, p, d?`,`L = √(ℓ(ℓ+1)) h/2π: s = 0, p = √2 h/2π, d = √6 h/2π, f = √12 h/2π.`],
+[`Spin-only magnetic moment and total spin?`,`μ = √(n(n+2)) BM, with n = unpaired electrons. Total spin = ± n/2.`],
+[`μ for 1, 2, 3, 4, 5 unpaired electrons?`,`1.73, 2.83, 3.87, 4.90, 5.92 BM.`],
+[`Aufbau order and the (n + ℓ) rule?`,`1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s …<br>Lower (n + ℓ) fills first; if tied, lower n first (3d before 4p, both 5).`],
+[`State Pauli's principle and Hund's rule.`,`Pauli: no two electrons share all four quantum numbers, so an orbital holds at most 2 electrons with opposite spins.<br>Hund: give each orbital of a subshell one electron (parallel spins) before pairing.`],
+[`Exceptions to Aufbau up to Z = 36?`,`<b>Cr = [Ar] 3d⁵ 4s¹</b> and <b>Cu = [Ar] 3d¹⁰ 4s¹</b>. Half-filled and fully filled d are extra stable (less shielding, more exchange energy, less repulsion).`],
+[`Which electrons leave first when a d-block atom forms a cation?`,`The <b>4s</b> electrons, even though 4s filled first. Fe³⁺ = [Ar] 3d⁵ (not 4s² 3d³).`],
+[`Unpaired electrons in Cr³⁺, Mn²⁺, Fe²⁺, Fe³⁺, Co³⁺, Ni²⁺, Cu²⁺?`,`3, 5, 4, 5, 4, 2, 1. Cu⁺ and Zn²⁺ have 0 (3d¹⁰, diamagnetic).`],
+[`Shapes of s, p and d orbitals?`,`s: spherical. p: dumb-bell (1 nodal plane). d: four lobes, except d<sub>z²</sub>, which has two lobes along z plus a donut ring in the xy-plane.`],
+[`Radial probability of 1s and 2s?`,`1s: one peak at r = a₀ (Bohr radius). 2s: two peaks with one radial node between. Only s orbitals have electron density at the nucleus.`],
+[`Valence electron quantum numbers of Rb (Z = 37)?`,`5s¹: n = 5, ℓ = 0, m = 0, s = +½ (or −½).`]
+]};
+var TOPICNAME={bohr:'Bohr model',spec:'H spectrum',qn:'Quantum numbers'};
+DECK.dbl=[
+[`de Broglie's equation and what it says?`,`<b>λ = h/mv = h/p.</b> Every moving particle has a wave nature. Verified by Davisson and Germer, who saw electrons diffract.`],
+[`λ in terms of K.E. and in terms of accelerating voltage?`,`λ = h/√(2m·K.E.) and λ = h/√(2m·qV).<br>For an electron: <b>λ = 12.3/√V Å</b> (or √(150/V) Å).`],
+[`How is de Broglie linked to Bohr's quantisation?`,`2πr = nλ ⇒ mvr = nh/2π. The nth orbit holds exactly <b>n</b> complete electron waves.`],
+[`Same K.E.: how do λ of two particles compare?`,`<b>λ ∝ 1/√m.</b> Electron vs proton: λₑ/λₚ = √(mₚ/mₑ) ≈ 43.`],
+[`Same velocity: how do λ compare? Same momentum?`,`Same velocity: λ ∝ 1/m. Same momentum: <b>identical</b> λ.`],
+[`Same accelerating voltage: how do λ compare?`,`<b>λ ∝ 1/√(m·q).</b> Electron &gt; proton &gt; α in wavelength.`],
+[`Why do we not see the wave nature of a cricket ball?`,`λ = h/mv is about 10⁻³⁴ m, far smaller than anything measurable.`],
+[`Momentum and wavelength of a photon?`,`λ = hc/E and p = h/λ. Rest mass is zero, so a photon is never at rest.`],
+[`Statement of Heisenberg's uncertainty principle?`,`<b>Δx · Δp ≥ h/4π</b> (or Δx · mΔv ≥ h/4π). Position and momentum cannot both be known exactly at the same time.`],
+[`Energy–time form of the principle?`,`<b>ΔE · Δt ≥ h/4π.</b>`],
+[`What happens if Δx → 0?`,`Δp → ∞. If Δp → 0 then Δx → ∞. The photon used to locate the electron kicks it.`],
+[`Why does the principle not affect a golf ball?`,`Δx ≈ 1.5×10⁻³³ m for Δv = 0.9 m/s, about 10¹⁸ times smaller than a nucleus. It matters only for electron-sized particles.`],
+[`What did Heisenberg's principle replace?`,`The idea of definite orbits was replaced by probability regions (orbitals).`],
+[`Which particle can't use the 12.3/√V formula?`,`Anything other than an electron. Proton or α needs λ = h/√(2mqV); a neutron can't be accelerated by a voltage.`]
+];
+DECK.orb=[
+[`What is ψ and what is ψ²?`,`ψ (wave function) has <b>no physical meaning</b>. <b>ψ² is the probability density</b> of finding the electron at a point and is always positive.`],
+[`Define an orbital.`,`The region of space around the nucleus where the probability of finding the electron is highest (90–95%). It has no definite path.`],
+[`Four differences between orbit and orbital?`,`Orbit: circular, planar, 2n² electrons, non-directional, against Heisenberg. Orbital: 3-D region, at most 2 electrons, directional (except s), consistent with Heisenberg.`],
+[`Formulas for radial, angular and total nodes?`,`Radial = n − ℓ − 1 · Angular = ℓ · Total = n − 1.`],
+[`Nodes in 3p?`,`Radial 3 − 1 − 1 = 1, angular 1, total 2.`],
+[`Radial nodes in ns and np?`,`ns: n − 1. np: n − 2.`],
+[`What does the radial part R(r) decide? The angular part?`,`R depends on n and ℓ and decides <b>size</b>. The angular part depends on ℓ and m and decides <b>shape</b> and orientation.`],
+[`Which orbitals have electron density at the nucleus?`,`Only <b>s</b> orbitals (R² is maximum at r = 0). All p, d, f have zero density there.`],
+[`Where does 4πr²R² peak for 1s?`,`At the Bohr radius, <b>0.529 Å</b>. It is zero at the nucleus because the shell volume is zero.`],
+[`How many peaks in the 4πr²R² graph of 2s and 3p?`,`n − ℓ peaks: 2s has 2, 3p has 2. One more than the number of radial nodes.`],
+[`Shapes of s, p, d, f?`,`s spherical · p dumb-bell · d double dumb-bell (dz² has a donut ring) · f leaf-like.`],
+[`Energy of 2s and 2p in H versus in a many-electron atom?`,`In H both have the same energy (depends on n only). In a many-electron atom 2s &lt; 2p (energy depends on n + ℓ; s penetrates closer to the nucleus).`],
+[`Which orbital has 2 radial nodes and 1 angular node?`,`ℓ = 1 and n − 2 = 2 so n = 4: <b>4p</b>.`],
+[`Increasing energy: 4p, 3d, 4s, 5s (many-electron atom)?`,`4s (4) &lt; 3d (5) &lt; 4p (5) &lt; 5s (5). When (n + ℓ) ties, the lower n comes first.`]
+];
+DECK.nuc=[
+[`What is radioactivity? What does it not depend on?`,`Spontaneous disintegration of nuclei with emission of α, β or γ. A nuclear phenomenon: independent of temperature, pressure, physical state or chemical combination (¹⁴CO₂ is radioactive).`],
+[`Nature, charge and ordering of α, β, γ?`,`α = He²⁺ (+2), β = fast electron (−1), γ = EM wave (0). Speed and penetration: γ ≫ β ≫ α. Ionising power: α ≫ β ≫ γ.`],
+[`α emission: when and what changes?`,`Z &gt; 83. Z − 2, A − 4. n/p rises. Example: ₉₂U²³⁸ → ₉₀Th²³⁴ + ₂He⁴.`],
+[`β⁻ emission: when and what changes?`,`n/p too high. n → p + e⁻. Z + 1, A same, n/p falls. Example: ₆C¹⁴ → ₇N¹⁴.`],
+[`β⁺ (positron) emission: when and what changes?`,`n/p too low. p → n + e⁺. Z − 1, A same. Example: ₁₁Na²² → ₁₀Ne²².`],
+[`What is electron capture?`,`Nucleus captures a K-shell electron: p + e⁻ → n. Z − 1, A same, n/p rises. ₈₀Hg¹⁹⁷ + e⁻ → ₇₉Au¹⁹⁷.`],
+[`What does γ emission change?`,`Neither Z nor A. It releases extra energy from an excited (metastable) nucleus.`],
+[`Group displacement law?`,`1 α: new element <b>2 places left</b> (isodiaphers). 1 β⁻: <b>1 place right</b> (isobars). 1 α + 2 β⁻: same place (isotopes).`],
+[`How to count α and β⁻ from parent to daughter?`,`α = (A − A′)/4. β⁻ = 2 × α − (Z − Z′).`],
+[`Stability trends: n/p for Z ≤ 20 and Z &gt; 20? Largest stable ratio?`,`Z ≤ 20: n/p ≈ 1. Z &gt; 20: n/p rises with Z. Largest stable: ₈₃Bi²⁰⁹ at 1.52.`],
+[`Even–odd rule counts?`,`even n, even p: 155 (max) · even n, odd p: 55 · odd n, even p: 50 · odd n, odd p: 5 (min).`],
+[`Magic numbers?`,`2, 8, 20, 28, 50 … Nuclei with these numbers of protons or neutrons are extra stable (₂He⁴, ₈O¹⁶).`],
+[`Isotopes, isobars, isotones, isodiaphers, isosters?`,`Same Z · same A · same neutrons · same (n − p) · same number of atoms and electrons (N₂ and CO).`],
+[`Fission versus fusion?`,`Fission: heavy nucleus splits (₉₂U²³⁵ + n), atom bomb. Fusion: light nuclei join (₁H² + ₁H³ → ₂He⁴ + n), needs very high temperature, hydrogen bomb. Both release energy from lost mass.`]
+];
+var _t=TOPICNAME;_t.dbl='de Broglie & Heisenberg';_t.orb='Orbitals & nodes';_t.nuc='Nuclear chemistry';
+DECK.part=[
+[`Charge, mass and discoverer of the electron?`,`−1.602×10⁻¹⁹ C · 9.109×10⁻³¹ kg (0.00054 u) · J.J. Thomson, from cathode rays.`],
+[`Charge, mass and discoverer of the proton?`,`+1.602×10⁻¹⁹ C · 1.673×10⁻²⁷ kg (1.00727 u) · Goldstein (anode rays); named by Rutherford.`],
+[`Neutron: mass, charge, discoverer, reaction?`,`1.675×10⁻²⁷ kg (1.00867 u), no charge, <b>Chadwick 1932</b>. ₄Be⁹ + ₂He⁴ → ₆C¹² + ₀n¹. Slightly heavier than a proton.`],
+[`What is e/m for cathode rays? Does it depend on the gas?`,`<b>1.76×10¹¹ C/kg, the same for every gas</b>, because the particles are always electrons.`],
+[`How do anode rays differ from cathode rays in e/m?`,`Anode-ray e/m <b>depends on the gas</b>. It is highest for hydrogen, so the lightest positive particle is the proton.`],
+[`Properties of cathode rays (name four)?`,`Travel in straight lines (shadow), turn a paddle wheel (particles), deflect in E and B fields (negative charge), glow on ZnS, penetrate thin Al foil, affect photographic plates.`],
+[`How are anode rays produced?`,`In a tube with a <b>perforated cathode</b> (Goldstein 1886). Positive ions formed in the gas stream through the holes. They bend toward the negative plate.`],
+[`Thomson's model versus Rutherford's?`,`Thomson: uniform positive sphere with embedded electrons. Rutherford: tiny dense positive nucleus with almost all the mass; electrons orbit in empty space.`],
+[`Three observations of Rutherford's gold-foil experiment and what each means?`,`Most pass straight: atom mostly empty. Few small deflections: positive charge concentrated. About 1 in 20,000 deflected near 180°: tiny, dense, positive nucleus.`],
+[`Drawbacks of Rutherford's model?`,`An accelerating electron should radiate and spiral into the nucleus (Maxwell). It cannot explain the H line spectrum or how electrons are arranged.`],
+[`Distance of closest approach of an α particle?`,`<b>R = 4KZe²/(mv²) = 2KZe²/K.E.</b> from K.E. = K(Ze)(2e)/R. R ∝ 1/K.E. and R ∝ Z.`],
+[`Nuclear radius formula and sizes?`,`R = R₀ A^(1/3), R₀ ≈ 1.1–1.44 fm. Nucleus ≈ 10⁻¹²–10⁻¹³ cm, atom ≈ 10⁻⁸ cm: the atom is about 10⁵ times wider.`],
+[`Define Z, A and how to count particles in an ion?`,`Z = protons = electrons of the neutral atom. A = p + n. For an ion: protons = Z, neutrons = A − Z, electrons = Z − charge.`],
+[`Define isotopes, isobars, isotones, isoelectronic. One example each.`,`Same Z: H-1, H-2, H-3. Same A: Ar-40, K-40, Ca-40. Same neutrons: C-14, N-15, O-16. Same electrons: O²⁻, F⁻, Ne, Na⁺, Mg²⁺, Al³⁺.`]
+];
+DECK.light=[
+[`Relation between c, ν and λ? Value of c?`,`<b>c = νλ.</b> c ≈ 3×10⁸ m/s in vacuum for all EM waves, whatever the wavelength.`],
+[`What is wave number?`,`ν̄ = 1/λ, the number of waves per unit length (cm⁻¹ or m⁻¹).`],
+[`Order of the EM spectrum by wavelength?`,`Cosmic &lt; γ &lt; X-ray &lt; UV &lt; visible &lt; IR &lt; microwave &lt; radio. Energy and frequency go the other way. Visible light spans about 400 to 750 nm.`],
+[`Name four observations wave theory could not explain.`,`Black-body radiation, the photoelectric effect, variation of heat capacity of solids with temperature, and the hydrogen line spectrum.`],
+[`Planck's quantum theory in one line?`,`Energy is emitted or absorbed only in packets (quanta) of <b>E = hν</b>, so total energy = nhν. It matched the black-body curve, which Rayleigh–Jeans failed to do.`],
+[`Photon energy formulas?`,`<b>E = hν = hc/λ</b>, h = 6.626×10⁻³⁴ J·s. In eV and Å: E = 12400/λ.`],
+[`What is an electron-volt?`,`Energy gained by an electron accelerated through 1 volt: <b>1 eV = 1.6×10⁻¹⁹ J</b>. A charge q through V gains qV.`],
+[`Four results of the photoelectric experiment?`,`No time lag · number of electrons ∝ intensity · threshold frequency ν₀ below which nothing happens · K.E. rises with frequency.`],
+[`Einstein's photoelectric equation?`,`<b>hν = hν₀ + ½mv²</b>, i.e. photon energy = work function W₀ + K.E.`],
+[`What is the work function?`,`The minimum energy to eject an electron: <b>W₀ = hν₀ = hc/λ₀</b>.`],
+[`What happens if the intensity is doubled? If the frequency is increased?`,`Doubled intensity: <b>twice as many electrons, same K.E.</b> Higher frequency: each electron has more K.E. (K.E. = hν − W₀).`],
+[`Light is brighter but below threshold frequency. What is emitted?`,`<b>Nothing.</b> Each photon must individually carry at least W₀.`],
+[`What does a K.E. vs ν graph look like?`,`A straight line with <b>slope h</b> (same for all metals) and x-intercept ν₀ (different for each metal), so lines for different metals are parallel.`],
+[`How is the stopping potential found?`,`eV₀ = K.E.max = hν − W₀. (A JEE-level extension of the PDF equation.)`],
+[`What does the photoelectric effect prove about light?`,`Its <b>particle nature</b>: one photon ejects one electron instantly. Interference and diffraction prove its wave nature, so light is dual.`]
+];
+var _t2=TOPICNAME;_t2.part='Particles & models';_t2.light='Light & photoelectric';
+
+
+
+var QUIZ={
+bohr:[
+{q:`Ratio of the radius of the 2nd orbit of He⁺ to the 3rd orbit of Be³⁺ is`,o:['4/9','9/8','8/9','2/3'],a:2,e:`r ∝ n²/Z. He⁺: 4/2 = 2. Be³⁺: 9/4. Ratio = 2 ÷ 9/4 = 8/9.`},
+{q:`The speed of the electron in the 1st orbit of H is V. Its speed in the 3rd orbit of Li²⁺ is`,o:['V/3','3V','V','9V'],a:2,e:`v ∝ Z/n. H, n = 1: 1. Li²⁺, n = 3: 3/3 = 1. Same value, so V.`},
+{q:`Which transition in H has (r₁ − r₂) equal to 24 times the first Bohr radius?`,o:['3 → 1','8 → 3','6 → 5','5 → 1'],a:3,e:`r ∝ n². 5 → 1: 25 − 1 = 24. The others give 8, 55 and 11.`},
+{q:`The total energy of an electron in a certain orbit of Li²⁺ is −13.6 eV. Its kinetic energy there is`,o:['−13.6 eV','+27.2 eV','−27.2 eV','+13.6 eV'],a:3,e:`T.E. = −K.E., so K.E. = +13.6 eV. (P.E. would be −27.2 eV.)`},
+{q:`Ratio of the time period of the 2nd orbit of He⁺ to that of the 4th orbit of Li²⁺ is`,o:['32/9','9/32','1/2','2'],a:1,e:`T ∝ n³/Z². He⁺: 8/4 = 2. Li²⁺: 64/9. Ratio = 2 × 9/64 = 9/32.`},
+{q:`Bohr's model cannot be applied to`,o:['H','He⁺','Be²⁺','Li²⁺'],a:2,e:`Be²⁺ still has 2 electrons (Z = 4). Bohr's model works only for one-electron species.`}
+],
+spec:[
+{q:`Electrons fall from the 7th excited state to the 2nd state in a H sample. Maximum number of spectral lines?`,o:['15','28','21','6'],a:2,e:`The levels are n = 8 → 2, so Δn = 6. Lines = 6 × 7/2 = 21.`},
+{q:`In a H sample, electrons return from n = 5 to the ground state. Number of visible lines?`,o:['4','5','10','3'],a:3,e:`Visible lines are Balmer lines: 5→2, 4→2, 3→2. (6→2 is not possible from n = 5.) So 3.`},
+{q:`If the shortest wavelength of the Lyman series is x, the first line of the Balmer series has wavelength`,o:['9x/5','36x/5','5x/9','5x/36'],a:1,e:`Lyman limit: 1/x = R. Balmer first line: 1/λ = 5R/36, so λ = 36/(5R) = 36x/5.`},
+{q:`Which He⁺ transition has the same wavelength as the first Lyman line (2 → 1) of H?`,o:['2 → 1','3 → 1','4 → 2','6 → 3'],a:2,e:`He⁺ 4 → 2: 4(1/4 − 1/16)R = 3R/4, equal to H 2 → 1. Double both n values for He⁺.`},
+{q:`A H sample has electrons falling from the 5th excited state to the ground state. How many of the lines are in the infrared?`,o:['3','4','10','6'],a:3,e:`n = 6. IR lines end on n = 3, 4 or 5: Paschen 3 + Brackett 2 + Pfund 1 = 6.`},
+{q:`For Li²⁺, the wave number of the first Balmer line minus that of the last Paschen line is`,o:['R/36','5R/36','4R','R/4'],a:3,e:`First Balmer: 9R(1/4 − 1/9) = 5R/4. Last Paschen: 9R(1/9) = R. Difference = R/4.`},
+{q:`A single isolated H atom has its electron in n = 4. The maximum number of lines it can emit while returning to the ground state is`,o:['6','3','4','10'],a:1,e:`One atom gives at most n − 1 = 3 lines (e.g. 4→3→2→1). The 6 lines need a large sample.`}
+],
+qn:[
+{q:`Which set of quantum numbers (n, ℓ, m, s) is NOT valid?`,o:['3, 2, 2, +½','2, 0, 0, −½','4, 2, −1, +½','4, 3, 4, −½'],a:3,e:`For ℓ = 3, m runs from −3 to +3. m = 4 is impossible.`},
+{q:`An element has K, L, M, N = 2, 8, 11, 2. How many of its electrons have ℓ = 2?`,o:['6','3','5','4'],a:1,e:`M shell: 11 = 3s² 3p⁶ 3d³. Only the 3d electrons have ℓ = 2, so 3. (The element is V.)`},
+{q:`A 3p orbital has`,o:['2 radial nodes, 0 angular','0 radial nodes, 2 angular','1 radial node, 1 angular','1 radial node, 2 angular'],a:2,e:`Radial = n − ℓ − 1 = 1. Angular = ℓ = 1. Total = n − 1 = 2.`},
+{q:`A spin-only magnetic moment of 2.83 BM belongs to`,o:['Fe²⁺','Mn²⁺','Co³⁺','Ni²⁺'],a:3,e:`μ = 2.83 means 2 unpaired electrons. Ni²⁺ = 3d⁸ has 2. Fe²⁺ and Co³⁺ have 4, Mn²⁺ has 5.`},
+{q:`In ground-state Cr (Z = 24), the numbers of electrons with ℓ = 1 and ℓ = 2 are`,o:['16 and 5','12 and 4','12 and 5','16 and 4'],a:2,e:`Cr = 1s² 2s² 2p⁶ 3s² 3p⁶ 3d⁵ 4s¹. p electrons: 6 + 6 = 12. d electrons: 5 (the exception!).`},
+{q:`The total spin of Fe³⁺ is`,o:['±1','±2','±3','±5/2'],a:3,e:`Fe³⁺ = 3d⁵: five unpaired electrons. Total spin = ±5 × ½ = ±5/2.`},
+{q:`An electron with n = 3 and exactly one radial node has orbital angular momentum`,o:['0','√2 · h/2π','√6 · h/2π','3 · h/2π'],a:1,e:`Radial nodes = n − ℓ − 1 = 1 gives ℓ = 1 (3p). L = √(1·2) h/2π = √2 h/2π.`}
+]};
+
+QUIZ.dbl=[
+{q:`An electron and a proton have the same kinetic energy. The ratio λ(electron) : λ(proton) is approximately`,o:['1836','43','1','1/43'],a:1,e:`λ ∝ 1/√m at equal K.E., so ratio = √(mₚ/mₑ) = √1836 ≈ 43.`},
+{q:`The de Broglie wavelength of an electron accelerated through 150 V is about`,o:['0.1 Å','1.0 Å','10 Å','12.3 Å'],a:1,e:`λ = 12.3/√V ≈ √(150/V) Å. With V = 150: √1 = 1 Å.`},
+{q:`The de Broglie wavelength of the electron in the 4th Bohr orbit of H is`,o:['2πa₀','4πa₀','8πa₀','16πa₀'],a:2,e:`2πr = nλ with r = n²a₀. For n = 4: λ = 2π(16a₀)/4 = 8πa₀.`},
+{q:`If the kinetic energy of a particle becomes four times, its de Broglie wavelength becomes`,o:['4λ','λ/4','λ/2','2λ'],a:2,e:`λ ∝ 1/√K.E. = 1/√4 = 1/2.`},
+{q:`The minimum uncertainty in the speed of an electron whose position is known to ±1 Å (Δx = 10⁻¹⁰ m) is about`,o:['5.8×10³ m/s','5.8×10⁵ m/s','5.8×10⁷ m/s','1.2×10⁶ m/s'],a:1,e:`Δv = h/(4π m Δx) = 6.626×10⁻³⁴ / (4π × 9.1×10⁻³¹ × 10⁻¹⁰) ≈ 5.8×10⁵ m/s.`},
+{q:`Which statement about Heisenberg's uncertainty principle is correct?`,o:['Δx·Δp ≤ h/4π','If Δx → 0 then Δp → ∞','It matters most for cricket balls','It supports Bohr’s fixed orbits'],a:1,e:`The principle is Δx·Δp ≥ h/4π. Pinning down position makes momentum infinitely uncertain. It is negligible for big objects and it rules out definite orbits.`}
+];
+QUIZ.orb=[
+{q:`The number of radial and angular nodes in a 4d orbital is`,o:['2 and 1','1 and 2','3 and 0','0 and 3'],a:1,e:`Radial = 4 − 2 − 1 = 1. Angular = ℓ = 2. Total = 3.`},
+{q:`Which orbital has the same number of radial nodes as 3s?`,o:['3p','4s','4p','3d'],a:2,e:`3s: 3 − 0 − 1 = 2. 4p: 4 − 1 − 1 = 2. (3p has 1, 4s has 3, 3d has 0.)`},
+{q:`Which orbital has a non-zero value of ψ² at the nucleus?`,o:['2p','3d','3s','4f'],a:2,e:`Only s orbitals have electron density at the nucleus.`},
+{q:`An orbital with 2 radial nodes and 1 angular node is`,o:['3p','4p','4d','5s'],a:1,e:`Angular = ℓ = 1, so it is p. Radial = n − 2 = 2 gives n = 4.`},
+{q:`Which is true about the wave function ψ?`,o:['ψ itself is the probability of finding the electron','ψ² gives probability density and is never negative','ψ² is negative in some regions','ψ gives the exact path of the electron'],a:1,e:`ψ has no physical meaning and can be + or −. ψ² is the probability density and is always positive.`},
+{q:`The correct increasing order of energy in a many-electron atom is`,o:['3d &lt; 4s &lt; 4p &lt; 5s','4s &lt; 3d &lt; 4p &lt; 5s','4s &lt; 4p &lt; 3d &lt; 5s','3d &lt; 4p &lt; 4s &lt; 5s'],a:1,e:`(n + ℓ): 4s = 4, then 3d = 4p = 5s = 5. Ties go to the lower n: 3d &lt; 4p &lt; 5s.`}
+];
+QUIZ.nuc=[
+{q:`In the change ₉₂U²³⁸ → ₈₂Pb²⁰⁶, the numbers of α and β⁻ particles emitted are`,o:['8 and 6','6 and 8','8 and 8','4 and 6'],a:0,e:`α = (238 − 206)/4 = 8. β⁻ = 2 × 8 − (92 − 82) = 6.`},
+{q:`₁₁Na²² has a low n/p ratio. It decays mainly by`,o:['β⁻ emission to ₁₂Mg²²','α emission','β⁺ emission or electron capture to ₁₀Ne²²','γ emission to ₁₁Na²¹'],a:2,e:`Low n/p means a proton turns into a neutron: β⁺ or K-capture. Z falls by 1, A stays 22.`},
+{q:`An element X emits 1 α and then 2 β⁻ particles to form Y. Y and X are`,o:['isobars','isotones','isotopes','isodiaphers'],a:2,e:`Z: −2 + 2 = 0, so same Z. A falls by 4. Same Z means isotopes.`},
+{q:`After one α emission and one β⁻ emission, the daughter element sits in the periodic table`,o:['1 place to the right','1 place to the left','2 places to the left','3 places to the left'],a:1,e:`α: 2 places left. β⁻: 1 place right. Net: 1 place left (Z − 1).`},
+{q:`Which pair are isodiaphers (same n − p)?`,o:['₆C¹⁴ and ₇N¹⁴','₉F¹⁹ and ₁₉K³⁹','₂He⁴ and ₁H³','₁₁Na²³ and ₁₂Mg²⁴'],a:1,e:`F-19: 10 − 9 = 1. K-39: 20 − 19 = 1. (C and N are isobars; He and H are isotones. The PDF prints n − p = 10, which is a typo.)`},
+{q:`The stable nucleus with the highest n/p ratio is`,o:['₈₀Hg²⁰⁰','₈₃Bi²⁰⁹','₉₂U²³⁸','₂₀Ca⁴⁰'],a:1,e:`₈₃Bi²⁰⁹ at 1.52. Uranium is radioactive, and Ca-40 has n/p = 1.`},
+{q:`Which radiation has the greatest ionising power but the least penetrating power?`,o:['α','β','γ','neutron'],a:0,e:`α: highest ionising power, lowest penetration. γ is the opposite.`}
 ];
 
-/* =========================================================
-   STATE
-   ========================================================= */
-let candidateName = "";
-let totalSeconds = 0;
-let remainingSeconds = 0;
-let timerInterval = null;
-let currentSection = "A";
-let currentIndex = 0; // index within full questions array
+QUIZ.part=[
+{q:`Which statement about cathode rays is correct?`,o:['Their e/m depends on the gas in the tube','Their e/m is the same for all gases','They are positively charged','They are visible as a beam in the tube'],a:1,e:`Cathode rays are always electrons, so e/m = 1.76×10¹¹ C/kg regardless of the gas. They are negative and invisible.`},
+{q:`Positive (anode) rays show the highest e/m for which gas?`,o:['Helium','Hydrogen','Neon','Nitrogen'],a:1,e:`The charge is the same for singly ionised particles, so the lightest particle (H⁺, the proton) gives the highest e/m.`},
+{q:`If the kinetic energy of an α particle approaching a nucleus is doubled, the distance of closest approach becomes`,o:['4 times','2 times','1/2','1/4'],a:2,e:`K.E. = K(Ze)(2e)/R, so R ∝ 1/K.E. Doubling K.E. halves R.`},
+{q:`The ratio of the radius of a nucleus with A = 64 to one with A = 8 is`,o:['8','4','2','√8'],a:2,e:`R ∝ A^(1/3): (64/8)^(1/3) = 8^(1/3) = 2.`},
+{q:`In the ion ⁸⁰₃₅Br⁻, the numbers of protons, neutrons and electrons are`,o:['35, 45, 36','35, 45, 35','36, 44, 35','35, 44, 36'],a:0,e:`Protons = Z = 35. Neutrons = 80 − 35 = 45. Electrons = 35 + 1 = 36.`},
+{q:`Which pair are isotones?`,o:['₁₈Ar⁴⁰ and ₁₉K⁴⁰','₆C¹⁴ and ₇N¹⁵','₁H¹ and ₁H²','₆C¹² and ₆C¹⁴'],a:1,e:`C-14: 14 − 6 = 8 neutrons. N-15: 15 − 7 = 8 neutrons. (The first pair are isobars, the others are isotopes.)`},
+{q:`In Rutherford's experiment, about 1 in 20,000 α particles bounced back almost 180°. This shows`,o:['The atom is a uniform sphere','Electrons are heavier than α particles','The positive charge and mass are packed in a tiny nucleus','Neutrons are present in the nucleus'],a:2,e:`Only a head-on collision with a tiny, dense, positive core can reverse a heavy α particle.`}
+];
+QUIZ.light=[
+{q:`Light of energy 5 eV falls on a metal of work function 2 eV. The stopping potential is`,o:['2 V','3 V','5 V','7 V'],a:1,e:`K.E.max = 5 − 2 = 3 eV, so eV₀ = 3 eV and V₀ = 3 V.`},
+{q:`The intensity of light above the threshold frequency is doubled with the same frequency. The photoelectrons`,o:['are twice in number with the same maximum K.E.','are the same in number with twice the K.E.','are twice in number with twice the K.E.','are the same in number with the same K.E.'],a:0,e:`Intensity means photon count: twice the photons, twice the electrons. K.E. depends only on frequency.`},
+{q:`Very intense light below the threshold frequency falls on a metal. What happens?`,o:['Electrons are emitted after a delay','Electrons are emitted with low K.E.','No electrons are emitted','Electrons are emitted if the light is bright enough'],a:2,e:`Each electron absorbs one photon. If hν &lt; W₀ no photon can eject it, however many arrive.`},
+{q:`Photon energy of 620 nm light is`,o:['1 eV','2 eV','3.1 eV','6.2 eV'],a:1,e:`E = 1240/620 = 2.0 eV.`},
+{q:`Longest wavelength that can decompose AgCl (248 kJ/mol), one photon per formula unit, is about`,o:['4.83×10⁻⁷ m','2.4×10⁻⁷ m','9.6×10⁻⁷ m','4.83×10⁻⁹ m'],a:0,e:`λ = N_A·hc/E = (6.023×10²³ × 6.626×10⁻³⁴ × 3×10⁸)/(248×10³) = 4.83×10⁻⁷ m.`},
+{q:`Which radiation has the shortest wavelength?`,o:['Infrared','Ultraviolet','Microwave','X-ray'],a:3,e:`Increasing wavelength: X-ray &lt; UV &lt; visible &lt; IR &lt; microwave.`},
+{q:`K.E.max vs ν graphs for two different metals are`,o:['parallel lines with different intercepts on the ν axis','lines with different slopes','coincident lines','curves that meet at the origin'],a:0,e:`Slope = h for every metal. Only the threshold frequency ν₀ (the x-intercept) differs.`}
+];
 
-// per-question state
-const qState = {}; // id -> {status: 'notvisited'|'notanswered'|'answered'|'marked'|'markedans', selected: idx/num or null}
-questions.forEach(q=>{ qState[q.id] = {status:"notvisited", selected:null}; });
-
-const sectionOrder = ["A","B"];
-function questionsOf(sec){ return questions.filter(q=>q.section===sec); }
-
-/* =========================================================
-   LOGIN SCREEN LOGIC
-   ========================================================= */
-let chosenMinutes = null;
-const durationGrid = document.getElementById("durationGrid");
-durationGrid.addEventListener("click", e=>{
-  if(e.target.tagName !== "BUTTON") return;
-  [...durationGrid.children].forEach(b=>b.classList.remove("active"));
-  e.target.classList.add("active");
-  chosenMinutes = parseInt(e.target.dataset.min,10);
-  document.getElementById("customMin").value = "";
-  validateStart();
-});
-document.getElementById("customMin").addEventListener("input", e=>{
-  if(e.target.value){
-    [...durationGrid.children].forEach(b=>b.classList.remove("active"));
-    chosenMinutes = parseInt(e.target.value,10);
-  } else {
-    chosenMinutes = null;
-  }
-  validateStart();
-});
-document.getElementById("nameInput").addEventListener("input", validateStart);
-
-function validateStart(){
-  const name = document.getElementById("nameInput").value.trim();
-  const ok = name.length>0 && chosenMinutes && chosenMinutes>0;
-  document.getElementById("startBtn").disabled = !ok;
-}
-
-document.getElementById("startBtn").addEventListener("click", ()=>{
-  candidateName = document.getElementById("nameInput").value.trim();
-  totalSeconds = chosenMinutes*60;
-  remainingSeconds = totalSeconds;
-  document.getElementById("loginScreen").style.display="none";
-  document.getElementById("testScreen").style.display="flex";
-  document.getElementById("candNameTop").textContent = candidateName;
-  document.getElementById("candNameSide").textContent = candidateName;
-  document.getElementById("avatarInit").textContent = candidateName.trim()[0].toUpperCase();
-  buildSectionTabs();
-  renderPalette();
-  goToQuestion("A",0);
-  startTimer();
-});
-
-/* =========================================================
-   TIMER
-   ========================================================= */
-function startTimer(){
-  updateTimerDisplay();
-  timerInterval = setInterval(()=>{
-    remainingSeconds--;
-    if(remainingSeconds<=0){
-      remainingSeconds=0;
-      updateTimerDisplay();
-      clearInterval(timerInterval);
-      finishTest(true);
-      return;
-    }
-    updateTimerDisplay();
-  },1000);
-}
-function updateTimerDisplay(){
-  const h = Math.floor(remainingSeconds/3600);
-  const m = Math.floor((remainingSeconds%3600)/60);
-  const s = remainingSeconds%60;
-  const el = document.getElementById("timerDisplay");
-  el.textContent = [h,m,s].map(v=>String(v).padStart(2,"0")).join(":");
-  el.classList.toggle("low", remainingSeconds<=60);
-}
-
-/* =========================================================
-   SECTION TABS
-   ========================================================= */
-function buildSectionTabs(){
-  const wrap = document.getElementById("sectionTabs");
-  wrap.innerHTML="";
-  sectionOrder.forEach(sec=>{
-    const btn = document.createElement("button");
-    btn.textContent = sec==="A" ? "Section A — Single Correct (15)" : "Section B — Numerical Value (15)";
-    btn.dataset.sec = sec;
-    if(sec===currentSection) btn.classList.add("active");
-    btn.addEventListener("click", ()=>{
-      currentSection = sec;
-      goToQuestion(sec,0);
-    });
-    wrap.appendChild(btn);
-  });
-}
-function refreshSectionTabsActive(){
-  [...document.getElementById("sectionTabs").children].forEach(b=>{
-    b.classList.toggle("active", b.dataset.sec===currentSection);
-  });
-}
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-function globalIndex(sec, localIdx){
-  return questions.findIndex(q=>q.section===sec) + localIdx;
-}
-function goToQuestion(sec, localIdx){
-  currentSection = sec;
-  const secQs = questionsOf(sec);
-  if(localIdx<0) localIdx=0;
-  if(localIdx>=secQs.length) localIdx=secQs.length-1;
-  const q = secQs[localIdx];
-  currentIndex = questions.indexOf(q);
-  if(qState[q.id].status==="notvisited") qState[q.id].status="notanswered";
-  refreshSectionTabsActive();
-  renderQuestion();
-  renderPalette();
-}
-function currentLocalIdx(){
-  const secQs = questionsOf(currentSection);
-  return secQs.findIndex(q=>q.id===questions[currentIndex].id);
-}
-
-/* =========================================================
-   RENDER QUESTION
-   ========================================================= */
-function renderQuestion(){
-  const q = questions[currentIndex];
-  const secQs = questionsOf(q.section);
-  const localIdx = secQs.findIndex(x=>x.id===q.id);
-  const panel = document.getElementById("qpanel");
-
-  let html = `
-    <div class="qmeta">
-      <div class="qnoTag">Section ${q.section} · Question ${localIdx+1} of ${secQs.length}</div>
-      <div class="marks">${q.type==="mcq" ? '<b class="pos">+4</b> / <b class="neg">−1</b>' : '<b class="pos">+4</b> / 0'}</div>
-    </div>
-    <div class="refTag">${q.ref}</div>
-    <div class="qtext">${q.text}</div>
-  `;
-
-  if(q.type==="mcq"){
-    html += `<div class="options">`;
-    q.options.forEach((opt,i)=>{
-      const sel = qState[q.id].selected===i ? "selected":"";
-      html += `
-        <label class="option ${sel}" data-idx="${i}">
-          <input type="radio" name="mcqOpt" ${qState[q.id].selected===i?"checked":""}>
-          <span><span class="optlabel">${String.fromCharCode(65+i)}.</span>${opt}</span>
-        </label>`;
-    });
-    html += `</div>`;
-  } else {
-    const val = qState[q.id].selected!==null ? qState[q.id].selected : "";
-    html += `
-      <div class="numeric-input-row">
-        <input type="number" step="any" id="numAnswer" placeholder="Enter numeric value" value="${val}">
-        <div class="hint">Enter your numeric answer (integer or decimal).</div>
-      </div>`;
-  }
-
-  html += `
-    <div class="actionbar">
-      <button class="btn-prev" id="btnPrev">← Previous</button>
-      <button class="btn-mark" id="btnMark">Mark for Review &amp; Next</button>
-      <button class="btn-clear" id="btnClear">Clear Response</button>
-      <button class="btn-save" id="btnSave">Save &amp; Next →</button>
-    </div>
-  `;
-  panel.innerHTML = html;
-
-  if(q.type==="mcq"){
-    panel.querySelectorAll(".option").forEach(optEl=>{
-      optEl.addEventListener("click", ()=>{
-        const i = parseInt(optEl.dataset.idx,10);
-        qState[q.id].selected = i;
-        panel.querySelectorAll(".option").forEach(o=>o.classList.remove("selected"));
-        optEl.classList.add("selected");
-        panel.querySelectorAll('input[name="mcqOpt"]').forEach((r,ri)=>r.checked = ri===i);
-        if(qState[q.id].status==="marked" || qState[q.id].status==="markedans"){
-          qState[q.id].status="markedans";
-        } else {
-          qState[q.id].status="answered";
-        }
-        renderPalette();
-      });
-    });
-  } else {
-    const numInput = document.getElementById("numAnswer");
-    numInput.addEventListener("input", ()=>{
-      const v = numInput.value;
-      if(v===""){
-        qState[q.id].selected=null;
-        qState[q.id].status = (qState[q.id].status==="markedans")?"marked":"notanswered";
-      } else {
-        qState[q.id].selected=v;
-        qState[q.id].status = (qState[q.id].status==="marked"||qState[q.id].status==="markedans")?"markedans":"answered";
-      }
-      renderPalette();
-    });
-  }
-
-  document.getElementById("btnPrev").addEventListener("click", ()=>{
-    goToQuestion(q.section, localIdx-1<0 ? localIdx : localIdx-1);
-  });
-  document.getElementById("btnSave").addEventListener("click", ()=>{
-    saveCurrentAnswer();
-    moveNext(q.section, localIdx);
-  });
-  document.getElementById("btnMark").addEventListener("click", ()=>{
-    saveCurrentAnswer();
-    const st = qState[q.id];
-    st.status = (st.selected!==null && st.selected!==undefined && st.selected!=="") ? "markedans" : "marked";
-    renderPalette();
-    moveNext(q.section, localIdx);
-  });
-  document.getElementById("btnClear").addEventListener("click", ()=>{
-    qState[q.id].selected=null;
-    qState[q.id].status="notanswered";
-    renderQuestion();
-    renderPalette();
-  });
-}
-
-function saveCurrentAnswer(){
-  const q = questions[currentIndex];
-  if(q.type==="numeric"){
-    const numInput = document.getElementById("numAnswer");
-    if(numInput){
-      const v = numInput.value;
-      if(v!==""){
-        qState[q.id].selected=v;
-        if(qState[q.id].status!=="marked" && qState[q.id].status!=="markedans"){
-          qState[q.id].status="answered";
-        } else if(qState[q.id].status==="marked"){
-          qState[q.id].status="markedans";
-        }
-      }
-    }
-  }
-}
-
-function moveNext(sec, localIdx){
-  const secQs = questionsOf(sec);
-  if(localIdx+1 < secQs.length){
-    goToQuestion(sec, localIdx+1);
-  } else {
-    // move to next section's first question if exists
-    const secIdx = sectionOrder.indexOf(sec);
-    if(secIdx+1 < sectionOrder.length){
-      goToQuestion(sectionOrder[secIdx+1], 0);
-    } else {
-      renderPalette();
-    }
-  }
-}
-
-/* =========================================================
-   PALETTE
-   ========================================================= */
-function renderPalette(){
-  const wrap = document.getElementById("paletteWrap");
-  wrap.innerHTML="";
-  sectionOrder.forEach(sec=>{
-    const secQs = questionsOf(sec);
-    const label = document.createElement("div");
-    label.className="paletteSection";
-    label.textContent = "Section "+sec;
-    wrap.appendChild(label);
-    const grid = document.createElement("div");
-    grid.className="palette";
-    secQs.forEach((q,i)=>{
-      const st = qState[q.id];
-      const btn = document.createElement("button");
-      btn.className = "pnum " + st.status;
-      if(questions[currentIndex].id===q.id) btn.classList.add("current");
-      btn.textContent = i+1;
-      btn.addEventListener("click", ()=>{
-        saveCurrentAnswer();
-        goToQuestion(sec,i);
-      });
-      grid.appendChild(btn);
-    });
-    wrap.appendChild(grid);
-  });
-}
-
-/* =========================================================
-   SUBMIT
-   ========================================================= */
-document.getElementById("submitTopBtn").addEventListener("click", confirmSubmit);
-document.getElementById("submitBottomBtn").addEventListener("click", confirmSubmit);
-function confirmSubmit(){
-  saveCurrentAnswer();
-  const unanswered = questions.filter(q=>{
-    const s=qState[q.id].status;
-    return s==="notvisited"||s==="notanswered"||s==="marked";
-  }).length;
-  const msg = unanswered>0
-    ? `You have ${unanswered} unanswered question(s). Are you sure you want to submit the test?`
-    : `Are you sure you want to submit the test?`;
-  if(confirm(msg)){
-    clearInterval(timerInterval);
-    finishTest(false);
-  }
-}
-
-function finishTest(auto){
-  document.getElementById("testScreen").style.display="none";
-  document.getElementById("resultScreen").style.display="block";
-  computeAndRenderResults(auto);
+/* ---------- tabs, revision mode, progress ---------- */
+function showTab(id){
+  $$('.topic').forEach(function(s){s.classList.toggle('active',s.id===id)});
+  $$('.tab').forEach(function(b){b.classList.toggle('active',b.dataset.t===id)});
+  store.set('tab',id);
+  if(id==='t-weak')mountWeak();
   window.scrollTo(0,0);
 }
+$$('.tab').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.t)})});
 
-function isNumericCorrect(q, val){
-  if(val===null || val===undefined || val==="") return false;
-  const num = parseFloat(val);
-  if(isNaN(num)) return false;
-  return Math.abs(num - q.answer) < 0.05;
+function setRev(on){
+  document.body.classList.toggle('rev',on);
+  var b=$('#revBtn');b.textContent='Revision mode: '+(on?'ON':'OFF');b.setAttribute('aria-pressed',on?'true':'false');
+  store.set('rev',on);
 }
+$('#revBtn').addEventListener('click',function(){setRev(!document.body.classList.contains('rev'))});
 
-function computeAndRenderResults(auto){
-  let totalScore=0;
-  const secStats = {A:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0},
-                     B:{attempted:0,correct:0,wrong:0,unanswered:0,marks:0,max:0}};
-  const perQ = [];
-
-  questions.forEach(q=>{
-    const st = qState[q.id];
-    const stat = secStats[q.section];
-    const maxMark = 4;
-    stat.max += maxMark;
-    let userAnsText, isCorrect=false, attempted=false;
-
-    if(q.type==="mcq"){
-      const sel = st.selected;
-      attempted = sel!==null && sel!==undefined;
-      if(attempted){
-        isCorrect = sel===q.correct;
-        userAnsText = String.fromCharCode(65+sel)+". "+q.options[sel];
-        if(isCorrect){ stat.marks+=4; totalScore+=4; }
-        else { stat.marks-=1; totalScore-=1; }
-      } else {
-        userAnsText = "Not Answered";
-      }
-    } else {
-      const sel = st.selected;
-      attempted = sel!==null && sel!==undefined && sel!=="";
-      if(attempted){
-        isCorrect = isNumericCorrect(q, sel);
-        userAnsText = sel;
-        if(isCorrect){ stat.marks+=4; totalScore+=4; }
-      } else {
-        userAnsText = "Not Answered";
-      }
-    }
-
-    if(attempted){
-      stat.attempted++;
-      if(isCorrect) stat.correct++; else stat.wrong++;
-    } else {
-      stat.unanswered++;
-    }
-
-    perQ.push({q, userAnsText, isCorrect, attempted});
-  });
-
-  // header
-  document.getElementById("resName").textContent = `Result — ${candidateName}`;
-  document.getElementById("resSub").textContent = auto
-    ? "Test auto-submitted (time expired)."
-    : "Test submitted successfully.";
-
-  // score cards
-  const maxTotal = secStats.A.max + secStats.B.max;
-  const scoreCards = document.getElementById("scoreCards");
-  scoreCards.innerHTML = `
-    <div class="scard"><div class="val">${totalScore} / ${maxTotal}</div><div class="lab">Total Score</div></div>
-    <div class="scard"><div class="val">${secStats.A.correct+secStats.B.correct} / 30</div><div class="lab">Correct</div></div>
-    <div class="scard"><div class="val">${secStats.A.wrong+secStats.B.wrong}</div><div class="lab">Wrong</div></div>
-    <div class="scard"><div class="val">${secStats.A.unanswered+secStats.B.unanswered}</div><div class="lab">Unanswered</div></div>
-  `;
-
-  // section table
-  const tbody = document.getElementById("secTableBody");
-  tbody.innerHTML = `
-    <tr>
-      <td style="text-align:left;font-weight:600;">Section A — MCQ</td>
-      <td>${secStats.A.attempted}/15</td><td>${secStats.A.correct}</td><td>${secStats.A.wrong}</td><td>${secStats.A.unanswered}</td>
-      <td><b>${secStats.A.marks}</b> / ${secStats.A.max}</td>
-    </tr>
-    <tr>
-      <td style="text-align:left;font-weight:600;">Section B — Numerical</td>
-      <td>${secStats.B.attempted}/15</td><td>${secStats.B.correct}</td><td>${secStats.B.wrong}</td><td>${secStats.B.unanswered}</td>
-      <td><b>${secStats.B.marks}</b> / ${secStats.B.max}</td>
-    </tr>
-  `;
-
-  // review list
-  const reviewList = document.getElementById("reviewList");
-  reviewList.innerHTML="";
-  perQ.forEach((item,idx)=>{
-    const q=item.q;
-    const cls = !item.attempted ? "unanswered" : (item.isCorrect?"correct":"incorrect");
-    const tag = !item.attempted ? "Unanswered" : (item.isCorrect?"Correct":"Incorrect");
-    const correctText = q.type==="mcq" ? (String.fromCharCode(65+q.correct)+". "+q.options[q.correct]) : q.answer;
-    const div = document.createElement("div");
-    div.className = "revCard "+cls;
-    div.innerHTML = `
-      <div class="revTop">
-        <div><span class="refTag">${q.ref}</span></div>
-        <div class="revTag ${cls}">${tag}</div>
-      </div>
-      <div class="revQtext"><b>Q${idx+1}.</b> ${q.text}</div>
-      <div class="revAns"><b>Your Answer:</b> ${item.userAnsText}</div>
-      <div class="revAns"><b>Correct Answer:</b> ${correctText}</div>
-      <div class="revWhy"><b>Why:</b> ${q.why}</div>
-    `;
-    reviewList.appendChild(div);
-  });
+function updateProgress(){
+  var d=store.get('done',{});var n=0;
+  $$('[data-done]').forEach(function(c){c.checked=!!d[c.dataset.done];if(c.checked)n++});
+  $('#progPill').textContent='Topics revised: '+n+' / 8';
 }
+$$('[data-done]').forEach(function(c){c.addEventListener('change',function(){
+  var d=store.get('done',{});d[c.dataset.done]=c.checked;store.set('done',d);updateProgress()})});
+
+/* ---------- flashcards ---------- */
+var ALLCARDS=[];
+Object.keys(DECK).forEach(function(t){DECK[t].forEach(function(c,i){ALLCARDS.push({id:t+'-'+i,q:c[0],a:c[1],topic:t})})});
+function weakCount(){var st=store.get('cards',{});return ALLCARDS.filter(function(c){return st[c.id]==='revise'}).length}
+function updateBadge(){var n=weakCount(),b=$('#weakBadge');b.textContent=n;b.style.display=n?'inline':'none'}
+
+function mountDeck(el,cards,opts){
+  opts=opts||{};
+  var base=cards.slice(),list=base.slice(),i=0,flipped=false,only=false;
+  var head=el.querySelector('h4');var title=head?head.outerHTML:'';
+  el.innerHTML=title+'<div class="dk-head"><span class="dk-count"></span><span class="sp"></span>'+
+   (opts.weak?'':'<label class="chk"><input type="checkbox" class="dk-only"> only “revise again” cards</label>')+
+   '<button class="btn sm dk-shuf">Shuffle</button></div>'+
+   '<div class="flash" tabindex="0" role="button" aria-label="Flip card"><div class="flash-label"></div><div class="flash-body"></div><div class="flash-hint">tap to flip</div></div>'+
+   '<div class="dk-btns"><button class="btn ok dk-got">Got it ✓</button><button class="btn warn dk-rev">Revise again ↻</button><button class="btn dk-next">Skip →</button></div>';
+  var fl=$('.flash',el);
+  function build(){
+    var st=store.get('cards',{});
+    list=only?base.filter(function(c){return st[c.id]==='revise'}):base.slice();
+    if(i>=list.length)i=0;
+  }
+  function render(){
+    var st=store.get('cards',{});
+    var known=base.filter(function(c){return st[c.id]==='known'}).length;
+    if(!list.length){
+      $('.dk-count',el).textContent='No cards here';
+      $('.flash-label',el).textContent='';
+      $('.flash-body',el).innerHTML='<span class="empty">Nothing to show. Untick the filter or mark some cards “Revise again”.</span>';
+      fl.classList.remove('back');return;
+    }
+    var c=list[i];
+    $('.dk-count',el).textContent='Card '+(i+1)+' of '+list.length+' · known '+known+'/'+base.length;
+    var chip=st[c.id]?'<span class="chip '+st[c.id]+'">'+(st[c.id]==='known'?'known':'revise')+'</span>':'';
+    $('.flash-label',el).innerHTML=(flipped?'Answer':'Question')+(opts.weak?' · '+TOPICNAME[c.topic]:'')+chip;
+    $('.flash-body',el).innerHTML=flipped?c.a:c.q;
+    fl.classList.toggle('back',flipped);
+  }
+  function next(){if(list.length){i=(i+1)%list.length}flipped=false;render()}
+  function mark(v){if(!list.length)return;var st=store.get('cards',{});st[list[i].id]=v;store.set('cards',st);updateBadge();
+    if(only&&v==='known'){build();flipped=false;render()}else next()}
+  fl.addEventListener('click',function(){flipped=!flipped;render()});
+  fl.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();flipped=!flipped;render()}});
+  $('.dk-got',el).addEventListener('click',function(){mark('known')});
+  $('.dk-rev',el).addEventListener('click',function(){mark('revise')});
+  $('.dk-next',el).addEventListener('click',next);
+  $('.dk-shuf',el).addEventListener('click',function(){
+    for(var k=base.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=base[k];base[k]=base[j];base[j]=t}
+    i=0;flipped=false;build();render()});
+  var oc=$('.dk-only',el);if(oc)oc.addEventListener('change',function(){only=oc.checked;i=0;flipped=false;build();render()});
+  render();
+}
+function mountWeak(){
+  var st=store.get('cards',{});
+  var cards=ALLCARDS.filter(function(c){return st[c.id]==='revise'});
+  var el=$('#weakDeck');
+  if(!cards.length){el.innerHTML='<p class="empty">No weak cards yet. Mark a card “Revise again ↻” in any topic and it will appear here.</p>';return}
+  mountDeck(el,cards,{weak:true});
+}
+$$('.deck[data-deck]').forEach(function(el){
+  var t=el.dataset.deck;
+  mountDeck(el,ALLCARDS.filter(function(c){return c.topic===t}));
+});
+$('#resetCards').addEventListener('click',function(){
+  if(confirm('Clear known / revise marks on all flashcards?')){store.set('cards',{});updateBadge();
+    $$('.deck[data-deck]').forEach(function(el){var t=el.dataset.deck;mountDeck(el,ALLCARDS.filter(function(c){return c.topic===t}))});
+    mountWeak()}
+});
+
+/* ---------- quizzes ---------- */
+function mountQuiz(el){
+  var t=el.dataset.quiz,qs=QUIZ[t],ans=[];
+  function render(){
+    var score=ans.filter(function(a,i){return a===qs[i].a}).length,done=ans.filter(function(a){return a!==undefined}).length;
+    var best=store.get('best_'+t,null);
+    var h='<h4>Quiz: '+qs.length+' questions</h4><div class="qz-head"><span>Score: <b>'+score+' / '+qs.length+'</b>'+(best!==null?' · best '+best:'')+'</span><span class="sp"></span><button class="btn sm qz-reset">Restart</button></div>';
+    qs.forEach(function(q,qi){
+      h+='<div class="qq"><div><b>'+(qi+1)+'.</b> '+q.q+'</div><div class="opts">';
+      q.o.forEach(function(o,oi){
+        var cls='opt';
+        if(ans[qi]!==undefined){if(oi===q.a)cls+=' right';else if(oi===ans[qi])cls+=' wrong'}
+        h+='<button class="'+cls+'" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>';
+      });
+      h+='</div>';
+      if(ans[qi]!==undefined)h+='<div class="exp"><b>'+(ans[qi]===q.a?'Correct. ':'Not quite. ')+'</b>'+q.e+'</div>';
+      h+='</div>';
+    });
+    if(done===qs.length)h+='<p><b>Finished: '+score+' / '+qs.length+'.</b> '+(score===qs.length?'Perfect!':'Retry after revising the cards.')+'</p>';
+    el.innerHTML=h;
+    if(done===qs.length){var b=store.get('best_'+t,null);if(b===null||score>b)store.set('best_'+t,score)}
+  }
+  el.addEventListener('click',function(e){
+    var b=e.target.closest('.opt');
+    if(b){var qi=+b.dataset.q;if(ans[qi]!==undefined)return;ans[qi]=+b.dataset.o;render();return}
+    if(e.target.closest('.qz-reset')){ans=[];render()}
+  });
+  render();
+}
+$$('.quiz[data-quiz]').forEach(mountQuiz);
+
+/* ---------- Bohr comparer ---------- */
+var SPN=['','H','He⁺','Li²⁺','Be³⁺','B⁴⁺','C⁵⁺','N⁶⁺','O⁷⁺','F⁸⁺','Ne⁹⁺'];
+function clampInt(el,lo,hi){var v=Math.round(+el.value);if(!isFinite(v)||v<lo)v=lo;if(v>hi)v=hi;return v}
+function bohrUpdate(){
+  var Za=clampInt($('#ba-z'),1,10),na=clampInt($('#ba-n'),1,10),Zb=clampInt($('#bb-z'),1,10),nb=clampInt($('#bb-n'),1,10);
+  var A=bohrVals(Za,na),B=bohrVals(Zb,nb),R=bohrRatios(Za,na,Zb,nb);
+  var rows=[['Radius (Å)',A.r,B.r,R.r],['Speed (m/s)',A.v,B.v,R.v],['Total energy (eV)',A.E,B.E,R.E],['Kinetic energy (eV)',A.KE,B.KE,R.E],['Potential energy (eV)',A.PE,B.PE,R.E],['Time period (s)',A.T,B.T,R.T],['Frequency (s⁻¹)',A.f,B.f,R.f],['Angular momentum (× h/2π)',na,nb,R.L]];
+  var h='<table><tr><th>Quantity</th><th>A: '+SPN[Za]+', n = '+na+'</th><th>B: '+SPN[Zb]+', n = '+nb+'</th><th>A ÷ B</th></tr>';
+  rows.forEach(function(r){h+='<tr><td>'+r[0]+'</td><td>'+fmt(r[1])+'</td><td>'+fmt(r[2])+'</td><td><b>'+r[3]+'</b></td></tr>'});
+  $('#bohrOut').innerHTML=h+'</table>';
+}
+['#ba-z','#ba-n','#bb-z','#bb-n'].forEach(function(s){$(s).addEventListener('input',bohrUpdate)});
+bohrUpdate();
+
+/* ---------- Spectrum calculator + diagram ---------- */
+function drawLevels(Z,from,to){
+  var y=function(n){return 250-(n-1)*30};
+  var s='<defs><marker id="ahE" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#e8590c"/></marker><marker id="ahA" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0L6,3L0,6z" fill="#1c7ed6"/></marker></defs>';
+  s+='<line x1="60" x2="230" y1="14" y2="14" stroke="currentColor" stroke-dasharray="4 3" opacity=".5"/><text x="8" y="18" class="sv">n = ∞</text><text x="238" y="18" class="sv">0 eV</text>';
+  for(var n=1;n<=8;n++){
+    var hl=(n===from||n===to);
+    s+='<line x1="60" x2="230" y1="'+y(n)+'" y2="'+y(n)+'" stroke="currentColor" stroke-width="'+(hl?2.5:1.2)+'" opacity="'+(hl?1:.55)+'"/>';
+    s+='<text x="8" y="'+(y(n)+4)+'" class="sv">n = '+n+'</text><text x="238" y="'+(y(n)+4)+'" class="sv">'+(-13.6*Z*Z/(n*n)).toFixed(2)+' eV</text>';
+  }
+  if(from!==to){
+    var em=from>to,col=em?'#e8590c':'#1c7ed6',mk=em?'ahE':'ahA';
+    var y1=y(from),y2=y(to),off=em?6:-6;
+    s+='<line x1="145" x2="145" y1="'+y1+'" y2="'+(y2-off)+'" stroke="'+col+'" stroke-width="3" marker-end="url(#'+mk+')"/>';
+    s+='<text x="154" y="'+((y1+y2)/2+4)+'" font-size="11" fill="'+col+'">'+(em?'photon out':'photon in')+'</text>';
+  }
+  $('#lvlsvg').innerHTML=s;
+}
+function specUpdate(){
+  var Z=clampInt($('#sp-z'),1,10),a=clampInt($('#sp-a'),1,8),b=clampInt($('#sp-b'),1,8);
+  drawLevels(Z,a,b);
+  if(a===b){$('#specOut').innerHTML='<div class="res">Choose two different levels.</div>';return}
+  var r=specCalc(Z,a,b);
+  var h='<div class="res"><b>'+(r.emission?'Emission':'Absorption')+'</b> in '+SPN[Z]+': n = '+a+' → n = '+b+'<br>'+
+   'Energy of photon: <b>'+r.dE.toFixed(3)+' eV</b><br>'+
+   'Wavelength: <b>'+Math.round(r.lamA)+' Å</b> ('+(r.lamA/10).toFixed(1)+' nm)<br>'+
+   'Wave number: <b>'+r.wn+' R</b> (R = 1.097×10⁷ m⁻¹)<br>'+
+   'Region: <b>'+r.region+'</b><br>'+
+   'Series (set by the lower level n = '+r.lo+'): <b>'+r.series+(Z>1?'-type':'')+'</b>'+(r.first?' · this is the <b>first line</b> (longest λ) of the series':'')+'</div>'+
+   '<div class="res">Electron dropping from n = '+r.hi+' to n = '+r.lo+':<br>one isolated atom: at most <b>'+r.single+'</b> line(s) · a large sample: <b>'+r.sample+'</b> line(s)</div>';
+  $('#specOut').innerHTML=h;
+}
+['#sp-z','#sp-a','#sp-b'].forEach(function(s){$(s).addEventListener('input',specUpdate)});
+specUpdate();
+
+/* ---------- Quantum number checker ---------- */
+function qnUpdate(){
+  var n=+$('#q-n').value,l=+$('#q-l').value,m=+$('#q-m').value,s=$('#q-s').value;
+  var errs=checkQN(n,l,m,s);
+  var h;
+  if(errs.length){h='<div class="res"><span class="bad">Not a valid set.</span><ul>'+errs.map(function(e){return '<li>'+e+'</li>'}).join('')+'</ul></div>'}
+  else{
+    var name=n+LET[l];
+    h='<div class="res"><span class="good">Valid.</span> This electron is in a <b>'+name+'</b> orbital with spin '+s+'.<br>'+
+     'Orbital angular momentum: <b>'+(l===0?'0':'√'+(l*(l+1))+' · h/2π')+'</b><br>'+
+     'Nodes: <b>'+(n-l-1)+'</b> radial + <b>'+l+'</b> angular = <b>'+(n-1)+'</b> total<br>'+
+     'The '+name+' subshell has '+(2*l+1)+' orbitals and holds '+(2*(2*l+1))+' electrons.</div>';
+  }
+  $('#qnOut').innerHTML=h;
+}
+var LET='spdfgh';
+['#q-n','#q-l','#q-m','#q-s'].forEach(function(s){$(s).addEventListener('input',qnUpdate)});
+qnUpdate();
+
+/* ---------- Configuration builder ---------- */
+var SUP={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+function sup(n){return String(n).split('').map(function(c){return SUP[c]}).join('')}
+function cfgUpdate(){
+  var Z=clampInt($('#c-z'),1,56),q=clampInt($('#c-q'),-3,7);
+  var r=buildConfig(Z,q);
+  if(r.error){$('#cfgOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  var chg=q===0?'':(q>0?(q>1?q:'')+'⁺':(q<-1?-q:'')+'⁻');
+  var cfg=r.subs.map(function(s){return s.label+sup(s.count)}).join(' ');
+  var boxes=r.subs.map(function(s){
+    return '<div class="sub"><div class="sl">'+s.label+'</div><div class="bx">'+s.boxes.map(function(b){return '<span>'+(b===2?'↑↓':b===1?'↑':'&nbsp;')+'</span>'}).join('')+'</div></div>';
+  }).join('');
+  var h='<div class="res"><b>Z = '+Z+(chg?', charge '+(q>0?'+':'')+q:'')+'</b> · '+r.total+' electrons<br><b>'+cfg+'</b>'+
+   (r.exc?'<br><span class="bad">Exception to Aufbau:</span> half-filled or fully filled d is more stable.':'')+
+   '<div class="sub-row">'+boxes+'</div></div>'+
+   '<div class="res">Unpaired electrons: <b>'+r.unp+'</b> · '+(r.unp?'paramagnetic':'diamagnetic')+'<br>'+
+   'Spin-only magnetic moment: <b>√('+r.unp+'×'+(r.unp+2)+') = '+r.mu.toFixed(2)+' BM</b> · total spin: <b>'+(r.unp?'± '+(r.unp%2?r.unp+'/2':r.unp/2):'0')+'</b><br>'+
+   'Electrons with ℓ = 0 (s): <b>'+r.byL[0]+'</b> · ℓ = 1 (p): <b>'+r.byL[1]+'</b> · ℓ = 2 (d): <b>'+r.byL[2]+'</b>'+(r.byL[3]?' · ℓ = 3 (f): <b>'+r.byL[3]+'</b>':'')+'</div>';
+  $('#cfgOut').innerHTML=h;
+}
+['#c-z','#c-q'].forEach(function(s){$(s).addEventListener('input',cfgUpdate)});
+cfgUpdate();
+
+/* ---------- Part 2 playgrounds ---------- */
+function sci(x){return x.toExponential(3).replace('e+','×10^').replace('e-','×10^-')}
+function sciH(x){var m=x.toExponential(3).split('e');return m[0]+'×10<sup>'+parseInt(m[1],10)+'</sup>'}
+function dbUpdate(){
+  var key=$('#db-p').value;$('#db-cw').style.display=key==='c'?'flex':'none';
+  var m=key==='c'?+$('#db-c').value:PART[key].m,q=key==='c'?0:PART[key].q;
+  var mode=$('#db-m').value,v=+$('#db-v').value;
+  var r=deBroglie(m,mode,v,q);
+  if(r.error){$('#dbOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  var h='<div class="res">λ = <b>'+sciH(r.lam)+' m</b> ('+sciH(r.lam*1e10)+' Å)<br>Momentum p = '+sciH(r.p)+' kg·m/s<br>Speed v = '+sciH(r.v)+' m/s · K.E. = '+sciH(r.Kev)+' eV</div>';
+  if(key==='e'&&mode==='V')h+='<div class="res">Check with the shortcut 12.3/√V = <b>'+(12.3/Math.sqrt(v)).toFixed(3)+' Å</b></div>';
+  if(r.v>3e7)h+='<div class="res"><span class="bad">Speed is a large fraction of c; this classical formula is no longer accurate.</span></div>';
+  $('#dbOut').innerHTML=h;
+}
+['#db-p','#db-m','#db-v','#db-c'].forEach(function(s){$(s).addEventListener('input',dbUpdate)});
+function unUpdate(){
+  var m=PART[$('#un-p').value].m,dx=+$('#un-x').value;
+  var r=minDv(m,dx);
+  if(r.error){$('#unOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#unOut').innerHTML='<div class="res">Minimum Δp = <b>'+sciH(r.dp)+' kg·m/s</b><br>Minimum Δv = <b>'+sciH(r.dv)+' m/s</b><br>'+(r.dv>1e5?'This is huge: the electron’s speed is uncertain by a large fraction of its likely speed.':r.dv<1e-10?'Negligible: for everyday objects the principle sets no practical limit.':'')+'</div>';
+}
+['#un-p','#un-x'].forEach(function(s){$(s).addEventListener('input',unUpdate)});
+dbUpdate();unUpdate();
+
+function ndUpdate(){
+  var n=Math.round(+$('#nd-n').value),l=+$('#nd-l').value;
+  var r=nodeInfo(n,l);
+  if(r.error){$('#ndOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#ndOut').innerHTML='<div class="res"><b>'+r.name+'</b> orbital<br>Radial nodes: <b>'+r.radial+'</b> (n − ℓ − 1) · Angular nodes: <b>'+r.angular+'</b> (ℓ) · Total: <b>'+r.total+'</b> (n − 1)<br>Peaks in the 4πr²R² graph: <b>'+r.peaks+'</b> (n − ℓ)<br>Orbital angular momentum: <b>'+r.L+'</b><br>The '+n+'spdfgh'[l]+' subshell has '+r.orbitals+' orbital(s) holding '+r.electrons+' electrons.</div>';
+}
+['#nd-n','#nd-l'].forEach(function(s){$(s).addEventListener('input',ndUpdate)});ndUpdate();
+function enUpdate(){
+  var n1=Math.round(+$('#en-n1').value),l1=+$('#en-l1').value,n2=Math.round(+$('#en-n2').value),l2=+$('#en-l2').value;
+  var a=nodeInfo(n1,l1),b=nodeInfo(n2,l2);
+  if(a.error||b.error){$('#enOut').innerHTML='<div class="res"><span class="bad">'+(a.error||b.error)+'</span></div>';return}
+  var r=energyCompare(n1,l1,n2,l2);
+  $('#enOut').innerHTML='<div class="res">'+a.name+': n + ℓ = <b>'+r.s1+'</b> · '+b.name+': n + ℓ = <b>'+r.s2+'</b><br><b>'+r.text+'</b></div>';
+}
+['#en-n1','#en-l1','#en-n2','#en-l2'].forEach(function(s){$(s).addEventListener('input',enUpdate)});enUpdate();
+
+function shapeSvg(k){
+  var c='currentColor',P='fill="#3b5bdb" fill-opacity=".45" stroke="#3b5bdb"',N='fill="#e8590c" fill-opacity=".45" stroke="#e8590c"';
+  var ax='<line x1="20" x2="220" y1="100" y2="100" stroke="'+c+'" opacity=".35"/><line x1="120" x2="120" y1="10" y2="190" stroke="'+c+'" opacity=".35"/><text x="222" y="104" class="sv">x</text><text x="124" y="14" class="sv">y</text>';
+  var s=ax;
+  if(k==='s')s+='<circle cx="120" cy="100" r="55" '+P+'/>';
+  if(k==='2s')s+='<circle cx="120" cy="100" r="70" '+P+'/><circle cx="120" cy="100" r="32" fill="none" stroke="'+c+'" stroke-dasharray="4 3"/><circle cx="120" cy="100" r="22" '+N+'/><text x="154" y="132" class="sv">radial node</text>';
+  if(k==='p')s+='<ellipse cx="120" cy="52" rx="24" ry="44" '+P+'/><ellipse cx="120" cy="148" rx="24" ry="44" '+N+'/>';
+  if(k==='dxy'){[[78,58,P],[162,58,N],[78,142,N],[162,142,P]].forEach(function(a){s+='<ellipse cx="'+a[0]+'" cy="'+a[1]+'" rx="22" ry="38" transform="rotate('+(a[0]<120===a[1]<100?-45:45)+' '+a[0]+' '+a[1]+')" '+a[2]+'/>'})}
+  if(k==='dx2')s+='<ellipse cx="120" cy="45" rx="20" ry="38" '+P+'/><ellipse cx="120" cy="155" rx="20" ry="38" '+P+'/><ellipse cx="45" cy="100" rx="38" ry="20" '+N+'/><ellipse cx="195" cy="100" rx="38" ry="20" '+N+'/>';
+  if(k==='dz2')s+='<ellipse cx="120" cy="42" rx="20" ry="36" '+P+'/><ellipse cx="120" cy="158" rx="20" ry="36" '+P+'/><ellipse cx="120" cy="100" rx="55" ry="14" '+N+'/>';
+  if(k==='dz2')s=s.replace('>y</text>','>z</text>');
+  return s;
+}
+var SHTXT={s:'Spherical, non-directional, 1 orbital. Highest density at the nucleus.',
+ '2s':'Spherical with one radial node (n − ℓ − 1 = 1), so a spherical surface of zero probability.',
+ p:'Two lobes joined at the nucleus; the nodal plane between them has zero probability. Three orientations: pₓ, p_y, p_z.',
+ dxy:'Four lobes lying <b>between</b> the axes (dxy, dyz, dzx are the same shape in different planes).',
+ dx2:'Four lobes lying <b>along</b> the x and y axes.',
+ dz2:'Two lobes along z and a <b>donut ring</b> in the xy-plane (side view shown). Its nodes are conical surfaces.'};
+function shUpdate(){var k=$('#sh-s').value;$('#shsvg').innerHTML=shapeSvg(k);$('#shOut').innerHTML='<div class="res">'+SHTXT[k]+' <span class="fnote">Colours show opposite signs of ψ; they are not charges.</span></div>'}
+$('#sh-s').addEventListener('input',shUpdate);shUpdate();
+
+function dcUpdate(){
+  var Z=Math.round(+$('#dc-z').value),A=Math.round(+$('#dc-a').value),As=Math.round(+$('#dc-s').value);
+  var r=predictDecay(A,Z,As);
+  if(r.error){$('#dcOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  var h='<div class="res"><b>'+r.sym+'</b>: protons '+Z+', neutrons '+r.n+', n/p = <b>'+r.ratio.toFixed(3)+'</b><br>'+r.why+'</div>';
+  if(r.d){
+    var eq=({alpha:' + ₂He⁴ (α)','beta-':' + ₋₁e⁰ (β⁻)','beta+':' + ₊₁e⁰ (β⁺)'})[r.mode];
+    h+='<div class="res">'+nuc(A,Z)+' → <b>'+nuc(r.d.A,r.d.Z)+'</b>'+eq+(r.mode==='beta+'?'<br>(Electron capture gives the same daughter.)':'')+'</div>';
+  }
+  $('#dcOut').innerHTML=h;
+}
+['#dc-z','#dc-a','#dc-s'].forEach(function(s){$(s).addEventListener('input',dcUpdate)});dcUpdate();
+function abUpdate(){
+  var a1=Math.round(+$('#ab-a1').value),z1=Math.round(+$('#ab-z1').value),a2=Math.round(+$('#ab-a2').value),z2=Math.round(+$('#ab-z2').value);
+  var r=countAB(a1,z1,a2,z2);
+  if(r.error){$('#abOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#abOut').innerHTML='<div class="res">'+nuc(a1,z1)+' → '+nuc(a2,z2)+'<br>α particles = (A − A′)/4 = <b>'+r.alpha+'</b><br>β⁻ particles = 2 × '+r.alpha+' − (Z − Z′) = <b>'+r.beta+'</b></div>';
+}
+['#ab-a1','#ab-z1','#ab-a2','#ab-z2'].forEach(function(s){$(s).addEventListener('input',abUpdate)});abUpdate();
+
+/* ---------- Part 3 playgrounds ---------- */
+function ptUpdate(){
+  var Z=Math.round(+$('#pt-z').value),A=Math.round(+$('#pt-a').value),q=Math.round(+$('#pt-q').value),R0=+$('#pt-r').value;
+  var s=species(Z,A,q);
+  if(s.error){$('#ptOut').innerHTML='<div class="res"><span class="bad">'+s.error+'</span></div>';return}
+  var r=nuclearRadius(A,R0);
+  $('#ptOut').innerHTML='<div class="res"><b>'+s.sym+'</b><br>Protons: <b>'+s.p+'</b> · Neutrons: <b>'+s.n+'</b> · Electrons: <b>'+s.e+'</b><br>'+
+   (q?'The nucleus is unchanged by ionisation; only the electrons differ from the neutral atom ('+Z+').<br>':'')+
+   'Nuclear radius R = R₀A<sup>1/3</sup> ≈ <b>'+(r.error?'–':r.R.toFixed(2)+' fm')+'</b> ('+(r.error?'':(r.R*1e-13).toExponential(2)+' cm')+')</div>';
+}
+['#pt-z','#pt-a','#pt-q','#pt-r'].forEach(function(s){$(s).addEventListener('input',ptUpdate)});ptUpdate();
+function caUpdate(){
+  var r=closestApproach(+$('#ca-e').value,Math.round(+$('#ca-z').value));
+  if(r.error){$('#caOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#caOut').innerHTML='<div class="res">Closest approach R = 2KZe²/K.E. = <b>'+r.Rfm.toFixed(2)+' fm</b> ('+sciH(r.Rm)+' m)<br>Doubling the energy halves R; doubling Z doubles R.</div>';
+}
+['#ca-e','#ca-z'].forEach(function(s){$(s).addEventListener('input',caUpdate)});caUpdate();
+function rlUpdate(){
+  var g=function(id){return Math.round(+$(id).value)};
+  var r=relations({Z:g('#rl-z1'),A:g('#rl-a1'),q:g('#rl-q1')},{Z:g('#rl-z2'),A:g('#rl-a2'),q:g('#rl-q2')});
+  if(r.error){$('#rlOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#rlOut').innerHTML='<div class="res"><b>'+r.A.sym+'</b> ('+r.A.p+'p, '+r.A.n+'n, '+r.A.e+'e) and <b>'+r.B.sym+'</b> ('+r.B.p+'p, '+r.B.n+'n, '+r.B.e+'e)<br>'+
+   (r.list.length?'They are: <b>'+r.list.join('; ')+'</b>':'No special relationship.')+'</div>';
+}
+['#rl-z1','#rl-a1','#rl-q1','#rl-z2','#rl-a2','#rl-q2'].forEach(function(s){$(s).addEventListener('input',rlUpdate)});rlUpdate();
+
+function phUpdate(){
+  var r=photonFrom($('#ph-m').value,+$('#ph-v').value);
+  if(r.error){$('#phOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#phOut').innerHTML='<div class="res">Wavelength: <b>'+(r.lam*1e9).toPrecision(4)+' nm</b> ('+(r.lam*1e10).toPrecision(4)+' Å)<br>Frequency: <b>'+sciH(r.nu)+' Hz</b><br>Energy: <b>'+r.EeV.toPrecision(4)+' eV</b> = '+sciH(r.EJ)+' J<br>Wave number: '+sciH(r.wn)+' cm⁻¹<br>Region: <b>'+emRegion(r.lam)+'</b></div>';
+}
+['#ph-m','#ph-v'].forEach(function(s){$(s).addEventListener('input',phUpdate)});phUpdate();
+function peGraph(o){
+  var W=o.W0,nuMax=Math.max(o.nu,o.nu0*2)*1.15,eMax=Math.max(o.E,W*1.5)*1.1;
+  var X=function(nu){return 40+nu/nuMax*260},Y=function(e){return 160-e/eMax*140};
+  var s='<line x1="40" y1="160" x2="305" y2="160" stroke="currentColor"/><line x1="40" y1="160" x2="40" y2="12" stroke="currentColor"/>'+
+   '<text x="250" y="182" class="sv">frequency ν</text><text x="4" y="14" class="sv">K.E.</text>';
+  s+='<line x1="'+X(o.nu0)+'" y1="160" x2="'+X(nuMax)+'" y2="'+Y((nuMax-o.nu0)/o.nu0*W)+'" stroke="#3b5bdb" stroke-width="2.5"/>';
+  s+='<line x1="'+X(o.nu0)+'" y1="160" x2="'+X(o.nu0)+'" y2="150" stroke="#e8590c" stroke-width="2"/><text x="'+(X(o.nu0)-8)+'" y="174" class="sv">ν₀</text>';
+  var ke=o.emits?o.KE:0;
+  s+='<circle cx="'+X(o.nu)+'" cy="'+Y(ke)+'" r="5" fill="'+(o.emits?'#2b8a3e':'#c92a2a')+'"/>';
+  return s;
+}
+function peUpdate(){
+  var sel=$('#pe-m').value;$('#pe-cw').style.display=sel==='c'?'flex':'none';
+  var W=sel==='c'?+$('#pe-c').value:+sel;
+  var o=photoelectric(W,+$('#pe-l').value,+$('#pe-i').value);
+  if(o.error){$('#peOut').innerHTML='<div class="res"><span class="bad">'+o.error+'</span></div>';$('#pegraph').innerHTML='';return}
+  $('#pegraph').innerHTML=peGraph(o);
+  var h='<div class="res">Photon energy: <b>'+o.E.toFixed(3)+' eV</b> · Work function: <b>'+W.toFixed(2)+' eV</b><br>Threshold: ν₀ = <b>'+sciH(o.nu0)+' Hz</b>, λ₀ = <b>'+o.lam0.toFixed(1)+' nm</b> (light must have λ ≤ λ₀)</div>';
+  if(o.emits)h+='<div class="res"><span class="good">Electrons are emitted.</span><br>K.E.max = hν − W₀ = <b>'+o.KE.toFixed(3)+' eV</b> ('+sciH(o.KE*QE)+' J)<br>Max speed = <b>'+sciH(o.v)+' m/s</b> · Stopping potential = <b>'+o.V0.toFixed(3)+' V</b><br>Relative number of electrons ∝ intensity = <b>×'+o.rel+'</b> (K.E. does not change with intensity)</div>';
+  else h+='<div class="res"><span class="bad">No emission.</span> The photon energy is below the work function, so even a very intense beam changes nothing. Use λ ≤ '+o.lam0.toFixed(1)+' nm.</div>';
+  $('#peOut').innerHTML=h;
+}
+['#pe-m','#pe-c','#pe-l','#pe-i'].forEach(function(s){$(s).addEventListener('input',peUpdate)});peUpdate();
+function prUpdate(){
+  var r=photonRate(+$('#pr-p').value,+$('#pr-l').value);
+  if(r.error){$('#prOut').innerHTML='<div class="res"><span class="bad">'+r.error+'</span></div>';return}
+  $('#prOut').innerHTML='<div class="res">Photons emitted per second = P·λ/hc = <b>'+sciH(r.rate)+'</b> (assuming all the power goes into light of this wavelength)</div>';
+}
+['#pr-p','#pr-l'].forEach(function(s){$(s).addEventListener('input',prUpdate)});prUpdate();
+
+/* ---------- init ---------- */
+setRev(!!store.get('rev',false));
+updateProgress();updateBadge();
+var t0=store.get('tab','t-part');if(!document.getElementById(t0))t0='t-part';
+showTab(t0);
+})();
 </script>
 </body>
 </html>

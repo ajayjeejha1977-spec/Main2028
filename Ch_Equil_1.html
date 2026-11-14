@@ -1,0 +1,1919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chemical Equilibrium – Study Guide</title>
+<style>
+:root{
+  --bg:#f5f7fb; --card:#ffffff; --text:#1c2333; --muted:#5b6478; --line:#dfe4ee;
+  --accent:#2f6fed; --accent-soft:#e8f0ff; --good:#1b8a4b; --good-soft:#e5f6ec;
+  --bad:#c93b3b; --bad-soft:#fdeaea; --warn:#a86a00; --warn-soft:#fff3dc;
+  --adv:#6b45c8; --adv-soft:#f0eafc; --shadow:0 1px 3px rgba(20,30,60,.08);
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#10141d; --card:#1a2030; --text:#e7eaf2; --muted:#9aa3b8; --line:#2c3449;
+    --accent:#6c9bff; --accent-soft:#1f2a45; --good:#4cc487; --good-soft:#16301f;
+    --bad:#ff7b7b; --bad-soft:#3a1d1d; --warn:#f0b24a; --warn-soft:#3a2d12;
+    --adv:#b69cff; --adv-soft:#2a2144; --shadow:none;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line);box-shadow:var(--shadow)}
+.hbar{max-width:900px;margin:0 auto;padding:8px 16px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.brand{font-weight:700;font-size:15px}
+nav{display:flex;flex-wrap:wrap;gap:6px;margin-left:auto}
+nav a{font-size:13px;text-decoration:none;color:var(--text);padding:4px 10px;border:1px solid var(--line);border-radius:999px;background:var(--bg)}
+nav a:hover{border-color:var(--accent);color:var(--accent)}
+nav a .pc{color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+main{max-width:900px;margin:0 auto;padding:20px 16px 80px;overflow-wrap:anywhere}
+section.mod,.we,.q,.box,.lab{min-width:0}
+.draft{background:var(--warn-soft);border:1px solid var(--warn);color:var(--text);padding:10px 14px;border-radius:10px;font-size:14px;margin-bottom:18px}
+h1{font-size:28px;margin:6px 0 4px}
+h2{font-size:23px;margin:0 0 6px}
+h3{font-size:18px;margin:26px 0 8px;padding-top:6px}
+p{margin:8px 0}
+.sub{color:var(--muted);margin-top:0}
+section.mod{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 22px 26px;margin:22px 0;box-shadow:var(--shadow)}
+.modtag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--accent-soft);padding:2px 10px;border-radius:999px;margin-bottom:6px}
+.goals{background:var(--bg);border:1px dashed var(--line);border-radius:10px;padding:10px 16px;margin:12px 0}
+.goals ul{margin:6px 0 2px 18px;padding:0}
+.box{border-left:5px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:10px 14px;margin:14px 0}
+.box.formula{border-color:var(--good);background:var(--good-soft)}
+.box.trap{border-color:var(--bad);background:var(--bad-soft)}
+.box.note{border-color:var(--warn);background:var(--warn-soft)}
+.box.recap{border-color:var(--good);background:var(--good-soft)}
+.box b.t{display:block;margin-bottom:2px}
+.box ul,.box ol{margin:6px 0 4px 20px;padding:0}
+details.adv{border:1px solid var(--adv);background:var(--adv-soft);border-radius:8px;padding:8px 14px;margin:14px 0}
+details.adv summary{cursor:pointer;font-weight:600;color:var(--adv)}
+table{border-collapse:collapse;width:100%;margin:12px 0;font-size:15px;display:block;overflow-x:auto}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{background:var(--bg)}
+.btn{font:inherit;font-size:14px;padding:6px 14px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:#fff;cursor:pointer}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:disabled{opacity:.5;cursor:default}
+.lab{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:14px;margin:16px 0}
+.lab h4{margin:0 0 8px;font-size:16px}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:8px 0}
+.ctrl label{font-size:14px;display:flex;align-items:center;gap:8px}
+.ctrl input[type=range]{width:150px}
+.ctrl input[type=number],.ctrl select{font:inherit;font-size:14px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--card);color:var(--text);width:110px}
+.ctrl select{width:auto;max-width:100%;min-width:0}
+.ctrl label{max-width:100%}
+.sortrow>span:first-child{min-width:0;max-width:100%;overflow-x:auto;overflow-y:hidden}
+canvas{width:100%;height:210px;display:block;background:var(--card);border:1px solid var(--line);border-radius:8px;margin-top:6px}
+.read{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:10px}
+.read div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:14px}
+.read b{display:block;font-size:17px;font-variant-numeric:tabular-nums}
+.status{margin-top:8px;font-weight:600}
+.q{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:12px 0;background:var(--card)}
+.q p.qt{margin:0 0 8px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;font:inherit;font-size:15px;padding:7px 12px;margin:5px 0;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--text);cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.why{margin-top:8px;font-size:15px;padding:8px 12px;border-radius:8px;background:var(--accent-soft)}
+.score{font-weight:700;margin:6px 0}
+.sortrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;border:1px solid var(--line);background:var(--card);border-radius:8px;padding:8px 12px;margin:6px 0}
+.sortrow .btns{display:flex;gap:6px}
+.sortrow .fb{flex-basis:100%;font-size:14px}
+.sortrow.ok{border-color:var(--good)} .sortrow.no{border-color:var(--bad)}
+.we{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0;background:var(--card)}
+.we .wq{font-weight:600}
+.we ol{margin:8px 0 8px 20px;padding:0}
+.we li{margin:6px 0}
+.tag-adv{font-size:11px;font-weight:700;color:var(--adv);border:1px solid var(--adv);border-radius:999px;padding:0 8px;margin-left:6px;vertical-align:middle}
+.coming{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;padding:0;list-style:none}
+.coming li{background:var(--bg);border:1px dashed var(--line);border-radius:8px;padding:8px 12px;font-size:15px}
+.sheet{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px}
+.sheet .box{margin:0}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+@media print{header,.lab,.btn,details.adv:not([open]){display:none}section.mod{box-shadow:none;break-inside:avoid-page}}
+
+nav{flex:1 1 100%;flex-wrap:nowrap;overflow-x:auto;margin-left:0;padding-bottom:4px}
+nav a{white-space:nowrap;flex:0 0 auto}
+.brow{display:grid;grid-template-columns:84px 1fr 120px;gap:8px;align-items:center;margin:5px 0;font-size:14px}
+.track{background:var(--card);border:1px solid var(--line);border-radius:6px;height:18px;overflow:hidden;display:block}
+.fill{display:block;height:100%}
+</style>
+<script>
+window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre']}};
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+<header>
+  <div class="hbar">
+    <span class="brand">Chemical Equilibrium</span><span id="overall" style="font-size:12px;color:var(--muted)"></span>
+    <nav><a href="#m1">M1<span class="pc" id="pc-m1"></span></a><a href="#m2">M2<span class="pc" id="pc-m2"></span></a><a href="#m3">M3<span class="pc" id="pc-m3"></span></a><a href="#m4">M4<span class="pc" id="pc-m4"></span></a><a href="#m5">M5<span class="pc" id="pc-m5"></span></a><a href="#m6">M6<span class="pc" id="pc-m6"></span></a><a href="#m7">M7<span class="pc" id="pc-m7"></span></a><a href="#m8">M8<span class="pc" id="pc-m8"></span></a><a href="#m9">M9<span class="pc" id="pc-m9"></span></a><a href="#m10">M10<span class="pc" id="pc-m10"></span></a><a href="#final">Final test<span class="pc" id="pc-final"></span></a><a href="#sheet">Formula sheet</a></nav>
+  </div>
+</header>
+
+<main>
+<div class="draft"><b>Complete draft: Modules 1–10, final test and formula sheet.</b> Needs internet once for the maths display. Your quiz answers are saved in this browser.</div>
+<h1>Chemical Equilibrium – Study Guide</h1>
+<p class="sub">JEE Main focus, with <span class="tag-adv" style="margin-left:0">ADVANCED EXTRA</span> boxes for deeper material. Try every interactive box and answer every check question.</p>
+
+<!-- ============================= MODULE 1 ============================= -->
+<section class="mod" id="m1">
+<span class="modtag">Module 1</span>
+<h2>What is chemical equilibrium?</h2>
+<p class="sub">Reversible reactions, dynamic equilibrium, and the types of equilibria.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>tell reversible from irreversible reactions, and explain why a closed vessel matters</li>
+<li>explain what "dynamic" equilibrium means, and why rates (not concentrations) are equal</li>
+<li>list the standard features of an equilibrium state</li>
+<li>classify an equilibrium as physical or chemical, homogeneous or heterogeneous</li>
+</ul></div>
+
+<h3>1.1 The big idea: a two-way escalator</h3>
+<p>Imagine two floors of a mall joined by one up-escalator and one down-escalator. In the morning everyone is on the ground floor, so only the up-escalator is busy. As the first floor fills, people start coming down too. After a while the number going up each minute equals the number coming down each minute. The head-count on each floor stops changing, <b>but people never stop moving</b>.</p>
+<p>A reversible reaction behaves the same way. Reactants turn into products (forward reaction). Products turn back into reactants (backward reaction). Eventually the two speeds become equal.</p>
+<div class="box"><b class="t">Equilibrium in one line</b>
+At equilibrium: <b>rate of forward reaction = rate of backward reaction</b>. Because of this, the amounts of every substance stay constant, even though both reactions are still going on.</div>
+
+<h3>1.2 Reversible vs irreversible reactions</h3>
+<table>
+<tr><th></th><th>Irreversible</th><th>Reversible</th></tr>
+<tr><td>Direction</td><td>Goes one way only</td><td>Goes both ways under the same conditions</td></tr>
+<tr><td>Extent</td><td>Runs essentially to completion</td><td>Never completes; stops at equilibrium with reactants and products both present</td></tr>
+<tr><td>Arrow</td><td>\(\rightarrow\)</td><td>\(\rightleftharpoons\)</td></tr>
+<tr><td>Typical examples</td><td>Precipitation, neutralisation, \(\mathrm{2KClO_3\rightarrow 2KCl+3O_2}\)</td><td>\(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\), \(\mathrm{H_2+I_2\rightleftharpoons 2HI}\)</td></tr>
+</table>
+<div class="box note"><b class="t">Closed vs open vessel</b>
+A reversible reaction that makes a gas, such as \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\), reaches equilibrium only in a <b>closed</b> vessel. In an <b>open</b> vessel the gas escapes, the backward reaction cannot happen, and the reaction goes to completion.</div>
+<p style="font-size:14px;color:var(--muted)">At this level, precipitation and neutralisation are treated as irreversible because they go so nearly to completion. In principle every reaction is reversible to some tiny extent.</p>
+
+<h3>1.3 Lab: watch equilibrium being reached</h3>
+<p>Take the simple reaction \(\mathrm{A\rightleftharpoons B}\) with total concentration 1.0 M. Change the rate constants and the starting mixture. Then drag the time slider.</p>
+<div class="lab" id="simlab">
+<h4>Simulator: A ⇌ B</h4>
+<div class="ctrl">
+<label>k<sub>f</sub> <input type="range" id="kf" min="0.05" max="1" step="0.05" value="0.3"> <span id="kfv"></span></label>
+<label>k<sub>b</sub> <input type="range" id="kb" min="0.05" max="1" step="0.05" value="0.1"> <span id="kbv"></span></label>
+<label>Start with
+<select id="mode"><option value="A">only A (reactant)</option><option value="B">only B (product)</option><option value="mix">half A, half B</option></select></label>
+</div>
+<canvas id="c1"></canvas>
+<canvas id="c2"></canvas>
+<div class="ctrl"><label style="flex:1 1 260px">Time <input type="range" id="tt" min="0" max="100" step="1" value="0" style="flex:1;width:100%"></label>
+<button class="btn ghost" id="play">▶ Play</button></div>
+<div class="read">
+<div>[A]<b id="rA"></b></div><div>[B]<b id="rB"></b></div>
+<div>Forward rate<b id="rrf"></b></div><div>Backward rate<b id="rrb"></b></div>
+<div>[B]/[A]<b id="rQ"></b></div><div>k<sub>f</sub>/k<sub>b</sub><b id="rK"></b></div>
+</div>
+<div class="status" id="sstat"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Try this: (1) Start with only B and see you reach the <b>same</b> final mixture. (2) Make k<sub>f</sub> larger than k<sub>b</sub> and see more B at equilibrium. (3) Notice that at equilibrium the two <b>rates</b> are equal, but [A] and [B] are generally <b>not</b> equal.</p>
+</div>
+
+<h3>1.4 Features of the equilibrium state</h3>
+<div class="box"><ol>
+<li><b>Dynamic.</b> Both reactions keep going at equal speed. Nothing visible changes, but nothing has stopped.</li>
+<li><b>Constant macroscopic properties.</b> Concentration, pressure, colour, density and similar properties stay fixed with time.</li>
+<li><b>Reachable from both sides.</b> Starting from pure reactants or from the equivalent amount of pure products gives the same equilibrium mixture (same temperature and volume).</li>
+<li><b>Needs a closed system.</b> Nothing can enter or leave.</li>
+<li><b>A catalyst does not change the equilibrium.</b> It speeds up both directions equally, so the same state is reached sooner. It does not change composition or the equilibrium constant.</li>
+<li><b>\(\Delta G = 0\)</b> at equilibrium. (\(\Delta G^\circ\) is usually <i>not</i> zero. More in Module 8.)</li>
+<li><b>It can be disturbed.</b> Change concentration, pressure, volume or temperature and the system shifts to a new equilibrium (Le Chatelier, Module 9).</li>
+</ol></div>
+<details class="adv"><summary>ADVANCED EXTRA: proving it is dynamic with isotopes</summary>
+<p>Take an equilibrium mixture of \(\mathrm{H_2}\), \(\mathrm{I_2}\) and \(\mathrm{HI}\). Add some \(\mathrm{D_2}\) (heavy hydrogen). Soon the mixture contains \(\mathrm{HD}\) and \(\mathrm{DI}\). The only way this can happen is if \(\mathrm{HI}\) keeps breaking apart and re-forming all the time. Check question 5 below uses the same idea.</p></details>
+
+<h3>1.5 Equilibrium is not the same as steady state</h3>
+<p>Two situations can look "constant" but are not true equilibrium:</p>
+<ul>
+<li>A metal rod with one end in a furnace and the other end in ice. After a while each point on the rod has a fixed temperature. Heat is flowing in <b>one direction only</b>, constantly supplied and removed.</li>
+<li>A tank with a tap filling it and a drain emptying it at the same rate. The level is fixed, but water goes in <b>one direction</b> only.</li>
+</ul>
+<p>These are <b>steady states</b>, which need a continuous outside supply to be maintained. In a true dynamic equilibrium, flow takes place in <b>both directions equally</b> inside a closed system.</p>
+
+<h3>1.6 Types of equilibria</h3>
+<table>
+<tr><th>Classified by</th><th>Types</th><th>Examples</th></tr>
+<tr><td>Process</td><td><b>Physical</b> (phase change, dissolving) vs <b>Chemical</b> (a reaction)</td><td>\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\); \(\mathrm{NaCl(s)\rightleftharpoons NaCl(aq)}\) vs \(\mathrm{H_2+Cl_2\rightleftharpoons 2HCl}\)</td></tr>
+<tr><td>Phases present</td><td><b>Homogeneous</b> (one phase) vs <b>Heterogeneous</b> (more than one phase)</td><td>\(\mathrm{SO_2(g)+NO_2(g)\rightleftharpoons SO_3(g)+NO(g)}\) vs \(\mathrm{3Fe(s)+4H_2O(g)\rightleftharpoons Fe_3O_4(s)+4H_2(g)}\)</td></tr>
+</table>
+<div class="lab"><h4>Quick sort: homogeneous or heterogeneous?</h4><div id="sortbox"></div><div class="score" id="sortscore"></div></div>
+
+<h3>1.7 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>"Equilibrium means equal amounts."</b> No. It means equal <i>rates</i>. The amounts depend on the reaction.</li>
+<li><b>"The reaction has stopped."</b> No. Both reactions continue. Only the <i>net</i> change is zero.</li>
+<li><b>"A catalyst gives more product."</b> No. It only shortens the time to reach equilibrium.</li>
+<li><b>"Any constant reading means equilibrium."</b> Not so. Check whether the system is closed and whether flow is in both directions (steady state vs equilibrium).</li>
+</ul></div>
+
+<h3>1.8 Check yourself</h3>
+<div id="quiz-m1"></div>
+<div class="score" id="score-m1"></div>
+<button class="btn ghost" onclick="resetQuiz('m1')">Reset Module 1 checks</button>
+
+<div class="box recap"><b class="t">Module 1 recap</b>
+<ul>
+<li>Reversible reaction: both directions happen; closed vessel needed.</li>
+<li>Equilibrium: \(r_f=r_b\), so concentrations are constant. It is dynamic, not stopped.</li>
+<li>Same equilibrium from either side. A catalyst only saves time.</li>
+<li>Physical vs chemical; homogeneous vs heterogeneous.</li>
+<li>Steady state (one-way flow) is not equilibrium.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 2 ============================= -->
+<section class="mod" id="m2">
+<span class="modtag">Module 2</span>
+<h2>Law of mass action, K<sub>c</sub> and K<sub>p</sub></h2>
+<p class="sub">How to write the equilibrium constant, and how to convert between K<sub>c</sub> and K<sub>p</sub>.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>state the law of mass action and the meaning of "active mass"</li>
+<li>write K<sub>c</sub> and K<sub>p</sub> for any reaction, including ones with solids, liquids and ions</li>
+<li>find \(\Delta n_g\) correctly and convert between K<sub>p</sub> and K<sub>c</sub></li>
+<li>state the units of K<sub>c</sub> and K<sub>p</sub></li>
+</ul></div>
+
+<h3>2.1 Law of mass action</h3>
+<p>Two molecules can only react if they meet. The more crowded the container, the more often they meet. Guldberg and Waage turned this into a law:</p>
+<div class="box"><b class="t">Law of mass action</b>
+At a fixed temperature, the rate of a reaction is proportional to the product of the <b>active masses</b> of the reactants, each raised to the power of its coefficient in the balanced equation.</div>
+<p><b>Active mass</b> is a measure of "how crowded" a substance is:</p>
+<ul>
+<li>for a dissolved substance or a gas (in K<sub>c</sub>): its molar concentration, \(\dfrac{\text{moles}}{\text{volume in litres}}\)</li>
+<li>for a gas (in K<sub>p</sub>): its partial pressure</li>
+<li>for a <b>pure solid or pure liquid</b>: taken as <b>1</b>. Its concentration is fixed by its density, so adding more of it does not make the reaction "more crowded".</li>
+</ul>
+
+<h3>2.2 From rates to the equilibrium constant</h3>
+<p>Take \(\mathrm{aA+bB\rightleftharpoons cC+dD}\). If we treat it as a single-step reaction:</p>
+\[ r_f=k_f[A]^a[B]^b,\qquad r_b=k_b[C]^c[D]^d \]
+<p>At equilibrium \(r_f=r_b\), so</p>
+\[ \frac{k_f}{k_b}=\frac{[C]^c[D]^d}{[A]^a[B]^b}=K_c \]
+<p>At a fixed temperature \(k_f\) and \(k_b\) are constants, so their ratio is a constant. That constant is the <b>equilibrium constant</b>, and the concentrations used are the <b>equilibrium</b> ones.</p>
+<details class="adv"><summary>ADVANCED EXTRA: what if the reaction is not a single step?</summary>
+<p>For a multi-step reaction the rate laws do not follow the coefficients, so the \(k_f/k_b\) argument above is only a model. Even then the expression for K<sub>c</sub> keeps exactly this form. This is proved from thermodynamics (Module 8), and for a multi-step mechanism K equals the product of the \(k_f/k_b\) ratios of the individual steps.</p></details>
+<div class="box formula"><b class="t">The rule for writing K</b>
+\[ K_c=\frac{[\text{products}]^{\text{coeff}}}{[\text{reactants}]^{\text{coeff}}}\qquad K_p=\frac{(p_{\text{products}})^{\text{coeff}}}{(p_{\text{reactants}})^{\text{coeff}}} \]
+Use <b>equilibrium</b> values only. K<sub>p</sub> needs at least one gas.</div>
+
+<h3>2.3 Rules for writing the expression</h3>
+<div class="box"><ol>
+<li>Products go on top, reactants at the bottom.</li>
+<li>Each term is raised to the power of its coefficient.</li>
+<li><b>Leave out pure solids and pure liquids</b> (their value is 1).</li>
+<li>Include gases and dissolved species. In dilute aqueous solutions, water is the solvent and is left out.</li>
+<li>K<sub>p</sub> uses partial pressures of gases only; if no gas is present, K<sub>p</sub> is not defined.</li>
+<li>Change the way the equation is written and K changes (more in Module 4).</li>
+</ol></div>
+
+<div class="lab"><h4>Expression builder</h4>
+<div class="ctrl"><label>Reaction <select id="exsel"></select></label></div>
+<div id="exrxn" style="margin:6px 0"></div>
+<div class="ctrl"><button class="btn ghost" id="bkc">Show K<sub>c</sub></button><button class="btn ghost" id="bkp">Show K<sub>p</sub></button><button class="btn ghost" id="bdn">Show Δn<sub>g</sub></button></div>
+<div id="exout"></div></div>
+
+<h3>2.4 Relation between K<sub>p</sub> and K<sub>c</sub></h3>
+<p>For an ideal gas, \(pV=nRT\), so \(p=\dfrac{n}{V}RT=CRT\), where \(C\) is the molar concentration. So each partial pressure is its concentration times \(RT\):</p>
+\[ K_p=\frac{(C_CRT)^c(C_DRT)^d}{(C_ART)^a(C_BRT)^b}=\frac{[C]^c[D]^d}{[A]^a[B]^b}\,(RT)^{(c+d)-(a+b)} \]
+<div class="box formula"><b class="t">Key relation</b>
+\[ K_p=K_c\,(RT)^{\Delta n_g},\qquad \Delta n_g=\text{(moles of gaseous products)}-\text{(moles of gaseous reactants)} \]
+Count <b>only gases</b>. \(\Delta n_g\) can be positive, negative, zero or a fraction. If \(\Delta n_g=0\) then \(K_p=K_c\).
+Use \(R=0.0821\ \mathrm{L\,atm\,mol^{-1}K^{-1}}\) when K<sub>c</sub> is in mol/L and K<sub>p</sub> in atm. T must be in kelvin.</div>
+<div class="lab"><h4>K<sub>p</sub> calculator</h4>
+<div class="ctrl"><label>K<sub>c</sub> <input type="number" id="ckc" value="0.04" step="any"></label>
+<label>T (K) <input type="number" id="ct" value="500" step="any"></label>
+<label>Δn<sub>g</sub> <input type="number" id="cdn" value="1" step="any"></label></div>
+<div class="status" id="cout"></div></div>
+<div class="box"><b class="t">Units</b>
+K<sub>c</sub> has units \((\mathrm{mol\,L^{-1}})^{\Delta n_g}\) and K<sub>p</sub> has units \((\mathrm{atm})^{\Delta n_g}\). For \(\Delta n_g=0\) there are no units. Strictly, K is a pure number because it is built from activities, but exam questions often ask for units, so state them unless told otherwise.</div>
+
+<h3>2.5 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. One mole of acetic acid and one mole of ethanol are mixed in a container. At equilibrium 2/3 mol of ester has formed. Find K<sub>c</sub> for \(\mathrm{CH_3COOH(l)+C_2H_5OH(l)\rightleftharpoons CH_3COOC_2H_5(l)+H_2O(l)}\).</p>
+<ol>
+<li hidden>Make an ICE table (moles). Initial: acid 1, alcohol 1, ester 0, water 0. Change: \(-x,-x,+x,+x\) with \(x=\tfrac23\).</li>
+<li hidden>At equilibrium: acid \(=\tfrac13\), alcohol \(=\tfrac13\), ester \(=\tfrac23\), water \(=\tfrac23\) mol.</li>
+<li hidden>\(\Delta n=0\) (same number of moles on both sides), so the volume \(V\) cancels. We can use moles directly.</li>
+<li hidden>\(K_c=\dfrac{(2/3)(2/3)}{(1/3)(1/3)}=\mathbf{4}\) (no units).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. For \(\mathrm{PCl_5(g)\rightleftharpoons PCl_3(g)+Cl_2(g)}\), K<sub>c</sub> = 0.04 mol/L at 500 K. Find K<sub>p</sub>.</p>
+<ol>
+<li hidden>\(\Delta n_g=(1+1)-1=+1\).</li>
+<li hidden>\(RT=0.0821\times500=41.05\).</li>
+<li hidden>\(K_p=K_c(RT)^{1}=0.04\times41.05=\mathbf{1.64\ atm}\).</li>
+<li hidden>Sense check: \(\Delta n_g>0\) and \(RT>1\), so K<sub>p</sub> must be larger than K<sub>c</sub>. It is.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. A closed vessel at total pressure 2 atm holds 2 mol \(\mathrm{PCl_5}\), 1 mol \(\mathrm{PCl_3}\) and 1 mol \(\mathrm{Cl_2}\) at equilibrium. Find K<sub>p</sub>, and then K<sub>c</sub> at 400 K.</p>
+<ol>
+<li hidden>Total moles \(=4\). Mole fractions: \(\mathrm{PCl_5}=\tfrac24=0.5\), \(\mathrm{PCl_3}=\mathrm{Cl_2}=\tfrac14=0.25\).</li>
+<li hidden>Partial pressure \(=\) mole fraction \(\times P_{total}\): \(\mathrm{PCl_5}=1\) atm, \(\mathrm{PCl_3}=0.5\) atm, \(\mathrm{Cl_2}=0.5\) atm.</li>
+<li hidden>\(K_p=\dfrac{0.5\times0.5}{1}=\mathbf{0.25\ atm}\).</li>
+<li hidden>\(\Delta n_g=+1\), \(RT=0.0821\times400=32.84\).</li>
+<li hidden>\(K_c=\dfrac{K_p}{RT}=\dfrac{0.25}{32.84}\approx\mathbf{7.6\times10^{-3}\ mol/L}\).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>2.6 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Using initial values</b> in K. Only equilibrium values belong there.</li>
+<li><b>Writing solids or pure liquids</b> in the expression. Leave them out.</li>
+<li><b>Counting solids/liquids in \(\Delta n_g\).</b> Only gases count.</li>
+<li><b>Using \(R=8.314\)</b> with K<sub>p</sub> in atm. Use 0.0821, unless the question works in other units.</li>
+<li><b>Forgetting that coefficients become powers</b>, e.g. \([\mathrm{NH_3}]^2\) for \(2\mathrm{NH_3}\).</li>
+<li><b>Using Celsius</b> in \(RT\). Always convert to kelvin.</li>
+</ul></div>
+
+<h3>2.7 Check yourself</h3>
+<div id="quiz-m2"></div>
+<div class="score" id="score-m2"></div>
+<button class="btn ghost" onclick="resetQuiz('m2')">Reset Module 2 checks</button>
+
+<div class="box recap"><b class="t">Module 2 recap</b>
+<ul>
+<li>Law of mass action: rate \(\propto\) product of active masses to the power of coefficients.</li>
+<li>\(K=\dfrac{[\text{products}]^{\text{coeff}}}{[\text{reactants}]^{\text{coeff}}}\) at equilibrium; solids and pure liquids are left out.</li>
+<li>\(K_p=K_c(RT)^{\Delta n_g}\); count gases only; T in kelvin.</li>
+<li>\(\Delta n_g=0\Rightarrow K_p=K_c\). Units are (conc)<sup>Δn</sup> and (atm)<sup>Δn</sup>.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 3 ============================= -->
+<section class="mod" id="m3">
+<span class="modtag">Module 3</span>
+<h2>Reaction quotient (Q): direction and extent</h2>
+<p class="sub">Which way will a mixture move, and how far does a reaction go?</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>write Q and compare it with K to predict the direction of a reaction</li>
+<li>judge the extent of a reaction from the size of K</li>
+<li>explain why K tells you "how far" but not "how fast"</li>
+</ul></div>
+
+<h3>3.1 Q is a snapshot, K is the finishing line</h3>
+<p>Think of a GPS. K is the destination. Q is where you are right now. If you are short of the destination you keep driving forward; if you have overshot you must come back. A reaction mixture does the same, and it stops moving (on average) only when Q reaches K.</p>
+<div class="box formula"><b class="t">Reaction quotient</b>
+For \(\mathrm{aA+bB\rightleftharpoons cC+dD}\):
+\[ Q_c=\frac{[C]^c[D]^d}{[A]^a[B]^b}\qquad Q_p=\frac{p_C^{\,c}\,p_D^{\,d}}{p_A^{\,a}\,p_B^{\,b}} \]
+Same form as K, but with the concentrations (or pressures) <b>at any moment</b>, not necessarily at equilibrium. Solids and pure liquids are left out, exactly as in K.</div>
+
+<div class="box"><b class="t">The decision rule</b>
+<ul>
+<li><b>Q &lt; K</b> → too many reactants, too few products → the reaction goes <b>forward</b> (Q rises towards K).</li>
+<li><b>Q &gt; K</b> → too many products → the reaction goes <b>backward</b> (Q falls towards K).</li>
+<li><b>Q = K</b> → the mixture is <b>at equilibrium</b>. No net change.</li>
+</ul>
+<p style="margin-bottom:0"><b>Memory trick:</b> Q is on top of the comparison. If the numerator (products) is too small, Q is small, so we need to make more products.</p></div>
+<p>Q changes continuously as the reaction runs, but K stays fixed (at a given temperature). Q travels towards K and then stops. In the Module 1 simulator, the "[B]/[A]" box is exactly Q, and "k<sub>f</sub>/k<sub>b</sub>" is K.</p>
+
+<h3>3.2 Lab: Q against K</h3>
+<p>Take \(\mathrm{A\rightleftharpoons B}\) with a total of 1 M. Set the value of K and the percentage of B in the mixture, and watch where Q sits relative to K.</p>
+<div class="lab"><h4>Q vs K explorer</h4>
+<div class="ctrl">
+<label>log<sub>10</sub> K <input type="range" id="q3K" min="-3" max="3" step="0.1" value="0.6"> <span id="q3Kv"></span></label>
+<label>% B in mixture <input type="range" id="q3B" min="1" max="99" step="1" value="20"> <span id="q3Bv"></span></label>
+</div>
+<canvas id="q3c" style="height:120px"></canvas>
+<div class="read"><div>Q = [B]/[A]<b id="q3Q"></b></div><div>K<b id="q3Kk"></b></div><div>B% at equilibrium<b id="q3eq"></b></div></div>
+<div class="status" id="q3out"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Try: set % B so that Q equals K exactly. Then check that "B% at equilibrium" matches your slider.</p></div>
+
+<h3>3.3 Extent of reaction: what the size of K tells you</h3>
+<table>
+<tr><th>Size of K (rough guide)</th><th>What it means</th></tr>
+<tr><td>\(K&gt;10^{3}\)</td><td>Products far outnumber reactants. The reaction is "product favoured" and almost complete. Reactant amounts can often be neglected.</td></tr>
+<tr><td>\(10^{-3}&lt;K&lt;10^{3}\)</td><td>Significant amounts of both reactants and products at equilibrium.</td></tr>
+<tr><td>\(K&lt;10^{-3}\)</td><td>Reactants far outnumber products. The reaction is "reactant favoured" and hardly proceeds.</td></tr>
+</table>
+<div class="box note"><b class="t">K tells you "how far", never "how fast"</b>
+A huge K does not mean a quick reaction. Diamond turns into graphite with a favourable K at room temperature, yet you can wear a diamond for a lifetime. Speed depends on the activation energy (kinetics), not on K.</div>
+<div class="box"><b class="t">Quick rule for \(\mathrm{A\rightleftharpoons B}\) starting from pure A</b>
+Fraction of A converted at equilibrium \(=\dfrac{K}{1+K}\). For \(K=4\) that is 80%; for \(K=0.01\) it is only about 1%.</div>
+
+<details class="adv"><summary>ADVANCED EXTRA: one rule for direction, \(\Delta G=RT\ln(Q/K)\)</summary>
+<p>In Module 8 you will meet \(\Delta G=\Delta G^\circ+RT\ln Q\) and \(\Delta G^\circ=-RT\ln K\). Combine them and you get \(\Delta G=RT\ln\dfrac{Q}{K}\). When \(Q&lt;K\) the logarithm is negative, so \(\Delta G&lt;0\) and the forward reaction is spontaneous. When \(Q&gt;K\), \(\Delta G&gt;0\) and the backward reaction is spontaneous. So the Q-versus-K rule is just the sign of \(\Delta G\).</p></details>
+
+<h3>3.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. For \(\mathrm{NOBr(g)\rightleftharpoons NO(g)+\tfrac12 Br_2(g)}\), \(K_p=0.15\) at a certain temperature. A mixture has \(p_{\mathrm{NOBr}}=0.80\) atm, \(p_{\mathrm{NO}}=0.30\) atm and \(p_{\mathrm{Br_2}}=0.10\) atm. Will \(\mathrm{Br_2}\) be formed or used up?</p>
+<ol>
+<li hidden>Write Q with the same exponents as K. The coefficient \(\tfrac12\) becomes a power of \(\tfrac12\): \(Q_p=\dfrac{p_{\mathrm{NO}}\;p_{\mathrm{Br_2}}^{1/2}}{p_{\mathrm{NOBr}}}\).</li>
+<li hidden>Substitute: \(Q_p=\dfrac{0.30\times(0.10)^{1/2}}{0.80}=\dfrac{0.30\times0.3162}{0.80}\approx0.119\).</li>
+<li hidden>Compare: \(Q_p=0.119&lt;K_p=0.15\).</li>
+<li hidden><b>Conclusion:</b> the reaction goes forward, so \(\mathrm{Br_2}\) is <b>formed</b> until \(Q_p\) reaches 0.15.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. For \(\mathrm{H_2(g)+I_2(g)\rightleftharpoons 2HI(g)}\), \(K_c=50\) at 700 K. A 1.0 L flask holds 0.50 mol \(\mathrm{H_2}\), 0.50 mol \(\mathrm{I_2}\) and 3.0 mol HI. Which way does it go?</p>
+<ol>
+<li hidden>Concentrations (V = 1 L): \([\mathrm{H_2}]=[\mathrm{I_2}]=0.50\) M, \([\mathrm{HI}]=3.0\) M.</li>
+<li hidden>\(Q_c=\dfrac{[\mathrm{HI}]^2}{[\mathrm{H_2}][\mathrm{I_2}]}=\dfrac{3.0^2}{0.50\times0.50}=\dfrac{9.0}{0.25}=36\).</li>
+<li hidden>\(Q_c=36&lt;K_c=50\), so the reaction goes <b>forward</b>: more HI forms at the expense of \(\mathrm{H_2}\) and \(\mathrm{I_2}\).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. For \(\mathrm{A\rightleftharpoons B}\), \(K=9\). Starting with pure A, what percentage of A is converted at equilibrium?</p>
+<ol>
+<li hidden>Let the fraction converted be \(f\). Then \([B]=f\) and \([A]=1-f\) (per unit starting amount).</li>
+<li hidden>\(K=\dfrac{f}{1-f}=9\Rightarrow f=9-9f\Rightarrow 10f=9\Rightarrow f=0.9\).</li>
+<li hidden>So 90% of A is converted. This agrees with \(K/(1+K)=9/10\). Since \(K\) is between \(10^{-3}\) and \(10^{3}\), a significant amount of A (10%) is still left.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>3.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Mixing up the direction.</b> Always say it as "Q &lt; K → forward". Write it down before the calculation.</li>
+<li><b>Using exponents of the wrong equation.</b> If the equation is written with \(\tfrac12\) coefficients, Q and K both use powers of \(\tfrac12\).</li>
+<li><b>Using K for a different temperature.</b> K belongs to one temperature only.</li>
+<li><b>Thinking a large K means fast.</b> K says nothing about rate.</li>
+<li><b>Including solids in Q.</b> Leave them out, as in K.</li>
+</ul></div>
+
+<h3>3.6 Check yourself</h3>
+<div id="quiz-m3"></div><div class="score" id="score-m3"></div>
+<button class="btn ghost" onclick="resetQuiz('m3')">Reset Module 3 checks</button>
+
+<div class="box recap"><b class="t">Module 3 recap</b><ul>
+<li>Q has the form of K but uses present concentrations or pressures.</li>
+<li>Q &lt; K → forward; Q &gt; K → backward; Q = K → equilibrium.</li>
+<li>\(K&gt;10^3\): nearly complete. \(K&lt;10^{-3}\): hardly proceeds. In between: a mixture.</li>
+<li>K gives extent, not speed.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 4 ============================= -->
+<section class="mod" id="m4">
+<span class="modtag">Module 4</span>
+<h2>Properties of K and the effect of temperature</h2>
+<p class="sub">What changes K, what does not, and how to adjust K when the equation changes.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>state what K depends on and what it does not</li>
+<li>find K after reversing, scaling, adding or subtracting equations</li>
+<li>use the van't Hoff equation to find K at another temperature</li>
+<li>predict whether K rises or falls with temperature from the sign of \(\Delta H\)</li>
+</ul></div>
+
+<h3>4.1 What does K depend on?</h3>
+<table>
+<tr><th>Does <u>not</u> change K</th><th>Changes K</th></tr>
+<tr><td>Initial concentrations or pressures<br>Pressure or volume of the container<br>Adding or removing a reactant or product<br>A catalyst<br>The direction from which equilibrium is reached</td><td><b>Temperature</b><br><b>How the equation is written</b> (its coefficients)</td></tr>
+</table>
+<p>K is a property of the reaction <i>as written</i> at one temperature. Change the concentrations and the equilibrium <i>position</i> shifts, but the K value stays the same.</p>
+
+<h3>4.2 Changing the equation changes K</h3>
+<table>
+<tr><th>Operation on the equation</th><th>New K</th><th>Why</th></tr>
+<tr><td>Reverse it</td><td>\(1/K\)</td><td>products and reactants swap places</td></tr>
+<tr><td>Multiply all coefficients by \(n\)</td><td>\(K^{\,n}\) (\(n\) can be a fraction)</td><td>every power is multiplied by \(n\)</td></tr>
+<tr><td>Add two equations</td><td>\(K_1\times K_2\)</td><td>intermediates cancel out of the product</td></tr>
+<tr><td>Subtract one equation from another</td><td>\(K_1/K_2\)</td><td>same idea with a division</td></tr>
+</table>
+<p>Example of adding: \(\mathrm{A\rightleftharpoons B}\) (\(K_1\)) plus \(\mathrm{B\rightleftharpoons C}\) (\(K_2\)) gives \(\mathrm{A\rightleftharpoons C}\) with \(K=K_1K_2\), because the \([B]\) in the numerator of the first cancels the \([B]\) in the denominator of the second.</p>
+<div class="lab"><h4>Equation manipulator</h4>
+<div class="ctrl"><label>K for the base reaction <input type="number" id="k4base" value="36" step="any" min="0"></label></div>
+<div class="ctrl" id="k4btns"></div>
+<div id="k4out" style="margin-top:6px"></div></div>
+
+<h3>4.3 Temperature and the van't Hoff equation</h3>
+<p>Heat can be treated like a reactant (in an endothermic reaction) or a product (in an exothermic one). Adding heat favours the heat-absorbing direction, so K responds:</p>
+<div class="box formula"><b class="t">Van't Hoff equation</b>
+\[ \log\frac{K_2}{K_1}=\frac{\Delta H^\circ}{2.303\,R}\left(\frac{1}{T_1}-\frac{1}{T_2}\right) \]
+Use \(R=8.314\ \mathrm{J\,mol^{-1}K^{-1}}\) with \(\Delta H^\circ\) in <b>joules</b> per mole, and \(T\) in kelvin. Substitute \(\Delta H\) <b>with its sign</b>.
+<ul style="margin-bottom:0">
+<li><b>Endothermic</b> (\(\Delta H&gt;0\)): K increases when T increases.</li>
+<li><b>Exothermic</b> (\(\Delta H&lt;0\)): K decreases when T increases.</li>
+</ul></div>
+<p>Check with the sign: if \(T_2&gt;T_1\) then \(\tfrac1{T_1}-\tfrac1{T_2}&gt;0\), so for \(\Delta H&gt;0\) the right-hand side is positive, \(K_2&gt;K_1\). ✓</p>
+<div class="lab"><h4>Van't Hoff plot</h4>
+<div class="ctrl">
+<label>\(\Delta H^\circ\) (kJ/mol) <input type="range" id="vHdH" min="-150" max="150" step="5" value="50"> <span id="vHdHv"></span></label>
+<label>log K at 300 K <input type="range" id="vHlk" min="-6" max="6" step="0.5" value="-2"> <span id="vHlkv"></span></label>
+<label>Temperature (K) <input type="range" id="vHT" min="250" max="800" step="10" value="500"> <span id="vHTv"></span></label>
+</div>
+<canvas id="vHc"></canvas>
+<div class="read"><div>log K at this T<b id="vHr1"></b></div><div>K at this T<b id="vHr2"></b></div><div>Slope of the line<b id="vHr3"></b></div></div>
+<div class="status" id="vHout"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Try: move \(\Delta H^\circ\) from positive to negative and watch the line flip from falling to rising. The slope is \(-\Delta H^\circ/(2.303R)\).</p></div>
+
+<details class="adv"><summary>ADVANCED EXTRA: reading \(\Delta H^\circ\) and \(\Delta S^\circ\) from a graph</summary>
+<p>Combining \(\Delta G^\circ=-2.303RT\log K\) with \(\Delta G^\circ=\Delta H^\circ-T\Delta S^\circ\) (Module 8) gives
+\[ \log K=-\frac{\Delta H^\circ}{2.303R}\cdot\frac1T+\frac{\Delta S^\circ}{2.303R} \]
+This is a straight line, \(y=mx+c\), for \(y=\log K\) against \(x=1/T\). So <b>slope</b> \(=-\Delta H^\circ/(2.303R)\) and <b>intercept</b> \(=\Delta S^\circ/(2.303R)\). A line that falls with \(1/T\) (negative slope) means \(\Delta H^\circ&gt;0\). Always keep the minus sign when you convert a slope to \(\Delta H^\circ\).</p></details>
+
+<h3>4.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. The equilibrium constant for \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\) is 36 at some temperature. Find K for \(\mathrm{NH_3\rightleftharpoons \tfrac12 N_2+\tfrac32 H_2}\).</p>
+<ol>
+<li hidden>Compare the new equation with the old one. It is reversed and the coefficients are halved.</li>
+<li hidden>Reversing gives \(1/36\).</li>
+<li hidden>Halving the coefficients raises to the power \(\tfrac12\): \(K_{new}=\left(\dfrac1{36}\right)^{1/2}=\dfrac16\approx0.167\).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. For a reaction with \(\Delta H^\circ=+40\) kJ/mol and \(K=1.0\times10^{-4}\) at 300 K, find K at 400 K.</p>
+<ol>
+<li hidden>Convert: \(\Delta H^\circ=40\,000\) J/mol. \(2.303\times8.314=19.15\).</li>
+<li hidden>\(\dfrac{1}{T_1}-\dfrac{1}{T_2}=\dfrac1{300}-\dfrac1{400}=0.003333-0.002500=8.333\times10^{-4}\).</li>
+<li hidden>\(\log\dfrac{K_2}{K_1}=\dfrac{40\,000}{19.15}\times8.333\times10^{-4}=2089\times8.333\times10^{-4}\approx1.74\).</li>
+<li hidden>\(\dfrac{K_2}{K_1}=10^{1.74}\approx55\), so \(K_2\approx55\times10^{-4}=5.5\times10^{-3}\).</li>
+<li hidden>Sense check: endothermic reaction, higher T, so K rose. ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. \(\mathrm{A\rightleftharpoons B}\) has \(K_1=2\), \(\mathrm{B\rightleftharpoons C}\) has \(K_2=5\), all at the same temperature. Find K for (a) \(\mathrm{A\rightleftharpoons C}\), (b) \(\mathrm{\tfrac12A\rightleftharpoons \tfrac12C}\), (c) \(\mathrm{C\rightleftharpoons A}\).</p>
+<ol>
+<li hidden>(a) Adding the two equations: \(K=K_1K_2=2\times5=10\).</li>
+<li hidden>(b) Halving the coefficients: \(10^{1/2}=\sqrt{10}\approx3.16\).</li>
+<li hidden>(c) Reversing (a): \(1/10=0.1\).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>4.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Quoting a K without its equation.</b> A K value is meaningless unless you know how the equation was written.</li>
+<li><b>Saying pressure or a catalyst changes K.</b> Only temperature does. They may change the <i>position</i> (pressure) or the <i>speed</i> (catalyst), never K.</li>
+<li><b>Using kJ with R in joules.</b> Convert \(\Delta H\) to J, or use \(R=0.008314\) kJ/mol/K.</li>
+<li><b>Dropping the sign of \(\Delta H\).</b> Substitute it with its sign.</li>
+<li><b>Using Celsius.</b> The van't Hoff equation needs kelvin.</li>
+</ul></div>
+
+<h3>4.6 Check yourself</h3>
+<div id="quiz-m4"></div><div class="score" id="score-m4"></div>
+<button class="btn ghost" onclick="resetQuiz('m4')">Reset Module 4 checks</button>
+
+<div class="box recap"><b class="t">Module 4 recap</b><ul>
+<li>K depends only on temperature (and on how the equation is written).</li>
+<li>Reverse: \(1/K\). Multiply by \(n\): \(K^n\). Add: \(K_1K_2\). Subtract: \(K_1/K_2\).</li>
+<li>\(\log\dfrac{K_2}{K_1}=\dfrac{\Delta H^\circ}{2.303R}\left(\dfrac1{T_1}-\dfrac1{T_2}\right)\).</li>
+<li>Endothermic: K rises with T. Exothermic: K falls with T.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 5 ============================= -->
+<section class="mod" id="m5">
+<span class="modtag">Module 5</span>
+<h2>Solving equilibrium problems with ICE tables</h2>
+<p class="sub">A reliable method for any "find the equilibrium composition" question.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>set up an ICE (Initial, Change, Equilibrium) table for gas and liquid systems</li>
+<li>solve for the unknown using a perfect square, a quadratic, or a safe approximation</li>
+<li>work in either concentrations or partial pressures and convert correctly</li>
+</ul></div>
+
+<h3>5.1 The method in five steps</h3>
+<div class="box"><ol>
+<li><b>Write the balanced equation</b> and the expression for K (leave out solids and pure liquids).</li>
+<li><b>Draw the ICE table.</b> Row I: starting amounts. Row C: change in terms of \(x\), with signs. Row E: I + C.</li>
+<li><b>Link the changes by the coefficients.</b> If the reactant with coefficient 1 loses \(x\), a reactant with coefficient 3 loses \(3x\), and a product with coefficient 2 gains \(2x\).</li>
+<li><b>Substitute the E row into K</b> and solve for \(x\).</li>
+<li><b>Check:</b> \(x\) must keep every amount positive (reject the impossible root), and putting the answer back must reproduce K.</li>
+</ol></div>
+<div class="box note"><b class="t">Moles vs concentration</b>
+K<sub>c</sub> needs concentrations. If you work in moles, divide by the volume \(V\) first. When \(\Delta n_g=0\) the volume cancels and you may use moles directly. For K<sub>p</sub> use partial pressures in the E row.</div>
+
+<h3>5.2 Three ways to solve for x</h3>
+<table>
+<tr><th>Situation</th><th>Approach</th></tr>
+<tr><td>The equation is a perfect square, e.g. \(\dfrac{(2x)^2}{(1-x)^2}=K\)</td><td>Take the square root of both sides. Fastest and exact.</td></tr>
+<tr><td>A quadratic, e.g. \(\dfrac{x^2}{c-x}=K\)</td><td>Rearrange to \(x^2+Kx-Kc=0\) and use the quadratic formula. Keep the positive root with \(x&lt;c\).</td></tr>
+<tr><td>K is very small (about \(10^{-3}\) or less compared with the starting amount)</td><td>Assume \(c-x\approx c\), so \(x\approx\sqrt{Kc}\). Check that \(x\) is under about 5% of \(c\).</td></tr>
+</table>
+
+<h3>5.3 Lab: solve \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\)</h3>
+<div class="lab"><h4>ICE solver</h4>
+<div class="ctrl">
+<label>Initial [PCl<sub>5</sub>] (M) <input type="number" id="i5c" value="0.5" step="any" min="0.001"></label>
+<label>K<sub>c</sub> (mol/L) <input type="number" id="i5K" value="0.04" step="any" min="0.000001"></label>
+</div>
+<div id="i5bars"></div>
+<div class="read"><div>x (change)<b id="i5x"></b></div><div>α = x / initial<b id="i5a"></b></div><div>Check: Q at equilibrium<b id="i5q"></b></div><div>Shortcut x ≈ √(Kc·c)<b id="i5ap"></b></div></div>
+<div class="status" id="i5out"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Try: make K<sub>c</sub> very small (0.00001). The shortcut matches the exact value. Make K<sub>c</sub> large and the shortcut fails.</p></div>
+
+<h3>5.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1 (perfect square). 1.0 mol of \(\mathrm{H_2}\) and 1.0 mol of \(\mathrm{I_2}\) are placed in a 1.0 L flask. For \(\mathrm{H_2+I_2\rightleftharpoons 2HI}\), \(K_c=50\). Find the equilibrium concentrations.</p>
+<ol>
+<li hidden>ICE (M): I: \(1,\ 1,\ 0\). C: \(-x,\ -x,\ +2x\). E: \(1-x,\ 1-x,\ 2x\).</li>
+<li hidden>\(K_c=\dfrac{(2x)^2}{(1-x)^2}=50\). It is a perfect square, so \(\dfrac{2x}{1-x}=\sqrt{50}=7.07\).</li>
+<li hidden>\(2x=7.07-7.07x\Rightarrow 9.07x=7.07\Rightarrow x=0.78\).</li>
+<li hidden>\([\mathrm{HI}]=2x=1.56\) M and \([\mathrm{H_2}]=[\mathrm{I_2}]=1-0.78=0.22\) M.</li>
+<li hidden>Check: \(\dfrac{1.56^2}{0.22^2}=\dfrac{2.43}{0.048}\approx50\). ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2 (quadratic). 0.50 mol/L of \(\mathrm{PCl_5}\) is heated. \(K_c=0.04\) mol/L for \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\). Find the equilibrium concentrations and the degree of dissociation.</p>
+<ol>
+<li hidden>ICE (M): I: \(0.50,\ 0,\ 0\). C: \(-x,\ +x,\ +x\). E: \(0.50-x,\ x,\ x\).</li>
+<li hidden>\(\dfrac{x\cdot x}{0.50-x}=0.04\Rightarrow x^2=0.04(0.50-x)\Rightarrow x^2+0.04x-0.02=0\).</li>
+<li hidden>\(x=\dfrac{-0.04+\sqrt{0.04^2+4(0.02)}}{2}=\dfrac{-0.04+\sqrt{0.0816}}{2}=\dfrac{-0.04+0.2857}{2}=0.123\). (The negative root is rejected.)</li>
+<li hidden>\([\mathrm{PCl_3}]=[\mathrm{Cl_2}]=0.123\) M and \([\mathrm{PCl_5}]=0.377\) M.</li>
+<li hidden>\(\alpha=\dfrac{0.123}{0.50}=0.246\), i.e. about 24.6% dissociated.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3 (partial pressures). \(\mathrm{N_2O_4(g)}\) at an initial partial pressure of 1.0 atm dissociates by \(\mathrm{N_2O_4\rightleftharpoons 2NO_2}\) with \(K_p=0.15\) atm. Find the equilibrium pressures.</p>
+<ol>
+<li hidden>ICE (atm): I: \(1.0,\ 0\). C: \(-x,\ +2x\). E: \(1.0-x,\ 2x\).</li>
+<li hidden>\(K_p=\dfrac{(2x)^2}{1.0-x}=0.15\Rightarrow 4x^2+0.15x-0.15=0\).</li>
+<li hidden>\(x=\dfrac{-0.15+\sqrt{0.0225+2.4}}{8}=\dfrac{-0.15+1.556}{8}=0.176\).</li>
+<li hidden>\(p_{\mathrm{NO_2}}=2x=0.352\) atm; \(p_{\mathrm{N_2O_4}}=1.0-0.176=0.824\) atm; total pressure \(=1.176\) atm.</li>
+<li hidden>Check: \(\dfrac{0.352^2}{0.824}=0.150\). ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<details class="adv"><summary>ADVANCED EXTRA: moles vs concentration when \(\Delta n_g\ne0\)</summary>
+<p>For \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\), if you start with \(a\) mol in volume \(V\), then \(K_c=\dfrac{(x/V)^2}{(a-x)/V}=\dfrac{x^2}{(a-x)V}\). The volume does <b>not</b> cancel. Using moles directly would give \(K_c\) wrong by a factor of \(V\). For \(\mathrm{H_2+I_2\rightleftharpoons 2HI}\) the \(V\) terms cancel completely.</p></details>
+
+<h3>5.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Forgetting the coefficient in the C row.</b> For \(\mathrm{2NH_3}\) the change is \(2x\), and \(2x\) is then <b>squared</b> in K.</li>
+<li><b>Using moles in \(K_c\) when \(\Delta n_g\ne0\).</b> Divide by V.</li>
+<li><b>Keeping the root that makes an amount negative.</b> Reject it.</li>
+<li><b>Using the shortcut when K is not small.</b> Check that \(x\) is under about 5% of the starting amount.</li>
+<li><b>Mixing units.</b> Do not put partial pressures into a \(K_c\) expression.</li>
+</ul></div>
+
+<h3>5.6 Check yourself</h3>
+<div id="quiz-m5"></div><div class="score" id="score-m5"></div>
+<button class="btn ghost" onclick="resetQuiz('m5')">Reset Module 5 checks</button>
+
+<div class="box recap"><b class="t">Module 5 recap</b><ul>
+<li>Equation → ICE table → substitute E row in K → solve → check.</li>
+<li>Changes follow the coefficients (\(-x,\ -3x,\ +2x\) for \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\)).</li>
+<li>Perfect square: take the root. Quadratic: use the formula and reject impossible roots. Very small K: \(x\approx\sqrt{Kc}\).</li>
+<li>Divide by V unless \(\Delta n_g=0\) or you are using partial pressures.</li>
+</ul></div>
+</section>
+<!-- ============================= MODULE 6 ============================= -->
+<section class="mod" id="m6">
+<span class="modtag">Module 6</span>
+<h2>Heterogeneous equilibria, vapour pressure and humidity</h2>
+<p class="sub">Equilibria with solids and liquids, and why a hydrate "dries out" or "soaks up" moisture.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>write K<sub>c</sub> and K<sub>p</sub> for equilibria that include solids and pure liquids</li>
+<li>find K<sub>p</sub> from the total pressure of a decomposition equilibrium</li>
+<li>define vapour pressure and relative humidity</li>
+<li>decide whether a hydrate will lose or gain water in air of a given humidity</li>
+</ul></div>
+
+<h3>6.1 Pure solids and liquids drop out</h3>
+<p>The "concentration" of a pure solid or liquid is just its density divided by its molar mass. That is a fixed number, so it cannot change during the reaction. Chemists fold it into K, which is the same as treating its active mass as 1.</p>
+<table>
+<tr><th>Equilibrium</th><th>K<sub>c</sub></th><th>K<sub>p</sub></th></tr>
+<tr><td>\(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\)</td><td>\([\mathrm{CO_2}]\)</td><td>\(p_{\mathrm{CO_2}}\)</td></tr>
+<tr><td>\(\mathrm{NH_4HS(s)\rightleftharpoons NH_3(g)+H_2S(g)}\)</td><td>\([\mathrm{NH_3}][\mathrm{H_2S}]\)</td><td>\(p_{\mathrm{NH_3}}\,p_{\mathrm{H_2S}}\)</td></tr>
+<tr><td>\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\)</td><td>\([\mathrm{H_2O(g)}]\)</td><td>\(p_{\mathrm{H_2O}}\)</td></tr>
+<tr><td>\(\mathrm{3Fe(s)+4H_2O(g)\rightleftharpoons Fe_3O_4(s)+4H_2(g)}\)</td><td>\(\dfrac{[\mathrm{H_2}]^4}{[\mathrm{H_2O}]^4}\)</td><td>\(\dfrac{p_{\mathrm{H_2}}^4}{p_{\mathrm{H_2O}}^4}\)</td></tr>
+</table>
+<div class="box"><b class="t">Two consequences</b>
+<ul>
+<li><b>Adding more solid changes nothing</b> at equilibrium, as long as some of each solid is present. For \(\mathrm{CaCO_3}\) decomposition in a closed vessel, \(p_{\mathrm{CO_2}}\) at a given temperature is fixed, whether you used 1 g or 100 g of limestone.</li>
+<li><b>The solid must actually be there.</b> If it is all used up, there is no equilibrium and the K relation does not apply.</li>
+</ul></div>
+
+<h3>6.2 Vapour pressure and relative humidity</h3>
+<p><b>Vapour pressure</b> is the pressure of vapour in equilibrium with its liquid. For water, \(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\) has \(K_p=p_{\mathrm{H_2O}}\), so the vapour pressure is a constant at a given temperature. It does not depend on how much liquid there is or on the volume. At 25 °C the vapour pressure of water is about 24 mm Hg (also called aqueous tension).</p>
+<div class="box formula"><b class="t">Relative humidity</b>
+\[ \text{RH}=\frac{\text{actual partial pressure of water vapour in the air}}{\text{vapour pressure of water at that temperature}}\times100\% \]
+RH = 100% means the air is saturated: \(Q=K\) for \(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\), so liquid water and vapour are in equilibrium.</div>
+
+<h3>6.3 Hydrates, drying and soaking up water</h3>
+<p>A salt hydrate can lose water vapour in a reversible reaction, for example \(\mathrm{MX\cdot2H_2O(s)\rightleftharpoons MX(s)+2H_2O(g)}\). Both solids drop out, so \(K_p=p_{\mathrm{H_2O}}^{\,2}\), and at a given temperature the hydrate and its lower form are in equilibrium only at one fixed water-vapour pressure: \(p_{eq}=K_p^{1/2}\).</p>
+<p>Compare the water-vapour pressure in the air with \(p_{eq}\) (this is just Q against K):</p>
+<ul>
+<li><b>Air \(p_{\mathrm{H_2O}}&lt;p_{eq}\)</b> (dry air): \(Q&lt;K\), the reaction goes forward and the hydrate <b>loses water</b>. It "effloresces" (turns powdery).</li>
+<li><b>Air \(p_{\mathrm{H_2O}}&gt;p_{eq}\)</b> (humid air): \(Q&gt;K\), the reaction goes backward and the lower form <b>absorbs water</b> (hygroscopic).</li>
+<li><b>Equal:</b> equilibrium; no net change.</li>
+</ul>
+<div class="lab"><h4>Hydrate in a room</h4>
+<div class="ctrl">
+<label>Water molecules lost per formula unit <select id="h6n"><option>1</option><option selected>2</option><option>5</option></select></label>
+<label>K<sub>p</sub> (atm<sup>n</sup>) <input type="number" id="h6K" value="0.0004" step="any" min="0"></label>
+<label>Room relative humidity (%) <input type="range" id="h6rh" min="0" max="100" step="1" value="40"> <span id="h6rhv"></span></label>
+</div>
+<canvas id="h6c" style="height:110px"></canvas>
+<div class="read"><div>p<sub>eq</sub> of hydrate<b id="h6p"></b></div><div>RH at which hydrate is stable<b id="h6t"></b></div><div>Room p(H₂O) at 25 °C<b id="h6room"></b></div></div>
+<div class="status" id="h6out"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Uses 24 mm Hg as the vapour pressure of water at 25 °C and 760 mm Hg = 1 atm. The salt is hypothetical. Try changing K<sub>p</sub> to see how "hungry" different hydrates are.</p></div>
+
+<details class="adv"><summary>ADVANCED EXTRA: Henry's law (gas ⇌ solution)</summary>
+<p>The equilibrium \(\mathrm{gas\rightleftharpoons dissolved\ gas}\) obeys Henry's law: at constant temperature, the mole fraction of a gas dissolved in a liquid is proportional to its partial pressure above the liquid, \(p=K_H\,x\). Double the pressure and you double the dissolved gas. That is why a soda fizzes when you open the bottle: the pressure above it drops and the equilibrium shifts towards the gas. It is part of the JEE Main syllabus under gas–liquid equilibria.</p></details>
+
+<h3>6.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. Solid \(\mathrm{NH_4HS}\) is heated in an evacuated vessel and decomposes by \(\mathrm{NH_4HS(s)\rightleftharpoons NH_3(g)+H_2S(g)}\). At equilibrium the total pressure is 0.80 atm. Find \(K_p\). Then find the total pressure if the vessel is changed so that \(p_{\mathrm{NH_3}}=0.80\) atm at the same temperature.</p>
+<ol>
+<li hidden>The only gases come from the solid, in a 1 : 1 ratio, so each has half the total pressure: \(p_{\mathrm{NH_3}}=p_{\mathrm{H_2S}}=0.40\) atm.</li>
+<li hidden>\(K_p=p_{\mathrm{NH_3}}\,p_{\mathrm{H_2S}}=0.40\times0.40=\mathbf{0.16\ atm^2}\).</li>
+<li hidden>Second case: the temperature is the same, so \(K_p\) is still 0.16. With \(p_{\mathrm{NH_3}}=0.80\): \(p_{\mathrm{H_2S}}=\dfrac{0.16}{0.80}=0.20\) atm.</li>
+<li hidden>Total pressure \(=0.80+0.20=1.00\) atm. Extra NH<sub>3</sub> pushes the equilibrium backward and cuts down H<sub>2</sub>S.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. For the hypothetical hydrate \(\mathrm{MX\cdot2H_2O(s)\rightleftharpoons MX(s)+2H_2O(g)}\), \(K_p=4.0\times10^{-4}\) atm\(^2\) at 25 °C. At what relative humidity will the hydrate start to lose water? (Vapour pressure of water at 25 °C: 24 mm Hg.)</p>
+<ol>
+<li hidden>\(K_p=p_{\mathrm{H_2O}}^{\,2}\), so \(p_{\mathrm{H_2O}}=\sqrt{4.0\times10^{-4}}=0.020\) atm.</li>
+<li hidden>Convert: \(0.020\times760=15.2\) mm Hg.</li>
+<li hidden>\(\text{RH}=\dfrac{15.2}{24}\times100=63.3\%\).</li>
+<li hidden><b>Conclusion:</b> if RH &lt; 63%, the air's water pressure is below 15.2 mm Hg, \(Q&lt;K\), and the hydrate loses water. Above 63% it stays as a hydrate (or absorbs more water).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. At a certain temperature, \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\) has \(K_p=0.0100\) atm. Limestone is heated in open air (total pressure 1 atm) that contains 0.04% \(\mathrm{CO_2}\) by volume. Will it decompose?</p>
+<ol>
+<li hidden>\(p_{\mathrm{CO_2}}=0.0004\times1\ \text{atm}=4\times10^{-4}\) atm.</li>
+<li hidden>\(Q_p=p_{\mathrm{CO_2}}=4\times10^{-4}\) atm, which is less than \(K_p=0.0100\) atm.</li>
+<li hidden>\(Q&lt;K\), so the reaction goes forward: the limestone <b>decomposes</b>, and since the air is open, the \(\mathrm{CO_2}\) escapes and it keeps going until all \(\mathrm{CaCO_3}\) is used up.</li>
+<li hidden>Contrast: in a sealed vessel filled with \(\mathrm{CO_2}\) at 0.020 atm, \(Q&gt;K\), so no decomposition occurs.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>6.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Putting solids into K</b> or into \(\Delta n_g\).</li>
+<li><b>Thinking more solid raises the pressure.</b> It does not; \(p_{\mathrm{CO_2}}\) depends only on temperature.</li>
+<li><b>Forgetting the 1 : 1 split</b> of total pressure in \(\mathrm{NH_4HS}\), where each gas has half. (If the gases are produced in another ratio, the split changes.)</li>
+<li><b>Calling an open-vessel decomposition an equilibrium.</b> It runs to completion.</li>
+<li><b>Mixing mm Hg and atm</b> in K<sub>p</sub> and RH problems.</li>
+</ul></div>
+
+<h3>6.6 Check yourself</h3>
+<div id="quiz-m6"></div><div class="score" id="score-m6"></div>
+<button class="btn ghost" onclick="resetQuiz('m6')">Reset Module 6 checks</button>
+
+<div class="box recap"><b class="t">Module 6 recap</b><ul>
+<li>Pure solids and liquids are left out of K; their amount does not matter if some remains.</li>
+<li>\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\): \(K_p\) = vapour pressure, fixed at a given temperature.</li>
+<li>RH = (actual p(H₂O) / vapour pressure) × 100.</li>
+<li>Hydrate: compare air's p(H₂O) with \(p_{eq}\). Lower → loses water; higher → gains water.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 7 ============================= -->
+<section class="mod" id="m7">
+<span class="modtag">Module 7</span>
+<h2>Degree of dissociation and vapour density</h2>
+<p class="sub">How to turn "fraction dissociated" into K, and use gas density to measure it.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>define the degree of dissociation \(\alpha\) and set up an ICE table with it</li>
+<li>derive \(K_p\) in terms of \(\alpha\) and the total pressure</li>
+<li>relate observed molar mass and vapour density to \(\alpha\)</li>
+<li>explain why \(\alpha\) falls when pressure rises</li>
+</ul></div>
+
+<h3>7.1 What is \(\alpha\)?</h3>
+<p>The <b>degree of dissociation</b> \(\alpha\) is the fraction of the substance that has dissociated, defined per mole:</p>
+\[ \alpha=\frac{\text{moles dissociated}}{\text{initial moles}},\qquad \%\text{ dissociation}=\alpha\times100 \]
+<p>If 5 mol of \(\mathrm{PCl_5}\) is taken and 2 mol dissociate, \(\alpha=2/5=0.4\), i.e. 40%.</p>
+<p>General case: \(\mathrm{A_n(g)\rightleftharpoons nA(g)}\), starting with \(a\) mol and \(\alpha\) dissociated:</p>
+<table>
+<tr><th></th><th>\(\mathrm{A_n}\)</th><th>\(\mathrm{A}\)</th><th>Total moles</th></tr>
+<tr><td>Start</td><td>\(a\)</td><td>0</td><td>\(a\)</td></tr>
+<tr><td>Equilibrium</td><td>\(a(1-\alpha)\)</td><td>\(n\,a\alpha\)</td><td>\(a\,[1+(n-1)\alpha]\)</td></tr>
+</table>
+<p>Here \(n\) is the ratio of (sum of product coefficients) to (sum of reactant coefficients) when written per mole of the dissociating substance:</p>
+<ul>
+<li>\(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\): \(n=2\).</li>
+<li>\(\mathrm{N_2O_4\rightleftharpoons 2NO_2}\): \(n=2\).</li>
+<li>\(\mathrm{2NH_3\rightleftharpoons N_2+3H_2}\): per mole of \(\mathrm{NH_3}\), \(n=\tfrac12+\tfrac32=2\).</li>
+<li>\(\mathrm{2HI\rightleftharpoons H_2+I_2}\): \(n=1\). (No change in moles, so this method cannot be used.)</li>
+</ul>
+
+<h3>7.2 \(K_p\) in terms of \(\alpha\) (for \(\mathrm{PCl_5}\))</h3>
+<p>Start with 1 mol \(\mathrm{PCl_5}\) and total pressure \(P\). At equilibrium: \(\mathrm{PCl_5}=1-\alpha\), \(\mathrm{PCl_3}=\mathrm{Cl_2}=\alpha\), total \(=1+\alpha\).</p>
+\[ p_{\mathrm{PCl_5}}=\frac{1-\alpha}{1+\alpha}P,\quad p_{\mathrm{PCl_3}}=p_{\mathrm{Cl_2}}=\frac{\alpha}{1+\alpha}P \]
+\[ K_p=\frac{\left(\dfrac{\alpha}{1+\alpha}P\right)^2}{\dfrac{1-\alpha}{1+\alpha}P}=\frac{\alpha^2}{(1-\alpha)(1+\alpha)}P=\boxed{\frac{\alpha^2P}{1-\alpha^2}} \]
+<p>Rearranged: \(\alpha=\sqrt{\dfrac{K_p}{K_p+P}}\). As \(P\) increases, \(\alpha\) decreases. This is Le Chatelier at work: higher pressure favours the side with fewer moles (\(\mathrm{PCl_5}\)).</p>
+<div class="lab"><h4>\(\alpha\) against pressure for \(\mathrm{PCl_5}\)</h4>
+<div class="ctrl">
+<label>log<sub>10</sub> K<sub>p</sub> <input type="range" id="a7K" min="-2" max="1" step="0.1" value="-0.4"> <span id="a7Kv"></span></label>
+<label>Total pressure P (atm) <input type="range" id="a7P" min="0.1" max="10" step="0.1" value="1"> <span id="a7Pv"></span></label>
+</div>
+<canvas id="a7c"></canvas>
+<div class="read"><div>α<b id="a7a"></b></div><div>% dissociated<b id="a7pc"></b></div><div>Observed M (g/mol)<b id="a7M"></b></div><div>D / d<b id="a7r"></b></div></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Uses M(PCl<sub>5</sub>) = 208.5 g/mol. Slide P up and see the observed molar mass rise towards 208.5 as dissociation is suppressed.</p></div>
+
+<h3>7.3 Observed molar mass and vapour density</h3>
+<p>The mass of gas is conserved, but the number of moles rises as the gas dissociates. So the average molar mass of the mixture falls, and so does the gas density (at fixed T and P).</p>
+<div class="box formula"><b class="t">Key relations (for \(\mathrm{A_n\rightleftharpoons nA}\))</b>
+\[ M_{obs}=\frac{M_{th}}{1+(n-1)\alpha},\qquad \frac{D}{d}=1+(n-1)\alpha,\qquad \alpha=\frac{D-d}{(n-1)\,d}=\frac{M_{th}-M_{obs}}{(n-1)M_{obs}} \]
+\(D\) = vapour density without dissociation \(=M_{th}/2\); \(d\) = observed vapour density of the mixture \(=M_{obs}/2\). (Vapour density = density of gas ÷ density of \(\mathrm{H_2}\) under the same conditions, so it is half the molar mass.)</div>
+<p>A good way to remember: <b>moles up, density down</b>. The ratio \(D/d\) is simply the ratio of final moles to initial moles.</p>
+
+<h3>7.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. The observed vapour density of a mixture formed from \(\mathrm{N_2O_4\rightleftharpoons 2NO_2}\) is 34.5. Find \(\alpha\), and the moles of \(\mathrm{NO_2}\) formed from 0.50 mol (46 g) of \(\mathrm{N_2O_4}\).</p>
+<ol>
+<li hidden>\(M_{th}=92\), so \(D=92/2=46\). Here \(n=2\).</li>
+<li hidden>\(\alpha=\dfrac{D-d}{(n-1)d}=\dfrac{46-34.5}{34.5}=\dfrac{11.5}{34.5}=\dfrac13\approx0.333\).</li>
+<li hidden>Moles of \(\mathrm{NO_2}=2a\alpha=2\times0.50\times\tfrac13=0.333\) mol; moles of \(\mathrm{N_2O_4}\) left \(=0.50\times\tfrac23=0.333\) mol.</li>
+<li hidden>Check: total \(=0.667=0.50\times(1+\tfrac13)\). ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. \(\mathrm{PCl_5}\) is 40% dissociated at a total pressure of 2.0 atm. Find \(K_p\).</p>
+<ol>
+<li hidden>\(\alpha=0.40\), so \(\alpha^2=0.16\).</li>
+<li hidden>\(K_p=\dfrac{\alpha^2P}{1-\alpha^2}=\dfrac{0.16\times2.0}{1-0.16}=\dfrac{0.32}{0.84}=0.381\) atm.</li>
+<li hidden>Check via pressures: \(p_{\mathrm{PCl_3}}=p_{\mathrm{Cl_2}}=\tfrac{0.4}{1.4}\times2=0.571\), \(p_{\mathrm{PCl_5}}=\tfrac{0.6}{1.4}\times2=0.857\); \(K_p=\dfrac{0.571^2}{0.857}=0.381\). ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. For \(\mathrm{PCl_5}\), \(K_p=0.25\) atm. Find \(\alpha\) at a total pressure of 1.0 atm, and compare with 5.0 atm.</p>
+<ol>
+<li hidden>Use \(\alpha=\sqrt{\dfrac{K_p}{K_p+P}}\).</li>
+<li hidden>At 1.0 atm: \(\alpha=\sqrt{\dfrac{0.25}{1.25}}=\sqrt{0.2}=0.447\) (44.7%).</li>
+<li hidden>At 5.0 atm: \(\alpha=\sqrt{\dfrac{0.25}{5.25}}=\sqrt{0.0476}=0.218\) (21.8%).</li>
+<li hidden>Higher pressure roughly halved the dissociation, as Le Chatelier predicts.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>7.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Using the method for \(n=1\).</b> \(\mathrm{2HI\rightleftharpoons H_2+I_2}\) has no change in moles, so density does not change and cannot give \(\alpha\).</li>
+<li><b>Mixing up D and d.</b> \(D\) is the undissociated value (larger), \(d\) is the observed one (smaller). \(D/d\ge1\).</li>
+<li><b>Forgetting that \(\alpha\) is per mole</b> of starting substance, not per mole of the mixture.</li>
+<li><b>Using \(K_p=\alpha^2P/(1-\alpha^2)\) for other reactions.</b> It is specific to \(n=2\) of the \(\mathrm{PCl_5}\) type.</li>
+<li><b>Saying pressure increases \(\alpha\).</b> For \(n&gt;1\), it decreases \(\alpha\).</li>
+</ul></div>
+
+<h3>7.6 Check yourself</h3>
+<div id="quiz-m7"></div><div class="score" id="score-m7"></div>
+<button class="btn ghost" onclick="resetQuiz('m7')">Reset Module 7 checks</button>
+
+<div class="box recap"><b class="t">Module 7 recap</b><ul>
+<li>\(\alpha\) = moles dissociated per mole taken. Total moles \(=a[1+(n-1)\alpha]\).</li>
+<li>\(D/d=M_{th}/M_{obs}=1+(n-1)\alpha\); so \(\alpha=\dfrac{D-d}{(n-1)d}\).</li>
+<li>\(\mathrm{PCl_5}\): \(K_p=\dfrac{\alpha^2P}{1-\alpha^2}\); \(\alpha\) falls as P rises.</li>
+<li>Not usable when \(n=1\).</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 8 ============================= -->
+<section class="mod" id="m8">
+<span class="modtag">Module 8</span>
+<h2>Thermodynamics of equilibrium: \(\Delta G\), \(\Delta G^\circ\) and K</h2>
+<p class="sub">Why equilibrium happens at all, and how free energy links to K.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>explain why \(\Delta G=0\) at equilibrium but \(\Delta G^\circ\) is usually not</li>
+<li>use \(\Delta G^\circ=-RT\ln K\) in both directions</li>
+<li>use \(\Delta G=\Delta G^\circ+RT\ln Q\) to find the direction of change</li>
+<li>combine \(\Delta H^\circ\), \(\Delta S^\circ\) and T to decide spontaneity</li>
+</ul></div>
+
+<h3>8.1 The driving force</h3>
+<p>Equilibrium is a compromise between two tendencies: systems like to lower their energy and they like to increase their entropy. Gibbs free energy combines both: \(G=H-TS\). A process happens spontaneously when it lowers G.</p>
+<table>
+<tr><th>\(\Delta G\) (at the actual conditions)</th><th>Meaning</th></tr>
+<tr><td>\(\Delta G&lt;0\)</td><td>forward reaction is spontaneous</td></tr>
+<tr><td>\(\Delta G&gt;0\)</td><td>forward is non-spontaneous (the backward reaction is spontaneous)</td></tr>
+<tr><td>\(\Delta G=0\)</td><td>at equilibrium</td></tr>
+</table>
+
+<h3>8.2 The two key equations</h3>
+<div class="box formula"><b class="t">Away from equilibrium</b>
+\[ \Delta G=\Delta G^\circ+RT\ln Q=\Delta G^\circ+2.303\,RT\log Q \]
+<b>At equilibrium</b> \(\Delta G=0\) and \(Q=K\), so
+\[ \Delta G^\circ=-RT\ln K=-2.303\,RT\log K \quad\Longleftrightarrow\quad K=e^{-\Delta G^\circ/RT} \]
+Use \(R=8.314\ \mathrm{J\,mol^{-1}K^{-1}}\) and watch that \(\Delta G^\circ\) is in joules.</div>
+<table>
+<tr><th>\(\Delta G^\circ\)</th><th>K</th><th>Meaning</th></tr>
+<tr><td>negative</td><td>\(K&gt;1\)</td><td>products favoured at equilibrium</td></tr>
+<tr><td>zero</td><td>\(K=1\)</td><td>reactants and products in comparable amounts</td></tr>
+<tr><td>positive</td><td>\(K&lt;1\)</td><td>reactants favoured at equilibrium</td></tr>
+</table>
+<div class="box note"><b class="t">\(\Delta G\) and \(\Delta G^\circ\) are different things</b>
+\(\Delta G^\circ\) is for all substances at <b>standard state</b> (1 atm for gases, 1 M for solutes, pure solids and liquids). It is a fixed number at a given T. \(\Delta G\) is for the <b>actual mixture</b> and changes as the reaction proceeds, reaching 0 at equilibrium.</div>
+<div class="box"><b class="t">A useful number at 298 K</b>
+\(2.303RT=2.303\times8.314\times298\approx5.7\) kJ/mol. So every \(-5.7\) kJ in \(\Delta G^\circ\) multiplies K by 10: \(-5.7\to K\approx10\); \(-11.4\to K\approx100\); \(+5.7\to K\approx0.1\).</div>
+
+<h3>8.3 Why K has no units</h3>
+<p>Strictly, K is built from <b>activities</b>, which are unitless ratios to a standard state. Pure solids and liquids have activity 1; ideal gases use partial pressure (in atm); solutes use molarity. That is why K<sub>c</sub> and K<sub>p</sub> in the earlier modules were really "this number, with the units we agreed to use".</p>
+
+<h3>8.4 Spontaneity and temperature</h3>
+<p>\(\Delta G^\circ=\Delta H^\circ-T\Delta S^\circ\). Putting this with \(\Delta G^\circ=-RT\ln K\):
+\[ \ln K=-\frac{\Delta H^\circ}{RT}+\frac{\Delta S^\circ}{R} \]
+This is the van't Hoff relation of Module 4.</p>
+<table>
+<tr><th>\(\Delta H^\circ\)</th><th>\(\Delta S^\circ\)</th><th>Spontaneous (standard state)?</th></tr>
+<tr><td>−</td><td>+</td><td>Always</td></tr>
+<tr><td>+</td><td>−</td><td>Never</td></tr>
+<tr><td>−</td><td>−</td><td>Only at low T (\(T&lt;\Delta H/\Delta S\))</td></tr>
+<tr><td>+</td><td>+</td><td>Only at high T (\(T&gt;\Delta H/\Delta S\))</td></tr>
+</table>
+<div class="lab"><h4>\(\Delta G^\circ\) and K against temperature</h4>
+<div class="ctrl">
+<label>\(\Delta H^\circ\) (kJ/mol) <input type="range" id="g8H" min="-100" max="100" step="5" value="60"> <span id="g8Hv"></span></label>
+<label>\(\Delta S^\circ\) (J/mol/K) <input type="range" id="g8S" min="-300" max="300" step="10" value="200"> <span id="g8Sv"></span></label>
+<label>T (K) <input type="range" id="g8T" min="200" max="1000" step="10" value="500"> <span id="g8Tv"></span></label>
+</div>
+<canvas id="g8c"></canvas>
+<div class="read"><div>\(\Delta G^\circ\) (kJ/mol)<b id="g8G"></b></div><div>K<b id="g8K"></b></div><div>\(T=\Delta H/\Delta S\)<b id="g8X"></b></div></div>
+<div class="status" id="g8out"></div></div>
+
+<details class="adv"><summary>ADVANCED EXTRA: decomposition temperature of a solid</summary>
+<p>For \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\), \(K_p=p_{\mathrm{CO_2}}\). The temperature at which \(p_{\mathrm{CO_2}}\) reaches 1 atm is where \(K=1\), so \(\Delta G^\circ=0\) and \(T=\Delta H^\circ/\Delta S^\circ\). This is the "decomposition temperature" you see quoted for carbonates. Above it, the standard-state reaction is spontaneous.</p></details>
+
+<h3>8.5 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. A reaction has \(\Delta G^\circ=-5.7\) kJ/mol at 298 K. Find K.</p>
+<ol>
+<li hidden>\(\ln K=-\dfrac{\Delta G^\circ}{RT}=\dfrac{5700}{8.314\times298}=\dfrac{5700}{2477.6}=2.30\).</li>
+<li hidden>\(K=e^{2.30}\approx10\).</li>
+<li hidden>Negative \(\Delta G^\circ\) gave \(K&gt;1\), as expected.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. A reaction has \(\Delta H^\circ=+60\) kJ/mol and \(\Delta S^\circ=+200\) J/mol/K. Find the temperature above which it is spontaneous, and K at 500 K.</p>
+<ol>
+<li hidden>Switch point: \(T=\dfrac{\Delta H^\circ}{\Delta S^\circ}=\dfrac{60\,000}{200}=300\) K. Both signs are positive, so it is spontaneous above 300 K.</li>
+<li hidden>At 500 K: \(\Delta G^\circ=60\,000-500\times200=-40\,000\) J/mol.</li>
+<li hidden>\(\ln K=\dfrac{40\,000}{8.314\times500}=\dfrac{40\,000}{4157}=9.62\).</li>
+<li hidden>\(K=e^{9.62}\approx1.5\times10^{4}\). Strongly product-favoured.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. At 300 K, a reaction has \(\Delta G^\circ=-10\) kJ/mol. The mixture has \(Q=100\). Which way does it go?</p>
+<ol>
+<li hidden>\(RT=8.314\times300=2494\) J/mol. \(\ln Q=\ln100=4.605\).</li>
+<li hidden>\(\Delta G=\Delta G^\circ+RT\ln Q=-10\,000+2494\times4.605=-10\,000+11\,486=+1486\) J/mol.</li>
+<li hidden>\(\Delta G&gt;0\), so the forward reaction is non-spontaneous: the mixture goes <b>backward</b>.</li>
+<li hidden>Cross-check with K: \(K=e^{10\,000/2494}=e^{4.01}\approx55\). \(Q=100&gt;K=55\), so backward. ✓</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>8.6 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Saying \(\Delta G^\circ=0\) at equilibrium.</b> It is \(\Delta G\) that is zero. \(\Delta G^\circ\) equals zero only when \(K=1\).</li>
+<li><b>Mixing kJ and J.</b> \(R\) is in J, so convert \(\Delta G^\circ\) to joules.</li>
+<li><b>Thinking negative \(\Delta G^\circ\) means a fast reaction.</b> It says nothing about rate.</li>
+<li><b>Using \(\ln\) with a log formula.</b> \(\ln x=2.303\log x\). Keep them consistent.</li>
+<li><b>Dropping a sign</b> when substituting \(\Delta H^\circ\) and \(\Delta S^\circ\).</li>
+</ul></div>
+
+<h3>8.7 Check yourself</h3>
+<div id="quiz-m8"></div><div class="score" id="score-m8"></div>
+<button class="btn ghost" onclick="resetQuiz('m8')">Reset Module 8 checks</button>
+
+<div class="box recap"><b class="t">Module 8 recap</b><ul>
+<li>\(\Delta G=\Delta G^\circ+RT\ln Q\); at equilibrium \(\Delta G=0\), \(Q=K\).</li>
+<li>\(\Delta G^\circ=-RT\ln K\): negative → \(K&gt;1\); positive → \(K&lt;1\).</li>
+<li>\(\Delta G^\circ=\Delta H^\circ-T\Delta S^\circ\); spontaneous when \(\Delta G&lt;0\).</li>
+<li>K is unitless in the thermodynamic definition (activities).</li>
+</ul></div>
+</section>
+<!-- ============================= MODULE 9 ============================= -->
+<section class="mod" id="m9">
+<span class="modtag">Module 9</span>
+<h2>Le Chatelier's principle and industrial processes</h2>
+<p class="sub">Predicting how an equilibrium responds when you disturb it.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>state Le Chatelier's principle and justify each prediction using Q and K</li>
+<li>predict the effect of concentration, volume, pressure, inert gas, temperature and catalyst</li>
+<li>distinguish between changes that shift the position and the one that changes K</li>
+<li>choose sensible conditions for the Haber, contact and Birkeland–Eyde processes</li>
+</ul></div>
+
+<h3>9.1 The principle</h3>
+<div class="box"><b class="t">Le Chatelier's principle</b>
+If a change is applied to a system at equilibrium, the system shifts in the direction that tends to <b>reduce the effect of the change</b>, and a new equilibrium is established.</div>
+<p>Think of a crowded lift: if more people squeeze in at one side, the crowd re-spreads to relieve the pressure. The principle tells you the <b>direction</b> of the shift. Behind every prediction is the Q-vs-K rule from Module 3: the change makes \(Q\ne K\), and the reaction moves to restore \(Q=K\).</p>
+
+<h3>9.2 Each factor, one by one</h3>
+<table>
+<tr><th>Change</th><th>Shift</th><th>Reason (using Q vs K)</th></tr>
+<tr><td>Add a reactant (or remove a product)</td><td>Forward</td><td>Q falls below K</td></tr>
+<tr><td>Add a product (or remove a reactant)</td><td>Backward</td><td>Q rises above K</td></tr>
+<tr><td>Add or remove a pure solid or liquid</td><td>None</td><td>Its active mass is 1; Q is unchanged</td></tr>
+<tr><td>Decrease volume (raise pressure)</td><td>Towards <b>fewer</b> gas moles</td><td>\(Q_c\propto V^{-\Delta n_g}\)</td></tr>
+<tr><td>Increase volume (lower pressure)</td><td>Towards <b>more</b> gas moles</td><td>same relation</td></tr>
+<tr><td>Inert gas at <b>constant volume</b></td><td>None</td><td>Concentrations and partial pressures unchanged</td></tr>
+<tr><td>Inert gas at <b>constant pressure</b></td><td>As for an increase in volume</td><td>Volume must grow, so concentrations drop</td></tr>
+<tr><td>Raise T</td><td>Endothermic direction (K changes)</td><td>See van't Hoff, Module 4</td></tr>
+<tr><td>Lower T</td><td>Exothermic direction (K changes)</td><td>see above</td></tr>
+<tr><td>Catalyst</td><td>None</td><td>Speeds up both directions equally</td></tr>
+</table>
+<div class="box"><b class="t">Volume and pressure, in more detail</b>
+For \(\Delta n_g&gt;0\), e.g. \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\): \(Q_c=\dfrac{n_{\mathrm{PCl_3}}n_{\mathrm{Cl_2}}}{n_{\mathrm{PCl_5}}\,V}\propto\dfrac1V\). Reduce V and \(Q_c\) rises above K, so the shift is <b>backward</b>.
+For \(\Delta n_g&lt;0\), e.g. \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\): \(Q_c\propto V^2\). Reduce V and \(Q_c\) falls below K, so the shift is <b>forward</b>.
+For \(\Delta n_g=0\) (\(\mathrm{H_2+I_2\rightleftharpoons 2HI}\)), V cancels out: no shift.
+In terms of pressure: \(Q_p\propto P^{\Delta n_g}\).</div>
+<div class="box note"><b class="t">Only temperature changes K</b>
+Concentration, pressure, volume, inert gas and catalyst may change the <i>position</i> (or the speed), but K stays the same. Temperature is the only factor that changes the value of K.</div>
+
+<h3>9.3 Lab: Le Chatelier simulator</h3>
+<p>Choose a reaction, apply a change, and see the prediction with the reasoning.</p>
+<div class="lab"><h4>Disturb the equilibrium</h4>
+<div class="ctrl"><label>Reaction <select id="lcR"></select></label>
+<label>Change <select id="lcS"></select></label></div>
+<div id="lcRx" style="margin:4px 0"></div>
+<div class="status" id="lcDir"></div>
+<p id="lcWhy" style="margin:6px 0"></p>
+<div class="read"><div>Value of K<b id="lcK"></b></div><div>Rate of reaching equilibrium<b id="lcRate"></b></div></div></div>
+
+<h3>9.4 Physical equilibria</h3>
+<table>
+<tr><th>Equilibrium</th><th>Which phase has the smaller volume?</th><th>Effect of higher pressure</th></tr>
+<tr><td>\(\mathrm{H_2O(s)\rightleftharpoons H_2O(l)}\) (\(\Delta H&gt;0\))</td><td>Liquid (ice is less dense)</td><td>Favours melting: the melting point <b>decreases</b></td></tr>
+<tr><td>\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\)</td><td>Liquid</td><td>Favours the liquid: the boiling point <b>increases</b></td></tr>
+<tr><td>\(\mathrm{C(graphite)\rightleftharpoons C(diamond)}\) (\(\Delta H&gt;0\))</td><td>Diamond (denser)</td><td>Favoured by high pressure, and high temperature helps the rate and the endothermic direction</td></tr>
+</table>
+<p style="font-size:14px;color:var(--muted)">Rule: pressure shifts a physical equilibrium towards the phase with the smaller volume (higher density).</p>
+
+<h3>9.5 Industrial processes</h3>
+<table>
+<tr><th>Process</th><th>Reaction</th><th>\(\Delta n_g\), heat</th><th>Sensible conditions and why</th></tr>
+<tr><td><b>Haber</b> (ammonia)</td><td>\(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\)</td><td>−2, exothermic</td><td><b>High pressure</b> (fewer moles). <b>Moderate temperature</b> (about 450 °C): low T gives a better yield, but the rate would be far too slow, so a compromise is used with an iron catalyst. Remove \(\mathrm{NH_3}\) as it forms.</td></tr>
+<tr><td><b>Contact</b> (\(\mathrm{SO_3}\) for sulphuric acid)</td><td>\(\mathrm{2SO_2+O_2\rightleftharpoons 2SO_3}\)</td><td>−1, exothermic</td><td>Moderate temperature (about 450–500 °C) with a \(\mathrm{V_2O_5}\) catalyst, a slight excess of \(\mathrm{O_2}\), and only low pressure (about 1.5–2 atm) because the yield is already high.</td></tr>
+<tr><td><b>Birkeland–Eyde</b> (NO)</td><td>\(\mathrm{N_2+O_2\rightleftharpoons 2NO}\)</td><td>0, endothermic</td><td><b>Very high temperature</b> (above about 1200 °C in an electric arc) as the reaction is endothermic. Pressure has no effect (\(\Delta n_g=0\)). High \(\mathrm{N_2}\), \(\mathrm{O_2}\) concentration helps.</td></tr>
+</table>
+
+<h3>9.6 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. \(\mathrm{PCl_5(g)\rightleftharpoons PCl_3(g)+Cl_2(g)}\), \(\Delta H&gt;0\), is at equilibrium. Predict the effect of: (a) adding \(\mathrm{Cl_2}\); (b) halving the volume; (c) adding argon at constant volume; (d) adding argon at constant pressure; (e) cooling.</p>
+<ol>
+<li hidden>(a) Add a product: \(Q\) rises above K → <b>backward</b>.</li>
+<li hidden>(b) \(\Delta n_g=+1\); halving V raises pressure → shift to fewer moles → <b>backward</b>.</li>
+<li hidden>(c) Concentrations unchanged → <b>no shift</b>.</li>
+<li hidden>(d) Volume must increase to hold P, like a pressure drop → shift to more moles → <b>forward</b>.</li>
+<li hidden>(e) Endothermic, so cooling favours the exothermic (backward) direction → <b>backward</b>, and K decreases.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. For \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\), \(\Delta H=-92\) kJ, which conditions give the best equilibrium yield of \(\mathrm{NH_3}\), and why is the real plant temperature not the lowest possible?</p>
+<ol>
+<li hidden>\(\Delta n_g=-2\): high pressure shifts forward.</li>
+<li hidden>Exothermic: low temperature shifts forward and raises K.</li>
+<li hidden>But at low temperature, molecules react very slowly and the equilibrium would take far too long to establish. A catalyst (iron) is used, with a moderate temperature as a compromise between yield and rate.</li>
+<li hidden>Removing \(\mathrm{NH_3}\) by liquefaction as it forms also pulls the equilibrium forward.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 3. \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\) at equilibrium in a closed vessel. What happens to \(p_{\mathrm{CO_2}}\) when (a) more \(\mathrm{CaO}\) is added, (b) the volume is doubled, (c) the temperature is raised?</p>
+<ol>
+<li hidden>(a) \(K_p=p_{\mathrm{CO_2}}\) and solids are left out. No shift, so \(p_{\mathrm{CO_2}}\) is <b>unchanged</b>.</li>
+<li hidden>(b) Doubling V makes \(p_{\mathrm{CO_2}}\) momentarily fall below K. The reaction shifts forward, more \(\mathrm{CaCO_3}\) decomposes, and \(p_{\mathrm{CO_2}}\) <b>returns to the same value</b> (K has not changed). More moles of \(\mathrm{CO_2}\) are present, but the pressure is the same. This assumes enough \(\mathrm{CaCO_3}\) remains.</li>
+<li hidden>(c) Endothermic, so K and \(p_{\mathrm{CO_2}}\) both <b>increase</b>.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>9.7 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Adding inert gas always shifts the equilibrium.</b> Not at constant volume.</li>
+<li><b>A catalyst raises the yield.</b> It only speeds up arrival at the same equilibrium.</li>
+<li><b>Pressure always matters.</b> If \(\Delta n_g=0\) it has no effect on position.</li>
+<li><b>Pressure or concentration changes K.</b> They do not. Only temperature does.</li>
+<li><b>Adding a solid shifts the equilibrium.</b> It does not.</li>
+<li><b>Forgetting rate in industry.</b> Best yield and best rate often need different temperatures.</li>
+</ul></div>
+
+<h3>9.8 Check yourself</h3>
+<div id="quiz-m9"></div><div class="score" id="score-m9"></div>
+<button class="btn ghost" onclick="resetQuiz('m9')">Reset Module 9 checks</button>
+
+<div class="box recap"><b class="t">Module 9 recap</b><ul>
+<li>The system opposes the change; direction comes from comparing Q with K.</li>
+<li>Pressure/volume: shift to fewer moles on compression, more moles on expansion; nothing if \(\Delta n_g=0\).</li>
+<li>Inert gas: no effect at constant V; acts like an expansion at constant P.</li>
+<li>Temperature is the only factor that changes K. A catalyst changes only the rate.</li>
+</ul></div>
+</section>
+
+<!-- ============================= MODULE 10 ============================= -->
+<section class="mod" id="m10">
+<span class="modtag">Module 10</span>
+<h2>Simultaneous equilibria</h2>
+<p class="sub">When two equilibria share a species.</p>
+<div class="goals"><b>After this module you can:</b>
+<ul>
+<li>recognise a system with two or more coupled equilibria</li>
+<li>build an ICE table that tracks the shared species through both equilibria</li>
+<li>solve for the equilibrium constants or composition</li>
+</ul></div>
+
+<h3>10.1 The one rule</h3>
+<div class="box"><b class="t">Total concentration of the common species</b>
+If two or more equilibria exist in the same container and share a species, then in <b>every</b> equilibrium expression the concentration (or pressure) of that shared species is its <b>total</b> amount at equilibrium, from all the reactions together.</div>
+<p>Why? There is only one container. The gas does not "know" which reaction produced it. So whichever K you write, you must use the actual concentration in the vessel.</p>
+<p>Example: \(\mathrm{A(s)\rightleftharpoons X(g)+Y(g)}\) and \(\mathrm{B(s)\rightleftharpoons Z(g)+Y(g)}\). Let the first produce \(t\) mol of X and Y, and the second \(u\) mol of Z and Y. The total Y is \(t+u\). So \(K_1=[X][Y]=t(t+u)\) and \(K_2=[Z][Y]=u(t+u)\) (in suitable units).</p>
+
+<h3>10.2 Method</h3>
+<div class="box"><ol>
+<li>Write both equilibria and both K expressions.</li>
+<li>Choose one unknown per reaction (the amount reacted in each, e.g. \(t\) and \(u\), or \(a\) and \(b\)).</li>
+<li>Build the E row for each species. For the shared species, <b>add the contributions</b> from both reactions.</li>
+<li>Substitute into both K expressions and solve the simultaneous equations. A ratio of the two K's often removes the common factor.</li>
+</ol></div>
+
+<h3>10.3 Lab: two solids sharing a gas</h3>
+<p>Take \(\mathrm{A(s)\rightleftharpoons X(g)+Y(g)}\) (\(K_{p1}\)) and \(\mathrm{B(s)\rightleftharpoons Z(g)+Y(g)}\) (\(K_{p2}\)). Let \(p_X=a\), \(p_Z=b\), so \(p_Y=a+b\). Then \(K_{p1}=a(a+b)\) and \(K_{p2}=b(a+b)\).</p>
+<div class="lab"><h4>Partial pressures from two K<sub>p</sub> values</h4>
+<div class="ctrl"><label>K<sub>p1</sub> (atm²) <input type="number" id="s10a" value="6" step="any" min="0.01"></label>
+<label>K<sub>p2</sub> (atm²) <input type="number" id="s10b" value="3" step="any" min="0.01"></label></div>
+<div id="s10bars"></div>
+<div class="status" id="s10out"></div>
+<p style="font-size:14px;color:var(--muted);margin-bottom:0">Dividing the two K expressions gives \(a/b=K_{p1}/K_{p2}\). Adding them gives \((a+b)^2=K_{p1}+K_{p2}\), so \(p_Y=\sqrt{K_{p1}+K_{p2}}\). Check that the output obeys this.</p></div>
+
+<h3>10.4 Worked examples</h3>
+<div class="we"><p class="wq">Example 1. In the system above, \(K_{p1}=6\) atm² and \(K_{p2}=3\) atm². Find the equilibrium partial pressures and the total pressure.</p>
+<ol>
+<li hidden>Let \(p_X=a\), \(p_Z=b\), \(p_Y=a+b\). Then \(a(a+b)=6\) and \(b(a+b)=3\).</li>
+<li hidden>Divide: \(\dfrac ab=\dfrac63=2\), so \(a=2b\).</li>
+<li hidden>Substitute: \(b(2b+b)=3b^2=3\Rightarrow b=1\) atm, so \(a=2\) atm and \(p_Y=3\) atm.</li>
+<li hidden>Check: \(2\times3=6\) ✓, \(1\times3=3\) ✓. Total pressure \(=2+1+3=6\) atm.</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<div class="we"><p class="wq">Example 2. 2.0 mol of solid \(\mathrm{NH_4HS}\) is heated in a 4.0 L evacuated flask. Two equilibria exist: \(\mathrm{NH_4HS(s)\rightleftharpoons NH_3(g)+H_2S(g)}\) (\(K_{c1}\)) and \(\mathrm{NH_3(g)\rightleftharpoons \tfrac12N_2(g)+\tfrac32H_2(g)}\) (\(K_{c2}\)). Of the solid, 1.0 mol has decomposed in the first equilibrium (1.0 mol is still left). 0.30 mol of \(\mathrm{H_2}\) is found at equilibrium. Find \(K_{c1}\) and \(K_{c2}\).</p>
+<ol>
+<li hidden>First equilibrium makes 1.0 mol each of \(\mathrm{NH_3}\) and \(\mathrm{H_2S}\). Let \(x\) mol of the \(\mathrm{NH_3}\) then dissociate.</li>
+<li hidden>The second gives \(\mathrm{N_2}=x/2\) and \(\mathrm{H_2}=3x/2\). Since \(\mathrm{H_2}=0.30\): \(3x/2=0.30\Rightarrow x=0.20\) mol.</li>
+<li hidden>Moles at equilibrium: \(\mathrm{NH_3}=1.0-0.20=0.80\) (<b>total</b> after both reactions), \(\mathrm{H_2S}=1.0\), \(\mathrm{N_2}=0.10\), \(\mathrm{H_2}=0.30\).</li>
+<li hidden>Concentrations (÷ 4.0 L): \(\mathrm{NH_3}=0.20\), \(\mathrm{H_2S}=0.25\), \(\mathrm{N_2}=0.025\), \(\mathrm{H_2}=0.075\) M.</li>
+<li hidden>\(K_{c1}=[\mathrm{NH_3}][\mathrm{H_2S}]=0.20\times0.25=\mathbf{0.050}\) (mol/L)².</li>
+<li hidden>\(K_{c2}=\dfrac{[\mathrm{N_2}]^{1/2}[\mathrm{H_2}]^{3/2}}{[\mathrm{NH_3}]}=\dfrac{(0.025)^{1/2}(0.075)^{3/2}}{0.20}=\dfrac{0.1581\times0.02054}{0.20}\approx\mathbf{1.6\times10^{-2}}\) (mol/L).</li>
+</ol><button class="btn" data-next>Show next step</button></div>
+
+<h3>10.5 Common traps</h3>
+<div class="box trap"><ul>
+<li><b>Using only one reaction's amount</b> of the shared species in a K expression. Always use the total.</li>
+<li><b>Forgetting the coefficient</b> (e.g. \(\mathrm{H_2}=3x/2\), not \(x\)).</li>
+<li><b>Using initial moles</b> of the solid for the first equilibrium. It is the amount that has <b>decomposed</b> that matters.</li>
+<li><b>Dividing by V twice or not at all</b> when the reaction changes the number of moles.</li>
+</ul></div>
+
+<h3>10.6 Check yourself</h3>
+<div id="quiz-m10"></div><div class="score" id="score-m10"></div>
+<button class="btn ghost" onclick="resetQuiz('m10')">Reset Module 10 checks</button>
+
+<div class="box recap"><b class="t">Module 10 recap</b><ul>
+<li>Several equilibria in one container: the shared species has one total concentration.</li>
+<li>Track each reaction's extent with its own variable; add contributions for the shared species.</li>
+<li>Solve K expressions together, using ratios when useful.</li>
+</ul></div>
+</section>
+
+<!-- ============================= FINAL TEST ============================= -->
+<section class="mod" id="final">
+<span class="modtag">Final test</span>
+<h2>Mixed practice (12 questions)</h2>
+<p class="sub">Questions drawn from all ten modules, with no hints. Take it after you have studied the modules.</p>
+<div id="quiz-final"></div><div class="score" id="score-final"></div>
+<button class="btn ghost" onclick="resetQuiz('final')">Reset final test</button>
+</section>
+
+<!-- ============================= FORMULA SHEET ============================= -->
+<section class="mod" id="sheet">
+<span class="modtag">Quick revision</span>
+<h2>Formula sheet (all modules)</h2>
+<div class="sheet">
+<div class="box formula"><b class="t">Equilibrium</b>\(r_f=r_b\); \(\Delta G=0\); closed system; catalyst has no effect on position.</div>
+<div class="box formula"><b class="t">K expressions</b>\(K_c=\dfrac{[C]^c[D]^d}{[A]^a[B]^b}=\dfrac{k_f}{k_b}\); \(K_p\) uses partial pressures; solids and pure liquids left out.</div>
+<div class="box formula"><b class="t">Kp and Kc</b>\(K_p=K_c(RT)^{\Delta n_g}\); \(R=0.0821\) L atm/mol/K; units \((\mathrm{conc})^{\Delta n_g}\), \((\mathrm{atm})^{\Delta n_g}\).</div>
+<div class="box formula"><b class="t">Direction</b>\(Q&lt;K\) forward; \(Q&gt;K\) backward; \(Q=K\) equilibrium. \(K&gt;10^3\) nearly complete; \(K&lt;10^{-3}\) hardly proceeds.</div>
+<div class="box formula"><b class="t">Changing the equation</b>Reverse: \(1/K\). Multiply by \(n\): \(K^n\). Add: \(K_1K_2\). Subtract: \(K_1/K_2\).</div>
+<div class="box formula"><b class="t">Van't Hoff</b>\(\log\dfrac{K_2}{K_1}=\dfrac{\Delta H^\circ}{2.303R}\left(\dfrac1{T_1}-\dfrac1{T_2}\right)\). Endothermic: K rises with T.</div>
+<div class="box formula"><b class="t">ICE tables</b>Changes follow coefficients. Quadratic: reject impossible root. Small K: \(x\approx\sqrt{Kc}\).</div>
+<div class="box formula"><b class="t">Vapour pressure</b>\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\): \(K_p=p_{\mathrm{H_2O}}\). RH \(=\dfrac{p_{\mathrm{H_2O}}}{\text{V.P.}}\times100\).</div>
+<div class="box formula"><b class="t">Dissociation</b>\(\alpha=\dfrac{\text{moles dissociated}}{\text{initial moles}}\); \(\dfrac Dd=1+(n-1)\alpha\); \(\alpha=\dfrac{D-d}{(n-1)d}\); \(\mathrm{PCl_5}\): \(K_p=\dfrac{\alpha^2P}{1-\alpha^2}\).</div>
+<div class="box formula"><b class="t">Thermodynamics</b>\(\Delta G=\Delta G^\circ+RT\ln Q\); \(\Delta G^\circ=-RT\ln K\); \(\Delta G^\circ=\Delta H^\circ-T\Delta S^\circ\). At 298 K, 5.7 kJ ≈ factor 10 in K.</div>
+<div class="box formula"><b class="t">Le Chatelier</b>Compress → fewer moles. Inert gas: none at constant V, like expansion at constant P. Only T changes K. Catalyst: rate only.</div>
+<div class="box formula"><b class="t">Simultaneous equilibria</b>Shared species: use its total concentration in every K.</div>
+</div>
+</section>
+</main>
+
+
+<script>
+/* ---------- storage ---------- */
+var KEY='ceq_draft_m1m2_v1';
+function loadState(){try{var v=localStorage.getItem(KEY);return v?JSON.parse(v):{}}catch(e){return {}}}
+function saveState(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+var state=loadState();
+
+function typeset(el){ if(window.MathJax&&MathJax.typesetPromise){ MathJax.typesetPromise(el?[el]:undefined).catch(function(){}); } }
+
+/* ---------- quiz engine ---------- */
+var R=String.raw;
+var QUIZ={
+m1:[
+{q:R`For \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\) at constant temperature, which statement is <b>always</b> true at equilibrium?`,
+ o:[R`\([\mathrm{N_2}]=[\mathrm{NH_3}]\)`,R`The forward and backward rates are equal`,R`The reaction has stopped`,R`\([\mathrm{H_2}]=3[\mathrm{N_2}]\)`],a:1,
+ why:R`Equilibrium means equal <i>rates</i>. Amounts need not be equal, and the reactions have not stopped.`},
+{q:R`\(\mathrm{CaCO_3}\) is heated at a fixed temperature. In which set-up can an equilibrium with \(\mathrm{CaO}\) and \(\mathrm{CO_2}\) be established?`,
+ o:['An open crucible','A sealed rigid vessel','A vessel with a hole','Equilibrium is impossible for solids'],a:1,
+ why:R`\(\mathrm{CO_2}\) must stay in contact with the solids. Only a closed vessel allows the backward reaction.`},
+{q:R`A catalyst is added to a system already at equilibrium. What happens?`,
+ o:['More product forms','The value of K increases','Composition and K stay the same','The system moves to the reactant side'],a:2,
+ why:R`A catalyst speeds up the forward and backward reactions equally. It changes how fast equilibrium is reached, not where it is.`},
+{q:R`Which one is a true dynamic equilibrium (not a steady state)?`,
+ o:['A metal rod with one end at 100°C and the other in ice, temperatures at each point constant','Water and its vapour in a sealed flask at fixed temperature','A tank filled by a tap and drained at the same rate, level constant','A candle burning at a constant rate'],a:1,
+ why:R`Only the sealed water–vapour system has molecules moving in <i>both</i> directions at equal rates in a closed system. The others depend on one-way flow with outside supply.`},
+{q:R`<span class="tag-adv" style="margin-left:0">ADVANCED</span> Container a holds \(\mathrm{N_2+H_2\rightleftharpoons NH_3}\) at equilibrium. Container b holds \(\mathrm{N_2+D_2\rightleftharpoons ND_3}\) at equilibrium. Both are emptied into one container c. How many different molecular species are present once equilibrium is reached in c?`,
+ o:['5','6','7','8'],a:3,
+ why:R`Species: \(\mathrm{N_2, H_2, D_2, HD, NH_3, NH_2D, NHD_2, ND_3}\) = 8. Mixing of H and D into one molecule proves the reactions are dynamic.`},
+{q:R`Two experiments at the same T and V: (i) start with only reactants, (ii) start with the stoichiometrically equivalent amount of only products. The final equilibrium compositions are:`,
+ o:['Different, because the starting points differ','Identical','Identical only if a catalyst is used','Identical only for gases'],a:1,
+ why:R`The equilibrium state depends on the conditions and total amounts, not on the direction of approach.`}
+],
+m2:[
+{q:R`For \(\mathrm{4NH_3(g)+5O_2(g)\rightleftharpoons 4NO(g)+6H_2O(g)}\), what is \(\Delta n_g\)?`,
+ o:['−1','0','+1','+10'],a:2,
+ why:R`Gaseous products \(=4+6=10\); gaseous reactants \(=4+5=9\); \(\Delta n_g=10-9=+1\).`},
+{q:R`Which is K<sub>c</sub> for \(\mathrm{3Fe(s)+4H_2O(g)\rightleftharpoons Fe_3O_4(s)+4H_2(g)}\)?`,
+ o:[R`\(\dfrac{[\mathrm{Fe_3O_4}][\mathrm{H_2}]^4}{[\mathrm{Fe}]^3[\mathrm{H_2O}]^4}\)`,R`\(\dfrac{[\mathrm{H_2}]^4}{[\mathrm{H_2O}]^4}\)`,R`\(\dfrac{[\mathrm{H_2O}]^4}{[\mathrm{H_2}]^4}\)`,R`\([\mathrm{H_2}]^4\)`],a:1,
+ why:R`Solids are left out. Products over reactants gives \([\mathrm{H_2}]^4/[\mathrm{H_2O}]^4\).`},
+{q:R`For \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\), what is K<sub>p</sub>?`,
+ o:[R`\(p_{\mathrm{CO_2}}\)`,R`\(\dfrac{p_{\mathrm{CaO}}\,p_{\mathrm{CO_2}}}{p_{\mathrm{CaCO_3}}}\)`,R`\(1\)`,R`\(\dfrac{1}{p_{\mathrm{CO_2}}}\)`],a:0,
+ why:R`Both solids are dropped, leaving only the pressure of the one gas.`},
+{q:R`In which case is K<sub>p</sub> equal to K<sub>c</sub>?`,
+ o:[R`\(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\)`,R`\(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\)`,R`\(\mathrm{H_2+I_2\rightleftharpoons 2HI}\)`,R`\(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\)`],a:2,
+ why:R`Only when \(\Delta n_g=0\). For \(\mathrm{H_2+I_2\rightleftharpoons2HI}\): \(2-2=0\).`},
+{q:R`What are the units of K<sub>p</sub> for \(\mathrm{N_2(g)+3H_2(g)\rightleftharpoons 2NH_3(g)}\)?`,
+ o:['atm','atm<sup>−2</sup>','atm<sup>2</sup>','No units'],a:1,
+ why:R`Units are \((\mathrm{atm})^{\Delta n_g}\) and \(\Delta n_g=-2\).`},
+{q:R`For \(\mathrm{N_2O_4(g)\rightleftharpoons 2NO_2(g)}\), K<sub>c</sub> = 0.005 mol/L at 300 K. What is K<sub>p</sub>? (R = 0.0821)`,
+ o:['0.005 atm','0.123 atm','2.0 × 10<sup>−4</sup> atm','0.246 atm'],a:1,
+ why:R`\(\Delta n_g=+1\); \(RT=0.0821\times300=24.63\); \(K_p=0.005\times24.63\approx0.123\) atm.`}
+]};
+
+function renderQuiz(mod){
+  if(!state[mod])state[mod]={}; var box=document.getElementById('quiz-'+mod); if(!box)return; box.innerHTML='';
+  QUIZ[mod].forEach(function(item,qi){
+    var d=document.createElement('div'); d.className='q';
+    var h='<p class="qt">'+(qi+1)+'. '+item.q+'</p>';
+    item.o.forEach(function(op,oi){h+='<button class="opt" data-q="'+qi+'" data-o="'+oi+'">'+op+'</button>';});
+    h+='<div class="why" hidden></div>';
+    d.innerHTML=h; box.appendChild(d);
+    var chosen=state[mod][qi];
+    if(chosen!==undefined) showAnswer(d,mod,qi,chosen);
+    d.querySelectorAll('.opt').forEach(function(b){
+      b.addEventListener('click',function(){
+        if(state[mod][qi]!==undefined) return;
+        state[mod][qi]=parseInt(b.dataset.o,10); saveState(state);
+        showAnswer(d,mod,qi,state[mod][qi]); updateProgress();
+      });
+    });
+  });
+  typeset(box); updateProgress();
+}
+function showAnswer(d,mod,qi,chosen){
+  var item=QUIZ[mod][qi];
+  d.querySelectorAll('.opt').forEach(function(b,i){
+    b.disabled=true;
+    if(i===item.a) b.classList.add('right');
+    else if(i===chosen) b.classList.add('wrong');
+  });
+  var w=d.querySelector('.why'); w.hidden=false;
+  w.innerHTML=(chosen===item.a?'<b>Correct.</b> ':'<b>Not quite.</b> ')+item.why;
+  typeset(w);
+}
+function resetQuiz(mod){ state[mod]={}; saveState(state); renderQuiz(mod); }
+function updateProgress(){
+  var td=0,tt=0;
+  Object.keys(QUIZ).forEach(function(mod){
+    var S=state[mod]||{},tot=QUIZ[mod].length,done=0,ok=0;
+    QUIZ[mod].forEach(function(it,qi){var c=S[qi]; if(c!==undefined){done++; if(c===it.a)ok++;}});
+    var sc=document.getElementById('score-'+mod); if(sc)sc.textContent='Answered '+done+' of '+tot+' · Correct '+ok;
+    var pc=document.getElementById('pc-'+mod); if(pc)pc.textContent=ok+'/'+tot;
+    td+=done; tt+=tot;
+  });
+  var ov=document.getElementById('overall'); if(ov)ov.textContent='Checks answered: '+td+' / '+tt;
+}
+
+/* ---------- homogeneous / heterogeneous sorter ---------- */
+var SORT=[
+{r:R`\(\mathrm{H_2(g)+Cl_2(g)\rightleftharpoons 2HCl(g)}\)`,a:'hom',w:'All gases: one phase.'},
+{r:R`\(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\)`,a:'het',w:'Two solids and a gas: three phases.'},
+{r:R`\(\mathrm{SO_2(g)+NO_2(g)\rightleftharpoons SO_3(g)+NO(g)}\)`,a:'hom',w:'All gases.'},
+{r:R`\(\mathrm{3Fe(s)+4H_2O(g)\rightleftharpoons Fe_3O_4(s)+4H_2(g)}\)`,a:'het',w:'Solids and gases together.'},
+{r:R`\(\mathrm{CH_3COOH(l)+C_2H_5OH(l)\rightleftharpoons CH_3COOC_2H_5(l)+H_2O(l)}\)`,a:'hom',w:'All four liquids mix into one liquid phase.'},
+{r:R`\(\mathrm{NH_4HS(s)\rightleftharpoons NH_3(g)+H_2S(g)}\)`,a:'het',w:'A solid and a gas mixture.'},
+{r:R`\(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\)`,a:'het',w:'Liquid and vapour are two phases (this one is also a <i>physical</i> equilibrium).'}];
+(function(){
+  var box=document.getElementById('sortbox'); var sc=document.getElementById('sortscore'); var correct=0,done=0;
+  SORT.forEach(function(s){
+    var row=document.createElement('div'); row.className='sortrow';
+    row.innerHTML='<span>'+s.r+'</span><span class="btns"><button class="btn ghost" data-v="hom">Homogeneous</button><button class="btn ghost" data-v="het">Heterogeneous</button></span><span class="fb" hidden></span>';
+    box.appendChild(row);
+    row.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){
+      if(row.dataset.done)return; row.dataset.done=1; done++;
+      var ok=b.dataset.v===s.a; if(ok)correct++;
+      row.classList.add(ok?'ok':'no');
+      var fb=row.querySelector('.fb'); fb.hidden=false;
+      fb.innerHTML=(ok?'<b>Right.</b> ':'<b>Not quite – it is '+(s.a==='hom'?'homogeneous':'heterogeneous')+'.</b> ')+s.w;
+      row.querySelectorAll('button').forEach(function(x){x.disabled=true});
+      sc.textContent='Sorted '+done+' of '+SORT.length+' · Correct '+correct; typeset(row);
+    });});
+  });
+})();
+
+/* ---------- worked examples (step reveal) ---------- */
+document.querySelectorAll('.we').forEach(function(w){
+  var btn=w.querySelector('[data-next]'), items=w.querySelectorAll('li');
+  btn.addEventListener('click',function(){
+    for(var i=0;i<items.length;i++){ if(items[i].hidden){items[i].hidden=false; typeset(items[i]); break;} }
+    var left=Array.prototype.some.call(items,function(x){return x.hidden});
+    if(!left){btn.disabled=true;btn.textContent='All steps shown';}
+  });
+});
+
+/* ---------- expression builder ---------- */
+var EX=[
+{rx:R`\mathrm{N_2(g)+3H_2(g)\rightleftharpoons 2NH_3(g)}`,
+ kc:R`K_c=\dfrac{[\mathrm{NH_3}]^2}{[\mathrm{N_2}][\mathrm{H_2}]^3}`,kp:R`K_p=\dfrac{p_{\mathrm{NH_3}}^{\,2}}{p_{\mathrm{N_2}}\,p_{\mathrm{H_2}}^{\,3}}`,
+ dn:R`\Delta n_g=2-(1+3)=-2\ \Rightarrow\ K_p=K_c(RT)^{-2}`},
+{rx:R`\mathrm{PCl_5(g)\rightleftharpoons PCl_3(g)+Cl_2(g)}`,
+ kc:R`K_c=\dfrac{[\mathrm{PCl_3}][\mathrm{Cl_2}]}{[\mathrm{PCl_5}]}`,kp:R`K_p=\dfrac{p_{\mathrm{PCl_3}}\,p_{\mathrm{Cl_2}}}{p_{\mathrm{PCl_5}}}`,
+ dn:R`\Delta n_g=2-1=+1\ \Rightarrow\ K_p=K_c(RT)`},
+{rx:R`\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}`,
+ kc:R`K_c=[\mathrm{CO_2}]`,kp:R`K_p=p_{\mathrm{CO_2}}`,
+ dn:R`\Delta n_g=1-0=+1\ \Rightarrow\ K_p=K_c(RT)`,note:'Both solids are left out.'},
+{rx:R`\mathrm{3Fe(s)+4H_2O(g)\rightleftharpoons Fe_3O_4(s)+4H_2(g)}`,
+ kc:R`K_c=\dfrac{[\mathrm{H_2}]^4}{[\mathrm{H_2O}]^4}`,kp:R`K_p=\dfrac{p_{\mathrm{H_2}}^{\,4}}{p_{\mathrm{H_2O}}^{\,4}}`,
+ dn:R`\Delta n_g=4-4=0\ \Rightarrow\ K_p=K_c`,note:'Solids left out; Δn is zero, so K_p = K_c.'},
+{rx:R`\mathrm{NH_4HS(s)\rightleftharpoons NH_3(g)+H_2S(g)}`,
+ kc:R`K_c=[\mathrm{NH_3}][\mathrm{H_2S}]`,kp:R`K_p=p_{\mathrm{NH_3}}\,p_{\mathrm{H_2S}}`,
+ dn:R`\Delta n_g=2-0=+2\ \Rightarrow\ K_p=K_c(RT)^2`},
+{rx:R`\mathrm{NH_3(g)\rightleftharpoons \tfrac12 N_2(g)+\tfrac32 H_2(g)}`,
+ kc:R`K_c=\dfrac{[\mathrm{N_2}]^{1/2}[\mathrm{H_2}]^{3/2}}{[\mathrm{NH_3}]}`,kp:R`K_p=\dfrac{p_{\mathrm{N_2}}^{\,1/2}\,p_{\mathrm{H_2}}^{\,3/2}}{p_{\mathrm{NH_3}}}`,
+ dn:R`\Delta n_g=\left(\tfrac12+\tfrac32\right)-1=+1\ \Rightarrow\ K_p=K_c(RT)`,note:'Fractional coefficients are allowed; they become fractional powers.'},
+{rx:R`\mathrm{CH_3COOH(l)+C_2H_5OH(l)\rightleftharpoons CH_3COOC_2H_5(l)+H_2O(l)}`,
+ kc:R`K_c=\dfrac{[\mathrm{CH_3COOC_2H_5}][\mathrm{H_2O}]}{[\mathrm{CH_3COOH}][\mathrm{C_2H_5OH}]}`,kp:R`K_p\ \text{is not defined (no gaseous species)}`,
+ dn:R`\Delta n_g\ \text{has no meaning here}`,note:'Water is a product mixed with the other liquids, so it is included. (It is left out only when it is the solvent of a dilute solution.)'},
+{rx:R`\mathrm{Ag^+(aq)+Cl^-(aq)\rightleftharpoons AgCl(s)}`,
+ kc:R`K_c=\dfrac{1}{[\mathrm{Ag^+}][\mathrm{Cl^-}]}`,kp:R`K_p\ \text{is not defined}`,
+ dn:R`\Delta n_g\ \text{has no meaning here}`,note:'The solid AgCl is left out, which leaves 1 on top.'}
+];
+(function(){
+  var sel=document.getElementById('exsel'), rx=document.getElementById('exrxn'), out=document.getElementById('exout');
+  EX.forEach(function(e,i){var o=document.createElement('option');o.value=i;o.textContent=(i+1)+'. '+e.rx.replace(/\\tfrac12/g,'½').replace(/\\tfrac32/g,'3/2 ').replace(/\\mathrm\{|\\rightleftharpoons|\\tfrac|[{}\\_]/g,function(m){return m==='\\rightleftharpoons'?'⇌':''}).replace(/\^/g,'');sel.appendChild(o);});
+  function cur(){return EX[parseInt(sel.value,10)];}
+  function draw(){rx.innerHTML='\\('+cur().rx+'\\)'; out.innerHTML=''; typeset(rx);}
+  function show(k){var e=cur(); var h='\\['+e[k]+'\\]'; if(e.note&&k==='kc')h+='<p style="font-size:14px;color:var(--muted)">'+e.note+'</p>'; out.innerHTML=h; typeset(out);}
+  sel.addEventListener('change',draw);
+  document.getElementById('bkc').addEventListener('click',function(){show('kc')});
+  document.getElementById('bkp').addEventListener('click',function(){show('kp')});
+  document.getElementById('bdn').addEventListener('click',function(){show('dn')});
+  draw();
+})();
+
+/* ---------- Kp calculator ---------- */
+(function(){
+  var kc=document.getElementById('ckc'),t=document.getElementById('ct'),dn=document.getElementById('cdn'),out=document.getElementById('cout');
+  function f(){
+    var a=parseFloat(kc.value),T=parseFloat(t.value),n=parseFloat(dn.value);
+    if(!(a>0)||!(T>0)||isNaN(n)){out.textContent='Enter positive K_c and T, and a value of Δn.';return;}
+    var RT=0.0821*T, kp=a*Math.pow(RT,n);
+    function fmt(x){return (x!==0&&(Math.abs(x)<0.001||Math.abs(x)>=10000))?x.toExponential(3):parseFloat(x.toPrecision(4)).toString();}
+    out.innerHTML='RT = 0.0821 × '+T+' = '+fmt(RT)+' &nbsp;→&nbsp; K<sub>p</sub> = K<sub>c</sub>(RT)<sup>Δn</sup> = <b>'+fmt(kp)+'</b>'+(n===0?' (Δn = 0, so K<sub>p</sub> = K<sub>c</sub>)':'');
+  }
+  [kc,t,dn].forEach(function(x){x.addEventListener('input',f)}); f();
+})();
+
+/* ---------- A <=> B simulator ---------- */
+(function(){
+  var kfE=document.getElementById('kf'),kbE=document.getElementById('kb'),modeE=document.getElementById('mode'),tt=document.getElementById('tt');
+  var c1=document.getElementById('c1'),c2=document.getElementById('c2'),playB=document.getElementById('play');
+  function params(){
+    var kf=parseFloat(kfE.value),kb=parseFloat(kbE.value),m=modeE.value;
+    var A0=m==='A'?1:(m==='B'?0:0.5),B0=1-A0,tot=1,Ae=kb*tot/(kf+kb),s=kf+kb;
+    return {kf:kf,kb:kb,A0:A0,B0:B0,Ae:Ae,s:s,tmax:7/s};
+  }
+  function A(p,t){return p.Ae+(p.A0-p.Ae)*Math.exp(-p.s*t);}
+  function css(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+  function setup(c){var d=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=Math.round(w*d);c.height=Math.round(h*d);var g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);return {g:g,w:w,h:h};}
+  function plot(c,p,series,ymax,ylab,tcur){
+    var o=setup(c),g=o.g,w=o.w,h=o.h,L=48,Rm=12,T=12,B=28,pw=w-L-Rm,ph=h-T-B,txt=css('--muted'),line=css('--line');
+    g.clearRect(0,0,w,h); g.font='12px system-ui,sans-serif'; g.fillStyle=txt; g.strokeStyle=line; g.lineWidth=1;
+    for(var i=0;i<=4;i++){var y=T+ph-ph*i/4; g.beginPath();g.moveTo(L,y);g.lineTo(w-Rm,y);g.stroke(); g.fillText((ymax*i/4).toFixed(2),4,y+4);}
+    for(var j=0;j<=5;j++){var x=L+pw*j/5; g.fillText((p.tmax*j/5).toFixed(1),x-8,h-10);}
+    g.save();g.translate(12,T+ph/2+20);g.rotate(-Math.PI/2);g.fillText(ylab,0,0);g.restore();
+    g.fillText('time (arbitrary units)',L+pw/2-50,h-0);
+    series.forEach(function(s){
+      g.strokeStyle=s.col;g.lineWidth=2;g.setLineDash(s.dash||[]);g.beginPath();
+      for(var k=0;k<=160;k++){var t=p.tmax*k/160,v=s.f(t),x=L+pw*k/160,y=T+ph-ph*Math.min(v/ymax,1); if(k===0)g.moveTo(x,y);else g.lineTo(x,y);}
+      g.stroke();g.setLineDash([]);
+      var xv=L+pw*tcur/p.tmax,yv=T+ph-ph*Math.min(s.f(tcur)/ymax,1);
+      g.fillStyle=s.col;g.beginPath();g.arc(xv,yv,4,0,6.3);g.fill();
+      g.fillStyle=s.col;g.fillText(s.name,w-Rm-70,s.ly(T,ph));
+    });
+    g.strokeStyle=txt;g.setLineDash([4,4]);g.lineWidth=1;var xc=L+pw*tcur/p.tmax;g.beginPath();g.moveTo(xc,T);g.lineTo(xc,T+ph);g.stroke();g.setLineDash([]);
+  }
+  function fm(x){return x.toFixed(3);}
+  function draw(){
+    var p=params(),tc=p.tmax*parseFloat(tt.value)/100;
+    document.getElementById('kfv').textContent=p.kf.toFixed(2);document.getElementById('kbv').textContent=p.kb.toFixed(2);
+    var good=css('--good'),acc=css('--accent'),bad=css('--bad'),adv=css('--adv');
+    plot(c1,p,[
+      {name:'[A]',col:acc,f:function(t){return A(p,t)},ly:function(T,ph){return T+12}},
+      {name:'[B]',col:bad,f:function(t){return 1-A(p,t)},ly:function(T,ph){return T+26}}],1,'concentration (M)',tc);
+    var rmax=0; for(var k=0;k<=160;k++){var t=p.tmax*k/160;rmax=Math.max(rmax,p.kf*A(p,t),p.kb*(1-A(p,t)));} rmax=Math.max(rmax*1.05,0.01);
+    plot(c2,p,[
+      {name:'forward',col:good,f:function(t){return p.kf*A(p,t)},ly:function(T,ph){return T+12}},
+      {name:'backward',col:adv,f:function(t){return p.kb*(1-A(p,t))},ly:function(T,ph){return T+26},dash:[6,3]}],rmax,'rate (M per time)',tc);
+    var a=A(p,tc),b=1-a,rf=p.kf*a,rb=p.kb*b;
+    document.getElementById('rA').textContent=fm(a);document.getElementById('rB').textContent=fm(b);
+    document.getElementById('rrf').textContent=fm(rf);document.getElementById('rrb').textContent=fm(rb);
+    document.getElementById('rQ').textContent=a>1e-6?(b/a).toFixed(3):'—';document.getElementById('rK').textContent=(p.kf/p.kb).toFixed(3);
+    var st=document.getElementById('sstat'),m=Math.max(rf,rb);
+    if(m>0&&Math.abs(rf-rb)<=0.01*m){st.textContent='At equilibrium: forward rate = backward rate, so [A] and [B] no longer change.';st.style.color=css('--good');}
+    else if(rf>rb){st.textContent='Not yet at equilibrium: forward rate is larger, so net change is A → B.';st.style.color=css('--text');}
+    else{st.textContent='Not yet at equilibrium: backward rate is larger, so net change is B → A.';st.style.color=css('--text');}
+  }
+  [kfE,kbE,modeE,tt].forEach(function(e){e.addEventListener('input',draw)});
+  var timer=null;
+  playB.addEventListener('click',function(){
+    if(timer){clearInterval(timer);timer=null;playB.textContent='▶ Play';return;}
+    if(parseFloat(tt.value)>=100)tt.value=0;
+    playB.textContent='❚❚ Pause';
+    timer=setInterval(function(){var v=parseFloat(tt.value)+1;if(v>=100){v=100;clearInterval(timer);timer=null;playB.textContent='▶ Play';}tt.value=v;draw();},40);
+  });
+  window.addEventListener('resize',draw);
+  if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);
+  draw();
+})();
+
+</script>
+<script>
+/* ================= helpers ================= */
+function $(id){return document.getElementById(id);}
+var REDRAW=[];
+function onRedraw(fn){REDRAW.push(fn);}
+function redrawAll(){REDRAW.forEach(function(f){try{f()}catch(e){}});}
+window.addEventListener('resize',redrawAll);
+if(window.matchMedia)window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redrawAll);
+function cv(n){return getComputedStyle(document.documentElement).getPropertyValue(n).trim();}
+function supStr(n){var m={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','-':'⁻'};return String(n).split('').map(function(c){return m[c]||c}).join('');}
+function sci(x){if(x===0)return '0';var a=Math.abs(x),e=Math.floor(Math.log10(a)),m=x/Math.pow(10,e);if(Math.abs(m)>=9.995){m/=10;e+=1;}return m.toFixed(2)+' × 10'+supStr(e);}
+function fmt(x){if(!isFinite(x))return '—';if(x===0)return '0';var a=Math.abs(x);if(a>=0.01&&a<10000)return String(parseFloat(x.toPrecision(3)));return sci(x);}
+
+function xyPlot(c,o){
+  var d=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;
+  if(!w||!h)return;
+  c.width=Math.round(w*d);c.height=Math.round(h*d);
+  var g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);
+  var L=56,Rm=14,T=12,B=36,pw=w-L-Rm,ph=h-T-B;
+  function X(x){return L+pw*(x-o.xmin)/(o.xmax-o.xmin);}
+  function Y(y){return T+ph-ph*(y-o.ymin)/(o.ymax-o.ymin);}
+  var txt=cv('--muted'),line=cv('--line'),tc=cv('--text');
+  g.clearRect(0,0,w,h);g.font='12px system-ui,sans-serif';g.lineWidth=1;g.strokeStyle=line;g.fillStyle=txt;
+  var nx=o.nx||5,ny=o.ny||4,i;
+  g.textAlign='right';
+  for(i=0;i<=ny;i++){var yv=o.ymin+(o.ymax-o.ymin)*i/ny,yy=Y(yv);g.beginPath();g.moveTo(L,yy);g.lineTo(w-Rm,yy);g.stroke();g.fillText(o.yfmt?o.yfmt(yv):yv.toFixed(1),L-6,yy+4);}
+  g.textAlign='center';
+  for(i=0;i<=nx;i++){var xv=o.xmin+(o.xmax-o.xmin)*i/nx,xx=X(xv);g.fillText(o.xfmt?o.xfmt(xv):xv.toFixed(1),xx,h-20);}
+  g.fillText(o.xlab||'',L+pw/2,h-4);
+  g.save();g.translate(12,T+ph/2);g.rotate(-Math.PI/2);g.fillText(o.ylab||'',0,0);g.restore();
+  if(o.hline!==undefined&&o.hline>=o.ymin&&o.hline<=o.ymax){g.strokeStyle=tc;g.setLineDash([5,4]);g.beginPath();g.moveTo(L,Y(o.hline));g.lineTo(w-Rm,Y(o.hline));g.stroke();g.setLineDash([]);}
+  g.save();g.beginPath();g.rect(L,T,pw,ph);g.clip();
+  (o.series||[]).forEach(function(s){g.strokeStyle=s.col;g.lineWidth=2;g.setLineDash(s.dash||[]);g.beginPath();s.pts.forEach(function(p,k){var x=X(p[0]),y=Y(p[1]);if(k===0)g.moveTo(x,y);else g.lineTo(x,y);});g.stroke();g.setLineDash([]);});
+  g.restore();
+  if(o.marker){var mx=X(o.marker.x),my=Y(o.marker.y);g.strokeStyle=txt;g.lineWidth=1;g.setLineDash([3,3]);g.beginPath();g.moveTo(mx,T);g.lineTo(mx,T+ph);g.stroke();g.setLineDash([]);g.fillStyle=o.marker.col;g.beginPath();g.arc(mx,my,5,0,6.3);g.fill();}
+}
+function setup2d(c){var d=window.devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=Math.round(w*d);c.height=Math.round(h*d);var g=c.getContext('2d');g.setTransform(d,0,0,d,0,0);return {g:g,w:w,h:h};}
+function barRows(box,rows){ /* rows: [{label,val,max,col,text}] */
+  box.innerHTML='';
+  rows.forEach(function(r){var d=document.createElement('div');d.className='brow';
+    d.innerHTML='<span>'+r.label+'</span><span class="track"><span class="fill" style="width:'+Math.max(0,Math.min(100,100*r.val/r.max)).toFixed(1)+'%;background:'+r.col+'"></span></span><span>'+r.text+'</span>';box.appendChild(d);});
+}
+
+/* ================= quiz data: modules 3-10 and final ================= */
+QUIZ.m3=[
+{q:R`For \(\mathrm{A+B\rightleftharpoons C}\), \(K_c=4\). A mixture has \([A]=0.5\), \([B]=0.5\) and \([C]=2\) (mol/L). The reaction will:`,
+ o:['go forward','go backward','stay at equilibrium','not move because K is fixed'],a:1,
+ why:R`\(Q=\dfrac{2}{0.5\times0.5}=8\). \(Q&gt;K\) (8 &gt; 4), so the reaction goes backward.`},
+{q:R`If \(Q&lt;K\), then:`,
+ o:['reactants are being formed','the net reaction is forward and Q rises','the system is at equilibrium','K must decrease'],a:1,
+ why:R`Too few products: the net reaction goes forward and Q increases until it equals K.`},
+{q:R`A reaction has \(K=1\times10^{-8}\) at 298 K. This means:`,
+ o:['it is very fast','it goes almost to completion','hardly any product forms at equilibrium','it is at equilibrium already'],a:2,
+ why:R`\(K&lt;10^{-3}\) means reactants are strongly favoured. K says nothing about speed.`},
+{q:R`Four reactions have these K values. Which gives the highest percentage of products at equilibrium (start with reactants)?`,
+ o:[R`\(3\times10^{-4}\)`,R`\(0.5\)`,R`\(25\)`,R`\(1.2\times10^{2}\)`],a:3,
+ why:R`A larger K means a greater proportion of products, so \(1.2\times10^{2}\) is the highest.`},
+{q:R`Which statement is correct?`,
+ o:['A large K means the reaction is fast','K tells us how far a reaction goes, not how fast','A small K means a fast reverse reaction only','K depends on the time taken to reach equilibrium'],a:1,
+ why:R`K is about the extent at equilibrium. Rate depends on the activation energy.`},
+{q:R`For \(\mathrm{2A\rightleftharpoons B}\), \(K_c=0.5\). A mixture has \([A]=2\) M and \([B]=1\) M. The reaction goes:`,
+ o:['forward','backward','nowhere (at equilibrium)','cannot be decided'],a:0,
+ why:R`\(Q=\dfrac{[B]}{[A]^2}=\dfrac{1}{4}=0.25\). \(Q&lt;K\) (0.25 &lt; 0.5), so forward.`}
+];
+QUIZ.m4=[
+{q:R`Which of these changes the value of \(K_c\) for a reaction?`,
+ o:['Adding a catalyst','Increasing the pressure','Changing the temperature','Adding more reactant'],a:2,
+ why:R`Only temperature (and the way the equation is written) changes K.`},
+{q:R`\(\mathrm{A\rightleftharpoons B}\) has \(K_1=4\) and \(\mathrm{B\rightleftharpoons C}\) has \(K_2=5\). K for \(\mathrm{A\rightleftharpoons C}\) is:`,
+ o:['9','20','0.8','1.25'],a:1,
+ why:R`Adding equations multiplies K: \(4\times5=20\).`},
+{q:R`For \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\), \(K=36\). K for \(\mathrm{NH_3\rightleftharpoons \tfrac12N_2+\tfrac32H_2}\) is:`,
+ o:['1/36','1/6','6','36'],a:1,
+ why:R`Reverse: \(1/36\). Halve the coefficients: \((1/36)^{1/2}=1/6\).`},
+{q:R`For an exothermic reaction, raising the temperature:`,
+ o:['increases K','decreases K','does not change K','changes K only for gases'],a:1,
+ why:R`Adding heat favours the endothermic (backward) direction, so K decreases.`},
+{q:R`For \(\Delta H^\circ=+40\) kJ/mol, by roughly what factor does K change when T goes from 300 K to 400 K?`,
+ o:['1.5','5.5','55','550'],a:2,
+ why:R`\(\log\dfrac{K_2}{K_1}=\dfrac{40000}{19.15}\times\left(\tfrac1{300}-\tfrac1{400}\right)\approx1.74\), and \(10^{1.74}\approx55\).`},
+{q:R`A plot of \(\log K\) against \(1/T\) is a straight line with a <b>positive</b> slope. The reaction is:`,
+ o:['endothermic','exothermic','at equilibrium','unaffected by temperature'],a:1,
+ why:R`Slope \(=-\Delta H^\circ/(2.303R)\). A positive slope means \(\Delta H^\circ&lt;0\), exothermic.`}
+];
+QUIZ.m5=[
+{q:R`For \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\), if \([\mathrm{N_2}]\) decreases by \(x\), the change in \([\mathrm{NH_3}]\) is:`,
+ o:[R`\(+x\)`,R`\(+2x\)`,R`\(+3x\)`,R`\(+x/2\)`],a:1,
+ why:R`Changes follow the coefficients: \(-x,\ -3x,\ +2x\).`},
+{q:R`For \(\mathrm{A+B\rightleftharpoons C+D}\), 1 M of A and 1 M of B are mixed. At equilibrium \([C]=0.5\) M. \(K_c\) is:`,
+ o:['0.25','0.5','1','4'],a:2,
+ why:R`At equilibrium \([A]=[B]=0.5\), \([D]=0.5\), \(K_c=\dfrac{0.5\times0.5}{0.5\times0.5}=1\).`},
+{q:R`For \(\mathrm{H_2+I_2\rightleftharpoons 2HI}\), \(K_c=4\). 2 M each of \(\mathrm{H_2}\) and \(\mathrm{I_2}\) are mixed. \([\mathrm{HI}]\) at equilibrium is:`,
+ o:['1 M','2 M','3 M','4 M'],a:1,
+ why:R`\(\dfrac{(2x)^2}{(2-x)^2}=4\Rightarrow\dfrac{2x}{2-x}=2\Rightarrow x=1\), so \([\mathrm{HI}]=2x=2\) M.`},
+{q:R`For \(\mathrm{A\rightleftharpoons B+C}\), \(K_c=1\times10^{-6}\), starting with 0.01 M of A. A reasonable estimate of \(x\) (the amount dissociated) is:`,
+ o:[R`\(1\times10^{-3}\) M`,R`\(1\times10^{-4}\) M`,R`\(1\times10^{-5}\) M`,R`\(1\times10^{-6}\) M`],a:1,
+ why:R`With K small, \(c-x\approx c\): \(x\approx\sqrt{Kc}=\sqrt{10^{-6}\times10^{-2}}=10^{-4}\) M (about 1% of 0.01, so the shortcut is valid).`},
+{q:R`\(\mathrm{PCl_5(g)\rightleftharpoons PCl_3(g)+Cl_2(g)}\) starts at 1.0 atm of \(\mathrm{PCl_5}\). At equilibrium, half of it has dissociated. \(K_p\) is:`,
+ o:['0.25 atm','0.5 atm','1.0 atm','2.0 atm'],a:1,
+ why:R`\(p_{\mathrm{PCl_5}}=0.5,\ p_{\mathrm{PCl_3}}=p_{\mathrm{Cl_2}}=0.5\). \(K_p=\dfrac{0.5\times0.5}{0.5}=0.5\) atm.`},
+{q:R`When solving a quadratic for x in an ICE problem, you keep the root that:`,
+ o:['is largest','is negative','keeps all equilibrium amounts positive','makes K equal to 1'],a:2,
+ why:R`Amounts cannot be negative, so \(x\) must be positive and smaller than the limiting initial amount.`}
+];
+QUIZ.m6=[
+{q:R`\(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\) is at equilibrium in a closed vessel. More \(\mathrm{CaCO_3}\) is added (some of each solid remains). \(p_{\mathrm{CO_2}}\):`,
+ o:['increases','decreases','is unchanged','becomes zero'],a:2,
+ why:R`\(K_p=p_{\mathrm{CO_2}}\) depends only on temperature, not on the amount of solid.`},
+{q:R`Solid \(\mathrm{NH_4HS}\) decomposes to \(\mathrm{NH_3(g)+H_2S(g)}\) in a vacuum. At equilibrium, total pressure is 0.60 atm. \(K_p\) is:`,
+ o:['0.09 atm²','0.18 atm²','0.30 atm²','0.36 atm²'],a:0,
+ why:R`Each gas is 0.30 atm. \(K_p=0.30\times0.30=0.09\) atm².`},
+{q:R`Air at 25 °C contains water vapour at 12 mm Hg. The vapour pressure of water at 25 °C is 24 mm Hg. Relative humidity is:`,
+ o:['25%','50%','100%','200%'],a:1,
+ why:R`RH = 12/24 × 100 = 50%.`},
+{q:R`For \(\mathrm{H_2O(l)\rightleftharpoons H_2O(g)}\), \(K_p\) equals:`,
+ o:['1','the vapour pressure of water at that temperature','the atmospheric pressure','the humidity'],a:1,
+ why:R`The liquid is left out of K, so \(K_p=p_{\mathrm{H_2O}}\), the vapour pressure.`},
+{q:R`A hydrate is in equilibrium with its lower form when water vapour pressure is 10 mm Hg. In a room where the water vapour pressure is 6 mm Hg, the hydrate will:`,
+ o:['lose water (effloresce)','absorb water','stay unchanged','dissolve'],a:0,
+ why:R`Air pressure 6 &lt; \(p_{eq}\) 10 means \(Q&lt;K\), so the reaction goes forward and the hydrate loses water.`},
+{q:R`According to Henry's law, if the partial pressure of a gas above a liquid is doubled at constant temperature, the amount of gas dissolved:`,
+ o:['is halved','doubles','is unchanged','increases four times'],a:1,
+ why:R`Solubility is proportional to partial pressure: \(p=K_Hx\).`}
+];
+QUIZ.m7=[
+{q:R`For \(\mathrm{A_2(g)\rightleftharpoons 2A(g)}\) with \(\alpha=0.5\), the ratio \(D/d\) (undissociated / observed vapour density) is:`,
+ o:['1.0','1.25','1.5','2.0'],a:2,
+ why:R`\(n=2\): \(D/d=1+(n-1)\alpha=1+0.5=1.5\).`},
+{q:R`\(\mathrm{PCl_5}\) (M = 208.5) is 50% dissociated. The observed vapour density is:`,
+ o:['52.1','69.5','104.25','156.4'],a:1,
+ why:R`\(D=208.5/2=104.25\). \(d=D/(1+\alpha)=104.25/1.5=69.5\).`},
+{q:R`\(\mathrm{PCl_5}\) is 50% dissociated at total pressure 3 atm. \(K_p\) is:`,
+ o:['0.5 atm','1.0 atm','1.5 atm','3.0 atm'],a:1,
+ why:R`\(K_p=\dfrac{\alpha^2P}{1-\alpha^2}=\dfrac{0.25\times3}{0.75}=1.0\) atm.`},
+{q:R`\(\mathrm{N_2O_4}\) (M = 92) is 25% dissociated. The observed molar mass of the mixture is:`,
+ o:['115','92','73.6','69'],a:2,
+ why:R`\(M_{obs}=\dfrac{92}{1+\alpha}=\dfrac{92}{1.25}=73.6\).`},
+{q:R`For \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\), increasing the total pressure at constant temperature:`,
+ o:['increases α','decreases α','does not change α','changes K'],a:1,
+ why:R`More moles on the product side, so higher pressure favours \(\mathrm{PCl_5}\): \(\alpha\) falls. K stays fixed.`},
+{q:R`Why can vapour density not be used to find the degree of dissociation of HI in \(\mathrm{2HI\rightleftharpoons H_2+I_2}\)?`,
+ o:['HI does not dissociate','The total number of moles does not change','HI is a solid','K is too small'],a:1,
+ why:R`\(n=1\): the moles stay the same, so the average molar mass and density do not change.`}
+];
+QUIZ.m8=[
+{q:R`At equilibrium:`,
+ o:[R`\(\Delta G^\circ=0\) always`,R`\(\Delta G=0\)`,R`\(\Delta G^\circ&gt;0\) always`,R`\(\Delta H=0\)`],a:1,
+ why:R`\(\Delta G=0\) at equilibrium. \(\Delta G^\circ\) is zero only if \(K=1\).`},
+{q:R`A reaction has \(\Delta G^\circ=+5.7\) kJ/mol at 298 K. K is approximately:`,
+ o:['10','1','0.1','0.01'],a:2,
+ why:R`\(\ln K=-5700/(8.314\times298)=-2.30\), so \(K=e^{-2.30}\approx0.1\).`},
+{q:R`A reaction with \(\Delta H^\circ&gt;0\) and \(\Delta S^\circ&gt;0\) is spontaneous (standard state):`,
+ o:['at all temperatures','at no temperature','only at low temperature','only at high temperature'],a:3,
+ why:R`\(\Delta G^\circ=\Delta H^\circ-T\Delta S^\circ\) becomes negative once \(T&gt;\Delta H^\circ/\Delta S^\circ\).`},
+{q:R`If \(Q&lt;K\), then \(\Delta G=RT\ln(Q/K)\) is:`,
+ o:['positive, so forward is spontaneous','negative, so forward is spontaneous','zero','undefined'],a:1,
+ why:R`\(Q/K&lt;1\), so \(\ln(Q/K)&lt;0\) and \(\Delta G&lt;0\): the forward reaction is spontaneous.`},
+{q:R`If \(K=1\) for a reaction at temperature T, then \(\Delta G^\circ\) is:`,
+ o:['positive','negative','zero','cannot say'],a:2,
+ why:R`\(\Delta G^\circ=-RT\ln K=-RT\ln1=0\).`},
+{q:R`The thermodynamic equilibrium constant has no units because it is written using:`,
+ o:['concentrations in mol/L','activities','molar masses','temperatures'],a:1,
+ why:R`Activities are dimensionless ratios to a standard state (solids and liquids = 1, gases in atm, solutes in M).`}
+];
+QUIZ.m9=[
+{q:R`More \(\mathrm{H_2}\) is added to \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\) at equilibrium. The equilibrium:`,
+ o:['shifts forward','shifts backward','does not shift','shifts only if T changes'],a:0,
+ why:R`Adding a reactant lowers Q below K, so the reaction goes forward.`},
+{q:R`\(\mathrm{N_2O_4(g)\rightleftharpoons 2NO_2(g)}\) is compressed to half its volume at constant T. The equilibrium:`,
+ o:['shifts forward','shifts backward','does not shift','K increases'],a:1,
+ why:R`\(\Delta n_g=+1\); compression favours fewer moles, so backward. K is unchanged.`},
+{q:R`Argon is added at constant <b>volume</b> to \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\). The equilibrium:`,
+ o:['shifts forward','shifts backward','does not shift','shifts only at low T'],a:2,
+ why:R`Partial pressures and concentrations of the reacting gases are unchanged, so Q = K still.`},
+{q:R`Argon is added at constant <b>pressure</b> to \(\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}\). The equilibrium:`,
+ o:['shifts forward','shifts backward','does not shift','becomes irreversible'],a:1,
+ why:R`Volume increases, like a pressure drop; shift to more moles (\(\Delta n_g=-2\)), so backward.`},
+{q:R`For an exothermic reaction at equilibrium, raising the temperature causes:`,
+ o:['a forward shift and a higher K','a backward shift and a lower K','no shift','a forward shift with unchanged K'],a:1,
+ why:R`The system opposes added heat by favouring the endothermic (backward) direction; K decreases.`},
+{q:R`A catalyst is added to a reaction at equilibrium. The yield of product:`,
+ o:['increases','decreases','is unchanged','becomes 100%'],a:2,
+ why:R`A catalyst only speeds up both directions equally; the position and K are the same.`},
+{q:R`At higher pressure, the melting point of ice:`,
+ o:['increases','decreases','stays the same','becomes infinite'],a:1,
+ why:R`Water is denser than ice, so pressure favours the liquid (smaller volume): ice melts more easily.`},
+{q:R`For \(\mathrm{N_2+O_2\rightleftharpoons 2NO}\) (endothermic) in the Birkeland–Eyde process:`,
+ o:['high pressure increases the yield','low temperature increases the yield','pressure has no effect, and high T increases the yield','a catalyst increases the yield'],a:2,
+ why:R`\(\Delta n_g=0\), so pressure has no effect on the position; endothermic, so high T favours NO.`},
+{q:R`Solid \(\mathrm{CaO}\) is added to \(\mathrm{CaCO_3(s)\rightleftharpoons CaO(s)+CO_2(g)}\) at equilibrium. The \(\mathrm{CO_2}\) pressure:`,
+ o:['increases','decreases','is unchanged','doubles'],a:2,
+ why:R`Solids are left out of K and Q. Adding one does not change Q.`}
+];
+QUIZ.m10=[
+{q:R`Two equilibria in one container share a gas. In each K expression, the concentration of the shared gas is:`,
+ o:['the amount from that reaction only','the total amount from both reactions','zero','its initial amount'],a:1,
+ why:R`There is one container, so the shared species has one actual (total) concentration.`},
+{q:R`For \(\mathrm{A(s)\rightleftharpoons X(g)+Y(g)}\) and \(\mathrm{B(s)\rightleftharpoons Z(g)+Y(g)}\), \(K_{p1}=K_{p2}=8\) atm². \(p_Y\) at equilibrium is:`,
+ o:['2 atm','4 atm','8 atm','16 atm'],a:1,
+ why:R`\(p_X=p_Z=a\), \(p_Y=2a\). \(K=a\times2a=8\Rightarrow a=2\), so \(p_Y=4\) atm. (Also \(\sqrt{8+8}=4\).)`},
+{q:R`In \(\mathrm{NH_3\rightleftharpoons \tfrac12N_2+\tfrac32H_2}\), if 0.60 mol of \(\mathrm{H_2}\) is present at equilibrium, how many moles of \(\mathrm{NH_3}\) have dissociated?`,
+ o:['0.20','0.40','0.60','0.90'],a:1,
+ why:R`\(\tfrac32x=0.60\Rightarrow x=0.40\) mol.`},
+{q:R`Solid \(\mathrm{NH_4HS}\) decomposes into \(\mathrm{NH_3}\) and \(\mathrm{H_2S}\), and some \(\mathrm{NH_3}\) then dissociates into \(\mathrm{N_2}\) and \(\mathrm{H_2}\). At equilibrium, compared with \([\mathrm{H_2S}]\), the \([\mathrm{NH_3}]\) is:`,
+ o:['equal','smaller','larger','zero'],a:1,
+ why:R`Both started equal, but some \(\mathrm{NH_3}\) was used up by the second reaction, so \([\mathrm{NH_3}]&lt;[\mathrm{H_2S}]\).`},
+{q:R`In the system \(\mathrm{A(s)\rightleftharpoons X+Y}\), \(\mathrm{B(s)\rightleftharpoons Z+Y}\) (gases X, Y, Z), the ratio \(p_X/p_Z\) equals:`,
+ o:[R`\(K_{p1}/K_{p2}\)`,R`\(K_{p2}/K_{p1}\)`,R`\(K_{p1}K_{p2}\)`,'1'],a:0,
+ why:R`\(K_{p1}=p_Xp_Y\) and \(K_{p2}=p_Zp_Y\), so dividing gives \(p_X/p_Z=K_{p1}/K_{p2}\).`}
+];
+QUIZ.final=[
+{q:R`<b>(Module 3)</b> For a reaction \(K_c=2\). A mixture has \(Q=4\). The net reaction will:`,
+ o:['go forward','go backward','not change','depend on the catalyst'],a:1,
+ why:R`\(Q&gt;K\), so the reaction goes backward until \(Q=2\).`},
+{q:R`<b>(Module 4)</b> For \(\mathrm{A\rightleftharpoons B}\), \(K=4\). For \(\mathrm{2B\rightleftharpoons 2A}\), K is:`,
+ o:['1/16','1/8','1/4','16'],a:0,
+ why:R`Reverse: \(1/4\). Double the coefficients: \((1/4)^2=1/16\).`},
+{q:R`<b>(Module 5)</b> For \(\mathrm{A+B\rightleftharpoons 2C}\), \(K_c=4\). 1 M each of A and B are mixed. \([C]\) at equilibrium:`,
+ o:['0.5 M','1.0 M','1.5 M','2.0 M'],a:1,
+ why:R`\(\dfrac{(2x)^2}{(1-x)^2}=4\Rightarrow\dfrac{2x}{1-x}=2\Rightarrow x=0.5\); \([C]=2x=1.0\) M.`},
+{q:R`<b>(Module 6)</b> Solid \(\mathrm{NH_4HS}\) decomposes in a vacuum. At equilibrium the total pressure is 1.0 atm. \(K_p\) is:`,
+ o:['0.25 atm²','0.50 atm²','1.0 atm²','2.0 atm²'],a:0,
+ why:R`Each gas is 0.5 atm: \(K_p=0.5\times0.5=0.25\) atm².`},
+{q:R`<b>(Module 6)</b> A hydrate is in equilibrium at water-vapour pressure 15 mm Hg. A room at 25 °C has RH 40% (vapour pressure of water 24 mm Hg). The hydrate:`,
+ o:['loses water','absorbs water','is unchanged','becomes liquid water'],a:0,
+ why:R`Room pressure \(=0.40\times24=9.6\) mm Hg, which is below 15, so \(Q&lt;K\) and the hydrate loses water.`},
+{q:R`<b>(Module 7)</b> \(\mathrm{N_2O_4}\) (vapour density without dissociation 46) is found to have an observed vapour density of 40. The degree of dissociation is:`,
+ o:['0.10','0.15','0.20','0.25'],a:1,
+ why:R`\(\alpha=\dfrac{D-d}{(n-1)d}=\dfrac{46-40}{40}=0.15\).`},
+{q:R`<b>(Module 7)</b> \(\mathrm{PCl_5}\) is 20% dissociated at total pressure 1.2 atm. \(K_p\) is:`,
+ o:['0.024 atm','0.05 atm','0.10 atm','0.20 atm'],a:1,
+ why:R`\(K_p=\dfrac{0.04\times1.2}{1-0.04}=\dfrac{0.048}{0.96}=0.05\) atm.`},
+{q:R`<b>(Module 8)</b> \(\Delta G^\circ=-11.4\) kJ/mol at 298 K. K is approximately:`,
+ o:['10','100','1000','0.01'],a:1,
+ why:R`\(\ln K=11400/(8.314\times298)=4.60\), \(K=e^{4.60}\approx100\).`},
+{q:R`<b>(Module 8)</b> \(\Delta H^\circ=+30\) kJ/mol and \(\Delta S^\circ=+100\) J/mol/K. The reaction is spontaneous (standard state) when:`,
+ o:['T &lt; 300 K','T &gt; 300 K','T &gt; 3000 K','at all T'],a:1,
+ why:R`\(T&gt;\Delta H/\Delta S=30000/100=300\) K.`},
+{q:R`<b>(Module 9)</b> Argon is added at constant pressure to \(\mathrm{PCl_5\rightleftharpoons PCl_3+Cl_2}\) at equilibrium. The equilibrium:`,
+ o:['shifts forward','shifts backward','does not shift','K increases'],a:0,
+ why:R`Constant pressure means the volume grows, and \(\Delta n_g=+1\) so the shift is forward. K does not change.`},
+{q:R`<b>(Module 9)</b> Which conditions give the best equilibrium yield of ammonia in practice?`,
+ o:['low pressure, high temperature','high pressure, moderate temperature, catalyst','low pressure, low temperature, no catalyst','high pressure, very high temperature'],a:1,
+ why:R`High pressure (fewer moles), moderate T (compromise with rate), and an iron catalyst for speed.`},
+{q:R`<b>(Module 10)</b> For \(\mathrm{A(s)\rightleftharpoons X+Y}\) and \(\mathrm{B(s)\rightleftharpoons Z+Y}\), \(K_{p1}=5\) and \(K_{p2}=4\) atm². \(p_Y\) is:`,
+ o:['2 atm','3 atm','4 atm','9 atm'],a:1,
+ why:R`\(p_Y^2=K_{p1}+K_{p2}=9\Rightarrow p_Y=3\) atm.`}
+];
+
+/* ================= Lab: Module 3 ================= */
+(function(){
+  var kE=$('q3K'),bE=$('q3B'),c=$('q3c');
+  function draw(){
+    var K=Math.pow(10,parseFloat(kE.value)),p=parseFloat(bE.value),Q=p/(100-p);
+    $('q3Kv').textContent=fmt(K);$('q3Bv').textContent=p+'%';
+    $('q3Q').textContent=fmt(Q);$('q3Kk').textContent=fmt(K);$('q3eq').textContent=(K/(1+K)*100).toFixed(1)+'%';
+    var out=$('q3out'),eps=0.015;
+    if(Math.abs(Math.log10(Q)-Math.log10(K))<eps){out.textContent='Q = K: the mixture is at equilibrium. No net change.';out.style.color=cv('--good');}
+    else if(Q<K){out.textContent='Q < K: too few products, so the reaction goes FORWARD (A → B) and Q rises towards K.';out.style.color=cv('--text');}
+    else{out.textContent='Q > K: too many products, so the reaction goes BACKWARD (B → A) and Q falls towards K.';out.style.color=cv('--text');}
+    var o=setup2d(c),g=o.g,w=o.w,h=o.h,L=30,Rm=30,pw=w-L-Rm,ay=h*0.5;
+    function X(l){return L+pw*(l+3)/6;}
+    g.clearRect(0,0,w,h);g.font='12px system-ui,sans-serif';g.fillStyle=cv('--muted');g.strokeStyle=cv('--muted');g.lineWidth=1.5;
+    g.beginPath();g.moveTo(L,ay);g.lineTo(w-Rm,ay);g.stroke();g.textAlign='center';
+    for(var e=-3;e<=3;e++){g.beginPath();g.moveTo(X(e),ay-4);g.lineTo(X(e),ay+4);g.stroke();g.fillText('10'+supStr(e),X(e),ay+20);}
+    var lq=Math.max(-3,Math.min(3,Math.log10(Q))),lk=Math.max(-3,Math.min(3,Math.log10(K)));
+    g.strokeStyle=cv('--accent');g.fillStyle=cv('--accent');g.lineWidth=2;
+    g.beginPath();g.moveTo(X(lk),ay-26);g.lineTo(X(lk),ay);g.stroke();g.fillText('K',X(lk),ay-32);
+    g.strokeStyle=cv('--bad');g.fillStyle=cv('--bad');
+    g.beginPath();g.moveTo(X(lq),ay+8);g.lineTo(X(lq),ay+0);g.stroke();
+    g.beginPath();g.arc(X(lq),ay,6,0,6.3);g.fill();g.fillText('Q',X(lq),ay+42);
+    if(Math.abs(lq-lk)>0.05){var dir=lk>lq?1:-1,x0=X(lq)+dir*10,x1=X(lk)-dir*8;g.strokeStyle=cv('--good');g.lineWidth=2;g.beginPath();g.moveTo(x0,ay-10);g.lineTo(x1,ay-10);g.stroke();g.beginPath();g.moveTo(x1,ay-10);g.lineTo(x1-dir*7,ay-15);g.lineTo(x1-dir*7,ay-5);g.closePath();g.fillStyle=cv('--good');g.fill();}
+  }
+  [kE,bE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 4 manipulator ================= */
+(function(){
+  var OPS=[
+   {id:'base',lbl:'Original',rx:R`\mathrm{N_2+3H_2\rightleftharpoons 2NH_3}`,kx:R`K`,f:function(K){return K;}},
+   {id:'rev',lbl:'Reverse',rx:R`\mathrm{2NH_3\rightleftharpoons N_2+3H_2}`,kx:R`\dfrac1K`,f:function(K){return 1/K;}},
+   {id:'half',lbl:'× ½',rx:R`\mathrm{\tfrac12N_2+\tfrac32H_2\rightleftharpoons NH_3}`,kx:R`\sqrt K`,f:Math.sqrt},
+   {id:'dbl',lbl:'× 2',rx:R`\mathrm{2N_2+6H_2\rightleftharpoons 4NH_3}`,kx:R`K^2`,f:function(K){return K*K;}},
+   {id:'rh',lbl:'Reverse, then × ½',rx:R`\mathrm{NH_3\rightleftharpoons \tfrac12N_2+\tfrac32H_2}`,kx:R`\dfrac{1}{\sqrt K}`,f:function(K){return 1/Math.sqrt(K);}}
+  ];
+  var cur=OPS[0],kE=$('k4base'),box=$('k4btns'),out=$('k4out');
+  OPS.forEach(function(op){var b=document.createElement('button');b.className='btn ghost';b.textContent=op.lbl;b.addEventListener('click',function(){cur=op;show();});box.appendChild(b);});
+  function show(){
+    var K=parseFloat(kE.value);if(!(K>0)){out.textContent='Enter a positive K.';return;}
+    out.innerHTML='\\['+cur.rx+R`\qquad K_{new}=`+cur.kx+'='+fmt(cur.f(K))+'\\]';
+    if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([out]).catch(function(){});
+  }
+  kE.addEventListener('input',show);show();
+})();
+
+/* ================= Lab: Module 4 van't Hoff ================= */
+(function(){
+  var hE=$('vHdH'),kE=$('vHlk'),tE=$('vHT'),c=$('vHc'),RR=8.314;
+  function logK(T,dH,lk){return lk-dH*1000/(2.303*RR)*(1/T-1/300);}
+  function draw(){
+    var dH=parseFloat(hE.value),lk=parseFloat(kE.value),T=parseFloat(tE.value);
+    $('vHdHv').textContent=(dH>0?'+':'')+dH;$('vHlkv').textContent=lk;$('vHTv').textContent=T;
+    var pts=[],lo=1e9,hi=-1e9,t;
+    for(t=250;t<=800;t+=10){var y=logK(t,dH,lk);pts.push([1000/t,y]);lo=Math.min(lo,y);hi=Math.max(hi,y);}
+    var pad=Math.max(0.5,(hi-lo)*0.1);lo=Math.floor(lo-pad);hi=Math.ceil(hi+pad);if((hi-lo)%2)hi+=1;var nyv=(hi-lo)>8?(hi-lo)/2:(hi-lo);
+    var ly=logK(T,dH,lk),slope=-dH*1000/(2.303*RR)/1000;
+    $('vHr1').textContent=ly.toFixed(2);$('vHr2').textContent=fmt(Math.pow(10,ly));$('vHr3').textContent=slope.toFixed(2)+' per (10³/T)';
+    var st=$('vHout');
+    if(dH>0)st.textContent='Endothermic: the line falls as 1/T rises, so K rises as T rises.';
+    else if(dH<0)st.textContent='Exothermic: the line rises as 1/T rises, so K falls as T rises.';
+    else st.textContent='ΔH = 0: K does not depend on temperature.';
+    xyPlot(c,{xmin:1000/800,xmax:1000/250,ymin:lo,ymax:hi,ny:nyv,xlab:'1000 / T  (K⁻¹ × 1000)',ylab:'log K',series:[{pts:pts,col:cv('--accent')}],marker:{x:1000/T,y:ly,col:cv('--bad')},xfmt:function(v){return v.toFixed(2)},yfmt:function(v){return v.toFixed(0)}});
+  }
+  [hE,kE,tE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 5 ICE ================= */
+(function(){
+  var cE=$('i5c'),kE=$('i5K'),box=$('i5bars');
+  function draw(){
+    var c0=parseFloat(cE.value),K=parseFloat(kE.value);
+    if(!(c0>0)||!(K>0)){$('i5out').textContent='Enter positive values.';return;}
+    var x=(-K+Math.sqrt(K*K+4*K*c0))/2,pc=c0-x,ap=Math.sqrt(K*c0);
+    barRows(box,[
+      {label:'PCl₅',val:pc,max:c0,col:cv('--accent'),text:fmt(pc)+' M'},
+      {label:'PCl₃',val:x,max:c0,col:cv('--good'),text:fmt(x)+' M'},
+      {label:'Cl₂',val:x,max:c0,col:cv('--adv'),text:fmt(x)+' M'}]);
+    $('i5x').textContent=fmt(x)+' M';$('i5a').textContent=(x/c0*100).toFixed(1)+'%';
+    $('i5q').textContent=fmt(x*x/pc);$('i5ap').textContent=fmt(ap)+' M ('+(Math.abs(ap-x)/x*100).toFixed(0)+'% off)';
+    var o=$('i5out');
+    if(x/c0<0.05){o.textContent='Less than 5% dissociated: the shortcut x ≈ √(Kc) is safe here.';}
+    else{o.textContent='More than 5% dissociated: use the quadratic, as the shortcut is not reliable.';}
+    o.style.color=cv('--text');
+  }
+  [cE,kE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 6 hydrate ================= */
+(function(){
+  var nE=$('h6n'),kE=$('h6K'),rE=$('h6rh'),c=$('h6c'),VP=24;
+  function draw(){
+    var n=parseInt(nE.value,10),K=parseFloat(kE.value),rh=parseFloat(rE.value);
+    $('h6rhv').textContent=rh+'%';
+    if(!(K>0)){$('h6out').textContent='Enter a positive Kp.';return;}
+    var pe=Math.pow(K,1/n),pmm=pe*760,thr=pmm/VP*100,room=rh/100*VP;
+    $('h6p').textContent=fmt(pe)+' atm ('+fmt(pmm)+' mm Hg)';
+    $('h6t').textContent=thr>100?'above 100%':thr.toFixed(1)+'%';
+    $('h6room').textContent=fmt(room)+' mm Hg';
+    var o=$('h6out');
+    if(thr>100){o.textContent='p(eq) is above the vapour pressure of water, so this hydrate loses water even in saturated air.';o.style.color=cv('--bad');}
+    else if(Math.abs(rh-thr)<0.5){o.textContent='RH ≈ threshold: the hydrate and its lower form are at equilibrium with the air.';o.style.color=cv('--good');}
+    else if(rh<thr){o.textContent='Room p(H₂O) < p(eq): Q < K, so the reaction goes forward and the hydrate LOSES water (effloresces).';o.style.color=cv('--text');}
+    else{o.textContent='Room p(H₂O) > p(eq): Q > K, so the reaction goes backward and the lower form ABSORBS water (hygroscopic).';o.style.color=cv('--text');}
+    var s=setup2d(c),g=s.g,w=s.w,h=s.h,L=20,Rm=20,pw=w-L-Rm,ay=h*0.55;
+    function X(p){return L+pw*p/100;}
+    g.clearRect(0,0,w,h);g.font='12px system-ui,sans-serif';g.textAlign='center';
+    var tx=Math.min(thr,100);
+    g.fillStyle=cv('--warn-soft');g.fillRect(X(0),ay-16,X(tx)-X(0),32);
+    g.fillStyle=cv('--accent-soft');g.fillRect(X(tx),ay-16,X(100)-X(tx),32);
+    g.strokeStyle=cv('--muted');g.lineWidth=1;g.strokeRect(X(0),ay-16,X(100)-X(0),32);
+    g.fillStyle=cv('--muted');
+    [0,25,50,75,100].forEach(function(v){g.fillText(v+'%',X(v),ay+32);});
+    g.fillStyle=cv('--text');
+    if(tx>12)g.fillText('loses water',(X(0)+X(tx))/2,ay+4);
+    if(100-tx>14)g.fillText('absorbs water',(X(tx)+X(100))/2,ay+4);
+    g.strokeStyle=cv('--accent');g.lineWidth=2;g.beginPath();g.moveTo(X(tx),ay-24);g.lineTo(X(tx),ay+16);g.stroke();
+    g.fillStyle=cv('--accent');g.fillText('threshold',X(tx),ay-30);
+    g.fillStyle=cv('--bad');g.beginPath();g.moveTo(X(rh),ay-18);g.lineTo(X(rh)-6,ay-30);g.lineTo(X(rh)+6,ay-30);g.closePath();g.fill();
+  }
+  [nE,kE,rE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 7 alpha vs P ================= */
+(function(){
+  var kE=$('a7K'),pE=$('a7P'),c=$('a7c');
+  function draw(){
+    var Kp=Math.pow(10,parseFloat(kE.value)),P=parseFloat(pE.value);
+    $('a7Kv').textContent=fmt(Kp);$('a7Pv').textContent=P.toFixed(1);
+    var a=Math.sqrt(Kp/(Kp+P));
+    $('a7a').textContent=a.toFixed(3);$('a7pc').textContent=(a*100).toFixed(1)+'%';$('a7M').textContent=(208.5/(1+a)).toFixed(1);$('a7r').textContent=(1+a).toFixed(3);
+    var pts=[],p;for(p=0.05;p<=10.001;p+=0.05)pts.push([p,Math.sqrt(Kp/(Kp+p))]);
+    xyPlot(c,{xmin:0,xmax:10,ymin:0,ymax:1,xlab:'total pressure P (atm)',ylab:'degree of dissociation α',series:[{pts:pts,col:cv('--accent')}],marker:{x:P,y:a,col:cv('--bad')},xfmt:function(v){return v.toFixed(0)},yfmt:function(v){return v.toFixed(2)}});
+  }
+  [kE,pE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 8 dG vs T ================= */
+(function(){
+  var hE=$('g8H'),sE=$('g8S'),tE=$('g8T'),c=$('g8c'),RR=8.314;
+  function draw(){
+    var H=parseFloat(hE.value),S=parseFloat(sE.value),T=parseFloat(tE.value);
+    $('g8Hv').textContent=(H>0?'+':'')+H;$('g8Sv').textContent=(S>0?'+':'')+S;$('g8Tv').textContent=T;
+    var G=H*1000-T*S,Gk=G/1000;
+    var lnK=-G/(RR*T),K=Math.exp(lnK);
+    $('g8G').textContent=Gk.toFixed(1);$('g8K').textContent=(lnK>700?'huge':(lnK<-700?'≈ 0':fmt(K)));
+    var cross=(S!==0&&H/S>0)?H*1000/S:null;
+    $('g8X').textContent=cross?cross.toFixed(0)+' K':'none in range';
+    var o=$('g8out');
+    if(Math.abs(Gk)<0.05){o.textContent='ΔG° ≈ 0, so K ≈ 1: reactants and products are comparable.';}
+    else if(Gk<0){o.textContent='ΔG° < 0: K > 1, and the forward reaction is spontaneous in the standard state.';}
+    else{o.textContent='ΔG° > 0: K < 1, and the forward reaction is not spontaneous in the standard state.';}
+    o.style.color=cv('--text');
+    var pts=[],lo=1e9,hi=-1e9,t;
+    for(t=200;t<=1000;t+=20){var y=(H*1000-t*S)/1000;pts.push([t,y]);lo=Math.min(lo,y);hi=Math.max(hi,y);}
+    lo=Math.min(lo,0);hi=Math.max(hi,0);var pad=(hi-lo)*0.1+1;var rg=hi-lo+2*pad,stp=rg>300?100:(rg>120?50:(rg>60?20:10));lo=Math.floor((lo-pad)/stp)*stp;hi=Math.ceil((hi+pad)/stp)*stp;var nyg=Math.round((hi-lo)/stp);
+    xyPlot(c,{xmin:200,xmax:1000,ymin:lo,ymax:hi,ny:nyg,nx:4,xlab:'temperature T (K)',ylab:'ΔG° (kJ/mol)',hline:0,series:[{pts:pts,col:cv('--accent')}],marker:{x:T,y:Gk,col:cv('--bad')},xfmt:function(v){return v.toFixed(0)},yfmt:function(v){return v.toFixed(0)}});
+  }
+  [hE,sE,tE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* ================= Lab: Module 9 Le Chatelier ================= */
+(function(){
+  var LC=[
+   {rx:R`\mathrm{N_2(g)+3H_2(g)\rightleftharpoons 2NH_3(g)+heat}`,dn:-2,exo:true,
+    sp:[{n:'N₂',s:'R'},{n:'H₂',s:'R'},{n:'NH₃',s:'P'}]},
+   {rx:R`\mathrm{PCl_5(g)+heat\rightleftharpoons PCl_3(g)+Cl_2(g)}`,dn:1,exo:false,
+    sp:[{n:'PCl₅',s:'R'},{n:'PCl₃',s:'P'},{n:'Cl₂',s:'P'}]},
+   {rx:R`\mathrm{H_2(g)+I_2(g)\rightleftharpoons 2HI(g)+heat}`,dn:0,exo:true,
+    sp:[{n:'H₂',s:'R'},{n:'I₂',s:'R'},{n:'HI',s:'P'}]},
+   {rx:R`\mathrm{CaCO_3(s)+heat\rightleftharpoons CaO(s)+CO_2(g)}`,dn:1,exo:false,
+    sp:[{n:'CaCO₃ (solid)',s:'R',solid:true},{n:'CaO (solid)',s:'P',solid:true},{n:'CO₂',s:'P'}]}
+  ];
+  var NAMES=['N₂ + 3H₂ ⇌ 2NH₃ (exothermic, Δn = −2)','PCl₅ ⇌ PCl₃ + Cl₂ (endothermic, Δn = +1)','H₂ + I₂ ⇌ 2HI (exothermic, Δn = 0)','CaCO₃(s) ⇌ CaO(s) + CO₂(g) (endothermic, Δn = +1)'];
+  var rE=$('lcR'),sE=$('lcS');
+  NAMES.forEach(function(n,i){var o=document.createElement('option');o.value=i;o.textContent=n;rE.appendChild(o);});
+  function stresses(r){
+    var l=[];
+    r.sp.forEach(function(s,i){l.push({id:'add'+i,t:'Add '+s.n});l.push({id:'rem'+i,t:'Remove '+s.n});});
+    l.push({id:'pup',t:'Compress (reduce volume, raise pressure)'},{id:'pdn',t:'Expand (increase volume, lower pressure)'},
+      {id:'ivol',t:'Add inert gas at constant volume'},{id:'ipr',t:'Add inert gas at constant pressure'},
+      {id:'tup',t:'Raise the temperature'},{id:'tdn',t:'Lower the temperature'},{id:'cat',t:'Add a catalyst'});
+    return l;
+  }
+  function fillS(){var r=LC[parseInt(rE.value,10)];sE.innerHTML='';stresses(r).forEach(function(s){var o=document.createElement('option');o.value=s.id;o.textContent=s.t;sE.appendChild(o);});}
+  function res(r,id){
+    var dn=r.dn,m;
+    if((m=/^(add|rem)(\d)$/.exec(id))){
+      var sp=r.sp[parseInt(m[2],10)],add=m[1]==='add';
+      if(sp.solid)return {d:'none',why:'A pure solid has a fixed active mass (1), so Q is unchanged. There is no shift (as long as some of each solid remains).',k:'unchanged'};
+      var fwd=(add&&sp.s==='R')||(!add&&sp.s==='P');
+      var why=add?('Adding '+sp.n+' makes Q '+(sp.s==='R'?'smaller':'larger')+' than K ('+(sp.s==='R'?'Q &lt; K':'Q &gt; K')+').'):('Removing '+sp.n+' makes Q '+(sp.s==='R'?'larger':'smaller')+' than K ('+(sp.s==='R'?'Q &gt; K':'Q &lt; K')+').');
+      return {d:fwd?'forward':'backward',why:why+' The reaction shifts '+(fwd?'forward':'backward')+' to restore Q = K.',k:'unchanged'};
+    }
+    function byMoles(compress){
+      if(dn===0)return {d:'none',why:'Δn(gas) = 0, so volume cancels out of Q. No shift.',k:'unchanged'};
+      var toFewer=compress,fwd=(dn<0)===toFewer;
+      return {d:fwd?'forward':'backward',why:'Δn(gas) = '+(dn>0?'+':'')+dn+'. '+(compress?'Compression favours the side with fewer gas moles':'Expansion favours the side with more gas moles')+', so the shift is '+(fwd?'forward':'backward')+'.',k:'unchanged'};
+    }
+    if(id==='pup')return byMoles(true);
+    if(id==='pdn')return byMoles(false);
+    if(id==='ivol')return {d:'none',why:'At constant volume the concentrations and partial pressures of the reacting gases are unchanged, so Q = K still.',k:'unchanged'};
+    if(id==='ipr'){var x=byMoles(false);x.why='At constant pressure the volume must grow, which acts like lowering the pressure. '+x.why;return x;}
+    if(id==='tup'||id==='tdn'){var up=id==='tup',fw=(up&&!r.exo)||(!up&&r.exo);
+      return {d:fw?'forward':'backward',why:(up?'Heating':'Cooling')+' favours the '+(up?'heat-absorbing (endothermic)':'heat-releasing (exothermic)')+' direction. This reaction is '+(r.exo?'exothermic':'endothermic')+', so the shift is '+(fw?'forward':'backward')+'.',k:fw?'increases':'decreases'};}
+    return {d:'none',why:'A catalyst lowers the activation energy of both directions equally. The position and K are unchanged.',k:'unchanged',rate:'faster'};
+  }
+  function update(){
+    var r=LC[parseInt(rE.value,10)],x=res(r,sE.value);
+    $('lcRx').innerHTML='\\['+r.rx+'\\]';
+    var d=$('lcDir');
+    d.textContent=x.d==='none'?'No shift in the equilibrium position':('Shifts '+x.d.toUpperCase());
+    d.style.color=x.d==='none'?cv('--text'):cv('--good');
+    $('lcWhy').innerHTML=x.why;
+    $('lcK').textContent=x.k==='unchanged'?'unchanged':(x.k==='increases'?'increases':'decreases');
+    $('lcRate').textContent=x.rate?'faster (same position)':'not directly affected';
+    if(window.MathJax&&MathJax.typesetPromise)MathJax.typesetPromise([$('lcRx'),$('lcWhy')]).catch(function(){});
+  }
+  rE.addEventListener('change',function(){fillS();update();});sE.addEventListener('change',update);
+  fillS();update();onRedraw(update);
+})();
+
+/* ================= Lab: Module 10 ================= */
+(function(){
+  var aE=$('s10a'),bE=$('s10b'),box=$('s10bars');
+  function draw(){
+    var K1=parseFloat(aE.value),K2=parseFloat(bE.value);
+    if(!(K1>0)||!(K2>0)){$('s10out').textContent='Enter positive values.';return;}
+    var s=Math.sqrt(K1+K2),a=K1/s,b=K2/s,py=a+b,mx=Math.max(a,b,py);
+    barRows(box,[
+      {label:'p(X)',val:a,max:mx,col:cv('--accent'),text:fmt(a)+' atm'},
+      {label:'p(Z)',val:b,max:mx,col:cv('--adv'),text:fmt(b)+' atm'},
+      {label:'p(Y) shared',val:py,max:mx,col:cv('--good'),text:fmt(py)+' atm'}]);
+    $('s10out').innerHTML='p<sub>Y</sub> = p<sub>X</sub> + p<sub>Z</sub> = '+fmt(py)+' atm. Check: p<sub>X</sub>·p<sub>Y</sub> = '+fmt(a*py)+', p<sub>Z</sub>·p<sub>Y</sub> = '+fmt(b*py)+'. Total pressure = '+fmt(a+b+py)+' atm.';
+    $('s10out').style.color=cv('--text');
+  }
+  [aE,bE].forEach(function(e){e.addEventListener('input',draw)});onRedraw(draw);draw();
+})();
+
+/* wrap label text so inline <sub>/math do not become separate flex items */
+document.querySelectorAll('.ctrl label').forEach(function(l){
+  var nodes=[];for(var n=l.firstChild;n;n=n.nextSibling){if(n.nodeType===1&&(n.tagName==='INPUT'||n.tagName==='SELECT'))break;nodes.push(n);}
+  if(nodes.length>1){var sp=document.createElement('span');l.insertBefore(sp,nodes[0]);nodes.forEach(function(x){sp.appendChild(x);});}
+});
+/* ================= init quizzes ================= */
+Object.keys(QUIZ).forEach(renderQuiz);
+updateProgress();
+
+</script>
+</body>
+</html>
