@@ -1,107 +1,513 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mole Concept T2 – Revision CBT</title>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mole Concept · JEE Revision Notebook</title>
 <style>
-:root{--bg:#f4f6f9;--card:#fff;--tx:#1d2733;--mut:#5c6b7a;--bd:#d3dae2;--pri:#1565c0;--na:#e0e0e0;--nv:#e53935;--an:#43a047;--mk:#7e57c2;--am:#7e57c2}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14181d;--card:#1e242b;--tx:#e8edf2;--mut:#9aa8b6;--bd:#37414c;--na:#3a434d}}
-*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,Arial,sans-serif}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-header{background:var(--pri);color:#fff;padding:10px 14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
-header b{font-size:16px}#tm{background:#fff;color:#000;padding:4px 10px;border-radius:4px;font-weight:700}
-.wrap{display:flex;gap:12px;padding:12px;flex-wrap:wrap}.main{flex:1 1 520px;min-width:0}.side{flex:0 0 240px;max-width:100%}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:6px;padding:14px;margin-bottom:10px}
-.tag{display:inline-block;font-size:12px;background:var(--na);padding:2px 8px;border-radius:10px;color:var(--tx);margin-left:6px}
-.q{font-size:16px;line-height:1.55;white-space:pre-line}
-.opt{display:block;border:1px solid var(--bd);border-radius:6px;padding:9px 12px;margin:8px 0;cursor:pointer}
-.opt.sel{border-color:var(--pri);background:rgba(21,101,192,.12)}
-input[type=number]{font-size:18px;padding:8px;width:200px;border:1px solid var(--bd);border-radius:6px;background:var(--card);color:var(--tx)}
-button{font-size:14px;padding:9px 14px;border:1px solid var(--bd);border-radius:5px;background:var(--card);color:var(--tx);cursor:pointer}
-button.p{background:var(--pri);color:#fff;border-color:var(--pri)}button.g{background:var(--an);color:#fff;border-color:var(--an)}
-.bar{display:flex;gap:8px;flex-wrap:wrap}
-.pal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
-.pb{height:40px;border-radius:6px 6px 14px 14px;border:0;color:#fff;font-weight:700;background:var(--na);color:var(--tx)}
-.pb.nv{background:var(--nv);color:#fff}.pb.an{background:var(--an);color:#fff}.pb.mk{background:var(--mk);color:#fff;border-radius:50%}.pb.am{background:var(--mk);color:#fff;border-radius:50%;outline:3px solid var(--an)}.pb.cur{box-shadow:0 0 0 3px var(--pri)}
-.lg{font-size:12px;color:var(--mut);line-height:1.9}.lg i{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:middle;margin-right:5px}
-table{border-collapse:collapse;width:100%;font-size:14px}td,th{border:1px solid var(--bd);padding:6px;text-align:left;vertical-align:top}
-.ok{color:var(--an);font-weight:700}.bad{color:var(--nv);font-weight:700}.sk{color:var(--mut);font-weight:700}
-.hide{display:none}.ctr{text-align:center;max-width:560px;margin:30px auto}
-@media print{header,.bar,.noprint{display:none}}
-</style></head><body>
-<div id="start" class="card ctr">
-<h2>Mole Concept – T2 &amp; T3 Revision Test</h2>
-<p>T2 Compounds, ions &amp; quantitative interpretation of formulae · T3 POAC · T4 Formulae · T7 Mixtures<br>29 questions · A: 18 MCQ (+4 / −1) · B: 4 Multiple-correct (+4 / −2, all correct options needed) · C: 7 Numerical (+4 / 0, small rounding tolerance allowed)</p>
-<p>Time (minutes): <select id="mins"><option>30</option><option>45</option><option selected>60</option><option>90</option></select></p>
-<button class="p" onclick="begin()">Start Test</button></div>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#1c2233;--muted:#5b6479;--brand:#3b5bdb;--brand2:#e8edff;--ok:#2b8a3e;--okbg:#e6f6ea;--bad:#c92a2a;--badbg:#fdeaea;--warn:#a85200;--warnbg:#fff4e0;--line:#dde2ee;--hook:#6741d9;--hookbg:#f1ecff}
+@media (prefers-color-scheme:dark){:root{--bg:#12151f;--card:#1b2030;--ink:#e8ebf5;--muted:#9aa4bd;--brand:#8da2ff;--brand2:#242c4a;--ok:#69db7c;--okbg:#1c3324;--bad:#ff8787;--badbg:#3a1f22;--warn:#ffc078;--warnbg:#3a2c16;--line:#2c3350;--hook:#b197fc;--hookbg:#2a2445}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:920px;margin:0 auto;padding:0 16px 60px}
+header{padding:22px 0 8px}
+h1{font-size:1.5rem;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 12px;font-size:.95rem}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.pill{background:var(--brand2);color:var(--brand);border-radius:999px;padding:4px 12px;font-size:.85rem;font-weight:600}
+.tabs{position:sticky;top:0;z-index:5;background:var(--bg);display:flex;gap:6px;flex-wrap:nowrap;overflow-x:auto;padding:8px 0;border-bottom:1px solid var(--line);margin-bottom:16px;-webkit-overflow-scrolling:touch}
+.tab{white-space:nowrap;flex:0 0 auto}
+.tab{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 14px;font:inherit;font-size:.92rem;cursor:pointer}
+.tab.active{background:var(--brand);color:#fff;border-color:var(--brand)}
+.badge{background:var(--bad);color:#fff;border-radius:999px;padding:0 7px;font-size:.75rem;margin-left:4px}
+section.topic{display:none}
+section.topic.active{display:block}
+h2{font-size:1.35rem;margin:6px 0 10px}
+h3{font-size:1.05rem;margin:22px 0 8px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:10px 0}
+.big{background:var(--brand2);border-radius:14px;padding:14px 16px;margin:10px 0}
+.hook{background:var(--hookbg);border-left:5px solid var(--hook);border-radius:10px;padding:10px 14px;margin:10px 0}
+.hook b.t,.trap b.t{display:block;margin-bottom:4px}
+.hook b.t{color:var(--hook)}
+.trap{background:var(--warnbg);border-left:5px solid #f08c00;border-radius:10px;padding:10px 14px;margin:10px 0}
+.trap b.t{color:var(--warn)}
+.trap ul,.hook ul{margin:4px 0 0;padding-left:20px}
+.trap li,.hook li{margin:5px 0}
+.fgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:10px}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.fname{font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.fml{font-size:1.1rem;font-weight:650;margin:3px 0;font-family:"Cambria Math",Cambria,Georgia,serif}
+.fnote{font-size:.88rem;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.92rem}
+th,td{border:1px solid var(--line);padding:6px 8px;text-align:left}
+th{background:var(--brand2)}
+.tw{overflow-x:auto}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 14px;margin:8px 0}
+summary{cursor:pointer;font-weight:600}
+.play{background:var(--card);border:2px dashed var(--brand);border-radius:14px;padding:14px 16px;margin:12px 0}
+.play h4,.deck h4,.quiz h4{margin:0 0 8px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:end;margin:6px 0}
+label.f{display:flex;flex-direction:column;font-size:.8rem;color:var(--muted);gap:2px}
+input[type=number],select{font:inherit;padding:6px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);width:92px}
+.out{margin-top:8px}
+.res{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-top:6px}
+.good{color:var(--ok);font-weight:700}.bad{color:var(--bad);font-weight:700}
+.btn{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer}
+.btn.ok{background:var(--okbg);color:var(--ok);border-color:var(--ok)}
+.btn.warn{background:var(--warnbg);color:var(--warn);border-color:#f08c00}
+.btn.sm{padding:3px 10px;font-size:.85rem}
+.btn:hover{filter:brightness(.96)}
+.deck,.quiz{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin:14px 0}
+.dk-head,.qz-head{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px;font-size:.9rem}
+.sp{flex:1}
+.flash{border:2px solid var(--brand);border-radius:14px;min-height:150px;padding:14px 16px;cursor:pointer;position:relative;background:var(--bg)}
+.flash.back{background:var(--okbg);border-color:var(--ok)}
+.flash-label{font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:6px}
+.flash-body{font-size:1.02rem}
+.flash-hint{position:absolute;right:12px;bottom:8px;font-size:.75rem;color:var(--muted)}
+.chip{display:inline-block;font-size:.72rem;border-radius:999px;padding:1px 8px;margin-left:6px}
+.chip.known{background:var(--okbg);color:var(--ok)}.chip.revise{background:var(--warnbg);color:var(--warn)}
+.dk-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.qq{border-top:1px solid var(--line);padding:10px 0}
+.qq:first-of-type{border-top:0}
+.opts{display:grid;gap:6px;margin-top:6px}
+.opt{text-align:left;font:inherit;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;padding:8px 12px;cursor:pointer}
+.opt.right{background:var(--okbg);border-color:var(--ok)}
+.opt.wrong{background:var(--badbg);border-color:var(--bad)}
+.exp{margin-top:6px;font-size:.92rem;background:var(--brand2);border-radius:8px;padding:6px 10px}
+.hidden{display:none}
+.chk{display:inline-flex;align-items:center;gap:6px;font-size:.9rem;cursor:pointer}
+.done{margin:14px 0}
+.empty{color:var(--muted);padding:10px}
+.lvl{width:100%;max-width:420px;height:auto;display:block;margin:6px auto}
+.sv{font-size:11px;fill:var(--ink)}
+.sub-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sub{border:1px solid var(--line);border-radius:8px;padding:4px 8px;background:var(--bg)}
+.sub .sl{font-size:.75rem;color:var(--muted)}
+.bx{display:flex;gap:2px}
+.bx span{display:inline-block;min-width:30px;text-align:center;border:1px solid var(--ink);padding:0 3px;font-size:.95rem;line-height:1.5}
+sup,sub{line-height:0}
+.foot{color:var(--muted);font-size:.82rem;margin-top:26px}
+body.rev .explain,body.rev details.worked{display:none}
+@media print{.tabs,.controls,.play,.deck,.quiz,.done,#t-weak{display:none!important}section.topic{display:block!important;page-break-before:always}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>Mole Concept · Revision Notebook</h1>
+  <p class="sub">JEE · 9 topics from the mole and molar volume to concentration terms, with every formula, trap and worked example</p>
+  <div class="controls">
+    <button class="btn sm" id="revBtn" aria-pressed="false">Revision mode: OFF</button>
+    <span class="pill" id="progPill">Topics revised: 0 / 9</span>
+    <span class="sub" style="margin:0">Revision mode hides the explanations and shows only formulas, hooks and traps.</span>
+  </div>
+</header>
+<nav class="tabs" id="tabs">
+  <button class="tab" data-t="t-mole">1 · Mole &amp; molar mass</button>
+  <button class="tab" data-t="t-avg">2 · Average mass &amp; formulas</button>
+  <button class="tab" data-t="t-stoich">3 · Stoichiometry</button>
+  <button class="tab" data-t="t-lr">4 · Limiting reagent</button>
+  <button class="tab" data-t="t-poac">5 · POAC</button>
+  <button class="tab" data-t="t-ox">6 · Oxidation number</button>
+  <button class="tab" data-t="t-redox">7 · Redox types</button>
+  <button class="tab" data-t="t-bal">8 · Balancing redox</button>
+  <button class="tab" data-t="t-conc">9 · Concentration</button>
+  <button class="tab" data-t="t-weak">My weak cards <span class="badge" id="weakBadge" style="display:none">0</span></button>
+</nav>
 
-<div id="test" class="hide">
-<header><b>Mole Concept T2–T7 · Revision CBT</b><span>Time Left: <span id="tm">00:00</span></span></header>
-<div class="wrap"><div class="main">
-<div class="card"><div><b id="qn"></b><span class="tag" id="sec"></span><span class="tag" id="src"></span></div><hr style="border:0;border-top:1px solid var(--bd)"><div class="q" id="qt"></div><div id="op"></div></div>
-<div class="bar"><button onclick="mark()">Mark for Review &amp; Next</button><button onclick="clr()">Clear Response</button><button class="p" onclick="save()">Save &amp; Next</button></div></div>
-<div class="side"><div class="card"><div class="pal" id="pal"></div></div>
-<div class="card lg"><i style="background:var(--na)"></i>Not Visited<br><i style="background:var(--nv)"></i>Not Answered<br><i style="background:var(--an)"></i>Answered<br><i style="background:var(--mk);border-radius:50%"></i>Marked for Review<br><i style="background:var(--mk);border-radius:50%;outline:2px solid var(--an)"></i>Answered &amp; Marked</div>
-<button class="g" style="width:100%" onclick="submitT(false)">Submit Test</button></div></div></div>
+<section class="topic" id="t-mole">
+<h2>1 · Atoms, the mole & molar volume</h2>
+<div class="big explain"><b>The big idea.</b> Atoms are far too small to weigh one by one, so we use <b>relative masses</b> (carbon-12 scale) and count in <b>moles</b>. One mole is 6.02 × 10<sup>23</sup> entities, the number of atoms in exactly 12 g of C-12. The mole links three things: mass, number of particles and gas volume.</div><h3>Formulas and facts to know cold</h3><div class="fgrid"><div class="fcard"><div class="fname">Atomic mass unit</div><div class="fml">1 amu = (1/12) × mass of one C-12 atom</div><div class="fnote">= 1.66 × 10<sup>−24</sup> g; also called 1 Dalton (u)</div></div><div class="fcard"><div class="fname">Relative atomic mass</div><div class="fml">mass of atom ÷ (1/12 mass of C-12 atom)</div><div class="fnote">Numerically equals the number of nucleons (O = 16). Atomic mass = R.A.M. × 1 amu</div></div><div class="fcard"><div class="fname">Moles</div><div class="fml">n = w/M = N/N<sub>A</sub> = V<sub>STP</sub>/22.4 L</div><div class="fnote">M = molar mass in g/mol</div></div><div class="fcard"><div class="fname">Gram atomic / molecular mass</div><div class="fml">O = 16 g · O<sub>2</sub> = 32 g</div><div class="fnote">Mass of one mole of atoms / molecules</div></div><div class="fcard"><div class="fname">STP and molar volume</div><div class="fml">273 K, 1 atm → 22.4 L/mol</div><div class="fnote">Measuring gas volume is counting molecules</div></div><div class="fcard"><div class="fname">Avogadro and Gay-Lussac</div><div class="fml">equal V, same T, P → equal molecules</div><div class="fnote">Gases combine in simple volume ratios: H<sub>2</sub> + Cl<sub>2</sub> → 2HCl (1 : 1 : 2)</div></div></div><h3>Dalton's atomic theory</h3><div class="tw"><table><tr><th>Postulate</th><th>Meaning</th></tr><tr><td>Indivisible atoms</td><td>Matter is made of very small indivisible particles</td></tr><tr><td>Identical atoms</td><td>All atoms of one element are identical in mass, size and shape</td></tr><tr><td>Conservation</td><td>Atoms are not created or destroyed in a chemical process</td></tr><tr><td>Different elements</td><td>Atoms of different elements differ</td></tr></table></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>The Y-map:</b> put <b>mole</b> in the centre. × N<sub>A</sub> gives particles, × 22.4 L gives gas volume at STP, × molar mass gives mass. Go back by dividing.</li><li><b>1 mol of anything = N<sub>A</sub> pieces.</b> 16 g of O atoms is exactly N<sub>A</sub> atoms.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Avogadro counts molecules, not atoms.</b> 1 mol H<sub>2</sub>SO<sub>4</sub> holds 2 mol H, 1 mol S and 4 mol O atoms.</li><li><b>amu is not grams.</b> One atom of O is 16 amu; one mole of O atoms is 16 g.</li><li><b>Source typo:</b> the PDF says "molecular mass is the mass of 1 atom"; it means 1 molecule.</li></ul></div><details class="worked"><summary>Worked example: moles of each element in 294 g H<sub>2</sub>SO<sub>4</sub> (M = 98)</summary><p>294/98 = 3 mol H<sub>2</sub>SO<sub>4</sub>. Each molecule has 2 H, 1 S, 4 O, so 6 mol H, 3 mol S and 12 mol O.</p></details><div class="play"><h4>Playground: mole converter</h4><div class="row"><label class="f">Mass (g)<input type="number" id="mc-m" step="any" value="20"></label><label class="f">Molar mass (g/mol)<input type="number" id="mc-M" step="any" value="2"></label></div><div class="out" id="mcOut"></div></div>
+<div class="deck" data-deck="mole"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="mole"></div>
+<label class="chk done"><input type="checkbox" data-done="mole"> I have revised this topic</label>
+</section>
 
-<div id="res" class="hide wrap"><div class="main"><div class="card"><h2>Result</h2><div id="sc"></div>
-<div class="bar noprint"><button class="p" onclick="window.print()">Download PDF (Print → Save as PDF)</button><button onclick="location.reload()">Retake</button></div></div>
-<div class="card" style="overflow-x:auto"><table id="rt"></table></div></div></div>
+<section class="topic" id="t-avg">
+<h2>2 · Average mass, % composition & formulas</h2>
+<div class="big explain"><b>The big idea.</b> A real sample is a mixture of isotopes or gases, so we use <b>weighted averages</b>. Percentage composition turns a formula into masses; going the other way gives the <b>empirical formula</b> (simplest ratio), and the molar mass then fixes the <b>molecular formula</b>.</div><h3>Formulas</h3><div class="fgrid"><div class="fcard"><div class="fname">Average atomic mass</div><div class="fml">Σ(a<sub>i</sub>x<sub>i</sub>) / 100</div><div class="fnote">a = isotopic mass, x = mole % (Cl: 75 × 35 + 25 × 37 → 35.5)</div></div><div class="fcard"><div class="fname">Mean molar mass</div><div class="fml">Σ n<sub>i</sub>M<sub>i</sub> / Σ n<sub>i</sub></div><div class="fnote">Weights are moles (or mole %, which sum to 100)</div></div><div class="fcard"><div class="fname">Mass % of an element</div><div class="fml">(mass in 1 mol ÷ molar mass) × 100</div><div class="fnote">NH<sub>3</sub>: N = 14/17 = 82.35 %, H = 17.65 %</div></div><div class="fcard"><div class="fname">Molecular formula</div><div class="fml">= n × empirical, n = M(mol) / M(emp)</div><div class="fnote">C<sub>2</sub>H<sub>2</sub> and C<sub>6</sub>H<sub>6</sub> both have empirical CH</div></div><div class="fcard"><div class="fname">Relative density, vapour density</div><div class="fml">R.D. = M<sub>1</sub>/M<sub>2</sub> · V.D. = M/2</div><div class="fnote">V.D. of N<sub>2</sub>O<sub>5</sub> = 108/2 = 54</div></div></div><h3>Empirical formula table (C 40.687 %, H 5.085 %, O 54.228 %)</h3><div class="tw"><table><tr><th>Element</th><th>% ÷ at. mass</th><th>÷ smallest</th><th>× to make whole</th></tr><tr><td>C</td><td>3.390</td><td>1</td><td>2</td></tr><tr><td>H</td><td>5.085</td><td>1.5</td><td>3</td></tr><tr><td>O</td><td>3.389</td><td>1</td><td>2</td></tr></table></div><p class="fnote">Empirical formula C<sub>2</sub>H<sub>3</sub>O<sub>2</sub> (mass 59); molecular mass 118 gives n = 2, so the molecular formula is C<sub>4</sub>H<sub>6</sub>O<sub>4</sub>.</p><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Divide, divide, multiply:</b> ÷ atomic mass, ÷ smallest value, × 2 or 3 to clear fractions (1.5 → ×2; 1.33 → ×3; 2.5 → ×2).</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Use molecular masses for gases:</b> in the polluted-air example O is taken as O<sub>2</sub> = 32 and N as N<sub>2</sub> = 28 (not 16 and 14): (16×32 + 80×28 + 3×44 + 1×64)/100 = 29.48.</li><li><b>Cl is 35.5, not 35.</b> The average mass is the one used in all calculations and in the periodic table.</li><li><b>Do not round early:</b> 1.5 is not 1; it means multiply everything by 2.</li></ul></div><details class="worked"><summary>Worked example: formula of an oxide with N = 25.94 %, O = 74.06 %</summary><p>25.94/14 = 1.85 and 74.06/16 = 4.63. Divide by 1.85: 1 and 2.5. Multiply by 2: 2 and 5. Empirical formula N<sub>2</sub>O<sub>5</sub>.</p></details>
+<div class="deck" data-deck="avg"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="avg"></div>
+<label class="chk done"><input type="checkbox" data-done="avg"> I have revised this topic</label>
+</section>
 
+<section class="topic" id="t-stoich">
+<h2>3 · Stoichiometry from a balanced equation</h2>
+<div class="big explain"><b>The big idea.</b> The coefficients of a balanced equation are <b>mole ratios</b>. Mass–mass, mass–volume and mole–mole problems are all one idea: convert to moles, use the ratio, convert back.</div><h3>Balanced equation checklist</h3><div class="tw"><table><tr><th>Attribute</th><th>Meaning</th></tr><tr><td>Atom balance (POAC)</td><td>Same number of atoms of each element on both sides</td></tr><tr><td>Charge balance</td><td>Charge conserved on either side</td></tr><tr><td>States</td><td>Physical states shown in brackets</td></tr><tr><td>Molecular forms</td><td>Reagents written as molecules, not atoms</td></tr><tr><td>Coefficients</td><td>Give relative molar ratios</td></tr></table></div><h3>Three ways to read 2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub></h3><div class="fgrid"><div class="fcard"><div class="fname">Mass–mass</div><div class="fml">m(A)/(a·M<sub>A</sub>) = m(B)/(b·M<sub>B</sub>)</div><div class="fnote">2 × 122.5 : 2 × 74.5 : 3 × 32</div></div><div class="fcard"><div class="fname">Mass–volume (STP)</div><div class="fml">m(A)/(a·M<sub>A</sub>) = V(B)/(b × 22.4 L)</div><div class="fnote">2 × 122.5 g gives 3 × 22.4 L of O<sub>2</sub></div></div><div class="fcard"><div class="fname">Mole–mole</div><div class="fml">n<sub>A</sub>/a = n<sub>B</sub>/b = n<sub>C</sub>/c = n<sub>D</sub>/d</div><div class="fnote">For aA + bB → cC + dD</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Mole is the hub.</b> Mass ÷ M → moles → × coefficient ratio → moles of the other species → × M or × 22.4.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Balance first.</b> An unbalanced equation gives wrong ratios.</li><li><b>Molecules are not conserved, atoms are.</b> N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub>: 4 molecules become 2, yet the mass stays 34 g.</li><li><b>22.4 L is only for gases at STP.</b> Never use it for solids or liquids.</li></ul></div><details class="worked"><summary>Worked example: 367.5 g KClO<sub>3</sub> (M = 122.5) is heated</summary><p>367.5/122.5 = 3 mol. KCl = 3 mol = 223.5 g. O<sub>2</sub> = 3 × 3/2 = 4.5 mol = 144 g, which is 4.5 × 22.4 = 100.8 L at STP.</p></details>
+<div class="deck" data-deck="stoich"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="stoich"></div>
+<label class="chk done"><input type="checkbox" data-done="stoich"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-lr">
+<h2>4 · Limiting reagent</h2>
+<div class="big explain"><b>The big idea.</b> The reactant that is used up first is the <b>limiting reagent</b>; it fixes how much product forms. The other reactant is in <b>excess</b>. When given moles are not in the ratio of the coefficients, one reactant must be limiting.</div><h3>How to find it (3 steps)</h3><div class="tw"><table><tr><th>Step</th><th>Action</th></tr><tr><td>1</td><td>Divide the given moles of each reactant by its coefficient</td></tr><tr><td>2</td><td>The smallest quotient marks the limiting reagent</td></tr><tr><td>3</td><td>Do every further calculation from the limiting reagent only</td></tr></table></div><div class="fgrid"><div class="fcard"><div class="fname">Excess left</div><div class="fml">n(given) − n(used)</div><div class="fnote">Used = coefficient × smallest quotient</div></div><div class="fcard"><div class="fname">% yield (standard definition)</div><div class="fml">actual / theoretical × 100</div><div class="fnote">Listed in the section title; the notes develop only the limiting reagent</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Divide by the coefficient, then pick the minimum.</b> Never compare raw moles.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Ratio equals coefficients means no excess.</b> 3 mol Na<sub>2</sub>CO<sub>3</sub> + 6 mol HCl: nothing is left, CO<sub>2</sub> = 3 mol = 67.2 L.</li><li><b>Convert grams to moles first.</b> The larger mass is not always the excess reagent.</li></ul></div><details class="worked"><summary>Worked example: 6 mol Na<sub>2</sub>CO<sub>3</sub> + 4 mol HCl (Na<sub>2</sub>CO<sub>3</sub> + 2HCl → 2NaCl + CO<sub>2</sub> + H<sub>2</sub>O)</summary><p>6/1 = 6 and 4/2 = 2. The minimum is 2, so HCl is limiting. n(CO<sub>2</sub>) = 2 mol, V = 2 × 22.4 = 44.8 L.</p></details><div class="play"><h4>Playground: limiting reagent finder</h4><p class="fnote">Reaction aA + bB → cC. Defaults are the example above.</p><div class="row"><label class="f">a<input type="number" id="lr-a" step="any" value="1"></label><label class="f">b<input type="number" id="lr-b" step="any" value="2"></label><label class="f">c<input type="number" id="lr-c" step="any" value="1"></label><label class="f">mol A<input type="number" id="lr-x" step="any" value="6"></label><label class="f">mol B<input type="number" id="lr-y" step="any" value="4"></label></div><div class="out" id="lrOut"></div></div>
+<div class="deck" data-deck="lr"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="lr"></div>
+<label class="chk done"><input type="checkbox" data-done="lr"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-poac">
+<h2>5 · Principle of atom conservation (POAC)</h2>
+<div class="big explain"><b>The big idea.</b> Atoms are conserved in any chemical reaction (not in nuclear ones), so <b>moles of an atom</b> are the same before and after. POAC is the shortcut when the equation is unknown or there are many steps: follow just one atom.</div><div class="fgrid"><div class="fcard"><div class="fname">Moles of an atom</div><div class="fml">atoms per formula unit × moles of compound</div><div class="fnote">1 mol K<sub>2</sub>CO<sub>3</sub> holds 1 mol C</div></div><div class="fcard"><div class="fname">General POAC</div><div class="fml">p · w<sub>A</sub>/M<sub>A</sub> = q · w<sub>B</sub>/M<sub>B</sub></div><div class="fnote">p, q = atoms of the chosen element per formula unit of A and B</div></div><div class="fcard"><div class="fname">KClO<sub>3</sub> → KCl + O<sub>2</sub></div><div class="fml">K: n(KClO<sub>3</sub>) = n(KCl)</div><div class="fnote">O: 3 n(KClO<sub>3</sub>) = 2 n(O<sub>2</sub>) = 2 V/22.4</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Pick one atom, count it on both sides.</b> Ignore the intermediate steps entirely.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Count atoms per formula unit carefully.</b> K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub> has 2 × 6 = 12 C.</li><li><b>Impure sample (standard idea):</b> take the pure mass (purity % × sample mass) first, then apply POAC.</li></ul></div><details class="worked"><summary>Worked example: 27.6 g K<sub>2</sub>CO<sub>3</sub> (138) converted fully to K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub> (698)</summary><p>Conserve C: 27.6/138 × 1 = w/698 × 12. So w = 0.2 × 698/12 = 11.6 g.</p></details>
+<div class="deck" data-deck="poac"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="poac"></div>
+<label class="chk done"><input type="checkbox" data-done="poac"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-ox">
+<h2>6 · Oxidation number</h2>
+<div class="big explain"><b>The big idea.</b> Oxidation number is an imaginary charge: bonding electrons are assumed to go completely to the more electronegative atom. It is a bookkeeping tool built on a fixed set of rules.</div><h3>Rules</h3><div class="tw"><table><tr><th>Species</th><th>Oxidation number</th><th>Exceptions</th></tr><tr><td>F</td><td>−1 always</td><td>—</td></tr><tr><td>O</td><td>−2</td><td>Peroxide −1 (H<sub>2</sub>O<sub>2</sub>, Na<sub>2</sub>O<sub>2</sub>); superoxide −1/2 (KO<sub>2</sub>); ozonide −1/3 (KO<sub>3</sub>); OF<sub>2</sub> +2; O<sub>2</sub>F<sub>2</sub> +1</td></tr><tr><td>H</td><td>+1</td><td>Metal hydrides −1 (NaH, KH)</td></tr><tr><td>Cl, Br, I</td><td>−1</td><td>Positive with a more electronegative atom (KClO<sub>3</sub> +5, HClO<sub>4</sub> +7)</td></tr><tr><td>Alkali / alkaline earth / Al</td><td>+1 / +2 / +3</td><td>Other metals can be zero or negative</td></tr><tr><td>Free element or allotrope</td><td>0</td><td>O<sub>2</sub>, S<sub>8</sub>, P<sub>4</sub>, O<sub>3</sub></td></tr><tr><td>Sum</td><td>0 in a molecule; = charge in an ion</td><td>—</td></tr></table></div><div class="fgrid"><div class="fcard"><div class="fname">p-block range</div><div class="fml">(n − 10) to (n − 18)</div><div class="fnote">n = group number; N (group 15): −3 to +5</div></div><div class="fcard"><div class="fname">Maximum oxidation number</div><div class="fml">≤ valence electrons</div><div class="fnote">Mainly for p-block elements</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Fix first, solve last:</b> set F, O, H and the metals, then solve for the unknown from the total.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Average, not individual.</b> S is +2 in Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> and +2.5 in Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub>, but these are averages over the S atoms.</li><li><b>O is −1 in H<sub>2</sub>O<sub>2</sub> but −2 in H<sub>2</sub>O.</b></li><li><b>Hydrogen can be −1</b> in NaH.</li></ul></div><details class="worked"><summary>Worked example: S in Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub></summary><p>(+1) × 2 + 4x + (−2) × 6 = 0, so 4x = 10 and x = +2.5.</p></details>
+<div class="deck" data-deck="ox"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="ox"></div>
+<label class="chk done"><input type="checkbox" data-done="ox"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-redox">
+<h2>7 · Redox, agents & disproportionation</h2>
+<div class="big explain"><b>The big idea.</b> Oxidation and reduction always happen together. In every redox reaction the total increase in oxidation number equals the total decrease.</div><div class="tw"><table><tr><th>Oxidation</th><th>Reduction</th></tr><tr><td>Addition of oxygen (2Mg + O<sub>2</sub> → 2MgO)</td><td>Removal of oxygen (CuO + C → Cu + CO)</td></tr><tr><td>Removal of hydrogen</td><td>Addition of hydrogen</td></tr><tr><td>Increase in positive charge (Fe<sup>2+</sup> → Fe<sup>3+</sup>)</td><td>Decrease in positive charge</td></tr><tr><td>Increase in oxidation number</td><td>Decrease in oxidation number (MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup>)</td></tr><tr><td>Loss of electrons</td><td>Gain of electrons</td></tr></table></div><div class="fgrid"><div class="fcard"><div class="fname">Oxidising agent</div><div class="fml">oxidation number falls / gains e⁻</div><div class="fnote">KMnO<sub>4</sub>, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>, HNO<sub>3</sub>, conc. H<sub>2</sub>SO<sub>4</sub></div></div><div class="fcard"><div class="fname">Reducing agent</div><div class="fml">oxidation number rises / loses e⁻</div><div class="fnote">K, Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub></div></div><div class="fcard"><div class="fname">Both</div><div class="fml">H<sub>2</sub>O<sub>2</sub>, NO<sub>2</sub><sup>−</sup></div><div class="fnote">Intermediate oxidation state</div></div></div><h3>Disproportionation</h3><p>The same element, in an intermediate state, is oxidised and reduced at once. Examples: 2H<sub>2</sub>O<sub>2</sub> → 2H<sub>2</sub>O + O<sub>2</sub>; Cl<sub>2</sub> + 2OH<sup>−</sup> → ClO<sup>−</sup> + Cl<sup>−</sup> + H<sub>2</sub>O; 4KClO<sub>3</sub> → 3KClO<sub>4</sub> + KCl; P<sub>4</sub> + OH<sup>−</sup> → PH<sub>3</sub> + H<sub>2</sub>PO<sub>2</sub><sup>−</sup>.</p><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Dis = one element goes both ways</b> (up and down). <b>Com = two states meet</b> in one product.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub> is not disproportionation:</b> Cl is reduced but O is oxidised, two different elements.</li><li><b>NH<sub>4</sub>NO<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O is comproportionation:</b> N at −3 and +3 meet at 0.</li><li><b>F<sub>2</sub> never disproportionates</b> because it is the most electronegative element.</li><li>Changing the medium (acid to base) can run a disproportionation backwards.</li></ul></div>
+<div class="deck" data-deck="redox"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="redox"></div>
+<label class="chk done"><input type="checkbox" data-done="redox"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-bal">
+<h2>8 · Balancing redox (ion–electron method)</h2>
+<div class="big explain"><b>The big idea.</b> A balanced equation needs <b>atom balance</b> and <b>charge balance</b>. The ion–electron (half-reaction) method is preferred over the oxidation-number-change method.</div><h3>Steps (acidic medium)</h3><div class="tw"><table><tr><th>#</th><th>Step</th></tr><tr><td>1</td><td>Assign oxidation numbers</td></tr><tr><td>2</td><td>Write the net ionic equation (drop spectators)</td></tr><tr><td>3</td><td>Identify what is oxidised and reduced; split into two half-reactions</td></tr><tr><td>4</td><td>Balance atoms other than O and H</td></tr><tr><td>5</td><td>Balance O with H<sub>2</sub>O, then H with H<sup>+</sup></td></tr><tr><td>6</td><td>Balance charge by adding e<sup>−</sup> to the positive side</td></tr><tr><td>7</td><td>Multiply to equalise electrons, add the halves</td></tr><tr><td>8</td><td>Restore spectator ions to get the molecular equation</td></tr></table></div><div class="fgrid"><div class="fcard"><div class="fname">Excess oxygen (acidic)</div><div class="fml">+ H<sub>2</sub>O on the other side, + 2H<sup>+</sup> on the same side</div><div class="fnote">One H<sub>2</sub>O and 2H<sup>+</sup> per excess O</div></div><div class="fcard"><div class="fname">Basic medium</div><div class="fml">add OH<sup>−</sup> = number of H<sup>+</sup> to both sides</div><div class="fnote">Then H<sup>+</sup> + OH<sup>−</sup> → H<sub>2</sub>O</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Order matters:</b> atoms (not O, H) → O with H<sub>2</sub>O → H with H<sup>+</sup> → charge with e<sup>−</sup>.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Electrons go on the positive side.</b> MnO<sub>4</sub><sup>−</sup> + 8H<sup>+</sup> + 5e<sup>−</sup> → Mn<sup>2+</sup> + 4H<sub>2</sub>O.</li><li><b>Check both balances at the end.</b> Atoms and net charge must match.</li></ul></div><details class="worked"><summary>Worked example (acidic): Fe<sup>2+</sup> with MnO<sub>4</sub><sup>−</sup></summary><p>Fe<sup>2+</sup> → Fe<sup>3+</sup> + e<sup>−</sup> (× 5); MnO<sub>4</sub><sup>−</sup> + 8H<sup>+</sup> + 5e<sup>−</sup> → Mn<sup>2+</sup> + 4H<sub>2</sub>O. Sum: 5Fe<sup>2+</sup> + MnO<sub>4</sub><sup>−</sup> + 8H<sup>+</sup> → 5Fe<sup>3+</sup> + Mn<sup>2+</sup> + 4H<sub>2</sub>O. Molecular: 10FeSO<sub>4</sub> + 2KMnO<sub>4</sub> + 8H<sub>2</sub>SO<sub>4</sub> → 5Fe<sub>2</sub>(SO<sub>4</sub>)<sub>3</sub> + 2MnSO<sub>4</sub> + K<sub>2</sub>SO<sub>4</sub> + 8H<sub>2</sub>O.</p></details><details class="worked"><summary>Worked example (basic): ClO<sup>−</sup> with CrO<sub>2</sub><sup>−</sup></summary><p>2e<sup>−</sup> + H<sub>2</sub>O + ClO<sup>−</sup> → Cl<sup>−</sup> + 2OH<sup>−</sup> (× 3); 4OH<sup>−</sup> + CrO<sub>2</sub><sup>−</sup> → CrO<sub>4</sub><sup>2−</sup> + 2H<sub>2</sub>O + 3e<sup>−</sup> (× 2). Sum: 3ClO<sup>−</sup> + 2CrO<sub>2</sub><sup>−</sup> + 2OH<sup>−</sup> → 3Cl<sup>−</sup> + 2CrO<sub>4</sub><sup>2−</sup> + H<sub>2</sub>O.</p></details>
+<div class="deck" data-deck="bal"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="bal"></div>
+<label class="chk done"><input type="checkbox" data-done="bal"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-conc">
+<h2>9 · Concentration, dilution & mixing</h2>
+<div class="big explain"><b>The big idea.</b> A solution is a homogeneous mixture. Concentration terms are all linked, so one of them lets you find the rest. Only <b>molarity</b> changes with temperature (volume changes); molality and mole fraction do not.</div><div class="fgrid"><div class="fcard"><div class="fname">Molarity (M)</div><div class="fml">mol solute / L solution = w × 1000 / (M<sub>0</sub> × V<sub>mL</sub>)</div><div class="fnote">Millimoles = M × V(mL). Falls as T rises</div></div><div class="fcard"><div class="fname">Molality (m)</div><div class="fml">mol solute / kg solvent</div><div class="fnote">Independent of temperature</div></div><div class="fcard"><div class="fname">Mole fraction</div><div class="fml">x<sub>1</sub> = n/(n + N), x<sub>1</sub> + x<sub>2</sub> = 1</div><div class="fnote">Pure number; independent of T</div></div><div class="fcard"><div class="fname">% w/w · % w/v · % v/v</div><div class="fml">solute / solution × 100</div><div class="fnote">per 100 g · per 100 mL · per 100 mL</div></div><div class="fcard"><div class="fname">ppm (by mass)</div><div class="fml">mass of A / total mass × 10<sup>6</sup></div><div class="fnote">100 ppm = 100 g in 10<sup>6</sup> g</div></div><div class="fcard"><div class="fname">Dilution / mixing</div><div class="fml">M<sub>1</sub>V<sub>1</sub> = M<sub>2</sub>V<sub>2</sub> · M<sub>R</sub> = (M<sub>1</sub>V<sub>1</sub> + M<sub>2</sub>V<sub>2</sub>)/(V<sub>1</sub> + V<sub>2</sub>)</div><div class="fnote">Same solute only</div></div></div><div class="hook"><b class="t">Memory hooks</b><ul><li><b>Molarity = per litre of solution; molality = per kg of solvent.</b> M for Mixture of volumes, m for mass.</li></ul></div><div class="trap"><b class="t">Traps and exceptions</b><ul><li><b>Mixing acids with different ions:</b> 200 mL 1 M HCl + 100 mL 0.5 M H<sub>2</sub>SO<sub>4</sub> gives [H<sup>+</sup>] = (200 + 100 × 0.5 × 2)/300 = 1 M.</li><li><b>% w/w uses the mass of the whole solution</b> in the denominator (0.5 g in 25 g solvent: 0.5/25.5 = 1.96 %).</li><li><b>Source typo:</b> the urea example says 225 g of solution but subtracts from 255. With 225 g, the solvent is 220 g and m ≈ 0.38; the PDF's 0.332 uses 250 g.</li></ul></div><details class="worked"><summary>Worked example: 149 g KCl (74.5) in 10 L of solution</summary><p>149/74.5 = 2 mol; M = 2/10 = 0.2 M.</p></details><div class="play"><h4>Playground: dilution and mixing</h4><p class="fnote">Set the second solution to 0 M for a pure dilution with water (V<sub>2</sub> = water added).</p><div class="row"><label class="f">M<sub>1</sub><input type="number" id="cn-a" step="any" value="1"></label><label class="f">V<sub>1</sub> (mL)<input type="number" id="cn-b" step="any" value="200"></label><label class="f">M<sub>2</sub><input type="number" id="cn-c" step="any" value="0.5"></label><label class="f">V<sub>2</sub> (mL)<input type="number" id="cn-d" step="any" value="100"></label></div><div class="out" id="cnOut"></div></div>
+<div class="deck" data-deck="conc"><h4>Flashcards</h4></div>
+<div class="quiz" data-quiz="conc"></div>
+<label class="chk done"><input type="checkbox" data-done="conc"> I have revised this topic</label>
+</section>
+
+<section class="topic" id="t-weak">
+<h2>My weak cards</h2>
+<p class="sub">Every card you mark "Revise again" is collected here from all topics.</p>
+<div class="deck" id="weakDeck"></div>
+<button class="btn sm" id="resetCards">Reset all card progress</button>
+</section>
+
+<p class="foot">Built from the Vyas Edification "Mole Concept" notes (theory, sections A to I). Your progress is saved in this browser only.</p>
+</div>
 <script>
-const Q=[
-{s:'A',src:'T2 Ex-2 Q1 (NEET level)',q:'Weight of 1×10²² molecules of CuSO₄·5H₂O?',o:['41.59 g','415.9 g','4.159 g','8.31 g'],a:2,sol:'Molar mass = 250 g/mol. Moles = 10²²/6.022×10²³ = 0.0166. Mass = 0.0166×250 ≈ 4.159 g.'},
-{s:'A',src:'T2 Ex-3 Q1 · JEE Main 2019',q:'5 moles of AB₂ weigh 125×10⁻³ kg and 10 moles of A₂B₂ weigh 300×10⁻³ kg. The molar masses of A (M_A) and B (M_B) in kg mol⁻¹ are:',o:['M_A = 25×10⁻³, M_B = 50×10⁻³','M_A = 5×10⁻³, M_B = 10×10⁻³','M_A = 10×10⁻³, M_B = 5×10⁻³','M_A = 50×10⁻³, M_B = 25×10⁻³'],a:1,sol:'A+2B = 25×10⁻³; 2A+2B = 30×10⁻³. Subtract: A = 5×10⁻³, so B = 10×10⁻³.'},
-{s:'A',src:'T2 Ex-3 Q5 · JEE Main 2026',q:'Match List-I (mass) with List-II (number of atoms):\nA. 1.8 mg water      I. 2×10⁻⁴ × N_A\nB. 9.8 mg sulphuric acid   II. 1.5×10⁻⁴ × N_A\nC. 1.8 mg carbon      III. 3×10⁻⁴ × N_A\nD. 5.85 mg NaCl      IV. 7×10⁻⁴ × N_A',o:['A-IV, B-III, C-I, D-II','A-III, B-II, C-IV, D-I','A-III, B-IV, C-II, D-I','A-III, B-IV, C-I, D-II'],a:2,sol:'Water: (1.8×10⁻³/18)×3 = 3×10⁻⁴. H₂SO₄: (9.8×10⁻³/98)×7 = 7×10⁻⁴. C: (1.8×10⁻³/12) = 1.5×10⁻⁴. NaCl: (5.85×10⁻³/58.5)×2 = 2×10⁻⁴. So A-III, B-IV, C-II, D-I.'},
-{s:'A',src:'T2 Ex-3 Q6 · JEE Main 2025',q:'0.1 mol of the antiviral compound (P), molecular formula C₉H₁₀FIN₂O₅, will weigh ___ g.',o:['3.72 g','37.2 g','372 g','0.372 g'],a:1,sol:'M = 9(12)+10(1)+19+127+2(14)+5(16) = 372 g/mol. 0.1 mol = 37.2 g.'},
-{s:'A',src:'T2 Ex-3 Q7 · JEE Main 2022',q:'The number of N atoms in 681 g of C₇H₅N₃O₆ is x×10²¹. The value of x is:',o:['1806','3612','5418','7224'],a:2,sol:'M = 84+5+42+96 = 227. Moles = 681/227 = 3. N atoms = 3×3 = 9 mol = 9×6.02×10²³ = 5418×10²¹. Pick exactly one option.'},
-{s:'A',src:'T2 Ex-3 Q10 · JEE Main 2024',q:'A sample of CaCO₃ and MgCO₃ weighing 2.21 g is ignited to a constant weight of 1.152 g. The composition of the mixture is (molar mass: CaCO₃ = 100, MgCO₃ = 84):',o:['1.023 g CaCO₃ + 1.187 g MgCO₃','1.023 g CaCO₃ + 1.023 g MgCO₃','1.187 g CaCO₃ + 1.187 g MgCO₃','1.187 g CaCO₃ + 1.023 g MgCO₃'],a:3,sol:'x+y = 2.21 and 0.56x + (40/84)y = 1.152. Solving: x = 1.187 g (CaCO₃), y = 1.023 g (MgCO₃).'},
-{s:'A',src:'T2 Ex-4 Q3 · JEE Advanced 2011',q:'mL of 0.1 M AgNO₃ required for complete precipitation of Cl⁻ in 30 mL of 0.01 M [Cr(H₂O)₅Cl]Cl₂ is:',o:['3','8','6','5'],a:2,sol:'Only 2 Cl⁻ are ionisable. mmol complex = 30×0.01 = 0.3, so mmol Cl⁻ = 0.6. Volume of AgNO₃ = 0.6/0.1 = 6 mL.'},
-{s:'A',src:'T3 Ex-1 Q18 · POAC',q:'0.2 mol MgCO₃ and 0.1 mol CaCO₃ are heated together completely to give oxides and CO₂. Total moles of CO₂ evolved (without double-counting O in both carbonate and oxide)?',o:['0.1','0.2','0.3','0.6'],a:2,sol:'Each carbonate gives exactly 1 CO₂ (C is conserved once). Total = 0.2 + 0.1 = 0.3 mol.'},
-{s:'A',src:'T3 Ex-2 Q4 · NEET level',q:'A sample containing 1.2 mol carbon atoms undergoes partial combustion, producing only CO and CO₂. If 0.4 mol CO₂ is formed, find the moles of CO formed.',o:['0.4','0.6','0.8','1.0'],a:2,sol:'POAC on C: 1.2 = n(CO) + 0.4, so n(CO) = 0.8 mol.'},
-{s:'A',src:'T3 Ex-2 Q7 · NEET level',q:'FeS₂ is roasted in excess O₂; the SO₂ formed is converted completely (100% yield) to SO₃ and then to H₂SO₄. If 12 g of FeS₂ (M = 120) is roasted, find the mass of H₂SO₄ (M = 98) finally obtained. Use POAC on the correct element; do not balance the equations.',o:['9.8 g','14.7 g','19.6 g','24.5 g'],a:2,sol:'Track S (Fe leaves as Fe₂O₃). mol FeS₂ = 12/120 = 0.1, so S = 0.2 mol = mol H₂SO₄. Mass = 0.2×98 = 19.6 g.'},
-{s:'A',src:'T3 Ex-3 Q2 · JEE Main level',q:'How many moles of KI are required to produce 0.4 mol K₂HgI₄ from HgCl₂?',o:['0.4','0.8','3.2','1.6'],a:3,sol:'Each K₂HgI₄ contains 4 I. POAC on I: mol KI = 4×0.4 = 1.6.'},
-{s:'A',src:'T3 Ex-3 Q4 · JEE Main 2023',q:'A hydrocarbon A on combustion requires 9.5 equivalents of oxygen and produces 3 equivalents of water. The molecular formula of A is:',o:['C₉H₉','C₆H₆','C₉H₆','C₈H₆'],a:3,sol:'CₓHᵧ + (x+y/4)O₂ → xCO₂ + (y/2)H₂O. y/2 = 3 so y = 6; x + 6/4 = 9.5 so x = 8. Formula C₈H₆.'},
-{s:'A',src:'T3 Ex-3 Q5 · JEE Main 2023',q:'A hydrocarbon A on complete combustion requires 11 equivalents of oxygen and produces 4 equivalents of water. The molecular formula of A is:',o:['C₁₁H₈','C₁₁H₄','C₅H₈','C₉H₈'],a:3,sol:'y/2 = 4 so y = 8; x + 8/4 = 11 so x = 9. Formula C₉H₈.'},
-{s:'A',src:'T4 Ex-2 Q1 · NEET 2021',q:'An organic compound contains 78% (by wt.) carbon and the remaining percentage of hydrogen. The right option for the empirical formula of this compound is: [C = 12, H = 1]',o:['CH','CH₂','CH₃','CH₄'],a:2,sol:'Per 100 g: C = 78 g = 6.5 mol; H = 22 g = 22 mol. Ratio C:H = 1 : 3.38, which is about 1 : 3, so the empirical formula is CH₃.'},
-{s:'A',src:'T7 Ex-2 Q4 · NEET level',q:'A gas mixture is 40% CO₂ and 60% SO₂ by mass. What is the mole fraction of CO₂? (CO₂ = 44, SO₂ = 64)',o:['0.35','0.42','0.49','0.55'],a:2,sol:'On a 100 g basis: mol CO₂ = 40/44 = 0.909; mol SO₂ = 60/64 = 0.9375. Mole fraction of CO₂ = 0.909/(0.909+0.9375) = 0.49. Do not round both to 0.9.'},
-{s:'A',src:'T7 Ex-3 Q1 · JEE Main level',q:'The mole fraction of ethanol in an ethanol–water mixture is 0.25. Its mass percentage is:',o:['25%','75%','46%','54%'],a:2,sol:'Take 1 mol of mixture: ethanol = 0.25×46 = 11.5 g; water = 0.75×18 = 13.5 g. Mass% ethanol = 11.5/25 = 46%.'},
-{s:'A',src:'T7 Ex-3 Q4 · JEE Main level',q:'For PCl₅(g) ⇌ PCl₃(g) + Cl₂(g), 2 mol of PCl₅ is placed in a 10 L flask. At equilibrium the average molar mass of the mixture is 174. The degree of dissociation α is:',o:['0.10','0.15','0.20','0.25'],a:2,sol:'M(PCl₅) = 208.5. M_avg = 208.5/(1+α) = 174, so 1+α = 1.198 and α is about 0.20.'},
-{s:'A',src:'T7 Ex-4 Q7 · JEE Advanced level',q:'Match List-I with List-II.\nA. XeF₄ (207) and XeF₆ (245) mixture, average 229.8: mole% of XeF₆   I. 60\nB. Uranium (²³⁵U, ²³⁸U), average 237.43: % of ²³⁵U   II. 19\nC. Pure N₂O₅ (108) to 2NO₂ + ½O₂, vapour density 28.42: α   III. 0.6\nD. UF₆ (352) and OsO₄ (254) in equal masses: average molar mass   IV. 295.1',o:['A-I, B-II, C-III, D-IV','A-II, B-I, C-IV, D-III','A-III, B-IV, C-I, D-II','A-IV, B-III, C-II, D-I'],a:0,sol:'A: 207x + 245(1−x) = 229.8, so x(XeF₄) = 0.4 and XeF₆ = 60% (I). B: 235x + 238(100−x) = 23743, so x = 19% (II). C: M_avg = 2×28.42 = 56.84 = 108/(1+1.5α), so α = 0.6 (III). D: 1 mol UF₆ + 1.386 mol OsO₄; M_avg = 704/2.386 = 295.1 (IV). This is a single-answer match code, not a multi-select.'},
-{s:'B',m:1,src:'T2 Ex-4 Q7 · JEE Advanced level',q:'Consider (NH₄)₃PO₄ (N = 14, H = 1, P = 31, O = 16). Which statements are correct?',o:['Its formula mass is 149 u.','One formula unit contains 15 atoms.','Complete dissociation gives 7 ions per formula unit.','The total number of electrons in one neutral formula unit is 74.'],a:[0],sol:'Mass = 3(18)+31+64 = 149 u (A true). Atoms = 3N+12H+P+4O = 20 (B false). Ions = 3 NH₄⁺ + 1 PO₄³⁻ = 4 (C false). Electrons = 21+12+15+32 = 80 (D false). Answer: A only.'},
-{s:'B',m:1,src:'T2 Ex-4 Q9 · JEE Advanced level',q:'Consider the species CO₃²⁻, NO₃⁻, NH₄⁺, OH⁻. Which statements are correct?',o:['CO₃²⁻ and NO₃⁻ contain the same number of electrons.','NH₄⁺ contains 22 fewer electrons than CO₃²⁻.','OH⁻ and NH₄⁺ contain the same number of electrons.','The total number of atoms in CO₃²⁻ is greater than that in NH₄⁺.'],a:[0,1,2],sol:'Electrons: CO₃²⁻ = 32, NO₃⁻ = 32, NH₄⁺ = 10, OH⁻ = 10. A, B (32−10 = 22), C true. Atoms: CO₃²⁻ = 4, NH₄⁺ = 5, so D false. Answer: A, B, C.'},
-{s:'B',m:1,src:'T3 Ex-4 Q4 · JEE Advanced level',q:'33.1 g of Pb(NO₃)₂ (M = 331) decomposes completely: 2Pb(NO₃)₂ → 2PbO + 4NO₂ + O₂. Which statements are correct?',o:['Moles of PbO formed = 0.1','Moles of Pb atoms conserved through the reaction = 0.2','Moles of O₂ formed = 0.05','Moles of NO₂ formed = 0.2'],a:[0,2,3],sol:'mol Pb(NO₃)₂ = 0.1. POAC on Pb: PbO = 0.1 (A true), Pb conserved = 0.1 not 0.2 (B false). From the 2:4:1 ratio: NO₂ = 0.2 (D true), O₂ = 0.05 (C true). Answer: A, C, D.'},
-{s:'B',m:1,src:'T7 Ex-4 Q3 · JEE Advanced level',q:'2 mol of N₂O₄(g) (M = 92) is taken in a sealed flask and reaches equilibrium N₂O₄ ⇌ 2NO₂. At equilibrium the vapour density of the mixture is 30.67. Which statements are correct?',o:['The average molecular mass of the equilibrium mixture is 61.34','The degree of dissociation α = 0.5','Total moles of gas at equilibrium = 3','If repeated with 4 mol of N₂O₄ instead of 2 mol, α would remain unchanged'],a:[0,1,2],sol:'M_avg = 2×30.67 = 61.34 (A true). M_avg = 92/(1+α), so 1+α = 1.5 and α = 0.5 (B true). Total moles = 2×1.5 = 3 (C true). Doubling the moles without scaling the volume changes the concentrations, so α changes (D not guaranteed). Answer: A, B, C.'},
-{s:'C',src:'T2 Ex-3 Q9 · JEE Main 2021 (NAT)',q:'The NaNO₃ weighed out to make 50 mL of an aqueous solution containing 70.0 mg Na⁺ per mL is ___ g. (Round off to the nearest integer. Na = 23, N = 14, O = 16)',n:1,a:13,sol:'Na⁺ = 70×50 = 3500 mg = 3.5 g. Moles = 3.5/23. Mass NaNO₃ = (3.5/23)×85 = 12.9 ≈ 13 g.'},
-{s:'C',n:1,src:'T3 Ex-4 Q10 · JEE Advanced level (NAT)',q:'Hydrated thorium(IV) nitrate, Th(NO₃)₄·xH₂O, weighing 28.5 g is heated and loses exactly 4.5 g of water, leaving anhydrous Th(NO₃)₄ (M = 480). This residue is dissolved in water and treated with excess NaOH, precipitating all the thorium as Th(OH)₄ (M = 300). Find the mass (in g) of Th(OH)₄ precipitated.',a:15,sol:'Anhydrous salt = 28.5 − 4.5 = 24.0 g; mol = 24.0/480 = 0.05. POAC on Th (1:1): mol Th(OH)₄ = 0.05; mass = 0.05×300 = 15.0 g.'},
-{s:'C',n:1,t:0.01,src:'T7 Ex-3 Q6 · JEE Main level (NAT)',q:'Naturally occurring chlorine is 75.77% chlorine-35 (5.807×10⁻²³ g per atom) and 24.23% chlorine-37 (6.139×10⁻²³ g per atom). Using N_A = 6.0221×10²³ mol⁻¹, find its average molar mass in g/mol (two decimal places).',a:35.45,sol:'Average atom mass = 0.7577(5.807×10⁻²³) + 0.2423(6.139×10⁻²³) = 5.887×10⁻²³ g. Molar mass = 5.887×10⁻²³ × 6.0221×10²³ = 35.45 g/mol. The weights are the abundances (0.7577 and 0.2423).'},
-{s:'C',n:1,t:0.0015,src:'T7 Ex-3 Q7 · JEE Main level (NAT)',q:'Naturally occurring neon contains 90.92% of an isotope of mass 19.99244 u, 0.257% of an isotope of mass 20.99395 u, and 8.82% of an isotope of mass 21.99138 u. Find its average atomic mass in u (three decimal places).',a:20.171,sol:'Convert percentages to fractions first: 0.9092(19.99244) + 0.00257(20.99395) + 0.0882(21.99138) = 18.1771 + 0.0540 + 1.9396 = 20.171 u.'},
-{s:'C',n:1,t:0.002,src:'T7 Ex-3 Q9 · JEE Main level (NAT)',q:'An antifreeze solution is made by mixing 457 g ethylene glycol, C₂H₆O₂ (62.07 g/mol), with 521 g water (18.02 g/mol). Find the mole fraction of ethylene glycol (three decimal places).',a:0.203,sol:'mol glycol = 457/62.07 = 7.363; mol water = 521/18.02 = 28.91. x = 7.363/(7.363+28.91) = 0.203. (Mass % = 457/978 = 46.7%.)'},
-{s:'C',n:1,t:0.05,src:'T7 Ex-3 Q10 · JEE Main level (NAT)',q:'An aqueous NaCl solution contains 25% salt by weight. Find the mole % of NaCl. (Na = 23, Cl = 35.5, H₂O = 18)',a:9.3,sol:'Per 100 g: NaCl = 25/58.5 = 0.427 mol; water = 75/18 = 4.167 mol. Mole% = 0.427/(0.427+4.167) × 100 = 9.3.'},
-{s:'C',n:1,t:0.005,src:'T7 Ex-4 Q8 · JEE Advanced level (NAT)',q:'An industrial drain cleaner contains 5.00 kg of water and 5.00 kg of NaOH. Find the mole fraction of water (two decimal places).',a:0.69,sol:'mol water = 5000/18 = 277.8; mol NaOH = 5000/40 = 125. x(H₂O) = 277.8/402.8 = 0.69. (x(NaOH) = 0.31; each mass fraction is 0.50.)'}];
-const L='ABCD';let cur=0,ans=[],st=[],tl=0,iv;
-function begin(){tl=+document.getElementById('mins').value*60;ans=Q.map(()=>null);st=Q.map(()=>0);
- document.getElementById('start').classList.add('hide');document.getElementById('test').classList.remove('hide');
- iv=setInterval(()=>{tl--;tick();if(tl<=0)submitT(true)},1000);tick();show(0)}
-function tick(){const m=Math.floor(tl/60),s=tl%60;document.getElementById('tm').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')}
-// st: 0 not visited,1 not answered,2 answered,3 marked,4 answered+marked
-function show(i){cur=i;if(st[i]==0)st[i]=1;const q=Q[i];
- qn.textContent='Question '+(i+1);sec.textContent='Section '+q.s+(q.n?' · Numerical':q.m?' · Multiple correct':' · MCQ');src.textContent=q.src;qt.textContent=q.q;
- op.innerHTML=q.n?'<p>Your answer (integer):</p><input type="number" id="num" value="'+(ans[i]??'')+'" oninput="ans[cur]=this.value===\'\'?null:this.value">':
- q.o.map((t,k)=>{const on=q.m?(ans[i]||[]).includes(k):ans[i]===k;return '<label class="opt'+(on?' sel':'')+'"><input type="'+(q.m?'checkbox':'radio')+'" '+(on?'checked':'')+' onclick="pick('+k+')"> ('+L[k]+') '+t+'</label>'}).join('');
- pal()}
-function pick(k){const q=Q[cur];if(q.m){let a=ans[cur]||[];a=a.includes(k)?a.filter(x=>x!=k):[...a,k];ans[cur]=a.length?a:null}else ans[cur]=k;show(cur)}
-function pal(){document.getElementById('pal').innerHTML=Q.map((_,i)=>'<button class="pb '+['','nv','an','mk','am'][st[i]]+(i==cur?' cur':'')+'" onclick="show('+i+')">'+(i+1)+'</button>').join('')}
-function has(i){return ans[i]!==null&&ans[i]!==''}
-function save(){st[cur]=has(cur)?2:1;next()}
-function mark(){st[cur]=has(cur)?4:3;next()}
-function clr(){ans[cur]=null;st[cur]=1;show(cur)}
-function next(){show(cur<Q.length-1?cur+1:cur)}
-function submitT(auto){if(!auto&&!confirm('Submit the test now?'))return;clearInterval(iv);
- let sc=0,c=0,w=0,sk=0,rows='<tr><th>#</th><th>Source</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Solution</th></tr>';
- Q.forEach((q,i)=>{const a=ans[i],h=a!==null&&a!=='';let r,ya=h?(q.n?a:q.m?a.map(x=>L[x]).join(', '):L[a]):'—',ca=q.n?q.a:q.m?q.a.map(x=>L[x]).join(', '):L[q.a]+') '+q.o[q.a];
-  if(!h){sk++;r='<span class="sk">Skipped</span>'}else if(q.n?(Math.abs(+a-q.a)<=(q.t||1e-9)):q.m?(a.slice().sort().join()===q.a.join()):(a===q.a)){c++;sc+=4;r='<span class="ok">Correct +4</span>'}else{w++;const pn=q.n?0:q.m?2:1;sc-=pn;r='<span class="bad">Wrong '+(pn?'−'+pn:'0')+'</span>'}
-  rows+='<tr><td>'+(i+1)+'</td><td>'+q.src+'</td><td>'+ya+'</td><td>'+ca+'</td><td>'+r+'</td><td>'+q.sol+'</td></tr>'});
- document.getElementById('test').classList.add('hide');document.getElementById('res').classList.remove('hide');
- sc_.innerHTML='<p style="font-size:20px"><b>Score: '+sc+' / '+Q.length*4+'</b></p><p>Correct: '+c+' · Wrong: '+w+' · Skipped: '+sk+'</p>';rt.innerHTML=rows}
-const sc_=document.getElementById('sc');
-</script></body></html>
+(function(){
+'use strict';
+var mem={};
+var store={
+  get:function(k,d){try{var v=localStorage.getItem('mc1_'+k);if(v===null)return (k in mem)?mem[k]:d;return JSON.parse(v)}catch(e){return (k in mem)?mem[k]:d}},
+  set:function(k,v){mem[k]=v;try{localStorage.setItem('mc1_'+k,JSON.stringify(v))}catch(e){}}
+};
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function fmt(x){var a=Math.abs(x);if(a>=1e4||(a<1e-2&&a>0))return x.toExponential(3);return String(+x.toPrecision(4))}
+var TOPICNAME={mole:"Mole & molar mass",avg:"Average mass & formulas",stoich:"Stoichiometry",lr:"Limiting reagent",poac:"POAC",ox:"Oxidation number",redox:"Redox types",bal:"Balancing redox",conc:"Concentration"};
+var DECK={
+mole:[
+[`State Dalton's atomic theory.`,`Matter is made of tiny indivisible atoms; atoms of one element are identical; atoms are not created or destroyed in a chemical process; atoms of different elements differ.`],
+[`Define 1 amu.`,`(1/12) of the mass of one C-12 atom = 1.66 × 10<sup>−24</sup> g (also 1 Dalton, or u).`],
+[`What is relative atomic mass, and what does it equal numerically?`,`Mass of one atom ÷ (1/12 mass of a C-12 atom). It equals the number of nucleons (O = 16).`],
+[`Define the mole.`,`The amount of substance containing as many entities as there are atoms in exactly 12 g of C-12: N<sub>A</sub> = 6.02 × 10<sup>23</sup>.`],
+[`Gram atomic mass versus gram molecular mass?`,`Mass of one mole of atoms (O = 16 g) versus one mole of molecules (O<sub>2</sub> = 32 g).`],
+[`What are STP and the molar volume?`,`273 K and 1 atm (760 mm Hg); 1 mol of any gas occupies 22.4 L.`],
+[`State Avogadro's hypothesis.`,`Equal volumes of all gases at the same T and P contain equal numbers of <b>molecules</b> (not atoms).`],
+[`State Gay-Lussac's law.`,`Gases combine in simple ratios of volumes at the same T and P: H<sub>2</sub> + Cl<sub>2</sub> → 2HCl is 1 : 1 : 2.`],
+[`Interconvert mass, particles and volume.`,`Mole = mass/M = N/N<sub>A</sub> = V(STP)/22.4 L.`],
+[`Moles of O atoms in 294 g H<sub>2</sub>SO<sub>4</sub>?`,`294/98 = 3 mol of H<sub>2</sub>SO<sub>4</sub> × 4 = <b>12 mol</b> O.`]
+],
+avg:[
+[`Formula for average atomic mass?`,`Σ(a<sub>i</sub>x<sub>i</sub>)/100, with a<sub>i</sub> isotopic masses and x<sub>i</sub> mole percentages.`],
+[`Average atomic mass of Cl (75 % Cl-35, 25 % Cl-37)?`,`(75 × 35 + 25 × 37)/100 = <b>35.5 amu</b>.`],
+[`Formula for mean molar mass of a mixture?`,`(n<sub>1</sub>M<sub>1</sub> + n<sub>2</sub>M<sub>2</sub> + …)/(n<sub>1</sub> + n<sub>2</sub> + …).`],
+[`Mass % of N and H in NH<sub>3</sub>?`,`N = 14/17 × 100 = 82.35 %; H = 3/17 × 100 = 17.65 %.`],
+[`Empirical versus molecular formula?`,`Empirical: simplest whole-number ratio of atoms. Molecular: actual number. Molecular = n × empirical.`],
+[`How do you find n?`,`n = molecular formula mass / empirical formula mass.`],
+[`Steps to get an empirical formula from percentages?`,`% ÷ atomic mass → ÷ smallest value → multiply to get whole numbers.`],
+[`Molecular formula of acetylene (M = 26) and benzene (M = 78), empirical CH?`,`n = 26/13 = 2 and 78/13 = 6: C<sub>2</sub>H<sub>2</sub> and C<sub>6</sub>H<sub>6</sub>.`],
+[`Vapour density of N<sub>2</sub>O<sub>5</sub>?`,`M/2 = 108/2 = <b>54</b>.`]
+],
+stoich:[
+[`Attributes of a balanced equation?`,`Atom balance (POAC), charge balance, physical states shown, molecular forms, coefficients as molar ratios.`],
+[`Mass–mass relation for 2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub>?`,`m(KClO<sub>3</sub>)/(2 × 122.5) = m(KCl)/(2 × 74.5) = m(O<sub>2</sub>)/(3 × 32).`],
+[`Mass–volume relation for the same reaction?`,`m(KClO<sub>3</sub>)/(2 × 122.5) = V(O<sub>2</sub>)/(3 × 22.4 L) at STP.`],
+[`General mole–mole relation?`,`For aA + bB → cC + dD: n<sub>A</sub>/a = n<sub>B</sub>/b = n<sub>C</sub>/c = n<sub>D</sub>/d.`],
+[`Balance: KClO<sub>3</sub> → KCl + O<sub>2</sub>.`,`2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub>.`],
+[`Mass of KCl from 367.5 g KClO<sub>3</sub>?`,`3 mol × 74.5 = <b>223.5 g</b>.`],
+[`170 g NH<sub>3</sub> decomposes (NH<sub>3</sub> → ½N<sub>2</sub> + 3/2 H<sub>2</sub>). Mass of N<sub>2</sub> and H<sub>2</sub>?`,`10 mol NH<sub>3</sub> → 5 mol N<sub>2</sub> = 140 g; 15 mol H<sub>2</sub> = 30 g.`],
+[`Is mass conserved in N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub>?`,`Yes: 28 + 6 = 34 g before and 2 × 17 = 34 g after, though moles of molecules change.`]
+],
+lr:[
+[`Define limiting reagent.`,`The reactant consumed first; it limits the amount of product. The one left over is the excess reagent.`],
+[`When is there no limiting reagent?`,`When the given moles are exactly in the ratio of the stoichiometric coefficients.`],
+[`How do you find the limiting reagent?`,`Divide moles by coefficient for each reactant; the smallest value is the limiting reagent.`],
+[`After finding it, what next?`,`Base all product calculations on the limiting reagent only.`],
+[`6 mol Na<sub>2</sub>CO<sub>3</sub> + 4 mol HCl: limiting reagent and CO<sub>2</sub> volume?`,`HCl (4/2 = 2 &lt; 6/1). CO<sub>2</sub> = 2 mol = 44.8 L at STP.`],
+[`3 mol Na<sub>2</sub>CO<sub>3</sub> + 6 mol HCl: CO<sub>2</sub> at STP?`,`Exact ratio 1 : 2, so 3 mol CO<sub>2</sub> = 67.2 L; nothing is left over.`],
+[`4 mol MgCO<sub>3</sub> + 6 mol HCl: CO<sub>2</sub> at STP?`,`HCl is limiting (6/2 = 3 &lt; 4). 3 mol = 67.2 L.`],
+[`Formula for % yield?`,`Actual yield / theoretical yield × 100 (standard definition).`]
+],
+poac:[
+[`State POAC.`,`Atoms (and so moles of atoms) are conserved in a chemical reaction, but not in nuclear reactions.`],
+[`When is POAC most useful?`,`When the balanced equation is unknown or there are many steps: follow one atom from reactant to product.`],
+[`Moles of an atom in a compound?`,`Atoms per formula unit × moles of the compound.`],
+[`POAC for O in KClO<sub>3</sub> → KCl + O<sub>2</sub>?`,`3 n(KClO<sub>3</sub>) = 2 n(O<sub>2</sub>), i.e. 3 × w/M = 2 × V/22.4.`],
+[`POAC for K in the same reaction?`,`n(KClO<sub>3</sub>) = n(KCl).`],
+[`How many C atoms in K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub>?`,`2 × 6 = <b>12</b>.`],
+[`Mass of K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub> from 27.6 g K<sub>2</sub>CO<sub>3</sub>, all C conserved?`,`0.2 mol C → 0.2/12 mol × 698 = <b>11.6 g</b>.`],
+[`0.32 mol LiAlH<sub>4</sub> gives LiAlHC<sub>12</sub>H<sub>27</sub>O<sub>3</sub> (M = 254), Li conserved. Mass?`,`0.32 × 254 = <b>81.28 g</b>.`]
+],
+ox:[
+[`Define oxidation number.`,`An imaginary charge on an atom, found by giving bonding electrons wholly to the more electronegative atom.`],
+[`Oxidation number of F and of alkali metals?`,`F is always −1; alkali metals are always +1.`],
+[`Oxidation number of O in peroxide, superoxide, ozonide, OF<sub>2</sub>, O<sub>2</sub>F<sub>2</sub>?`,`−1, −1/2, −1/3, +2, +1.`],
+[`When is H not +1?`,`In metal hydrides (NaH, KH) it is −1.`],
+[`When do Cl, Br, I show positive numbers?`,`When bonded to a more electronegative atom, e.g. KClO<sub>3</sub> (+5), HClO<sub>4</sub> (+7).`],
+[`Oxidation number of a free element or allotrope?`,`Zero: O<sub>2</sub>, S<sub>8</sub>, P<sub>4</sub>, O<sub>3</sub>.`],
+[`Range for a p-block element in group n?`,`(n − 10) to (n − 18); N: −3 to +5.`],
+[`Sum rules?`,`Zero for a neutral molecule; equal to the charge for an ion.`],
+[`Oxidation number of S in Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> and Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub>?`,`+2 and +2.5 (averages over the S atoms).`]
+],
+redox:[
+[`Define oxidising agent.`,`It oxidises others and is itself reduced: its oxidation number falls (gain of electrons). E.g. KMnO<sub>4</sub>, K<sub>2</sub>Cr<sub>2</sub>O<sub>7</sub>, HNO<sub>3</sub>, conc. H<sub>2</sub>SO<sub>4</sub>.`],
+[`Define reducing agent.`,`It reduces others and is itself oxidised: oxidation number rises (loss of electrons). E.g. K, Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>.`],
+[`Which species act as both?`,`H<sub>2</sub>O<sub>2</sub> and NO<sub>2</sub><sup>−</sup>.`],
+[`What is a redox reaction?`,`Oxidation and reduction occur together; total increase in oxidation number = total decrease.`],
+[`Define disproportionation.`,`The same element, in an intermediate oxidation state, is both oxidised and reduced.`],
+[`Is 2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub> a disproportionation?`,`No. Cl is reduced and O is oxidised: two different elements.`],
+[`What is comproportionation?`,`Reverse of disproportionation: one element from two different oxidation states goes to a single state, e.g. NH<sub>4</sub>NO<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O.`],
+[`Name an element that cannot disproportionate.`,`<b>F<sub>2</sub></b>, the most electronegative element.`]
+],
+bal:[
+[`Two criteria for a balanced equation?`,`Atom (mass) balance and charge balance.`],
+[`Which method is advised for balancing redox?`,`The ion–electron (half-reaction) method.`],
+[`How do you balance one excess O in acidic medium?`,`Add one H<sub>2</sub>O on the other side and 2H<sup>+</sup> on the same side as the excess O.`],
+[`Where are electrons added to balance charge?`,`To the electrically positive side of each half-reaction.`],
+[`How does the basic-medium method differ?`,`After balancing with H<sup>+</sup>, add as many OH<sup>−</sup> to both sides as there are H<sup>+</sup>, and combine H<sup>+</sup> + OH<sup>−</sup> into H<sub>2</sub>O.`],
+[`Reduction half-reaction of MnO<sub>4</sub><sup>−</sup> (acidic)?`,`5e<sup>−</sup> + 8H<sup>+</sup> + MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup> + 4H<sub>2</sub>O.`],
+[`Balanced ionic equation for Fe<sup>2+</sup> with MnO<sub>4</sub><sup>−</sup>?`,`5Fe<sup>2+</sup> + MnO<sub>4</sub><sup>−</sup> + 8H<sup>+</sup> → 5Fe<sup>3+</sup> + Mn<sup>2+</sup> + 4H<sub>2</sub>O.`],
+[`Balance H<sub>2</sub>O<sub>2</sub> + MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup> + O<sub>2</sub> (acidic).`,`6H<sup>+</sup> + 5H<sub>2</sub>O<sub>2</sub> + 2MnO<sub>4</sub><sup>−</sup> → 2Mn<sup>2+</sup> + 5O<sub>2</sub> + 8H<sub>2</sub>O.`],
+[`Balance NH<sub>3</sub> → N<sub>2</sub> + H<sub>2</sub> (no medium needed).`,`2NH<sub>3</sub> → N<sub>2</sub> + 3H<sub>2</sub>.`]
+],
+conc:[
+[`Define molarity.`,`Moles of solute per litre of solution: M = w × 1000 / (M<sub>0</sub> × V<sub>mL</sub>).`],
+[`Define molality.`,`Moles of solute per 1000 g (1 kg) of solvent.`],
+[`Mole fraction of solute and solvent?`,`x<sub>1</sub> = n/(n + N), x<sub>2</sub> = N/(n + N); x<sub>1</sub> + x<sub>2</sub> = 1.`],
+[`Which terms depend on temperature?`,`Molarity only (it varies inversely with temperature). Molality and mole fraction do not.`],
+[`Define % w/w, % w/v, % v/v.`,`Solute per 100 g of solution; mass of solute per 100 mL; volume of solute per 100 mL of solution.`],
+[`Define ppm.`,`Parts of solute per 10<sup>6</sup> parts of solution (by mass unless stated): mass fraction × 10<sup>6</sup>.`],
+[`Dilution formula?`,`M<sub>1</sub>V<sub>1</sub> = M<sub>2</sub>V<sub>2</sub>.`],
+[`Resultant molarity on mixing two solutions of the same solute?`,`M<sub>R</sub> = (M<sub>1</sub>V<sub>1</sub> + M<sub>2</sub>V<sub>2</sub>)/(V<sub>1</sub> + V<sub>2</sub>).`],
+[`Molarity of 117 g NaCl (58.5) in 500 mL?`,`2 mol / 0.5 L = <b>4 M</b>.`],
+[`Molality of 18 g glucose (180) in a 518 g solution?`,`Solvent = 500 g; 0.1 mol/0.5 kg = <b>0.2 m</b>.`]
+]};
+var QUIZ={
+mole:[
+{q:`How many O atoms are in 16 g of oxygen atoms?`,o:[`6.02 × 10<sup>22</sup>`,`6.02 × 10<sup>23</sup>`,`1.2 × 10<sup>24</sup>`,`3.01 × 10<sup>23</sup>`],a:1,e:`16 g of O atoms is 1 mol, so N<sub>A</sub> atoms.`},
+{q:`Volume of 20 g of H<sub>2</sub> at STP?`,o:[`22.4 L`,`112 L`,`224 L`,`448 L`],a:2,e:`20/2 = 10 mol; 10 × 22.4 = 224 L.`},
+{q:`1 amu is`,o:[`Mass of one C-12 atom`,`1/12 of the mass of one C-12 atom`,`Mass of one H<sub>2</sub> molecule`,`Mass of one mole of C`],a:1,e:`It is 1/12 of the mass of a C-12 atom, 1.66 × 10<sup>−24</sup> g.`},
+{q:`Moles of O atoms in 294 g of H<sub>2</sub>SO<sub>4</sub> (M = 98)?`,o:[`3`,`4`,`12`,`6`],a:2,e:`3 mol H<sub>2</sub>SO<sub>4</sub> × 4 O each = 12 mol.`}
+],
+avg:[
+{q:`Average atomic mass of Cl with 75 % Cl-35 and 25 % Cl-37?`,o:[`35.5`,`36.5`,`71`,`72`],a:0,e:`(75 × 35 + 25 × 37)/100 = 35.5.`},
+{q:`An oxide has N = 25.94 % and O = 74.06 %. Empirical formula?`,o:[`NO<sub>2</sub>`,`N<sub>2</sub>O<sub>3</sub>`,`N<sub>2</sub>O<sub>5</sub>`,`N<sub>2</sub>O`],a:2,e:`1.85 : 4.63 = 1 : 2.5 = 2 : 5.`},
+{q:`Empirical formula CH<sub>2</sub>, molecular mass 56. Molecular formula?`,o:[`C<sub>2</sub>H<sub>4</sub>`,`C<sub>3</sub>H<sub>6</sub>`,`C<sub>4</sub>H<sub>8</sub>`,`C<sub>5</sub>H<sub>10</sub>`],a:2,e:`n = 56/14 = 4.`},
+{q:`Mean molar mass of 14 g N<sub>2</sub> + 22 g CO<sub>2</sub>?`,o:[`28`,`36`,`72`,`44`],a:1,e:`0.5 mol each: (0.5 × 28 + 0.5 × 44)/1 = 36.`}
+],
+stoich:[
+{q:`Mass of O<sub>2</sub> from 367.5 g KClO<sub>3</sub> (M = 122.5)?`,o:[`96 g`,`144 g`,`72 g`,`48 g`],a:1,e:`3 mol KClO<sub>3</sub> → 4.5 mol O<sub>2</sub> = 144 g.`},
+{q:`Volume of that O<sub>2</sub> at STP?`,o:[`67.2 L`,`100.8 L`,`44.8 L`,`33.6 L`],a:1,e:`4.5 × 22.4 = 100.8 L.`},
+{q:`170 g NH<sub>3</sub> decomposes. Mass of N<sub>2</sub>?`,o:[`70 g`,`140 g`,`280 g`,`28 g`],a:1,e:`10 mol NH<sub>3</sub> gives 5 mol N<sub>2</sub> = 140 g.`},
+{q:`Which is NOT required of a balanced equation?`,o:[`Equal atoms on both sides`,`Charge conservation`,`Equal number of molecules on both sides`,`Coefficients give molar ratios`],a:2,e:`Molecule count can change, e.g. N<sub>2</sub> + 3H<sub>2</sub> → 2NH<sub>3</sub>.`}
+],
+lr:[
+{q:`6 mol Na<sub>2</sub>CO<sub>3</sub> + 4 mol HCl (1 : 2 reaction). Limiting reagent?`,o:[`Na<sub>2</sub>CO<sub>3</sub>`,`HCl`,`Both`,`Neither`],a:1,e:`6/1 = 6 and 4/2 = 2; HCl is smaller.`},
+{q:`CO<sub>2</sub> produced at STP in that case?`,o:[`134.4 L`,`44.8 L`,`89.6 L`,`67.2 L`],a:1,e:`2 mol × 22.4 = 44.8 L.`},
+{q:`4 mol MgCO<sub>3</sub> + 6 mol HCl → CO<sub>2</sub> at STP?`,o:[`89.6 L`,`67.2 L`,`44.8 L`,`134.4 L`],a:1,e:`HCl limiting: 3 mol CO<sub>2</sub> = 67.2 L.`},
+{q:`3 mol Na<sub>2</sub>CO<sub>3</sub> with 6 mol HCl:`,o:[`Na<sub>2</sub>CO<sub>3</sub> is in excess`,`HCl is in excess`,`Neither is in excess`,`Cannot be decided`],a:2,e:`The mole ratio equals the coefficient ratio.`}
+],
+poac:[
+{q:`27.6 g K<sub>2</sub>CO<sub>3</sub> (138) has all its C converted to K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub> (698). Mass formed?`,o:[`11.6 g`,`139.6 g`,`69.8 g`,`5.8 g`],a:0,e:`0.2 × 698/12 = 11.6 g.`},
+{q:`C atoms per formula unit of K<sub>2</sub>Zn<sub>3</sub>[Fe(CN)<sub>6</sub>]<sub>2</sub>?`,o:[`6`,`12`,`2`,`3`],a:1,e:`2 × 6 = 12.`},
+{q:`POAC is based on conservation of`,o:[`Charge`,`Atoms (mass)`,`Energy`,`Volume`],a:1,e:`Atoms, and hence moles of atoms, are conserved.`},
+{q:`POAC for O in KClO<sub>3</sub> → KCl + O<sub>2</sub>:`,o:[`n(KClO<sub>3</sub>) = n(O<sub>2</sub>)`,`3 n(KClO<sub>3</sub>) = 2 n(O<sub>2</sub>)`,`2 n(KClO<sub>3</sub>) = 3 n(O<sub>2</sub>)`,`n(KClO<sub>3</sub>) = 2 n(O<sub>2</sub>)`],a:1,e:`KClO<sub>3</sub> has 3 O and O<sub>2</sub> has 2.`}
+],
+ox:[
+{q:`Oxidation number of S in Na<sub>2</sub>S<sub>4</sub>O<sub>6</sub>?`,o:[`+2`,`+2.5`,`+3`,`+6`],a:1,e:`2 + 4x − 12 = 0, so x = 2.5 (average).`},
+{q:`Oxidation number of O in KO<sub>2</sub>?`,o:[`−2`,`−1`,`−1/2`,`−1/3`],a:2,e:`Superoxide: −1/2.`},
+{q:`Oxidation number of H in NaH?`,o:[`+1`,`0`,`−1`,`−2`],a:2,e:`Metal hydrides have H = −1.`},
+{q:`Oxidation number of O in OF<sub>2</sub>?`,o:[`−2`,`−1`,`+1`,`+2`],a:3,e:`F is −1, so O is +2.`},
+{q:`Possible oxidation numbers of nitrogen (group 15)?`,o:[`−3 to +5`,`−3 to +3`,`−5 to +3`,`0 to +5`],a:0,e:`(n − 10) = +5 to (n − 18) = −3.`}
+],
+redox:[
+{q:`Which is a disproportionation reaction?`,o:[`2KClO<sub>3</sub> → 2KCl + 3O<sub>2</sub>`,`NH<sub>4</sub>NO<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O`,`4KClO<sub>3</sub> → 3KClO<sub>4</sub> + KCl`,`2Mg + O<sub>2</sub> → 2MgO`],a:2,e:`Cl goes from +5 to +7 and −1.`},
+{q:`H<sub>2</sub>O<sub>2</sub> can act as`,o:[`Only an oxidant`,`Only a reductant`,`Both oxidant and reductant`,`Neither`],a:2,e:`O is −1, between 0 and −2.`},
+{q:`NH<sub>4</sub>NO<sub>2</sub> → N<sub>2</sub> + 2H<sub>2</sub>O is an example of`,o:[`Disproportionation`,`Comproportionation`,`Non-redox`,`Displacement`],a:1,e:`N at −3 and +3 converge at 0.`},
+{q:`Which halogen cannot disproportionate?`,o:[`Cl<sub>2</sub>`,`Br<sub>2</sub>`,`F<sub>2</sub>`,`I<sub>2</sub>`],a:2,e:`F is the most electronegative and has no positive state.`}
+],
+bal:[
+{q:`One excess O in acidic medium is balanced by`,o:[`2OH<sup>−</sup> on the same side`,`H<sub>2</sub>O on the other side and 2H<sup>+</sup> on the same side`,`H<sub>2</sub>O on the same side`,`2H<sup>+</sup> on the other side`],a:1,e:`One H<sub>2</sub>O on the opposite side, 2H<sup>+</sup> on the excess-O side.`},
+{q:`Electrons in the MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup> half-reaction?`,o:[`1`,`3`,`5`,`7`],a:2,e:`+7 → +2 gains 5 e<sup>−</sup>.`},
+{q:`H<sup>+</sup> needed in MnO<sub>4</sub><sup>−</sup> → Mn<sup>2+</sup> + 4H<sub>2</sub>O?`,o:[`4`,`6`,`8`,`10`],a:2,e:`4 O need 4H<sub>2</sub>O, which need 8H<sup>+</sup>.`},
+{q:`In the Fe<sup>2+</sup>/MnO<sub>4</sub><sup>−</sup> reaction the Fe half is multiplied by`,o:[`1`,`2`,`5`,`8`],a:2,e:`To match 5 electrons.`}
+],
+conc:[
+{q:`Molarity of 149 g KCl (74.5) in 10 L?`,o:[`0.2 M`,`2 M`,`0.02 M`,`1.49 M`],a:0,e:`2 mol/10 L = 0.2 M.`},
+{q:`Which concentration term changes with temperature?`,o:[`Molality`,`Mole fraction`,`Molarity`,`ppm by mass`],a:2,e:`Volume changes, so molarity changes.`},
+{q:`Molarity of 117 g NaCl (58.5) in 500 mL?`,o:[`2 M`,`4 M`,`0.5 M`,`8 M`],a:1,e:`2 mol/0.5 L = 4 M.`},
+{q:`200 mL of 1 M HCl mixed with 100 mL of 0.5 M HCl gives`,o:[`0.5 M`,`0.75 M`,`0.83 M`,`1.0 M`],a:2,e:`(200 + 50)/300 = 0.83 M.`},
+{q:`20 cm<sup>3</sup> alcohol in 80 cm<sup>3</sup> water, % v/v?`,o:[`20 %`,`25 %`,`80 %`,`16 %`],a:0,e:`20/(20 + 80) × 100 = 20 %.`}
+]};
+/* ---------- tabs, revision mode, progress ---------- */
+function showTab(id){
+  $$('.topic').forEach(function(s){s.classList.toggle('active',s.id===id)});
+  $$('.tab').forEach(function(b){b.classList.toggle('active',b.dataset.t===id)});
+  store.set('tab',id);
+  if(id==='t-weak')mountWeak();
+  window.scrollTo(0,0);
+}
+$$('.tab').forEach(function(b){b.addEventListener('click',function(){showTab(b.dataset.t)})});
+
+function setRev(on){
+  document.body.classList.toggle('rev',on);
+  var b=$('#revBtn');b.textContent='Revision mode: '+(on?'ON':'OFF');b.setAttribute('aria-pressed',on?'true':'false');
+  store.set('rev',on);
+}
+$('#revBtn').addEventListener('click',function(){setRev(!document.body.classList.contains('rev'))});
+
+function updateProgress(){
+  var d=store.get('done',{});var n=0;
+  $$('[data-done]').forEach(function(c){c.checked=!!d[c.dataset.done];if(c.checked)n++});
+  $('#progPill').textContent='Topics revised: '+n+' / '+$$('[data-done]').length;
+}
+$$('[data-done]').forEach(function(c){c.addEventListener('change',function(){
+  var d=store.get('done',{});d[c.dataset.done]=c.checked;store.set('done',d);updateProgress()})});
+
+/* ---------- flashcards ---------- */
+var ALLCARDS=[];
+Object.keys(DECK).forEach(function(t){DECK[t].forEach(function(c,i){ALLCARDS.push({id:t+'-'+i,q:c[0],a:c[1],topic:t})})});
+function weakCount(){var st=store.get('cards',{});return ALLCARDS.filter(function(c){return st[c.id]==='revise'}).length}
+function updateBadge(){var n=weakCount(),b=$('#weakBadge');b.textContent=n;b.style.display=n?'inline':'none'}
+
+function mountDeck(el,cards,opts){
+  opts=opts||{};
+  var base=cards.slice(),list=base.slice(),i=0,flipped=false,only=false;
+  var head=el.querySelector('h4');var title=head?head.outerHTML:'';
+  el.innerHTML=title+'<div class="dk-head"><span class="dk-count"></span><span class="sp"></span>'+
+   (opts.weak?'':'<label class="chk"><input type="checkbox" class="dk-only"> only “revise again” cards</label>')+
+   '<button class="btn sm dk-shuf">Shuffle</button></div>'+
+   '<div class="flash" tabindex="0" role="button" aria-label="Flip card"><div class="flash-label"></div><div class="flash-body"></div><div class="flash-hint">tap to flip</div></div>'+
+   '<div class="dk-btns"><button class="btn ok dk-got">Got it ✓</button><button class="btn warn dk-rev">Revise again ↻</button><button class="btn dk-next">Skip →</button></div>';
+  var fl=$('.flash',el);
+  function build(){
+    var st=store.get('cards',{});
+    list=only?base.filter(function(c){return st[c.id]==='revise'}):base.slice();
+    if(i>=list.length)i=0;
+  }
+  function render(){
+    var st=store.get('cards',{});
+    var known=base.filter(function(c){return st[c.id]==='known'}).length;
+    if(!list.length){
+      $('.dk-count',el).textContent='No cards here';
+      $('.flash-label',el).textContent='';
+      $('.flash-body',el).innerHTML='<span class="empty">Nothing to show. Untick the filter or mark some cards “Revise again”.</span>';
+      fl.classList.remove('back');return;
+    }
+    var c=list[i];
+    $('.dk-count',el).textContent='Card '+(i+1)+' of '+list.length+' · known '+known+'/'+base.length;
+    var chip=st[c.id]?'<span class="chip '+st[c.id]+'">'+(st[c.id]==='known'?'known':'revise')+'</span>':'';
+    $('.flash-label',el).innerHTML=(flipped?'Answer':'Question')+(opts.weak?' · '+TOPICNAME[c.topic]:'')+chip;
+    $('.flash-body',el).innerHTML=flipped?c.a:c.q;
+    fl.classList.toggle('back',flipped);
+  }
+  function next(){if(list.length){i=(i+1)%list.length}flipped=false;render()}
+  function mark(v){if(!list.length)return;var st=store.get('cards',{});st[list[i].id]=v;store.set('cards',st);updateBadge();
+    if(only&&v==='known'){build();flipped=false;render()}else next()}
+  fl.addEventListener('click',function(){flipped=!flipped;render()});
+  fl.addEventListener('keydown',function(e){if(e.key===' '||e.key==='Enter'){e.preventDefault();flipped=!flipped;render()}});
+  $('.dk-got',el).addEventListener('click',function(){mark('known')});
+  $('.dk-rev',el).addEventListener('click',function(){mark('revise')});
+  $('.dk-next',el).addEventListener('click',next);
+  $('.dk-shuf',el).addEventListener('click',function(){
+    for(var k=base.length-1;k>0;k--){var j=Math.floor(Math.random()*(k+1));var t=base[k];base[k]=base[j];base[j]=t}
+    i=0;flipped=false;build();render()});
+  var oc=$('.dk-only',el);if(oc)oc.addEventListener('change',function(){only=oc.checked;i=0;flipped=false;build();render()});
+  render();
+}
+function mountWeak(){
+  var st=store.get('cards',{});
+  var cards=ALLCARDS.filter(function(c){return st[c.id]==='revise'});
+  var el=$('#weakDeck');
+  if(!cards.length){el.innerHTML='<p class="empty">No weak cards yet. Mark a card “Revise again ↻” in any topic and it will appear here.</p>';return}
+  mountDeck(el,cards,{weak:true});
+}
+$$('.deck[data-deck]').forEach(function(el){
+  var t=el.dataset.deck;
+  mountDeck(el,ALLCARDS.filter(function(c){return c.topic===t}));
+});
+$('#resetCards').addEventListener('click',function(){
+  if(confirm('Clear known / revise marks on all flashcards?')){store.set('cards',{});updateBadge();
+    $$('.deck[data-deck]').forEach(function(el){var t=el.dataset.deck;mountDeck(el,ALLCARDS.filter(function(c){return c.topic===t}))});
+    mountWeak()}
+});
+
+/* ---------- quizzes ---------- */
+function mountQuiz(el){
+  var t=el.dataset.quiz,qs=QUIZ[t],ans=[];
+  function render(){
+    var score=ans.filter(function(a,i){return a===qs[i].a}).length,done=ans.filter(function(a){return a!==undefined}).length;
+    var best=store.get('best_'+t,null);
+    var h='<h4>Quiz: '+qs.length+' questions</h4><div class="qz-head"><span>Score: <b>'+score+' / '+qs.length+'</b>'+(best!==null?' · best '+best:'')+'</span><span class="sp"></span><button class="btn sm qz-reset">Restart</button></div>';
+    qs.forEach(function(q,qi){
+      h+='<div class="qq"><div><b>'+(qi+1)+'.</b> '+q.q+'</div><div class="opts">';
+      q.o.forEach(function(o,oi){
+        var cls='opt';
+        if(ans[qi]!==undefined){if(oi===q.a)cls+=' right';else if(oi===ans[qi])cls+=' wrong'}
+        h+='<button class="'+cls+'" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>';
+      });
+      h+='</div>';
+      if(ans[qi]!==undefined)h+='<div class="exp"><b>'+(ans[qi]===q.a?'Correct. ':'Not quite. ')+'</b>'+q.e+'</div>';
+      h+='</div>';
+    });
+    if(done===qs.length)h+='<p><b>Finished: '+score+' / '+qs.length+'.</b> '+(score===qs.length?'Perfect!':'Retry after revising the cards.')+'</p>';
+    el.innerHTML=h;
+    if(done===qs.length){var b=store.get('best_'+t,null);if(b===null||score>b)store.set('best_'+t,score)}
+  }
+  el.addEventListener('click',function(e){
+    var b=e.target.closest('.opt');
+    if(b){var qi=+b.dataset.q;if(ans[qi]!==undefined)return;ans[qi]=+b.dataset.o;render();return}
+    if(e.target.closest('.qz-reset')){ans=[];render()}
+  });
+  render();
+}
+$$('.quiz[data-quiz]').forEach(mountQuiz);
+
+function err(m){return '<div class="res"><span class="bad">'+m+'</span></div>'}
+function sci(x){if(x===0)return '0';var m=x.toExponential(3).split('e');return m[0]+' × 10<sup>'+parseInt(m[1],10)+'</sup>'}
+function mcUpd(){var m=parseFloat($('#mc-m').value),M=parseFloat($('#mc-M').value),o=$('#mcOut');
+ if(!(m>=0)||!(M>0)){o.innerHTML=err('Enter a mass and a positive molar mass.');return}
+ var n=m/M;o.innerHTML='<div class="res">Moles = '+m+' ÷ '+M+' = <b>'+fmt(n)+' mol</b><br>Particles = '+sci(n*6.022e23)+'<br>Volume at STP, if a gas = <b>'+fmt(n*22.4)+' L</b></div>'}
+['#mc-m','#mc-M'].forEach(function(s){$(s).addEventListener('input',mcUpd)});mcUpd();
+function lrUpd(){var a=+$('#lr-a').value,b=+$('#lr-b').value,c=+$('#lr-c').value,x=+$('#lr-x').value,y=+$('#lr-y').value,o=$('#lrOut');
+ if(!(a>0&&b>0&&c>0&&x>=0&&y>=0)){o.innerHTML=err('Coefficients must be positive and moles zero or more.');return}
+ var ra=x/a,rb=y/b,mn=Math.min(ra,rb),h='<div class="res">n(A)/a = '+fmt(ra)+' · n(B)/b = '+fmt(rb)+'</div>';
+ if(ra===rb)h+='<div class="res"><span class="good">Exact ratio:</span> no reactant is left over.</div>';
+ else h+='<div class="res">Limiting reagent: <b>'+(ra<rb?'A':'B')+'</b>. Excess left: '+(ra<rb?'B = '+fmt(y-b*mn):'A = '+fmt(x-a*mn))+' mol</div>';
+ h+='<div class="res">Product C = c × minimum = <b>'+fmt(c*mn)+' mol</b> ('+fmt(c*mn*22.4)+' L at STP if a gas)</div>';o.innerHTML=h}
+['#lr-a','#lr-b','#lr-c','#lr-x','#lr-y'].forEach(function(s){$(s).addEventListener('input',lrUpd)});lrUpd();
+function cnUpd(){var a=+$('#cn-a').value,b=+$('#cn-b').value,c=+$('#cn-c').value,d=+$('#cn-d').value,o=$('#cnOut');
+ if(!(a>=0&&b>=0&&c>=0&&d>=0&&b+d>0)){o.innerHTML=err('Enter non-negative values with a total volume above zero.');return}
+ o.innerHTML='<div class="res">M<sub>R</sub> = ('+a+' × '+b+' + '+c+' × '+d+') ÷ ('+b+' + '+d+') = <b>'+fmt((a*b+c*d)/(b+d))+' M</b></div>'}
+['#cn-a','#cn-b','#cn-c','#cn-d'].forEach(function(s){$(s).addEventListener('input',cnUpd)});cnUpd();
+setRev(!!store.get('rev',false));updateProgress();updateBadge();
+var t0=store.get('tab','t-mole');if(!document.getElementById(t0))t0='t-mole';showTab(t0);
+})();
+</script>
+</body>
+</html>
