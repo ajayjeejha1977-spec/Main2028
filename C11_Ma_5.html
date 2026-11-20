@@ -77,6 +77,8 @@ window.MathJax = {
   .score-card .val{font-size:26px;font-weight:700;}
   .score-card .lbl{font-size:12px;color:#666;margin-top:4px;}
   .review-q{background:#fff;border-radius:8px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.08);}
+  .sol{margin-top:12px;padding:10px 12px;border-left:4px solid #0b5cab;background:#eef3fa;border-radius:4px;font-size:14px;line-height:1.7;}
+  .sol .tq{margin-top:8px;padding:8px 10px;border-radius:4px;background:#fff;border:1px dashed #d97706;}
   .review-q .status{font-size:12px;font-weight:700;padding:2px 8px;border-radius:4px;color:#fff;display:inline-block;margin-bottom:8px;}
   .status-correct{background:var(--green);}
   .status-incorrect{background:var(--red);}
@@ -96,6 +98,29 @@ window.MathJax = {
     .sidebar{width:100%;order:2;}
     .main{order:1;}
   }
+
+  .an-card{background:#fff;border-radius:8px;padding:18px 20px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.1);}
+  .an-card h3{margin:0 0 10px;color:#003366;font-size:16px;}
+  .an-tw{overflow-x:auto;}
+  .an-card table{border-collapse:collapse;width:100%;}
+  .an-card th,.an-card td{border:1px solid #ccc;padding:6px 8px;font-size:13px;text-align:left;}
+  .an-card th{background:#eef2f7;}
+  .chip{padding:2px 8px;border-radius:10px;color:#fff;font-size:12px;white-space:nowrap;}
+  .chip.correct{background:var(--green);}.chip.incorrect{background:var(--red);}.chip.unattempted{background:#777;}
+  .tbar{height:14px;border-radius:7px;min-width:2px;}
+  .tbar.correct{background:var(--green);}.tbar.incorrect{background:var(--red);}.tbar.unattempted{background:#9a9a9a;}
+  .tline{display:grid;grid-template-columns:44px 1fr 64px;gap:8px;align-items:center;margin:5px 0;font-size:13px;}
+  @media print{
+    @page{size:A4;margin:12mm;}
+    body{background:#fff;font-size:12px;}
+    .noprint,#startScreen{display:none !important;}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+    #resultScreen{padding:0;max-width:none;}
+    .score-card,.an-card,.review-q{box-shadow:none;border:1px solid #bbb;break-inside:avoid;}
+    .an-card.tall{break-inside:auto;}
+    .an-card th,.an-card td{font-size:11px;padding:4px 6px;}
+    .pbreak{break-before:page;}
+  }
 </style>
 </head>
 <body>
@@ -110,6 +135,7 @@ window.MathJax = {
     <li><b>Numerical Value Type:</b> enter the answer as a number. +4 for correct, 0 for incorrect.</li>
     <li>Use <b>Mark for Review</b> to flag a question, and the palette on the right to jump to any question.</li>
   </ul>
+  <p><label>Candidate name<br><input type="text" id="candName" placeholder="Enter your name" style="padding:9px 12px;border:1px solid #bbb;border-radius:6px;width:280px;font-size:14px;"></label></p>
   <button class="btn btn-next" onclick="startTest()">Start Test</button>
 </div>
 
@@ -172,6 +198,8 @@ let secondsLeft = 60*60;
 
 /* ---- per-question time tracking ---- */
 let questionTime = new Array(N).fill(0);
+let visitCount = new Array(N).fill(0);
+let candidateName = "Student";
 let activeIndex = null;
 let questionEnterTS = null;
 
@@ -183,6 +211,7 @@ function switchActiveQuestion(newIndex){
   }
   activeIndex = newIndex;
   questionEnterTS = now;
+  if(newIndex !== null) visitCount[newIndex] = (visitCount[newIndex]||0)+1;
 }
 
 function formatTime(totalSeconds){
@@ -200,6 +229,7 @@ const GROUPS = [];
 questions.forEach(q=>{ if(!GROUPS.includes(q.group)) GROUPS.push(q.group); });
 
 function startTest(){
+  candidateName = (document.getElementById("candName").value||"").trim() || "Student";
   document.getElementById('startScreen').classList.add('hidden');
   document.getElementById('testScreen').classList.remove('hidden');
   timerInterval = setInterval(updateTimer, 1000);
@@ -402,6 +432,48 @@ function arraysEqualAsSet(a,b){
   return sa.every((v,i)=>v===sb[i]);
 }
 
+
+function buildAnalysis(REC, totalScore, maxScore){
+  const mm = s=>{s=Math.max(0,Math.round(s));return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');};
+  const L={correct:'Correct',incorrect:'Incorrect',unattempted:'Unattempted'};
+  const tT=REC.reduce((a,r)=>a+r.t,0), mt=Math.max(1,...REC.map(r=>r.t));
+  const cnt=(rs,k)=>rs.filter(r=>r.status===k).length;
+  const sumT=rs=>rs.reduce((a,r)=>a+r.t,0), sumM=rs=>rs.reduce((a,r)=>a+r.marks,0);
+  const row=(label,rs)=>{const att=rs.length-cnt(rs,'unattempted');return `<tr><td>${label}</td><td>${rs.length}</td><td>${cnt(rs,'correct')}</td><td>${cnt(rs,'incorrect')}</td><td>${cnt(rs,'unattempted')}</td><td>${att?Math.round(cnt(rs,'correct')/att*100):0}%</td><td><b>${sumM(rs)}</b></td><td>${mm(sumT(rs))}</td></tr>`;};
+  const head='<tr><th>#</th><th>Qs</th><th>Correct</th><th>Wrong</th><th>Skipped</th><th>Accuracy</th><th>Marks</th><th>Time</th></tr>';
+  const secRows=GROUPS.map(g=>row(g,REC.filter(r=>r.group===g))).join('');
+  const hasTopic=REC.some(r=>r.topic), topicIsGroup=REC.every(r=>r.topic===r.group);
+  const T2=r=>({single:'Single correct',multi:'Multiple correct',numeric:'Numerical value'}[r.type]||r.type);
+  const byTopic=hasTopic&&!topicIsGroup;
+  const keys2=byTopic?[...new Set(REC.map(r=>r.topic))]:[...new Set(REC.map(T2))];
+  const topRows=keys2.map(k=>row(k,REC.filter(r=>(byTopic?r.topic:T2(r))===k))).join('');
+  const title2=byTopic?'Topic-wise summary':'Question-type summary';
+  const topics=[...new Set(REC.map(r=>r.topic))];
+  const qRows=REC.map(r=>`<tr><td><b>${r.i+1}</b></td><td>${r.topic||r.group}</td><td>${r.yours}</td><td>${r.correct}</td><td><span class="chip ${r.status}">${L[r.status]}</span></td><td><b>${r.marks>0?'+':''}${r.marks}</b></td><td><b>${mm(r.t)}</b></td><td>${r.visits}</td></tr>`).join('');
+  const bars=REC.map(r=>`<div class="tline"><span>Q${r.i+1}</span><div><div class="tbar ${r.status}" style="width:${Math.max(1,r.t/mt*100)}%"></div></div><b style="text-align:right">${mm(r.t)}</b></div>`).join('');
+  const att=REC.length-cnt(REC,'unattempted');
+  const acc=att?Math.round(cnt(REC,'correct')/att*100):0;
+  const obs=[];
+  const slow=REC.slice().sort((a,b)=>b.t-a.t)[0];
+  obs.push(`Most time went on <b>Q${slow.i+1}</b> (${mm(slow.t)}) – result: ${L[slow.status].toLowerCase()}.`);
+  const wr=REC.filter(r=>r.status==='incorrect'), sk=REC.filter(r=>r.status==='unattempted'), ok=REC.filter(r=>r.status==='correct');
+  if(wr.length) obs.push(`${mm(sumT(wr))} (${Math.round(sumT(wr)/Math.max(tT,1)*100)}%) of your time went into the ${wr.length} wrongly answered question(s).`);
+  if(sk.length) obs.push(`${mm(sumT(sk))} was spent on ${sk.length} question(s) you left unattempted – decide faster when to skip.`);
+  if(ok.length&&wr.length) obs.push(`Average time on correct answers: ${mm(sumT(ok)/ok.length)}; on wrong answers: ${mm(sumT(wr)/wr.length)}.`);
+  const tp=(hasTopic?topics:[]).map(t=>{const rs=REC.filter(r=>r.topic===t);const a=rs.length-cnt(rs,'unattempted');return{t,a,acc:a?cnt(rs,'correct')/a:null,n:rs.length,c:cnt(rs,'correct')}}).filter(x=>x.a>0).sort((a,b)=>a.acc-b.acc);
+  if(hasTopic&&tp.length) obs.push(`Weakest topic: <b>${tp[0].t}</b> (${tp[0].c}/${tp[0].n} correct). Strongest: <b>${tp[tp.length-1].t}</b> (${tp[tp.length-1].c}/${tp[tp.length-1].n}).`);
+  const quick=REC.filter(r=>r.status==='incorrect'&&r.t<30);
+  if(quick.length) obs.push(`${quick.length} wrong answer(s) were given in under 30 s (Q${quick.map(r=>r.i+1).join(', Q')}) – likely hasty or guessed.`);
+  return `<div class="score-cards"><div class="score-card"><div class="val">${acc}%</div><div class="lbl">Accuracy (of attempted)</div></div><div class="score-card"><div class="val">${att}/${REC.length}</div><div class="lbl">Attempted</div></div></div>
+  <div class="an-card"><h3>Section-wise summary</h3><div class="an-tw"><table>${head.replace('#',hasTopic&&topicIsGroup?'Topic':'Section')}${secRows}</table></div></div>
+  ${hasTopic?`<div class="an-card"><h3>${title2}</h3><div class="an-tw"><table>${head.replace('#',byTopic?'Topic':'Type')}${topRows}</table></div></div>`:''}
+  <div class="an-card tall pbreak"><h3>Question-wise analysis</h3><div class="an-tw"><table><tr><th>Q</th><th>Topic</th><th>Your answer</th><th>Correct</th><th>Result</th><th>Marks</th><th>Time spent</th><th>Visits</th></tr>${qRows}</table></div></div>
+  <div class="an-card"><h3>Time spent on every question</h3>${bars}<div style="font-size:12px;color:#666;margin-top:6px;">Green = correct · Red = incorrect · Grey = unattempted</div></div>
+  <div class="an-card"><h3>Observations</h3><ul style="margin:0;padding-left:20px;line-height:1.7;">${obs.map(o=>'<li>'+o+'</li>').join('')}</ul></div>`;
+}
+
+const SOL=[["<b>(a)</b> Pair $r$ with $2n-r$: $r\\theta+(2n-r)\\theta=2n\\theta=\\dfrac\\pi2$, so $\\tan r\\theta\\cdot\\tan(2n-r)\\theta=1$; the middle term is $\\tan n\\theta=\\tan\\dfrac\\pi4=1$. Product $=1$ → (r).<br><b>(b)</b> $\\sin^2\\dfrac\\pi{18}+\\sin^2\\dfrac{4\\pi}9=\\sin^210^\\circ+\\sin^280^\\circ=1$ and $\\sin^220^\\circ+\\sin^270^\\circ=1$. Sum $=2$ → (t).<br><b>(c)</b> $\\sin^8\\theta\\le\\sin^2\\theta$ and $\\cos^{14}\\theta\\le\\cos^2\\theta$, so the sum is $\\le1$, attained at $\\theta=0$. Maximum $=1$ → (r).<br><b>(d)</b> $\\sin x+\\sin y=2\\sin\\tfrac{x+y}2\\cos\\tfrac{x-y}2$ and $\\cos y-\\cos x=2\\sin\\tfrac{x+y}2\\sin\\tfrac{x-y}2$. Either $\\sin\\tfrac{x+y}2=0$ or $\\tan\\tfrac{x-y}2=\\tfrac13$; but $\\tfrac{x-y}2\\in\\left(\\tfrac\\pi6,\\tfrac\\pi4\\right)$ gives $\\tan&gt;0.577$, so $\\tfrac13$ is impossible. Hence $x+y=2k\\pi$ and $\\sin3x+\\sin3y=2\\sin\\tfrac{3(x+y)}2\\cos\\tfrac{3(x-y)}2=0$ → (p).<br>(a)→r, (b)→t, (c)→r, (d)→p → <b>B</b>.", "<b>Match-the-column:</b> solve each row separately and use the options to cross-check. Useful tools: pairing $\\tan A\\tan B=1$ when $A+B=90^\\circ$; $\\sin^2A+\\sin^2(90^\\circ-A)=1$; $|\\sin|,|\\cos|\\le1$ so higher powers shrink; and sum-to-product for $\\sin x+\\sin y$."], ["$B$ is the reflection of $A(2,2)$ in $x+2y-4=0$ and $C$ is the reflection of $A$ in $2x-y-7=0$.<br>Reflection formula: $P'=P-\\dfrac{2(ax_0+by_0+c)}{a^2+b^2}(a,b)$.<br>$B$: value at $A$ is $2+4-4=2$, so $B=(2,2)-\\dfrac45(1,2)=\\left(\\dfrac65,\\dfrac25\\right)$.<br>$C$: value at $A$ is $4-2-7=-5$, so $C=(2,2)+2(2,-1)=(6,0)$.<br>Slope of $BC=\\dfrac{0-2/5}{6-6/5}=-\\dfrac1{12}$, so $y=-\\dfrac{x-6}{12}\\Rightarrow x+12y-6=0$ → <b>C</b>.", "The perpendicular bisector of $AB$ is the mirror line that swaps $A$ and $B$. So <b>each vertex is the reflection of $A$ in the corresponding bisector</b>; the reflection formula gives $B$ and $C$ directly."], ["From the previous question: $A(2,2),\\ B\\left(\\dfrac65,\\dfrac25\\right),\\ C(6,0)$.<br>Area $=\\dfrac12\\left|2\\left(\\dfrac25-0\\right)+\\dfrac65(0-2)+6\\left(2-\\dfrac25\\right)\\right|=\\dfrac12\\left|\\dfrac45-\\dfrac{12}5+\\dfrac{48}5\\right|=\\dfrac12\\cdot8=\\mathbf4$ → <b>D</b>.", "Use the coordinate (shoelace) area formula once the vertices are known. Re-use the vertices from the first part of a paired question instead of starting afresh."], ["The three ratios multiply to 1: $\\log_yx\\cdot\\log_zy\\cdot\\log_xz=\\dfrac{\\ln x}{\\ln y}\\cdot\\dfrac{\\ln y}{\\ln z}\\cdot\\dfrac{\\ln z}{\\ln x}=1$.<br>The A.P. is $1,\\ 1+d,\\ 1+2d,\\ 1+3d$, so $\\log_yx=1+d,\\ \\log_zy=1+2d$ and $-15\\log_xz=1+3d\\Rightarrow\\log_xz=-\\dfrac{1+3d}{15}$.<br>$(1+d)(1+2d)\\left(-\\dfrac{1+3d}{15}\\right)=1\\Rightarrow(1+d)(1+2d)(1+3d)=-15$.<br>Expanding: $6d^3+11d^2+6d+1=-15\\Rightarrow6d^3+11d^2+6d+16=0$, which is <b>option C</b> (its real root is $d=-2$).<br><b>⚠ Check the key:</b> the key stored in this file is B ($6d^3+11d^2-6d-16=0$), but $d=-2$ does not satisfy B (it gives $-8$), and $d=-2$ is exactly what makes Q5 come out as $3$. Please verify this option against the original book.", "<b>Chain-rule of logs:</b> $\\log_yx\\cdot\\log_zy\\cdot\\log_xz=1$. Put the four terms as $1,1+d,1+2d,1+3d$, substitute in this identity and expand the cubic; test your final polynomial with the root you expect."], ["With $d=-2$ the A.P. is $1,-1,-3,-5$: $\\log_yx=-1\\Rightarrow x=\\dfrac1y$; $\\log_zy=-3\\Rightarrow y=z^{-3}$; $-15\\log_xz=-5\\Rightarrow\\log_xz=\\dfrac13\\Rightarrow x=z^3$.<br>Then $\\dfrac x{z^3}=1,\\ xy=z^3\\cdot z^{-3}=1,\\ yz^3=1$.<br>Sum $=1+1+1=\\mathbf3$ → <b>D</b>.", "Once $d$ is known, convert each log back into a power relation ($\\log_ab=c\\iff b=a^c$) and express $x,y$ in terms of $z$; the target expression then collapses to a constant."], ["Complete squares: $16x^4+8x^2+y^4+2y^2-24xy+8=(4x^2-2)^2+(y^2-2)^2+6(2x-y)^2$.<br>(Check: $(4x^2-2)^2+(y^2-2)^2=16x^4+y^4-16x^2-4y^2+8$; adding $6(4x^2-4xy+y^2)$ gives the original.)<br>Each square is $\\ge0$, so all vanish: $y=2x$ and $4x^2=2$, i.e. $x=\\pm\\dfrac1{\\sqrt2},\\ y=\\pm\\sqrt2$ (and $y^2=2$ ✓).<br>Ordered pairs: $\\left(\\tfrac1{\\sqrt2},\\sqrt2\\right)$ and $\\left(-\\tfrac1{\\sqrt2},-\\sqrt2\\right)$ → <b>2</b>.", "<b>Sum-of-squares equation:</b> a polynomial equal to 0 with only even-degree structure should be rewritten as a sum of squares. Try $u=2x$ to see the symmetry, then set each square to zero."], ["For $x\\in\\left(\\dfrac14,1\\right)$: $x-\\dfrac14\\le x^2$ because $\\left(x-\\dfrac12\\right)^2\\ge0$.<br>Each base $x_i&lt;1$, so $\\log_{x_i}$ is decreasing and $\\log_{x_1}\\left(x_2-\\tfrac14\\right)\\ge\\log_{x_1}x_2^2=2\\log_{x_1}x_2$.<br>The sum is $\\ge2\\left(\\log_{x_1}x_2+\\log_{x_2}x_3+\\log_{x_3}x_4+\\log_{x_4}x_1\\right)$. All four logs are positive with product 1, so by AM–GM their sum is $\\ge4$.<br>Minimum $=2\\cdot4=\\mathbf8$ (equality at $x_i=\\tfrac12$).", "<b>Bound the argument, then AM–GM.</b> $x-\\tfrac14\\le x^2$ is a perfect-square inequality; because the base is below 1 it <i>reverses</i> through the log. The cyclic product $\\log_{x_1}x_2\\cdots\\log_{x_4}x_1=1$ makes AM–GM exact."], ["Let $t=\\sqrt{x-2}\\ge0$, so $x=t^2+2$.<br>$x+14-8\\sqrt{x-2}=t^2-8t+16=(t-4)^2$ and $x+23-10\\sqrt{x-2}=t^2-10t+25=(t-5)^2$.<br>Equation: $|t-4|+|t-5|=3$.<br>$t\\ge5$: $2t-9=3\\Rightarrow t=6$ ✓. $t\\le4$: $9-2t=3\\Rightarrow t=3$ ✓. $4&lt;t&lt;5$: the sum is $1\\ne3$.<br>$t=3,6\\Rightarrow x=11,\\ 38$ → <b>2</b> real values.", "<b>Radical of a radical:</b> put $t=\\sqrt{x-2}$ so the expressions under the root become perfect squares $(t-a)^2$; then you only need the modulus equation $|t-4|+|t-5|=3$."], ["Let the common root be $r$; other roots: $s$ (first equation) and $u$ (second), with $s:u=4:3$ and both integers, so $s=4k,\\ u=3k$.<br>First equation: $r+s=6\\Rightarrow r=6-4k$. Second: $ru=6\\Rightarrow(6-4k)(3k)=6\\Rightarrow2k^2-3k+1=0\\Rightarrow k=1$ or $\\tfrac12$.<br>$k=\\tfrac12$ gives $u=1.5$, not an integer ✗. So $k=1$: $s=4,\\ u=3,\\ r=\\mathbf2$ (then $a=8,\\ c=5$).", "Name the roots using the ratio ($4k$ and $3k$), then use sum of roots of one equation and product of roots of the other. Apply the \"integers\" condition to discard the fractional $k$."], ["$\\log_9(x+1)^2=\\log_3|x+1|$ and $\\dfrac12\\log_{\\sqrt3}y=\\log_3y$. So $1-\\log_3|x+1|=\\log_3\\dfrac{x+5}{x+3}$, i.e. $|x+1|\\cdot\\dfrac{x+5}{x+3}=3$, with $\\dfrac{x+5}{x+3}&gt;0$ and $x\\ne-1$.<br>$x&gt;-1$: $(x+1)(x+5)=3(x+3)\\Rightarrow x^2+3x-4=0\\Rightarrow x=1$ ✓ ($-4$ ✗).<br>$-3&lt;x&lt;-1$: $-(x+1)(x+5)=3(x+3)\\Rightarrow x^2+9x+14=0\\Rightarrow x=-2$ ✓.<br>$x&lt;-5$: same equation gives $x=-7$ ✓.<br>Solutions $x=1,-2,-7$ → <b>3</b>.", "$\\log_{a^2}b^2=\\log_a|b|$ — keep the modulus! Then split into the domain intervals determined by $\\dfrac{x+5}{x+3}&gt;0$ and the sign change of $x+1$; each interval gives a different quadratic."], ["In the 3-4-5 triangle the inradius is $r_1=\\dfrac{3+4-5}{2}=1$. The larger acute angle $2\\varphi$ has $\\sin2\\varphi=\\dfrac45$, so $\\tan\\varphi=\\dfrac12$ and $\\sin\\varphi=\\dfrac1{\\sqrt5}$.<br>Both centres lie on the angle bisector at distances $\\dfrac{r}{\\sin\\varphi}$ from the vertex, and for tangent circles $\\dfrac{r_1-r_2}{\\sin\\varphi}=r_1+r_2$.<br>$r_2=r_1\\dfrac{1-\\sin\\varphi}{1+\\sin\\varphi}=\\dfrac{\\sqrt5-1}{\\sqrt5+1}=\\dfrac{3-\\sqrt5}2$.<br>Since $\\sin18^\\circ=\\dfrac{\\sqrt5-1}4$ and $\\cos36^\\circ=\\dfrac{\\sqrt5+1}4$: $r_2=\\dfrac{\\sin18^\\circ}{\\cos36^\\circ}$, so $\\beta=\\mathbf{36}$.", "<b>Circle chain in an angle:</b> consecutive tangent circles satisfy $r_2=r_1\\dfrac{1-\\sin\\varphi}{1+\\sin\\varphi}$, where $2\\varphi$ is the angle. Then match with $\\sin18^\\circ=\\dfrac{\\sqrt5-1}4,\\ \\cos36^\\circ=\\dfrac{\\sqrt5+1}4$."], ["Let $f(x)=x^2+2(p-3)x+9$ (upward parabola). Both roots in $(-6,1)$ requires:<br>(i) $D\\ge0$: $4(p-3)^2-36\\ge0\\Rightarrow p\\le0$ or $p\\ge6$.<br>(ii) Vertex in the interval: $-6&lt;-(p-3)&lt;1\\Rightarrow2&lt;p&lt;9$.<br>(iii) $f(-6)&gt;0$: $81-12p&gt;0\\Rightarrow p&lt;6.75$.<br>(iv) $f(1)&gt;0$: $2p+4&gt;0\\Rightarrow p&gt;-2$.<br>Intersection: $6\\le p&lt;6.75$, so the integer is $p=\\mathbf6$ (roots $-3,-3$).", "<b>Roots of a quadratic in an interval $(k_1,k_2)$:</b> check four things — $D\\ge0$, $k_1&lt;$ vertex $&lt;k_2$, $f(k_1)&gt;0$, $f(k_2)&gt;0$ (for an upward parabola)."], ["$f=\\dfrac{7+6c}{4-3c}$ with $c=\\cos2\\theta\\in[-1,1]$. $f'(c)=\\dfrac{6(4-3c)+3(7+6c)}{(4-3c)^2}=\\dfrac{45}{(4-3c)^2}&gt;0$, so $f$ increases and its max is at $c=1$: $M=\\dfrac{13}{1}=13$.<br>$g=2\\sin^2\\theta+\\cos^4\\theta+3=2-2\\cos^2\\theta+\\cos^4\\theta+3=(\\cos^2\\theta-1)^2+4$, so the minimum is $m=4$.<br>$M-m=13-4=\\mathbf9$.", "Reduce to one variable ($c=\\cos2\\theta$ or $\\cos^2\\theta$) on a known interval. For a Möbius form $\\dfrac{p+qc}{r+sc}$ the monotonicity is decided by the sign of $qr-ps$; for a quartic in $\\cos\\theta$, complete the square."], ["Let $s=\\sin^2x,\\ c=\\cos^2x$, so $s+c=1$ and $p=sc=\\sin^2x\\cos^2x=\\dfrac{\\sin^22x}4\\in\\left[0,\\dfrac14\\right]$.<br>$f=(s+c)+(s^2+c^2)+(s^3+c^3)=1+(1-2p)+(1-3p)=3-5p$.<br>With $p\\in\\left[0,\\tfrac14\\right]$: maximum $=3$ (at $p=0$) and minimum $=3-\\dfrac54=\\dfrac74$ (at $p=\\tfrac14$).<br>Correct options: <b>B</b> (max 3) and <b>C</b> (min 7/4).", "<b>Symmetric power sums:</b> express $s^n+c^n$ through $s+c=1$ and $sc=p$: $s^2+c^2=1-2p$, $s^3+c^3=1-3p$. Then bound $p=\\tfrac14\\sin^22x$."], ["Let $t=\\log_ba&gt;0$: $7\\left(t-\\dfrac1t\\right)=48\\Rightarrow7t^2-48t-7=0\\Rightarrow t=7$ (rejecting $-\\tfrac17$ because $a,b&gt;1$).<br>$a=b^7$ and $a=8b\\Rightarrow b^6=8\\Rightarrow b=\\sqrt2,\\ a=8\\sqrt2$.<br>$a-2b=8\\sqrt2-2\\sqrt2=6\\sqrt2=3\\sqrt k\\Rightarrow\\sqrt k=2\\sqrt2\\Rightarrow k=8$.<br>$8$ is an <b>even</b> natural number and a <b>perfect cube</b> ($2^3$); it is not odd nor a perfect square → <b>A and C</b>.", "Let $t=\\log_ba$ and use $\\log_ab=1/t$. Positivity ($a,b&gt;1$) selects the positive root. Then combine $a=b^t$ with the given relation $a=8b$."], ["Let $L=\\log_{10}x$: $\\log_{10}x^2=2L$, so $\\dfrac{1-8L^2}{L-2L^2}=1\\Rightarrow1-8L^2=L-2L^2\\Rightarrow6L^2+L-1=0$.<br>$(3L-1)(2L+1)=0\\Rightarrow L=\\dfrac13$ or $-\\dfrac12$ (denominator $L-2L^2\\ne0$ at both ✓).<br>$x=10^{1/3}=\\sqrt[3]{10}$ (B) and $x=10^{-1/2}=\\dfrac1{\\sqrt{10}}$ (A) → <b>A and B</b>.", "Substitute $L=\\log_{10}x$ and note $\\log x^2=2\\log x$ (this is $2\\log|x|$ in general). Check that the denominator is nonzero for each root."], ["$D=(b-\\lambda)^2-4a(a-b-\\lambda)=\\lambda^2+(4a-2b)\\lambda+b^2+4ab-4a^2$.<br>For real roots for <b>all</b> $\\lambda$ we need $D\\ge0\\ \\forall\\lambda$, so the discriminant of this quadratic in $\\lambda$ is $\\le0$: $(4a-2b)^2-4(b^2+4ab-4a^2)\\le0\\Rightarrow32a^2-32ab\\le0\\Rightarrow a(a-b)\\le0$.<br>$a&gt;0$: $b\\ge a&gt;0$ → options A, C possible. $a&lt;0$: $b\\le a&lt;0$ → options A, B possible.<br>D ($a&gt;b&gt;0$) gives $a(a-b)&gt;0$ ✗. So <b>A, B, C</b> may be true.", "<b>\"For all λ\"</b> means the discriminant (a quadratic in λ) must itself be non-negative for every λ — so its own discriminant must be $\\le0$. Then test each option against the single condition $a(a-b)\\le0$."], ["$\\tan\\beta=\\dfrac{1/\\sqrt{10}}{3/\\sqrt{10}}=\\dfrac13$, so $\\tan2\\beta=\\dfrac{2/3}{1-1/9}=\\dfrac34$.<br>$\\tan(\\alpha+2\\beta)=\\dfrac{\\frac17+\\frac34}{1-\\frac17\\cdot\\frac34}=\\dfrac{25/28}{25/28}=1$.<br>Since $\\alpha\\approx8.1^\\circ$ and $2\\beta\\approx36.9^\\circ$, the sum is $45^\\circ$ (in $(0,\\pi)$), so $\\alpha+2\\beta=\\dfrac\\pi4$ → <b>A</b>.", "Get $\\tan\\beta$ from $\\sin\\beta=\\tfrac1{\\sqrt{10}}$ (3-1-$\\sqrt{10}$ triangle), then $\\tan2\\beta$, then $\\tan(\\alpha+2\\beta)$. Check the range of the sum to pick the correct angle."]];
+
 function submitTest(){
   clearInterval(timerInterval);
   switchActiveQuestion(null);
@@ -411,7 +483,8 @@ function submitTest(){
 
   let totalScore = 0, maxScore = 0, correctCount=0, incorrectCount=0, unattemptedCount=0;
   const groupScore = {}; GROUPS.forEach(g=>groupScore[g]=0);
-  let html = `<h2>Test Result — VG Advanced Practice — Paper 1</h2><div class="score-cards" id="scoreCards"></div>`;
+  const REC = [];
+  let html = `<div class="noprint" style="display:flex;gap:8px;justify-content:flex-end;margin-bottom:8px;"><button class="btn btn-next" onclick="window.print()">🖨 Print / Save as PDF</button><button class="btn btn-save" onclick="location.reload()">Retake Test</button></div><h2 style="margin-bottom:2px;">Test Analysis Report — VG Advanced Practice — Paper 1</h2><div style="color:#555;font-size:13px;">Candidate: <b>${candidateName}</b> &nbsp;·&nbsp; ${new Date().toLocaleString()}</div><div class="score-cards" id="scoreCards"></div><div id="analysis"></div><h3 class="pbreak" style="color:#003366;">Question review</h3>`;
   html += `<div id="reviewList">`;
 
   questions.forEach((q,i)=>{
@@ -443,6 +516,9 @@ function submitTest(){
     else unattemptedCount++;
 
     totalScore += marksAwarded;
+    REC.push({i, status, marks:marksAwarded, topic:q.topic||'', group:q.group, type:q.type,
+      yours:userAnsDisplay, correct: q.type==='numeric' ? String(q.answer) : (q.type==='multi' ? q.correct.map(x=>letters[x]).join(', ') : letters[q.correct]),
+      t:questionTime[i]||0, visits:visitCount[i]||0});
     maxScore += 4;
     groupScore[q.group] += marksAwarded;
 
@@ -474,13 +550,15 @@ function submitTest(){
         <div style="color:var(--green);font-weight:600;">Correct answer: ${q.answer}</div>
       </div>`;
     }
+    if(SOL[i]) html += `<div class="sol"><b>Solution</b><div>${SOL[i][0]}</div><div class="tq"><b>💡 Technique:</b> ${SOL[i][1]}</div></div>`;
     html += `</div>`;
   });
 
   html += `</div>
-    <div class="backlink"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
+    <div class="backlink noprint"><button class="btn btn-next" onclick="location.reload()">Retake Test</button></div>`;
 
   resultDiv.innerHTML = html;
+  document.getElementById('analysis').innerHTML = buildAnalysis(REC, totalScore, maxScore);
 
   const totalTimeSeconds = questionTime.reduce((a,b)=>a+(b||0), 0);
   const avgTimeSeconds = totalTimeSeconds / N;
