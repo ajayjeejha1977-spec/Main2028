@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Binomial Theorem: Pattern Trainer</title>
+<style>
+:root{--bg:#faf8f4;--fg:#222;--mut:#666;--card:#fff;--bd:#ddd6c8;--ac:#b4501e;--ok:#1f7a45;--no:#b3261e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1b1a18;--fg:#eee;--mut:#aaa;--card:#26241f;--bd:#3d3a33;--ac:#f08a52;--ok:#5cc88a;--no:#ff8a80}}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Georgia,serif;line-height:1.55}
+main{max-width:820px;margin:auto;padding:16px}
+h1{font-size:1.4rem;margin:.2em 0}
+.tabs{display:flex;gap:8px;margin:12px 0;border-bottom:2px solid var(--bd)}
+.tabs button{font:inherit;padding:8px 14px;border:0;background:none;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent}
+.tabs button.on{color:var(--ac);border-color:var(--ac);font-weight:bold}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:12px 0}
+.cue{color:var(--mut);font-style:italic}
+details{margin:8px 0}summary{cursor:pointer;color:var(--ac);font-weight:bold}
+.dis{margin:4px 0 4px 16px}.tag{display:inline-block;background:var(--bd);border-radius:6px;padding:0 6px;font-size:.85rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.opts button{font:inherit;padding:6px 10px;border:1px solid var(--ac);background:none;color:var(--fg);border-radius:8px;cursor:pointer}
+.opts button:disabled{opacity:.6;cursor:default}
+.ok{color:var(--ok);font-weight:bold}.no{color:var(--no);font-weight:bold}
+.nav button{font:inherit;padding:6px 14px;margin-right:8px;border:1px solid var(--bd);background:var(--card);color:var(--fg);border-radius:8px;cursor:pointer}
+.hide{display:none}
+</style></head><body><main>
+<h1>Binomial Theorem: Pattern Trainer</h1>
+<div class="cue">Spot the parent problem inside the disguise. Question numbers refer to Exercise-4 unless stated.</div>
+<div class="tabs"><button id="t1" class="on">1. Parent problems</button><button id="t2">2. Tag before you solve</button><button id="t3">3. Error log</button></div>
+<section id="p1"></section>
+<section id="p2" class="hide"></section>
+<section id="p3" class="hide"></section>
+</main>
+<script>
+const P=[
+{n:"General term and independent term",cue:"Cue: “term independent of x”, “coefficient of xᵏ”, “coefficients are equal”.",
+q:"Find the term independent of x in (2x² − 1/x)⁹.",
+h:"General term Tᵣ₊₁ = ⁹Cᵣ (2x²)⁹⁻ʳ (−1/x)ʳ. Set the total power of x to 0.",
+a:"Power: 18 − 2r − r = 0, so r = 6. Term = ⁹C₆ · 2³ · (−1)⁶ = 84 · 8 = 672.",
+d:[["Plain","Q5, Q16, Q111: just find r. Q16 and Q111 first need the base simplified."],
+["Two-factor product","Q32: multiply by each term of the first bracket, so you need two different values of r."],
+["Then optimise","Q39, Q47, Q54, Q83: find the independent term (usually ¹⁰C₅ times something), then use AM-GM or a max/min on the leftover part."],
+["Number theory twist","Q72, Q81: the constant term is a sum, and you need the power of 2 in it."]]},
+{n:"Consecutive coefficients (ratio or A.P.)",cue:"Cue: “three consecutive terms”, “in the ratio”, “in A.P.”.",
+q:"Coefficients of three consecutive terms of (1+x)ⁿ are in the ratio 1 : 7 : 42. Find n.",
+h:"Use ⁿCᵣ₊₁ / ⁿCᵣ = (n − r)/(r + 1) twice.",
+a:"(n−r)/(r+1) = 7 gives n = 8r + 7. (n−r−1)/(r+2) = 6 gives n = 7r + 13. So r = 6 and n = 55.",
+d:[["A.P. version","Q3 (same as Exercise-1 Q8): 2·middle = sum of the others gives m² − m(4r+1) + 4r² − 2 = 0."],
+["Ratio version","Q29, Q42, Q108: solve two ratio equations. Q108 has an extra condition (n ≠ 10) to discard a root."],
+["Disguised coefficients","Q99: the four coefficients are written as 2−p, p, 2−α, α, so relate them through the ratio rule."]]},
+{n:"Sum of coefficients, even/odd powers",cue:"Cue: “sum of coefficients”, “even/odd powers”, “integral powers of x”.",
+q:"Find the sum of the coefficients of even powers of x in (1 + x + x²)¹⁰.",
+h:"Put x = 1 and x = −1. Even-power sum = ½[f(1) + f(−1)].",
+a:"f(1) = 3¹⁰ = 59049, f(−1) = 1. Even sum = (59049 + 1)/2 = 29525.",
+d:[["Direct","Q97: sum of coefficients means x = 1."],
+["Hidden even/odd","Q18: integral powers of x in (1 − 2√x)⁵⁰ are the even-r terms, so use ½[f(1)+f(−1)] on the √x expansion."],
+["Pair (a+b)ⁿ ± (a−b)ⁿ","Q21, Q28, Q37: odd terms cancel (or even terms double), so only half the terms survive."],
+["Count first","Q19: find n from the number of terms, then use x = 1."]]},
+{n:"Rational or integral terms",cue:"Cue: mixed roots such as √2 and ∛3, or “integral terms”.",
+q:"How many rational terms are in (√2 + ∛3)¹²?",
+h:"Tᵣ₊₁ has 2^((12−r)/2) · 3^(r/3). Both exponents must be integers.",
+a:"r must be a multiple of 3 and even, so a multiple of 6: r = 0, 6, 12. Answer: 3.",
+d:[["Count rational","Q26: irrational = total terms − rational terms (61 − 7 = 54)."],
+["Count integral","Q104, Q40: same method; the condition is r divisible by the LCM of the root denominators."],
+["Reverse question","Q40, Q110: given the count, find the least n. Think about which n first allows that many valid r."],
+["Combined","Q109: rational terms plus a G.P. condition on coefficients."]]},
+{n:"Remainder and divisibility",cue:"Cue: huge powers with “remainder when divided by”.",
+q:"Find the remainder when 6⁸³ + 8⁸³ is divided by 49.",
+h:"Write 6 = 7 − 1 and 8 = 7 + 1. Terms with 7² vanish mod 49.",
+a:"(7−1)⁸³ + (7+1)⁸³ ≡ 2·⁸³C₈₂·7 = 2·83·7 = 1162. 1162 = 49·23 + 35. Remainder 35.",
+d:[["Base mod first","Q12, Q70: reduce the base mod the divisor, then use (−1)ⁿ. For example 62 ≡ −1 (mod 9)."],
+["Cycle of powers","Q68: 3⁴ ≡ 1 (mod 5), so reduce the exponent mod 4."],
+["Tower","Q103, Q113: reduce the top exponent using the cycle length of the next level."],
+["Series","Q78: sum a geometric series in closed form, then work mod 50."]]},
+{n:"Identities for sums of ⁿCᵣ",cue:"Cue: Σ with ⁿCᵣ, extra factor r or 1/(r+1), or squares of coefficients.",
+q:"Evaluate Σ (r + 1)·ⁿCᵣ for r = 0 to n.",
+h:"Split into r·ⁿCᵣ + ⁿCᵣ. Use r·ⁿCᵣ = n·ⁿ⁻¹Cᵣ₋₁.",
+a:"Σ r·ⁿCᵣ = n·2ⁿ⁻¹ and Σ ⁿCᵣ = 2ⁿ. Total = n·2ⁿ⁻¹ + 2ⁿ = (n+2)·2ⁿ⁻¹.",
+d:[["Symmetry","Q20: ΣCₖ over half the range equals half of the total, since ⁿCᵣ = ⁿCₙ₋ᵣ."],
+["Squares / Vandermonde","Q57, Q84: Σ(ⁿCₖ)² = ²ⁿCₙ, and ΣᵐCᵣ·ⁿCᵣ = ᵐ⁺ⁿCₘ."],
+["Hockey stick","Q41: Σ of ⁿ⁻ʳC₆ telescopes into one ⁿ⁺¹C₇ − ᵐC₇."],
+["Arithmetic progression of weights","Q27, Q33, Q56: write r², (3r+2) and so on as combinations of r(r−1), r and 1."],
+["1/(k+1) trick","Q89, Q102, Q105: ⁿCₖ/(k+1) = ⁿ⁺¹Cₖ₊₁/(n+1)."]]},
+{n:"Expand by splitting, factorising or multiplying",cue:"Cue: trinomial or four-term base, product of two expansions, “coefficient is zero”.",
+q:"Find the coefficient of x³ in (1 + x + x² + x³)ⁿ.",
+h:"1 + x + x² + x³ = (1+x)(1+x²). Pair powers from each expansion.",
+a:"(1+x)ⁿ(1+x²)ⁿ: x³ comes from x³·1 or x·x². Coefficient = ⁿC₃ + ⁿC₁·ⁿC₁ = ⁿC₃ + n². (Exercise-3 Q7 is the x⁴ version.)",
+d:[["Factorise","Q14: 1−x−x²+x³ = (1−x)(1−x²)."],
+["Geometric series of brackets","Q36: (1+x)¹⁰ + x(1+x)⁹ + … is a G.P., so it equals (1+x)¹¹ − x¹¹ divided by 1; read off the coefficient."],
+["Two-bracket product, find unknowns","Q17, Q30: set the coefficients of two powers to zero, then solve for a and b."],
+["Product of many brackets","Q31, Q96, Q101, Q106: factorise or rewrite first, then match powers."]]}
+];
+const D=[
+["Q3 · coefficients of rth, (r+1)th, (r+2)th terms of (1+y)ᵐ are in A.P.",0,"Write ᵐCᵣ₋₁, ᵐCᵣ, ᵐCᵣ₊₁ and apply 2·middle = sum.","Option C: m² − m(4r+1) + 4r² − 2 = 0"],
+["Q14 · coefficient of x⁷ in (1 − x − x² + x³)⁶",5,"Factorise the base as (1−x)(1−x²), then pair powers.","Option D: −144"],
+["Q18 · sum of coefficients of integral powers of x in (1 − 2√x)⁵⁰",1,"Integral powers are the even-r terms, so use ½[f(1)+f(−1)].","Option B: ½(3⁵⁰ + 1)"],
+["Q26 · irrational terms in (7^(1/5) − 3^(1/10))⁶⁰",2,"Find the r values that make both exponents integers (r multiples of 10), then subtract from 61.","Option A: 54"],
+["Q12 · remainder when 8²ⁿ − 62²ⁿ⁺¹ is divided by 9",3,"Reduce the bases: 8 ≡ −1 and 62 ≡ −1 (mod 9).","Option B: 2"],
+["Q20 · (²¹C₁−¹⁰C₁)+(²¹C₂−¹⁰C₂)+…+(²¹C₁₀−¹⁰C₁₀)",4,"Use symmetry on ²¹Cₖ (k = 1 to 10) and the total 2ⁿ for ¹⁰Cₖ.","Option A: 2²⁰ − 2¹⁰ (since Σ²¹Cₖ = 2²⁰ − 1 and Σ¹⁰Cₖ = 2¹⁰ − 1)"],
+["Q115 · mean of coefficients of (x+y)²ⁿ⁻³ is 16; find distance of P(2n−1, n²−4n) from x + y = 8",9,"The mean is 2^(2n−3)/(2n−2) = 16, so n = 5. Then use the point-to-line distance formula.","Option D: 3√2 (P = (9,5), distance 6/√2)"],
+["Q16 · term independent of x in ((x+1)/(x^(2/3) − x^(1/3) + 1) − (x−1)/(x − x^(1/2)))¹⁰",5,"Simplify the base first: it becomes x^(1/3) − x^(−1/2). Then r = 4.","Option D: 210"],
+["Q68 · remainder when 3²⁰²² is divided by 5",3,"3⁴ ≡ 1 (mod 5); reduce 2022 mod 4.","Option D: 4"],
+["Q57 · Σ(²⁰Cₖ)² for k = 0 to 20",4,"Vandermonde (Σ(ⁿCₖ)² = ²ⁿCₙ).","Option C: ⁴⁰C₂₀"],
+["Q40 · integral terms in (3^(1/2) + 5^(1/8))ⁿ are exactly 33; least n",2,"Integral terms need r a multiple of 8 and n − r even. 33 terms means r = 0, 8, …, 256.","Option B: 256"],
+["Q36 · coefficient of x⁷ in (1+x)¹⁰ + x(1+x)⁹ + x²(1+x)⁸ + … + x¹⁰",5,"Spot the G.P. with ratio x/(1+x); it sums to (1+x)¹¹ − x¹¹.","Option B: ¹¹C₇ = 330"]
+];
+const T=["Textbook: consecutive-coefficient ratio/A.P.","Sum of coefficients / even-odd","Rational or integral terms","Remainder / divisibility","Sum of ⁿCᵣ identity","Simplify, factorise or split the expression first","General or independent term, special terms","Fractional index or approximation","Find unknowns from given coefficients","Cross-chapter: another topic hiding inside"];
+// map parent index to drill options: drill answer index uses T order below
+const idx=[1,5,2,3,4,0]; // not used for display
+const W=[
+"<b>Q5.</b> Coefficient of x⁷ in (ax² + 1/(bx))¹¹ equals coefficient of x⁻⁷ in (ax − 1/(bx²))¹¹. First: power 22 − 3r = 7, so r = 5, giving ¹¹C₅·a⁶/b⁵. Second: power 11 − 3r = −7, so r = 6, giving ¹¹C₆·a⁵/b⁶ (sign (−1)⁶ = +). Since ¹¹C₅ = ¹¹C₆, a⁶/b⁵ = a⁵/b⁶, so a = 1/b, i.e. <b>ab = 1</b>. Trap: using the same r in both.",
+"<b>Q29.</b> Three consecutive coefficients of (x+1)ⁿ are in ratio 2 : 15 : 70. (n−r)/(r+1) = 15/2 gives 2n = 17r + 15. (n−r−1)/(r+2) = 70/15 = 14/3 gives 3n = 17r + 31. Subtract to get r = 1, n = 16. Coefficients are 16, 120, 560 (check: ratio 2 : 15 : 70). Average = 696/3 = <b>232</b>. Trap: the question asks for the average, not n.",
+"<b>Q18.</b> (1 − 2√x)⁵⁰ has terms ⁵⁰Cᵣ(−2)ʳ x^(r/2). The power is integral only when r is even. Sum of even-r terms = ½[(1−2)⁵⁰ + (1+2)⁵⁰] = <b>½(3⁵⁰ + 1)</b>. Trick: treat the coefficient of the √x as the variable t, then use t = 1 and t = −1.",
+"<b>Q40.</b> Tᵣ₊₁ = ⁿCᵣ·3^((n−r)/2)·5^(r/8). Integral needs r a multiple of 8 and n − r even. For 33 terms r runs 0, 8, …, 256, so n ≥ 256. At n = 256 every such r has n − r even, so all 33 count. For n below 256 there are at most 32. Least n = <b>256</b>.",
+"<b>Q70.</b> 2021 ≡ 5 ≡ −2 (mod 7). 2³ = 8 ≡ 1, so powers of 2 repeat every 3. 2023 = 3·674 + 1, so 2²⁰²³ ≡ 2 and (−2)²⁰²³ ≡ −2 ≡ <b>5</b>. Trap: forgetting that the odd exponent keeps the minus sign.",
+"<b>Q89.</b> Read the sum backwards: ⁿC₀/1 + ⁿC₁/2 + … + ⁿCₙ/(n+1) = (2ⁿ⁺¹ − 1)/(n+1). Setting this equal to 1023/10 gives n + 1 = 10 (as 2¹⁰ − 1 = 1023), so <b>n = 9</b>. The disguise is only the reversed order of terms.",
+"<b>Q36.</b> The terms form a G.P. with first term (1+x)¹⁰, ratio x/(1+x), 11 terms. Sum = (1+x)¹¹ − x¹¹. The coefficient of x⁷ is ¹¹C₇ = <b>330</b>. Without spotting the G.P. this is an 11-term sum of products."
+];
+function esc(s){return s}
+function renderP(){let h="";P.forEach((p,i)=>{h+=`<div class="card"><h3>${i+1}. ${p.n}</h3><div class="cue">${p.cue}</div>
+<p><b>Try first:</b> ${p.q}</p>
+<details><summary>Hint</summary>${p.h}</details>
+<details><summary>Answer</summary>${p.a}</details>
+<details><summary>Worked twist</summary><div class="dis">${W[i]}</div></details>
+<details><summary>Analysis: how it gets disguised</summary>${p.d.map(x=>`<div class="dis"><span class="tag">${x[0]}</span> ${x[1]}</div>`).join("")}</details></div>`});
+document.getElementById("p1").innerHTML=h}
+let k=0,sc=0,tot=0,log=[];
+function renderD(){const q=D[k];
+document.getElementById("p2").innerHTML=`<div class="card"><div class="cue">Question ${k+1} of ${D.length} · Score ${sc}/${tot}. Do not solve. Choose the pattern.</div>
+<p><b>${q[0]}</b></p><div class="opts">${T.map((t,i)=>`<button data-i="${i}">${t}</button>`).join("")}</div>
+<div id="fb"></div></div>
+<div class="nav"><button id="pv">Previous</button><button id="nx">Next</button><button id="sh">Shuffle and restart</button></div>`;
+document.querySelectorAll(".opts button").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+document.getElementById("pv").onclick=()=>{k=(k+D.length-1)%D.length;renderD()};
+document.getElementById("nx").onclick=()=>{k=(k+1)%D.length;renderD()};
+document.getElementById("sh").onclick=()=>{shuf();k=0;sc=0;tot=0;renderD()}}
+function pick(i){const q=D[k];const ok=i===q[1];tot++;if(ok)sc++;
+document.querySelectorAll(".opts button").forEach(b=>b.disabled=true);
+document.getElementById("fb").innerHTML=`${analysis(i,q)}<p><b>First move:</b> ${q[2]}</p><p><b>Answer:</b> ${q[3]}</p><p><b>Log it. If you got this wrong or slowly, why?</b></p><div class="opts" id="why"><button data-w="Recognition">Did not spot the pattern</button><button data-w="Concept">Did not know the concept</button><button data-w="Calculation">Slip in calculation</button><button data-w="None">No problem</button></div>`;
+log.push({k:k,l:D[k][0].split(" · ")[0],p:i,ok:ok,w:ok?"None":"Recognition"});
+document.querySelectorAll("#why button").forEach(b=>b.onclick=()=>{log[log.length-1].w=b.dataset.w;document.querySelectorAll("#why button").forEach(x=>x.disabled=true);b.style.background="var(--bd)";renderLog()})}
+const S=[
+"fires on ‘consecutive terms’, ‘in the ratio’, ‘in A.P.’: neighbouring coefficients are compared, using ⁿCᵣ₊₁/ⁿCᵣ = (n−r)/(r+1).",
+"fires on ‘sum of coefficients’, ‘even/odd powers’, ‘integral powers’: put x = 1 and x = −1 instead of expanding. It gives totals only, never one specific coefficient.",
+"fires on mixed roots (like √2 and ∛3) with ‘rational / irrational / integral terms’: make every exponent in Tᵣ₊₁ an integer and count the r values.",
+"fires on a huge power with ‘remainder when divided by’: reduce the base mod the divisor, or write it as (multiple ± 1)ⁿ.",
+"fires on a Σ of ⁿCᵣ with a weight (r, 1/(r+1), r², squares) or a half-range sum: use r·ⁿCᵣ = n·ⁿ⁻¹Cᵣ₋₁, symmetry, Vandermonde or 2ⁿ.",
+"fires on an ugly base, a four-term base, or a sum that is secretly a G.P.: factorise, simplify or split it first, then do a short binomial step.","fires on ‘general term’, ‘independent of x’, ‘coefficient of x to a power’, middle term, term from the end: write T(r+1) and solve for r.","fires on a non-integer index or ‘x is so small that…’: use the infinite series 1 + nx + n(n−1)x²/2! + … or bound the terms.","fires on coefficients that are given, equal or zero with unknown m, n, p or a, b: turn each given coefficient into an equation.","fires on a foreign topic (logs, trig, limits, AM-GM, geometry, factorials) wrapped around a binomial step: do the binomial part, then switch topic."];
+const X=[
+["The question compares the coefficients of three neighbouring terms (rth, (r+1)th, (r+2)th) and says they are in A.P.",5,"It looks algebra-heavy, which can make you want to simplify first. But there is nothing to simplify: the A.P. condition itself is the first step."],
+["The base has four terms, 1 − x − x² + x³, and it factorises as (1−x)(1−x²). Once factorised it becomes an ordinary coefficient hunt.",1,"Putting x = 1 or −1 gives totals only. This question asks for one specific coefficient (x⁷), so substitution cannot answer it."],
+["‘Sum of coefficients of integral powers’ is a sum-by-parity question: √x makes odd r give non-integral powers, so only even r survive.",2,"√x invites rational/integral-term counting, but you are asked for a sum, not a count. Counting tells you which r qualify; the sum needs ½[f(1) + f(−1)]."],
+["‘Irrational terms’ with two different roots (7^(1/5) and 3^(1/10)): find the r that make both exponents integers (multiples of 10) and subtract from the 61 terms.",1,"Both are about special terms, but nothing is being summed. You only count terms, so substitution of x = 1 never enters."],
+["‘Remainder when divided by 9’ with huge powers. Reduce the bases: 8 ≡ −1 and 62 ≡ −1 (mod 9).",5,"62²ⁿ⁺¹ looks ugly, but nothing needs to be simplified algebraically. The modular reduction is the whole move."],
+["Differences of sums of ²¹Cₖ and ¹⁰Cₖ over k = 1 to 10. The ²¹Cₖ half-range sum uses symmetry (giving 2²⁰ − 1), the ¹⁰Cₖ sum is 2¹⁰ − 1.",1,"‘Sum of coefficients’ sounds close, but only half of the range is used for ²¹Cₖ, so x = 1 gives the wrong total. Symmetry ⁿCᵣ = ⁿCₙ₋ᵣ is the key."],
+["‘Mean of coefficients’ is a short binomial step (total 2ᵐ divided by the number of terms). The rest, the distance of a point from a line, is coordinate geometry.",1,"‘Mean of coefficients’ resembles ‘sum of coefficients’, which tempts x = 1. That is only the first line; most of the question is the distance formula, which is why it belongs to the cross-chapter family."],
+["The base is a ratio of unfamiliar expressions. x^(2/3) − x^(1/3) + 1 is the second factor of a³ + b³ with a = x^(1/3), so the fraction collapses. Simplify first.",2,"Fractional powers make you think of rational terms, but you are asked for the term independent of x. The cleanup comes before any term-hunting."],
+["‘Remainder when 3²⁰²² is divided by 5’ is the remainder family. Here the power cycle 3⁴ ≡ 1 does everything.",4,"A big power can tempt a binomial-sum idea, but there is no ⁿCᵣ sum here. It is a pure cycle of powers."],
+["Σ(²⁰Cₖ)² is a sum of squares of coefficients. Vandermonde gives ⁴⁰C₂₀.",1,"Sum of coefficients would be Σ²⁰Cₖ = 2²⁰. Here every coefficient is squared, so x = 1 gives the wrong total."],
+["‘Integral terms’ with 3^(1/2) and 5^(1/8): r must make both exponents integers (r a multiple of 8, n − r even). Count the valid r, then find the least n.",0,"‘Least value of n’ looks like solving for n from a ratio of coefficients, but no coefficients are compared. Only a count of valid r is given."],
+["(1+x)¹⁰ + x(1+x)⁹ + … is a G.P. with ratio x/(1+x). Summing it gives (1+x)¹¹ − x¹¹. Spotting this hidden pattern is the whole question.",4,"A sum of binomial-looking terms suggests an identity sum, but nothing is summed over r. The sum is over powers of x, so it is a G.P. first."]];
+function analysis(i,q){const x=X[k];
+if(i===q[1])return `<p class="ok">Correct.</p><p><b>Why it fits:</b> ${x[0]}</p>`;
+const bad=i===x[1]?x[2]:`That pattern ${S[i]} None of these cues appear here.`;
+return `<p class="no">Not quite. You chose “${T[i]}”.</p><p><b>Why that does not fit:</b> ${bad}</p><p><b>Why it is “${T[q[1]]}”:</b> ${x[0]}</p><p><b>That pattern ${S[q[1]]}</b></p>`}
+function renderLog(){const c={Recognition:0,Concept:0,Calculation:0},m={};
+log.forEach(e=>{if(c[e.w]!==undefined)c[e.w]++;if(!e.ok)m[e.p]=(m[e.p]||0)+1});
+let top=Object.keys(m).sort((a,b)=>m[b]-m[a])[0];
+document.getElementById("p3").innerHTML=log.length?`<div class="card"><h3>Why marks are lost</h3><p>Recognition: <b>${c.Recognition}</b> · Concept: <b>${c.Concept}</b> · Calculation: <b>${c.Calculation}</b></p><p>Attempts: ${log.length}, tagged correctly: ${log.filter(e=>e.ok).length}.</p>${top!==undefined?`<p>Pattern missed most: <b>${T[top]}</b>. Re-do its parent problem in tab 1.</p>`:"<p class=\"ok\">No pattern missed yet.</p>"}</div><div class="card"><h3>History</h3>${log.map((e,j)=>`<div class="dis">${j+1}. ${e.l}: ${e.ok?"<span class=ok>tagged correctly</span>":"<span class=no>missed</span>"} · ${e.w}</div>`).join("")}</div>`:`<div class="card cue">Nothing logged yet. Attempt questions in tab 2 and tag why you lost marks. The log fills in here.</div>`}
+// reorder drill answer indices to match T
+const map={0:0,1:1,2:2,3:3,4:4,5:5};
+D.forEach(q=>{});
+P.push({n:"Fractional index and approximation",cue:"Cue: a non-integer power, ‘x is so small’, or a huge m in (1+1/m)^m.",q:"Expand (1+x)^(−2) up to x³.",h:"The series 1 + nx + n(n−1)/2!·x² + … works for any n when |x| < 1.",a:"1 − 2x + 3x² − 4x³.",d:[["Neglect small terms","Q6, Q52: expand only up to the asked power. In Q52 write 1/(a−kb) = (1/a)(1 + kb/a + …) and sum powers of k."],["Product of series","Q7: 1/((1−ax)(1−bx)) is a product of two geometric series."],["Bounding a value","Q53: (1+1/m)^m has terms below 1/r!, so it lies between 2 and 3."]]});
+W.push("<b>Q7.</b> By partial fractions 1/((1−ax)(1−bx)) = (1/(a−b))[a/(1−ax) − b/(1−bx)]. The coefficient of xⁿ is (aⁿ⁺¹ − bⁿ⁺¹)/(a − b), which is option D. Trap: option C has the sign reversed in the denominator.");
+P.push({n:"Find unknowns from given coefficients",cue:"Cue: coefficients of two powers are given, equal or zero, and m, n, p or a, b are unknown.",q:"In (1+x)^p (1−x)^q the coefficients of x and x² are 1 and −2. Find p² + q².",h:"Coefficient of x is p − q. Coefficient of x² is pC2 + qC2 − pq.",a:"p − q = 1. Second equation gives (p−q)² − (p+q) = −4, so p + q = 5. Then p = 3, q = 2 and p² + q² = 13.",d:[["Two product expansions","Q8, Q51, Q107: coefficients of y and y² give two equations in m and n."],["Zero coefficients","Q17, Q30: set two coefficients to zero to get a and b."],["Natural-number clue","Q90: p₁ = 20 forces a⁹b = 2, so a = 1, b = 2; then p₂ gives c."]]});
+W.push("<b>Q90.</b> p₁ = 10a⁹b = 20 so a⁹b = 2, and with naturals a = 1, b = 2. p₂ = ¹⁰C₂a⁸b² + 10a⁹c = 45·4 + 10c = 210, so c = 3. 2(a+b+c) = <b>12</b>. Trap: forgetting the x² term that comes from c alone.");
+P.push({n:"Cross-chapter: another topic inside",cue:"Cue: logs, trig, limits, AM-GM, geometry or factorials wrapped around a binomial step.",q:"a, b > 0 and a + b = 4. Find the maximum of the term independent of x in (ax + b/x)⁴.",h:"Find the x⁰ term first, then maximise what is left.",a:"Independent term = ⁴C₂a²b² = 6(ab)². With a + b = 4, ab ≤ 4, so the maximum is 6·16 = 96.",d:[["Binomial plus AM-GM or calculus","Q38, Q39, Q47, Q54, Q74, Q83: independent term first, then maximise or minimise."],["Binomial plus logs","Q55, Q94: turn log and exponent expressions into plain powers first."],["Other topics","Q100 (limits, quadratics), Q115 (coordinate geometry), Q77 and Q116 (factorials, number theory), Q64 (test small n)."]]});
+W.push("<b>Q74.</b> Independent term of (ax^(1/8) + bx^(−1/12))¹⁰: (10−r)/8 = r/12 gives r = 6, term = 210a⁴b⁶ = 210(a²b³)². AM-GM on 1/a² + 1/b³ = 4 gives a²b³ ≥ 1/4. Minimum = 210/16 = <b>105/8</b> (option C).");
+const pg=n=>n<=7?264:n<=13?265:n<=21?266:n<=30?267:n<=38?268:n<=46?269:n<=53?270:n<=61?271:n<=71?272:n<=78?273:n<=86?274:n<=93?275:n<=102?276:n<=111?277:278;
+const E=`1|6|middle term of two different powers with equal coefficients|Middle term of (1+ax)^4 is T3 and of (1-ax)^6 is T4; write both coefficients and equate|C
+2|4|sums of 1/nCr and r/nCr over r|Pair r with n-r (nCr is symmetric): t_n = (n/2) S_n|A
+4|4|50C4 plus a sum of 56-rC3, lower index fixed|Add terms one by one with nCr + nCr-1 = n+1Cr (hockey stick)|D
+5|6|coefficient of x^7 equals coefficient of x^-7 in two expansions|Find r separately for each general term (r=5 and r=6), then equate|D
+6|7|x so small that x^3 is neglected, fractional index|Expand (1+x)^(3/2), (1+x/2)^3 and (1-x)^(-1/2) to x^2 only, then multiply|C
+7|7|1/((1-ax)(1-bx)) in powers of x|Partial fractions, or multiply two geometric series|D
+8|8|(1-y)^m(1+y)^n with a1=a2=10|Coefficient of y is n-m, of y^2 is nC2+mC2-mn; solve both|D
+9|6|sum of the 5th and 6th terms is zero|Write T5 and T6, set T5+T6=0; use nC5/nC4=(n-4)/5|D
+10|4|alternating sum of 20Cr up to the middle|Full alternating sum is 0 and the halves are equal, so the half-sum comes from 20C10|B
+11|4|statement type: sum of (r+1)nCr|Split (r+1)nCr = r nCr + nCr; test statement 2 by differentiating x(1+x)^n|B
+13|4|S1, S2, S3 are weighted j sums of 10Cj|Use j.10Cj = 10.9Cj-1 and j(j-1).10Cj = 90.8Cj-2; S3 = S1+S2; check each statement number carefully|B (my working gives D, check with your teacher)
+15|1|(a+b)^n minus (a-b)^n with a surd|Subtracting doubles the odd terms, each has an odd power of root 3|A
+17|8|coefficients of x^3 and x^4 both zero|Write both coefficients of (1+ax+bx^2)(1-2x)^18 using 18Cr(-2)^r and solve for a, b|A
+19|1|term count given, then sum of coefficients|Sum of coefficients is the x=1 value 3^n; note 2n+1 cannot equal 28|Bonus (the question is flawed)
+21|1|(x+s)^5+(x-s)^5 with a square root|They combine to one polynomial; odd-degree coefficient sum is half of f(1)-f(-1)|A
+22|5|(1-t^6)/(1-t) cubed|Rewrite as (1-t^6)^3(1-t)^-3; only the 1 of (1-t^6) matters for t^4|B
+23|4|20Ci-1 over 20Ci+20Ci-1, cubed|20Ci+20Ci-1 = 21Ci so the ratio is i/21; then a sum of cubes|A
+24|4|sum of products 20Cr-k 20Ck|Vandermonde gives 40Cr, largest at r=20|A
+25|4|Sn and Tn with 101Ck.S(k-1), Exercise-1 Q7 again|Use Sk=(1-q^(k+1))/(1-q), split, compare with Tn|C
+27|4|terms 2,5,8,11 times 20Cr|Write each as (3r+2)20Cr and use the standard sums|A
+28|1|(x+s)^6+(x-s)^6, even-degree sum|Combine into one polynomial; even sum is half of f(1)+f(-1)|D
+29|0|three consecutive coefficients in ratio 2:15:70|Two ratio equations in n and r; then average the three coefficients|D
+30|8|coefficients of x^2 and x^3 both zero|Write both coefficients of (1+ax+bx^2)(1-3x)^15 and solve for a, b|B
+31|5|product (1+x)(1-x)^10(1+x+x^2)^9|(1-x)(1+x+x^2) = 1-x^3, so it becomes (1-x^2)(1-x^3)^9|D
+32|6|term independent of x in a bracket times a power|Find the x^0 and x^-8 terms of (2x^2-3/x^2)^6 and pair with the bracket|C
+33|4|r^2 weights on 20Cr|Write r^2 = r(r-1)+r and use the standard sums|B
+34|3|fractional part of 2^403/15|2^4 = 1 (mod 15); reduce 403 mod 4|A
+35|5|49^125+...+1 is a G.P.|Sum = (49^126-1)/48; factor 49^126-1; 49^k+1 divides it when 63/k is odd|C
+37|1|(x+s)^6+(x-s)^6, coefficients of x^4 and x^2|Odd powers of the root cancel; expand and collect|D
+38|9|trig terms inside a binomial|Independent term is 16C8/(sin t cos t)^8, then optimise over the range|B
+39|9|independent term, then maximum with a^3+b^2=4|r=4 gives 210a^6b^4; maximise (a^3)^2(b^2)^2 with AM-GM|B
+41|4|sum of 50-rC6 for r=0..20|Hockey stick: 30C6+...+50C6 = 51C7-30C7|B
+42|0|three consecutive coefficients in ratio 5:10:14|Two ratio equations give n+5; then the largest coefficient is the middle one|D
+43|3|fractional part of 3^200/8|3^2 = 1 (mod 8)|C
+44|1|even-power coefficient sum of a product equals 61|f(1) and f(-1) both equal 2n+1, so the even sum is 2n+1|30
+45|4|alternating r.15Cr plus odd-index 14C sums|r.15Cr = 15.14Cr-1; the alternating full sum is 0; odd-index sum of 14C is 2^13|D
+46|4|n+1C2 + 2(2C2+...+nC2)|Hockey stick: sum of kC2 = n+1C3|B
+47|9|term independent of t, then maximise over x|Pick the t^0 term, a function of x, then maximise it|B
+48|1|even-index coefficient sums of (1-x+x^3)^n|Even-index sum is half of f(1)+f(-1)|C
+49|4|sum of 6Cr.6C(6-r)|Vandermonde gives 12C6|A
+50|1|odd-index sum a1+a3+...+a37|Odd sum is half of f(1)-f(-1); subtract a39|B
+51|8|same as Q8, a1=a2=10, find m+n|Coefficients of y and y^2 give two equations in m, n|D
+52|7|b/a small, cube neglected|1/(a-kb) = (1/a)(1 + kb/a + (kb/a)^2); sum powers of k|C
+53|7|(1+1/m)^m with huge m|Terms are below 1/r!, so the value is between 2 and 3|A
+54|9|greatest independent term equals 10!/(5!)^2|Pick the x^0 term (r=5) with (sin t cos t)^5; greatest when sin 2t = 1|D
+55|9|logs inside the binomial|Simplify the bases to plain powers; 9th term is 10C8 a^2 b^8; put t = 5^(x-1)|D
+56|4|r^2 weights on 20Cr|r^2 = r(r-1)+r|D
+58|3|3^n+7^n multiple of 10|a^n+b^n is divisible by a+b for odd n; count odd two-digit n|45
+59|3|(2020+x)^2022 divided by 8|x = 4k+3 so the base is odd; odd squares are 1 (mod 8)|1
+60|4|weights 30,29,...,1 on 30Cr|(30-r).30Cr = 30.29Cr; sum is 15.2^30|45
+61|4|alternating sum with five fractions to the power k|Sum (-1)^k nCk x^k = (1-x)^n; apply to each fraction|6
+62|3|2021^3762 mod 17|2021 = -2 (mod 17); 2^8 = 1 (mod 17); reduce 3762 mod 8|4
+63|4|(4+3k) weights on 10Ck|Split into sum 10Ck and sum k.10Ck; alpha comes out 0|19
+64|9|11^n > 10^n + 9^n up to n=100|Divide by 11^n and test small n; it holds from n=5 on|96
+65|4|terms (2r+1)nCr sum to 2^100.101|Sum = (n+1)2^n so n = 100|98
+66|4|Iverson bracket with two Vandermonde sums|Each sum is Vandermonde, so A_k = 2.21Ck; take A4-A3|49
+67|3|3.7^22 + 2.10^22 - 44 mod 18|7^3 = 1 and 10^n = 10 (mod 18)|15
+69|5|sum of x^k (5+x)^(500-k) is a G.P.|Ratio x/(5+x): sum = ((5+x)^501 - x^501)/5|A
+70|3|2021^2023 mod 7|2021 = -2 (mod 7); 2^3 = 1 (mod 7); reduce 2023 mod 3|C
+71|4|sums of nCk.nCk-1|Vandermonde: sum nCk.nCk-1 = 2nC(n-1)|A
+72|6|constant term 2^k.I of a trinomial power|Multinomial term with 3a+2b = 5c; sum the terms and find the power of 2|D
+73|3|9^n-8n-1 = 64a and 6^n-5n-1 = 25b|Write (1+8)^n and (1+5)^n; first terms cancel with 8n+1 and 5n+1|C
+74|9|constant term with 1/a^2+1/b^3=4, minimum|r=6 gives 210(a^2b^3)^2; AM-GM bounds a^2b^3|C
+75|3|11^1011 + 1011^11 mod 9|11 = 2 and 1011 = 3 (mod 9); powers of 2 repeat every 6; 3^11 is 0|D
+76|4|sum of nCi nCj for i different from j|(sum nCi)^2 minus sum (nCi)^2 = 2^(2n) - 2nCn|A
+77|9|sum of (r^2+1) r! telescopes|Write the term as a difference of factorials; r.r! = (r+1)! - r!|B
+78|3|1+3+...+3^2021 mod 50|G.P. sum (3^2022-1)/2; find 3^2022 mod 100 using 3^20 = 1|4
+79|4|weights (2r-1) and 1/(r+1)|Reduce to sums of r.Cr and Cr/(r+1) = (2^11-1)/11|286
+80|4|40C0+41C1+...+60C20|Hockey stick on the lower index: equals 61C20|102
+81|6|power of 2 in constant term of (2x^3+3/x^k)^12|3(12-r) = kr; list allowed r, then the power of 2 in 12Cr.2^(12-r)|2
+82|6|coefficients of x^-1 and x^-3|Exponent (15-2r)/5; r = 10 and r = 12; compare m.n^2|5
+83|9|maximum independent term, then multiply by 8|Pick the t^0 term, then maximise its x-part|6006
+84|4|sum of 22Cr.23Cr|22Cr = 22C(22-r), Vandermonde gives 45C23|B
+85|4|r weights on (30Cr)^2|r.30Cr = 30.29Cr-1, then Vandermonde|C
+86|3|25^190-19^190-8^190+2^190 divisibility|Group as differences of equal powers; a^n-b^n is divisible by a-b; test 17 and 7|D
+87|6|term from the end is 1024 times term from the start|kth from the end is the (n-k+2)th from the start; take the ratio|A
+88|4|ratio a_r/a_r-1 with r^3|a_r = 10Cr so the ratio is (11-r)/r; then sum r(11-r)^2|D
+89|4|reversed sum nCn/(n+1)+nCn-1/n+...|Reverse the order: sum nCr/(r+1) = (2^(n+1)-1)/(n+1)|A
+90|8|p1 = 20, p2 = 210 with natural numbers|p1 = 10a^9b gives a=1, b=2; p2 gives c|D
+91|3|two statements about divisibility|S1 with a^n-b^n; S2 by expanding (1+12)^n|D
+92|3|50th roots 12 and 18, remainder by 25|x+y = 12^50+18^50; reduce mod 25 with the cycle length 20|23
+93|3|19^200+23^200 mod 49|19 = 21-2 and 23 = 21+2; 21^2 is divisible by 49, keep two terms|29
+94|9|logs, A.P. of coefficients, sixth term|Simplify both roots to plain powers; A.P. on mC1, mC2, mC3 gives m; the sixth term gives x|4
+95|6|constant term then greatest integer|r = 2; constant term = 7C2.3^5/4 = 1275.75|1275
+96|5|trinomial (1-x+2x^3)^10|Count a copies of (-x) and b of 2x^3 with a+3b = 7|960
+97|1|A and B are sums of coefficients|Put x=1: A = 8^n and B = 2^n|D
+98|0|ratio of nCr+1 and n-1Cr with an inequality on k|n-1Cr/nCr+1 = (r+1)/n lies in (0,1]|B
+99|0|four consecutive coefficients in terms of p and alpha|Write the neighbouring-coefficient ratios and reduce to p and alpha|A
+100|9|limit and quadratics with a common root|a = 1, b = 1/2 by LHopital, then proportional quadratics|B
+101|5|(1-x)^2008(1+x+x^2)^2007|(1-x)(1+x+x^2) = 1-x^3, leaving (1-x^3)^2007(1-x)|0
+102|4|sum of nCk/(k+1)|nCk/(k+1) = n+1Ck+1/(n+1); sum over k=1..9|2041
+103|3|tower 64^(32^32) mod 9|64 = 63+1 = 1 (mod 9)|1
+104|2|integral terms in (7^(1/2)+11^(1/6))^824|r multiple of 6 and 824-r even; count r|138
+105|4|alpha and beta with (nCk)^2/(k+1)|Use nCk/(k+1) = n+1Ck+1/(n+1) in both sums, then 5a = 6b|10
+106|5|(1+3/x+3/x^2+1/x^3)^5|It is (1+1/x)^15; then multiply by (1+x)(1-x^2)|118
+107|8|coefficients of x and x^2 given|Coefficient of x is p-q, of x^2 is pC2+qC2-pq; solve|C
+108|0|5th, 6th, 7th coefficients in A.P.|2.middle = sum of the ends; solve for n; the middle coefficient is the largest|B
+109|2|two parts: G.P. of coefficients and rational terms|Solve each part separately, then add p+q|B
+110|2|least n for 183 integral terms|r multiple of 12 and n-r multiple of 3; count the r values|A
+111|5|same shape as Q16|Simplify the base first, then the independent term|D
+112|4|(10^(r+1)-1)/10^r times 11Cr+1|Split into 10.11Cr+1 minus 11Cr+1/10^r, each a binomial sum|B
+113|3|tower (64^64)^64 mod 7|64 = 1 (mod 7)|D
+114|4|r^2 weights on 15Cr|r^2 = r(r-1)+r: 15.14.2^13 + 15.2^14 = 15.2^17|B
+116|9|largest power of 3 in 50!|Legendre: floor(50/3)+floor(50/9)+floor(50/27) = 22|A`;
+E.split("\n").forEach(l=>{const[a,t,w,m,kk]=l.split("|");D.push([`Q${a} · open Exercise-4 Q${a} (book p. ${pg(+a)}), read it there, then tag.`,+t,m,"Book key: "+kk]);X.push([w+".",-1,""])});
+function shuf(){const p=D.map((_,i)=>i);for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]}const d=p.map(i=>D[i]),x=p.map(i=>X[i]);D.splice(0,D.length,...d);X.splice(0,X.length,...x)}
+shuf();renderP();renderD();
+function tab(a){[1,2,3].forEach(n=>{document.getElementById("p"+n).classList.toggle("hide",a!==n);document.getElementById("t"+n).classList.toggle("on",a===n)});if(a===3)renderLog()}
+t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);t3.onclick=()=>tab(3);renderLog();
+</script></body></html>

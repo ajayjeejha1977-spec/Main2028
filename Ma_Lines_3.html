@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Straight Lines: Pattern Trainer (Exercise-3)</title>
+<style>
+:root{--bg:#f7f9fb;--fg:#222;--mut:#666;--card:#fff;--bd:#d5dce4;--ac:#1d6fa5;--ok:#1f7a45;--no:#b3261e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#171a1d;--fg:#eee;--mut:#aaa;--card:#22262a;--bd:#3a4047;--ac:#6cb8ea;--ok:#5cc88a;--no:#ff8a80}}
+html,body{margin:0;background:var(--bg);color:var(--fg);font-family:Georgia,serif;line-height:1.55}
+main{max-width:820px;margin:auto;padding:16px}h1{font-size:1.4rem;margin:.2em 0}
+.tabs{display:flex;gap:8px;margin:12px 0;border-bottom:2px solid var(--bd);flex-wrap:wrap}
+.tabs button{font:inherit;padding:8px 12px;border:0;background:none;color:var(--mut);cursor:pointer;border-bottom:3px solid transparent}
+.tabs button.on{color:var(--ac);border-color:var(--ac);font-weight:bold}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:14px;margin:12px 0}
+.cue{color:var(--mut);font-style:italic}details{margin:8px 0}summary{cursor:pointer;color:var(--ac);font-weight:bold}
+.dis{margin:4px 0 4px 16px}.tag{display:inline-block;background:var(--bd);border-radius:6px;padding:0 6px;font-size:.85rem}
+.opts{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.opts button,.nav button{font:inherit;padding:6px 10px;border:1px solid var(--ac);background:none;color:var(--fg);border-radius:8px;cursor:pointer}
+.opts button:disabled{opacity:.6;cursor:default}.nav button{margin-right:8px}
+.ok{color:var(--ok);font-weight:bold}.no{color:var(--no);font-weight:bold}.hide{display:none}
+</style></head><body><main>
+<h1>Straight Lines: Pattern Trainer (Exercise-3)</h1>
+<div class="cue">Spot the parent problem inside the disguise. Question numbers are those of Exercise-3 in the book.</div>
+<div class="tabs"><button id="t1" class="on">1. Parent problems</button><button id="t2">2. Tag before you solve</button><button id="t3">3. Error log</button></div>
+<section id="p1"></section><section id="p2" class="hide"></section><section id="p3" class="hide"></section>
+</main>
+<script>
+const T=["Triangle centres and special points","Area, collinearity, area ratios, lattice points","Reflection, image, light ray, transformations","Locus","Parallelogram, rhombus, rectangle, square, equilateral","Distance, angle, foot of perpendicular, parallel or perpendicular","Family of lines, concurrency, not forming a triangle","Line through a point with a condition (intercepts, midpoint, ratio, angle)","Pair of lines and bisectors","Cross-chapter: another topic hiding inside"];
+const S=["fires on centroid, orthocentre, circumcentre or incentre: use perpendicular bisectors, altitudes, or the formulas, and often only two lines are needed.",
+"fires on area, collinear points, equal areas, ratios of areas or integer points inside: use the determinant, base times height, or count column by column.",
+"fires on a mirror, an image, a ray of light, shortest path or a chain of transformations: reflect the point, or undo the steps in reverse.",
+"fires on a moving point and a request for its locus: write the coordinates (x, y) of the new point, link them to the old point, eliminate the parameter.",
+"fires on a named quadrilateral or equilateral triangle: diagonals bisect each other, a rhombus has perpendicular diagonals, and so on.",
+"fires on distance, angle between lines, perpendicular or parallel conditions: use the point-to-line formula, the tan formula, or slope products.",
+"fires on a family px+qy+r=0 with a condition, concurrency or three lines not forming a triangle: find the fixed point, or test parallel and concurrent cases.",
+"fires on a line through a point with intercepts, midpoint, ratio, given angle or given distance: use intercept, normal or parametric form.",
+"fires on a quadratic in x and y that is a pair of lines, or on angle bisectors of a pair: use (x^2-y^2)/(a-b) = xy/h.",
+"fires on a circle, trig, 3D, A.P., number theory or linear programming around the line: do the line step, then switch topic."];
+const P=[
+{n:"Triangle centres and special points",cue:"Cue: centroid, orthocentre, circumcentre, incentre, medians, altitudes.",q:"Find the incentre of the triangle with vertices O(0,0), A(8,0), B(0,6).",h:"It is a right triangle. Inradius r = (a + b − c)/2 and the incentre is (r, r).",a:"Hypotenuse 10, so r = (8 + 6 − 10)/2 = 2. Incentre (2, 2).",
+d:[["Hidden vertices","Q1: midpoints are given, so find the vertices first."],["Orthocentre","Q7, Q16, Q18, Q81: intersect two altitudes. Q16 gives two sides plus the orthocentre, so the third side is perpendicular to the line from H to the common vertex."],["Circumcentre","Q41, Q52, Q84: intersect perpendicular bisectors, or use equal distances."],["Equilateral or isosceles","Q64, Q67, Q77: centres coincide or the altitude lands on the midpoint of the base."],["Euler line","Q96: centroid G = (2S + H)/3."]],
+w:"<b>Q96.</b> A is the centroid, B the circumcentre (3,4), C the orthocentre (−6,−8). G = (2S + H)/3 gives a = (6 − 6)/3 = 0, b = (8 − 8)/3 = 0, so P(3,5). Move from P along direction (2,1) (the line x − 2y − 1 = 0): 2(3+2t) + 3(5+t) − 4 = 0 gives t = −17/7, so the distance is 17√5/7 (option B). The trick is the Euler relation."},
+{n:"Area, collinearity, ratios, lattice points",cue:"Cue: area given, collinear, equal areas, points inside, region.",q:"Count the integer points strictly inside the triangle with vertices (0,0), (0,10), (10,0).",h:"Interior points have x ≥ 1, y ≥ 1, x + y < 10. Count by x.",a:"For x = 1 to 8, y runs 1 to 9 − x: 8 + 7 + … + 1 = 36.",
+d:[["Determinant","Q31, Q49, Q65: area gives an equation in the unknown."],["Parallel line","Q31, Q48: if the area is fixed, the vertex moves on a line parallel to the base."],["Ratios","Q40, Q62, Q79: ratios of areas follow from ratios of lengths on a side."],["Midpoint triangle","Q50: area of ABC is 4 times the area of the triangle of midpoints."],["Counting","Q5, Q87: count column by column. Q97: test the origin in each inequality."]],
+w:"<b>Q5.</b> Interior points of (0,0), (0,41), (41,0): x ≥ 1, y ≥ 1, x + y ≤ 40. For x = 1 to 39, y has 40 − x choices. Sum = 39 + 38 + … + 1 = <b>780</b> (option A). Trap: using ≤ 41 would count boundary points."},
+{n:"Reflection, image, light ray, transformations",cue:"Cue: mirror, image, ray of light, shortest path, translated then rotated.",q:"Find the image of the point (3,5) in the line x − y + 1 = 0.",h:"For a line of slope 1 through (0,1): (x, y) → (y − 1, x + 1).",a:"(3,5) → (4, 4).",
+d:[["Light ray","Q2, Q78: the reflected ray leaves the mirror at the same point; use the image of the source or reverse the slope."],["Chain of steps","Q43: undo the three transformations in reverse order from the final point."],["Shortest path","Q51: reflect one point in the axis and join."],["Bisector as mirror","Q92: reflect A in the bisector of B to land on line BC. Q71: the bisector of angle PAQ is the normal at A."]],
+w:"<b>Q51.</b> Reflect Q(0,2) in the x-axis to Q′(0,−2). Line PQ′ has slope −2 and meets the x-axis at R(−1,0). PR² = 20, RQ² = 5. 50(20 + 5) = <b>1250</b>. Trap: finding the minimum by calculus when the image does it in one line."},
+{n:"Locus",cue:"Cue: moving point, find the locus of the midpoint, centroid or foot.",q:"Find the locus of the midpoint of the segment joining A(2,3) to a point moving on x + y = 1.",h:"Let the moving point be (h,k) with h + k = 1 and the midpoint (x,y).",a:"h = 2x − 2, k = 2y − 3; sum = 1 gives 2x + 2y = 6, so x + y = 3.",
+d:[["Direct","Q14: centroid with two fixed points; Q29: midpoint of a perpendicular."],["Intercept form","Q8: line through a fixed point, so 2/a + 3/b = 1, with the new point (a, b)."],["Constructions","Q47: coordinates of M and C in terms of t, then eliminate t."],["Conics hidden","Q57: sum of squares of distances gives a circle. Q19: perimeter gives an ellipse. Q82: area ratio gives a hyperbola."]],
+w:"<b>Q8.</b> A line through (2,3) with intercepts a, b satisfies 2/a + 3/b = 1. The rectangle OPRQ has R = (a, b), so 2/x + 3/y = 1, i.e. <b>3x + 2y = xy</b> (option D). Trap: option A looks similar but has 6xy."},
+{n:"Parallelogram, rhombus, rectangle, square, equilateral",cue:"Cue: a named quadrilateral, vertices or diagonals, equilateral triangle.",q:"Two vertices of parallelogram ABCD are A(1,2), B(3,4) and its diagonals meet at (2,5). Find C and D.",h:"Diagonals bisect each other, so the centre is the midpoint of AC and of BD.",a:"C = (3,8) and D = (1,6).",
+d:[["Vertex order","Q12: ABDC means AD and BC are the diagonals."],["Sides plus centre","Q6, Q15, Q44: the vertex where sides meet, reflect through the centre."],["Rectangle in a circle","Q23: the centre is where the perpendicular bisector of a side meets the diameter."],["Squares","Q55, Q56: use symmetry about the centre or the slope relation."],["Equilateral","Q69, Q77: h = distance to the base, area = h²/√3."]],
+w:"<b>Q12.</b> In ABDC the diagonals are AD and BC. Midpoint of BC = (2.5, 4.5), so D = (4, 7). Line AD through (1,2) and (4,7): <b>5x − 3y + 1 = 0</b> (option D). Trap: taking AC as a diagonal because of alphabetical order."},
+{n:"Distance, angle, foot, perpendicular and parallel",cue:"Cue: distance, angle between lines, perpendicular, parallel, foot.",q:"Find the distance between the lines 3x + 4y − 5 = 0 and 3x + 4y + 10 = 0.",h:"Parallel lines: |c₁ − c₂| / √(a² + b²).",a:"15/5 = 3.",
+d:[["Slope products","Q9, Q21: perpendicular means m₁m₂ = −1."],["Parameter in lines","Q24: perpendicular condition fixes a, then find the intersection."],["Fixed distance","Q25, Q60: write c from the distance; Q60 uses below and above to choose signs."],["Angle","Q38, Q70: tan formula for the angle between two lines."],["Measured parallel","Q94: use the point P + t(cos θ, sin θ) on the target line."]],
+w:"<b>Q94.</b> Direction of √3x − y + 1 = 0 is (1, √3)/2. Point (2 + t/2, 3 + t√3/2) on 2x − 3y + 28 = 0 gives 23 + t(1 − 3√3/2) = 0, so t = 6√3 + 4 (option D). Trap: using the perpendicular distance."},
+{n:"Family of lines, concurrency, not a triangle",cue:"Cue: all lines with a condition on the coefficients, concurrent, do not form a triangle.",q:"All lines ax + by + c = 0 with a + 2b + 3c = 0 pass through a fixed point. Find it.",h:"Divide the condition by 3 so that c has coefficient 1.",a:"a(1/3) + b(2/3) + c = 0, so the point is (1/3, 2/3).",
+d:[["Fixed point","Q17: 3p + 2q + 4r = 0 gives (3/4, 1/2)."],["Not forming a triangle","Q100: two of the lines parallel or all three concurrent."],["Nature of the triangle","Q34: find the vertices and compare sides."]],
+w:"<b>Q100.</b> 2x − y + 3 = 0 and 6x + 3y + 1 = 0 meet at (−5/6, 4/3). The third line αx + 2y − 2 = 0 fails to make a triangle when parallel to the first (α = −4), parallel to the second (α = 4), or concurrent (α = 4/5). Sum of squares = 16 + 16 + 16/25 = 32.64, floor = <b>32</b>. Trap: forgetting the concurrent case."},
+{n:"Line through a point with a condition",cue:"Cue: intercepts, midpoint, ratio, angle, distance from a point.",q:"A line through (2,3) cuts the axes at P and Q with (2,3) the midpoint of PQ. Find the line.",h:"If P is the midpoint, the intercepts are twice the coordinates.",a:"Intercepts 4 and 6: x/4 + y/6 = 1, i.e. 3x + 2y = 12.",
+d:[["Midpoint at P","Q10: intercepts are 2 × the coordinates."],["Hidden fixed point","Q20, Q36: the condition on intercepts means the line passes through a fixed point."],["Distance form","Q22, Q59: points at distance d from P are (x₀ + d cos θ, y₀ + d sin θ)."],["Normal form","Q27, Q76: x cos α + y sin α = p."],["Ratio and trisection","Q68, Q80, Q95: section formula, then slopes."],["Rotation","Q91: new angle = old angle minus 15 degrees."]],
+w:"<b>Q36.</b> Mean of reciprocals of intercepts is 1/4, so 1/a + 1/b = 1/2. Then 2(1/a + 1/b) = 1, so the line x/a + y/b = 1 passes through (2,2). Only B(2,2) lies on it: option C. Trap: trying to find a and b separately."},
+{n:"Pair of lines and bisectors",cue:"Cue: a quadratic in x and y with no constant term, or bisectors of a pair.",q:"Find the pair of angle bisectors of x² − 3xy + 2y² = 0.",h:"Use (x² − y²)/(a − b) = xy/h with a = 1, b = 2, h = −3/2.",a:"(x² − y²)/(−1) = xy/(−3/2), so 3x² − 2xy − 3y² = 0.",
+d:[["Direct","Q42, Q75: apply the formula."],["Curve is a pair of lines","Q4: x² + 2xy − 3y² factorises, so the curve is two lines; then use the normal."],["Equidistant locus","Q90: points equidistant from two lines give their combined bisector equation."]],
+w:"<b>Q42.</b> x² − 4xy − 5y² has a = 1, b = −5, h = −2. (x² − y²)/6 = xy/(−2) gives <b>x² + 3xy − y² = 0</b> (option D). Trap: sign of h."},
+{n:"Cross-chapter: another topic inside",cue:"Cue: trig, circle, 3D, A.P., number theory or optimisation around a line problem.",q:"O(0,0), A(4,0) and D(4cos θ, 4sin θ). Find the maximum area of triangle OAD.",h:"Area = ½ · base · height, and the height is |4 sin θ|.",a:"Maximum = ½ · 4 · 4 = 8.",
+d:[["Trig","Q26 (y is constant), Q54, Q72 (maximise using sin θ)."],["Circle","Q11, Q35, Q88: line step plus circle property."],["Other","Q19 (ellipse), Q37 (A.P.), Q39 (number theory), Q53 (linear programming), Q73 and Q83 (3D)."]],
+w:"<b>Q39.</b> Substitute y = mx + 1 into 3x + 4y = 9: x(3 + 4m) = 5, so x = 5/(3 + 4m). For x to be an integer, 3 + 4m must be ±1 or ±5. That gives m = −1 or m = −2 (the others are fractions). So <b>2</b> values (option B). Trap: counting fractional m."}
+];
+const pg=n=>n<=7?336:n<=15?337:n<=22?338:n<=30?339:n<=37?340:n<=43?341:n<=50?342:n<=58?343:n<=64?344:n<=71?345:n<=77?346:n<=85?347:n<=92?348:349;
+const E=`1|0|midpoints of the sides given|Midpoint triangle gives vertices (0,0), (0,2), (2,0); right-angle incentre r = (a+b-c)/2|C
+2|2|ray reflected at the x-axis|Reflected ray hits the x-axis at the same point with slope sign reversed|C
+3|0|median PS and a parallel line|Midpoint S of QR, slope of PS, then the line through (1,-1)|C
+4|8|the curve is a pair of lines|Factorise (x-y)(x+3y); normal at (1,1) is perpendicular to y=x; intersect with the other line|A
+5|1|integer points inside a triangle|Count x+y<41 with x,y>=1 column by column|A
+6|4|rhombus from two sides and the centre|Vertex from the two sides, opposite vertex by reflection in the centre|C
+7|0|area gives integer k, then orthocentre|Area determinant for k, then two altitudes|B
+8|3|rectangle OPRQ on intercepts|2/a+3/b=1 with R=(a,b)|D
+9|5|perpendicular lines through points|Slope product -1|D
+10|7|segment between the axes bisected at P|P is the midpoint so intercepts are -6 and 8|D
+11|9|circle through A, B, O and a tangent|AB is a diameter (right angle at O); tangent is perpendicular to the radius at O|D
+12|4|parallelogram ABDC (vertex order)|AD and BC are diagonals; D from the midpoint of BC|D
+13|0|incentre of triangle OAB|Right triangle: r=(a+b-c)/2, incentre (r,r)|C
+14|3|centroid of PQR as P moves|Centroid coordinates in terms of P, then eliminate|D
+15|4|parallelogram from two sides and the centre|Vertex from the sides, reflect in the centre; other vertices lie on the given lines|A
+16|0|two sides and the orthocentre|Third side is perpendicular to the line from H to the common vertex; altitudes meet the sides at the other vertices|B
+17|6|3p+2q+4r=0 for all lines|Divide by 4 to read off the fixed point|A
+18|0|orthocentre at the origin|OA perpendicular to BC and OB perpendicular to AC; solve for the third vertex|D
+19|3|perimeter of triangle AOP is 4|OP+AP=3, square twice to get the locus|D
+20|7|equidistant from the axes|Put |x|=|y| in 3x+5y=15 and try both signs|A
+21|5|L1 through points, L2 perpendicular|Slope of L1 is -1/2, of L2 is 2; solve both lines through (h,k)|B
+22|7|line at a given distance from P|Parametric form (2+4cos t, 3+4sin t) into x+y=7|B
+23|4|rectangle in a circle|Centre is where the perpendicular bisector of the given side meets the diameter|D
+24|5|perpendicular lines with parameter a|a1a2+b1b2=0 for a, then the distance of the intersection|B
+25|5|parallel lines at distance 3/5|4x-3y=±3, then test each point|A
+26|9|y looks like a trig product|Use product-to-sum: y is constant|C
+27|7|distance and angle with a line|Normal form x cos t + y sin t = 4 with t = 75 degrees|D
+28|0|vertex and two midpoints|Double to get the other two vertices, then the centroid|B
+29|3|midpoints of perpendiculars|Foot on x=y, then the midpoint, then eliminate|A
+30|0|centroid and an intersection point|Find C and P, then test which point is on CP|D
+31|1|area of PAB with P on a line|AB is parallel to the given line; area = half base times distance|A
+32|0|three equal areas|P is the centroid; then the distance PQ|5
+33|2|image of a point|Reflect (3,5) in x-y+1=0 to get (4,4), then test the circles|D
+34|6|three lines and the triangle type|Find the vertices and compare side lengths|C
+35|9|circle with PA^2+PB^2 maximum|PA^2+PB^2 = 2PM^2 + AB^2/2 with M the midpoint of AB; maximum when P is on the line through M and the centre|B
+36|7|mean of reciprocal intercepts|1/a+1/b=1/2 means the line passes through (2,2)|C
+37|9|A.P. together with a centroid|Centroid gives two equations; the A.P. gives a, b, c; then the roots|D
+38|5|angle between two lines|tan formula with 3 root 2; solve for m|A
+39|9|integer abscissa (number theory)|x = 5/(3+4m); 3+4m must divide 5|B
+40|1|line splits the triangle with an area ratio|Find P and Q in terms of m; compare areas PQC and ABC|A
+41|0|circumcentre from a perpendicular bisector|The circumcentre lies on the perpendicular bisector of PQ (y=x) and on the given one|B
+42|8|angle bisectors of a pair of lines|(x^2-y^2)/(a-b) = xy/h|D
+43|2|three transformations in a row|Undo them in reverse order from the final point|D
+44|4|parallelogram with two sides and a diagonal|Vertex at O, centre on the diagonal, other diagonal through O (like Exercise-1 Q10)|A
+45|0|median and bisector of C|Reflect A in the bisector of C; that point is on BC|A
+46|5|perpendicular distances p and q|Convert both lines to normal form|C
+47|3|locus from a moving point|Coordinates of M and C in terms of t, then eliminate|B
+48|1|area fixed, least distance|The locus is two lines parallel to the segment; nearest to the origin|A
+49|1|area of ABC is 1, unknown a|Determinant gives a quadratic in a; use the sum of roots|D
+50|1|midpoint triangle|Area of ABC is 4 times the area of the midpoint triangle|6
+51|2|shortest path via the x-axis|Reflect Q in the x-axis and join to P|1250
+52|0|a line through the circumcentre bisecting BC|It is the perpendicular bisector of BC; set x=0|9
+53|9|maximise z with constraints|Linear programming: corner points (the objective is not linear, so check edges too)|(225)^2/56
+54|9|trig expression with slopes|Circumcentre at the origin gives OA=OB=OC; orthocentre is the sum of the vertices; then trig identities|144 (handwritten correction of 12.00)
+55|4|square on x^2 y^2 = 1|The curve is xy=±1; use the symmetry of the square about the origin|80
+56|4|square with slopes and a diagonal|Vertex and diagonal give a; slopes enter through a^2+11a+3(m1^2+m2^2)=220|B
+57|3|sum of squares of distances|The locus is a circle; find its axis intercepts, then the area|B
+58|0|circumcentre given, find the false statement|PA=PB=PC gives p; then test each option|D
+59|7|point at a given distance from A on a line|Parametric form with slope greater than 1|C
+60|5|point at unit distance from two lines|Distance equations with signs fixed by below and above|D
+61|0|circumcentre and a line AP|PA=PB=PC gives a and b; then AP meets BC|B
+62|1|area ratio on a side|P divides BC in ratio 4:3; then the triangle with the x-axis|C
+63|0|circumcentre given|Equal distances give alpha; test each claim|B
+64|0|equilateral triangle and orthocentre|Orthocentre equals centroid; A and B give the side; find C|B
+65|1|area given, then collinear points|Area gives alpha; collinearity gives beta|C
+66|0|two sides and the orthocentre, then the centroid|Find the vertices from altitudes, then the centroid and its distance from the origin|C
+67|0|isosceles triangle with the base line|The foot of the altitude from A is the midpoint of BC|C
+68|7|point dividing a segment 1:3|Section formula with A on L2 and B on L1|B
+69|5|equilateral triangle with a side on a line|Height is the distance of R from the line; area = h^2/root 3|D
+70|5|segments subtending 45 degrees|tan 45 between lines OA and AB gives the points|C
+71|2|reflected ray, then the foot on the bisector|Reflect Q to find A; the bisector of PAQ is the normal at A|31
+72|9|maximum area using trig|Area is half base times height with D(3cos t, a sin t); maximise|8
+73|9|lines in 3D (shortest distance)|Cross-product formula for skew lines|51
+74|0|orthocentre given|Altitudes: side slope times slope to the orthocentre = -1|3
+75|8|bisectors of a pair of lines|(x^2-y^2)/(a-b) = xy/h|A
+76|7|intercepts with the angle of the normal|Normal form; p from the triangle area|D
+77|0|equilateral with B and C symmetric|A lies on the perpendicular to BC through the origin; h = OA|B
+78|2|light ray reflected at a line|Use the image of the origin in x+y=1|C
+79|1|ratios on the sides of a triangle|Coordinates or an area-ratio formula|A
+80|7|lines trisecting a segment|Find the trisection points of L, then the slopes|D
+81|0|orthocentre|Two altitudes meet|C
+82|3|line divides a rectangle 4:1|The small triangle has area 1/5 of 10; relation between alpha and beta; midpoint|D
+83|9|area in 3D|Split into two triangles and use the cross product|A
+84|0|circumcentre of a triangle made by three lines|Find the vertices and equate distances, or use perpendicular bisectors|D
+85|4|parallelogram with two sides and a diagonal|Find A and C from the lines; the other diagonal passes through the midpoint|529
+86|0|three sides with a centroid|Vertices from the lines; the centroid conditions give a and p|122
+87|1|lattice points with b a multiple of a|For each integer a count the b values strictly inside|31
+88|9|circle with OC perpendicular to CP and CQ|CP and CQ lie along one line (tangent); area gives CP|24
+89|4|parallelogram with integer vertices|Use AB=root 10 and integer coordinates to list the cases|C
+90|3|equidistant from two lines|Combined equation of the angle bisectors|C
+91|7|line rotated about a point|New angle is 15 degrees; slope 2-root 3|C
+92|2|bisector of angle B, 2AB=BC|Reflect A in y=x to get a point on BC|B
+93|5|intersection points A, B and a distance|Find A and B, then the point-to-line distance|C
+94|5|distance measured parallel to a line|Point P + t(cos, sin) on the given line|D
+95|7|trisection of a segment|Trisection points on 4x+5y=20, slopes, then the tan formula|A
+96|0|Euler line relation|G = (2S+H)/3 gives (a,b); then a parallel distance|B
+97|1|region containing the origin|Test the origin in each inequality|B
+98|0|isosceles triangle with 120 degrees|Find B on the x-axis, the direction of BC, then intersect|36
+99|4|parallelogram with C and D on lines|Diagonal midpoints coincide; solve for the points|32
+100|6|three lines not forming a triangle|Parallel or concurrent: three cases for alpha|32`;
+const NB=[[4,5,1,6,9],[0,5,7,3,9],[5,3,7,0,9],[7,6,8,1,9],[0,5,1,7,9],[7,6,0,2,8],[7,1,5,0,3],[5,6,3,2,1],[5,3,9,6,7],[3,1,0,7,5]];
+function opts(t){const d=NB[t].slice().sort(()=>Math.random()-.5).slice(0,3);return d.concat(t).sort(()=>Math.random()-.5)}
+const ST=`Incentre of a triangle whose side midpoints are (0,1), (1,1), (1,0): its x-coordinate?
+Ray x+√3y=√3 reflects at the x-axis: equation of the reflected ray?
+Median PS of P(2,2), Q(6,-1), R(7,3): line through (1,-1) parallel to PS?
+Normal to x²+2xy-3y²=0 at (1,1): where does it meet the curve again?
+Integer points inside the triangle (0,0), (0,41), (41,0): how many?
+Rhombus sides x-y+1=0, 7x-y-5=0, diagonals meet at (-1,-2): which is a vertex?
+Triangle (k,-3k), (5,k), (-k,2) has area 28, k integer: its orthocentre?
+Line through (2,3) meets the axes at P, Q; rectangle OPRQ completed: locus of R?
+Line 2x-3y+17=0 is perpendicular to the line through (7,17), (15,β): β?
+Line through P(-3,4) whose portion between the axes is bisected at P: its equation?
+x+2y=1 meets the axes at A, B; circle through A, B, O: sum of distances of A and B from the tangent at O?
+Parallelogram ABDC with A(1,2), B(3,4), C(2,5): equation of diagonal AD?
+3x+4y-24=0 meets the axes at A, B: incentre of triangle OAB?
+P moves on 2x-3y+4=0; Q(1,4), R(3,-2) fixed: locus of the centroid of PQR?
+Parallelogram sides x+y=3, x-y+3=0, diagonals meet at (2,4): which is a vertex?
+Two sides 3x-2y+6=0, 4x+5y-20=0, orthocentre (1,1): equation of the third side?
+Lines px+qy+r=0 with 3p+2q+4r=0: which statement about them is true?
+Two vertices (0,2), (4,3), orthocentre at the origin: quadrant of the third vertex?
+O(0,0), A(0,1) fixed; perimeter of triangle AOP is 4: locus of P?
+A point on 3x+5y=15 equidistant from the axes lies in which quadrants?
+(h,k), (1,2), (-3,4) lie on L1; L2 through (h,k), (4,3) is perpendicular to L1: k/h?
+Line through P(2,3) meets x+y=7 at distance 4 from P: its slope?
+Rectangle inscribed in a circle, diameter along 3y=x+7, adjacent vertices (-8,5), (6,5): area?
+Lines x+(a-1)y=1 and 2x+a²y=1 are perpendicular: distance of their intersection from the origin?
+Lines parallel to 4x-3y+2=0 at distance 3/5 from the origin: which point lies on one?
+y = sin x sin(x+2) - sin²(x+1) is a straight line lying in which quadrants?
+Line L at distance 4 from the origin, positive intercepts, its perpendicular from O makes 60° with x+y=0: equation?
+Triangle with vertex (1,2) and midpoints (-1,1), (2,3) of the two sides through it: centroid?
+Locus of midpoints of perpendiculars drawn from points on x=2y to the line x=y?
+C centroid of (3,-1), (1,3), (2,4); P = intersection of x+3y-1=0 and 3x-y+1=0: line CP passes through?
+A(1,-1), B(0,2); P on 3x+y-4λ=0 with area of PAB = 5: λ?
+A(1,0), B(6,2), C(3/2,6); P inside with equal areas APC, APB, BPC; Q(-7/6,-1/3): length PQ?
+Image of the point (3,5) in the line x-y+1=0 lies on which circle?
+Lines x-y=0, x+2y=3, 2x+y=6 form which kind of triangle?
+A(1,4), B(1,-5); P on circle (x-1)²+(y-1)²=1 with (PA)²+(PB)² maximum: P, A, B lie on?
+Mean of reciprocals of the intercepts is 1/4; stones at (1,1), (2,2), (4,4): which lie on the path?
+a, b, c in A.P.; centroid of (a,c), (2,b), (a,b) is (10/3,7/3); α, β roots of ax²+bx+1=0: α²+β²-αβ?
+Line through (1,3) making angle tan⁻¹√2 with y+1=3√2x: its equation?
+Integral m for which the abscissa of the intersection of 3x+4y=9 and y=mx+1 is an integer: how many?
+A(-1,1), B(3,4), C(2,0); y=mx (m>0) meets AC, BC at P, Q; area ABC = 3 × area PQC: m?
+P(-2,4), Q(4,-2); perpendicular bisector of PR is 2x-y+2=0: centre of the circumcircle of PQR?
+Equation of the pair of angle bisectors of x²-4xy-5y²=0?
+P(a,b): reflect in y=x, translate 2 along +x, rotate π/4 about O; final point (-1/√2, 7/√2): 2a+b?
+Parallelogram sides 4x+5y=0, 7x+2y=0; one diagonal 11x+7y=9: the other diagonal passes through?
+A(-3,1), angle ACB = θ; median through B is 2x+y-3=0, bisector of C is 7x-4y-1=0: tan θ?
+p, q perpendicular lengths from O on x cosecα - y secα = k cot2α and x sinα + y cosα = k sin2α: k²?
+A(0,6) fixed, B(2t,0) moving; M midpoint of AB; perpendicular bisector of AB meets y-axis at C: locus of midpoint of MC?
+Area of the triangle with (5,6), (3,2), (α,β) is 12: least distance from the origin to a point of this set?
+A(a,0), B(b,2b+1), C(0,b), area of ABC is 1: sum of all possible values of a?
+Intersections of x-y+1=0, x-2y+3=0, 2x-5y+11=0 are midpoints of the sides of ABC: area of ABC?
+Man walks from P(-3,4) to the x-axis at R then to Q(0,2) in minimum time: 50(PR²+RQ²)?
+A(-2,3), B(1,9), C(3,8); line through the circumcentre bisecting BC meets the y-axis at (0,α/2): α?
+Maximum of z = 6xy+y² subject to 3x+4y≤100, 4x+3y≤75, x,y≥0?
+tanα, tanβ, tanγ are slopes of OA, OB, OC; circumcentre of ABC at the origin, orthocentre on y-axis: ((cos3α+cos3β+cos3γ)/(cosα cosβ cosγ))²?
+Square ABCD with vertices and side midpoints on x²y²=1: square of the area of ABCD?
+Square of side a with adjacent-side slopes m1, m2, a²+11a+3(m1²+m2²)=220; a vertex and a diagonal given: 72(sin⁴α+cos⁴α)+a²-3a+13?
+P moves with sum of squares of distances from (1,2), (-2,1) equal to 14; locus meets axes at A, B, C, D: area of ACBD?
+Sides AB: 2x+y=0, BC: x+py=39, CA: x-y=3, circumcentre P(2,3): which statement is NOT true?
+Line of slope >1 through A(4,3) meets x-y-2=0 at B with AB=√29/3: B also lies on which line?
+P(α,β) at unit distance from 3x-4y+12=0 and 8x+6y+11=0, below L1 and above L2: 100(α+β)?
+Circumcentre of A(a,3), B(b,5), C(a,b), ab>0 is P(1,1); AP meets BC at Q(k1,k2): k1+k2?
+A(1,1), B(-4,3), C(-2,-5); P on BC with area APB : area ABC = 4:7: area enclosed by AP, AC and the x-axis?
+A(α,-2), B(α,6), C(α/4,-2) with circumcentre (5,α/4): which statement is NOT correct?
+Equilateral ABC with A(sin t,-cos t), B(cos t, sin t), C(a,b); orthocentre on a circle with centre (1,1/3): a²-b²?
+Triangle A(1,α), B(α,0), C(0,α) has area 4; (α,-α), (-α,α), (α²,β) collinear: β?
+Two sides x-2y+1=0, 2x-y-1=0, orthocentre (7/3,7/3): distance of the origin from the centroid?
+Isosceles ABC, A(6,1), base BC: 2x+y=4, B on x+3y=7; centroid (α,β): 15(α+β)?
+L1: 2x+5y=10, L2: -4x+3y=12; L3 through P(2,3) meets L2 at A, L1 at B, P divides AB 1:3: area of the triangle?
+R(3,7); P, Q on x+y=5 with PQR equilateral: area of PQR?
+A and A′ on y=2 with AB and A′B (B(2,3)) each subtending π/4 at the origin: distance AA′?
+Ray through P(2,3) reflects on the x-axis at A and passes through Q(5,4); R divides AQ 2:1; foot M of R on the bisector of angle PAQ is (α,β): 7α+3β?
+A(3/√a, √a), B image of A in the y-axis, C image of B in the x-axis; D(3cosθ, a sinθ) in the 4th quadrant, max area of ACD is 12: a?
+l1 in the xy-plane with intercepts 1/8, 1/(4√2); l2 in the zx-plane with intercepts -1/8, -1/(6√3); shortest distance d: d⁻²?
+Sides AB: 2x+y=0, BC: x+py=15a, CA: x-y=3; orthocentre (2,a), -1/2<a<2: p?
+Equation of the angle bisectors of the lines represented by 2x²+xy-3y²=0?
+Line cuts OA=a, OB=b on positive axes; perpendicular from O makes π/6 with the y-axis; area of OAB is (98/3)√3: a²-b²?
+B, C on y+x=0 symmetric about the origin; A on y-2x=2; ABC equilateral: its area?
+Light ray from the origin at 30° with +x-axis reflects at x+y=1 and meets the x-axis at Q: abscissa of Q?
+A, B, C on sides QR, RP, PQ of PQR with QA/AR = RB/BP = PC/CQ = 1/2: area PQR / area ABC?
+Lines l1, l2 through the origin trisect the segment of 9x+5y=45 between the axes; y=(m1+m2)x meets L on which line?
+Orthocentre (α,β) of A(3,-7), B(-1,2), C(4,5): 9α-6β+60?
+Rectangle x=0, x=2, y=0, y=5; A(α,0), B(0,β) with AB dividing the area 4:1: midpoint of AB lies on a?
+Area of the quadrilateral A(2,1,1), B(1,2,5), C(-2,-3,5), D(1,-6,-7)?
+C(α,β) circumcentre of the triangle formed by 4x+3y=69, 4y-3x=17, x+7y=61: (α-β)²+α+β?
+Adjacent sides 2x-3y=-23, 5x+4y=23, diagonal AC: 3x+7y=23; distance of A from the other diagonal is d: 50d²?
+Sides AB: 2x+y=0, BC: x+py=21a, CA: x-y=3; centroid P(2,a): (BC)²?
+Triangle by the axes and 3x+4y=60: number of points P(a,b) strictly inside with a an integer and b a multiple of a?
+P, Q on a circle with centre C(√2,√3); OC perpendicular to CP and CQ; area of OCP is √35/2: a1²+a2²+b1²+b2²?
+A(α,β), B(1,0), C(γ,δ), D(1,2) parallelogram, integer coordinates, AB=√10, A and C on 3y=2x+1: 2(α+β+γ+δ)?
+Locus equidistant from x+2y+7=0 and 2x-y+8=0 is x²-y²+2hxy+2gx+2fy+c=0: g+c+h-f?
+Line through A(9,0) at 30° with +x-axis is rotated 15° clockwise about A: its new equation?
+y=x bisects angle B, AC: 2x-y=2, 2AB=BC, A(4,6), B(α,β): α+2β?
+A = intersection of 3x+2y=14 and 5x-y=6; B = intersection of 4x+3y=8 and 6x+y=5: distance of P(5,-2) from line AB?
+Distance of (2,3) from 2x-3y+28=0 measured parallel to √3x-y+1=0?
+Portion of 4x+5y=20 in the first quadrant is trisected by L1, L2 through the origin: tangent of the angle between them?
+A(a,b), B(3,4), C(-6,-8) are centroid, circumcentre, orthocentre; distance of P(2a+3,7b+5) from 2x+3y-4=0 measured parallel to x-2y-1=0?
+Region between 3x-y+1=0 and x+2y-5=0 containing the origin: set of a for which (a²,a+1) lies in it?
+Isosceles ABC, A(-1,0), angle A = 2π/3, AB=AC, B on +x-axis, BC=4√3; BC meets y=x+3 at (α,β): β⁴/α²?
+A(-2,-1), B(1,0), C(α,β), D(γ,δ) parallelogram, C on 2x-y=5, D on 3x-2y=6: |α+β+γ+δ|?
+Lines 2x-y+3=0, 6x+3y+1=0, αx+2y-2=0 do not form a triangle: greatest integer ≤ sum of squares of all real α?`.split("\n");
+const D=[],X=[];
+E.split("\n").forEach(l=>{const[a,t,w,m,kk]=l.split("|");D.push([a,+t,m,kk,"Q"+a+" (book p. "+pg(+a)+")",ST[+a-1]]);X.push(w)});
+let k=0,sc=0,tot=0,log=[];
+function shuf(){const p=D.map((_,i)=>i);for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]]}const d=p.map(i=>D[i]),x=p.map(i=>X[i]);D.splice(0,D.length,...d);X.splice(0,X.length,...x)}
+const $=id=>document.getElementById(id);
+function renderP(){$("p1").innerHTML=P.map((p,i)=>`<div class="card"><h3>${i+1}. ${p.n}</h3><div class="cue">${p.cue}</div><p><b>Try first:</b> ${p.q}</p>
+<details><summary>Hint</summary>${p.h}</details><details><summary>Answer</summary>${p.a}</details>
+<details><summary>Worked twist</summary><div class="dis">${p.w||"See the disguises below."}</div></details>
+<details><summary>Analysis: how it gets disguised</summary>${p.d.map(x=>`<div class="dis"><span class="tag">${x[0]}</span> ${x[1]}</div>`).join("")}</details></div>`).join("")}
+function renderD(){const q=D[k];$("p2").innerHTML=`<div class="card"><div class="cue">Question ${k+1} of ${D.length} · Score ${sc}/${tot}. Read the gist below, open the full question in your book if needed, then choose the pattern.</div>
+<p><b>${q[4]}</b><br>${q[5]}</p><div class="opts">${opts(q[1]).map(i=>[T[i],i]).map(([t,i])=>`<button data-i="${i}">${t}</button>`).join("")}</div><div id="fb"></div></div>
+<div class="nav"><button id="pv">Previous</button><button id="nx">Next</button><button id="sh">Shuffle and restart</button></div>`;
+document.querySelectorAll(".opts button").forEach(b=>b.onclick=()=>pick(+b.dataset.i));
+$("pv").onclick=()=>{k=(k+D.length-1)%D.length;renderD()};$("nx").onclick=()=>{k=(k+1)%D.length;renderD()};
+$("sh").onclick=()=>{shuf();k=0;sc=0;tot=0;renderD()}}
+function pick(i){const q=D[k],ok=i===q[1];tot++;if(ok)sc++;
+document.querySelectorAll(".opts button").forEach(b=>b.disabled=true);
+const a=ok?`<p class="ok">Correct.</p><p><b>Why it fits:</b> ${X[k]}.</p>`:`<p class="no">Not quite. You chose “${T[i]}”.</p><p><b>Why that does not fit:</b> that pattern ${S[i]} None of these cues appear here.</p><p><b>Why it is “${T[q[1]]}”:</b> ${X[k]}.</p><p><b>That pattern ${S[q[1]]}</b></p>`;
+$("fb").innerHTML=a+`<p><b>First move:</b> ${q[2]}</p><p><b>Book key:</b> ${q[3]}</p><p><b>Log it. If you got this wrong or slowly, why?</b></p><div class="opts" id="why"><button data-w="Recognition">Did not spot the pattern</button><button data-w="Concept">Did not know the concept</button><button data-w="Calculation">Slip in calculation</button><button data-w="None">No problem</button></div>`;
+log.push({l:"Q"+q[0],p:i,t:q[1],ok:ok,w:ok?"None":"Recognition"});
+document.querySelectorAll("#why button").forEach(b=>b.onclick=()=>{log[log.length-1].w=b.dataset.w;document.querySelectorAll("#why button").forEach(x=>x.disabled=true);b.style.background="var(--bd)";renderLog()})}
+function renderLog(){const c={Recognition:0,Concept:0,Calculation:0},m={};
+log.forEach(e=>{if(c[e.w]!==undefined)c[e.w]++;if(!e.ok)m[e.t]=(m[e.t]||0)+1});
+const top=Object.keys(m).sort((a,b)=>m[b]-m[a])[0];
+$("p3").innerHTML=log.length?`<div class="card"><h3>Why marks are lost</h3><p>Recognition: <b>${c.Recognition}</b> · Concept: <b>${c.Concept}</b> · Calculation: <b>${c.Calculation}</b></p><p>Attempts: ${log.length}, tagged correctly: ${log.filter(e=>e.ok).length}.</p>${top!==undefined?`<p>Pattern missed most: <b>${T[top]}</b>. Redo its parent problem in tab 1.</p>`:`<p class="ok">No pattern missed yet.</p>`}</div><div class="card"><h3>History</h3>${log.map((e,j)=>`<div class="dis">${j+1}. ${e.l}: ${e.ok?"<span class=ok>tagged correctly</span>":"<span class=no>missed</span>"} · ${e.w}</div>`).join("")}</div>`:`<div class="card cue">Nothing logged yet. Attempt questions in tab 2 and tag why you lost marks.</div>`}
+function tab(a){[1,2,3].forEach(n=>{$("p"+n).classList.toggle("hide",a!==n);$("t"+n).classList.toggle("on",a===n)});if(a===3)renderLog()}
+t1.onclick=()=>tab(1);t2.onclick=()=>tab(2);t3.onclick=()=>tab(3);
+shuf();renderP();renderD();renderLog();
+</script></body></html>
