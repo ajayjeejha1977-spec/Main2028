@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Compound Angles Ex-1, Q10 to Q20: hint sheet</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Literata:opsz,wght@7..72,400;7..72,600&display=swap">
+<style>
+:root{--bg:#EEF3F8;--card:#fff;--ink:#16212E;--mut:#5B6B7C;--line:#D3DDE8;--acc:#0F6E8C;--onacc:#fff;--soft:#E3F1F5;--trap:#8A4509;--trapbg:#FBF0E4;--gr:#17673F;--grbg:#E6F4EC;--pu:#5B3BA8;--pubg:#EEE9FA;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0F1720;--card:#17212C;--ink:#E6EDF3;--mut:#9AA9B8;--line:#2C3A48;--acc:#5CC0DC;--onacc:#06222C;--soft:#1B2D38;--trap:#F0B070;--trapbg:#2E2217;--gr:#6BD39B;--grbg:#17291F;--pu:#C2AEF7;--pubg:#241C38;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0F1720;--card:#17212C;--ink:#E6EDF3;--mut:#9AA9B8;--line:#2C3A48;--acc:#5CC0DC;--onacc:#06222C;--soft:#1B2D38;--trap:#F0B070;--trapbg:#2E2217;--gr:#6BD39B;--grbg:#17291F;--pu:#C2AEF7;--pubg:#241C38;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 Literata,Georgia,serif}
+.wrap{max-width:760px;margin:0 auto;padding:20px 14px 60px}
+h1{font:700 1.65rem/1.2 Figtree,system-ui,sans-serif;margin:8px 0}
+.lead{color:var(--mut);max-width:62ch;margin:6px 0}
+.card{display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 14px;margin:22px 0}
+.rail{display:flex;flex-direction:column;align-items:center}
+.rung{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font:600 13px Figtree,sans-serif;border:2px solid var(--line);color:var(--mut);background:var(--card);position:relative;margin-bottom:24px}
+.rung:not(:last-child)::after{content:"";position:absolute;top:100%;left:50%;width:2px;height:24px;margin-left:-1px;background:var(--line)}
+.rung.on{background:var(--acc);border-color:var(--acc);color:var(--onacc)}
+.chip{display:inline-block;font:600 .78rem Figtree,sans-serif;padding:2px 9px;border-radius:99px;background:var(--soft);color:var(--acc);margin:2px 6px 2px 0}
+h2{font:700 1.15rem Figtree,system-ui,sans-serif;margin:0 0 6px}
+h3{font:700 1rem Figtree,system-ui,sans-serif;margin:20px 0 6px}
+.q{margin:12px 0;padding:10px 12px;border-left:3px solid var(--acc);background:var(--soft);border-radius:0 8px 8px 0}
+ul{margin:6px 0;padding-left:20px}
+textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.95rem;padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-height:46px}
+button{font:600 .92rem Figtree,system-ui,sans-serif;background:var(--acc);color:var(--onacc);border:0;border-radius:9px;padding:9px 14px;cursor:pointer;margin:10px 8px 0 0;min-height:42px}
+button.ghost{background:transparent;color:var(--acc);border:1.5px solid var(--acc)}
+button:disabled{opacity:.6;cursor:default}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.way,.step{border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:10px 0}
+.step.lock{color:var(--mut);border-style:dashed}
+.lay{margin:6px 0;padding-left:10px;border-left:3px solid var(--line)}
+.co{margin:8px 0;padding:8px 12px;border-radius:8px;font-size:.96rem}
+.co button{min-height:34px;padding:5px 10px;font-size:.85rem;margin:6px 0 0}
+.co.hb{background:var(--soft)}
+.co.hb b{color:var(--acc)}
+.co.qc,.co.v{background:var(--grbg)}
+.co.qc b,.co.v b{color:var(--gr)}
+.co.am{background:var(--pubg)}
+.co.am b{color:var(--pu)}
+.trap{background:var(--trapbg);color:var(--trap);padding:8px 12px;border-radius:8px}
+.used{color:var(--mut);font:.85rem Figtree,sans-serif;margin-top:14px}
+summary{cursor:pointer;color:var(--acc);font-weight:600}
+#nb{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;margin:18px 0}
+#nb li{margin:8px 0}
+#nb small{color:var(--mut);font-family:Figtree,sans-serif}
+#nb button{min-height:30px;padding:3px 9px;font-size:.8rem;margin:4px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Compound Angles, Exercise-1: Q10 to Q20</h1>
+<p class="lead">Q16 is split into parts (a) to (d). Climb only as far as you need. Three kinds of teacher notes appear as you go: a <b>habit</b> to build, a <b>quick check</b> to confirm you read the pattern right, and the <b>algebra move</b> this type of problem needs. Save the habits and moves you want into your notebook below.</p>
+<div id="nb"></div>
+<div id="list"></div>
+</div>
+<script>
+const D=[
+{id:"Ex-1 Q10",src:"Prove that",lvl:"Medium",tag:"Sum of three sines or cosines",
+q:"If X = sin(θ + 7π/12) + sin(θ − π/12) + sin(θ + 3π/12) and Y = cos(θ + 7π/12) + cos(θ − π/12) + cos(θ + 3π/12), prove that X/Y − Y/X = 2 tan2θ.",
+ponder:["Which two of the three angles could combine neatly? What is their average?","If X and Y turn out to be 2sinφ and 2cosφ, what is X/Y − Y/X?"],
+cue:"Three terms, and the average of two angles equals the third. Sum-to-product turns the first two into a copy of the third.",
+pq:"Average the first two angles: you get θ + π/4, which is exactly the third angle.",
+ways:[{t:"Pair the first two, then match the third",a:"Sum-to-product applies to two terms.",w:"Best fit: X and Y each become 2 times one function of φ = θ + π/4."},{t:"Expand every term with compound-angle formulas",a:"Values of sin and cos at 105° and 15° are known.",w:"Works, but heavy. Backup only."}],
+steps:[
+{g:"Pair the first two terms",n:"Apply sinC + sinD = 2sin((C+D)/2)cos((C−D)/2) to the first two sines.",l:"The half-sum is θ + π/4 and the half-difference is π/3, whose cosine is 1/2.",hb:"In a sum of three sines or cosines, pair the two whose average equals the third angle. The third term then repeats and the three terms collapse to a multiple of one.",am:"sinC + sinD = 2sin((C+D)/2)cos((C−D)/2) and cosC + cosD = 2cos((C+D)/2)cos((C−D)/2).",x:"sin(θ + 7π/12) + sin(θ − π/12) = 2sin(θ + π/4)·(1/2) = sin(θ + π/4)."},
+{g:"Write X and Y",n:"Add the third term. Do the same for Y.",l:"The third sine is also sin(θ + π/4).",x:"X = 2sin(θ + π/4) and Y = 2cos(θ + π/4).",v:"At θ = 0: sin105° − sin15° + sin45° = 1.414 = 2sin45°."},
+{g:"Form X/Y − Y/X",n:"Put φ = θ + π/4. What is tanφ − cotφ?",l:"tanφ − cotφ = (sin²φ − cos²φ)/(sinφ cosφ) = −2cot2φ.",x:"X/Y − Y/X = −2cot(2θ + π/2) = 2tan2θ, since cot(2θ + π/2) = −tan2θ."}],
+ans:"Proved: X/Y − Y/X = 2 tan2θ",take:"If the average of two angles equals the third, pair them with sum-to-product. The sum becomes a multiple of one term.",trap:"Keep the factor cos(π/3) = 1/2, and watch the shift: cot(2θ + π/2) = −tan2θ."},
+{id:"Ex-1 Q11",src:"Find p, q, r, s",lvl:"Medium",tag:"Half-angle of 15°",
+q:"Find the positive integers p, q, r, s satisfying tan(π/24) = (√p − √q)(√r − s).",
+ponder:["π/24 is 7.5°. Which half-angle formula connects it to a familiar angle?","What shape should your result take so it matches (√p − √q)(√r − s)?"],
+cue:"7.5° is half of 15°, and tan(θ/2) = cosecθ − cotθ gives surds directly.",
+pq:"Estimate tan7.5° ≈ 0.1317. You will use this to test your final factorisation.",
+ways:[{t:"tan(θ/2) = cosecθ − cotθ at θ = 15°",a:"Values of sin15° and cos15° are known.",w:"Best fit: no rationalising needed."},{t:"tan(θ/2) = sinθ/(1 + cosθ)",a:"Same known values.",w:"Correct but you must rationalise a denominator. Longer."}],
+steps:[
+{g:"Apply the half-angle formula",n:"Write tan7.5° using cosec15° and cot15°.",l:"tan(θ/2) = (1 − cosθ)/sinθ = cosecθ − cotθ.",hb:"For tan of 7.5°, 15° or 22.5°, use tan(θ/2) = cosecθ − cotθ. It gives surds with no rationalising.",x:"tan7.5° = cosec15° − cot15°."},
+{g:"Insert the surd values",n:"Recall sin15° and cos15°, then find cosec15° and cot15°.",l:"sin15° = (√6 − √2)/4 and cos15° = (√6 + √2)/4.",x:"cosec15° = √6 + √2 and cot15° = 2 + √3, so tan7.5° = √6 + √2 − 2 − √3."},
+{g:"Factor to match the form",n:"Group the four terms in pairs so a common factor appears.",l:"Look for a factor (√2 − 1) in both groups.",am:"Group and factor: √6 − √3 + √2 − 2 = √3(√2 − 1) − √2(√2 − 1).",x:"= (√3 − √2)(√2 − 1), so p = 3, q = 2, r = 2, s = 1.",v:"0.3178 × 0.4142 = 0.1317 ✓."}],
+ans:"p = 3, q = 2, r = 2, s = 1",take:"tan(θ/2) = cosecθ − cotθ, then group terms to factor.",trap:"Check signs while grouping: −√3 and −2 pair with √6 and √2 as above. All four must be positive integers."},
+{id:"Ex-1 Q12",src:"Find a + b + c",lvl:"Medium",tag:"θ, 60° − θ, 60° + θ",
+q:"If sin25°·sin35°·sin85° can be expressed as (√a + √b)/c, where a, b, c ∈ N are in lowest form, find a + b + c.",
+ponder:["How are 25°, 35° and 85° related to one another?","Which standard identity has three angles like these?"],
+cue:"35° = 60° − 25° and 85° = 60° + 25°. This is the triple-product pattern.",
+pq:"Check: 60 − 25 = 35 and 60 + 25 = 85. If both hold, the identity applies directly.",
+ways:[{t:"sinθ sin(60° − θ) sin(60° + θ) = ¼ sin3θ",a:"θ = 25°.",w:"Best fit: one step to sin75°."},{t:"Product-to-sum on two sines, then multiply the third",a:"Works for any three sines.",w:"Correct but long. Backup."}],
+steps:[
+{g:"Spot the pattern",n:"Compare the three angles with θ, 60° − θ and 60° + θ.",l:"With θ = 25° all three match.",hb:"When you see angles θ, 60° − θ, 60° + θ in a product of sines, cosines or tangents, use the triple identity at once.",x:"The product is ¼ sin75°."},
+{g:"Evaluate sin75°",n:"Write sin75° as cos15° and use the known value.",l:"cos15° = (√6 + √2)/4.",x:"Product = ¼·(√6 + √2)/4 = (√6 + √2)/16, so a = 6, b = 2, c = 16 and a + b + c = 24.",v:"0.4226 × 0.5736 × 0.9962 = 0.2415 and (2.449 + 1.414)/16 = 0.2414."}],
+ans:"24",take:"θ, 60° − θ, 60° + θ: sin gives ¼ sin3θ, cos gives ¼ cos3θ, tan gives tan3θ.",trap:"Do not reduce a, b, c further: 6, 2, 16 share no way to simplify the form (√6 + √2)/16.",twin:"Find sin20°·sin40°·sin80°.",twa:"¼ sin60° = √3/8."},
+{id:"Ex-1 Q13",src:"Prove that",lvl:"Medium",tag:"4cos²θ − 3 and tripling",
+q:"Prove that (4cos²9° − 3)(4cos²27° − 3) = tan9°.",
+ponder:["Compare 4cos²θ − 3 with the formula for cos3θ. What do you get if you divide cos3θ by cosθ?","Which angles appear when you triple 9° and 27°?"],
+cue:"4cos²θ − 3 = cos3θ/cosθ, and 9°, 27° form a tripling chain, so the product telescopes.",
+pq:"Triple 9° to get 27°, the next angle. Triple again to get 81°, the complement of 9°.",
+ways:[{t:"Rewrite each factor as cos3θ/cosθ",a:"cosθ ≠ 0.",w:"Best fit: two factors cancel into one ratio."},{t:"Use cos²θ = (1 + cos2θ)/2 and expand",a:"Needs cos18° and cos54°.",w:"Possible but messy."}],
+steps:[
+{g:"Rewrite each factor",n:"Divide cos3θ = 4cos³θ − 3cosθ by cosθ.",l:"The factor 4cos²θ − 3 is what remains.",hb:"On seeing 4cos²θ − 3 or 4cos²θ − 1, think cos3θ/cosθ or sin3θ/sinθ.",am:"cos3θ = 4cos³θ − 3cosθ, so 4cos²θ − 3 = cos3θ/cosθ.",x:"4cos²9° − 3 = cos27°/cos9° and 4cos²27° − 3 = cos81°/cos27°."},
+{g:"Telescope",n:"Multiply the two ratios. What cancels?",l:"cos27° cancels, leaving cos81°/cos9°.",x:"cos81° = sin9°, so the product = sin9°/cos9° = tan9°.",v:"0.9021 × 0.1756 = 0.1584 = tan9°."}],
+ans:"Proved: the product equals tan9°",take:"Tripling chain of angles with 4cos²θ − 3 (or − 1): rewrite as ratios and cancel.",trap:"4cos²θ − 3 goes with cosines; 4cos²θ − 1 goes with sines. Mixing them gives the wrong ratio."},
+{id:"Ex-1 Q14",src:"Prove that",lvl:"Medium",tag:"Triangle with tangents",
+q:"If A + B + C = π, prove that Σ tanA/(tanB·tanC) = Σ tanA − 2 Σ cotA.",
+ponder:["What does A + B + C = π tell you about tanA + tanB + tanC?","How can you make all three fractions share one denominator?"],
+cue:"Triangle plus tangents: the identity tanA + tanB + tanC = tanA tanB tanC is the key.",
+pq:"Test an equilateral triangle: each side of the identity should come out as √3. Use this after you finish.",
+ways:[{t:"Common denominator, then the triangle identity",a:"All tangents defined and non-zero.",w:"Best fit: the sum collapses to a ratio of two sums."},{t:"Express each tangent in sines and cosines",a:"Same.",w:"Long. Avoid."}],
+steps:[
+{g:"One common denominator",n:"Multiply the top and bottom of tanA/(tanB tanC) by tanA.",l:"Each term becomes tan²A over the same product tanA tanB tanC.",x:"Σ tanA/(tanB tanC) = Σtan²A/(tanA tanB tanC)."},
+{g:"Use the triangle identity",n:"Recall the relation among tanA + tanB + tanC and their product when A + B + C = π.",l:"Both equal the same number.",hb:"In any triangle problem with tangents, write tanA + tanB + tanC = tanA tanB tanC first. It is almost always needed.",x:"The denominator equals ΣtanA, so the sum = Σtan²A/ΣtanA."},
+{g:"Split the numerator",n:"Write Σtan²A with (ΣtanA)² and the pairwise products.",l:"After dividing by ΣtanA you get ΣtanA minus a ratio whose denominator is tanA tanB tanC. Each product tanA tanB then leaves cotC.",am:"Σx² = (Σx)² − 2Σxy.",x:"Σtan²A = (ΣtanA)² − 2ΣtanA tanB, so the sum = ΣtanA − 2ΣcotC.",v:"Equilateral: LHS = 3·(√3/3) = √3 and RHS = 3√3 − 2·√3 = √3 ✓."}],
+ans:"Proved",take:"Triangle plus tangents: use tanA + tanB + tanC = tanA tanB tanC, and Σx² = (Σx)² − 2Σxy.",trap:"After dividing, ΣtanAtanB/(tanAtanBtanC) is Σ1/tanC. Do not forget the factor 2."},
+{id:"Ex-1 Q15",src:"Prove that",lvl:"Easy",tag:"α + β = γ",
+q:"If α + β = γ, prove that cos²α + cos²β + cos²γ = 1 + 2cosα cosβ cosγ.",
+ponder:["Which two squares could be combined first?","Where should you use γ = α + β?"],
+cue:"A sum of two squared cosines with the angles added: an identity with cos(α + β)cos(α − β).",
+pq:"Test α = β = 30°, γ = 60°: both sides should equal 7/4.",
+ways:[{t:"Combine cos²α + cos²β first",a:"Uses the double-angle formula.",w:"Best fit: introduces cos(α − β) and cos(α + β) together."},{t:"Expand cosγ = cosαcosβ − sinαsinβ everywhere",a:"Same.",w:"Longer, more terms."}],
+steps:[
+{g:"Combine the first two squares",n:"Write cos²α + cos²β using cos2α and cos2β, then sum-to-product.",l:"cos2α + cos2β = 2cos(α + β)cos(α − β).",am:"cos²α + cos²β = 1 + cos(α + β)cos(α − β).",x:"Since α + β = γ: cos²α + cos²β = 1 + cosγ cos(α − β)."},
+{g:"Add cos²γ",n:"Factor cosγ out of the last two terms.",l:"You now have cosγ[cos(α − β) + cosγ].",hb:"Substitute γ = α + β only in the one place that makes a sum-to-product appear. Not everywhere.",x:"LHS = 1 + cosγ[cos(α − β) + cos(α + β)]."},
+{g:"Finish",n:"Combine the bracket.",l:"cos(α − β) + cos(α + β) = 2cosα cosβ.",x:"LHS = 1 + 2cosα cosβ cosγ.",v:"α = β = 30°: 7/4 and 1 + 2(3/4)(1/2) = 7/4 ✓."}],
+ans:"Proved",take:"cos²α + cos²β = 1 + cos(α + β)cos(α − β). It appears in many problems.",trap:"Replacing γ by α + β in every term makes the algebra long. Use it once, in the bracket."},
+{id:"Ex-1 Q16(a)",src:"Without tables",lvl:"Easy",tag:"Surd beside a trig term",
+q:"Calculate without using trigonometric tables: 4cos20° − √3 cot20°.",
+ponder:["What is cot20° in sines and cosines?","How can √3 be written as a sine or cosine of a standard angle?"],
+cue:"A surd beside a trig term at 20°: rewrite the surd as a trig value and use product-to-sum.",
+pq:"Estimate: 4(0.9397) − 1.732(2.747) ≈ −1. Keep this as a target.",
+ways:[{t:"Common denominator, then √3 = 2sin60°",a:"sin20° ≠ 0.",w:"Best fit."},{t:"Numerical approximation",a:"Needs a calculator.",w:"Only a check, not a solution."}],
+steps:[
+{g:"Common denominator",n:"Write cot20° = cos20°/sin20° and combine.",l:"4cos20° becomes 4sin20°cos20°/sin20°.",x:"Expression = (2sin40° − √3cos20°)/sin20°."},
+{g:"Rewrite the surd",n:"Write √3 as 2sin60° and use a product-to-sum formula.",l:"2sin60°cos20° = sin80° + sin40°.",hb:"When a surd like √3 or 1/√2 sits beside a trig term, replace it with the sine or cosine of a standard angle so identities apply.",am:"2sinAcosB = sin(A + B) + sin(A − B).",x:"Numerator = 2sin40° − (sin80° + sin40°) = sin40° − sin80°."},
+{g:"Finish",n:"Use sinC − sinD = 2cos((C+D)/2)sin((C−D)/2).",l:"The half-sum is 60° and the half-difference is −20°.",x:"sin40° − sin80° = −sin20°, so the value is −1.",v:"3.759 − 4.759 = −1."}],
+ans:"−1",take:"A surd beside a trig term: write the surd as a standard-angle sine or cosine, then use product-to-sum.",trap:"Watch the sign: sin40° − sin80° is negative."},
+{id:"Ex-1 Q16(b)",src:"Without tables",lvl:"Medium",tag:"20° as 60° − 40°",
+q:"Calculate without using trigonometric tables: (2cos40° − cos20°)/sin20°.",
+ponder:["The angles are 40° and 20°. Which standard angle connects them?","Can the numerator become a single cosine?"],
+cue:"20° = 60° − 40°, so cos20° can be expanded in terms of cos40° and sin40°.",
+pq:"Estimate: (1.532 − 0.940)/0.342 ≈ 1.73. This suggests √3.",
+ways:[{t:"Expand cos20° = cos(60° − 40°)",a:"Standard-angle values.",w:"Best fit: the numerator becomes one cosine."},{t:"Write everything in terms of 20°",a:"cos40° = 1 − 2sin²20°.",w:"Gives a cubic. Avoid."}],
+steps:[
+{g:"Expand cos20°",n:"Write 20° as 60° − 40°.",l:"cos(60° − 40°) = cos60°cos40° + sin60°sin40°.",hb:"When one angle is the odd one out, write it as a difference of a standard angle and the given angle.",x:"cos20° = ½cos40° + (√3/2)sin40°."},
+{g:"Combine the numerator",n:"Subtract. Factor out √3 and match the form cos(A + B).",l:"The result has the shape (√3/2)cos40° − ½sin40° times √3.",am:"cosAcosB − sinAsinB = cos(A + B) with A = 40°, B = 30°.",x:"2cos40° − cos20° = (3/2)cos40° − (√3/2)sin40° = √3cos70°."},
+{g:"Finish",n:"Write cos70° as a sine.",l:"cos70° = sin20°.",x:"Numerator = √3 sin20°, so the value is √3.",v:"1.732 matches the estimate."}],
+ans:"√3",take:"Odd angle out: write it as standard minus given, then rebuild one cosine with cos(A + B).",trap:"Be careful with the coefficient: 2 − ½ = 3/2 for the cosine term."},
+{id:"Ex-1 Q16(c)",src:"Without tables",lvl:"Medium",tag:"Complementary angle pairs",
+q:"Calculate without using trigonometric tables: cos⁶(π/16) + cos⁶(3π/16) + cos⁶(5π/16) + cos⁶(7π/16).",
+ponder:["Which of these angles are complementary?","What is the simplest form of sin⁶x + cos⁶x?"],
+cue:"π/16 and 7π/16 add to π/2, as do 3π/16 and 5π/16, so cosines become sines.",
+pq:"Pair the four angles. If each pair adds to π/2 the sum is sin⁶ + cos⁶ twice.",
+ways:[{t:"Pair complementary angles, use sin⁶ + cos⁶",a:"x + y = π/2.",w:"Best fit."},{t:"Reduce each cos⁶ with multiple-angle formulas",a:"Needs cos(π/8) values.",w:"Long. Avoid."}],
+steps:[
+{g:"Pair complementary angles",n:"Write cos(7π/16) as a sine of a small angle.",l:"cos(7π/16) = sin(π/16) and cos(5π/16) = sin(3π/16).",hb:"If angles pair to π/2, turn cosines into sines. The sixth power then gives sin⁶ + cos⁶.",x:"Sum = (cos⁶(π/16) + sin⁶(π/16)) + (cos⁶(3π/16) + sin⁶(3π/16))."},
+{g:"Use sin⁶ + cos⁶",n:"Recall sin⁶x + cos⁶x in terms of sin²2x.",l:"Use a³ + b³ with a = sin²x, b = cos²x and a + b = 1.",am:"sin⁶x + cos⁶x = 1 − 3sin²x cos²x = 1 − ¾sin²2x.",x:"Sum = 2 − ¾[sin²(π/8) + sin²(3π/8)]."},
+{g:"Finish",n:"How are sin(3π/8) and cos(π/8) related?",l:"sin(3π/8) = cos(π/8), so the two squares add to 1.",x:"Sum = 2 − ¾ = 5/4.",v:"0.9808⁶ + 0.8315⁶ + 0.5556⁶ + 0.1951⁶ ≈ 0.8901 + 0.3305 + 0.0294 + 0.00006 ≈ 1.25."}],
+ans:"5/4",take:"Complementary angle pairs turn cos⁶ into sin⁶ + cos⁶ = 1 − ¾sin²2x.",trap:"Do not forget there are two pairs, so the leading term is 2, not 1."},
+{id:"Ex-1 Q16(d)",src:"Without tables",lvl:"Hard",tag:"Angles around 60°",
+q:"Calculate without using trigonometric tables: tan10° − tan50° + tan70°.",
+ponder:["How are 50° and 70° related to 60° and 10°?","If t = tan10°, what are tan50° and tan70° in terms of t?"],
+cue:"50° = 60° − 10° and 70° = 60° + 10°. Let t = tan10° and look for the form of tan3θ.",
+pq:"Estimate: 0.176 − 1.192 + 2.747 ≈ 1.732, so the target is √3.",
+ways:[{t:"Put t = tan10°, expand tan(60° ± 10°)",a:"Standard-angle values.",w:"Best fit: ends at tan3θ."},{t:"Use sum-to-product on tan70° − tan50°",a:"Needs cos70°cos50°.",w:"Possible, but it leaves tan10° + 1/cos50°. Awkward."}],
+steps:[
+{g:"Write tan50° and tan70° in t",n:"Use tan(A ± B) with A = 60° and B = 10°.",l:"tan60° = √3 and tan10° = t.",x:"tan50° = (√3 − t)/(1 + √3t) and tan70° = (√3 + t)/(1 − √3t)."},
+{g:"Combine tan70° − tan50°",n:"Put both over the common denominator (1 − √3t)(1 + √3t).",l:"The denominator becomes 1 − 3t².",am:"(√3 + t)(1 + √3t) − (√3 − t)(1 − √3t) = 8t.",x:"tan70° − tan50° = 8t/(1 − 3t²)."},
+{g:"Add t and spot tan3θ",n:"Add t. Factor the numerator and compare it with tan3θ = (3t − t³)/(1 − 3t²).",l:"t + 8t/(1 − 3t²) = t(9 − 3t²)/(1 − 3t²).",hb:"A denominator 1 − 3t² is a signal for tan3θ = (3t − t³)/(1 − 3t²).",x:"The sum = 3(3t − t³)/(1 − 3t²) = 3tan30° = √3.",v:"0.1763 − 1.1918 + 2.7475 = 1.732."}],
+ans:"√3",take:"Angles 10°, 50°, 70° around 60°: set t = tan10° and aim for tan3θ.",trap:"Mind the sign: the expression is tan10° − tan50° + tan70°, so tan50° is subtracted."},
+{id:"Ex-1 Q17",src:"Find n",lvl:"Easy",tag:"Pair angles summing to 45°",
+q:"Given that (1 + tan1°)(1 + tan2°)…(1 + tan45°) = 2ⁿ, find n.",
+ponder:["Which pairs of angles in the list add to 45°?","What is (1 + tanA)(1 + tan(45° − A))?"],
+cue:"Angles in the list that add to 45° pair up, and each pair gives the same value.",
+pq:"Test A = 0°: (1 + 0)(1 + tan45°) = 2. The pair product is 2.",
+ways:[{t:"Prove (1 + tanA)(1 + tanB) = 2 when A + B = 45°",a:"A + B = 45°.",w:"Best fit."},{t:"Multiply the terms numerically",a:"Needs a calculator.",w:"Only a check."}],
+steps:[
+{g:"Find the pair value",n:"Expand (1 + tanA)(1 + tanB) and use tan(A + B) = 1.",l:"tanA + tanB = 1 − tanA tanB when A + B = 45°.",hb:"A product of (1 + tan) terms with angles adding to 45°: pair the terms.",am:"(1 + tanA)(1 + tanB) = 1 + (tanA + tanB) + tanA tanB = 1 + (1 − tanA tanB) + tanA tanB = 2.",x:"Each pair (A, 45° − A) gives 2."},
+{g:"Count pairs and the leftover",n:"Pair 1° with 44°, 2° with 43°, and so on. Which term is left alone?",l:"The pairs run up to (22°, 23°), which is 22 pairs, and 45° has no partner.",x:"Product = 2²² × (1 + tan45°) = 2²² × 2 = 2²³, so n = 23.",v:"Pair count: 22 pairs use angles 1° to 44°, leaving only 45°."}],
+ans:"n = 23",take:"If angles sum to 45°, then (1 + tanA)(1 + tanB) = 2.",trap:"Do not miss the unpaired term 1 + tan45° = 2. It adds one more power of 2.",twin:"Find m if (1 + tan1°)(1 + tan2°)…(1 + tan44°) = 2^m.",twa:"m = 22."},
+{id:"Ex-1 Q18",src:"Prove that",lvl:"Hard",tag:"If and only if in a triangle",
+q:"If A, B, C denote the angles of a triangle ABC, prove that the triangle is right-angled if and only if sin4A + sin4B + sin4C = 0.",
+ponder:["For an ‘if and only if’ problem, what would be the neatest form of the sum?","What does A + B + C = π do to the angle 2(A + B)?"],
+cue:"A triangle plus a sum of sines suggests turning the sum into a product, so that both directions follow.",
+pq:"Test a right triangle (90°, 60°, 30°): the sum is 0. Test an equilateral one: it is −3√3/2.",
+ways:[{t:"Convert the sum to −4 sin2A sin2B sin2C",a:"A + B + C = π.",w:"Best fit: one factorisation proves both directions."},{t:"Prove each direction separately",a:"Needs two different arguments.",w:"Longer."}],
+steps:[
+{g:"Combine two sines",n:"Apply sum-to-product to sin4A + sin4B. Replace A + B using the triangle.",l:"A + B = π − C, so sin2(A + B) = sin(2π − 2C) = −sin2C.",hb:"For ‘if and only if’ problems, aim for a product equal to 0. One factorisation then proves both directions.",am:"sinX + sinY = 2sin((X+Y)/2)cos((X−Y)/2).",x:"sin4A + sin4B = −2sin2C cos2(A − B)."},
+{g:"Bring in sin4C",n:"Write sin4C = 2sin2C cos2C and use cos2C = cos2(A + B).",l:"cos2C = cos(2π − 2(A + B)) = cos2(A + B).",x:"Sum = 2sin2C[cos2(A + B) − cos2(A − B)] = −4 sin2A sin2B sin2C."},
+{g:"Read the condition",n:"When is a product of three sines zero for triangle angles?",l:"sin2X = 0 means X = π/2, since 0 < X < π.",x:"The sum is 0 iff some angle equals 90°, which is the right-angled triangle.",v:"90°, 60°, 30°: sin360° + sin240° + sin120° = 0 ✓."}],
+ans:"Proved",take:"Triangle plus multiples of angles: turn the sum into a product, so an ‘iff’ becomes ‘some factor is zero’.",trap:"Say why each factor can vanish only at 90°: 0 < X < π means sin2X = 0 only when X = π/2."},
+{id:"Ex-1 Q19",src:"Find n",lvl:"Hard",tag:"Chords of a regular polygon",
+q:"Let A₁, A₂, …, Aₙ be the vertices of an n-sided regular polygon such that 1/A₁A₂ = 1/A₁A₃ + 1/A₁A₄. Find n.",
+ponder:["How can a chord A₁Aₖ be written in terms of the circumradius and an angle?","What equation do you get after cancelling the radius?"],
+cue:"In a regular polygon every chord from A₁ is 2R sin(kπ/n) form, so the problem becomes a trig equation in π/n.",
+pq:"Check the form: three chords give sin(π/n), sin(2π/n), sin(3π/n). R cancels from every term.",
+ways:[{t:"Write chords as 2R sin and solve for x = π/n",a:"Vertices lie on a circle of radius R.",w:"Best fit."},{t:"Try small n by trial",a:"Compute chord lengths.",w:"Good as a check, not as proof."}],
+steps:[
+{g:"Chord lengths and the equation",n:"The chord A₁Aₖ subtends the angle (k − 1)·2π/n at the centre. What is its length?",l:"The length is 2R sin((k − 1)π/n).",hb:"In regular polygon problems, write every chord as 2R sin(angle/2) and let R cancel.",x:"With x = π/n: 1/sin x = 1/sin2x + 1/sin3x."},
+{g:"Simplify",n:"Move 1/sin3x to the left and combine the fractions.",l:"1/sin x − 1/sin3x = (sin3x − sinx)/(sinx sin3x).",am:"sin3x − sinx = 2cos2x sinx.",x:"The left side = 2cos2x/sin3x = 1/sin2x, so 2sin2x cos2x = sin3x, i.e. sin4x = sin3x."},
+{g:"Solve and check",n:"When do two sines of 4x and 3x agree for small positive x?",l:"4x + 3x = π, since 4x = 3x only at x = 0.",x:"x = π/7, so n = 7.",v:"sin(π/7) = 0.4339, sin(2π/7) = 0.7818, sin(3π/7) = 0.9749: 2.305 = 1.279 + 1.026 ✓."}],
+ans:"n = 7",take:"Regular polygon chords: 2R sin(kπ/n). Cancel R and solve in x = π/n.",trap:"sin4x = sin3x also has 4x = 3x + 2kπ, but x < π/3 makes that impossible."},
+{id:"Ex-1 Q20",src:"Kite ABCD",lvl:"Hard",tag:"Areas from a shared diagonal",
+q:"In a kite ABCD, AB = AD and CB = CD. If ∠A = 108° and ∠C = 36°, the ratio of the area of ΔABD to the area of ΔCBD can be written (a − b tan²36°)/c, where a, b, c are relatively prime positive integers. Find (a, b, c) and the value of the ratio.",
+ponder:["What do the triangles ABD and CBD share? What does that say about the area ratio?","Where does the axis of symmetry AC meet BD, and which angles does it split?"],
+cue:"Two triangles on the same base BD: the area ratio equals the ratio of their heights AO to CO.",
+pq:"Estimate the answer: tan18°/tan54° ≈ 0.236, which should match your final form.",
+ways:[{t:"Ratio of heights AO : CO from the half angles",a:"AC ⟂ BD at O.",w:"Best fit: tan18°/tan54°."},{t:"Area = ½·side²·sin(angle) for each",a:"Needs AB : CB first.",w:"Works but takes one more step."}],
+steps:[
+{g:"Set up with the symmetry axis",n:"Let AC meet BD at O. What are ∠OAB and ∠OCB?",l:"AC bisects both angles, so ∠OAB = 54° and ∠OCB = 18°, and BD ⟂ AC.",hb:"Two triangles sharing a base: compare areas through their heights above that base.",x:"With OB = h: AO = h/tan54° and CO = h/tan18°."},
+{g:"Write the ratio",n:"Compare areas using the common base BD.",l:"Area ratio = AO : CO.",x:"Ratio = AO/CO = tan18°/tan54°."},
+{g:"Convert to the required form",n:"Use tan54° = cot36° and tan18° = cot72°, then tan72° = 2tan36°/(1 − tan²36°).",l:"The ratio becomes tan36°/tan72°.",am:"tan2θ = 2tanθ/(1 − tan²θ) with θ = 36°.",x:"Ratio = (1 − tan²36°)/2, so (a, b, c) = (1, 1, 2). With tan²36° = 5 − 2√5 the value is √5 − 2.",v:"tan18°/tan54° = 0.3249/1.3764 = 0.2361 = √5 − 2."}],
+ans:"(a, b, c) = (1, 1, 2) and the ratio = √5 − 2",take:"Shared base: area ratio is the ratio of heights. Convert to tan of a double angle to reach the required form.",trap:"Use the half angles 54° and 18° at O, not the full angles 108° and 36°."}
+];
+const R=["Ponder","Ways","Steps","Answer"],L=["hint","logic","working"],LB={hb:"Make it a habit",qc:"Quick check",am:"Algebra move",v:"Verify"};
+const fresh=i=>({s:0,k:D[i].steps.map(()=>0),d:[]});
+const S=D.map((p,i)=>fresh(i));let H=[];
+try{const o=JSON.parse(localStorage.getItem("hsCA1")||"{}");(o.S||[]).forEach((x,i)=>{if(S[i]&&x&&x.k&&x.k.length==S[i].k.length)S[i]=x});H=o.H||[]}catch(e){}
+const save=()=>{try{localStorage.setItem("hsCA1",JSON.stringify({S,H}))}catch(e){}};
+const used=t=>{const a=[];if(t.s>=1)a.push("patterns and ways");let m=-1;t.k.forEach((v,j)=>{if(v>0)m=j});if(m>=0)a.push("step "+(m+1)+" "+L[t.k[m]-1]);if(t.s>=3)a.push("final answer");return a.length?"Hints used: "+a.join(", ")+".":"No hints used yet. Keep pondering."};
+const sv=(t,j,f)=>H.some(h=>h.t==t)?`<br><button class="ghost" disabled>In your notebook</button>`:`<br><button class="ghost" data-a="hab" data-j="${j}" data-f="${f}">Add to my habit notebook</button>`;
+const co=(k,t,j,f)=>`<div class="co ${k}"><b>${LB[k]}:</b> ${t}${(k=="hb"||k=="am")?sv(t,j,f):""}</div>`;
+function card(i){const p=D[i],t=S[i];
+let h=`<div class="rail">${R.map((n,j)=>`<span class="rung${t.s>=j?" on":""}" title="${n}">${j+1}</span>`).join("")}</div><div><h2>${p.id}</h2><div><span class="chip">${p.src}</span><span class="chip">${p.lvl}</span><span class="chip">${p.tag}</span></div><div class="q">${p.q}</div>`;
+h+=`<h3>Ponder first</h3><ul>${p.ponder.map(x=>`<li>${x}</li>`).join("")}</ul><textarea data-plan placeholder="Write your own plan in one line before opening any hint">${t.plan||""}</textarea>`;
+if(t.s<1)h+=`<button data-a="w">I’m stuck. Show patterns and ways</button>`;
+if(t.s>=1){h+=`<h3>Pattern and probable ways</h3><p><b>Pattern:</b> ${p.cue}</p>${co("qc",p.pq)}`+p.ways.map((w,j)=>`<div class="way"><b>Way ${"AB"[j]}: ${w.t}</b><br>Assumption: ${w.a}<br>${w.w}</div>`).join("");if(t.s<2)h+=`<button data-a="st">Still stuck. Open the step hints</button>`}
+if(t.s>=2){h+=`<h3>Steps</h3>`;p.steps.forEach((s,j)=>{const k=t.k[j],open=j==0||t.k[j-1]==3||t.d[j-1];
+if(!open)h+=`<div class="step lock">Step ${j+1} opens after you finish step ${j}.</div>`;
+else if(k==0)h+=`<div class="step"><b>Step ${j+1}</b>${t.d[j]?" (marked solved by you)":": try it yourself first."}${t.d[j]?"":`<br><button data-a="n" data-j="${j}">Open hint for step ${j+1}</button><button class="ghost" data-a="ok" data-j="${j}">I solved this step</button>`}</div>`;
+else h+=`<div class="step"><b>Step ${j+1}: ${s.g}</b><div class="lay">Hint: ${s.n}</div>${k>=2?`<div class="lay">Why: ${s.l}</div>`+(s.hb?co("hb",s.hb,j,"hb"):"")+(s.qc?co("qc",s.qc):""):""}${k>=3?`<div class="lay">Working: ${s.x}</div>`+(s.am?co("am",s.am,j,"am"):"")+(s.v?co("v",s.v):""):""}${k<3?`<button data-a="n" data-j="${j}">${k==1?"Show the logic":"Show the working"}</button>`:""}${!t.d[j]&&k<3?`<button class="ghost" data-a="ok" data-j="${j}">I solved this step</button>`:""}</div>`});
+if(t.s<3)h+=`<button data-a="an">Show the answer and takeaway</button>`}
+if(t.s>=3)h+=`<h3>Answer and takeaway</h3><p><b>Answer:</b> ${p.ans}</p><div class="co hb"><b>Pattern to remember:</b> ${p.take}${sv(p.take,0,"take")}</div><p class="trap"><b>Watch out:</b> ${p.trap}</p>${p.twin?`<h3>Try the twin</h3><p>${p.twin}</p><details><summary>Twin answer</summary>${p.twa}</details>`:""}`;
+h+=`<p class="used">${used(t)}</p><button class="ghost" data-a="rs">Start this problem over</button></div>`;return h}
+const wrap=document.querySelector(".wrap"),list=document.getElementById("list"),nb=document.getElementById("nb");
+function drawNb(){nb.innerHTML=`<details${H.length?" open":""}><summary>My habit notebook (${H.length})</summary>${H.length?`<ul>${H.map((h,n)=>`<li>${h.t}<br><small>${h.src}</small><br><button class="ghost" data-a="rm" data-n="${n}">Remove</button></li>`).join("")}</ul>`:`<p class="lead">Nothing saved yet. Use “Add to my habit notebook” on any habit or algebra move.</p>`}</details>`}
+const draw=i=>{list.children[i].innerHTML=card(i)};
+D.forEach((p,i)=>{const c=document.createElement("section");c.className="card";c.dataset.i=i;list.appendChild(c);draw(i)});drawNb();
+wrap.onclick=e=>{const b=e.target.closest("button");if(!b||b.disabled)return;const a=b.dataset.a;
+if(a=="rm"){H.splice(+b.dataset.n,1);drawNb();D.forEach((p,i)=>draw(i));save();return}
+const i=+b.closest(".card").dataset.i,t=S[i],p=D[i],j=+b.dataset.j;
+if(a=="w")t.s=Math.max(t.s,1);else if(a=="st")t.s=Math.max(t.s,2);else if(a=="an")t.s=3;else if(a=="n")t.k[j]++;else if(a=="ok")t.d[j]=true;else if(a=="rs")S[i]=fresh(i);
+else if(a=="hab"){const f=b.dataset.f,tx=f=="take"?p.take:p.steps[j][f];if(!H.some(h=>h.t==tx))H.push({t:tx,src:p.id});drawNb();D.forEach((q,n)=>draw(n));save();return}
+draw(i);save()};
+wrap.oninput=e=>{if(e.target.dataset.plan!==undefined){S[+e.target.closest(".card").dataset.i].plan=e.target.value;save()}};
+</script>
+</body>
+</html>
